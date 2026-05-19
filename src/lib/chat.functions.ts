@@ -65,8 +65,7 @@ export const sendChat = createServerFn({ method: "POST" })
     const last = messages[messages.length - 1];
     if (last?.role === "user") {
       const lastText = last.parts
-        .filter((p: { type: string }) => p.type === "text")
-        .map((p: { text: string }) => p.text)
+        .map((p) => (p.type === "text" ? p.text : ""))
         .join("\n")
         .trim();
       if (lastText) {
@@ -81,10 +80,11 @@ export const sendChat = createServerFn({ method: "POST" })
     const gateway = createLovableAiGatewayProvider(apiKey);
     const model = gateway("google/gemini-3-flash-preview");
 
+    const modelMessages = await convertToModelMessages(messages);
     const result = streamText({
       model,
       system: buildSystemPrompt(memoryLines),
-      messages: convertToModelMessages(messages),
+      messages: modelMessages,
       temperature: 0.95,
     });
 
