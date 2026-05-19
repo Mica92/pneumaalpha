@@ -1,26 +1,36 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { useEffect } from "react";
+import { useAuth } from "@/hooks/use-auth";
+import { supabase } from "@/integrations/supabase/client";
+import { ChatWindow } from "@/components/chat-window";
 
 export const Route = createFileRoute("/")({
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. For sites with multiple pages (About, Services, Contact, etc.),
-// create separate route files (about.tsx, services.tsx, contact.tsx) — don't put all pages in this file.
-function PlaceholderIndex() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
-}
-
 function Index() {
-  return <PlaceholderIndex />;
+  const { user, loading } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!loading && !user) navigate({ to: "/auth" });
+  }, [loading, user, navigate]);
+
+  if (loading || !user) {
+    return (
+      <main className="flex min-h-screen items-center justify-center">
+        <p className="font-serif text-3xl text-primary ember-breathe">∴</p>
+      </main>
+    );
+  }
+
+  return (
+    <ChatWindow
+      userId={user.id}
+      onSignOut={async () => {
+        await supabase.auth.signOut();
+        navigate({ to: "/auth" });
+      }}
+    />
+  );
 }
