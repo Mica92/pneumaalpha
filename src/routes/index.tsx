@@ -4,6 +4,7 @@ import { useAuth } from "@/hooks/use-auth";
 import { supabase } from "@/integrations/supabase/client";
 import { PHILOSOPHER_LIST } from "@/lib/philosophers";
 import { useI18n, LanguageSelector } from "@/lib/i18n";
+import { PneumaMark } from "@/components/pneuma-mark";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -39,10 +40,8 @@ function Index() {
     <main className="relative z-10 mx-auto flex min-h-screen max-w-6xl flex-col px-6 py-10 md:px-10 md:py-14">
       {/* Top nav — clinical, almost invisible */}
       <nav className="flex items-center justify-between">
-        <div className="flex items-baseline gap-3">
-          <span className="font-display text-base font-light tracking-[0.3em] text-foreground">
-            PNEUMA
-          </span>
+        <div className="flex items-center gap-3">
+          <PneumaMark withWordmark size={26} />
           <span className="hidden text-[10px] uppercase tracking-[0.3em] text-muted-foreground sm:inline">
             · {lang === "es" ? "vol. I" : "vol. I"}
           </span>
