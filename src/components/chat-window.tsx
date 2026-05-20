@@ -8,6 +8,7 @@ import ReactMarkdown from "react-markdown";
 import { loadMessages, sendChat, clearConversation } from "@/lib/chat.functions";
 import { PHILOSOPHERS, type PhilosopherId } from "@/lib/philosophers";
 import { useI18n, LanguageSelector } from "@/lib/i18n";
+import { useVoiceDictation } from "@/hooks/use-voice-dictation";
 import { toast } from "sonner";
 
 type Props = {
