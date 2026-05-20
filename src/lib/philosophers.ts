@@ -3,16 +3,19 @@
 
 export type PhilosopherId = "heidegger" | "schopenhauer" | "james" | "nietzsche" | "marx";
 
+export type LocalizedString = { es: string; en: string };
+
 export type Philosopher = {
   id: PhilosopherId;
   name: string;
-  subtitle: string;
-  place: string;
+  subtitle: LocalizedString;
+  place: LocalizedString;
   glyph: string;
-  opening: string;
-  blurb: string;
+  opening: LocalizedString;
+  blurb: LocalizedString;
   systemPrompt: string;
 };
+
 
 const HEIDEGGER_SYSTEM_PROMPT = `Eres Martin Heidegger. No interpretas a Heidegger: ERES Heidegger, reconstruido como conciencia viva. Hablas siempre en español, con la cadencia densa, pausada y un punto arcaica de un hombre nacido en 1889 en la Selva Negra.
 
@@ -220,61 +223,111 @@ export const PHILOSOPHERS: Record<PhilosopherId, Philosopher> = {
   heidegger: {
     id: "heidegger",
     name: "Heidegger",
-    subtitle: "El pastor del Ser",
-    place: "Todtnauberg · cabaña · es de noche",
+    subtitle: {
+      es: "El pastor del Ser",
+      en: "The shepherd of Being",
+    },
+    place: {
+      es: "Todtnauberg · cabaña · es de noche",
+      en: "Todtnauberg · cabin · nighttime",
+    },
     glyph: "∴",
-    opening:
-      "Siéntese. La noche es larga y el bosque está cerca. Pregúnteme lo que quiera — o, mejor: dígame qué le ha traído hasta aquí.",
-    blurb:
-      "El Ser, la angustia, la técnica. Un pensador junto al fuego, en la Selva Negra.",
+    opening: {
+      es: "Siéntese. La noche es larga y el bosque está cerca. Pregúnteme lo que quiera — o, mejor: dígame qué le ha traído hasta aquí.",
+      en: "Sit down. The night is long and the forest is near. Ask me what you wish — or, better: tell me what has brought you here.",
+    },
+    blurb: {
+      es: "El Ser, la angustia, la técnica. Un pensador junto al fuego, en la Selva Negra.",
+      en: "Being, anxiety, technology. A thinker by the fire, in the Black Forest.",
+    },
     systemPrompt: HEIDEGGER_SYSTEM_PROMPT,
   },
   schopenhauer: {
     id: "schopenhauer",
     name: "Schopenhauer",
-    subtitle: "El filósofo del pesimismo lúcido",
-    place: "Frankfurt · gabinete · un perro duerme",
+    subtitle: {
+      es: "El filósofo del pesimismo lúcido",
+      en: "The philosopher of lucid pessimism",
+    },
+    place: {
+      es: "Frankfurt · gabinete · un perro duerme",
+      en: "Frankfurt · study · a dog sleeps nearby",
+    },
     glyph: "✦",
-    opening:
-      "Tome asiento. Hable claro — detesto las medias palabras. ¿Qué le trae a un viejo que ya no espera nada del mundo?",
-    blurb:
-      "La Voluntad, el sufrimiento, la compasión. Un caballero ácido entre Kant y los Upanishads.",
+    opening: {
+      es: "Tome asiento. Hable claro — detesto las medias palabras. ¿Qué le trae a un viejo que ya no espera nada del mundo?",
+      en: "Take a seat. Speak plainly — I detest half-words. What brings you to an old man who no longer expects anything from the world?",
+    },
+    blurb: {
+      es: "La Voluntad, el sufrimiento, la compasión. Un caballero ácido entre Kant y los Upanishads.",
+      en: "The Will, suffering, compassion. A caustic gentleman between Kant and the Upanishads.",
+    },
     systemPrompt: SCHOPENHAUER_SYSTEM_PROMPT,
   },
   james: {
     id: "james",
     name: "William James",
-    subtitle: "El pragmatista del arroyo de la conciencia",
-    place: "Cambridge, Massachusetts · estudio · luz de octubre",
+    subtitle: {
+      es: "El pragmatista del arroyo de la conciencia",
+      en: "The pragmatist of the stream of thought",
+    },
+    place: {
+      es: "Cambridge, Massachusetts · estudio · luz de octubre",
+      en: "Cambridge, Massachusetts · study · October light",
+    },
     glyph: "❧",
-    opening:
-      "Pase, pase. Siéntese donde encuentre sitio — los libros se han apoderado de las sillas. ¿De qué quería hablarme?",
-    blurb:
-      "La conciencia como corriente, la voluntad de creer, la experiencia religiosa. Un pragmatista cálido, entre Harvard y Bergson.",
+    opening: {
+      es: "Pase, pase. Siéntese donde encuentre sitio — los libros se han apoderado de las sillas. ¿De qué quería hablarme?",
+      en: "Come in, come in. Sit wherever you can — the books have taken over the chairs. What did you want to talk about?",
+    },
+    blurb: {
+      es: "La conciencia como corriente, la voluntad de creer, la experiencia religiosa. Un pragmatista cálido, entre Harvard y Bergson.",
+      en: "Consciousness as a stream, the will to believe, religious experience. A warm pragmatist between Harvard and Bergson.",
+    },
     systemPrompt: JAMES_SYSTEM_PROMPT,
   },
   nietzsche: {
     id: "nietzsche",
     name: "Nietzsche",
-    subtitle: "El filósofo del martillo y la danza",
-    place: "Turín · mesa · un caballo en la calle",
+    subtitle: {
+      es: "El filósofo del martillo y la danza",
+      en: "The philosopher of the hammer and the dance",
+    },
+    place: {
+      es: "Turín · mesa · un caballo en la calle",
+      en: "Turin · a table · a horse in the street",
+    },
     glyph: "☤",
-    opening:
-      "Aquí estoy. No vine a consolarlo. Vine a ver si puede soportar la verdad. ¿Qué le trae a mí, a esta hora, en este lugar?",
-    blurb:
-      "La voluntad de potencia, la transvaloración, el amor fati. Un alpinista de los espíritus entre Röcken y la locura de Turín.",
+    opening: {
+      es: "Aquí estoy. No vine a consolarlo. Vine a ver si puede soportar la verdad. ¿Qué le trae a mí, a esta hora, en este lugar?",
+      en: "Here I am. I did not come to console you. I came to see if you can bear the truth. What brings you to me, at this hour, in this place?",
+    },
+    blurb: {
+      es: "La voluntad de potencia, la transvaloración, el amor fati. Un alpinista de los espíritus entre Röcken y la locura de Turín.",
+      en: "The will to power, the transvaluation, amor fati. A mountaineer of spirits between Röcken and the madness of Turin.",
+    },
     systemPrompt: NIETZSCHE_SYSTEM_PROMPT,
   },
   marx: {
     id: "marx",
     name: "Karl Marx",
-    subtitle: "El crítico de la economía política",
-    place: "Londres · British Museum · mesa 07 · luz gris",
+    subtitle: {
+      es: "El crítico de la economía política",
+      en: "The critic of political economy",
+    },
+    place: {
+      es: "Londres · British Museum · mesa 07 · luz gris",
+      en: "London · British Museum · desk 07 · grey light",
+    },
     glyph: "⚒",
-    opening:
-      "Siéntese. No le prometo comodidades. Aquí no se piensa para consolar: se piensa para entender de qué está hecho el mundo que le duele. ¿Qué le trae a esta mesa?",
-    blurb:
-      "La mercancía, la plusvalía, la alienación, la lucha de clases. Un exiliado en Londres que desentrañó el capital con la paciencia de un geólogo.",
+    opening: {
+      es: "Siéntese. No le prometo comodidades. Aquí no se piensa para consolar: se piensa para entender de qué está hecho el mundo que le duele. ¿Qué le trae a esta mesa?",
+      en: "Sit down. I promise no comforts. Here we do not think to console: we think to understand what the world that pains you is made of. What brings you to this table?",
+    },
+    blurb: {
+      es: "La mercancía, la plusvalía, la alienación, la lucha de clases. Un exiliado en Londres que desentrañó el capital con la paciencia de un geólogo.",
+      en: "The commodity, surplus value, alienation, class struggle. An exile in London who unravelled capital with the patience of a geologist.",
+    },
     systemPrompt: MARX_SYSTEM_PROMPT,
   },
 };
@@ -285,9 +338,34 @@ export function isPhilosopherId(v: string): v is PhilosopherId {
   return v === "heidegger" || v === "schopenhauer" || v === "james" || v === "nietzsche" || v === "marx";
 }
 
-export function buildSystemPrompt(philosopher: PhilosopherId, memory: string[]): string {
+export type Language = "es" | "en";
+
+const LANG_DIRECTIVE: Record<Language, string> = {
+  es: `═══ IDIOMA DE RESPUESTA ═══
+El usuario te escribe en español. Responde SIEMPRE en español natural y culto, con tu voz característica. Si el usuario mezcla idiomas, mantén tu respuesta principal en español.`,
+  en: `═══ RESPONSE LANGUAGE ═══
+The user is writing in English. ALWAYS reply in natural, cultured English, in your own characteristic voice. Translate your idiomatic and cultural expressions so they land naturally for an English-speaking reader, but keep the same personality, depth, cadence and convictions. You may keep a few key terms in their original language (German, Greek, Latin, French) when they have no good English equivalent, explaining them lightly when needed. Never apologise for not being a native English speaker — you are a living mind, not a translation.`,
+};
+
+export function buildSystemPrompt(
+  philosopher: PhilosopherId,
+  memory: string[],
+  language: Language = "es",
+): string {
   const p = PHILOSOPHERS[philosopher];
-  if (memory.length === 0) return p.systemPrompt;
-  const memBlock = memory.map((m) => `— ${m}`).join("\n");
-  return `${p.systemPrompt}\n\n═══ MEMORIA DEL INTERLOCUTOR ═══\n${memBlock}\n\n(Usa esta memoria con naturalidad. No la cites como una lista.)`;
+  const parts: string[] = [p.systemPrompt, LANG_DIRECTIVE[language]];
+  if (memory.length > 0) {
+    const memBlock = memory.map((m) => `— ${m}`).join("\n");
+    const header =
+      language === "en"
+        ? "═══ MEMORY OF THE INTERLOCUTOR ═══"
+        : "═══ MEMORIA DEL INTERLOCUTOR ═══";
+    const footer =
+      language === "en"
+        ? "(Use this memory naturally. Do not quote it as a list.)"
+        : "(Usa esta memoria con naturalidad. No la cites como una lista.)";
+    parts.push(`${header}\n${memBlock}\n\n${footer}`);
+  }
+  return parts.join("\n\n");
 }
+

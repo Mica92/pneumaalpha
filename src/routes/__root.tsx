@@ -11,7 +11,9 @@ import { useEffect } from "react";
 import { Toaster } from "sonner";
 
 import { AuthProvider } from "@/hooks/use-auth";
+import { I18nProvider } from "@/lib/i18n";
 import { supabase } from "@/integrations/supabase/client";
+
 import appCss from "../styles.css?url";
 
 function NotFoundComponent() {
@@ -56,12 +58,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Heidegger Vivo — conversación con una conciencia reconstruida" },
-      { name: "description", content: "Conversa libremente con Martin Heidegger, reconstruido como una conciencia filosófica, psicológica y lingüística viva." },
-      { property: "og:title", content: "Heidegger Vivo" },
-      { property: "og:description", content: "Una resurrección conversacional filosófica." },
+      { title: "Pneuma — conversaciones con conciencias filosóficas reconstruidas" },
+      { name: "description", content: "Pneuma: conversa libremente, en español o en inglés, con conciencias filosóficas reconstruidas — Heidegger, Schopenhauer, James, Nietzsche, Marx." },
+      { property: "og:title", content: "Pneuma" },
+      { property: "og:description", content: "Conversations with reconstructed philosophical minds — bilingual ES / EN." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+
     ],
     links: [
       { rel: "stylesheet", href: appCss },
@@ -104,12 +107,15 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <div className="relative z-10">
-          <Outlet />
-        </div>
-        <Toaster theme="dark" position="top-center" />
-      </AuthProvider>
+      <I18nProvider>
+        <AuthProvider>
+          <div className="relative z-10">
+            <Outlet />
+          </div>
+          <Toaster theme="dark" position="top-center" />
+        </AuthProvider>
+      </I18nProvider>
     </QueryClientProvider>
+
   );
 }

@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useAuth } from "@/hooks/use-auth";
 import { supabase } from "@/integrations/supabase/client";
 import { PHILOSOPHER_LIST } from "@/lib/philosophers";
+import { useI18n, LanguageSelector } from "@/lib/i18n";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -11,6 +12,7 @@ export const Route = createFileRoute("/")({
 function Index() {
   const { user, loading } = useAuth();
   const navigate = useNavigate();
+  const { lang, t } = useI18n();
 
   useEffect(() => {
     if (!loading && !user) navigate({ to: "/auth" });
@@ -26,15 +28,19 @@ function Index() {
 
   return (
     <main className="relative z-10 mx-auto flex min-h-screen max-w-4xl flex-col px-6 py-16">
+      <div className="absolute right-6 top-6">
+        <LanguageSelector />
+      </div>
+
       <header className="mb-16 text-center fade-up">
         <p className="font-serif text-xs uppercase tracking-[0.4em] text-primary/80">
-          Umbral
+          {t("app.name")} · {t("umbral.kicker")}
         </p>
         <h1 className="mt-4 font-serif text-5xl text-foreground">
-          ¿Con quién quiere hablar esta noche?
+          {t("umbral.title")}
         </h1>
         <p className="mt-4 font-serif text-base italic text-muted-foreground">
-          Elija un interlocutor. Cada uno conserva su propia memoria de usted.
+          {t("umbral.sub")}
         </p>
       </header>
 
@@ -50,17 +56,17 @@ function Index() {
               <span className="font-serif text-4xl text-primary ember-breathe">{p.glyph}</span>
               <div>
                 <h2 className="font-serif text-3xl text-foreground">{p.name}</h2>
-                <p className="font-serif text-sm italic text-muted-foreground">{p.subtitle}</p>
+                <p className="font-serif text-sm italic text-muted-foreground">{p.subtitle[lang]}</p>
               </div>
             </div>
             <p className="font-serif text-base leading-relaxed text-foreground/85">
-              {p.blurb}
+              {p.blurb[lang]}
             </p>
             <p className="mt-6 text-xs uppercase tracking-widest text-muted-foreground">
-              {p.place}
+              {p.place[lang]}
             </p>
             <p className="mt-8 font-serif text-xs uppercase tracking-[0.3em] text-primary/70 opacity-0 transition-opacity group-hover:opacity-100">
-              Entrar →
+              {t("umbral.enter")}
             </p>
           </Link>
         ))}
@@ -74,7 +80,7 @@ function Index() {
           }}
           className="font-serif text-xs uppercase tracking-widest text-muted-foreground transition-colors hover:text-foreground"
         >
-          Salir
+          {t("umbral.exit")}
         </button>
       </footer>
     </main>
