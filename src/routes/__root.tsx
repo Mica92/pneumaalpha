@@ -107,12 +107,15 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <div className="relative z-10">
-          <Outlet />
-        </div>
-        <Toaster theme="dark" position="top-center" />
-      </AuthProvider>
+      <I18nProvider>
+        <AuthProvider>
+          <div className="relative z-10">
+            <Outlet />
+          </div>
+          <Toaster theme="dark" position="top-center" />
+        </AuthProvider>
+      </I18nProvider>
     </QueryClientProvider>
+
   );
 }
