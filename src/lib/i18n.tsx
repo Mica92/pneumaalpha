@@ -25,8 +25,8 @@ export const T: Dict = {
 
   "umbral.kicker": { es: "Umbral", en: "Threshold" },
   "umbral.title": {
-    es: "¿Con quién quiere hablar esta noche?",
-    en: "Who would you like to speak with tonight?",
+    es: "¿Cómo estuvo tu día?",
+    en: "How was your day?",
   },
   "umbral.sub": {
     es: "Elija un interlocutor. Cada uno conserva su propia memoria de usted.",
