@@ -58,12 +58,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Heidegger Vivo — conversación con una conciencia reconstruida" },
-      { name: "description", content: "Conversa libremente con Martin Heidegger, reconstruido como una conciencia filosófica, psicológica y lingüística viva." },
-      { property: "og:title", content: "Heidegger Vivo" },
-      { property: "og:description", content: "Una resurrección conversacional filosófica." },
+      { title: "Pneuma — conversaciones con conciencias filosóficas reconstruidas" },
+      { name: "description", content: "Pneuma: conversa libremente, en español o en inglés, con conciencias filosóficas reconstruidas — Heidegger, Schopenhauer, James, Nietzsche, Marx." },
+      { property: "og:title", content: "Pneuma" },
+      { property: "og:description", content: "Conversations with reconstructed philosophical minds — bilingual ES / EN." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+
     ],
     links: [
       { rel: "stylesheet", href: appCss },
