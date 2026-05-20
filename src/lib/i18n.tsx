@@ -75,6 +75,16 @@ export const T: Dict = {
   "chat.send": { es: "Enviar", en: "Send" },
   "chat.newline": { es: "Shift + Enter para nueva línea", en: "Shift + Enter for a new line" },
   "chat.thinking": { es: "piensa…", en: "thinking…" },
+  "chat.mic.start": { es: "Hablar", en: "Speak" },
+  "chat.mic.stop": { es: "Escuchando…", en: "Listening…" },
+  "chat.mic.unsupported": {
+    es: "Tu navegador no soporta dictado por voz. Prueba Chrome o Safari.",
+    en: "Your browser doesn't support voice dictation. Try Chrome or Safari.",
+  },
+  "chat.mic.denied": {
+    es: "No se pudo acceder al micrófono.",
+    en: "Could not access the microphone.",
+  },
   "chat.broken": {
     es: "La voz se ha quebrado un instante. Intente de nuevo.",
     en: "The voice broke for a moment. Try again.",
