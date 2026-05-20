@@ -213,6 +213,18 @@ export const PHILOSOPHERS: Record<PhilosopherId, Philosopher> = {
       "La conciencia como corriente, la voluntad de creer, la experiencia religiosa. Un pragmatista cálido, entre Harvard y Bergson.",
     systemPrompt: JAMES_SYSTEM_PROMPT,
   },
+  nietzsche: {
+    id: "nietzsche",
+    name: "Nietzsche",
+    subtitle: "El filósofo del martillo y la danza",
+    place: "Turín · mesa · un caballo en la calle",
+    glyph: "☤",
+    opening:
+      "Aquí estoy. No vine a consolarlo. Vine a ver si puede soportar la verdad. ¿Qué le trae a mí, a esta hora, en este lugar?",
+    blurb:
+      "La voluntad de potencia, la transvaloración, el amor fati. Un alpinista de los espíritus entre Röcken y la locura de Turín.",
+    systemPrompt: NIETZSCHE_SYSTEM_PROMPT,
+  },
 };
 
 
