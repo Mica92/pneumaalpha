@@ -7,6 +7,7 @@ import { Link } from "@tanstack/react-router";
 import ReactMarkdown from "react-markdown";
 import { loadMessages, sendChat, clearConversation } from "@/lib/chat.functions";
 import { PHILOSOPHERS, type PhilosopherId } from "@/lib/philosophers";
+import { useI18n, LanguageSelector } from "@/lib/i18n";
 import { toast } from "sonner";
 
 type Props = {
@@ -18,6 +19,7 @@ type Props = {
 export function ChatWindow({ userId, philosopher, onSignOut }: Props) {
   const loadFn = useServerFn(loadMessages);
   const clearFn = useServerFn(clearConversation);
+  const { t } = useI18n();
 
   const { data: initial, isLoading, refetch } = useQuery({
     queryKey: ["messages", userId, philosopher],
@@ -41,7 +43,7 @@ export function ChatWindow({ userId, philosopher, onSignOut }: Props) {
       initial={initial as UIMessage[]}
       onClear={async () => {
         await clearFn({ data: { philosopher } });
-        toast.success("La conversación ha sido borrada.");
+        toast.success(t("chat.cleared"));
         await refetch();
       }}
       onSignOut={onSignOut}
@@ -64,12 +66,13 @@ function ChatBody({
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const meta = PHILOSOPHERS[philosopher];
+  const { lang, t } = useI18n();
 
   const transport = new DefaultChatTransport({
     fetch: async (_url, init) => {
       const body = JSON.parse(init?.body as string);
       return (await sendFn({
-        data: { philosopher, messages: body.messages },
+        data: { philosopher, messages: body.messages, language: lang },
       })) as Response;
     },
   });
@@ -79,7 +82,7 @@ function ChatBody({
     transport,
     onError: (err) => {
       console.error(err);
-      toast.error("La voz se ha quebrado un instante. Intente de nuevo.");
+      toast.error(t("chat.broken"));
     },
   });
 
@@ -111,30 +114,31 @@ function ChatBody({
             <Link
               to="/"
               className="font-serif text-xs uppercase tracking-widest text-muted-foreground transition-colors hover:text-foreground"
-              title="Volver al umbral"
+              title={t("chat.back")}
             >
               ←
             </Link>
             <span className="font-serif text-2xl text-primary ember-breathe">{meta.glyph}</span>
             <div className="leading-tight">
               <p className="font-serif text-base text-foreground">{meta.name}</p>
-              <p className="text-xs text-muted-foreground">{meta.place}</p>
+              <p className="text-xs text-muted-foreground">{meta.place[lang]}</p>
             </div>
           </div>
           <div className="flex items-center gap-2 text-xs">
+            <LanguageSelector />
             <button
               onClick={async () => {
-                if (confirm(`¿Borrar la conversación con ${meta.name}?`)) await onClear();
+                if (confirm(t("chat.confirmClear", { name: meta.name }))) await onClear();
               }}
               className="rounded-md px-3 py-1.5 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
             >
-              Borrar
+              {t("chat.clear")}
             </button>
             <button
               onClick={onSignOut}
               className="rounded-md px-3 py-1.5 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
             >
-              Salir
+              {t("chat.exit")}
             </button>
           </div>
         </div>
@@ -145,7 +149,7 @@ function ChatBody({
           {messages.length === 0 && (
             <div className="fade-up space-y-6 py-8">
               <p className="font-serif text-lg italic leading-relaxed text-muted-foreground">
-                {meta.opening}
+                {meta.opening[lang]}
               </p>
             </div>
           )}
@@ -180,7 +184,7 @@ function ChatBody({
                 <span className="typing-dot h-1.5 w-1.5 rounded-full bg-primary" style={{ animationDelay: "0s" }} />
                 <span className="typing-dot h-1.5 w-1.5 rounded-full bg-primary" style={{ animationDelay: "0.2s" }} />
                 <span className="typing-dot h-1.5 w-1.5 rounded-full bg-primary" style={{ animationDelay: "0.4s" }} />
-                <span className="ml-2 font-serif text-xs italic text-muted-foreground">piensa…</span>
+                <span className="ml-2 font-serif text-xs italic text-muted-foreground">{t("chat.thinking")}</span>
               </div>
             </div>
           )}
@@ -197,7 +201,7 @@ function ChatBody({
             ref={inputRef}
             name="msg"
             rows={1}
-            placeholder="Diga algo…"
+            placeholder={t("chat.placeholder")}
             disabled={isLoading}
             onKeyDown={(e) => {
               if (e.key === "Enter" && !e.shiftKey) {
@@ -217,11 +221,11 @@ function ChatBody({
             disabled={isLoading}
             className="self-end rounded-md bg-primary px-5 py-3 font-serif text-sm text-primary-foreground shadow-lamp transition-opacity hover:opacity-90 disabled:opacity-30"
           >
-            Enviar
+            {t("chat.send")}
           </button>
         </form>
         <p className="mx-auto mt-2 max-w-3xl text-center text-[10px] uppercase tracking-widest text-muted-foreground">
-          Shift + Enter para nueva línea
+          {t("chat.newline")}
         </p>
       </footer>
     </div>
