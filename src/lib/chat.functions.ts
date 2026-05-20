@@ -5,7 +5,7 @@ import { createLovableAiGatewayProvider } from "@/lib/ai-gateway";
 import { buildSystemPrompt, isPhilosopherId, type PhilosopherId } from "@/lib/philosophers";
 import { z } from "zod";
 
-const PhilosopherSchema = z.enum(["heidegger", "schopenhauer"]);
+const PhilosopherSchema = z.enum(["heidegger", "schopenhauer", "james"]);
 
 const LoadSchema = z.object({ philosopher: PhilosopherSchema });
 const SendSchema = z.object({
