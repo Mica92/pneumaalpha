@@ -6,13 +6,16 @@ import { buildSystemPrompt, isPhilosopherId, type PhilosopherId } from "@/lib/ph
 import { z } from "zod";
 
 const PhilosopherSchema = z.enum(["heidegger", "schopenhauer", "james", "nietzsche", "marx"]);
+const LanguageSchema = z.enum(["es", "en"]).default("es");
 
 const LoadSchema = z.object({ philosopher: PhilosopherSchema });
 const SendSchema = z.object({
   philosopher: PhilosopherSchema,
   messages: z.array(z.any()),
+  language: LanguageSchema.optional(),
 });
 const ClearSchema = z.object({ philosopher: PhilosopherSchema });
+
 
 export const loadMessages = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
