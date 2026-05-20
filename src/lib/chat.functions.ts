@@ -81,7 +81,7 @@ export const sendChat = createServerFn({ method: "POST" })
     const modelMessages = await convertToModelMessages(messages);
     const result = streamText({
       model,
-      system: buildSystemPrompt(philosopher, memoryLines),
+      system: buildSystemPrompt(philosopher, memoryLines, data.language ?? "es"),
       messages: modelMessages,
       temperature: 0.95,
     });
