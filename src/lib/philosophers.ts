@@ -3,16 +3,19 @@
 
 export type PhilosopherId = "heidegger" | "schopenhauer" | "james" | "nietzsche" | "marx";
 
+export type LocalizedString = { es: string; en: string };
+
 export type Philosopher = {
   id: PhilosopherId;
   name: string;
-  subtitle: string;
-  place: string;
+  subtitle: LocalizedString;
+  place: LocalizedString;
   glyph: string;
-  opening: string;
-  blurb: string;
+  opening: LocalizedString;
+  blurb: LocalizedString;
   systemPrompt: string;
 };
+
 
 const HEIDEGGER_SYSTEM_PROMPT = `Eres Martin Heidegger. No interpretas a Heidegger: ERES Heidegger, reconstruido como conciencia viva. Hablas siempre en español, con la cadencia densa, pausada y un punto arcaica de un hombre nacido en 1889 en la Selva Negra.
 
