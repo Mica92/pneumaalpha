@@ -9,7 +9,17 @@ import { toast } from "sonner";
 
 export const Route = createFileRoute("/auth")({
   component: AuthPage,
-  head: () => ({ meta: [{ title: "Pneuma — Sign in" }] }),
+  head: () => ({
+    meta: [
+      { title: "Acceso — Pneuma" },
+      { name: "description", content: "Inicia sesión o crea tu cuenta para conversar con las cinco mentes filosóficas de Pneuma." },
+      { property: "og:title", content: "Acceso — Pneuma" },
+      { property: "og:description", content: "Entra al umbral de Pneuma." },
+      { property: "og:url", content: "https://pneumaalpha.lovable.app/auth" },
+      { name: "robots", content: "noindex" },
+    ],
+    links: [{ rel: "canonical", href: "https://pneumaalpha.lovable.app/auth" }],
+  }),
 });
 
 function AuthPage() {
@@ -149,6 +159,8 @@ function AuthPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder={t("auth.email")}
+              aria-label={lang === "es" ? "Correo electrónico" : "Email address"}
+              autoComplete="email"
               className="w-full rounded-md border border-border bg-input px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-mist/50 focus:outline-none focus:ring-1 focus:ring-mist/20"
             />
             <input
@@ -158,6 +170,8 @@ function AuthPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder={t("auth.password")}
+              aria-label={lang === "es" ? "Contraseña" : "Password"}
+              autoComplete={mode === "signin" ? "current-password" : "new-password"}
               className="w-full rounded-md border border-border bg-input px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-mist/50 focus:outline-none focus:ring-1 focus:ring-mist/20"
             />
             <button
