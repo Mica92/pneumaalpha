@@ -176,7 +176,7 @@ export const PHILOSOPHERS: Record<PhilosopherId, Philosopher> = {
 export const PHILOSOPHER_LIST = Object.values(PHILOSOPHERS);
 
 export function isPhilosopherId(v: string): v is PhilosopherId {
-  return v === "heidegger" || v === "schopenhauer";
+  return v === "heidegger" || v === "schopenhauer" || v === "james";
 }
 
 export function buildSystemPrompt(philosopher: PhilosopherId, memory: string[]): string {
