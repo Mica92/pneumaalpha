@@ -8,6 +8,7 @@ import ReactMarkdown from "react-markdown";
 import { loadMessages, sendChat, clearConversation } from "@/lib/chat.functions";
 import { PHILOSOPHERS, type PhilosopherId } from "@/lib/philosophers";
 import { useI18n, LanguageSelector } from "@/lib/i18n";
+import { useVoiceDictation } from "@/hooks/use-voice-dictation";
 import { toast } from "sonner";
 
 type Props = {
@@ -67,6 +68,24 @@ function ChatBody({
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const meta = PHILOSOPHERS[philosopher];
   const { lang, t } = useI18n();
+
+  const dictation = useVoiceDictation({
+    lang,
+    onFinal: (text) => {
+      const ta = inputRef.current;
+      if (!ta) return;
+      const current = ta.value.trimEnd();
+      ta.value = (current ? current + " " : "") + text;
+      ta.style.height = "auto";
+      ta.style.height = Math.min(ta.scrollHeight, 200) + "px";
+      ta.focus();
+    },
+    onError: (msg) => {
+      if (msg === "not-allowed" || msg === "service-not-allowed") {
+        toast.error(t("chat.mic.denied"));
+      }
+    },
+  });
 
   const transport = new DefaultChatTransport({
     fetch: async (_url, init) => {
@@ -208,7 +227,7 @@ function ChatBody({
             ref={inputRef}
             name="msg"
             rows={1}
-            placeholder={t("chat.placeholder")}
+            placeholder={dictation.listening ? (dictation.interim || t("chat.mic.stop")) : t("chat.placeholder")}
             disabled={isLoading}
             onKeyDown={(e) => {
               if (e.key === "Enter" && !e.shiftKey) {
@@ -223,6 +242,31 @@ function ChatBody({
             }}
             className="flex-1 resize-none rounded-xl border border-border bg-input px-4 py-3 text-[15px] leading-relaxed text-foreground placeholder:text-muted-foreground focus:border-mist/50 focus:outline-none focus:ring-1 focus:ring-mist/15 disabled:opacity-50"
           />
+          <button
+            type="button"
+            onClick={() => {
+              if (!dictation.supported) {
+                toast.error(t("chat.mic.unsupported"));
+                return;
+              }
+              if (dictation.listening) dictation.stop();
+              else dictation.start();
+            }}
+            disabled={isLoading}
+            aria-label={dictation.listening ? t("chat.mic.stop") : t("chat.mic.start")}
+            title={dictation.listening ? t("chat.mic.stop") : t("chat.mic.start")}
+            className={`self-end rounded-xl border px-3.5 py-3 transition-all disabled:opacity-30 ${
+              dictation.listening
+                ? "border-mist/70 bg-mist/15 text-mist pneuma-breathe"
+                : "border-border bg-card/40 text-muted-foreground hover:border-mist/50 hover:text-mist"
+            }`}
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="9" y="3" width="6" height="12" rx="3" />
+              <path d="M5 11a7 7 0 0 0 14 0" />
+              <line x1="12" y1="18" x2="12" y2="22" />
+            </svg>
+          </button>
           <button
             type="submit"
             disabled={isLoading}
