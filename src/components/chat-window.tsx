@@ -69,6 +69,24 @@ function ChatBody({
   const meta = PHILOSOPHERS[philosopher];
   const { lang, t } = useI18n();
 
+  const dictation = useVoiceDictation({
+    lang,
+    onFinal: (text) => {
+      const ta = inputRef.current;
+      if (!ta) return;
+      const current = ta.value.trimEnd();
+      ta.value = (current ? current + " " : "") + text;
+      ta.style.height = "auto";
+      ta.style.height = Math.min(ta.scrollHeight, 200) + "px";
+      ta.focus();
+    },
+    onError: (msg) => {
+      if (msg === "not-allowed" || msg === "service-not-allowed") {
+        toast.error(t("chat.mic.denied"));
+      }
+    },
+  });
+
   const transport = new DefaultChatTransport({
     fetch: async (_url, init) => {
       const body = JSON.parse(init?.body as string);
