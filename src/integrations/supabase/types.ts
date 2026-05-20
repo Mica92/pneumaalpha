@@ -19,6 +19,7 @@ export type Database = {
           content: string
           created_at: string
           id: string
+          philosopher: string
           role: string
           user_id: string
         }
@@ -26,6 +27,7 @@ export type Database = {
           content: string
           created_at?: string
           id?: string
+          philosopher?: string
           role: string
           user_id: string
         }
@@ -33,6 +35,7 @@ export type Database = {
           content?: string
           created_at?: string
           id?: string
+          philosopher?: string
           role?: string
           user_id?: string
         }
@@ -62,6 +65,7 @@ export type Database = {
           created_at: string
           id: string
           kind: string
+          philosopher: string
           user_id: string
         }
         Insert: {
@@ -69,6 +73,7 @@ export type Database = {
           created_at?: string
           id?: string
           kind: string
+          philosopher?: string
           user_id: string
         }
         Update: {
@@ -76,6 +81,7 @@ export type Database = {
           created_at?: string
           id?: string
           kind?: string
+          philosopher?: string
           user_id?: string
         }
         Relationships: []

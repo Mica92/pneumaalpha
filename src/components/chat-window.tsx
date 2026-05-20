@@ -3,40 +3,44 @@ import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport, type UIMessage } from "ai";
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery } from "@tanstack/react-query";
+import { Link } from "@tanstack/react-router";
 import ReactMarkdown from "react-markdown";
 import { loadMessages, sendChat, clearConversation } from "@/lib/chat.functions";
+import { PHILOSOPHERS, type PhilosopherId } from "@/lib/philosophers";
 import { toast } from "sonner";
 
 type Props = {
   userId: string;
+  philosopher: PhilosopherId;
   onSignOut: () => void;
 };
 
-const HEIDEGGER_OPENING = `Siéntese. La noche es larga y el bosque está cerca. Pregúnteme lo que quiera — o, mejor: dígame qué le ha traído hasta aquí.`;
-
-export function ChatWindow({ userId, onSignOut }: Props) {
+export function ChatWindow({ userId, philosopher, onSignOut }: Props) {
   const loadFn = useServerFn(loadMessages);
   const clearFn = useServerFn(clearConversation);
 
   const { data: initial, isLoading, refetch } = useQuery({
-    queryKey: ["messages", userId],
-    queryFn: () => loadFn(),
+    queryKey: ["messages", userId, philosopher],
+    queryFn: () => loadFn({ data: { philosopher } }),
   });
 
   if (isLoading || !initial) {
     return (
       <div className="flex min-h-screen items-center justify-center">
-        <p className="font-serif text-3xl text-primary ember-breathe">∴</p>
+        <p className="font-serif text-3xl text-primary ember-breathe">
+          {PHILOSOPHERS[philosopher].glyph}
+        </p>
       </div>
     );
   }
 
   return (
     <ChatBody
-      key={userId}
+      key={`${userId}-${philosopher}`}
+      philosopher={philosopher}
       initial={initial as UIMessage[]}
       onClear={async () => {
-        await clearFn();
+        await clearFn({ data: { philosopher } });
         toast.success("La conversación ha sido borrada.");
         await refetch();
       }}
@@ -46,10 +50,12 @@ export function ChatWindow({ userId, onSignOut }: Props) {
 }
 
 function ChatBody({
+  philosopher,
   initial,
   onClear,
   onSignOut,
 }: {
+  philosopher: PhilosopherId;
   initial: UIMessage[];
   onClear: () => Promise<void>;
   onSignOut: () => void;
@@ -57,12 +63,14 @@ function ChatBody({
   const sendFn = useServerFn(sendChat);
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
+  const meta = PHILOSOPHERS[philosopher];
 
   const transport = new DefaultChatTransport({
     fetch: async (_url, init) => {
       const body = JSON.parse(init?.body as string);
-      // useServerFn handles auth attachment; returns a fetch Response stream
-      return (await sendFn({ data: { messages: body.messages } })) as Response;
+      return (await sendFn({
+        data: { philosopher, messages: body.messages },
+      })) as Response;
     },
   });
 
@@ -75,15 +83,13 @@ function ChatBody({
     },
   });
 
-  // Auto-scroll
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
   }, [messages, status]);
 
-  // Focus textarea
   useEffect(() => {
     inputRef.current?.focus();
-  }, [status]);
+  }, [status, philosopher]);
 
   const isLoading = status === "submitted" || status === "streaming";
 
@@ -102,16 +108,23 @@ function ChatBody({
       <header className="sticky top-0 z-20 border-b border-border bg-background/70 px-6 py-3 backdrop-blur-md">
         <div className="mx-auto flex max-w-3xl items-center justify-between">
           <div className="flex items-center gap-3">
-            <span className="font-serif text-2xl text-primary ember-breathe">∴</span>
+            <Link
+              to="/"
+              className="font-serif text-xs uppercase tracking-widest text-muted-foreground transition-colors hover:text-foreground"
+              title="Volver al umbral"
+            >
+              ←
+            </Link>
+            <span className="font-serif text-2xl text-primary ember-breathe">{meta.glyph}</span>
             <div className="leading-tight">
-              <p className="font-serif text-base text-foreground">Heidegger</p>
-              <p className="text-xs text-muted-foreground">Todtnauberg · cabaña · es de noche</p>
+              <p className="font-serif text-base text-foreground">{meta.name}</p>
+              <p className="text-xs text-muted-foreground">{meta.place}</p>
             </div>
           </div>
           <div className="flex items-center gap-2 text-xs">
             <button
               onClick={async () => {
-                if (confirm("¿Borrar toda la conversación? Heidegger no recordará nada.")) await onClear();
+                if (confirm(`¿Borrar la conversación con ${meta.name}?`)) await onClear();
               }}
               className="rounded-md px-3 py-1.5 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
             >
@@ -132,7 +145,7 @@ function ChatBody({
           {messages.length === 0 && (
             <div className="fade-up space-y-6 py-8">
               <p className="font-serif text-lg italic leading-relaxed text-muted-foreground">
-                {HEIDEGGER_OPENING}
+                {meta.opening}
               </p>
             </div>
           )}
@@ -152,7 +165,7 @@ function ChatBody({
             }
             return (
               <div key={m.id} className="fade-up">
-                <p className="mb-2 font-serif text-xs uppercase tracking-widest text-primary/80">Heidegger</p>
+                <p className="mb-2 font-serif text-xs uppercase tracking-widest text-primary/80">{meta.name}</p>
                 <article className="prose prose-invert prose-p:my-3 prose-p:leading-relaxed prose-p:font-serif prose-p:text-[1.05rem] prose-p:text-foreground/95 max-w-none">
                   <ReactMarkdown>{text}</ReactMarkdown>
                 </article>
@@ -162,7 +175,7 @@ function ChatBody({
 
           {status === "submitted" && (
             <div className="fade-up">
-              <p className="mb-2 font-serif text-xs uppercase tracking-widest text-primary/80">Heidegger</p>
+              <p className="mb-2 font-serif text-xs uppercase tracking-widest text-primary/80">{meta.name}</p>
               <div className="flex items-center gap-1.5 py-2">
                 <span className="typing-dot h-1.5 w-1.5 rounded-full bg-primary" style={{ animationDelay: "0s" }} />
                 <span className="typing-dot h-1.5 w-1.5 rounded-full bg-primary" style={{ animationDelay: "0.2s" }} />
