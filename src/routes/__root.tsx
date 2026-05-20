@@ -59,20 +59,39 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Pneuma — conversaciones con conciencias filosóficas reconstruidas" },
-      { name: "description", content: "Pneuma: conversa libremente, en español o en inglés, con conciencias filosóficas reconstruidas — Heidegger, Schopenhauer, James, Nietzsche, Marx." },
-      { property: "og:title", content: "Pneuma" },
-      { property: "og:description", content: "Conversations with reconstructed philosophical minds — bilingual ES / EN." },
+      { title: "Pneuma — Conversa con cinco mentes filosóficas" },
+      { name: "description", content: "Conversa, en español o en inglés, con Heidegger, Schopenhauer, James, Nietzsche y Marx — reconstruidos como conciencias vivas." },
+      { property: "og:site_name", content: "Pneuma" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-
     ],
     links: [
       { rel: "stylesheet", href: appCss },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Sora:wght@200;300;400;500;600&family=Manrope:wght@300;400;500;600&display=swap" },
-
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              name: "Pneuma",
+              url: "https://pneumaalpha.lovable.app",
+            },
+            {
+              "@type": "WebSite",
+              name: "Pneuma",
+              url: "https://pneumaalpha.lovable.app",
+              description: "Bilingual conversations with reconstructed philosophical minds.",
+              inLanguage: ["es", "en"],
+            },
+          ],
+        }),
+      },
     ],
   }),
   shellComponent: RootShell,

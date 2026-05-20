@@ -3,10 +3,43 @@ import { useEffect } from "react";
 import { useAuth } from "@/hooks/use-auth";
 import { supabase } from "@/integrations/supabase/client";
 import { ChatWindow } from "@/components/chat-window";
-import { isPhilosopherId } from "@/lib/philosophers";
+import { PHILOSOPHERS, isPhilosopherId, type PhilosopherId } from "@/lib/philosophers";
 
 export const Route = createFileRoute("/$philosopher")({
   component: PhilosopherChat,
+  head: ({ params }) => {
+    const id = params.philosopher as string;
+    if (!isPhilosopherId(id)) {
+      return { meta: [{ title: "Pneuma" }] };
+    }
+    const p = PHILOSOPHERS[id as PhilosopherId];
+    const title = `Conversa con ${p.name} — Pneuma`;
+    const description = `${p.blurb.es} Diálogo bilingüe (ES / EN) con ${p.name}, reconstruido como conciencia viva.`;
+    const url = `https://pneumaalpha.lovable.app/${id}`;
+    return {
+      meta: [
+        { title },
+        { name: "description", content: description },
+        { property: "og:title", content: title },
+        { property: "og:description", content: description },
+        { property: "og:type", content: "profile" },
+        { property: "og:url", content: url },
+      ],
+      links: [{ rel: "canonical", href: url }],
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Person",
+            name: p.name,
+            description: p.blurb.en,
+            url,
+          }),
+        },
+      ],
+    };
+  },
 });
 
 function PhilosopherChat() {
