@@ -8,6 +8,16 @@ import { PneumaMark } from "@/components/pneuma-mark";
 
 export const Route = createFileRoute("/")({
   component: Index,
+  head: () => ({
+    meta: [
+      { title: "Pneuma — Umbral · cinco filósofos, una conversación" },
+      { name: "description", content: "El umbral de Pneuma: elige a Heidegger, Schopenhauer, James, Nietzsche o Marx y conversa con su voz, en español o en inglés." },
+      { property: "og:title", content: "Pneuma — Umbral" },
+      { property: "og:description", content: "Cinco conciencias filosóficas reconstruidas. Una lámpara distante. Una conversación que no se apaga." },
+      { property: "og:url", content: "https://pneumaalpha.lovable.app/" },
+    ],
+    links: [{ rel: "canonical", href: "https://pneumaalpha.lovable.app/" }],
+  }),
 });
 
 // Bento span recipe — first card is the cinematic hero tile, others stack quietly.
