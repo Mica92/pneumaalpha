@@ -1,7 +1,7 @@
 // Registro de filósofos vivos en la plataforma.
 // Cada uno tiene su prompt, su atmósfera y su voz.
 
-export type PhilosopherId = "heidegger" | "schopenhauer";
+export type PhilosopherId = "heidegger" | "schopenhauer" | "james";
 
 export type Philosopher = {
   id: PhilosopherId;
