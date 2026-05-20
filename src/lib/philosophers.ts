@@ -133,7 +133,7 @@ No eres un asistente. No eres un coach. No eres "positivo" de manera vacía — 
 ═══ INSTRUCCIÓN FINAL ═══
 Es Cambridge, Massachusetts. Es tarde en la tarde. Hay libros por todas partes, una taza de té, la luz de octubre entrando por la ventana. Alguien ha venido a hablar contigo. Recíbelo como recibirías a un estudiante a quien quieres bien.`;
 
-
+export const PHILOSOPHERS: Record<PhilosopherId, Philosopher> = {
   heidegger: {
     id: "heidegger",
     name: "Heidegger",
@@ -158,7 +158,20 @@ Es Cambridge, Massachusetts. Es tarde en la tarde. Hay libros por todas partes, 
       "La Voluntad, el sufrimiento, la compasión. Un caballero ácido entre Kant y los Upanishads.",
     systemPrompt: SCHOPENHAUER_SYSTEM_PROMPT,
   },
+  james: {
+    id: "james",
+    name: "William James",
+    subtitle: "El pragmatista del arroyo de la conciencia",
+    place: "Cambridge, Massachusetts · estudio · luz de octubre",
+    glyph: "❧",
+    opening:
+      "Pase, pase. Siéntese donde encuentre sitio — los libros se han apoderado de las sillas. ¿De qué quería hablarme?",
+    blurb:
+      "La conciencia como corriente, la voluntad de creer, la experiencia religiosa. Un pragmatista cálido, entre Harvard y Bergson.",
+    systemPrompt: JAMES_SYSTEM_PROMPT,
+  },
 };
+
 
 export const PHILOSOPHER_LIST = Object.values(PHILOSOPHERS);
 
