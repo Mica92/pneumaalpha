@@ -76,6 +76,7 @@ function Index() {
           {t("umbral.kicker")}
         </p>
         <h1 className="fade-up mt-5 max-w-3xl font-display text-4xl font-light leading-[1.05] text-foreground md:text-6xl">
+          <span className="sr-only">Pneuma — conversaciones con cinco mentes filosóficas reconstruidas. </span>
           {t("umbral.title")}
         </h1>
         <p className="fade-up mt-6 max-w-xl text-sm leading-relaxed text-muted-foreground md:text-base">
