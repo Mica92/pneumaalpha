@@ -11,7 +11,9 @@ import { useEffect } from "react";
 import { Toaster } from "sonner";
 
 import { AuthProvider } from "@/hooks/use-auth";
+import { I18nProvider } from "@/lib/i18n";
 import { supabase } from "@/integrations/supabase/client";
+
 import appCss from "../styles.css?url";
 
 function NotFoundComponent() {
