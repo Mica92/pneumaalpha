@@ -4,6 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable/index";
 import { useAuth } from "@/hooks/use-auth";
 import { useI18n, LanguageSelector } from "@/lib/i18n";
+import { PneumaMark } from "@/components/pneuma-mark";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/auth")({
@@ -76,10 +77,8 @@ function AuthPage() {
           <div className="absolute bottom-0 left-0 h-px w-full bg-gradient-to-r from-transparent via-border to-transparent" />
         </div>
 
-        <div className="relative flex items-baseline gap-3">
-          <span className="font-display text-base font-light tracking-[0.3em] text-foreground">
-            PNEUMA
-          </span>
+        <div className="relative flex items-center gap-3">
+          <PneumaMark withWordmark size={28} />
           <span className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
             · vol. I
           </span>
@@ -115,7 +114,9 @@ function AuthPage() {
 
         <div className="w-full max-w-sm fade-up">
           <div className="mb-10">
-            <Link to="/" className="inline-block font-display text-3xl text-mist pneuma-breathe">∴</Link>
+            <Link to="/" className="inline-block pneuma-breathe" aria-label="Pneuma">
+              <PneumaMark size={36} />
+            </Link>
             <h1 className="mt-8 font-display text-3xl font-light leading-tight text-foreground">
               {mode === "signin" ? t("auth.title.signin") : t("auth.title.signup")}
             </h1>
