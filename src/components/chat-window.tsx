@@ -108,35 +108,35 @@ function ChatBody({
 
   return (
     <div className="flex min-h-screen flex-col">
-      <header className="sticky top-0 z-20 border-b border-border bg-background/70 px-6 py-3 backdrop-blur-md">
+      <header className="sticky top-0 z-20 border-b border-border/60 bg-background/75 px-6 py-4 backdrop-blur-xl">
         <div className="mx-auto flex max-w-3xl items-center justify-between">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-4">
             <Link
               to="/"
-              className="font-serif text-xs uppercase tracking-widest text-muted-foreground transition-colors hover:text-foreground"
+              className="text-xs uppercase tracking-[0.3em] text-muted-foreground transition-colors hover:text-foreground"
               title={t("chat.back")}
             >
               ←
             </Link>
-            <span className="font-serif text-2xl text-primary ember-breathe">{meta.glyph}</span>
+            <span className="font-display text-xl text-mist pneuma-breathe">{meta.glyph}</span>
             <div className="leading-tight">
-              <p className="font-serif text-base text-foreground">{meta.name}</p>
-              <p className="text-xs text-muted-foreground">{meta.place[lang]}</p>
+              <p className="font-display text-sm font-light tracking-wide text-foreground">{meta.name}</p>
+              <p className="mt-0.5 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">{meta.place[lang]}</p>
             </div>
           </div>
-          <div className="flex items-center gap-2 text-xs">
+          <div className="flex items-center gap-3">
             <LanguageSelector />
             <button
               onClick={async () => {
                 if (confirm(t("chat.confirmClear", { name: meta.name }))) await onClear();
               }}
-              className="rounded-md px-3 py-1.5 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+              className="rounded-md px-3 py-1.5 text-[10px] uppercase tracking-[0.25em] text-muted-foreground transition-colors hover:bg-card hover:text-foreground"
             >
               {t("chat.clear")}
             </button>
             <button
               onClick={onSignOut}
-              className="rounded-md px-3 py-1.5 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+              className="rounded-md px-3 py-1.5 text-[10px] uppercase tracking-[0.25em] text-muted-foreground transition-colors hover:bg-card hover:text-foreground"
             >
               {t("chat.exit")}
             </button>
@@ -144,11 +144,14 @@ function ChatBody({
         </div>
       </header>
 
-      <div ref={scrollRef} className="flex-1 overflow-y-auto px-4 py-10">
-        <div className="mx-auto max-w-3xl space-y-8">
+      <div ref={scrollRef} className="flex-1 overflow-y-auto px-4 py-12">
+        <div className="mx-auto max-w-3xl space-y-10">
           {messages.length === 0 && (
             <div className="fade-up space-y-6 py-8">
-              <p className="font-serif text-lg italic leading-relaxed text-muted-foreground">
+              <p className="font-display text-[10px] uppercase tracking-[0.4em] text-muted-foreground">
+                {meta.name}
+              </p>
+              <p className="font-display text-xl font-light leading-relaxed text-foreground/90 md:text-2xl">
                 {meta.opening[lang]}
               </p>
             </div>
@@ -161,7 +164,7 @@ function ChatBody({
             if (m.role === "user") {
               return (
                 <div key={m.id} className="flex justify-end fade-up">
-                  <div className="max-w-[80%] rounded-lg rounded-tr-sm bg-secondary/80 px-4 py-2.5 text-sm text-secondary-foreground">
+                  <div className="max-w-[80%] rounded-2xl rounded-tr-sm border border-border/60 bg-card/60 px-4 py-3 text-sm leading-relaxed text-foreground">
                     {text}
                   </div>
                 </div>
@@ -169,8 +172,10 @@ function ChatBody({
             }
             return (
               <div key={m.id} className="fade-up">
-                <p className="mb-2 font-serif text-xs uppercase tracking-widest text-primary/80">{meta.name}</p>
-                <article className="prose prose-invert prose-p:my-3 prose-p:leading-relaxed prose-p:font-serif prose-p:text-[1.05rem] prose-p:text-foreground/95 max-w-none">
+                <p className="mb-3 font-display text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
+                  {meta.name}
+                </p>
+                <article className="prose prose-invert prose-p:my-3 prose-p:leading-[1.75] prose-p:text-[15px] prose-p:text-foreground/90 prose-strong:text-foreground prose-em:text-mist max-w-none">
                   <ReactMarkdown>{text}</ReactMarkdown>
                 </article>
               </div>
@@ -179,12 +184,14 @@ function ChatBody({
 
           {status === "submitted" && (
             <div className="fade-up">
-              <p className="mb-2 font-serif text-xs uppercase tracking-widest text-primary/80">{meta.name}</p>
+              <p className="mb-3 font-display text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
+                {meta.name}
+              </p>
               <div className="flex items-center gap-1.5 py-2">
-                <span className="typing-dot h-1.5 w-1.5 rounded-full bg-primary" style={{ animationDelay: "0s" }} />
-                <span className="typing-dot h-1.5 w-1.5 rounded-full bg-primary" style={{ animationDelay: "0.2s" }} />
-                <span className="typing-dot h-1.5 w-1.5 rounded-full bg-primary" style={{ animationDelay: "0.4s" }} />
-                <span className="ml-2 font-serif text-xs italic text-muted-foreground">{t("chat.thinking")}</span>
+                <span className="typing-dot h-1 w-1 rounded-full bg-mist" style={{ animationDelay: "0s" }} />
+                <span className="typing-dot h-1 w-1 rounded-full bg-mist" style={{ animationDelay: "0.2s" }} />
+                <span className="typing-dot h-1 w-1 rounded-full bg-mist" style={{ animationDelay: "0.4s" }} />
+                <span className="ml-3 text-[11px] uppercase tracking-[0.25em] text-muted-foreground">{t("chat.thinking")}</span>
               </div>
             </div>
           )}
@@ -195,7 +202,7 @@ function ChatBody({
         </div>
       </div>
 
-      <footer className="sticky bottom-0 z-20 border-t border-border bg-background/80 px-4 py-4 backdrop-blur-md">
+      <footer className="sticky bottom-0 z-20 border-t border-border/60 bg-background/85 px-4 py-5 backdrop-blur-xl">
         <form onSubmit={handleSubmit} className="mx-auto flex max-w-3xl items-end gap-2">
           <textarea
             ref={inputRef}
@@ -214,20 +221,21 @@ function ChatBody({
               ta.style.height = "auto";
               ta.style.height = Math.min(ta.scrollHeight, 200) + "px";
             }}
-            className="flex-1 resize-none rounded-md border border-border bg-input px-4 py-3 font-serif text-[1.05rem] leading-relaxed text-foreground placeholder:italic placeholder:text-muted-foreground focus:border-ring focus:outline-none disabled:opacity-50"
+            className="flex-1 resize-none rounded-xl border border-border bg-input px-4 py-3 text-[15px] leading-relaxed text-foreground placeholder:text-muted-foreground focus:border-mist/50 focus:outline-none focus:ring-1 focus:ring-mist/15 disabled:opacity-50"
           />
           <button
             type="submit"
             disabled={isLoading}
-            className="self-end rounded-md bg-primary px-5 py-3 font-serif text-sm text-primary-foreground shadow-lamp transition-opacity hover:opacity-90 disabled:opacity-30"
+            className="self-end rounded-xl border border-mist/40 bg-mist/95 px-5 py-3 font-display text-sm text-primary-foreground transition-all hover:bg-mist disabled:opacity-30"
           >
             {t("chat.send")}
           </button>
         </form>
-        <p className="mx-auto mt-2 max-w-3xl text-center text-[10px] uppercase tracking-widest text-muted-foreground">
+        <p className="mx-auto mt-3 max-w-3xl text-center text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
           {t("chat.newline")}
         </p>
       </footer>
+
     </div>
   );
 }

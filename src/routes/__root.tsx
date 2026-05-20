@@ -20,14 +20,14 @@ function NotFoundComponent() {
   return (
     <div className="relative z-10 flex min-h-screen items-center justify-center px-4">
       <div className="max-w-md text-center">
-        <p className="font-serif text-7xl text-primary ember-breathe">∴</p>
-        <h1 className="mt-6 font-serif text-2xl text-foreground">El claro está vacío</h1>
-        <p className="mt-2 text-sm text-muted-foreground">Este sendero no conduce a ningún sitio.</p>
+        <p className="font-display text-7xl text-mist pneuma-breathe">∴</p>
+        <h1 className="mt-8 font-display text-2xl font-light text-foreground">Silence — this path leads nowhere</h1>
+        <p className="mt-3 text-sm text-muted-foreground">El camino se interrumpe en la niebla.</p>
         <Link
           to="/"
-          className="mt-6 inline-flex items-center justify-center rounded-md border border-border bg-card px-5 py-2 font-serif text-sm text-foreground transition-colors hover:bg-accent"
+          className="mt-8 inline-flex items-center justify-center rounded-md border border-border bg-card/60 px-6 py-2.5 text-xs uppercase tracking-[0.25em] text-foreground transition-colors hover:border-mist/40 hover:bg-card"
         >
-          Volver a la cabaña
+          ← Pneuma
         </Link>
       </div>
     </div>
@@ -40,14 +40,15 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   return (
     <div className="relative z-10 flex min-h-screen items-center justify-center px-4">
       <div className="max-w-md text-center">
-        <h1 className="font-serif text-xl text-foreground">El pensamiento se ha interrumpido</h1>
-        <p className="mt-2 text-sm text-muted-foreground">{error.message}</p>
+        <h1 className="font-display text-xl font-light text-foreground">The thought has been interrupted</h1>
+        <p className="mt-3 text-sm text-muted-foreground">{error.message}</p>
         <button
           onClick={() => { router.invalidate(); reset(); }}
-          className="mt-6 inline-flex items-center justify-center rounded-md bg-primary px-5 py-2 font-serif text-sm text-primary-foreground transition-colors hover:opacity-90"
+          className="mt-8 inline-flex items-center justify-center rounded-md border border-mist/40 bg-mist/95 px-6 py-2.5 text-xs uppercase tracking-[0.25em] text-primary-foreground transition-opacity hover:opacity-90"
         >
-          Reanudar
+          Resume
         </button>
+
       </div>
     </div>
   );
@@ -70,7 +71,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "stylesheet", href: appCss },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" },
+      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Sora:wght@200;300;400;500;600&family=Manrope:wght@300;400;500;600&display=swap" },
+
     ],
   }),
   shellComponent: RootShell,
