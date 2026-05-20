@@ -9,6 +9,15 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
+// Bento span recipe — first card is the cinematic hero tile, others stack quietly.
+const BENTO_CLASSES = [
+  "md:col-span-3 md:row-span-2", // hero
+  "md:col-span-3 md:row-span-1",
+  "md:col-span-2 md:row-span-1",
+  "md:col-span-2 md:row-span-1",
+  "md:col-span-2 md:row-span-1",
+];
+
 function Index() {
   const { user, loading } = useAuth();
   const navigate = useNavigate();
@@ -21,67 +30,116 @@ function Index() {
   if (loading || !user) {
     return (
       <main className="flex min-h-screen items-center justify-center">
-        <p className="font-serif text-3xl text-primary ember-breathe">∴</p>
+        <p className="font-display text-3xl text-mist pneuma-breathe">∴</p>
       </main>
     );
   }
 
   return (
-    <main className="relative z-10 mx-auto flex min-h-screen max-w-4xl flex-col px-6 py-16">
-      <div className="absolute right-6 top-6">
-        <LanguageSelector />
-      </div>
+    <main className="relative z-10 mx-auto flex min-h-screen max-w-6xl flex-col px-6 py-10 md:px-10 md:py-14">
+      {/* Top nav — clinical, almost invisible */}
+      <nav className="flex items-center justify-between">
+        <div className="flex items-baseline gap-3">
+          <span className="font-display text-base font-light tracking-[0.3em] text-foreground">
+            PNEUMA
+          </span>
+          <span className="hidden text-[10px] uppercase tracking-[0.3em] text-muted-foreground sm:inline">
+            · {lang === "es" ? "vol. I" : "vol. I"}
+          </span>
+        </div>
+        <div className="flex items-center gap-4">
+          <LanguageSelector />
+          <button
+            onClick={async () => {
+              await supabase.auth.signOut();
+              navigate({ to: "/auth" });
+            }}
+            className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground transition-colors hover:text-foreground"
+          >
+            {t("umbral.exit")}
+          </button>
+        </div>
+      </nav>
 
-      <header className="mb-16 text-center fade-up">
-        <p className="font-serif text-xs uppercase tracking-[0.4em] text-primary/80">
-          {t("app.name")} · {t("umbral.kicker")}
+      {/* Hero header */}
+      <header className="mt-16 mb-12 md:mt-24 md:mb-16">
+        <p className="tracking-in font-display text-[10px] uppercase text-muted-foreground">
+          {t("umbral.kicker")}
         </p>
-        <h1 className="mt-4 font-serif text-5xl text-foreground">
+        <h1 className="fade-up mt-5 max-w-3xl font-display text-4xl font-light leading-[1.05] text-foreground md:text-6xl">
           {t("umbral.title")}
         </h1>
-        <p className="mt-4 font-serif text-base italic text-muted-foreground">
+        <p className="fade-up mt-6 max-w-xl text-sm leading-relaxed text-muted-foreground md:text-base">
           {t("umbral.sub")}
         </p>
       </header>
 
-      <div className="grid flex-1 grid-cols-1 gap-6 md:grid-cols-2">
-        {PHILOSOPHER_LIST.map((p) => (
-          <Link
-            key={p.id}
-            to="/$philosopher"
-            params={{ philosopher: p.id }}
-            className="group fade-up relative flex flex-col rounded-lg border border-border bg-card/40 p-8 transition-all hover:border-primary/60 hover:bg-card/70 hover:shadow-lamp"
-          >
-            <div className="mb-6 flex items-baseline gap-3">
-              <span className="font-serif text-4xl text-primary ember-breathe">{p.glyph}</span>
-              <div>
-                <h2 className="font-serif text-3xl text-foreground">{p.name}</h2>
-                <p className="font-serif text-sm italic text-muted-foreground">{p.subtitle[lang]}</p>
+      {/* Bento grid — 6 cols, asymmetric tiles */}
+      <section className="grid flex-1 auto-rows-[minmax(180px,auto)] grid-cols-1 gap-3 md:grid-cols-6">
+        {PHILOSOPHER_LIST.map((p, i) => {
+          const isHero = i === 0;
+          return (
+            <Link
+              key={p.id}
+              to="/$philosopher"
+              params={{ philosopher: p.id }}
+              className={`group fade-up relative flex flex-col justify-between overflow-hidden rounded-xl border border-border bg-card/50 p-6 backdrop-blur-sm transition-all duration-500 hover:border-mist/40 hover:bg-card/80 hover:shadow-mist md:p-8 ${BENTO_CLASSES[i] ?? "md:col-span-2 md:row-span-1"}`}
+              style={{ animationDelay: `${i * 80}ms` }}
+            >
+              {/* Subtle inner glow on hover */}
+              <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-100">
+                <div className="absolute -top-32 left-1/2 h-64 w-64 -translate-x-1/2 rounded-full bg-mist/8 blur-3xl" />
               </div>
-            </div>
-            <p className="font-serif text-base leading-relaxed text-foreground/85">
-              {p.blurb[lang]}
-            </p>
-            <p className="mt-6 text-xs uppercase tracking-widest text-muted-foreground">
-              {p.place[lang]}
-            </p>
-            <p className="mt-8 font-serif text-xs uppercase tracking-[0.3em] text-primary/70 opacity-0 transition-opacity group-hover:opacity-100">
-              {t("umbral.enter")}
-            </p>
-          </Link>
-        ))}
-      </div>
 
-      <footer className="mt-16 text-center">
-        <button
-          onClick={async () => {
-            await supabase.auth.signOut();
-            navigate({ to: "/auth" });
-          }}
-          className="font-serif text-xs uppercase tracking-widest text-muted-foreground transition-colors hover:text-foreground"
-        >
-          {t("umbral.exit")}
-        </button>
+              {/* Index marker — top-right, clinical */}
+              <span className="absolute right-5 top-5 font-mono text-[10px] tracking-widest text-muted-foreground/70">
+                {String(i + 1).padStart(2, "0")} / 05
+              </span>
+
+              <div className="relative">
+                <span
+                  className={`pneuma-breathe block font-display text-foreground/90 ${
+                    isHero ? "text-6xl md:text-7xl" : "text-4xl"
+                  }`}
+                >
+                  {p.glyph}
+                </span>
+                <h2
+                  className={`mt-6 font-display font-light tracking-tight text-foreground ${
+                    isHero ? "text-3xl md:text-4xl" : "text-xl md:text-2xl"
+                  }`}
+                >
+                  {p.name}
+                </h2>
+                <p className="mt-2 text-xs leading-relaxed text-muted-foreground md:text-sm">
+                  {p.subtitle[lang]}
+                </p>
+              </div>
+
+              <div className="relative mt-6 space-y-3">
+                {isHero && (
+                  <p className="max-w-md text-sm leading-relaxed text-foreground/75 md:text-[15px]">
+                    {p.blurb[lang]}
+                  </p>
+                )}
+                <div className="flex items-center justify-between border-t border-border/60 pt-3">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground/80">
+                    {p.place[lang]}
+                  </span>
+                  <span className="font-display text-[10px] uppercase tracking-[0.3em] text-muted-foreground opacity-0 transition-all duration-500 group-hover:translate-x-0 group-hover:text-foreground group-hover:opacity-100">
+                    {t("umbral.enter")}
+                  </span>
+                </div>
+              </div>
+            </Link>
+          );
+        })}
+      </section>
+
+      {/* Footer hairline */}
+      <footer className="mt-16 flex items-center justify-between border-t border-border/60 pt-6 text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
+        <span>Pneuma · {new Date().getFullYear()}</span>
+        <span className="font-mono">∴ · ✦ · ❧ · ☤ · ⚒</span>
       </footer>
     </main>
   );
