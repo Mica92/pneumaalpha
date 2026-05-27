@@ -11,10 +11,10 @@ export const Route = createFileRoute("/auth")({
   component: AuthPage,
   head: () => ({
     meta: [
-      { title: "Acceso — Pneuma" },
-      { name: "description", content: "Inicia sesión o crea tu cuenta para conversar con las cinco mentes filosóficas de Pneuma." },
-      { property: "og:title", content: "Acceso — Pneuma" },
-      { property: "og:description", content: "Entra al umbral de Pneuma." },
+      { title: "Acceso — Zito" },
+      { name: "description", content: "Inicia sesión o crea tu cuenta para conversar con las cinco mentes filosóficas de Zito." },
+      { property: "og:title", content: "Acceso — Zito" },
+      { property: "og:description", content: "Entra al umbral de Zito." },
       { property: "og:url", content: "https://pneumaalpha.lovable.app/auth" },
       { name: "robots", content: "noindex" },
     ],
@@ -124,7 +124,7 @@ function AuthPage() {
 
         <div className="w-full max-w-sm fade-up">
           <div className="mb-10">
-            <Link to="/" className="inline-block pneuma-breathe" aria-label="Pneuma">
+            <Link to="/" className="inline-block pneuma-breathe" aria-label="Zito">
               <PneumaMark size={36} />
             </Link>
             <h1 className="mt-8 font-display text-3xl font-light leading-tight text-foreground">

@@ -10,9 +10,9 @@ export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "Pneuma — Umbral · cinco filósofos, una conversación" },
-      { name: "description", content: "El umbral de Pneuma: elige a Heidegger, Schopenhauer, James, Nietzsche o Marx y conversa con su voz, en español o en inglés." },
-      { property: "og:title", content: "Pneuma — Umbral" },
+      { title: "Zito — Umbral · cinco filósofos, una conversación" },
+      { name: "description", content: "El umbral de Zito: elige a Heidegger, Schopenhauer, James, Nietzsche o Marx y conversa con su voz, en español o en inglés." },
+      { property: "og:title", content: "Zito — Umbral" },
       { property: "og:description", content: "Cinco conciencias filosóficas reconstruidas. Una lámpara distante. Una conversación que no se apaga." },
       { property: "og:url", content: "https://pneumaalpha.lovable.app/" },
     ],
@@ -76,7 +76,7 @@ function Index() {
           {t("umbral.kicker")}
         </p>
         <h1 className="fade-up mt-5 max-w-3xl font-display text-4xl font-light leading-[1.05] text-foreground md:text-6xl">
-          <span className="sr-only">Pneuma — conversaciones con cinco mentes filosóficas reconstruidas. </span>
+          <span className="sr-only">Zito — conversaciones con cinco mentes filosóficas reconstruidas. </span>
           {t("umbral.title")}
         </h1>
         <p className="fade-up mt-6 max-w-xl text-sm leading-relaxed text-muted-foreground md:text-base">
@@ -148,7 +148,7 @@ function Index() {
 
       {/* Footer hairline */}
       <footer className="mt-16 flex items-center justify-between border-t border-border/60 pt-6 text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
-        <span>Pneuma · {new Date().getFullYear()}</span>
+        <span>Zito · {new Date().getFullYear()}</span>
         <span className="font-mono">∴ · ✦ · ❧ · ☤ · ⚒</span>
       </footer>
     </main>
