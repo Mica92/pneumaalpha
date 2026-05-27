@@ -27,7 +27,7 @@ function NotFoundComponent() {
           to="/"
           className="mt-8 inline-flex items-center justify-center rounded-md border border-border bg-card/60 px-6 py-2.5 text-xs uppercase tracking-[0.25em] text-foreground transition-colors hover:border-mist/40 hover:bg-card"
         >
-          ← Zito
+          ← PneumaA
         </Link>
       </div>
     </div>
@@ -59,15 +59,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Zito — conversaciones con conciencias filosóficas reconstruidas" },
-      { name: "description", content: "Zito: conversa libremente, en español o en inglés, con conciencias filosóficas reconstruidas — Heidegger, Schopenhauer, James, Nietzsche, Marx." },
-      { property: "og:title", content: "Zito — conversaciones con conciencias filosóficas reconstruidas" },
-      { property: "og:description", content: "Zito: conversa libremente, en español o en inglés, con conciencias filosóficas reconstruidas — Heidegger, Schopenhauer, James, Nietzsche, Marx." },
+      { title: "PneumaA — conversaciones con conciencias filosóficas reconstruidas" },
+      { name: "description", content: "PneumaA: conversa libremente, en español o en inglés, con conciencias filosóficas reconstruidas — Heidegger, Schopenhauer, James, Nietzsche, Marx." },
+      { property: "og:title", content: "PneumaA — conversaciones con conciencias filosóficas reconstruidas" },
+      { property: "og:description", content: "PneumaA: conversa libremente, en español o en inglés, con conciencias filosóficas reconstruidas — Heidegger, Schopenhauer, James, Nietzsche, Marx." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
 
-      { name: "twitter:title", content: "Zito — conversaciones con conciencias filosóficas reconstruidas" },
-      { name: "twitter:description", content: "Zito: conversa libremente, en español o en inglés, con conciencias filosóficas reconstruidas — Heidegger, Schopenhauer, James, Nietzsche, Marx." },
+      { name: "twitter:title", content: "PneumaA — conversaciones con conciencias filosóficas reconstruidas" },
+      { name: "twitter:description", content: "PneumaA: conversa libremente, en español o en inglés, con conciencias filosóficas reconstruidas — Heidegger, Schopenhauer, James, Nietzsche, Marx." },
       { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/6a615d32-8995-4ede-85b3-608b382a2e18" },
       { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/6a615d32-8995-4ede-85b3-608b382a2e18" },
     ],

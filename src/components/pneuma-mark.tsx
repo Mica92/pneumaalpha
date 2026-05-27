@@ -1,5 +1,5 @@
 /**
- * Zito mark — chevron glyph adapted to the "Arrival fog" palette.
+ * PneumaA mark — chevron glyph adapted to the "Arrival fog" palette.
  * Two stacked angle shapes (mist + glacier) pointing inward, like a breath
  * folding back on itself. Used as the brand logo across nav and auth.
  */

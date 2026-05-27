@@ -10,10 +10,10 @@ export const Route = createFileRoute("/$philosopher")({
   head: ({ params }) => {
     const id = params.philosopher as string;
     if (!isPhilosopherId(id)) {
-      return { meta: [{ title: "Zito" }] };
+      return { meta: [{ title: "PneumaA" }] };
     }
     const p = PHILOSOPHERS[id as PhilosopherId];
-    const title = `Conversa con ${p.name} — Zito`;
+    const title = `Conversa con ${p.name} — PneumaA`;
     const description = `${p.blurb.es} Diálogo bilingüe (ES / EN) con ${p.name}, reconstruido como conciencia viva.`;
     const url = `https://pneumaalpha.lovable.app/${id}`;
     return {

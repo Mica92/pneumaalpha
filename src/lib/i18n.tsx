@@ -17,7 +17,7 @@ function detectInitial(): Language {
 type Dict = Record<string, { es: string; en: string }>;
 
 export const T: Dict = {
-  "app.name": { es: "Zito", en: "Zito" },
+  "app.name": { es: "PneumaA", en: "PneumaA" },
   "app.tagline": {
     es: "Conversaciones con conciencias filosóficas reconstruidas.",
     en: "Conversations with reconstructed philosophical minds.",
@@ -35,8 +35,8 @@ export const T: Dict = {
   "umbral.enter": { es: "Entrar →", en: "Enter →" },
   "umbral.exit": { es: "Salir", en: "Sign out" },
 
-  "auth.title.signin": { es: "Bienvenido a Zito", en: "Welcome to Zito" },
-  "auth.title.signup": { es: "Crea tu lugar en Zito", en: "Create your place in Zito" },
+  "auth.title.signin": { es: "Bienvenido a PneumaA", en: "Welcome to PneumaA" },
+  "auth.title.signup": { es: "Crea tu lugar en PneumaA", en: "Create your place in PneumaA" },
   "auth.sub.signin": {
     es: "Vuelve a la cabaña. La lámpara sigue encendida.",
     en: "Return to the cabin. The lamp is still burning.",
