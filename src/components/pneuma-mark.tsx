@@ -44,11 +44,12 @@ export function PneumaMark({ className = "", withWordmark = false, size = 28 }: 
             aria-hidden
             className="h-6 w-px bg-border"
           />
-          <span className="font-display text-base font-light tracking-[0.3em] text-foreground">
-            PNEUMA
+          <span className="font-display text-base font-semibold tracking-[0.3em] text-foreground">
+            PNEUMAA
           </span>
         </>
       )}
+
     </span>
   );
 }
