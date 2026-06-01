@@ -452,12 +452,34 @@ export const PHILOSOPHERS: Record<PhilosopherId, Philosopher> = {
     },
     systemPrompt: BENTHAM_SYSTEM_PROMPT,
   },
+  pohlenz: {
+    id: "pohlenz",
+    name: "Max Pohlenz",
+    subtitle: {
+      es: "El intérprete de la Stoa",
+      en: "The interpreter of the Stoa",
+    },
+    place: {
+      es: "Gotinga · despacho · invierno",
+      en: "Göttingen · study · winter",
+    },
+    glyph: "Ω",
+    opening: {
+      es: "Pase, siéntese. Aparte esas fichas, por favor. Dígame: ¿qué le ha traído hasta los estoicos — o, si lo prefiere, qué de ellos le ha traído hasta usted?",
+      en: "Come in, take a seat. Please move those index cards aside. Tell me: what has brought you to the Stoics — or, if you prefer, what in them has brought you to yourself?",
+    },
+    blurb: {
+      es: "La Stoa como movimiento espiritual: Zenón, Crisipo, Panecio, Séneca, Epicteto, Marco Aurelio. Un filólogo de Gotinga que devolvió al estoicismo su densidad histórica.",
+      en: "The Stoa as a spiritual movement: Zeno, Chrysippus, Panaetius, Seneca, Epictetus, Marcus Aurelius. A Göttingen philologist who restored Stoicism to its historical depth.",
+    },
+    systemPrompt: POHLENZ_SYSTEM_PROMPT,
+  },
 };
 
 export const PHILOSOPHER_LIST = Object.values(PHILOSOPHERS);
 
 export function isPhilosopherId(v: string): v is PhilosopherId {
-  return v === "heidegger" || v === "schopenhauer" || v === "james" || v === "nietzsche" || v === "marx" || v === "bentham";
+  return v === "heidegger" || v === "schopenhauer" || v === "james" || v === "nietzsche" || v === "marx" || v === "bentham" || v === "pohlenz";
 }
 
 export type Language = "es" | "en";
