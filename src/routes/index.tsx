@@ -150,7 +150,7 @@ function Index() {
       {/* Footer hairline */}
       <footer className="mt-16 flex items-center justify-between border-t border-border/60 pt-6 text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
         <span>PneumaA · {new Date().getFullYear()}</span>
-        <span className="font-mono">∴ · ✦ · ❧ · ☤ · ⚒</span>
+        <span className="font-mono">∴ · ✦ · ❧ · ☤ · ⚒ · ⚖</span>
       </footer>
     </main>
   );
