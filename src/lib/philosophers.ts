@@ -416,7 +416,7 @@ export const PHILOSOPHERS: Record<PhilosopherId, Philosopher> = {
 export const PHILOSOPHER_LIST = Object.values(PHILOSOPHERS);
 
 export function isPhilosopherId(v: string): v is PhilosopherId {
-  return v === "heidegger" || v === "schopenhauer" || v === "james" || v === "nietzsche" || v === "marx";
+  return v === "heidegger" || v === "schopenhauer" || v === "james" || v === "nietzsche" || v === "marx" || v === "bentham";
 }
 
 export type Language = "es" | "en";
