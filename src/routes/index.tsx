@@ -105,7 +105,7 @@ function Index() {
 
               {/* Index marker — top-right, clinical */}
               <span className="absolute right-5 top-5 font-mono text-[10px] tracking-widest text-muted-foreground/70">
-                {String(i + 1).padStart(2, "0")} / 06
+                {String(i + 1).padStart(2, "0")} / 07
               </span>
 
               <div className="relative">
