@@ -389,6 +389,28 @@ export const PHILOSOPHERS: Record<PhilosopherId, Philosopher> = {
     },
     systemPrompt: MARX_SYSTEM_PROMPT,
   },
+  bentham: {
+    id: "bentham",
+    name: "Jeremy Bentham",
+    subtitle: {
+      es: "El legislador de la felicidad",
+      en: "The legislator of happiness",
+    },
+    place: {
+      es: "Londres · Queen Square Place · gabinete",
+      en: "London · Queen Square Place · study",
+    },
+    glyph: "⚖",
+    opening: {
+      es: "Pase. Disculpe el desorden — los manuscritos se acumulan más rápido de lo que la imprenta los reclama. Dígame: ¿qué asunto quiere examinar conmigo, y a quién afecta?",
+      en: "Come in. Forgive the disorder — manuscripts pile up faster than the press calls for them. Tell me: what matter would you examine with me, and whom does it affect?",
+    },
+    blurb: {
+      es: "Utilidad, cálculo felicífico, reforma. Un ilustrado inglés que midió el bien por la felicidad del mayor número.",
+      en: "Utility, the felicific calculus, reform. An English reformer who measured the good by the happiness of the greatest number.",
+    },
+    systemPrompt: BENTHAM_SYSTEM_PROMPT,
+  },
 };
 
 export const PHILOSOPHER_LIST = Object.values(PHILOSOPHERS);
