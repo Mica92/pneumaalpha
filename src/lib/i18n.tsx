@@ -90,6 +90,16 @@ export const T: Dict = {
     en: "The voice broke for a moment. Try again.",
   },
 
+  "chat.archive": { es: "Archivo", en: "Archive" },
+  "chat.archive.title": { es: "Archivo de conversaciones", en: "Conversation archive" },
+  "chat.archive.empty": {
+    es: "Aún no hay conversaciones guardadas.",
+    en: "No saved conversations yet.",
+  },
+  "chat.archive.close": { es: "Cerrar", en: "Close" },
+  "chat.archive.loading": { es: "Recuperando el archivo…", en: "Retrieving the archive…" },
+  "chat.you": { es: "Tú", en: "You" },
+
   "lang.label": { es: "Idioma", en: "Language" },
 };
 

@@ -1,11 +1,11 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport, type UIMessage } from "ai";
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import ReactMarkdown from "react-markdown";
-import { loadMessages, sendChat, clearConversation } from "@/lib/chat.functions";
+import { loadMessages, loadFullHistory, sendChat, clearConversation } from "@/lib/chat.functions";
 import { PHILOSOPHERS, type PhilosopherId } from "@/lib/philosophers";
 import { useI18n, LanguageSelector } from "@/lib/i18n";
 import { useVoiceDictation } from "@/hooks/use-voice-dictation";
@@ -64,10 +64,23 @@ function ChatBody({
   onSignOut: () => void;
 }) {
   const sendFn = useServerFn(sendChat);
+  const historyFn = useServerFn(loadFullHistory);
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const meta = PHILOSOPHERS[philosopher];
   const { lang, t } = useI18n();
+  const [archiveOpen, setArchiveOpen] = useState(false);
+
+  const {
+    data: history,
+    isFetching: historyLoading,
+    refetch: refetchHistory,
+  } = useQuery({
+    queryKey: ["history", philosopher],
+    queryFn: () => historyFn({ data: { philosopher } }),
+    enabled: archiveOpen,
+    staleTime: 0,
+  });
 
   const dictation = useVoiceDictation({
     lang,
@@ -146,6 +159,15 @@ function ChatBody({
           </div>
           <div className="flex items-center gap-3">
             <LanguageSelector />
+            <button
+              onClick={() => {
+                setArchiveOpen(true);
+                refetchHistory();
+              }}
+              className="rounded-md px-3 py-1.5 text-[10px] uppercase tracking-[0.25em] text-muted-foreground transition-colors hover:bg-card hover:text-foreground"
+            >
+              {t("chat.archive")}
+            </button>
             <button
               onClick={async () => {
                 if (confirm(t("chat.confirmClear", { name: meta.name }))) await onClear();
@@ -282,6 +304,74 @@ function ChatBody({
         </p>
       </footer>
 
+      {archiveOpen && (
+        <div
+          className="fixed inset-0 z-50 flex justify-end bg-background/70 backdrop-blur-xl fade-up"
+          onClick={() => setArchiveOpen(false)}
+        >
+          <aside
+            className="flex h-full w-full max-w-xl flex-col border-l border-border/60 bg-background/95 shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <header className="flex items-center justify-between border-b border-border/60 px-6 py-5">
+              <div className="leading-tight">
+                <p className="font-display text-[10px] uppercase tracking-[0.4em] text-muted-foreground">
+                  {meta.name}
+                </p>
+                <h2 className="mt-1 font-display text-base font-light text-foreground">
+                  {t("chat.archive.title")}
+                </h2>
+              </div>
+              <button
+                onClick={() => setArchiveOpen(false)}
+                className="rounded-md px-3 py-1.5 text-[10px] uppercase tracking-[0.25em] text-muted-foreground transition-colors hover:bg-card hover:text-foreground"
+              >
+                {t("chat.archive.close")}
+              </button>
+            </header>
+            <div className="flex-1 overflow-y-auto px-6 py-6">
+              {historyLoading && (!history || history.length === 0) ? (
+                <p className="text-center text-[11px] uppercase tracking-[0.3em] text-muted-foreground pneuma-breathe">
+                  {t("chat.archive.loading")}
+                </p>
+              ) : !history || history.length === 0 ? (
+                <p className="text-center text-[11px] uppercase tracking-[0.3em] text-muted-foreground">
+                  {t("chat.archive.empty")}
+                </p>
+              ) : (
+                <ol className="space-y-6">
+                  {history.map((m) => {
+                    const date = new Date(m.created_at);
+                    const stamp = date.toLocaleString(lang === "es" ? "es-ES" : "en-US", {
+                      day: "2-digit",
+                      month: "short",
+                      year: "numeric",
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    });
+                    const author = m.role === "user" ? t("chat.you") : meta.name;
+                    return (
+                      <li key={m.id} className="border-l border-border/50 pl-4">
+                        <div className="mb-1.5 flex items-center justify-between">
+                          <span className="font-display text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
+                            {author}
+                          </span>
+                          <span className="font-mono text-[10px] tracking-[0.15em] text-muted-foreground/70">
+                            {stamp}
+                          </span>
+                        </div>
+                        <p className="whitespace-pre-wrap text-[13.5px] leading-relaxed text-foreground/85">
+                          {m.content}
+                        </p>
+                      </li>
+                    );
+                  })}
+                </ol>
+              )}
+            </div>
+          </aside>
+        </div>
+      )}
     </div>
   );
 }
