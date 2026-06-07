@@ -1,11 +1,11 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport, type UIMessage } from "ai";
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import ReactMarkdown from "react-markdown";
-import { loadMessages, sendChat, clearConversation } from "@/lib/chat.functions";
+import { loadMessages, loadFullHistory, sendChat, clearConversation } from "@/lib/chat.functions";
 import { PHILOSOPHERS, type PhilosopherId } from "@/lib/philosophers";
 import { useI18n, LanguageSelector } from "@/lib/i18n";
 import { useVoiceDictation } from "@/hooks/use-voice-dictation";
