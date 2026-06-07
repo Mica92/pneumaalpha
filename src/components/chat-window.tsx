@@ -64,10 +64,23 @@ function ChatBody({
   onSignOut: () => void;
 }) {
   const sendFn = useServerFn(sendChat);
+  const historyFn = useServerFn(loadFullHistory);
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const meta = PHILOSOPHERS[philosopher];
   const { lang, t } = useI18n();
+  const [archiveOpen, setArchiveOpen] = useState(false);
+
+  const {
+    data: history,
+    isFetching: historyLoading,
+    refetch: refetchHistory,
+  } = useQuery({
+    queryKey: ["history", philosopher],
+    queryFn: () => historyFn({ data: { philosopher } }),
+    enabled: archiveOpen,
+    staleTime: 0,
+  });
 
   const dictation = useVoiceDictation({
     lang,
