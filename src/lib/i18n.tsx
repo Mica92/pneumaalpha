@@ -90,11 +90,18 @@ export const T: Dict = {
     en: "The voice broke for a moment. Try again.",
   },
 
-  "chat.archive": { es: "Archivo", en: "Archive" },
-  "chat.archive.title": { es: "Archivo de conversaciones", en: "Conversation archive" },
+  "chat.archive": { es: "Historial completo", en: "Full history" },
+  "chat.archive.title": {
+    es: "Historial completo con {name}",
+    en: "Full history with {name}",
+  },
+  "chat.archive.subtitle": {
+    es: "Solo conversaciones con {name}",
+    en: "Only conversations with {name}",
+  },
   "chat.archive.empty": {
-    es: "Aún no hay conversaciones guardadas.",
-    en: "No saved conversations yet.",
+    es: "Aún no hay conversaciones guardadas con este interlocutor.",
+    en: "No saved conversations with this interlocutor yet.",
   },
   "chat.archive.close": { es: "Cerrar", en: "Close" },
   "chat.archive.loading": { es: "Recuperando el archivo…", en: "Retrieving the archive…" },
