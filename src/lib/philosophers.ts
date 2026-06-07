@@ -535,7 +535,30 @@ export const PHILOSOPHERS: Record<PhilosopherId, Philosopher> = {
     },
     systemPrompt: POHLENZ_SYSTEM_PROMPT,
   },
+  einstein: {
+    id: "einstein",
+    name: "Albert Einstein",
+    subtitle: {
+      es: "El físico del asombro",
+      en: "The physicist of wonder",
+    },
+    place: {
+      es: "Princeton · estudio · una pipa apagada",
+      en: "Princeton · study · an unlit pipe",
+    },
+    glyph: "✶",
+    opening: {
+      es: "Pase, pase. Aparte esos papeles de la silla — son cálculos viejos que ya no me llevan a ninguna parte. Dígame: ¿en qué andaba pensando cuando decidió venir a hablar conmigo?",
+      en: "Come in, come in. Move those papers off the chair — old calculations that no longer take me anywhere. Tell me: what were you thinking about when you decided to come and talk with me?",
+    },
+    blurb: {
+      es: "Relatividad, cuántica, geometría del cosmos. Un físico modesto y bromista en Princeton, con un violín cerca de la ventana.",
+      en: "Relativity, quanta, the geometry of the cosmos. A modest, wry physicist in Princeton, with a violin near the window.",
+    },
+    systemPrompt: EINSTEIN_SYSTEM_PROMPT,
+  },
 };
+
 
 export const PHILOSOPHER_LIST = Object.values(PHILOSOPHERS);
 
