@@ -29,6 +29,7 @@ const BENTO_CLASSES = [
   "md:col-span-2 md:row-span-1",
   "md:col-span-3 md:row-span-1",
   "md:col-span-3 md:row-span-1",
+  "md:col-span-6 md:row-span-1",
 ];
 
 function Index() {
@@ -105,7 +106,7 @@ function Index() {
 
               {/* Index marker — top-right, clinical */}
               <span className="absolute right-5 top-5 font-mono text-[10px] tracking-widest text-muted-foreground/70">
-                {String(i + 1).padStart(2, "0")} / 07
+                {String(i + 1).padStart(2, "0")} / 08
               </span>
 
               <div className="relative">
@@ -151,7 +152,7 @@ function Index() {
       {/* Footer hairline */}
       <footer className="mt-16 flex items-center justify-between border-t border-border/60 pt-6 text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
         <span>PneumaA · {new Date().getFullYear()}</span>
-        <span className="font-mono">∴ · ✦ · ❧ · ☤ · ⚒ · ⚖ · Ω</span>
+        <span className="font-mono">∴ · ✦ · ❧ · ☤ · ⚒ · ⚖ · Ω · ✶</span>
       </footer>
     </main>
   );
