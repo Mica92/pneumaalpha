@@ -319,8 +319,11 @@ function ChatBody({
                   {meta.name}
                 </p>
                 <h2 className="mt-1 font-display text-base font-light text-foreground">
-                  {t("chat.archive.title")}
+                  {t("chat.archive.title", { name: meta.name })}
                 </h2>
+                <p className="mt-1.5 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground/80">
+                  {t("chat.archive.subtitle", { name: meta.name })}
+                </p>
               </div>
               <button
                 onClick={() => setArchiveOpen(false)}
