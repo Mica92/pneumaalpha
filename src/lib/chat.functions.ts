@@ -20,21 +20,14 @@ const ClearSchema = z.object({ philosopher: PhilosopherSchema });
 export const loadMessages = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((input) => LoadSchema.parse(input))
-  .handler(async ({ data, context }) => {
-    const { supabase, userId } = context;
-    const { data: rows, error } = await supabase
-      .from("messages")
-      .select("id, role, content, created_at")
-      .eq("user_id", userId)
-      .eq("philosopher", data.philosopher)
-      .order("created_at", { ascending: true })
-      .limit(500);
-    if (error) throw new Error(error.message);
-    return (rows ?? []).map((m) => ({
-      id: m.id as string,
-      role: m.role as "user" | "assistant",
-      parts: [{ type: "text" as const, text: m.content as string }],
-    }));
+  .handler(async () => {
+    // Conversations are persisted server-side for internal memory,
+    // but each session opens as a fresh silence on screen.
+    return [] as Array<{
+      id: string;
+      role: "user" | "assistant";
+      parts: Array<{ type: "text"; text: string }>;
+    }>;
   });
 
 export const sendChat = createServerFn({ method: "POST" })
