@@ -1,12 +1,12 @@
 # PneumaA
 
-> Bilingual (ES / EN) conversations with reconstructed philosophical minds — Heidegger, Schopenhauer, William James, Nietzsche, Marx, Bentham, and Max Pohlenz — each with their own voice, atmosphere, and memory.
+> Bilingual (ES / EN) conversations with reconstructed philosophical and scientific minds — Heidegger, Schopenhauer, William James, Nietzsche, Marx, Bentham, Max Pohlenz, and Albert Einstein — each with their own voice, atmosphere, and memory.
 
-PneumaA is a contemplative chat experience inspired by Blade Runner 2049, Dune, and Arrival. Each philosopher is rendered as a living consciousness with a distinct system prompt, place, and cadence. Users converse freely in Spanish or English; the AI replies in the same language.
+PneumaA is a contemplative chat experience inspired by Blade Runner 2049, Dune, and Arrival. Each figure is rendered as a living consciousness with a distinct system prompt, place, and cadence. Users converse freely in Spanish or English; the AI replies in the same language.
 
 ## Pages
 
-- [Threshold](/): The home page — choose a philosopher to converse with.
+- [Threshold](/): The home page — choose a mind to converse with.
 - [Heidegger](/heidegger): Being, anxiety, technology. A thinker by the fire in the Black Forest.
 - [Schopenhauer](/schopenhauer): The Will, suffering, compassion. A caustic gentleman between Kant and the Upanishads.
 - [William James](/james): Stream of consciousness, the will to believe, religious experience.
@@ -14,3 +14,4 @@ PneumaA is a contemplative chat experience inspired by Blade Runner 2049, Dune, 
 - [Marx](/marx): Commodity, surplus value, alienation, class struggle.
 - [Bentham](/bentham): Utility, the felicific calculus, reform. An English legislator of happiness.
 - [Pohlenz](/pohlenz): The Stoa as a living spiritual movement. A Göttingen philologist who restored Stoicism to its historical depth.
+- [Einstein](/einstein): Relativity, quanta, the geometry of the cosmos. A modest, wry physicist in Princeton.
