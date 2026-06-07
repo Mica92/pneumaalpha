@@ -20,14 +20,25 @@ const ClearSchema = z.object({ philosopher: PhilosopherSchema });
 export const loadMessages = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((input) => LoadSchema.parse(input))
-  .handler(async () => {
-    // Conversations are persisted server-side for internal memory,
-    // but each session opens as a fresh silence on screen.
-    return [] as Array<{
-      id: string;
-      role: "user" | "assistant";
-      parts: Array<{ type: "text"; text: string }>;
-    }>;
+  .handler(async ({ data, context }) => {
+    // The full conversation history is preserved server-side for internal memory.
+    // On screen we only surface the most recent exchanges — a quiet, recent slice.
+    const RECENT_LIMIT = 12;
+    const { supabase, userId } = context;
+    const { data: rows } = await supabase
+      .from("messages")
+      .select("id, role, content, created_at")
+      .eq("user_id", userId)
+      .eq("philosopher", data.philosopher)
+      .order("created_at", { ascending: false })
+      .limit(RECENT_LIMIT);
+
+    const recent = (rows ?? []).slice().reverse();
+    return recent.map((r) => ({
+      id: r.id as string,
+      role: r.role as "user" | "assistant",
+      parts: [{ type: "text" as const, text: r.content as string }],
+    }));
   });
 
 export const sendChat = createServerFn({ method: "POST" })
