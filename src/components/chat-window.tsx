@@ -160,6 +160,15 @@ function ChatBody({
           <div className="flex items-center gap-3">
             <LanguageSelector />
             <button
+              onClick={() => {
+                setArchiveOpen(true);
+                refetchHistory();
+              }}
+              className="rounded-md px-3 py-1.5 text-[10px] uppercase tracking-[0.25em] text-muted-foreground transition-colors hover:bg-card hover:text-foreground"
+            >
+              {t("chat.archive")}
+            </button>
+            <button
               onClick={async () => {
                 if (confirm(t("chat.confirmClear", { name: meta.name }))) await onClear();
               }}
