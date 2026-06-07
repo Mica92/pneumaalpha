@@ -41,6 +41,26 @@ export const loadMessages = createServerFn({ method: "POST" })
     }));
   });
 
+export const loadFullHistory = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((input) => LoadSchema.parse(input))
+  .handler(async ({ data, context }) => {
+    const { supabase, userId } = context;
+    const { data: rows } = await supabase
+      .from("messages")
+      .select("id, role, content, created_at")
+      .eq("user_id", userId)
+      .eq("philosopher", data.philosopher)
+      .order("created_at", { ascending: true });
+
+    return (rows ?? []).map((r) => ({
+      id: r.id as string,
+      role: r.role as "user" | "assistant",
+      content: r.content as string,
+      created_at: r.created_at as string,
+    }));
+  });
+
 export const sendChat = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((input) => SendSchema.parse(input))
