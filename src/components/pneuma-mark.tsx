@@ -20,18 +20,19 @@ export function PneumaMark({ className = "", withWordmark = false, size = 28 }: 
         aria-hidden
         className="shrink-0"
       >
-        {/* Lighter chevron — sky blue */}
+        {/* Outer chevron — mist (foreground tone) */}
         <path
           d="M28 14 L14 32 L28 50"
-          stroke="#3DB4F2"
+          stroke="var(--mist)"
           strokeWidth="9"
           strokeLinecap="round"
           strokeLinejoin="round"
+          opacity="0.55"
         />
-        {/* Darker chevron — indigo */}
+        {/* Inner chevron — glacier (deeper, cooler) */}
         <path
           d="M50 14 L30 32 L50 50"
-          stroke="#4F6BFF"
+          stroke="var(--foreground)"
           strokeWidth="9"
           strokeLinecap="round"
           strokeLinejoin="round"
