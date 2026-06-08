@@ -1,6 +1,6 @@
 # PneumaA
 
-> Bilingual (ES / EN) conversations with reconstructed philosophical and scientific minds — Heidegger, Schopenhauer, William James, Nietzsche, Marx, Bentham, Max Pohlenz, Albert Einstein, and Baruch Spinoza — each with their own voice, atmosphere, and memory.
+> Bilingual (ES / EN) conversations with reconstructed philosophical and scientific minds — Heidegger, Schopenhauer, William James, Nietzsche, Marx, Bentham, Max Pohlenz, Albert Einstein, and a living cartographer of classical Rationalism (Descartes, Spinoza, Leibniz, Malebranche) — each with their own voice, atmosphere, and memory.
 
 PneumaA is a contemplative chat experience inspired by Blade Runner 2049, Dune, and Arrival. Each figure is rendered as a living consciousness with a distinct system prompt, place, and cadence. Users converse freely in Spanish or English; the AI replies in the same language.
 
