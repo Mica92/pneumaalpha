@@ -7,8 +7,10 @@ function pick() {
 }
 
 export function GreekGlyph({ className, intervalMs = 600 }: { className?: string; intervalMs?: number }) {
-  const [g, setG] = useState(() => pick());
+  // Start with a deterministic glyph so SSR and first client render match.
+  const [g, setG] = useState<string>(GREEK[0]);
   useEffect(() => {
+    setG(pick());
     const id = setInterval(() => setG(pick()), intervalMs);
     return () => clearInterval(id);
   }, [intervalMs]);
