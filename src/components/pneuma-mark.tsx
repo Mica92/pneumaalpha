@@ -1,7 +1,7 @@
 /**
- * PneumaA mark — chevron glyph adapted to the "Arrival fog" palette.
- * Two stacked angle shapes (mist + glacier) pointing inward, like a breath
- * folding back on itself. Used as the brand logo across nav and auth.
+ * PNEUMALPHA mark — stacked chevron blades pointing right.
+ * Adapted to the "Arrival fog" palette: mist on top, glacier shadow below.
+ * Wordmark uses Sora bold (font-display) for consistency with the brand.
  */
 type Props = {
   className?: string;
@@ -9,7 +9,7 @@ type Props = {
   size?: number;
 };
 
-export function PneumaMark({ className = "", withWordmark = false, size = 28 }: Props) {
+export function PneumaMark({ className = "", withWordmark = false, size = 32 }: Props) {
   return (
     <span className={`inline-flex items-center gap-3 ${className}`}>
       <svg
@@ -20,37 +20,29 @@ export function PneumaMark({ className = "", withWordmark = false, size = 28 }: 
         aria-hidden
         className="shrink-0"
       >
-        {/* Outer chevron — mist (foreground tone) */}
+        {/* Upper chevron blade — mist */}
         <path
-          d="M28 14 L14 32 L28 50"
-          stroke="var(--mist)"
-          strokeWidth="9"
-          strokeLinecap="round"
-          strokeLinejoin="round"
+          d="M30 6 L52 6 L30 28 L8 28 Z"
+          fill="var(--mist)"
+        />
+        {/* Lower chevron blade — mist (slightly dimmed) */}
+        <path
+          d="M30 32 L52 32 L30 54 L8 54 Z"
+          fill="var(--mist)"
+          opacity="0.92"
+        />
+        {/* Shadow triangle at the tip — glacier */}
+        <path
+          d="M30 54 L41 43 L52 54 Z"
+          fill="var(--glacier)"
           opacity="0.55"
         />
-        {/* Inner chevron — glacier (deeper, cooler) */}
-        <path
-          d="M50 14 L30 32 L50 50"
-          stroke="var(--foreground)"
-          strokeWidth="9"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-
       </svg>
       {withWordmark && (
-        <>
-          <span
-            aria-hidden
-            className="h-6 w-px bg-border"
-          />
-          <span className="font-display text-base font-semibold tracking-[0.3em] text-foreground">
-            PNEUMAA
-          </span>
-        </>
+        <span className="font-display text-base font-bold tracking-[0.22em] text-foreground">
+          PNEUMALPHA
+        </span>
       )}
-
     </span>
   );
 }
