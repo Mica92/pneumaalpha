@@ -15,12 +15,13 @@ import { I18nProvider } from "@/lib/i18n";
 import { supabase } from "@/integrations/supabase/client";
 
 import appCss from "../styles.css?url";
+import { GreekGlyph } from "@/components/greek-glyph";
 
 function NotFoundComponent() {
   return (
     <div className="relative z-10 flex min-h-screen items-center justify-center px-4">
       <div className="max-w-md text-center">
-        <p className="font-display text-7xl text-mist pneuma-breathe">∴</p>
+        <GreekGlyph className="font-display text-7xl text-mist pneuma-breathe" />
         <h1 className="mt-8 font-display text-2xl font-light text-foreground">Silence — this path leads nowhere</h1>
         <p className="mt-3 text-sm text-muted-foreground">El camino se interrumpe en la niebla.</p>
         <Link

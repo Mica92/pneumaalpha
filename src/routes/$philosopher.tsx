@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useAuth } from "@/hooks/use-auth";
 import { supabase } from "@/integrations/supabase/client";
 import { ChatWindow } from "@/components/chat-window";
+import { GreekGlyph } from "@/components/greek-glyph";
 import { PHILOSOPHERS, isPhilosopherId, type PhilosopherId } from "@/lib/philosophers";
 
 export const Route = createFileRoute("/$philosopher")({
@@ -58,7 +59,7 @@ function PhilosopherChat() {
   if (loading || !user || !isPhilosopherId(philosopher)) {
     return (
       <main className="flex min-h-screen items-center justify-center">
-        <p className="font-serif text-3xl text-primary ember-breathe">∴</p>
+        <GreekGlyph className="font-serif text-3xl text-primary ember-breathe" />
       </main>
     );
   }
