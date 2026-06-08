@@ -10,10 +10,10 @@ export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "PneumaA — Umbral · cinco filósofos, una conversación" },
-      { name: "description", content: "El umbral de PneumaA: elige a Heidegger, Schopenhauer, James, Nietzsche o Marx y conversa con su voz, en español o en inglés." },
+      { title: "PneumaA — Umbral · múltiples filósofos, una conversación" },
+      { name: "description", content: "El umbral de PneumaA: elige entre múltiples mentes filosóficas y científicas reconstruidas y conversa con su voz, en español o en inglés." },
       { property: "og:title", content: "PneumaA — Umbral" },
-      { property: "og:description", content: "Cinco conciencias filosóficas reconstruidas. Una lámpara distante. Una conversación que no se apaga." },
+      { property: "og:description", content: "Múltiples conciencias filosóficas reconstruidas. Una lámpara distante. Una conversación que no se apaga." },
       { property: "og:url", content: "https://pneumaalpha.lovable.app/" },
     ],
     links: [{ rel: "canonical", href: "https://pneumaalpha.lovable.app/" }],
@@ -79,7 +79,7 @@ function Index() {
           {t("umbral.kicker")}
         </p>
         <h1 className="fade-up mt-5 max-w-3xl font-display text-4xl font-light leading-[1.05] text-foreground md:text-6xl">
-          <span className="sr-only">PneumaA — conversaciones con cinco mentes filosóficas reconstruidas. </span>
+          <span className="sr-only">PneumaA — conversaciones con múltiples mentes filosóficas reconstruidas. </span>
           {t("umbral.title")}
         </h1>
         <p className="fade-up mt-6 max-w-xl text-sm leading-relaxed text-muted-foreground md:text-base">
@@ -106,7 +106,7 @@ function Index() {
 
               {/* Index marker — top-right, clinical */}
               <span className="absolute right-5 top-5 font-mono text-[10px] tracking-widest text-muted-foreground/70">
-                {String(i + 1).padStart(2, "0")} / 08
+                {String(i + 1).padStart(2, "0")} / {String(PHILOSOPHER_LIST.length).padStart(2, "0")}
               </span>
 
               <div className="relative">
