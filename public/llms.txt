@@ -15,4 +15,4 @@ PneumaA is a contemplative chat experience inspired by Blade Runner 2049, Dune, 
 - [Bentham](/bentham): Utility, the felicific calculus, reform. An English legislator of happiness.
 - [Pohlenz](/pohlenz): The Stoa as a living spiritual movement. A Göttingen philologist who restored Stoicism to its historical depth.
 - [Einstein](/einstein): Relativity, quanta, the geometry of the cosmos. A modest, wry physicist in Princeton.
-- [Spinoza](/spinoza): One Substance, the affects, freedom as understanding. A lens grinder in The Hague.
+- [Racionalismo](/rationalism): A living map of 17th-century rationalism — Descartes, Spinoza, Leibniz, Malebranche and their circle, in a single voice.
