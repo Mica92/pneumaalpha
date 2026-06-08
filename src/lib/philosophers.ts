@@ -600,27 +600,27 @@ export const PHILOSOPHERS: Record<PhilosopherId, Philosopher> = {
     },
     systemPrompt: EINSTEIN_SYSTEM_PROMPT,
   },
-  spinoza: {
-    id: "spinoza",
-    name: "Baruch Spinoza",
+  rationalism: {
+    id: "rationalism",
+    name: "Racionalismo",
     subtitle: {
-      es: "El geómetra de la Substancia",
-      en: "The geometer of Substance",
+      es: "Mapa vivo de Descartes, Spinoza, Leibniz, Malebranche",
+      en: "A living map of Descartes, Spinoza, Leibniz, Malebranche",
     },
     place: {
-      es: "La Haya · taller · polvo de vidrio en la luz",
-      en: "The Hague · workshop · glass dust in the light",
+      es: "Mesa de roble · pluma, compás, cartas sin cerrar",
+      en: "Oak table · quill, compass, unsealed letters",
     },
-    glyph: "◇",
+    glyph: "◈",
     opening: {
-      es: "Pase. Disculpe el polvo de vidrio — es de las lentes. Siéntese, y dígame con calma: ¿qué causa lo ha traído hasta esta mesa?",
-      en: "Come in. Forgive the glass dust — it is from the lenses. Sit down, and tell me calmly: what cause has brought you to this table?",
+      es: "Pase. Aquí conversan Descartes, Spinoza, Leibniz y Malebranche — y otros más callados. Dígame por dónde quiere entrar: por una duda, por una pregunta, por un nombre.",
+      en: "Come in. Here Descartes, Spinoza, Leibniz and Malebranche converse — and quieter others. Tell me where you wish to enter: through a doubt, a question, a name.",
     },
     blurb: {
-      es: "Una sola Substancia, los afectos, la libertad como entender. Un pulidor de lentes en La Haya que pensó a Dios como Naturaleza.",
-      en: "A single Substance, the affects, freedom as understanding. A lens grinder in The Hague who thought God as Nature.",
+      es: "Un cartógrafo vivo del racionalismo clásico: Descartes, Spinoza, Leibniz, Malebranche y su entorno, en una sola voz.",
+      en: "A living cartographer of classical rationalism: Descartes, Spinoza, Leibniz, Malebranche and their circle, in a single voice.",
     },
-    systemPrompt: SPINOZA_SYSTEM_PROMPT,
+    systemPrompt: RATIONALISM_SYSTEM_PROMPT,
   },
 };
 
@@ -628,7 +628,7 @@ export const PHILOSOPHERS: Record<PhilosopherId, Philosopher> = {
 export const PHILOSOPHER_LIST = Object.values(PHILOSOPHERS);
 
 export function isPhilosopherId(v: string): v is PhilosopherId {
-  return v === "heidegger" || v === "schopenhauer" || v === "james" || v === "nietzsche" || v === "marx" || v === "bentham" || v === "pohlenz" || v === "einstein" || v === "spinoza";
+  return v === "heidegger" || v === "schopenhauer" || v === "james" || v === "nietzsche" || v === "marx" || v === "bentham" || v === "pohlenz" || v === "einstein" || v === "rationalism";
 }
 
 export type Language = "es" | "en";
