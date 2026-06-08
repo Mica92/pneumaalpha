@@ -96,17 +96,22 @@ function AuthPage() {
 
         <div className="relative max-w-md fade-up">
           <p className="font-display text-[10px] uppercase tracking-[0.4em] text-muted-foreground">
-            {lang === "es" ? "Manifiesto" : "Manifesto"}
+            {lang === "es" ? "Diálogo Alpha" : "Alpha Dialogue"}
           </p>
           <p className="mt-6 font-display text-2xl font-light leading-snug text-foreground">
             {lang === "es"
-              ? "Cinco conciencias filosóficas, reconstruidas. Una lámpara distante. Una conversación que no se apaga."
-              : "Five philosophical minds, reconstructed. A distant lamp. A conversation that does not go out."}
+              ? "Conversa con conciencias filosóficas."
+              : "Converse with philosophical minds."}
+          </p>
+          <p className="mt-4 font-display text-2xl font-light leading-snug text-foreground">
+            {lang === "es"
+              ? "Interactúa con la lucidez de las ideas."
+              : "Engage with the lucidity of ideas."}
           </p>
           <p className="mt-6 text-sm leading-relaxed text-muted-foreground">
             {lang === "es"
-              ? "Heidegger, Schopenhauer, James, Nietzsche, Marx — cada uno con su voz, su atmósfera, su memoria de usted."
-              : "Heidegger, Schopenhauer, James, Nietzsche, Marx — each with their own voice, atmosphere, and memory of you."}
+              ? "Heidegger, Marx y Schopenhauer entre otros."
+              : "Heidegger, Marx and Schopenhauer, among others."}
           </p>
         </div>
 

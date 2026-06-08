@@ -5,6 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { PHILOSOPHER_LIST } from "@/lib/philosophers";
 import { useI18n, LanguageSelector } from "@/lib/i18n";
 import { PneumaMark } from "@/components/pneuma-mark";
+import { GreekGlyph } from "@/components/greek-glyph";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -44,7 +45,7 @@ function Index() {
   if (loading || !user) {
     return (
       <main className="flex min-h-screen items-center justify-center">
-        <p className="font-display text-3xl text-mist pneuma-breathe">∴</p>
+        <GreekGlyph className="font-display text-3xl text-mist pneuma-breathe" />
       </main>
     );
   }

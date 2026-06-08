@@ -58,7 +58,7 @@ function PhilosopherChat() {
   if (loading || !user || !isPhilosopherId(philosopher)) {
     return (
       <main className="flex min-h-screen items-center justify-center">
-        <p className="font-serif text-3xl text-primary ember-breathe">∴</p>
+        <GreekGlyph className="font-serif text-3xl text-primary ember-breathe" />
       </main>
     );
   }
