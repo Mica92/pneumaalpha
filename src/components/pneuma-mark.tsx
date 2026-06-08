@@ -1,7 +1,7 @@
 /**
- * PNEUMALPHA mark — stacked chevron blades pointing right.
- * Adapted to the "Arrival fog" palette: mist on top, glacier shadow below.
- * Wordmark uses Sora bold (font-display) for consistency with the brand.
+ * Pneumalpha mark — chevron glyph adapted to the "Arrival fog" palette.
+ * Two stacked angle shapes (mist + foreground) pointing inward, like a breath
+ * folding back on itself. Used as the brand logo across nav and auth.
  */
 type Props = {
   className?: string;
@@ -9,7 +9,7 @@ type Props = {
   size?: number;
 };
 
-export function PneumaMark({ className = "", withWordmark = false, size = 32 }: Props) {
+export function PneumaMark({ className = "", withWordmark = false, size = 28 }: Props) {
   const label = "Pneumalpha";
   return (
     <span
@@ -26,32 +26,34 @@ export function PneumaMark({ className = "", withWordmark = false, size = 32 }: 
         focusable="false"
         className="shrink-0"
       >
-        {/* Upper chevron blade — mist, softened */}
+        {/* Outer chevron — mist (softer tone) */}
         <path
-          d="M30 6 L52 6 L30 28 L8 28 Z"
-          fill="var(--mist)"
-          opacity="0.78"
+          d="M28 14 L14 32 L28 50"
+          stroke="var(--mist)"
+          strokeWidth="9"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          opacity="0.55"
         />
-        {/* Lower chevron blade — slightly dimmer for depth */}
+        {/* Inner chevron — foreground (crisper) */}
         <path
-          d="M30 32 L52 32 L30 54 L8 54 Z"
-          fill="var(--mist)"
-          opacity="0.66"
-        />
-        {/* Shadow triangle at the tip — glacier accent */}
-        <path
-          d="M30 54 L41 43 L52 54 Z"
-          fill="var(--glacier)"
-          opacity="0.5"
+          d="M50 14 L30 32 L50 50"
+          stroke="var(--foreground)"
+          strokeWidth="9"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
       </svg>
       {withWordmark && (
-        <span
-          aria-hidden="true"
-          className="font-display text-base font-bold tracking-[0.22em] text-foreground"
-        >
-          PNEUMALPHA
-        </span>
+        <>
+          <span aria-hidden="true" className="h-6 w-px bg-border" />
+          <span
+            aria-hidden="true"
+            className="font-display text-base font-bold tracking-[0.22em] text-foreground"
+          >
+            PNEUMALPHA
+          </span>
+        </>
       )}
     </span>
   );
