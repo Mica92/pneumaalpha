@@ -151,8 +151,11 @@ function Index() {
       </section>
 
       {/* Footer hairline */}
-      <footer className="mt-16 flex items-center justify-between border-t border-border/60 pt-6 text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
+      <footer className="mt-16 flex flex-wrap items-center justify-between gap-3 border-t border-border/60 pt-6 text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
         <span>PneumaA · {new Date().getFullYear()}</span>
+        <Link to="/privacy" className="transition-colors hover:text-foreground">
+          {lang === "es" ? "Privacidad" : "Privacy"}
+        </Link>
         <span className="font-mono">∴ · ✦ · ❧ · ☤ · ⚒ · ⚖ · Ω · ✶</span>
       </footer>
     </main>
