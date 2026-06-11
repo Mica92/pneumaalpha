@@ -121,6 +121,21 @@ export const T: Dict = {
   },
 
   "lang.label": { es: "Idioma", en: "Language" },
+
+  "tools.kicker": { es: "Kit de herramientas", en: "Philosophical kit" },
+  "tools.section.title": {
+    es: "Kit de herramientas filosóficas",
+    en: "Philosophical toolkit",
+  },
+  "tools.section.sub": {
+    es: "Conversaciones guiadas por un método, no por una voz.",
+    en: "Conversations guided by a method, not a voice.",
+  },
+  "tools.change": { es: "Cambiar herramienta", en: "Change tool" },
+  "tools.sheet.title": {
+    es: "Elige una herramienta",
+    en: "Choose a tool",
+  },
 };
 
 type Ctx = {
