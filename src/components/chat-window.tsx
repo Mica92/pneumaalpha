@@ -136,6 +136,12 @@ function ChatBody({
 
   const isLoading = status === "submitted" || status === "streaming";
 
+  const sendText = async (text: string) => {
+    const trimmed = text.trim();
+    if (!trimmed || isLoading) return;
+    await sendMessage({ text: trimmed });
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
@@ -145,6 +151,26 @@ function ChatBody({
     form.reset();
     await sendMessage({ text });
   };
+
+  const handleTopicPick = async (topic: TopicId) => {
+    if (isLoading) return;
+    setActiveTopic(topic);
+    const t = TOPICS.find((x) => x.id === topic)!;
+    await sendText(t.prompt[lang]);
+  };
+
+  const handleDilemma = async () => {
+    if (isLoading) return;
+    await sendText(getDailyDilemmaPrompt(lang));
+  };
+
+  // Index of the most recent assistant message — chips render after it.
+  const lastAssistantIdx = (() => {
+    for (let i = messages.length - 1; i >= 0; i--) {
+      if (messages[i].role === "assistant") return i;
+    }
+    return -1;
+  })();
 
   return (
     <div className="flex min-h-screen flex-col">
