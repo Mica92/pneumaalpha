@@ -146,7 +146,7 @@ export function ToolChatWindow({
 
       {/* Active-tool chip */}
       <div className="sticky top-[73px] z-10 border-b border-border/40 bg-background/70 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-3xl items-center justify-between px-4 py-2.5">
+        <div className="mx-auto flex max-w-3xl items-center justify-between gap-2 px-4 py-2.5">
           <button
             type="button"
             onClick={() => setSheetOpen(true)}
@@ -158,9 +158,19 @@ export function ToolChatWindow({
             <span aria-hidden="true" className="text-muted-foreground group-hover:text-foreground">✏️</span>
             <span className="sr-only">{t("tools.change")}</span>
           </button>
-          <p className="hidden text-[10px] uppercase tracking-[0.25em] text-muted-foreground sm:block">
-            {tool.tagline[lang]}
-          </p>
+          <div className="flex items-center gap-3">
+            <p className="hidden text-[10px] uppercase tracking-[0.25em] text-muted-foreground sm:block">
+              {tool.tagline[lang]}
+            </p>
+            <button
+              type="button"
+              onClick={() => setGuideOpen(true)}
+              className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-card/40 px-3 py-1.5 text-[11px] uppercase tracking-[0.22em] text-muted-foreground transition-all hover:border-sage/40 hover:text-foreground"
+            >
+              <span aria-hidden="true">🧭</span>
+              <span className="font-display">{t("tools.guide.open")}</span>
+            </button>
+          </div>
         </div>
       </div>
 
