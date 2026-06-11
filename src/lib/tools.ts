@@ -220,6 +220,26 @@ export const TOOLS: PhilTool[] = [
       es: "Ahora aplicaré la **epojé**. Cuéntame tu inquietud — y antes de juzgarla, sólo la miraremos.",
       en: "I will now apply **epoché**. Tell me your concern — and before judging it, we will only look.",
     },
+    firstQuestion: {
+      es: "Hay algo que me inquieta y siento que necesito una respuesta ya. ¿Puedo aprender a sostener la duda en lugar de cerrarla rápido?",
+      en: "Something unsettles me and I feel I need an answer now. Can I learn to hold the doubt instead of closing it too fast?",
+    },
+    guide: {
+      es: [
+        "Nombra la sensación, sin todavía explicarla ni justificarla.",
+        "¿Qué juicio estás a punto de emitir? Ponlo entre paréntesis.",
+        "Describe la situación como si fuera la primera vez que la vieras.",
+        "¿Qué información te falta antes de poder concluir algo?",
+        "Decide qué vas a observar mañana, sin decidir aún qué piensas.",
+      ],
+      en: [
+        "Name the sensation, without explaining or justifying it yet.",
+        "What judgment are you about to make? Bracket it.",
+        "Describe the situation as if seeing it for the first time.",
+        "What information are you missing before you could conclude anything?",
+        "Decide what you'll observe tomorrow, without deciding yet what you think.",
+      ],
+    },
     responses: {
       es: [
         "Suspende, por un instante, la necesidad de tener razón.",
