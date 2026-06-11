@@ -23,6 +23,8 @@ export function ToolChatWindow({
   const [messages, setMessages] = useState<Msg[]>([]);
   const [thinking, setThinking] = useState(false);
   const [sheetOpen, setSheetOpen] = useState(false);
+  const [guideOpen, setGuideOpen] = useState(false);
+  const [guideStep, setGuideStep] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const lastToolReply = useRef<string | undefined>(undefined);
@@ -33,6 +35,7 @@ export function ToolChatWindow({
   useEffect(() => {
     setActiveTool(initialTool);
     setMessages([]);
+    setGuideStep(0);
     lastToolReply.current = undefined;
   }, [initialTool]);
 
@@ -77,6 +80,7 @@ export function ToolChatWindow({
     if (next === activeTool) return;
     const nextTool = TOOL_MAP[next];
     setActiveTool(next);
+    setGuideStep(0);
     setMessages((m) => [
       ...m,
       { id: uid(), role: "system", text: nextTool.transition[lang] },
@@ -84,6 +88,20 @@ export function ToolChatWindow({
     // Brief contextual reply from the new tool.
     replyAs(next, 800);
   };
+
+  const startGuided = () => {
+    sendUser(tool.firstQuestion[lang]);
+    setGuideStep(1);
+  };
+
+  const sendGuideStep = (index: number) => {
+    const steps = tool.guide[lang];
+    if (index < 0 || index >= steps.length) return;
+    setGuideOpen(false);
+    sendUser(steps[index]);
+    setGuideStep(index + 1);
+  };
+
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -128,7 +146,7 @@ export function ToolChatWindow({
 
       {/* Active-tool chip */}
       <div className="sticky top-[73px] z-10 border-b border-border/40 bg-background/70 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-3xl items-center justify-between px-4 py-2.5">
+        <div className="mx-auto flex max-w-3xl items-center justify-between gap-2 px-4 py-2.5">
           <button
             type="button"
             onClick={() => setSheetOpen(true)}
@@ -140,9 +158,19 @@ export function ToolChatWindow({
             <span aria-hidden="true" className="text-muted-foreground group-hover:text-foreground">✏️</span>
             <span className="sr-only">{t("tools.change")}</span>
           </button>
-          <p className="hidden text-[10px] uppercase tracking-[0.25em] text-muted-foreground sm:block">
-            {tool.tagline[lang]}
-          </p>
+          <div className="flex items-center gap-3">
+            <p className="hidden text-[10px] uppercase tracking-[0.25em] text-muted-foreground sm:block">
+              {tool.tagline[lang]}
+            </p>
+            <button
+              type="button"
+              onClick={() => setGuideOpen(true)}
+              className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-card/40 px-3 py-1.5 text-[11px] uppercase tracking-[0.22em] text-muted-foreground transition-all hover:border-sage/40 hover:text-foreground"
+            >
+              <span aria-hidden="true">🧭</span>
+              <span className="font-display">{t("tools.guide.open")}</span>
+            </button>
+          </div>
         </div>
       </div>
 
@@ -157,6 +185,34 @@ export function ToolChatWindow({
               <p className="font-display text-xl font-light leading-relaxed text-foreground/90 md:text-2xl">
                 {tool.intro[lang]}
               </p>
+
+              <div className="space-y-3 rounded-2xl border border-sage/30 bg-sage/8 p-5">
+                <p className="font-display text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
+                  {t("tools.guided.hint")}
+                </p>
+                <p className="text-[15px] leading-relaxed text-foreground/90">
+                  “{tool.firstQuestion[lang]}”
+                </p>
+                <div className="flex flex-wrap gap-2 pt-1">
+                  <button
+                    type="button"
+                    onClick={startGuided}
+                    disabled={thinking}
+                    className="inline-flex items-center gap-2 rounded-full border border-sage/60 bg-sage/95 px-4 py-2 font-display text-[12px] uppercase tracking-[0.22em] text-primary-foreground transition-all hover:bg-sage disabled:opacity-40"
+                  >
+                    <span aria-hidden="true">✦</span>
+                    <span>{t("tools.guided.start")}</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setGuideOpen(true)}
+                    className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-card/40 px-4 py-2 font-display text-[12px] uppercase tracking-[0.22em] text-muted-foreground transition-all hover:border-sage/40 hover:text-foreground"
+                  >
+                    <span aria-hidden="true">🧭</span>
+                    <span>{t("tools.guide.open")}</span>
+                  </button>
+                </div>
+              </div>
             </div>
           )}
 
@@ -190,6 +246,25 @@ export function ToolChatWindow({
               </article>
             );
           })}
+
+          {/* Next-step guide chip after the latest tool reply */}
+          {!thinking &&
+            messages.length > 0 &&
+            messages[messages.length - 1].role === "tool" &&
+            guideStep < tool.guide[lang].length && (
+              <div className="fade-up flex flex-wrap gap-2 pt-1">
+                <button
+                  type="button"
+                  onClick={() => sendGuideStep(guideStep)}
+                  className="inline-flex max-w-full items-start gap-2 rounded-full border border-sage/40 bg-sage/12 px-3.5 py-2 text-left text-[12px] leading-snug text-foreground/90 transition-all hover:border-sage/60 hover:bg-sage/20"
+                >
+                  <span className="font-display text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
+                    {t("tools.guide.step", { n: String(guideStep + 1) })} ·
+                  </span>
+                  <span className="line-clamp-2">{tool.guide[lang][guideStep]}</span>
+                </button>
+              </div>
+            )}
 
           {thinking && (
             <div className="fade-up">
@@ -314,6 +389,84 @@ export function ToolChatWindow({
                 );
               })}
             </ul>
+          </div>
+        </div>
+      )}
+
+      {/* Guide bottom sheet */}
+      {guideOpen && (
+        <div
+          className="fixed inset-0 z-50 flex items-end justify-center bg-background/70 backdrop-blur-xl fade-in"
+          onClick={() => setGuideOpen(false)}
+        >
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-label={t("tools.guide.title")}
+            onClick={(e) => e.stopPropagation()}
+            className="w-full max-w-2xl rounded-t-2xl border border-border/60 bg-background/95 shadow-deep fade-up"
+          >
+            <header className="flex items-start justify-between gap-4 border-b border-border/60 px-6 py-4">
+              <div>
+                <p className="font-display text-[10px] uppercase tracking-[0.32em] text-muted-foreground">
+                  {tool.emoji} {tool.name[lang]}
+                </p>
+                <h2 className="mt-1 font-display text-base font-light text-foreground">
+                  {t("tools.guide.title")}
+                </h2>
+                <p className="mt-1 text-[12px] leading-snug text-muted-foreground">
+                  {t("tools.guide.sub")}
+                </p>
+              </div>
+              <button
+                onClick={() => setGuideOpen(false)}
+                className="rounded-md px-3 py-1.5 text-[10px] uppercase tracking-[0.25em] text-muted-foreground transition-colors hover:bg-card hover:text-foreground"
+              >
+                {t("chat.archive.close")}
+              </button>
+            </header>
+            <ol className="space-y-2 px-6 py-5">
+              {tool.guide[lang].map((step, i) => {
+                const done = i < guideStep;
+                const current = i === guideStep;
+                return (
+                  <li key={i}>
+                    <button
+                      type="button"
+                      onClick={() => sendGuideStep(i)}
+                      className={`flex w-full items-start gap-3 rounded-xl border px-4 py-3 text-left transition-all ${
+                        current
+                          ? "border-sage/60 bg-sage/15"
+                          : done
+                            ? "border-border/40 bg-card/20 opacity-60 hover:opacity-90"
+                            : "border-border/70 bg-card/40 hover:border-sage/40 hover:bg-card/70"
+                      }`}
+                    >
+                      <span
+                        aria-hidden="true"
+                        className={`mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full border text-[10px] font-display ${
+                          current
+                            ? "border-sage/60 bg-sage/30 text-foreground"
+                            : done
+                              ? "border-sage/40 bg-sage/15 text-muted-foreground"
+                              : "border-border/60 text-muted-foreground"
+                        }`}
+                      >
+                        {done ? "✓" : i + 1}
+                      </span>
+                      <span className="text-[14px] leading-relaxed text-foreground/90">
+                        {step}
+                      </span>
+                    </button>
+                  </li>
+                );
+              })}
+            </ol>
+            {guideStep >= tool.guide[lang].length && (
+              <p className="px-6 pb-5 text-center text-[11px] uppercase tracking-[0.25em] text-muted-foreground">
+                {t("tools.guide.done")}
+              </p>
+            )}
           </div>
         </div>
       )}

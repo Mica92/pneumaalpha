@@ -12,6 +12,11 @@ export type PhilTool = {
   tagline: LocalizedString; // ≤ 30 chars
   intro: LocalizedString;   // primera línea al abrir
   transition: LocalizedString; // mensaje sistema al cambiar a esta herramienta
+  // Sugerencia de primera pregunta para arrancar más hondo (botón "Empezar guiado").
+  firstQuestion: LocalizedString;
+  // Guía paso a paso: una secuencia de prompts/preguntas que el usuario puede
+  // tocar para avanzar hacia mejores respuestas con el método activo.
+  guide: { es: string[]; en: string[] };
   responses: { es: string[]; en: string[] };
 };
 
@@ -28,6 +33,26 @@ export const TOOLS: PhilTool[] = [
     transition: {
       es: "Ahora aplicaré el **método socrático**. Cuéntame tu inquietud desde este enfoque — y prepárate para que te pregunte.",
       en: "I will now apply the **Socratic method**. Tell me your concern from this lens — and be ready for questions.",
+    },
+    firstQuestion: {
+      es: "Hay una creencia que sostengo desde hace tiempo y no sé si es mía o heredada. ¿Por dónde empiezo a examinarla?",
+      en: "There's a belief I've held for a long time and I don't know if it's mine or inherited. Where do I start examining it?",
+    },
+    guide: {
+      es: [
+        "Nombra en una frase la creencia que quieres examinar.",
+        "¿Qué evidencias concretas la sostienen?",
+        "¿Qué evidencias la contradicen y has preferido ignorar?",
+        "Formula la creencia opuesta. ¿Qué tendría de cierto?",
+        "Reescribe tu creencia con lo que aprendiste en estos pasos.",
+      ],
+      en: [
+        "Name in one sentence the belief you want to examine.",
+        "What concrete evidence supports it?",
+        "What evidence contradicts it that you've preferred to ignore?",
+        "State the opposite belief. What might be true in it?",
+        "Rewrite your belief with what you learned in these steps.",
+      ],
     },
     responses: {
       es: [
@@ -71,6 +96,26 @@ export const TOOLS: PhilTool[] = [
       es: "Ahora aplicaré la **navaja de Occam**. Cuéntame tu inquietud — quitaremos lo que sobre.",
       en: "I will now apply **Occam's razor**. Tell me your concern — we will cut what doesn't belong.",
     },
+    firstQuestion: {
+      es: "Estoy dándole vueltas a una situación con demasiadas interpretaciones posibles. ¿Cómo encuentro la explicación más simple?",
+      en: "I'm overthinking a situation with too many possible interpretations. How do I find the simplest explanation?",
+    },
+    guide: {
+      es: [
+        "Describe la situación en una sola frase, sin adjetivos.",
+        "Enumera todas las explicaciones posibles que se te ocurren.",
+        "¿Cuál de ellas exige menos suposiciones?",
+        "Tacha las que requieren coincidencias, intenciones ocultas o conspiraciones.",
+        "Con lo que queda, ¿cuál es la acción mínima que cambia algo hoy?",
+      ],
+      en: [
+        "Describe the situation in a single sentence, without adjectives.",
+        "List every possible explanation you can think of.",
+        "Which of them requires the fewest assumptions?",
+        "Cross out the ones requiring coincidences, hidden motives or conspiracies.",
+        "With what remains, what's the smallest action that changes something today?",
+      ],
+    },
     responses: {
       es: [
         "Estás añadiendo causas que no necesitas. ¿Cuál es la explicación más simple?",
@@ -113,6 +158,26 @@ export const TOOLS: PhilTool[] = [
       es: "Ahora aplicaré el **principio de caridad**. Cuéntame tu inquietud — interpretaré lo que te ocurre en su versión más fuerte.",
       en: "I will now apply the **principle of charity**. Tell me your concern — I'll interpret it in its strongest form.",
     },
+    firstQuestion: {
+      es: "Alguien hizo algo que me dolió y no logro dejar de pensarlo desde el resentimiento. ¿Cómo lo veo con más generosidad sin negar lo que sentí?",
+      en: "Someone did something that hurt me and I can't stop seeing it through resentment. How do I see it more generously without denying what I felt?",
+    },
+    guide: {
+      es: [
+        "Cuenta lo que pasó como lo contarías a un amigo: con tu queja entera.",
+        "Reescríbelo como lo contaría la otra persona, en su mejor versión.",
+        "¿Qué necesidad legítima estaba defendiendo el otro, aunque mal?",
+        "¿Qué de tu reacción venía de una herida vieja, no de este episodio?",
+        "Con todo eso, ¿qué frase nueva quieres llevarte de esta situación?",
+      ],
+      en: [
+        "Tell what happened as you'd tell a friend — full complaint included.",
+        "Rewrite it as the other person would tell it, in their best version.",
+        "What legitimate need was the other defending, even if poorly?",
+        "What part of your reaction came from an old wound, not this episode?",
+        "With all that, what new sentence do you want to take from this?",
+      ],
+    },
     responses: {
       es: [
         "Antes de juzgar, intentemos esto: ¿cuál sería la intención más generosa detrás de lo que hizo?",
@@ -154,6 +219,26 @@ export const TOOLS: PhilTool[] = [
     transition: {
       es: "Ahora aplicaré la **epojé**. Cuéntame tu inquietud — y antes de juzgarla, sólo la miraremos.",
       en: "I will now apply **epoché**. Tell me your concern — and before judging it, we will only look.",
+    },
+    firstQuestion: {
+      es: "Hay algo que me inquieta y siento que necesito una respuesta ya. ¿Puedo aprender a sostener la duda en lugar de cerrarla rápido?",
+      en: "Something unsettles me and I feel I need an answer now. Can I learn to hold the doubt instead of closing it too fast?",
+    },
+    guide: {
+      es: [
+        "Nombra la sensación, sin todavía explicarla ni justificarla.",
+        "¿Qué juicio estás a punto de emitir? Ponlo entre paréntesis.",
+        "Describe la situación como si fuera la primera vez que la vieras.",
+        "¿Qué información te falta antes de poder concluir algo?",
+        "Decide qué vas a observar mañana, sin decidir aún qué piensas.",
+      ],
+      en: [
+        "Name the sensation, without explaining or justifying it yet.",
+        "What judgment are you about to make? Bracket it.",
+        "Describe the situation as if seeing it for the first time.",
+        "What information are you missing before you could conclude anything?",
+        "Decide what you'll observe tomorrow, without deciding yet what you think.",
+      ],
     },
     responses: {
       es: [

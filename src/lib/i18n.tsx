@@ -136,6 +136,20 @@ export const T: Dict = {
     es: "Elige una herramienta",
     en: "Choose a tool",
   },
+  "tools.guided.start": { es: "Empezar guiado", en: "Start guided" },
+  "tools.guided.hint": {
+    es: "Una primera pregunta sugerida para arrancar más hondo.",
+    en: "A suggested first question to begin a little deeper.",
+  },
+  "tools.guide.open": { es: "Guía", en: "Guide" },
+  "tools.guide.title": { es: "Guía paso a paso", en: "Step-by-step guide" },
+  "tools.guide.sub": {
+    es: "Toca un paso para enviarlo y dejar que el método te lleve más lejos.",
+    en: "Tap a step to send it and let the method take you further.",
+  },
+  "tools.guide.step": { es: "Paso {n}", en: "Step {n}" },
+  "tools.guide.next": { es: "Siguiente paso de la guía", en: "Next guide step" },
+  "tools.guide.done": { es: "Has completado la guía.", en: "You've completed the guide." },
 };
 
 type Ctx = {
