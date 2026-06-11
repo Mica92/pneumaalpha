@@ -107,6 +107,19 @@ export const T: Dict = {
   "chat.archive.loading": { es: "Recuperando el archivo…", en: "Retrieving the archive…" },
   "chat.you": { es: "Tú", en: "You" },
 
+  "chat.topics.aria": { es: "Tópicos sugeridos", en: "Suggested topics" },
+  "chat.chips.label": { es: "Continuar la conversación", en: "Continue the conversation" },
+  "chat.dilemma.kicker": { es: "Dilema de hoy", en: "Today's dilemma" },
+  "chat.dilemma.converse": { es: "Conversar", en: "Discuss" },
+  "chat.dilemma.close": { es: "Cerrar dilema", en: "Close dilemma" },
+  "chat.dilemma.restore": { es: "Ver dilema de hoy", en: "Show today's dilemma" },
+  "chat.root.aria": { es: "Preguntas raíz", en: "Root questions" },
+  "chat.root.kicker": { es: "Preguntas raíz", en: "Root questions" },
+  "chat.root.title": {
+    es: "Si no sabes qué preguntar, comienza por aquí.",
+    en: "If you don't know what to ask, begin here.",
+  },
+
   "lang.label": { es: "Idioma", en: "Language" },
 };
 
