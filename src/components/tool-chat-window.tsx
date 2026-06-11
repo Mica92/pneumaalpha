@@ -185,6 +185,34 @@ export function ToolChatWindow({
               <p className="font-display text-xl font-light leading-relaxed text-foreground/90 md:text-2xl">
                 {tool.intro[lang]}
               </p>
+
+              <div className="space-y-3 rounded-2xl border border-sage/30 bg-sage/8 p-5">
+                <p className="font-display text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
+                  {t("tools.guided.hint")}
+                </p>
+                <p className="text-[15px] leading-relaxed text-foreground/90">
+                  “{tool.firstQuestion[lang]}”
+                </p>
+                <div className="flex flex-wrap gap-2 pt-1">
+                  <button
+                    type="button"
+                    onClick={startGuided}
+                    disabled={thinking}
+                    className="inline-flex items-center gap-2 rounded-full border border-sage/60 bg-sage/95 px-4 py-2 font-display text-[12px] uppercase tracking-[0.22em] text-primary-foreground transition-all hover:bg-sage disabled:opacity-40"
+                  >
+                    <span aria-hidden="true">✦</span>
+                    <span>{t("tools.guided.start")}</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setGuideOpen(true)}
+                    className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-card/40 px-4 py-2 font-display text-[12px] uppercase tracking-[0.22em] text-muted-foreground transition-all hover:border-sage/40 hover:text-foreground"
+                  >
+                    <span aria-hidden="true">🧭</span>
+                    <span>{t("tools.guide.open")}</span>
+                  </button>
+                </div>
+              </div>
             </div>
           )}
 
