@@ -80,6 +80,7 @@ export function ToolChatWindow({
     if (next === activeTool) return;
     const nextTool = TOOL_MAP[next];
     setActiveTool(next);
+    setGuideStep(0);
     setMessages((m) => [
       ...m,
       { id: uid(), role: "system", text: nextTool.transition[lang] },
@@ -87,6 +88,20 @@ export function ToolChatWindow({
     // Brief contextual reply from the new tool.
     replyAs(next, 800);
   };
+
+  const startGuided = () => {
+    sendUser(tool.firstQuestion[lang]);
+    setGuideStep(1);
+  };
+
+  const sendGuideStep = (index: number) => {
+    const steps = tool.guide[lang];
+    if (index < 0 || index >= steps.length) return;
+    setGuideOpen(false);
+    sendUser(steps[index]);
+    setGuideStep(index + 1);
+  };
+
 
   return (
     <div className="flex min-h-screen flex-col">
