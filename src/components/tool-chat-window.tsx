@@ -35,6 +35,7 @@ export function ToolChatWindow({
   useEffect(() => {
     setActiveTool(initialTool);
     setMessages([]);
+    setGuideStep(0);
     lastToolReply.current = undefined;
   }, [initialTool]);
 
