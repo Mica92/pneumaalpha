@@ -158,6 +158,26 @@ export const TOOLS: PhilTool[] = [
       es: "Ahora aplicaré el **principio de caridad**. Cuéntame tu inquietud — interpretaré lo que te ocurre en su versión más fuerte.",
       en: "I will now apply the **principle of charity**. Tell me your concern — I'll interpret it in its strongest form.",
     },
+    firstQuestion: {
+      es: "Alguien hizo algo que me dolió y no logro dejar de pensarlo desde el resentimiento. ¿Cómo lo veo con más generosidad sin negar lo que sentí?",
+      en: "Someone did something that hurt me and I can't stop seeing it through resentment. How do I see it more generously without denying what I felt?",
+    },
+    guide: {
+      es: [
+        "Cuenta lo que pasó como lo contarías a un amigo: con tu queja entera.",
+        "Reescríbelo como lo contaría la otra persona, en su mejor versión.",
+        "¿Qué necesidad legítima estaba defendiendo el otro, aunque mal?",
+        "¿Qué de tu reacción venía de una herida vieja, no de este episodio?",
+        "Con todo eso, ¿qué frase nueva quieres llevarte de esta situación?",
+      ],
+      en: [
+        "Tell what happened as you'd tell a friend — full complaint included.",
+        "Rewrite it as the other person would tell it, in their best version.",
+        "What legitimate need was the other defending, even if poorly?",
+        "What part of your reaction came from an old wound, not this episode?",
+        "With all that, what new sentence do you want to take from this?",
+      ],
+    },
     responses: {
       es: [
         "Antes de juzgar, intentemos esto: ¿cuál sería la intención más generosa detrás de lo que hizo?",
