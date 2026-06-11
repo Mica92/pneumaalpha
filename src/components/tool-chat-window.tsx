@@ -392,6 +392,84 @@ export function ToolChatWindow({
           </div>
         </div>
       )}
+
+      {/* Guide bottom sheet */}
+      {guideOpen && (
+        <div
+          className="fixed inset-0 z-50 flex items-end justify-center bg-background/70 backdrop-blur-xl fade-in"
+          onClick={() => setGuideOpen(false)}
+        >
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-label={t("tools.guide.title")}
+            onClick={(e) => e.stopPropagation()}
+            className="w-full max-w-2xl rounded-t-2xl border border-border/60 bg-background/95 shadow-deep fade-up"
+          >
+            <header className="flex items-start justify-between gap-4 border-b border-border/60 px-6 py-4">
+              <div>
+                <p className="font-display text-[10px] uppercase tracking-[0.32em] text-muted-foreground">
+                  {tool.emoji} {tool.name[lang]}
+                </p>
+                <h2 className="mt-1 font-display text-base font-light text-foreground">
+                  {t("tools.guide.title")}
+                </h2>
+                <p className="mt-1 text-[12px] leading-snug text-muted-foreground">
+                  {t("tools.guide.sub")}
+                </p>
+              </div>
+              <button
+                onClick={() => setGuideOpen(false)}
+                className="rounded-md px-3 py-1.5 text-[10px] uppercase tracking-[0.25em] text-muted-foreground transition-colors hover:bg-card hover:text-foreground"
+              >
+                {t("chat.archive.close")}
+              </button>
+            </header>
+            <ol className="space-y-2 px-6 py-5">
+              {tool.guide[lang].map((step, i) => {
+                const done = i < guideStep;
+                const current = i === guideStep;
+                return (
+                  <li key={i}>
+                    <button
+                      type="button"
+                      onClick={() => sendGuideStep(i)}
+                      className={`flex w-full items-start gap-3 rounded-xl border px-4 py-3 text-left transition-all ${
+                        current
+                          ? "border-sage/60 bg-sage/15"
+                          : done
+                            ? "border-border/40 bg-card/20 opacity-60 hover:opacity-90"
+                            : "border-border/70 bg-card/40 hover:border-sage/40 hover:bg-card/70"
+                      }`}
+                    >
+                      <span
+                        aria-hidden="true"
+                        className={`mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full border text-[10px] font-display ${
+                          current
+                            ? "border-sage/60 bg-sage/30 text-foreground"
+                            : done
+                              ? "border-sage/40 bg-sage/15 text-muted-foreground"
+                              : "border-border/60 text-muted-foreground"
+                        }`}
+                      >
+                        {done ? "✓" : i + 1}
+                      </span>
+                      <span className="text-[14px] leading-relaxed text-foreground/90">
+                        {step}
+                      </span>
+                    </button>
+                  </li>
+                );
+              })}
+            </ol>
+            {guideStep >= tool.guide[lang].length && (
+              <p className="px-6 pb-5 text-center text-[11px] uppercase tracking-[0.25em] text-muted-foreground">
+                {t("tools.guide.done")}
+              </p>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
