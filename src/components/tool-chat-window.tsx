@@ -247,6 +247,25 @@ export function ToolChatWindow({
             );
           })}
 
+          {/* Next-step guide chip after the latest tool reply */}
+          {!thinking &&
+            messages.length > 0 &&
+            messages[messages.length - 1].role === "tool" &&
+            guideStep < tool.guide[lang].length && (
+              <div className="fade-up flex flex-wrap gap-2 pt-1">
+                <button
+                  type="button"
+                  onClick={() => sendGuideStep(guideStep)}
+                  className="inline-flex max-w-full items-start gap-2 rounded-full border border-sage/40 bg-sage/12 px-3.5 py-2 text-left text-[12px] leading-snug text-foreground/90 transition-all hover:border-sage/60 hover:bg-sage/20"
+                >
+                  <span className="font-display text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
+                    {t("tools.guide.step", { n: String(guideStep + 1) })} ·
+                  </span>
+                  <span className="line-clamp-2">{tool.guide[lang][guideStep]}</span>
+                </button>
+              </div>
+            )}
+
           {thinking && (
             <div className="fade-up">
               <p className="mb-3 flex items-center gap-2 font-display text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
