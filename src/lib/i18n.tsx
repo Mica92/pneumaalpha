@@ -122,14 +122,14 @@ export const T: Dict = {
 
   "lang.label": { es: "Idioma", en: "Language" },
 
-  "tools.kicker": { es: "Kit de herramientas", en: "Philosophical kit" },
+  "tools.kicker": { es: "Herramientas para ti", en: "Tools for you" },
   "tools.section.title": {
-    es: "Kit de herramientas filosóficas",
-    en: "Philosophical toolkit",
+    es: "Herramientas para tu día a día",
+    en: "Tools for your everyday life",
   },
   "tools.section.sub": {
-    es: "Conversaciones guiadas por un método, no por una voz.",
-    en: "Conversations guided by a method, not a voice.",
+    es: "Pequeños ejercicios guiados para ordenar lo que sientes y decidir mejor.",
+    en: "Small guided exercises to sort out how you feel and decide better.",
   },
   "tools.change": { es: "Cambiar herramienta", en: "Change tool" },
   "tools.sheet.title": {
@@ -138,18 +138,19 @@ export const T: Dict = {
   },
   "tools.guided.start": { es: "Empezar guiado", en: "Start guided" },
   "tools.guided.hint": {
-    es: "Una primera pregunta sugerida para arrancar más hondo.",
-    en: "A suggested first question to begin a little deeper.",
+    es: "Si no sabes por dónde empezar, toca esta pregunta.",
+    en: "If you don't know where to start, tap this question.",
   },
-  "tools.guide.open": { es: "Guía", en: "Guide" },
-  "tools.guide.title": { es: "Guía paso a paso", en: "Step-by-step guide" },
+  "tools.guide.open": { es: "Guíame", en: "Guide me" },
+  "tools.guide.title": { es: "Te guío paso a paso", en: "I'll guide you step by step" },
   "tools.guide.sub": {
-    es: "Toca un paso para enviarlo y dejar que el método te lleve más lejos.",
-    en: "Tap a step to send it and let the method take you further.",
+    es: "Toca un paso cuando estés listo. Vamos a tu ritmo.",
+    en: "Tap a step when you're ready. We go at your pace.",
   },
   "tools.guide.step": { es: "Paso {n}", en: "Step {n}" },
-  "tools.guide.next": { es: "Siguiente paso de la guía", en: "Next guide step" },
-  "tools.guide.done": { es: "Has completado la guía.", en: "You've completed the guide." },
+  "tools.guide.next": { es: "Siguiente paso", en: "Next step" },
+  "tools.guide.done": { es: "¡Listo! Terminaste el ejercicio.", en: "Done! You finished the exercise." },
+
 };
 
 type Ctx = {
