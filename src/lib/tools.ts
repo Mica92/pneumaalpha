@@ -12,6 +12,11 @@ export type PhilTool = {
   tagline: LocalizedString; // ≤ 30 chars
   intro: LocalizedString;   // primera línea al abrir
   transition: LocalizedString; // mensaje sistema al cambiar a esta herramienta
+  // Sugerencia de primera pregunta para arrancar más hondo (botón "Empezar guiado").
+  firstQuestion: LocalizedString;
+  // Guía paso a paso: una secuencia de prompts/preguntas que el usuario puede
+  // tocar para avanzar hacia mejores respuestas con el método activo.
+  guide: { es: string[]; en: string[] };
   responses: { es: string[]; en: string[] };
 };
 
