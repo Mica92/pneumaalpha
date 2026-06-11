@@ -10,6 +10,13 @@ import { PHILOSOPHERS, type PhilosopherId } from "@/lib/philosophers";
 import { useI18n, LanguageSelector } from "@/lib/i18n";
 import { useVoiceDictation } from "@/hooks/use-voice-dictation";
 import { toast } from "sonner";
+import {
+  ContinuationChips,
+  DilemmaBanner,
+  RootQuestionsFab,
+  TopicBar,
+} from "@/components/chat-engagement";
+import { TOPICS, getDailyDilemmaPrompt, type TopicId } from "@/lib/engagement";
 
 type Props = {
   userId: string;
@@ -70,6 +77,7 @@ function ChatBody({
   const meta = PHILOSOPHERS[philosopher];
   const { lang, t } = useI18n();
   const [archiveOpen, setArchiveOpen] = useState(false);
+  const [activeTopic, setActiveTopic] = useState<TopicId | null>(null);
 
   const {
     data: history,
@@ -128,6 +136,12 @@ function ChatBody({
 
   const isLoading = status === "submitted" || status === "streaming";
 
+  const sendText = async (text: string) => {
+    const trimmed = text.trim();
+    if (!trimmed || isLoading) return;
+    await sendMessage({ text: trimmed });
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
@@ -137,6 +151,26 @@ function ChatBody({
     form.reset();
     await sendMessage({ text });
   };
+
+  const handleTopicPick = async (topicId: TopicId) => {
+    if (isLoading) return;
+    setActiveTopic(topicId);
+    const topic = TOPICS.find((x) => x.id === topicId)!;
+    await sendText(topic.prompt[lang]);
+  };
+
+  const handleDilemma = async () => {
+    if (isLoading) return;
+    await sendText(getDailyDilemmaPrompt(lang));
+  };
+
+  // Index of the most recent assistant message — chips render after it.
+  const lastAssistantIdx = (() => {
+    for (let i = messages.length - 1; i >= 0; i--) {
+      if (messages[i].role === "assistant") return i;
+    }
+    return -1;
+  })();
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -186,6 +220,11 @@ function ChatBody({
         </div>
       </header>
 
+      <div className="sticky top-[73px] z-10">
+        <TopicBar activeTopic={activeTopic} onPick={handleTopicPick} disabled={isLoading} />
+        <DilemmaBanner onConverse={handleDilemma} disabled={isLoading} />
+      </div>
+
       <div ref={scrollRef} className="flex-1 overflow-y-auto px-4 py-12">
         <div className="mx-auto max-w-3xl space-y-10">
           {messages.length === 0 && (
@@ -199,7 +238,7 @@ function ChatBody({
             </div>
           )}
 
-          {messages.map((m) => {
+          {messages.map((m, idx) => {
             const text = m.parts
               .map((p) => (p.type === "text" ? p.text : ""))
               .join("");
@@ -212,6 +251,7 @@ function ChatBody({
                 </div>
               );
             }
+            const showChips = idx === lastAssistantIdx && !isLoading;
             return (
               <article key={m.id} className="fade-up">
                 <h2 className="mb-3 font-display text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
@@ -220,6 +260,9 @@ function ChatBody({
                 <div className="prose prose-invert prose-p:my-3 prose-p:leading-[1.75] prose-p:text-[15px] prose-p:text-foreground/90 prose-strong:text-foreground prose-em:text-mist max-w-none">
                   <ReactMarkdown>{text}</ReactMarkdown>
                 </div>
+                {showChips && (
+                  <ContinuationChips topic={activeTopic} onPick={sendText} disabled={isLoading} />
+                )}
               </article>
             );
           })}
@@ -375,6 +418,8 @@ function ChatBody({
           </aside>
         </div>
       )}
+
+      <RootQuestionsFab onPick={sendText} disabled={isLoading} />
     </div>
   );
 }
