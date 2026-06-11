@@ -10,6 +10,13 @@ import { PHILOSOPHERS, type PhilosopherId } from "@/lib/philosophers";
 import { useI18n, LanguageSelector } from "@/lib/i18n";
 import { useVoiceDictation } from "@/hooks/use-voice-dictation";
 import { toast } from "sonner";
+import {
+  ContinuationChips,
+  DilemmaBanner,
+  RootQuestionsFab,
+  TopicBar,
+} from "@/components/chat-engagement";
+import { TOPICS, getDailyDilemmaPrompt, type TopicId } from "@/lib/engagement";
 
 type Props = {
   userId: string;
@@ -70,6 +77,7 @@ function ChatBody({
   const meta = PHILOSOPHERS[philosopher];
   const { lang, t } = useI18n();
   const [archiveOpen, setArchiveOpen] = useState(false);
+  const [activeTopic, setActiveTopic] = useState<TopicId | null>(null);
 
   const {
     data: history,
