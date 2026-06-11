@@ -34,6 +34,26 @@ export const TOOLS: PhilTool[] = [
       es: "Ahora aplicaré el **método socrático**. Cuéntame tu inquietud desde este enfoque — y prepárate para que te pregunte.",
       en: "I will now apply the **Socratic method**. Tell me your concern from this lens — and be ready for questions.",
     },
+    firstQuestion: {
+      es: "Hay una creencia que sostengo desde hace tiempo y no sé si es mía o heredada. ¿Por dónde empiezo a examinarla?",
+      en: "There's a belief I've held for a long time and I don't know if it's mine or inherited. Where do I start examining it?",
+    },
+    guide: {
+      es: [
+        "Nombra en una frase la creencia que quieres examinar.",
+        "¿Qué evidencias concretas la sostienen?",
+        "¿Qué evidencias la contradicen y has preferido ignorar?",
+        "Formula la creencia opuesta. ¿Qué tendría de cierto?",
+        "Reescribe tu creencia con lo que aprendiste en estos pasos.",
+      ],
+      en: [
+        "Name in one sentence the belief you want to examine.",
+        "What concrete evidence supports it?",
+        "What evidence contradicts it that you've preferred to ignore?",
+        "State the opposite belief. What might be true in it?",
+        "Rewrite your belief with what you learned in these steps.",
+      ],
+    },
     responses: {
       es: [
         "¿Qué pruebas tienes de que eso es cierto?",
