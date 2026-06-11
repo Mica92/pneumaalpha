@@ -96,6 +96,26 @@ export const TOOLS: PhilTool[] = [
       es: "Ahora aplicaré la **navaja de Occam**. Cuéntame tu inquietud — quitaremos lo que sobre.",
       en: "I will now apply **Occam's razor**. Tell me your concern — we will cut what doesn't belong.",
     },
+    firstQuestion: {
+      es: "Estoy dándole vueltas a una situación con demasiadas interpretaciones posibles. ¿Cómo encuentro la explicación más simple?",
+      en: "I'm overthinking a situation with too many possible interpretations. How do I find the simplest explanation?",
+    },
+    guide: {
+      es: [
+        "Describe la situación en una sola frase, sin adjetivos.",
+        "Enumera todas las explicaciones posibles que se te ocurren.",
+        "¿Cuál de ellas exige menos suposiciones?",
+        "Tacha las que requieren coincidencias, intenciones ocultas o conspiraciones.",
+        "Con lo que queda, ¿cuál es la acción mínima que cambia algo hoy?",
+      ],
+      en: [
+        "Describe the situation in a single sentence, without adjectives.",
+        "List every possible explanation you can think of.",
+        "Which of them requires the fewest assumptions?",
+        "Cross out the ones requiring coincidences, hidden motives or conspiracies.",
+        "With what remains, what's the smallest action that changes something today?",
+      ],
+    },
     responses: {
       es: [
         "Estás añadiendo causas que no necesitas. ¿Cuál es la explicación más simple?",
