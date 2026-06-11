@@ -220,6 +220,11 @@ function ChatBody({
         </div>
       </header>
 
+      <div className="sticky top-[73px] z-10">
+        <TopicBar activeTopic={activeTopic} onPick={handleTopicPick} disabled={isLoading} />
+        <DilemmaBanner onConverse={handleDilemma} disabled={isLoading} />
+      </div>
+
       <div ref={scrollRef} className="flex-1 overflow-y-auto px-4 py-12">
         <div className="mx-auto max-w-3xl space-y-10">
           {messages.length === 0 && (
@@ -233,7 +238,7 @@ function ChatBody({
             </div>
           )}
 
-          {messages.map((m) => {
+          {messages.map((m, idx) => {
             const text = m.parts
               .map((p) => (p.type === "text" ? p.text : ""))
               .join("");
@@ -246,6 +251,7 @@ function ChatBody({
                 </div>
               );
             }
+            const showChips = idx === lastAssistantIdx && !isLoading;
             return (
               <article key={m.id} className="fade-up">
                 <h2 className="mb-3 font-display text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
@@ -254,6 +260,9 @@ function ChatBody({
                 <div className="prose prose-invert prose-p:my-3 prose-p:leading-[1.75] prose-p:text-[15px] prose-p:text-foreground/90 prose-strong:text-foreground prose-em:text-mist max-w-none">
                   <ReactMarkdown>{text}</ReactMarkdown>
                 </div>
+                {showChips && (
+                  <ContinuationChips topic={activeTopic} onPick={sendText} disabled={isLoading} />
+                )}
               </article>
             );
           })}
