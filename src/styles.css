@@ -44,6 +44,7 @@
   --color-mist: var(--mist);
   --color-glacier: var(--glacier);
   --color-fog: var(--fog);
+  --color-sage: var(--sage);
 
   --shadow-mist: 0 30px 80px -40px color-mix(in oklab, var(--glacier) 40%, transparent);
   --shadow-deep: 0 40px 100px -30px oklch(0 0 0 / 0.7);
@@ -85,6 +86,7 @@
   --mist: oklch(0.82 0.018 230);                /* #a8b8c2 */
   --glacier: oklch(0.55 0.030 228);             /* mid blue-gray */
   --fog: oklch(0.42 0.020 230);                 /* #3a4a55 */
+  --sage: oklch(0.74 0.045 160);                /* cool sage — kit accent */
 }
 
 .dark {
@@ -110,6 +112,7 @@
   --mist: oklch(0.82 0.018 230);
   --glacier: oklch(0.55 0.030 228);
   --fog: oklch(0.42 0.020 230);
+  --sage: oklch(0.74 0.045 160);
 }
 
 @layer base {
