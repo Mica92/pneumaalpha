@@ -5,7 +5,6 @@ import { supabase } from "@/integrations/supabase/client";
 import { PHILOSOPHER_LIST } from "@/lib/philosophers";
 import { useI18n, LanguageSelector } from "@/lib/i18n";
 import { PneumaMark } from "@/components/pneuma-mark";
-import { PneumaMark } from "@/components/pneuma-mark";
 import { GreekGlyph } from "@/components/greek-glyph";
 import { TOOLS } from "@/lib/tools";
 
