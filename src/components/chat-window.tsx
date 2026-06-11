@@ -152,11 +152,11 @@ function ChatBody({
     await sendMessage({ text });
   };
 
-  const handleTopicPick = async (topic: TopicId) => {
+  const handleTopicPick = async (topicId: TopicId) => {
     if (isLoading) return;
-    setActiveTopic(topic);
-    const t = TOPICS.find((x) => x.id === topic)!;
-    await sendText(t.prompt[lang]);
+    setActiveTopic(topicId);
+    const topic = TOPICS.find((x) => x.id === topicId)!;
+    await sendText(topic.prompt[lang]);
   };
 
   const handleDilemma = async () => {
