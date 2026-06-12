@@ -14,7 +14,6 @@ import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as PhilosopherRouteImport } from './routes/$philosopher'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as ToolsToolRouteImport } from './routes/tools.$tool'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
@@ -41,11 +40,6 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ToolsToolRoute = ToolsToolRouteImport.update({
-  id: '/tools/$tool',
-  path: '/tools/$tool',
-  getParentRoute: () => rootRouteImport,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -53,7 +47,6 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/tools/$tool': typeof ToolsToolRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -61,7 +54,6 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/tools/$tool': typeof ToolsToolRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -70,33 +62,13 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/tools/$tool': typeof ToolsToolRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/$philosopher'
-    | '/auth'
-    | '/privacy'
-    | '/sitemap.xml'
-    | '/tools/$tool'
+  fullPaths: '/' | '/$philosopher' | '/auth' | '/privacy' | '/sitemap.xml'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/$philosopher'
-    | '/auth'
-    | '/privacy'
-    | '/sitemap.xml'
-    | '/tools/$tool'
-  id:
-    | '__root__'
-    | '/'
-    | '/$philosopher'
-    | '/auth'
-    | '/privacy'
-    | '/sitemap.xml'
-    | '/tools/$tool'
+  to: '/' | '/$philosopher' | '/auth' | '/privacy' | '/sitemap.xml'
+  id: '__root__' | '/' | '/$philosopher' | '/auth' | '/privacy' | '/sitemap.xml'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -105,7 +77,6 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   PrivacyRoute: typeof PrivacyRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
-  ToolsToolRoute: typeof ToolsToolRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -145,13 +116,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/tools/$tool': {
-      id: '/tools/$tool'
-      path: '/tools/$tool'
-      fullPath: '/tools/$tool'
-      preLoaderRoute: typeof ToolsToolRouteImport
-      parentRoute: typeof rootRouteImport
-    }
   }
 }
 
@@ -161,7 +125,6 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   PrivacyRoute: PrivacyRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
-  ToolsToolRoute: ToolsToolRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
