@@ -6,7 +6,7 @@ import { PHILOSOPHER_LIST } from "@/lib/philosophers";
 import { useI18n, LanguageSelector } from "@/lib/i18n";
 import { PneumaMark } from "@/components/pneuma-mark";
 import { GreekGlyph } from "@/components/greek-glyph";
-import { TOOLS } from "@/lib/tools";
+
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -151,60 +151,6 @@ function Index() {
         })}
       </section>
 
-      {/* Philosophical toolkit — distinct sage accent */}
-      <section aria-labelledby="toolkit-title" className="mt-16">
-        <div className="mb-6 flex items-end justify-between gap-4">
-          <div>
-            <p className="font-display text-[10px] uppercase tracking-[0.32em] text-sage/90">
-              {t("tools.kicker")}
-            </p>
-            <h2
-              id="toolkit-title"
-              className="mt-2 font-display text-2xl font-light tracking-tight text-foreground md:text-3xl"
-            >
-              {t("tools.section.title")}
-            </h2>
-            <p className="mt-1.5 max-w-md text-xs leading-relaxed text-muted-foreground md:text-sm">
-              {t("tools.section.sub")}
-            </p>
-          </div>
-          <span aria-hidden="true" className="hidden h-px flex-1 bg-sage/25 md:block" />
-        </div>
-
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-          {TOOLS.map((tool, i) => (
-            <Link
-              key={tool.id}
-              to="/tools/$tool"
-              params={{ tool: tool.id }}
-              className="group fade-up relative flex items-start gap-4 overflow-hidden rounded-xl border border-sage/35 bg-sage/8 p-5 backdrop-blur-sm transition-all duration-500 hover:border-sage/60 hover:bg-sage/14 md:p-6"
-              style={{
-                animationDelay: `${i * 60}ms`,
-                backgroundImage:
-                  "linear-gradient(135deg, color-mix(in oklab, var(--sage) 10%, transparent), color-mix(in oklab, var(--sage) 4%, transparent))",
-              }}
-            >
-              <span
-                aria-hidden="true"
-                className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-sage/40 bg-background/40 text-xl"
-              >
-                {tool.emoji}
-              </span>
-              <div className="min-w-0 flex-1">
-                <h3 className="font-display text-base font-light tracking-tight text-foreground">
-                  {tool.name[lang]}
-                </h3>
-                <p className="mt-1 text-xs leading-relaxed text-muted-foreground md:text-[13px]">
-                  {tool.tagline[lang]}
-                </p>
-              </div>
-              <span className="self-center font-display text-[10px] uppercase tracking-[0.3em] text-sage/80 opacity-0 transition-all duration-500 group-hover:opacity-100">
-                {t("umbral.enter")}
-              </span>
-            </Link>
-          ))}
-        </div>
-      </section>
 
       {/* Footer hairline */}
       <footer className="mt-16 flex flex-wrap items-center justify-between gap-3 border-t border-border/60 pt-6 text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
