@@ -93,13 +93,13 @@ function Index() {
       <div className="fade-up mb-3 grid gap-3 md:grid-cols-2">
         <Link
           to="/oraculo"
-          className="group relative flex flex-col gap-4 overflow-hidden rounded-xl border border-mist/40 bg-gradient-to-br from-mist/15 via-card/60 to-card/30 p-6 backdrop-blur-sm transition-all duration-500 hover:border-mist/70 hover:shadow-mist md:p-7"
+          className="group relative flex flex-col gap-4 overflow-hidden rounded-xl border border-glacier/50 bg-gradient-to-br from-glacier/20 via-card/60 to-card/30 p-6 backdrop-blur-sm transition-all duration-500 hover:border-glacier/80 hover:shadow-mist md:p-7"
         >
           <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-100">
-            <div className="absolute -top-24 right-10 h-56 w-56 rounded-full bg-mist/15 blur-3xl" />
+            <div className="absolute -top-24 right-10 h-56 w-56 rounded-full bg-glacier/25 blur-3xl" />
           </div>
           <div className="relative">
-            <p className="font-display text-[10px] uppercase tracking-[0.35em] text-mist">
+            <p className="font-display text-[10px] uppercase tracking-[0.35em] text-glacier">
               {t("oracle.kicker")}
             </p>
             <h2 className="mt-3 font-display text-2xl font-light leading-tight tracking-tight text-foreground md:text-[26px]">
@@ -109,20 +109,20 @@ function Index() {
               {t("oracle.card.sub")}
             </p>
           </div>
-          <span className="relative font-display text-[11px] uppercase tracking-[0.3em] text-foreground/80 transition-colors group-hover:text-foreground">
+          <span className="relative font-display text-[11px] uppercase tracking-[0.3em] text-glacier/90 transition-colors group-hover:text-foreground">
             {t("oracle.card.cta")}
           </span>
         </Link>
 
         <Link
           to="/reporte"
-          className="group relative flex flex-col gap-4 overflow-hidden rounded-xl border border-foreground/15 bg-gradient-to-br from-foreground/[0.06] via-card/60 to-card/30 p-6 backdrop-blur-sm transition-all duration-500 hover:border-foreground/30 hover:shadow-mist md:p-7"
+          className="group relative flex flex-col gap-4 overflow-hidden rounded-xl border border-sage/40 bg-gradient-to-br from-sage/15 via-card/60 to-card/30 p-6 backdrop-blur-sm transition-all duration-500 hover:border-sage/70 hover:shadow-mist md:p-7"
         >
           <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-100">
-            <div className="absolute -bottom-24 left-10 h-56 w-56 rounded-full bg-foreground/[0.08] blur-3xl" />
+            <div className="absolute -bottom-24 left-10 h-56 w-56 rounded-full bg-sage/20 blur-3xl" />
           </div>
           <div className="relative">
-            <p className="font-display text-[10px] uppercase tracking-[0.35em] text-foreground/70">
+            <p className="font-display text-[10px] uppercase tracking-[0.35em] text-sage">
               {t("report.kicker")}
             </p>
             <h2 className="mt-3 font-display text-2xl font-light leading-tight tracking-tight text-foreground md:text-[26px]">
@@ -132,7 +132,7 @@ function Index() {
               {t("report.card.sub")}
             </p>
           </div>
-          <span className="relative font-display text-[11px] uppercase tracking-[0.3em] text-foreground/80 transition-colors group-hover:text-foreground">
+          <span className="relative font-display text-[11px] uppercase tracking-[0.3em] text-sage/90 transition-colors group-hover:text-foreground">
             {t("report.card.cta")}
           </span>
         </Link>
