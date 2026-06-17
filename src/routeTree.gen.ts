@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as ReporteRouteImport } from './routes/reporte'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as OraculoRouteImport } from './routes/oraculo'
 import { Route as AuthRouteImport } from './routes/auth'
@@ -19,6 +20,11 @@ import { Route as IndexRouteImport } from './routes/index'
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReporteRoute = ReporteRouteImport.update({
+  id: '/reporte',
+  path: '/reporte',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PrivacyRoute = PrivacyRouteImport.update({
@@ -53,6 +59,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/oraculo': typeof OraculoRoute
   '/privacy': typeof PrivacyRoute
+  '/reporte': typeof ReporteRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
 }
 export interface FileRoutesByTo {
@@ -61,6 +68,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/oraculo': typeof OraculoRoute
   '/privacy': typeof PrivacyRoute
+  '/reporte': typeof ReporteRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
 }
 export interface FileRoutesById {
@@ -70,6 +78,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/oraculo': typeof OraculoRoute
   '/privacy': typeof PrivacyRoute
+  '/reporte': typeof ReporteRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
 }
 export interface FileRouteTypes {
@@ -80,9 +89,17 @@ export interface FileRouteTypes {
     | '/auth'
     | '/oraculo'
     | '/privacy'
+    | '/reporte'
     | '/sitemap.xml'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/$philosopher' | '/auth' | '/oraculo' | '/privacy' | '/sitemap.xml'
+  to:
+    | '/'
+    | '/$philosopher'
+    | '/auth'
+    | '/oraculo'
+    | '/privacy'
+    | '/reporte'
+    | '/sitemap.xml'
   id:
     | '__root__'
     | '/'
@@ -90,6 +107,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/oraculo'
     | '/privacy'
+    | '/reporte'
     | '/sitemap.xml'
   fileRoutesById: FileRoutesById
 }
@@ -99,6 +117,7 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   OraculoRoute: typeof OraculoRoute
   PrivacyRoute: typeof PrivacyRoute
+  ReporteRoute: typeof ReporteRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
 }
 
@@ -109,6 +128,13 @@ declare module '@tanstack/react-router' {
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reporte': {
+      id: '/reporte'
+      path: '/reporte'
+      fullPath: '/reporte'
+      preLoaderRoute: typeof ReporteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/privacy': {
@@ -155,6 +181,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   OraculoRoute: OraculoRoute,
   PrivacyRoute: PrivacyRoute,
+  ReporteRoute: ReporteRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
 }
 export const routeTree = rootRouteImport

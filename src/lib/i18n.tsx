@@ -184,6 +184,60 @@ export const T: Dict = {
   },
   "oracle.back": { es: "Volver al umbral", en: "Back to threshold" },
 
+  "report.kicker": { es: "Reporte", en: "Report" },
+  "report.card.title": {
+    es: "Un espejo de tus conversaciones.",
+    en: "A mirror of your conversations.",
+  },
+  "report.card.sub": {
+    es: "Un retrato hecho con tus palabras: arquetipo, fortalezas, sombras y qué leer ahora.",
+    en: "A portrait built from your words: archetype, strengths, shadows and what to read next.",
+  },
+  "report.card.cta": { es: "Ver mi reporte →", en: "See my report →" },
+
+  "report.page.title": {
+    es: "Lo que tus palabras revelan.",
+    en: "What your words reveal.",
+  },
+  "report.page.sub": {
+    es: "Genero un retrato psicológico-filosófico leyendo cómo escribes a cada voz: profundidad, lucidez, temas que reaparecen, fortalezas, puntos ciegos. Y te sugiero por dónde seguir.",
+    en: "I draw a psychological-philosophical portrait by reading how you write to each voice: depth, lucidity, recurring themes, strengths, blind spots. Then I suggest where to go next.",
+  },
+  "report.generate": { es: "Generar mi reporte", en: "Generate my report" },
+  "report.running": { es: "Leyendo tus huellas…", en: "Reading your traces…" },
+  "report.again": { es: "Volver a generar", en: "Generate again" },
+  "report.back": { es: "Volver al umbral", en: "Back to threshold" },
+  "report.error": {
+    es: "No se pudo generar el reporte ahora. Intenta de nuevo en un momento.",
+    en: "Could not generate the report right now. Try again in a moment.",
+  },
+  "report.hint": {
+    es: "Necesitas haber conversado al menos un poco con alguna voz para que el reporte tenga material que leer.",
+    en: "You need at least a few exchanges with any voice so the report has material to read.",
+  },
+  "report.archetype": { es: "Arquetipo", en: "Archetype" },
+  "report.basedOn": {
+    es: "Basado en {n} mensajes tuyos.",
+    en: "Based on {n} of your messages.",
+  },
+  "report.signals": { es: "Señales", en: "Signals" },
+  "report.signal.reflection": { es: "Reflexión", en: "Reflection" },
+  "report.signal.lucidity": { es: "Lucidez", en: "Lucidity" },
+  "report.signal.emotionalOpenness": { es: "Apertura emocional", en: "Emotional openness" },
+  "report.signal.intellectualCuriosity": { es: "Curiosidad intelectual", en: "Intellectual curiosity" },
+  "report.signal.discursiveDepth": { es: "Profundidad discursiva", en: "Discursive depth" },
+  "report.writingStyle": { es: "Tu forma de escribir", en: "Your writing style" },
+  "report.themes": { es: "Temas recurrentes", en: "Recurring themes" },
+  "report.strengths": { es: "Fortalezas", en: "Strengths" },
+  "report.shadows": { es: "Sombras", en: "Shadows" },
+  "report.recommend.kicker": { es: "Para seguir creciendo", en: "To keep growing" },
+  "report.recommend.topics": { es: "Temas a explorar", en: "Topics to explore" },
+  "report.recommend.authors": { es: "Autores que te conviene leer", en: "Authors worth reading" },
+  "report.recommend.ideas": { es: "Ideas para meditar", en: "Ideas to sit with" },
+  "report.recommend.practices": { es: "Prácticas", en: "Practices" },
+  "report.recommend.books": { es: "Libros recomendados", en: "Recommended books" },
+  "report.recommend.nextVoice": { es: "Próxima voz sugerida", en: "Suggested next voice" },
+  "report.recommend.enter": { es: "Entrar →", en: "Enter →" },
 };
 
 type Ctx = {
