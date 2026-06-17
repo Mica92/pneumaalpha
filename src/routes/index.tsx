@@ -99,7 +99,7 @@ function Index() {
             <div className="absolute -top-24 right-10 h-56 w-56 rounded-full bg-glacier/25 blur-3xl" />
           </div>
           <div className="relative">
-            <p className="font-display text-[10px] uppercase tracking-[0.35em] text-glacier">
+            <p className="font-display text-[10px] uppercase tracking-[0.35em] text-glacier-bright">
               {t("oracle.kicker")}
             </p>
             <h2 className="mt-3 font-display text-2xl font-light leading-tight tracking-tight text-foreground md:text-[26px]">
