@@ -187,10 +187,7 @@ function Index() {
                     {p.blurb[lang]}
                   </p>
                 )}
-                <div className="flex items-center justify-between border-t border-border/60 pt-3">
-                  <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground/80">
-                    {p.place[lang]}
-                  </span>
+                <div className="flex items-center justify-end border-t border-border/60 pt-3">
                   <span className="font-display text-[10px] uppercase tracking-[0.3em] text-muted-foreground opacity-0 transition-all duration-500 group-hover:translate-x-0 group-hover:text-foreground group-hover:opacity-100">
                     {t("umbral.enter")}
                   </span>

@@ -188,7 +188,6 @@ function ChatBody({
             <span className="font-display text-xl text-mist pneuma-breathe" aria-hidden="true">{meta.glyph}</span>
             <div className="leading-tight">
               <h1 className="font-display text-sm font-light tracking-wide text-foreground">{meta.name}</h1>
-              <p className="mt-0.5 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">{meta.place[lang]}</p>
             </div>
           </div>
           <div className="flex items-center gap-3">
