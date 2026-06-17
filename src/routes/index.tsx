@@ -99,7 +99,7 @@ function Index() {
             <div className="absolute -top-24 right-10 h-56 w-56 rounded-full bg-glacier/25 blur-3xl" />
           </div>
           <div className="relative">
-            <p className="font-display text-[10px] uppercase tracking-[0.35em] text-glacier">
+            <p className="font-display text-[10px] uppercase tracking-[0.35em] text-glacier-bright">
               {t("oracle.kicker")}
             </p>
             <h2 className="mt-3 font-display text-2xl font-light leading-tight tracking-tight text-foreground md:text-[26px]">
@@ -109,7 +109,7 @@ function Index() {
               {t("oracle.card.sub")}
             </p>
           </div>
-          <span className="relative font-display text-[11px] uppercase tracking-[0.3em] text-glacier/90 transition-colors group-hover:text-foreground">
+          <span className="relative font-display text-[11px] uppercase tracking-[0.3em] text-glacier-bright transition-colors group-hover:text-foreground">
             {t("oracle.card.cta")}
           </span>
         </Link>

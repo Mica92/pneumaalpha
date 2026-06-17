@@ -43,6 +43,7 @@
   --color-ring: var(--ring);
   --color-mist: var(--mist);
   --color-glacier: var(--glacier);
+  --color-glacier-bright: var(--glacier-bright);
   --color-fog: var(--fog);
   --color-sage: var(--sage);
 
@@ -84,9 +85,10 @@
   --ring: oklch(0.55 0.020 230);
 
   --mist: oklch(0.82 0.018 230);                /* #a8b8c2 */
-  --glacier: oklch(0.55 0.030 228);             /* mid blue-gray */
+  --glacier: oklch(0.55 0.030 228);             /* mid blue-gray — surfaces, borders */
+  --glacier-bright: oklch(0.80 0.045 228);      /* text-safe glacier, AA on card */
   --fog: oklch(0.42 0.020 230);                 /* #3a4a55 */
-  --sage: oklch(0.74 0.045 160);                /* cool sage — kit accent */
+  --sage: oklch(0.74 0.045 160);                /* cool sage — kit accent, AAA on card */
 }
 
 .dark {
