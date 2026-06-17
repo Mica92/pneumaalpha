@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as OraculoRouteImport } from './routes/oraculo'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as PhilosopherRouteImport } from './routes/$philosopher'
 import { Route as IndexRouteImport } from './routes/index'
@@ -23,6 +24,11 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
 const PrivacyRoute = PrivacyRouteImport.update({
   id: '/privacy',
   path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OraculoRoute = OraculoRouteImport.update({
+  id: '/oraculo',
+  path: '/oraculo',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRoute = AuthRouteImport.update({
@@ -45,6 +51,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/$philosopher': typeof PhilosopherRoute
   '/auth': typeof AuthRoute
+  '/oraculo': typeof OraculoRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
 }
@@ -52,6 +59,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/$philosopher': typeof PhilosopherRoute
   '/auth': typeof AuthRoute
+  '/oraculo': typeof OraculoRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
 }
@@ -60,21 +68,36 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/$philosopher': typeof PhilosopherRoute
   '/auth': typeof AuthRoute
+  '/oraculo': typeof OraculoRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/$philosopher' | '/auth' | '/privacy' | '/sitemap.xml'
+  fullPaths:
+    | '/'
+    | '/$philosopher'
+    | '/auth'
+    | '/oraculo'
+    | '/privacy'
+    | '/sitemap.xml'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/$philosopher' | '/auth' | '/privacy' | '/sitemap.xml'
-  id: '__root__' | '/' | '/$philosopher' | '/auth' | '/privacy' | '/sitemap.xml'
+  to: '/' | '/$philosopher' | '/auth' | '/oraculo' | '/privacy' | '/sitemap.xml'
+  id:
+    | '__root__'
+    | '/'
+    | '/$philosopher'
+    | '/auth'
+    | '/oraculo'
+    | '/privacy'
+    | '/sitemap.xml'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   PhilosopherRoute: typeof PhilosopherRoute
   AuthRoute: typeof AuthRoute
+  OraculoRoute: typeof OraculoRoute
   PrivacyRoute: typeof PrivacyRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
 }
@@ -93,6 +116,13 @@ declare module '@tanstack/react-router' {
       path: '/privacy'
       fullPath: '/privacy'
       preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/oraculo': {
+      id: '/oraculo'
+      path: '/oraculo'
+      fullPath: '/oraculo'
+      preLoaderRoute: typeof OraculoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth': {
@@ -123,19 +153,10 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   PhilosopherRoute: PhilosopherRoute,
   AuthRoute: AuthRoute,
+  OraculoRoute: OraculoRoute,
   PrivacyRoute: PrivacyRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

@@ -151,6 +151,39 @@ export const T: Dict = {
   "tools.guide.next": { es: "Siguiente paso", en: "Next step" },
   "tools.guide.done": { es: "¡Listo! Terminaste el ejercicio.", en: "Done! You finished the exercise." },
 
+  "oracle.kicker": { es: "Oráculo", en: "Oracle" },
+  "oracle.card.title": {
+    es: "Escribe lo que llevas dentro.",
+    en: "Write what you carry inside.",
+  },
+  "oracle.card.sub": {
+    es: "Una pregunta, una frase, una inquietud. Te asignaré la voz mejor preparada para responderte.",
+    en: "A question, a phrase, a worry. I'll assign you the voice best prepared to answer.",
+  },
+  "oracle.card.cta": { es: "Buscar voz →", en: "Find a voice →" },
+  "oracle.page.title": {
+    es: "¿Sobre qué quieres conversar?",
+    en: "What do you want to talk about?",
+  },
+  "oracle.page.sub": {
+    es: "Escribe libremente — una pregunta, una duda, una frase que te ronda. Elegiré por ti la voz más adecuada del umbral.",
+    en: "Write freely — a question, a doubt, a phrase circling your mind. I'll choose the right voice for you from the threshold.",
+  },
+  "oracle.placeholder": {
+    es: "Ej.: ¿Por qué siento que el tiempo se me escapa?",
+    en: "E.g.: Why do I feel time is slipping from me?",
+  },
+  "oracle.submit": { es: "Asignar interlocutor", en: "Assign interlocutor" },
+  "oracle.submitting": { es: "Buscando la voz adecuada…", en: "Finding the right voice…" },
+  "oracle.result.kicker": { es: "La voz indicada", en: "The chosen voice" },
+  "oracle.result.enter": { es: "Entrar a la conversación →", en: "Enter the conversation →" },
+  "oracle.result.again": { es: "Probar con otra inquietud", en: "Try with another concern" },
+  "oracle.error": {
+    es: "No se pudo encontrar una voz ahora. Intenta de nuevo en un momento.",
+    en: "Couldn't find a voice right now. Try again in a moment.",
+  },
+  "oracle.back": { es: "Volver al umbral", en: "Back to threshold" },
+
 };
 
 type Ctx = {
