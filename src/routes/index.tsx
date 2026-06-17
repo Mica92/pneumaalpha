@@ -109,7 +109,7 @@ function Index() {
               {t("oracle.card.sub")}
             </p>
           </div>
-          <span className="relative font-display text-[11px] uppercase tracking-[0.3em] text-glacier/90 transition-colors group-hover:text-foreground">
+          <span className="relative font-display text-[11px] uppercase tracking-[0.3em] text-glacier-bright transition-colors group-hover:text-foreground">
             {t("oracle.card.cta")}
           </span>
         </Link>
