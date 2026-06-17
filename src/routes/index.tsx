@@ -89,6 +89,30 @@ function Index() {
         </p>
       </header>
 
+      {/* Oracle entry — a single distinctive band above the bento. */}
+      <Link
+        to="/oraculo"
+        className="fade-up group relative mb-3 flex flex-col gap-4 overflow-hidden rounded-xl border border-mist/40 bg-gradient-to-br from-mist/15 via-card/60 to-card/30 p-6 backdrop-blur-sm transition-all duration-500 hover:border-mist/70 hover:shadow-mist md:flex-row md:items-center md:justify-between md:p-8"
+      >
+        <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-100">
+          <div className="absolute -top-24 right-10 h-56 w-56 rounded-full bg-mist/15 blur-3xl" />
+        </div>
+        <div className="relative">
+          <p className="font-display text-[10px] uppercase tracking-[0.35em] text-mist">
+            {t("oracle.kicker")}
+          </p>
+          <h2 className="mt-3 font-display text-2xl font-light leading-tight tracking-tight text-foreground md:text-3xl">
+            {t("oracle.card.title")}
+          </h2>
+          <p className="mt-2 max-w-xl text-xs leading-relaxed text-muted-foreground md:text-sm">
+            {t("oracle.card.sub")}
+          </p>
+        </div>
+        <span className="relative font-display text-[11px] uppercase tracking-[0.3em] text-foreground/80 transition-colors group-hover:text-foreground">
+          {t("oracle.card.cta")}
+        </span>
+      </Link>
+
       {/* Bento grid — 6 cols, asymmetric tiles */}
       <section className="grid flex-1 auto-rows-[minmax(180px,auto)] grid-cols-1 gap-3 md:grid-cols-6">
         {PHILOSOPHER_LIST.map((p, i) => {
