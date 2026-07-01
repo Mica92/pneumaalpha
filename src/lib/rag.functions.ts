@@ -52,7 +52,7 @@ export const retrieveSources = createServerFn({ method: "POST" })
       const { data: rows, error } = await context.supabase.rpc(
         "match_philosopher_sources",
         {
-          query_embedding: toVectorLiteral(embedding) as unknown as number[],
+          query_embedding: toVectorLiteral(embedding),
           target_philosopher: data.philosopher,
           match_count: data.matchCount,
         },
