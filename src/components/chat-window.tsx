@@ -73,12 +73,18 @@ function ChatBody({
 }) {
   const sendFn = useServerFn(sendChat);
   const historyFn = useServerFn(loadFullHistory);
+  const migrateFn = useServerFn(migrateConversation);
+  const navigate = useNavigate();
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const meta = PHILOSOPHERS[philosopher];
   const { lang, t } = useI18n();
   const [archiveOpen, setArchiveOpen] = useState(false);
+  const [migrateOpen, setMigrateOpen] = useState(false);
+  const [migrateMode, setMigrateMode] = useState<"full" | "questions">("full");
+  const [migrating, setMigrating] = useState<PhilosopherId | null>(null);
   const [activeTopic, setActiveTopic] = useState<TopicId | null>(null);
+
 
   const {
     data: history,
