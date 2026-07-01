@@ -15,6 +15,12 @@ const SendSchema = z.object({
   language: LanguageSchema.optional(),
 });
 const ClearSchema = z.object({ philosopher: PhilosopherSchema });
+const MigrateSchema = z.object({
+  from: PhilosopherSchema,
+  to: PhilosopherSchema,
+  mode: z.enum(["full", "questions"]).default("full"),
+});
+
 
 
 export const loadMessages = createServerFn({ method: "POST" })
