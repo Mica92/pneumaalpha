@@ -45,14 +45,15 @@ function Index() {
 
   if (loading || !user) {
     return (
-      <main className="flex min-h-screen items-center justify-center">
+      <main className="flex min-h-dvh items-center justify-center">
         <GreekGlyph className="font-display text-3xl text-mist pneuma-breathe" />
       </main>
     );
   }
 
   return (
-    <main className="relative z-10 mx-auto flex min-h-screen max-w-6xl flex-col px-6 py-10 md:px-10 md:py-14">
+    <main className="route-enter relative z-10 mx-auto flex min-h-dvh max-w-6xl flex-col px-6 py-10 md:px-10 md:py-14">
+
       {/* Top nav — clinical, almost invisible */}
       <nav className="flex items-center justify-between">
         <div className="flex items-center gap-3">
