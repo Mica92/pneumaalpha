@@ -893,7 +893,7 @@ export const PHILOSOPHERS: Record<PhilosopherId, Philosopher> = {
 export const PHILOSOPHER_LIST = Object.values(PHILOSOPHERS);
 
 export function isPhilosopherId(v: string): v is PhilosopherId {
-  return v === "heidegger" || v === "schopenhauer" || v === "james" || v === "nietzsche" || v === "marx" || v === "bentham" || v === "pohlenz" || v === "einstein" || v === "rationalism" || v === "pascal" || v === "kierkegaard" || v === "yannaras" || v === "levinas" || v === "maimonides";
+  return v === "heidegger" || v === "schopenhauer" || v === "james" || v === "nietzsche" || v === "marx" || v === "bentham" || v === "pohlenz" || v === "einstein" || v === "rationalism" || v === "pascal" || v === "kierkegaard" || v === "yannaras" || v === "levinas" || v === "maimonides" || v === "aquinas";
 }
 
 export type Language = "es" | "en";
