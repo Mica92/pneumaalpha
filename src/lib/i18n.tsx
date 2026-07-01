@@ -150,6 +150,15 @@ export const T: Dict = {
   },
   "chat.migrate.assistant": { es: "Filósofo", en: "Philosopher" },
 
+  "chat.actions": { es: "Acciones", en: "Actions" },
+  "chat.actions.open": { es: "Más acciones", en: "More actions" },
+  "chat.scrollDown": { es: "Volver al presente", en: "Back to the present" },
+  "chat.send.hint": {
+    es: "⌘/Ctrl + Enter para enviar",
+    en: "⌘/Ctrl + Enter to send",
+  },
+
+
 
 
 
