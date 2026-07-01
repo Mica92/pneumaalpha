@@ -107,6 +107,37 @@ export const T: Dict = {
   "chat.archive.loading": { es: "Recuperando el archivo…", en: "Retrieving the archive…" },
   "chat.you": { es: "Tú", en: "You" },
 
+  "chat.migrate": { es: "Migrar", en: "Migrate" },
+  "chat.migrate.title": {
+    es: "Migrar conversación",
+    en: "Migrate conversation",
+  },
+  "chat.migrate.subtitle": {
+    es: "Lleva este hilo a otro intelectual para escuchar otra visión sobre el mismo tema.",
+    en: "Move this thread to another mind and hear another view on the same topic.",
+  },
+  "chat.migrate.mode.full": { es: "Copiar todo el hilo", en: "Copy the full thread" },
+  "chat.migrate.mode.questions": { es: "Solo mis preguntas", en: "Only my questions" },
+  "chat.migrate.pick": { es: "Elige un interlocutor", en: "Choose an interlocutor" },
+  "chat.migrate.close": { es: "Cancelar", en: "Cancel" },
+  "chat.migrate.confirm": {
+    es: "¿Migrar la conversación de {from} a {to}?",
+    en: "Migrate the conversation from {from} to {to}?",
+  },
+  "chat.migrate.done": {
+    es: "Conversación migrada a {name}.",
+    en: "Conversation migrated to {name}.",
+  },
+  "chat.migrate.empty": {
+    es: "Aún no hay nada que migrar.",
+    en: "There is nothing to migrate yet.",
+  },
+  "chat.migrate.failed": {
+    es: "No se pudo migrar la conversación.",
+    en: "Could not migrate the conversation.",
+  },
+
+
   "chat.topics.aria": { es: "Tópicos sugeridos", en: "Suggested topics" },
   "chat.chips.label": { es: "Continuar la conversación", en: "Continue the conversation" },
   "chat.dilemma.kicker": { es: "Dilema de hoy", en: "Today's dilemma" },
