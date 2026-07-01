@@ -152,3 +152,37 @@ export const clearConversation = createServerFn({ method: "POST" })
       .eq("philosopher", data.philosopher);
     return { ok: true };
   });
+
+export const migrateConversation = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((input) => MigrateSchema.parse(input))
+  .handler(async ({ data, context }) => {
+    const { supabase, userId } = context;
+    if (data.from === data.to) return { ok: true, copied: 0 };
+
+    const { data: rows, error } = await supabase
+      .from("messages")
+      .select("role, content, created_at")
+      .eq("user_id", userId)
+      .eq("philosopher", data.from)
+      .order("created_at", { ascending: true });
+    if (error) throw error;
+
+    const source = rows ?? [];
+    const filtered = data.mode === "questions"
+      ? source.filter((r) => r.role === "user")
+      : source;
+    if (filtered.length === 0) return { ok: true, copied: 0 };
+
+    const payload = filtered.map((r) => ({
+      user_id: userId,
+      role: r.role as "user" | "assistant",
+      content: r.content as string,
+      philosopher: data.to,
+    }));
+
+    const { error: insertError } = await supabase.from("messages").insert(payload);
+    if (insertError) throw insertError;
+    return { ok: true, copied: payload.length };
+  });
+
