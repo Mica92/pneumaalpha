@@ -93,7 +93,7 @@ function ChatBody({
   } = useQuery({
     queryKey: ["history", philosopher],
     queryFn: () => historyFn({ data: { philosopher } }),
-    enabled: archiveOpen,
+    enabled: archiveOpen || migrateOpen,
     staleTime: 0,
   });
 
