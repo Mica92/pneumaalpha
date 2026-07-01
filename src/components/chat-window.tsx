@@ -93,7 +93,7 @@ function ChatBody({
   } = useQuery({
     queryKey: ["history", philosopher],
     queryFn: () => historyFn({ data: { philosopher } }),
-    enabled: archiveOpen,
+    enabled: archiveOpen || migrateOpen,
     staleTime: 0,
   });
 
@@ -233,7 +233,10 @@ function ChatBody({
               {t("chat.archive")}
             </button>
             <button
-              onClick={() => setMigrateOpen(true)}
+              onClick={() => {
+                setMigrateOpen(true);
+                refetchHistory();
+              }}
               className="rounded-md px-3 py-1.5 text-[10px] uppercase tracking-[0.25em] text-muted-foreground transition-colors hover:bg-card hover:text-foreground"
             >
               {t("chat.migrate")}
@@ -490,7 +493,44 @@ function ChatBody({
               ))}
             </div>
 
-            <div className="max-h-[55vh] overflow-y-auto px-3 py-3">
+            {(() => {
+              const preview = (history ?? []).filter((m) =>
+                migrateMode === "questions" ? m.role === "user" : true,
+              );
+              return (
+                <div className="border-b border-border/60 px-5 py-3">
+                  <p className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
+                    {t("chat.migrate.preview", { count: String(preview.length) })}
+                  </p>
+                  <div className="mt-2 max-h-40 overflow-y-auto rounded-md border border-border/40 bg-background/40 p-2">
+                    {historyLoading && !history ? (
+                      <p className="px-1 py-2 text-xs text-muted-foreground">
+                        {t("chat.migrate.preview.loading")}
+                      </p>
+                    ) : preview.length === 0 ? (
+                      <p className="px-1 py-2 text-xs text-muted-foreground">
+                        {t("chat.migrate.preview.empty")}
+                      </p>
+                    ) : (
+                      <ol className="flex flex-col gap-1.5">
+                        {preview.slice(-40).map((m) => (
+                          <li key={m.id} className="flex gap-2 text-xs">
+                            <span className="shrink-0 text-[9px] uppercase tracking-[0.2em] text-muted-foreground/80 pt-0.5 w-14">
+                              {m.role === "user" ? t("chat.you") : t("chat.migrate.assistant")}
+                            </span>
+                            <span className="flex-1 text-foreground/75 line-clamp-2">
+                              {m.content}
+                            </span>
+                          </li>
+                        ))}
+                      </ol>
+                    )}
+                  </div>
+                </div>
+              );
+            })()}
+
+            <div className="max-h-[45vh] overflow-y-auto px-3 py-3">
               <p className="px-2 pb-2 text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
                 {t("chat.migrate.pick")}
               </p>

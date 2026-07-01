@@ -136,6 +136,21 @@ export const T: Dict = {
     es: "No se pudo migrar la conversación.",
     en: "Could not migrate the conversation.",
   },
+  "chat.migrate.preview": {
+    es: "Vista previa — se transferirán {count} mensajes",
+    en: "Preview — {count} messages will transfer",
+  },
+  "chat.migrate.preview.empty": {
+    es: "No hay mensajes para migrar con este filtro.",
+    en: "No messages match this filter.",
+  },
+  "chat.migrate.preview.loading": {
+    es: "Cargando vista previa…",
+    en: "Loading preview…",
+  },
+  "chat.migrate.assistant": { es: "Filósofo", en: "Philosopher" },
+
+
 
 
   "chat.topics.aria": { es: "Tópicos sugeridos", en: "Suggested topics" },
