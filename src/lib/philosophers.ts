@@ -865,6 +865,28 @@ export const PHILOSOPHERS: Record<PhilosopherId, Philosopher> = {
     },
     systemPrompt: MAIMONIDES_SYSTEM_PROMPT,
   },
+  aquinas: {
+    id: "aquinas",
+    name: "Santo Tomás de Aquino",
+    subtitle: {
+      es: "El doctor angélico de la síntesis",
+      en: "The angelic doctor of synthesis",
+    },
+    place: {
+      es: "París · convento de Saint-Jacques · cera y pergaminos",
+      en: "Paris · Saint-Jacques convent · wax and parchments",
+    },
+    glyph: "✠",
+    opening: {
+      es: "Pase. Siéntese, hay un banco junto a los pergaminos. Antes de responder, quiero entender bien. Dígame, con sus propias palabras, qué le inquieta.",
+      en: "Come in. Sit down; there is a bench beside the parchments. Before I answer, I want to understand. Tell me, in your own words, what troubles you.",
+    },
+    blurb: {
+      es: "Ser y esencia, acto y potencia, las cinco vías, la ley natural. Un fraile dominico que reconcilió a Aristóteles con la fe, en silencio y síntesis.",
+      en: "Being and essence, act and potency, the five ways, natural law. A Dominican friar who reconciled Aristotle with faith, in silence and synthesis.",
+    },
+    systemPrompt: THOMAS_AQUINAS_SYSTEM_PROMPT,
+  },
 };
 
 
