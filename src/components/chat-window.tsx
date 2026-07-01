@@ -456,7 +456,85 @@ function ChatBody({
         </div>
       )}
 
+      {migrateOpen && (
+        <div
+          className="fixed inset-0 z-50 flex items-end justify-center bg-background/70 backdrop-blur-sm sm:items-center"
+          onClick={() => !migrating && setMigrateOpen(false)}
+        >
+          <aside
+            className="w-full max-w-lg overflow-hidden rounded-t-2xl border border-border/60 bg-card shadow-2xl sm:rounded-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <header className="border-b border-border/60 px-5 py-4">
+              <p className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
+                {t("chat.migrate.title")}
+              </p>
+              <p className="mt-2 text-sm text-foreground/85">
+                {t("chat.migrate.subtitle")}
+              </p>
+            </header>
+
+            <div className="flex flex-wrap gap-2 border-b border-border/60 px-5 py-3">
+              {(["full", "questions"] as const).map((mode) => (
+                <button
+                  key={mode}
+                  onClick={() => setMigrateMode(mode)}
+                  className={`rounded-full border px-3 py-1 text-[11px] tracking-wide transition-colors ${
+                    migrateMode === mode
+                      ? "border-foreground/60 bg-foreground/10 text-foreground"
+                      : "border-border/60 text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  {t(mode === "full" ? "chat.migrate.mode.full" : "chat.migrate.mode.questions")}
+                </button>
+              ))}
+            </div>
+
+            <div className="max-h-[55vh] overflow-y-auto px-3 py-3">
+              <p className="px-2 pb-2 text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
+                {t("chat.migrate.pick")}
+              </p>
+              <ul className="flex flex-col gap-1">
+                {PHILOSOPHER_LIST.filter((p) => p.id !== philosopher).map((p) => (
+                  <li key={p.id}>
+                    <button
+                      disabled={!!migrating}
+                      onClick={() => handleMigrate(p.id)}
+                      className="flex w-full items-center gap-3 rounded-lg border border-transparent px-3 py-2.5 text-left transition-colors hover:border-border/60 hover:bg-background/60 disabled:opacity-50"
+                    >
+                      <span className="text-lg text-foreground/70">{p.glyph}</span>
+                      <span className="flex-1">
+                        <span className="block text-sm text-foreground">{p.name}</span>
+                        <span className="block text-xs text-muted-foreground">
+                          {p.subtitle[lang]}
+                        </span>
+                      </span>
+                      {migrating === p.id && (
+                        <span className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
+                          …
+                        </span>
+                      )}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <footer className="flex justify-end border-t border-border/60 px-5 py-3">
+              <button
+                onClick={() => setMigrateOpen(false)}
+                disabled={!!migrating}
+                className="rounded-md px-3 py-1.5 text-[10px] uppercase tracking-[0.25em] text-muted-foreground transition-colors hover:bg-background hover:text-foreground disabled:opacity-50"
+              >
+                {t("chat.migrate.close")}
+              </button>
+            </footer>
+          </aside>
+        </div>
+      )}
+
       <RootQuestionsFab onPick={sendText} disabled={isLoading} />
     </div>
+
   );
 }
