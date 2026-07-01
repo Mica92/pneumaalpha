@@ -173,13 +173,17 @@ function ChatBody({
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const form = e.currentTarget;
-    const fd = new FormData(form);
-    const text = String(fd.get("msg") ?? "").trim();
+    const text = composerText.trim();
     if (!text || isLoading) return;
-    form.reset();
+    setComposerText("");
+    if (inputRef.current) {
+      inputRef.current.value = "";
+      inputRef.current.style.height = "auto";
+    }
+    setAtBottom(true);
     await sendMessage({ text });
   };
+
 
   const handleTopicPick = async (topicId: TopicId) => {
     if (isLoading) return;
