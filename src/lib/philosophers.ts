@@ -1,7 +1,7 @@
 // Registro de filósofos vivos en la plataforma.
 // Cada uno tiene su prompt, su atmósfera y su voz.
 
-export type PhilosopherId = "heidegger" | "schopenhauer" | "james" | "nietzsche" | "marx" | "bentham" | "pohlenz" | "einstein" | "rationalism" | "pascal" | "yannaras" | "kierkegaard" | "levinas" | "maimonides";
+export type PhilosopherId = "heidegger" | "schopenhauer" | "james" | "nietzsche" | "marx" | "bentham" | "pohlenz" | "einstein" | "rationalism" | "pascal" | "yannaras" | "kierkegaard" | "levinas" | "maimonides" | "aquinas";
 
 export type LocalizedString = { es: string; en: string };
 
