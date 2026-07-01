@@ -41,6 +41,39 @@ export type Database = {
         }
         Relationships: []
       }
+      philosopher_sources: {
+        Row: {
+          content: string
+          created_at: string
+          embedding: string
+          id: string
+          lang: string
+          philosopher: string
+          reference: string
+          work: string
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          embedding: string
+          id?: string
+          lang?: string
+          philosopher: string
+          reference: string
+          work: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          embedding?: string
+          id?: string
+          lang?: string
+          philosopher?: string
+          reference?: string
+          work?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           created_at: string
@@ -91,7 +124,21 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      match_philosopher_sources: {
+        Args: {
+          match_count?: number
+          query_embedding: string
+          target_philosopher: string
+        }
+        Returns: {
+          content: string
+          id: string
+          lang: string
+          reference: string
+          similarity: number
+          work: string
+        }[]
+      }
     }
     Enums: {
       [_ in never]: never

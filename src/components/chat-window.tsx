@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Link, useNavigate } from "@tanstack/react-router";
 import ReactMarkdown from "react-markdown";
 import { loadMessages, loadFullHistory, sendChat, clearConversation, migrateConversation } from "@/lib/chat.functions";
+import { seedAquinasCorpus, countSources } from "@/lib/rag.functions";
 import { PHILOSOPHERS, PHILOSOPHER_LIST, type PhilosopherId } from "@/lib/philosophers";
 
 import { useI18n, LanguageSelector } from "@/lib/i18n";
@@ -241,6 +242,7 @@ function ChatBody({
             >
               {t("chat.migrate")}
             </button>
+            {philosopher === "aquinas" && <CorpusBadge />}
 
             <button
               onClick={async () => {
@@ -576,5 +578,41 @@ function ChatBody({
       <RootQuestionsFab onPick={sendText} disabled={isLoading} />
     </div>
 
+  );
+}
+
+function CorpusBadge() {
+  const countFn = useServerFn(countSources);
+  const seedFn = useServerFn(seedAquinasCorpus);
+  const [seeding, setSeeding] = useState(false);
+  const { data, refetch } = useQuery({
+    queryKey: ["corpus-count", "aquinas"],
+    queryFn: () => countFn({ data: { philosopher: "aquinas" } }),
+  });
+  const count = data?.count ?? 0;
+
+  const handleSeed = async () => {
+    setSeeding(true);
+    try {
+      const res = await seedFn();
+      toast.success(`Corpus indexado: +${res.inserted} pasajes (${res.skipped} ya estaban)`);
+      if (res.errors.length) console.warn("[corpus] errors", res.errors);
+      await refetch();
+    } catch (e) {
+      toast.error(`Indexación falló: ${(e as Error).message}`);
+    } finally {
+      setSeeding(false);
+    }
+  };
+
+  return (
+    <button
+      onClick={handleSeed}
+      disabled={seeding}
+      title="Indexar / re-indexar corpus de Santo Tomás en el RAG"
+      className="rounded-md border border-border/60 px-3 py-1.5 text-[10px] uppercase tracking-[0.25em] text-muted-foreground transition-colors hover:bg-card hover:text-foreground disabled:opacity-50"
+    >
+      {seeding ? "Indexando…" : `Corpus · ${count}`}
+    </button>
   );
 }
