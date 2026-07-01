@@ -107,13 +107,17 @@ function ChatBody({
     lang,
     onFinal: (text) => {
       const ta = inputRef.current;
-      if (!ta) return;
-      const current = ta.value.trimEnd();
-      ta.value = (current ? current + " " : "") + text;
-      ta.style.height = "auto";
-      ta.style.height = Math.min(ta.scrollHeight, 200) + "px";
-      ta.focus();
+      setComposerText((prev) => {
+        const base = prev.trimEnd();
+        return (base ? base + " " : "") + text;
+      });
+      if (ta) {
+        ta.style.height = "auto";
+        ta.style.height = Math.min(ta.scrollHeight, 200) + "px";
+        ta.focus();
+      }
     },
+
     onError: (msg) => {
       if (msg === "not-allowed" || msg === "service-not-allowed") {
         toast.error(t("chat.mic.denied"));
