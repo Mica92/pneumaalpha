@@ -86,6 +86,10 @@ function ChatBody({
   const [migrateMode, setMigrateMode] = useState<"full" | "questions">("full");
   const [migrating, setMigrating] = useState<PhilosopherId | null>(null);
   const [activeTopic, setActiveTopic] = useState<TopicId | null>(null);
+  const [actionsOpen, setActionsOpen] = useState(false);
+  const [composerText, setComposerText] = useState("");
+  const [atBottom, setAtBottom] = useState(true);
+
 
 
   const {
