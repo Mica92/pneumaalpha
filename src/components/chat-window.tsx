@@ -40,13 +40,12 @@ export function ChatWindow({ userId, philosopher, onSignOut }: Props) {
 
   if (isLoading || !initial) {
     return (
-      <div className="flex min-h-screen items-center justify-center">
-        <p className="font-serif text-3xl text-primary ember-breathe">
-          {PHILOSOPHERS[philosopher].glyph}
-        </p>
+      <div className="flex min-h-dvh items-center justify-center">
+        <GreekGlyph className="font-display text-5xl text-mist pneuma-breathe" />
       </div>
     );
   }
+
 
   return (
     <ChatBody
