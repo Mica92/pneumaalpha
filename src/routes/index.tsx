@@ -45,14 +45,15 @@ function Index() {
 
   if (loading || !user) {
     return (
-      <main className="flex min-h-screen items-center justify-center">
+      <main className="flex min-h-dvh items-center justify-center">
         <GreekGlyph className="font-display text-3xl text-mist pneuma-breathe" />
       </main>
     );
   }
 
   return (
-    <main className="relative z-10 mx-auto flex min-h-screen max-w-6xl flex-col px-6 py-10 md:px-10 md:py-14">
+    <main className="route-enter relative z-10 mx-auto flex min-h-dvh max-w-6xl flex-col px-6 py-10 md:px-10 md:py-14">
+
       {/* Top nav — clinical, almost invisible */}
       <nav className="flex items-center justify-between">
         <div className="flex items-center gap-3">
@@ -148,9 +149,11 @@ function Index() {
               key={p.id}
               to="/$philosopher"
               params={{ philosopher: p.id }}
-              className={`group fade-up relative flex flex-col justify-between overflow-hidden rounded-xl border border-border bg-card/50 p-6 backdrop-blur-sm transition-all duration-500 hover:border-mist/40 hover:bg-card/80 hover:shadow-mist md:p-8 ${BENTO_CLASSES[i] ?? "md:col-span-2 md:row-span-1"}`}
+              aria-label={`${p.name} — ${p.subtitle[lang]}`}
+              className={`group fade-up hover-lift focus-mist relative flex flex-col justify-between overflow-hidden rounded-xl border border-border bg-card/50 p-6 backdrop-blur-sm transition-all duration-500 hover:border-mist/40 hover:bg-card/80 hover:shadow-mist md:p-8 ${BENTO_CLASSES[i] ?? "md:col-span-2 md:row-span-1"}`}
               style={{ animationDelay: `${i * 80}ms` }}
             >
+
               {/* Subtle inner glow on hover */}
               <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-100">
                 <div className="absolute -top-32 left-1/2 h-64 w-64 -translate-x-1/2 rounded-full bg-mist/8 blur-3xl" />
