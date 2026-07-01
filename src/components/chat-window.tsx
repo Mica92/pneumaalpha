@@ -242,6 +242,7 @@ function ChatBody({
             >
               {t("chat.migrate")}
             </button>
+            {philosopher === "aquinas" && <CorpusBadge />}
 
             <button
               onClick={async () => {
