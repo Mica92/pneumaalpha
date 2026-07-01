@@ -712,3 +712,27 @@ function CorpusBadge() {
     </button>
   );
 }
+
+function HeaderAction({ onClick, children }: { onClick: () => void | Promise<void>; children: React.ReactNode }) {
+  return (
+    <button
+      onClick={onClick}
+      className="focus-mist rounded-md px-3 py-1.5 text-[10px] uppercase tracking-[0.25em] text-muted-foreground transition-colors hover:bg-card hover:text-foreground"
+    >
+      {children}
+    </button>
+  );
+}
+
+function MenuItem({ onClick, children }: { onClick: () => void | Promise<void>; children: React.ReactNode }) {
+  return (
+    <button
+      role="menuitem"
+      onClick={onClick}
+      className="w-full px-4 py-3 text-left text-xs uppercase tracking-[0.25em] text-muted-foreground transition-colors hover:bg-background/60 hover:text-foreground"
+    >
+      {children}
+    </button>
+  );
+}
+
