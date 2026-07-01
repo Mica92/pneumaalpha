@@ -233,6 +233,13 @@ function ChatBody({
               {t("chat.archive")}
             </button>
             <button
+              onClick={() => setMigrateOpen(true)}
+              className="rounded-md px-3 py-1.5 text-[10px] uppercase tracking-[0.25em] text-muted-foreground transition-colors hover:bg-card hover:text-foreground"
+            >
+              {t("chat.migrate")}
+            </button>
+
+            <button
               onClick={async () => {
                 if (confirm(t("chat.confirmClear", { name: meta.name }))) await onClear();
               }}
