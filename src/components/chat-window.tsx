@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Link, useNavigate } from "@tanstack/react-router";
 import ReactMarkdown from "react-markdown";
 import { loadMessages, loadFullHistory, sendChat, clearConversation, migrateConversation } from "@/lib/chat.functions";
+import { seedAquinasCorpus, countSources } from "@/lib/rag.functions";
 import { PHILOSOPHERS, PHILOSOPHER_LIST, type PhilosopherId } from "@/lib/philosophers";
 
 import { useI18n, LanguageSelector } from "@/lib/i18n";
