@@ -205,7 +205,7 @@ function Index() {
         <Link to="/privacy" className="transition-colors hover:text-foreground">
           {lang === "es" ? "Privacidad" : "Privacy"}
         </Link>
-        <span className="font-mono">∴ · ✦ · ❧ · ☤ · ⚒ · ⚖ · Ω · ✶ · ◈ · ❋ · ✟ · ☦ · ⧫ · ✡</span>
+        <span className="font-mono">∴ · ✦ · ❧ · ☤ · ⚒ · ⚖ · Ω · ✶ · ◈ · ❋ · ✟ · ☦ · ⧫ · ✡ · ✠</span>
       </footer>
     </main>
   );
