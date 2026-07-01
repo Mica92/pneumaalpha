@@ -234,69 +234,111 @@ function ChatBody({
   })();
 
   return (
-    <div className="flex min-h-screen flex-col">
-      <header className="sticky top-0 z-20 border-b border-border/60 bg-background/75 px-6 py-4 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-3xl items-center justify-between">
-          <div className="flex items-center gap-4">
-            <Link
-              to="/"
-              aria-label={t("chat.back")}
-              className="text-xs uppercase tracking-[0.3em] text-muted-foreground transition-colors hover:text-foreground"
-              title={t("chat.back")}
-            >
-              ←
-            </Link>
-            <span className="font-display text-xl text-mist pneuma-breathe" aria-hidden="true">{meta.glyph}</span>
-            <div className="leading-tight">
-              <h1 className="font-display text-sm font-light tracking-wide text-foreground">{meta.name}</h1>
+    <div className="flex min-h-dvh flex-col">
+      <header className="sticky top-0 z-20 border-b border-border/60 bg-background/80 px-4 py-3 backdrop-blur-xl md:px-6 md:py-4">
+        <div className="mx-auto grid max-w-3xl grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3">
+          <Link
+            to="/"
+            aria-label={t("chat.back")}
+            title={t("chat.back")}
+            className="focus-mist inline-flex h-9 w-9 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-card hover:text-foreground"
+          >
+            <span aria-hidden="true" className="text-lg leading-none">←</span>
+          </Link>
+
+          <div className="flex min-w-0 items-center gap-3">
+            <span className="shrink-0 font-display text-xl text-mist pneuma-breathe" aria-hidden="true">
+              {meta.glyph}
+            </span>
+            <div className="min-w-0 leading-tight">
+              <h1 className="truncate font-display text-sm font-light tracking-wide text-foreground">
+                {meta.name}
+              </h1>
             </div>
           </div>
-          <div className="flex items-center gap-3">
-            <LanguageSelector />
-            <button
-              onClick={() => {
-                setArchiveOpen(true);
-                refetchHistory();
-              }}
-              className="rounded-md px-3 py-1.5 text-[10px] uppercase tracking-[0.25em] text-muted-foreground transition-colors hover:bg-card hover:text-foreground"
-            >
-              {t("chat.archive")}
-            </button>
-            <button
-              onClick={() => {
-                setMigrateOpen(true);
-                refetchHistory();
-              }}
-              className="rounded-md px-3 py-1.5 text-[10px] uppercase tracking-[0.25em] text-muted-foreground transition-colors hover:bg-card hover:text-foreground"
-            >
-              {t("chat.migrate")}
-            </button>
-            {philosopher === "aquinas" && <CorpusBadge />}
 
-            <button
+          {/* Desktop actions */}
+          <div className="hidden items-center gap-1 md:flex">
+            <LanguageSelector />
+            <HeaderAction onClick={() => { setArchiveOpen(true); refetchHistory(); }}>
+              {t("chat.archive")}
+            </HeaderAction>
+            <HeaderAction onClick={() => { setMigrateOpen(true); refetchHistory(); }}>
+              {t("chat.migrate")}
+            </HeaderAction>
+            {philosopher === "aquinas" && <CorpusBadge />}
+            <HeaderAction
               onClick={async () => {
                 if (confirm(t("chat.confirmClear", { name: meta.name }))) await onClear();
               }}
-              className="rounded-md px-3 py-1.5 text-[10px] uppercase tracking-[0.25em] text-muted-foreground transition-colors hover:bg-card hover:text-foreground"
             >
               {t("chat.clear")}
-            </button>
+            </HeaderAction>
+            <HeaderAction onClick={onSignOut}>{t("chat.exit")}</HeaderAction>
+          </div>
+
+          {/* Mobile — overflow menu */}
+          <div className="relative md:hidden">
             <button
-              onClick={onSignOut}
-              className="rounded-md px-3 py-1.5 text-[10px] uppercase tracking-[0.25em] text-muted-foreground transition-colors hover:bg-card hover:text-foreground"
+              onClick={() => setActionsOpen((v) => !v)}
+              aria-label={t("chat.actions.open")}
+              aria-expanded={actionsOpen}
+              className="focus-mist inline-flex h-10 w-10 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-card hover:text-foreground"
             >
-              {t("chat.exit")}
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
+                <circle cx="5" cy="12" r="1" /><circle cx="12" cy="12" r="1" /><circle cx="19" cy="12" r="1" />
+              </svg>
             </button>
+            {actionsOpen && (
+              <>
+                <button
+                  aria-hidden="true"
+                  tabIndex={-1}
+                  onClick={() => setActionsOpen(false)}
+                  className="fixed inset-0 z-30 cursor-default bg-transparent"
+                />
+                <div
+                  role="menu"
+                  className="fade-up absolute right-0 top-11 z-40 flex w-56 flex-col overflow-hidden rounded-lg border border-border/60 bg-card/95 shadow-2xl backdrop-blur-xl"
+                >
+                  <div className="border-b border-border/60 px-3 py-2.5">
+                    <LanguageSelector />
+                  </div>
+                  <MenuItem onClick={() => { setArchiveOpen(true); refetchHistory(); setActionsOpen(false); }}>
+                    {t("chat.archive")}
+                  </MenuItem>
+                  <MenuItem onClick={() => { setMigrateOpen(true); refetchHistory(); setActionsOpen(false); }}>
+                    {t("chat.migrate")}
+                  </MenuItem>
+                  {philosopher === "aquinas" && (
+                    <div className="px-3 py-2.5">
+                      <CorpusBadge />
+                    </div>
+                  )}
+                  <MenuItem
+                    onClick={async () => {
+                      setActionsOpen(false);
+                      if (confirm(t("chat.confirmClear", { name: meta.name }))) await onClear();
+                    }}
+                  >
+                    {t("chat.clear")}
+                  </MenuItem>
+                  <MenuItem onClick={() => { setActionsOpen(false); onSignOut(); }}>
+                    {t("chat.exit")}
+                  </MenuItem>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </header>
 
-      <div className="sticky top-[73px] z-10">
+      <div className="sticky top-[57px] z-10 md:top-[73px]">
         <TopicBar activeTopic={activeTopic} onPick={handleTopicPick} disabled={isLoading} />
         <DilemmaBanner onConverse={handleDilemma} disabled={isLoading} />
       </div>
 
-      <div ref={scrollRef} className="flex-1 overflow-y-auto px-4 py-12">
+      <div ref={scrollRef} className="relative flex-1 overflow-y-auto px-4 py-8 md:py-12">
         <div className="mx-auto max-w-3xl space-y-10">
           {messages.length === 0 && (
             <div className="fade-up space-y-6 py-8">
@@ -316,7 +358,7 @@ function ChatBody({
             if (m.role === "user") {
               return (
                 <div key={m.id} className="flex justify-end fade-up">
-                  <div className="max-w-[80%] rounded-2xl rounded-tr-sm border border-border/60 bg-card/60 px-4 py-3 text-sm leading-relaxed text-foreground">
+                  <div className="max-w-[85%] rounded-2xl rounded-tr-sm border border-border/60 bg-secondary/70 px-4 py-3 text-[15px] leading-relaxed text-secondary-foreground shadow-sm">
                     {text}
                   </div>
                 </div>
@@ -324,7 +366,7 @@ function ChatBody({
             }
             const showChips = idx === lastAssistantIdx && !isLoading;
             return (
-              <article key={m.id} className="fade-up">
+              <article key={m.id} className="fade-up" aria-live={idx === messages.length - 1 ? "polite" : undefined}>
                 <h2 className="mb-3 font-display text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
                   {meta.name}
                 </h2>
@@ -343,11 +385,11 @@ function ChatBody({
               <p className="mb-3 font-display text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
                 {meta.name}
               </p>
-              <div className="flex items-center gap-1.5 py-2">
-                <span className="typing-dot h-1 w-1 rounded-full bg-mist" style={{ animationDelay: "0s" }} />
-                <span className="typing-dot h-1 w-1 rounded-full bg-mist" style={{ animationDelay: "0.2s" }} />
-                <span className="typing-dot h-1 w-1 rounded-full bg-mist" style={{ animationDelay: "0.4s" }} />
-                <span className="ml-3 text-[11px] uppercase tracking-[0.25em] text-muted-foreground">{t("chat.thinking")}</span>
+              <div className="flex items-center gap-3 py-2">
+                <GreekGlyph className="font-display text-lg text-mist pneuma-breathe" intervalMs={280} />
+                <span className="text-[11px] uppercase tracking-[0.3em] glacier-shimmer">
+                  {t("chat.thinking")}
+                </span>
               </div>
             </div>
           )}
@@ -356,19 +398,37 @@ function ChatBody({
             <p className="text-center text-xs text-destructive">{error.message}</p>
           )}
         </div>
+
+        {!atBottom && messages.length > 2 && (
+          <button
+            onClick={() => {
+              scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
+              setAtBottom(true);
+            }}
+            className="focus-mist sticky bottom-4 left-1/2 -translate-x-1/2 rounded-full border border-border/60 bg-card/90 px-4 py-2 text-[10px] uppercase tracking-[0.25em] text-muted-foreground shadow-mist backdrop-blur-xl transition-colors hover:border-mist/40 hover:text-foreground"
+          >
+            ↓ {t("chat.scrollDown")}
+          </button>
+        )}
       </div>
 
-      <footer className="sticky bottom-0 z-20 border-t border-border/60 bg-background/85 px-4 py-5 backdrop-blur-xl">
+      <footer className="sticky bottom-0 z-20 border-t border-border/60 bg-background/85 px-3 pt-3 pb-safe backdrop-blur-xl md:px-4">
         <form onSubmit={handleSubmit} className="mx-auto flex max-w-3xl items-end gap-2">
           <textarea
             ref={inputRef}
             name="msg"
             rows={1}
+            value={composerText}
             aria-label={t("chat.placeholder")}
             placeholder={dictation.listening ? (dictation.interim || t("chat.mic.stop")) : t("chat.placeholder")}
             disabled={isLoading}
+            onChange={(e) => setComposerText(e.currentTarget.value)}
             onKeyDown={(e) => {
-              if (e.key === "Enter" && !e.shiftKey) {
+              if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing) {
+                e.preventDefault();
+                (e.currentTarget.form as HTMLFormElement).requestSubmit();
+              }
+              if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) {
                 e.preventDefault();
                 (e.currentTarget.form as HTMLFormElement).requestSubmit();
               }
@@ -378,7 +438,7 @@ function ChatBody({
               ta.style.height = "auto";
               ta.style.height = Math.min(ta.scrollHeight, 200) + "px";
             }}
-            className="flex-1 resize-none rounded-xl border border-border bg-input px-4 py-3 text-[15px] leading-relaxed text-foreground placeholder:text-muted-foreground focus:border-mist/50 focus:outline-none focus:ring-1 focus:ring-mist/15 disabled:opacity-50"
+            className="focus-mist flex-1 resize-none rounded-xl border border-border bg-input px-4 py-3 text-[15px] leading-relaxed text-foreground placeholder:text-muted-foreground transition-colors focus:border-mist/50 disabled:opacity-50"
           />
           <button
             type="button"
@@ -393,7 +453,8 @@ function ChatBody({
             disabled={isLoading}
             aria-label={dictation.listening ? t("chat.mic.stop") : t("chat.mic.start")}
             title={dictation.listening ? t("chat.mic.stop") : t("chat.mic.start")}
-            className={`self-end rounded-xl border px-3.5 py-3 transition-all disabled:opacity-30 ${
+            aria-pressed={dictation.listening}
+            className={`focus-mist inline-flex h-11 w-11 shrink-0 items-center justify-center self-end rounded-xl border transition-all disabled:opacity-30 ${
               dictation.listening
                 ? "border-mist/70 bg-mist/15 text-mist pneuma-breathe"
                 : "border-border bg-card/40 text-muted-foreground hover:border-mist/50 hover:text-mist"
@@ -407,16 +468,22 @@ function ChatBody({
           </button>
           <button
             type="submit"
-            disabled={isLoading}
-            className="self-end rounded-xl border border-mist/40 bg-mist/95 px-5 py-3 font-display text-sm text-primary-foreground transition-all hover:bg-mist disabled:opacity-30"
+            disabled={isLoading || !composerText.trim()}
+            aria-label={t("chat.send")}
+            className="focus-mist inline-flex h-11 shrink-0 items-center justify-center self-end rounded-xl border border-mist/40 bg-mist/95 px-5 font-display text-sm text-primary-foreground transition-all hover:bg-mist disabled:cursor-not-allowed disabled:opacity-30"
           >
-            {t("chat.send")}
+            <span className="hidden sm:inline">{t("chat.send")}</span>
+            <svg className="sm:hidden" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="22" y1="2" x2="11" y2="13" />
+              <polygon points="22 2 15 22 11 13 2 9 22 2" />
+            </svg>
           </button>
         </form>
-        <p className="mx-auto mt-3 max-w-3xl text-center text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
-          {t("chat.newline")}
+        <p className="mx-auto mt-2 hidden max-w-3xl text-center text-[10px] uppercase tracking-[0.3em] text-muted-foreground md:block">
+          {t("chat.newline")} · {t("chat.send.hint")}
         </p>
       </footer>
+
 
       {archiveOpen && (
         <div
