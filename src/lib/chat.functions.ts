@@ -90,18 +90,62 @@ export const sendChat = createServerFn({ method: "POST" })
     const memoryLines = (mem ?? []).map((r) => r.content as string);
 
     const last = messages[messages.length - 1];
+    let lastUserText = "";
     if (last?.role === "user") {
-      const lastText = last.parts
+      lastUserText = last.parts
         .map((p) => (p.type === "text" ? p.text : ""))
         .join("\n")
         .trim();
-      if (lastText) {
+      if (lastUserText) {
         await supabase.from("messages").insert({
           user_id: userId,
           role: "user",
-          content: lastText,
+          content: lastUserText,
           philosopher,
         });
+      }
+    }
+
+    // Retrieval-augmented context (currently indexed: aquinas).
+    let ragContext = "";
+    if (lastUserText) {
+      try {
+        const embedRes = await fetch("https://ai.gateway.lovable.dev/v1/embeddings", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "Lovable-API-Key": apiKey },
+          body: JSON.stringify({
+            model: "openai/text-embedding-3-small",
+            input: lastUserText,
+            dimensions: 1536,
+          }),
+        });
+        if (embedRes.ok) {
+          const embedJson = (await embedRes.json()) as { data: { embedding: number[] }[] };
+          const vector = embedJson.data[0]?.embedding;
+          if (vector) {
+            const { data: hits } = await supabase.rpc("match_philosopher_sources", {
+              query_embedding: `[${vector.join(",")}]`,
+              target_philosopher: philosopher,
+              match_count: 5,
+            });
+            const rows = (hits ?? []) as Array<{
+              work: string;
+              reference: string;
+              content: string;
+              similarity: number;
+            }>;
+            const relevant = rows.filter((r) => r.similarity > 0.35);
+            if (relevant.length > 0) {
+              ragContext =
+                "\n\n[FUENTES INDEXADAS — cita textualmente cuando corresponda, indicando la referencia entre paréntesis]\n" +
+                relevant
+                  .map((r) => `• (${r.reference}) «${r.content}»`)
+                  .join("\n");
+            }
+          }
+        }
+      } catch (e) {
+        console.error("[sendChat rag] retrieval failed", e);
       }
     }
 
@@ -109,9 +153,10 @@ export const sendChat = createServerFn({ method: "POST" })
     const model = gateway("google/gemini-3-flash-preview");
 
     const modelMessages = await convertToModelMessages(messages);
+    const baseSystem = buildSystemPrompt(philosopher, memoryLines, data.language ?? "es");
     const result = streamText({
       model,
-      system: buildSystemPrompt(philosopher, memoryLines, data.language ?? "es"),
+      system: baseSystem + ragContext,
       messages: modelMessages,
       temperature: 0.95,
     });
