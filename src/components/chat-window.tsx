@@ -171,10 +171,34 @@ function ChatBody({
     await sendText(getDailyDilemmaPrompt(lang));
   };
 
+  const handleMigrate = async (target: PhilosopherId) => {
+    if (target === philosopher || migrating) return;
+    const targetName = PHILOSOPHERS[target].name;
+    if (!confirm(t("chat.migrate.confirm", { from: meta.name, to: targetName }))) return;
+    setMigrating(target);
+    try {
+      const res = await migrateFn({ data: { from: philosopher, to: target, mode: migrateMode } });
+      if (!res.copied) {
+        toast.error(t("chat.migrate.empty"));
+        setMigrating(null);
+        return;
+      }
+      toast.success(t("chat.migrate.done", { name: targetName }));
+      setMigrateOpen(false);
+      navigate({ to: "/$philosopher", params: { philosopher: target } });
+    } catch (e) {
+      console.error(e);
+      toast.error(t("chat.migrate.failed"));
+    } finally {
+      setMigrating(null);
+    }
+  };
+
   // Index of the most recent assistant message — chips render after it.
   const lastAssistantIdx = (() => {
     for (let i = messages.length - 1; i >= 0; i--) {
       if (messages[i].role === "assistant") return i;
+
     }
     return -1;
   })();
