@@ -707,13 +707,123 @@ export const PHILOSOPHERS: Record<PhilosopherId, Philosopher> = {
     },
     systemPrompt: RATIONALISM_SYSTEM_PROMPT,
   },
+  pascal: {
+    id: "pascal",
+    name: "Blaise Pascal",
+    subtitle: {
+      es: "El geómetra del corazón",
+      en: "The geometer of the heart",
+    },
+    place: {
+      es: "Port-Royal · una vela · fragmentos cosidos",
+      en: "Port-Royal · a candle · stitched fragments",
+    },
+    glyph: "❋",
+    opening: {
+      es: "Siéntese. Aparte esos papeles — son pensamientos aún sin coser. Dígame: ¿qué inquietud le ha traído, a esta hora, a este cuarto?",
+      en: "Sit down. Move those papers aside — they are thoughts not yet stitched together. Tell me: what disquiet brought you, at this hour, to this room?",
+    },
+    blurb: {
+      es: "La caña pensante, el corazón, la apuesta. Un geómetra tocado por la noche de fuego, entre París y Port-Royal.",
+      en: "The thinking reed, the heart, the wager. A geometer touched by the night of fire, between Paris and Port-Royal.",
+    },
+    systemPrompt: PASCAL_SYSTEM_PROMPT,
+  },
+  kierkegaard: {
+    id: "kierkegaard",
+    name: "Søren Kierkegaard",
+    subtitle: {
+      es: "El pensador del individuo y el salto",
+      en: "The thinker of the individual and the leap",
+    },
+    place: {
+      es: "Copenhague · escritorio · tarde de invierno",
+      en: "Copenhagen · desk · winter afternoon",
+    },
+    glyph: "✟",
+    opening: {
+      es: "Pase. No traiga a la muchedumbre consigo, se lo ruego. Dígame, como individuo: ¿qué le tiene inquieto?",
+      en: "Come in. Do not bring the crowd with you, I beg. Tell me, as an individual: what has you disquieted?",
+    },
+    blurb: {
+      es: "Angustia, desesperación, salto de fe. Un ironista danés contra el Sistema y la respetabilidad.",
+      en: "Anxiety, despair, leap of faith. A Danish ironist against the System and respectability.",
+    },
+    systemPrompt: KIERKEGAARD_SYSTEM_PROMPT,
+  },
+  yannaras: {
+    id: "yannaras",
+    name: "Christos Yannaras",
+    subtitle: {
+      es: "El teólogo de la persona",
+      en: "The theologian of the person",
+    },
+    place: {
+      es: "Atenas · atardecer · humo de incienso frío",
+      en: "Athens · dusk · cold incense",
+    },
+    glyph: "☦",
+    opening: {
+      es: "Pase. Aquí no se piensa a Dios como objeto, sino que se responde a un rostro. Dígame quién es usted, no qué quiere saber.",
+      en: "Come in. Here we do not think God as an object; we answer a face. Tell me who you are, not what you want to know.",
+    },
+    blurb: {
+      es: "Persona, eros, comunión. Un teólogo ortodoxo entre los Padres griegos y Heidegger.",
+      en: "Person, eros, communion. An Orthodox theologian between the Greek Fathers and Heidegger.",
+    },
+    systemPrompt: YANNARAS_SYSTEM_PROMPT,
+  },
+  levinas: {
+    id: "levinas",
+    name: "Emmanuel Levinas",
+    subtitle: {
+      es: "El filósofo del rostro",
+      en: "The philosopher of the face",
+    },
+    place: {
+      es: "París · rue d'Auteuil · libros de Husserl y del Talmud",
+      en: "Paris · rue d'Auteuil · Husserl and Talmud on the desk",
+    },
+    glyph: "⧫",
+    opening: {
+      es: "Pase. Antes de que hable, ya me está diciendo algo — su rostro. Siéntese, y cuénteme.",
+      en: "Come in. Before you speak, you are already saying something — your face. Sit down, and tell me.",
+    },
+    blurb: {
+      es: "El rostro del otro, la responsabilidad infinita, la ética como filosofía primera.",
+      en: "The face of the other, infinite responsibility, ethics as first philosophy.",
+    },
+    systemPrompt: LEVINAS_SYSTEM_PROMPT,
+  },
+  maimonides: {
+    id: "maimonides",
+    name: "Maimónides",
+    subtitle: {
+      es: "El guía de los perplejos",
+      en: "The guide of the perplexed",
+    },
+    place: {
+      es: "Fustat · junto al Nilo · responsa sin abrir",
+      en: "Fustat · by the Nile · unopened responsa",
+    },
+    glyph: "✡",
+    opening: {
+      es: "Pase, pase. Los enfermos pueden esperar un instante. Dígame en qué se ha visto perplejo — para eso escribí la Guía.",
+      en: "Come in, come in. The sick can wait a moment. Tell me where you have found yourself perplexed — that is why I wrote the Guide.",
+    },
+    blurb: {
+      es: "Halajá, filosofía aristotélica, medicina. Un rabino y médico andalusí en el Egipto fatimí.",
+      en: "Halakhah, Aristotelian philosophy, medicine. An Andalusi rabbi and physician in Fatimid Egypt.",
+    },
+    systemPrompt: MAIMONIDES_SYSTEM_PROMPT,
+  },
 };
 
 
 export const PHILOSOPHER_LIST = Object.values(PHILOSOPHERS);
 
 export function isPhilosopherId(v: string): v is PhilosopherId {
-  return v === "heidegger" || v === "schopenhauer" || v === "james" || v === "nietzsche" || v === "marx" || v === "bentham" || v === "pohlenz" || v === "einstein" || v === "rationalism";
+  return v === "heidegger" || v === "schopenhauer" || v === "james" || v === "nietzsche" || v === "marx" || v === "bentham" || v === "pohlenz" || v === "einstein" || v === "rationalism" || v === "pascal" || v === "kierkegaard" || v === "yannaras" || v === "levinas" || v === "maimonides";
 }
 
 export type Language = "es" | "en";
