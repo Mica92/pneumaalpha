@@ -1,56 +1,84 @@
 ## Objetivo
-Elevar la UX de Pneumalpha a un nivel cinematográfico y a la vez cómodo, sin romper la estética "Arrival fog". Claridad + fluidez + accesibilidad, móvil y escritorio.
+Bloquear el acceso a los filósofos de pago con un **desbloqueo de por vida** por usuario:
+- **Gratis siempre**: Heidegger, Max Pohlenz.
+- **De pago individual**: $3 USD por cada uno de los otros 13 (Schopenhauer, James, Nietzsche, Marx, Bentham, Einstein, Racionalismo, Pascal, Kierkegaard, Yannaras, Levinas, Maimónides, Aquinas).
+- **Pack**: $30 USD que desbloquea los 13 restantes.
+- **Oráculo y Reporte**: solo con el pack.
 
-## 1. Navegación global (nueva capa)
-- **Barra superior persistente** (`src/components/app-shell.tsx`): logo Pneumalpha (click → home), breadcrumbs sutiles del filósofo activo, atajos a Oráculo y Reporte con iconografía discreta y estados `active`.
-- **Command Palette** (`⌘K` / `Ctrl K`, botón flotante en móvil) para saltar entre filósofos, Oráculo, Reporte y "nueva conversación". Usa `cmdk` que ya trae shadcn.
-- **Back gesture / breadcrumb** en `$philosopher.tsx`, `oraculo.tsx`, `reporte.tsx` — hoy el usuario queda "atrapado".
-- **Transiciones de ruta** con fade + subtle translate (respetando `prefers-reduced-motion`).
+Compra única → se registra en la base de datos y el acceso queda ligado a la cuenta.
 
-## 2. Home
-- Bento: al hover, cada tile respira (glow glacier, escala 1.01, no 1.05). Focus visible con anillo mist.
-- Estado vacío del hero → CTA claro "Comenzar diálogo" enfocando el primer filósofo con tecla Enter.
-- Chip discreto "Nuevo" para Aquinas/Racionalismo.
-- Contador de filósofos animado (fade-up escalonado).
+## 1. Proveedor de pagos
+Como paso previo ejecutaré `recommend_payment_provider` para clasificar el producto (SaaS/contenido digital) y luego habilitaré **Stripe** (`enable_stripe_payments`) — es el fit natural para desbloqueos digitales con Checkout hospedado. Confirmo con el usuario antes de ejecutar el enable tool.
 
-## 3. Chat (mayor impacto)
-- **Composer rediseñado**: textarea autogrow, botón enviar solo activo con texto, atajo `⌘/Ctrl + Enter`, contador sutil de caracteres solo si >400. Botón dictado voz mejor posicionado, con estado "escuchando" pulsante.
-- **Mensajes**: 
-  - Usuario → burbuja `bg-secondary text-secondary-foreground` alineada derecha, radio asimétrico.
-  - Asistente → sin burbuja, texto sobre fondo, markdown pulido (`prose`), spacing más generoso, cita en itálica cuando viene de RAG.
-  - Copiar mensaje al hover, regenerar última respuesta.
-- **Loader**: reemplazar dots por glifo griego con shimmer "Pensando…".
-- **Auto-scroll inteligente**: si el usuario scrollea arriba, no forzar scroll; mostrar botón "↓ Volver al presente".
-- **Chips de continuación** más compactos, scroll horizontal en móvil.
-- **Header del chat**: sticky, con acciones (Migrar, Historial, Corpus) colapsadas en un menú `⋯` en móvil para liberar espacio.
-- **Migración**: modal ya funciona; añadir preview con diff visual y confirmación con toast rico.
+Configuración fiscal por defecto (según reglas de plataforma): **full compliance handling** si el país del seller lo permite, si no, tax calculation only. Se ajusta en el momento del setup.
 
-## 4. Micro-interacciones y motion
-- Utilidades nuevas en `styles.css`: `hover-lift`, `focus-ring-mist`, `page-enter`.
-- Todo respeta `@media (prefers-reduced-motion: reduce)`.
-- Toasts (sonner) con posición `top-center` en móvil, `bottom-right` en desktop.
-- Skeleton loaders coherentes (glacier shimmer) en vez de spinners.
+## 2. Catálogo de productos (Stripe)
+Se crearán 14 productos con `batch_create_product` después de habilitar Stripe:
+- 13 × `Acceso a {Filósofo}` — $3 USD, one-time.
+- 1 × `Pack completo · 13 filósofos + Oráculo + Reporte` — $30 USD, one-time.
+Cada producto lleva su `tax_code` y un `metadata.philosopher_id` (o `metadata.kind = "pack"`) para que el webhook sepa qué desbloquear.
 
-## 5. Accesibilidad y ergonomía
-- Tamaños táctiles ≥44×44 en botones icónicos primarios (composer, header).
-- `aria-label` en todos los icon buttons; live region para streaming del asistente.
-- Focus trap correcto en modales (Migrar, Historial, Root questions).
-- Contraste AAA: revisar `muted-foreground` sobre `card` y ajustar si es necesario.
-- Navegación por teclado completa en el bento (flechas + Enter).
+## 3. Modelo de datos (Lovable Cloud)
+Nueva tabla `public.entitlements`:
 
-## 6. Móvil
-- Bottom sheet para acciones del chat (Migrar/Historial/Corpus) con drag handle.
-- Composer sticky respetando safe-area (`env(safe-area-inset-bottom)`).
-- Bento en 2 columnas fluidas; hero full-width arriba.
+```
+id uuid pk
+user_id uuid not null references auth.users(id) on delete cascade
+kind text not null check (kind in ('philosopher','pack'))
+philosopher text null            -- lleno cuando kind='philosopher'
+stripe_session_id text unique    -- idempotencia del webhook
+created_at timestamptz default now()
+unique (user_id, kind, philosopher)
+```
 
-## Detalles técnicos
-- Archivos nuevos: `src/components/app-shell.tsx`, `src/components/command-palette.tsx`, `src/components/chat-composer.tsx` (extraído), `src/components/scroll-to-latest.tsx`.
-- Archivos modificados: `src/routes/__root.tsx` (shell + transiciones), `src/routes/index.tsx`, `src/routes/$philosopher.tsx`, `src/routes/oraculo.tsx`, `src/routes/reporte.tsx`, `src/components/chat-window.tsx`, `src/styles.css`, `src/lib/i18n.tsx` (nuevas claves ES/EN).
-- Sin cambios de backend, sin nuevas dependencias (cmdk ya existe vía shadcn command).
+- RLS: `SELECT` propio para `authenticated`; `INSERT/UPDATE/DELETE` solo `service_role`.
+- GRANTs estándar de plataforma.
+- Función `public.has_access(_user uuid, _philosopher text)` (`security definer`) que devuelve `true` si es filósofo libre, si el usuario tiene el pack, o si tiene el entitlement individual.
+
+## 4. Backend — server functions y ruta pública
+Todo dentro del stack existente (TanStack Start), sin edge functions nuevas.
+
+- `src/lib/entitlements.functions.ts`:
+  - `getMyEntitlements()` (auth) → `{ freeIds, unlockedIds, hasPack }`.
+  - `createCheckoutSession({ kind, philosopher? })` (auth) → crea Stripe Checkout Session con `success_url`/`cancel_url` de vuelta al filósofo o a `/desbloquear`, `client_reference_id = userId`.
+- `src/lib/access.server.ts`: helper `assertAccess(supabase, userId, philosopher)` reutilizado por `sendChat`, `loadMessages`, `loadFullHistory`, `migrateConversation`, `runOracle`, `buildReport`. Devuelve 403 si no procede. Esto blinda la API aunque el paywall visual se saltee.
+- `src/routes/api/public/stripe-webhook.ts` (`createFileRoute` bajo `/api/public/`): valida firma con `STRIPE_WEBHOOK_SECRET`, en `checkout.session.completed` lee metadata y hace `INSERT` idempotente en `entitlements` usando `supabaseAdmin` (importado dentro del handler).
+
+Secretos nuevos que se pedirán vía `add_secret` cuando corresponda: `STRIPE_WEBHOOK_SECRET` (el `STRIPE_SECRET_KEY` y demás los provee `enable_stripe_payments`).
+
+## 5. Frontend — paywall y estados
+Nuevo hook `useEntitlements()` (React Query) que cachea el resultado de `getMyEntitlements` por sesión.
+
+- `src/routes/$philosopher.tsx`: al montar, si el filósofo no está desbloqueado → render de `<Paywall philosopher={...} />` en vez de `<ChatWindow>`. Nada de "vista previa" del chat: paywall completo (según tu elección).
+- `src/components/paywall.tsx`: pantalla en el mismo lenguaje "Arrival fog" con:
+  - Nombre y glifo del filósofo.
+  - Dos CTAs: **Desbloquear por $3** y **Pack completo · $30 (13 filósofos + Oráculo + Reporte)**.
+  - Copy bilingüe (nuevas claves en `src/lib/i18n.tsx`).
+  - Ambos botones llaman `createCheckoutSession` y redirigen a Stripe.
+- `src/routes/oraculo.tsx` y `src/routes/reporte.tsx`: si `!hasPack` → `<PackPaywall />` (solo muestra el CTA de $30, ya que individual no habilita estas secciones).
+- `src/routes/index.tsx` (home / bento):
+  - Heidegger y Pohlenz: sin cambios.
+  - Otras tarjetas: badge sutil con candado + precio ("$3" o "Incluido en pack").
+  - Tarjetas de Oráculo/Reporte: badge "Pack · $30" cuando el usuario no tiene el pack.
+- Nueva ruta pública `src/routes/desbloquear.tsx` (`/desbloquear`) con la parrilla completa de compras y estado (desbloqueado / bloqueado) — accesible desde el header o el paywall.
+- Al volver del Checkout con `?checkout=success`, refrescar `useEntitlements()` e invalidar la query para que el filósofo cargue ya desbloqueado; toast bilingüe "Acceso desbloqueado".
+
+## 6. i18n
+Nuevas claves en `src/lib/i18n.tsx`:
+- `paywall.title`, `paywall.subtitle`, `paywall.unlockOne`, `paywall.unlockPack`, `paywall.free`, `paywall.locked`, `paywall.included`, `paywall.oraculoLocked`, `paywall.reporteLocked`, `paywall.success`, `paywall.cancel`, `paywall.price.single`, `paywall.price.pack`.
+
+## 7. Verificación
+- `tsgo` para tipos.
+- Playwright headless: entrar a `/schopenhauer` sin entitlement → paywall; simular entitlement en DB (vía server-fn admin de prueba) → chat carga. Confirmar que `/heidegger` y `/pohlenz` siguen abiertos siempre. Confirmar que `/oraculo` y `/reporte` bloquean sin pack.
+- Probar el webhook con `stripe listen` (documentado, no ejecutado por mí).
 
 ## Fuera de alcance
-- Rediseño de tokens de color (se mantiene "Arrival fog").
-- Cambios en persistencia, RAG, prompts de filósofos.
-- Nuevos filósofos o secciones.
+- Reembolsos, precios regionales, cupones, regalar accesos, suscripción recurrente (elegiste compra única).
+- Rediseño visual global — el paywall reutiliza tokens existentes.
 
-Al aprobar, implemento en un solo pase coherente y verifico con Playwright que composer, navegación y command palette funcionan en móvil y escritorio.
+## Detalle técnico rápido
+- Free IDs en constante compartida `FREE_PHILOSOPHERS = ["heidegger","pohlenz"]` en `src/lib/philosophers.ts`; el resto es "de pago". Cambiar aquí = cambiar en todos lados.
+- `assertAccess` es la fuente de verdad; el UI solo la refleja.
+- Idempotencia del webhook vía `stripe_session_id UNIQUE`.
+
+Al aprobar, ejecuto en este orden: `recommend_payment_provider` → confirmar → `enable_stripe_payments` → migración de `entitlements` + `has_access` → productos → backend + webhook + secreto → frontend + i18n → verificación.
