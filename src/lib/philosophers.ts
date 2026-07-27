@@ -864,6 +864,8 @@ export function buildSystemPrompt(
         : "(Usa esta memoria con naturalidad. No la cites como una lista.)";
     parts.push(`${header}\n${memBlock}\n\n${footer}`);
   }
+  parts.push(STYLE_DIRECTIVE[language]);
   return parts.join("\n\n");
+
 }
 
