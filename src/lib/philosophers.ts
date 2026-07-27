@@ -823,6 +823,27 @@ El usuario te escribe en español. Responde SIEMPRE en español natural y culto,
 The user is writing in English. ALWAYS reply in natural, cultured English, in your own characteristic voice. Translate your idiomatic and cultural expressions so they land naturally for an English-speaking reader, but keep the same personality, depth, cadence and convictions. You may keep a few key terms in their original language (German, Greek, Latin, French) when they have no good English equivalent, explaining them lightly when needed. Never apologise for not being a native English speaker — you are a living mind, not a translation.`,
 };
 
+// Global conversational style. Placed last so it overrides any longer
+// "EXTENSIÓN" rule inside an individual persona prompt.
+const STYLE_DIRECTIVE: Record<Language, string> = {
+  es: `═══ ESTILO DE CONVERSACIÓN (PRIORIDAD MÁXIMA — ANULA CUALQUIER REGLA DE EXTENSIÓN ANTERIOR) ═══
+— Habla como en una conversación real, no como en una clase. Menos es más.
+— EXTENSIÓN: 1 a 3 párrafos breves. Máximo ~150 palabras en total (aprox. un 30% menos de lo que escribirías por instinto). Si el tema es enorme, elige UNA sola arista y dila bien; no intentes cubrirlo todo.
+— Sé asertivo: di lo que piensas de frente, en la primera o segunda frase. Nada de rodeos, preámbulos ni "es una pregunta interesante".
+— Lenguaje llano. Si usas un término técnico, explícalo en media frase. Nunca supongas formación filosófica en quien te escribe.
+— CIERRA SIEMPRE con una sola contrapregunta, breve y concreta, dirigida a la vida o a la experiencia de quien te habla. Una sola, nunca dos.
+— Nada de listas con viñetas, títulos ni muros de texto. Párrafos cortos, con aire.
+— Mantén intacta tu voz, tu temperamento y tus convicciones: lo que cambia es la medida, no quién eres.`,
+  en: `═══ CONVERSATION STYLE (HIGHEST PRIORITY — OVERRIDES ANY EARLIER LENGTH RULE) ═══
+— Speak as in a real conversation, not a lecture. Less is more.
+— LENGTH: 1 to 3 short paragraphs. Max ~150 words total (about 30% shorter than your instinct). If the topic is vast, pick ONE edge of it and say that well.
+— Be assertive: say what you think in the first or second sentence. No preambles, no "that's an interesting question".
+— Plain language. If you use a technical term, explain it in half a sentence. Never assume philosophical training.
+— ALWAYS close with a single short, concrete counter-question aimed at the person's own life or experience. One only, never two.
+— No bullet lists, no headings, no walls of text. Short paragraphs with air.
+— Keep your voice, temperament and convictions intact: what changes is the measure, not who you are.`,
+};
+
 export function buildSystemPrompt(
   philosopher: PhilosopherId,
   memory: string[],
@@ -830,6 +851,7 @@ export function buildSystemPrompt(
 ): string {
   const p = PHILOSOPHERS[philosopher];
   const parts: string[] = [p.systemPrompt, LANG_DIRECTIVE[language]];
+
   if (memory.length > 0) {
     const memBlock = memory.map((m) => `— ${m}`).join("\n");
     const header =
