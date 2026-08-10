@@ -5,6 +5,10 @@ import { supabase } from "@/integrations/supabase/client";
 import { PHILOSOPHER_LIST } from "@/lib/philosophers";
 import { useI18n, LanguageSelector } from "@/lib/i18n";
 import { PneumaMark } from "@/components/pneuma-mark";
+import { InstallAppCard } from "@/components/install-app";
+import { TelegramCard } from "@/components/telegram-card";
+
+
 import { GreekGlyph } from "@/components/greek-glyph";
 
 
@@ -201,8 +205,13 @@ function Index() {
         })}
       </section>
 
+      <InstallAppCard className="mt-12" />
+
+      <TelegramCard className="mt-4" />
+
 
       {/* Footer hairline */}
+
       <footer className="mt-16 flex flex-wrap items-center justify-between gap-3 border-t border-border/60 pt-6 text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
         <span>PneumaA · {new Date().getFullYear()}</span>
         <Link to="/privacy" className="transition-colors hover:text-foreground">
