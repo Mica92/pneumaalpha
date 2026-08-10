@@ -1,84 +1,39 @@
-## Objetivo
-Bloquear el acceso a los filósofos de pago con un **desbloqueo de por vida** por usuario:
-- **Gratis siempre**: Heidegger, Max Pohlenz.
-- **De pago individual**: $3 USD por cada uno de los otros 13 (Schopenhauer, James, Nietzsche, Marx, Bentham, Einstein, Racionalismo, Pascal, Kierkegaard, Yannaras, Levinas, Maimónides, Aquinas).
-- **Pack**: $30 USD que desbloquea los 13 restantes.
-- **Oráculo y Reporte**: solo con el pack.
+# Llevar PneumaA fuera de la web
 
-Compra única → se registra en la base de datos y el acceso queda ligado a la cuenta.
+Dos canales, en orden: primero **app instalable (PWA)**, después **bot de Telegram**.
 
-## 1. Proveedor de pagos
-Como paso previo ejecutaré `recommend_payment_provider` para clasificar el producto (SaaS/contenido digital) y luego habilitaré **Stripe** (`enable_stripe_payments`) — es el fit natural para desbloqueos digitales con Checkout hospedado. Confirmo con el usuario antes de ejecutar el enable tool.
+## Fase 1 — App instalable (PWA)
 
-Configuración fiscal por defecto (según reglas de plataforma): **full compliance handling** si el país del seller lo permite, si no, tax calculation only. Se ajusta en el momento del setup.
+Hoy el proyecto no tiene manifiesto ni íconos (`public/` solo contiene `llms.txt` y `robots.txt`), así que no es instalable.
 
-## 2. Catálogo de productos (Stripe)
-Se crearán 14 productos con `batch_create_product` después de habilitar Stripe:
-- 13 × `Acceso a {Filósofo}` — $3 USD, one-time.
-- 1 × `Pack completo · 13 filósofos + Oráculo + Reporte` — $30 USD, one-time.
-Cada producto lleva su `tax_code` y un `metadata.philosopher_id` (o `metadata.kind = "pack"`) para que el webhook sepa qué desbloquear.
+Qué se agrega:
 
-## 3. Modelo de datos (Lovable Cloud)
-Nueva tabla `public.entitlements`:
+- Ícono de la app en varios tamaños (192, 512 y apple-touch), generados a partir de la marca PneumaA con la paleta "Arrival fog" (`#0b0f12` de fondo).
+- `public/manifest.webmanifest` con nombre "PneumaA", `display: standalone`, color de tema `#0b0f12` y `start_url: /`.
+- Etiquetas en el `head` de la raíz: `manifest`, `theme-color`, `apple-touch-icon` y favicon.
+- Una tarjeta discreta en la página inicial: "Instalar PneumaA" que aparece solo cuando el navegador ofrece la instalación (y, en iPhone, una nota breve de "Compartir → Añadir a inicio").
 
-```
-id uuid pk
-user_id uuid not null references auth.users(id) on delete cascade
-kind text not null check (kind in ('philosopher','pack'))
-philosopher text null            -- lleno cuando kind='philosopher'
-stripe_session_id text unique    -- idempotencia del webhook
-created_at timestamptz default now()
-unique (user_id, kind, philosopher)
-```
+Resultado: el usuario tiene el ícono en su teléfono o escritorio y abre PneumaA a pantalla completa, sin barra del navegador. No incluye modo sin conexión (eso requiere service worker y no se pide aquí).
 
-- RLS: `SELECT` propio para `authenticated`; `INSERT/UPDATE/DELETE` solo `service_role`.
-- GRANTs estándar de plataforma.
-- Función `public.has_access(_user uuid, _philosopher text)` (`security definer`) que devuelve `true` si es filósofo libre, si el usuario tiene el pack, o si tiene el entitlement individual.
+## Fase 2 — Bot de Telegram
 
-## 4. Backend — server functions y ruta pública
-Todo dentro del stack existente (TanStack Start), sin edge functions nuevas.
+Permite conversar con los filósofos desde Telegram, sin abrir la web.
 
-- `src/lib/entitlements.functions.ts`:
-  - `getMyEntitlements()` (auth) → `{ freeIds, unlockedIds, hasPack }`.
-  - `createCheckoutSession({ kind, philosopher? })` (auth) → crea Stripe Checkout Session con `success_url`/`cancel_url` de vuelta al filósofo o a `/desbloquear`, `client_reference_id = userId`.
-- `src/lib/access.server.ts`: helper `assertAccess(supabase, userId, philosopher)` reutilizado por `sendChat`, `loadMessages`, `loadFullHistory`, `migrateConversation`, `runOracle`, `buildReport`. Devuelve 403 si no procede. Esto blinda la API aunque el paywall visual se saltee.
-- `src/routes/api/public/stripe-webhook.ts` (`createFileRoute` bajo `/api/public/`): valida firma con `STRIPE_WEBHOOK_SECRET`, en `checkout.session.completed` lee metadata y hace `INSERT` idempotente en `entitlements` usando `supabaseAdmin` (importado dentro del handler).
+Flujo:
 
-Secretos nuevos que se pedirán vía `add_secret` cuando corresponda: `STRIPE_WEBHOOK_SECRET` (el `STRIPE_SECRET_KEY` y demás los provee `enable_stripe_payments`).
+1. Conectar el conector de Telegram de Lovable (el bot se crea con BotFather; la clave la guarda Lovable, no se escribe en el código).
+2. Endpoint público `/api/public/telegram/webhook` que recibe los mensajes, valida la firma secreta de Telegram y responde.
+3. Vinculación de cuenta: en la web aparece un código de 6 dígitos; el usuario escribe `/vincular 123456` en el bot. Así el chat de Telegram queda asociado a su cuenta y las conversaciones se guardan en el mismo historial que la web.
+4. Comandos: `/filosofos` lista las mentes disponibles, `/con heidegger` elige con quién hablar, y luego todo lo que escriba se responde con la voz de ese filósofo. `/oraculo <texto>` sugiere el filósofo adecuado.
+5. Sin vincular cuenta, el bot solo permite Heidegger y Pohlenz (los libres) y pide vincularse para el resto.
 
-## 5. Frontend — paywall y estados
-Nuevo hook `useEntitlements()` (React Query) que cachea el resultado de `getMyEntitlements` por sesión.
+### Detalles técnicos
 
-- `src/routes/$philosopher.tsx`: al montar, si el filósofo no está desbloqueado → render de `<Paywall philosopher={...} />` en vez de `<ChatWindow>`. Nada de "vista previa" del chat: paywall completo (según tu elección).
-- `src/components/paywall.tsx`: pantalla en el mismo lenguaje "Arrival fog" con:
-  - Nombre y glifo del filósofo.
-  - Dos CTAs: **Desbloquear por $3** y **Pack completo · $30 (13 filósofos + Oráculo + Reporte)**.
-  - Copy bilingüe (nuevas claves en `src/lib/i18n.tsx`).
-  - Ambos botones llaman `createCheckoutSession` y redirigen a Stripe.
-- `src/routes/oraculo.tsx` y `src/routes/reporte.tsx`: si `!hasPack` → `<PackPaywall />` (solo muestra el CTA de $30, ya que individual no habilita estas secciones).
-- `src/routes/index.tsx` (home / bento):
-  - Heidegger y Pohlenz: sin cambios.
-  - Otras tarjetas: badge sutil con candado + precio ("$3" o "Incluido en pack").
-  - Tarjetas de Oráculo/Reporte: badge "Pack · $30" cuando el usuario no tiene el pack.
-- Nueva ruta pública `src/routes/desbloquear.tsx` (`/desbloquear`) con la parrilla completa de compras y estado (desbloqueado / bloqueado) — accesible desde el header o el paywall.
-- Al volver del Checkout con `?checkout=success`, refrescar `useEntitlements()` e invalidar la query para que el filósofo cargue ya desbloqueado; toast bilingüe "Acceso desbloqueado".
+- Nueva tabla `public.telegram_links` (`chat_id` único, `user_id`, `current_philosopher`, `linked_at`) y `public.telegram_link_codes` (código, `user_id`, expiración), ambas con RLS y GRANTs; el webhook escribe con clave privilegiada tras validar la firma.
+- Los mensajes del bot se insertan en la tabla `messages` existente con el mismo `user_id` y `philosopher`, reutilizando el prompt de `src/lib/philosophers.ts` y el modelo actual (`google/gemini-3-flash-preview`).
+- El webhook responde de inmediato a Telegram y envía la respuesta del filósofo con `sendMessage` vía el gateway del conector.
+- Se mantiene el `STYLE_DIRECTIVE` (respuestas cortas + contrapregunta), que encaja bien con un chat móvil.
 
-## 6. i18n
-Nuevas claves en `src/lib/i18n.tsx`:
-- `paywall.title`, `paywall.subtitle`, `paywall.unlockOne`, `paywall.unlockPack`, `paywall.free`, `paywall.locked`, `paywall.included`, `paywall.oraculoLocked`, `paywall.reporteLocked`, `paywall.success`, `paywall.cancel`, `paywall.price.single`, `paywall.price.pack`.
+## Sobre WhatsApp
 
-## 7. Verificación
-- `tsgo` para tipos.
-- Playwright headless: entrar a `/schopenhauer` sin entitlement → paywall; simular entitlement en DB (vía server-fn admin de prueba) → chat carga. Confirmar que `/heidegger` y `/pohlenz` siguen abiertos siempre. Confirmar que `/oraculo` y `/reporte` bloquean sin pack.
-- Probar el webhook con `stripe listen` (documentado, no ejecutado por mí).
-
-## Fuera de alcance
-- Reembolsos, precios regionales, cupones, regalar accesos, suscripción recurrente (elegiste compra única).
-- Rediseño visual global — el paywall reutiliza tokens existentes.
-
-## Detalle técnico rápido
-- Free IDs en constante compartida `FREE_PHILOSOPHERS = ["heidegger","pohlenz"]` en `src/lib/philosophers.ts`; el resto es "de pago". Cambiar aquí = cambiar en todos lados.
-- `assertAccess` es la fuente de verdad; el UI solo la refleja.
-- Idempotencia del webhook vía `stripe_session_id UNIQUE`.
-
-Al aprobar, ejecuto en este orden: `recommend_payment_provider` → confirmar → `enable_stripe_payments` → migración de `entitlements` + `has_access` → productos → backend + webhook + secreto → frontend + i18n → verificación.
+WhatsApp Business API exige una cuenta de Meta Business verificada, un número dedicado y aprobación de plantillas; es un proceso de días y con costo por conversación. Recomiendo Telegram primero y evaluar WhatsApp después, cuando el bot ya esté probado.
