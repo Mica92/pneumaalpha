@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport, type UIMessage } from "ai";
 import { useServerFn } from "@tanstack/react-start";
@@ -125,14 +125,21 @@ function ChatBody({
     },
   });
 
-  const transport = new DefaultChatTransport({
-    fetch: async (_url, init) => {
-      const body = JSON.parse(init?.body as string);
-      return (await sendFn({
-        data: { philosopher, messages: body.messages, language: lang },
-      })) as Response;
-    },
-  });
+  const langRef = useRef(lang);
+  langRef.current = lang;
+
+  const transport = useMemo(
+    () =>
+      new DefaultChatTransport({
+        fetch: async (_url, init) => {
+          const body = JSON.parse(init?.body as string);
+          return (await sendFn({
+            data: { philosopher, messages: body.messages, language: langRef.current },
+          })) as Response;
+        },
+      }),
+    [sendFn, philosopher],
+  );
 
   const { messages, sendMessage, status, error } = useChat({
     messages: initial,
@@ -147,7 +154,10 @@ function ChatBody({
     const el = scrollRef.current;
     if (!el) return;
     if (atBottom) {
-      el.scrollTo({ top: el.scrollHeight, behavior: "smooth" });
+      el.scrollTo({
+        top: el.scrollHeight,
+        behavior: status === "streaming" ? "auto" : "smooth",
+      });
     }
   }, [messages, status, atBottom]);
 
@@ -169,11 +179,15 @@ function ChatBody({
 
   const isLoading = status === "submitted" || status === "streaming";
 
-  const sendText = async (text: string) => {
-    const trimmed = text.trim();
-    if (!trimmed || isLoading) return;
-    await sendMessage({ text: trimmed });
-  };
+  const sendText = useCallback(
+    async (text: string) => {
+      const trimmed = text.trim();
+      if (!trimmed || isLoading) return;
+      setAtBottom(true);
+      await sendMessage({ text: trimmed });
+    },
+    [isLoading, sendMessage],
+  );
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -356,13 +370,7 @@ function ChatBody({
               .map((p) => (p.type === "text" ? p.text : ""))
               .join("");
             if (m.role === "user") {
-              return (
-                <div key={m.id} className="flex justify-end fade-up">
-                  <div className="max-w-[85%] rounded-2xl rounded-tr-sm border border-border/60 bg-secondary/70 px-4 py-3 text-[15px] leading-relaxed text-secondary-foreground shadow-sm">
-                    {text}
-                  </div>
-                </div>
-              );
+              return <UserBubble key={m.id} text={text} />;
             }
             const showChips = idx === lastAssistantIdx && !isLoading;
             return (
@@ -370,9 +378,7 @@ function ChatBody({
                 <h2 className="mb-3 font-display text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
                   {meta.name}
                 </h2>
-                <div className="prose prose-invert prose-p:my-3 prose-p:leading-[1.75] prose-p:text-[15px] prose-p:text-foreground/90 prose-strong:text-foreground prose-em:text-mist max-w-none">
-                  <ReactMarkdown>{text}</ReactMarkdown>
-                </div>
+                <AssistantBody text={text} />
                 {showChips && (
                   <ContinuationChips topic={activeTopic} onPick={sendText} disabled={isLoading} />
                 )}
@@ -676,6 +682,24 @@ function ChatBody({
 
   );
 }
+
+const UserBubble = memo(function UserBubble({ text }: { text: string }) {
+  return (
+    <div className="flex justify-end fade-up">
+      <div className="max-w-[85%] rounded-2xl rounded-tr-sm border border-border/60 bg-secondary/70 px-4 py-3 text-[15px] leading-relaxed text-secondary-foreground shadow-sm">
+        {text}
+      </div>
+    </div>
+  );
+});
+
+const AssistantBody = memo(function AssistantBody({ text }: { text: string }) {
+  return (
+    <div className="prose prose-invert prose-p:my-3 prose-p:leading-[1.75] prose-p:text-[15px] prose-p:text-foreground/90 prose-strong:text-foreground prose-em:text-mist max-w-none">
+      <ReactMarkdown>{text}</ReactMarkdown>
+    </div>
+  );
+});
 
 function CorpusBadge() {
   const countFn = useServerFn(countSources);
