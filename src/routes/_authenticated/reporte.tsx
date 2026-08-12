@@ -8,7 +8,7 @@ import { useI18n, LanguageSelector } from "@/lib/i18n";
 import { PneumaMark } from "@/components/pneuma-mark";
 import { GreekGlyph } from "@/components/greek-glyph";
 
-export const Route = createFileRoute("/reporte")({
+export const Route = createFileRoute("/_authenticated/reporte")({
   component: ReportPage,
   head: () => ({
     meta: [

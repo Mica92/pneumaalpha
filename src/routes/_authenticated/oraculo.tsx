@@ -8,7 +8,7 @@ import { useI18n, LanguageSelector } from "@/lib/i18n";
 import { PneumaMark } from "@/components/pneuma-mark";
 import { GreekGlyph } from "@/components/greek-glyph";
 
-export const Route = createFileRoute("/oraculo")({
+export const Route = createFileRoute("/_authenticated/oraculo")({
   component: OraclePage,
   head: () => ({
     meta: [

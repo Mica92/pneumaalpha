@@ -12,7 +12,7 @@ import { TelegramCard } from "@/components/telegram-card";
 import { GreekGlyph } from "@/components/greek-glyph";
 
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute("/_authenticated/")({
   component: Index,
   head: () => ({
     meta: [

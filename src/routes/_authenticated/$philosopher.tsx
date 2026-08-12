@@ -6,7 +6,7 @@ import { ChatWindow } from "@/components/chat-window";
 import { GreekGlyph } from "@/components/greek-glyph";
 import { PHILOSOPHERS, isPhilosopherId, type PhilosopherId } from "@/lib/philosophers";
 
-export const Route = createFileRoute("/$philosopher")({
+export const Route = createFileRoute("/_authenticated/$philosopher")({
   component: PhilosopherChat,
   head: ({ params }) => {
     const id = params.philosopher as string;
