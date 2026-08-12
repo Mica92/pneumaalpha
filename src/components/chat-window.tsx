@@ -154,7 +154,10 @@ function ChatBody({
     const el = scrollRef.current;
     if (!el) return;
     if (atBottom) {
-      el.scrollTo({ top: el.scrollHeight, behavior: "smooth" });
+      el.scrollTo({
+        top: el.scrollHeight,
+        behavior: status === "streaming" ? "auto" : "smooth",
+      });
     }
   }, [messages, status, atBottom]);
 
