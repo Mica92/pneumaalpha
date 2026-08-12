@@ -10,12 +10,13 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
-import { Route as ReporteRouteImport } from './routes/reporte'
 import { Route as PrivacyRouteImport } from './routes/privacy'
-import { Route as OraculoRouteImport } from './routes/oraculo'
 import { Route as AuthRouteImport } from './routes/auth'
-import { Route as PhilosopherRouteImport } from './routes/$philosopher'
-import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
+import { Route as AuthenticatedReporteRouteImport } from './routes/_authenticated/reporte'
+import { Route as AuthenticatedOraculoRouteImport } from './routes/_authenticated/oraculo'
+import { Route as AuthenticatedPhilosopherRouteImport } from './routes/_authenticated/$philosopher'
 import { Route as ApiPublicTelegramWebhookRouteImport } from './routes/api/public/telegram/webhook'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -23,19 +24,9 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ReporteRoute = ReporteRouteImport.update({
-  id: '/reporte',
-  path: '/reporte',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const PrivacyRoute = PrivacyRouteImport.update({
   id: '/privacy',
   path: '/privacy',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const OraculoRoute = OraculoRouteImport.update({
-  id: '/oraculo',
-  path: '/oraculo',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRoute = AuthRouteImport.update({
@@ -43,16 +34,31 @@ const AuthRoute = AuthRouteImport.update({
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PhilosopherRoute = PhilosopherRouteImport.update({
-  id: '/$philosopher',
-  path: '/$philosopher',
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
+const AuthenticatedIndexRoute = AuthenticatedIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedReporteRoute = AuthenticatedReporteRouteImport.update({
+  id: '/reporte',
+  path: '/reporte',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedOraculoRoute = AuthenticatedOraculoRouteImport.update({
+  id: '/oraculo',
+  path: '/oraculo',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedPhilosopherRoute =
+  AuthenticatedPhilosopherRouteImport.update({
+    id: '/$philosopher',
+    path: '/$philosopher',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const ApiPublicTelegramWebhookRoute =
   ApiPublicTelegramWebhookRouteImport.update({
     id: '/api/public/telegram/webhook',
@@ -61,76 +67,75 @@ const ApiPublicTelegramWebhookRoute =
   } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/$philosopher': typeof PhilosopherRoute
+  '/': typeof AuthenticatedIndexRoute
   '/auth': typeof AuthRoute
-  '/oraculo': typeof OraculoRoute
   '/privacy': typeof PrivacyRoute
-  '/reporte': typeof ReporteRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/$philosopher': typeof AuthenticatedPhilosopherRoute
+  '/oraculo': typeof AuthenticatedOraculoRoute
+  '/reporte': typeof AuthenticatedReporteRoute
   '/api/public/telegram/webhook': typeof ApiPublicTelegramWebhookRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/$philosopher': typeof PhilosopherRoute
   '/auth': typeof AuthRoute
-  '/oraculo': typeof OraculoRoute
   '/privacy': typeof PrivacyRoute
-  '/reporte': typeof ReporteRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/$philosopher': typeof AuthenticatedPhilosopherRoute
+  '/oraculo': typeof AuthenticatedOraculoRoute
+  '/reporte': typeof AuthenticatedReporteRoute
+  '/': typeof AuthenticatedIndexRoute
   '/api/public/telegram/webhook': typeof ApiPublicTelegramWebhookRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/$philosopher': typeof PhilosopherRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
-  '/oraculo': typeof OraculoRoute
   '/privacy': typeof PrivacyRoute
-  '/reporte': typeof ReporteRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/_authenticated/$philosopher': typeof AuthenticatedPhilosopherRoute
+  '/_authenticated/oraculo': typeof AuthenticatedOraculoRoute
+  '/_authenticated/reporte': typeof AuthenticatedReporteRoute
+  '/_authenticated/': typeof AuthenticatedIndexRoute
   '/api/public/telegram/webhook': typeof ApiPublicTelegramWebhookRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/$philosopher'
     | '/auth'
-    | '/oraculo'
     | '/privacy'
-    | '/reporte'
     | '/sitemap.xml'
+    | '/$philosopher'
+    | '/oraculo'
+    | '/reporte'
     | '/api/public/telegram/webhook'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/'
-    | '/$philosopher'
     | '/auth'
-    | '/oraculo'
     | '/privacy'
-    | '/reporte'
     | '/sitemap.xml'
+    | '/$philosopher'
+    | '/oraculo'
+    | '/reporte'
+    | '/'
     | '/api/public/telegram/webhook'
   id:
     | '__root__'
-    | '/'
-    | '/$philosopher'
+    | '/_authenticated'
     | '/auth'
-    | '/oraculo'
     | '/privacy'
-    | '/reporte'
     | '/sitemap.xml'
+    | '/_authenticated/$philosopher'
+    | '/_authenticated/oraculo'
+    | '/_authenticated/reporte'
+    | '/_authenticated/'
     | '/api/public/telegram/webhook'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  PhilosopherRoute: typeof PhilosopherRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
-  OraculoRoute: typeof OraculoRoute
   PrivacyRoute: typeof PrivacyRoute
-  ReporteRoute: typeof ReporteRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ApiPublicTelegramWebhookRoute: typeof ApiPublicTelegramWebhookRoute
 }
@@ -144,25 +149,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/reporte': {
-      id: '/reporte'
-      path: '/reporte'
-      fullPath: '/reporte'
-      preLoaderRoute: typeof ReporteRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/privacy': {
       id: '/privacy'
       path: '/privacy'
       fullPath: '/privacy'
       preLoaderRoute: typeof PrivacyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/oraculo': {
-      id: '/oraculo'
-      path: '/oraculo'
-      fullPath: '/oraculo'
-      preLoaderRoute: typeof OraculoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth': {
@@ -172,19 +163,40 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/$philosopher': {
-      id: '/$philosopher'
-      path: '/$philosopher'
-      fullPath: '/$philosopher'
-      preLoaderRoute: typeof PhilosopherRouteImport
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
+    '/_authenticated/': {
+      id: '/_authenticated/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AuthenticatedIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/reporte': {
+      id: '/_authenticated/reporte'
+      path: '/reporte'
+      fullPath: '/reporte'
+      preLoaderRoute: typeof AuthenticatedReporteRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/oraculo': {
+      id: '/_authenticated/oraculo'
+      path: '/oraculo'
+      fullPath: '/oraculo'
+      preLoaderRoute: typeof AuthenticatedOraculoRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/$philosopher': {
+      id: '/_authenticated/$philosopher'
+      path: '/$philosopher'
+      fullPath: '/$philosopher'
+      preLoaderRoute: typeof AuthenticatedPhilosopherRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/api/public/telegram/webhook': {
       id: '/api/public/telegram/webhook'
@@ -196,13 +208,27 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedPhilosopherRoute: typeof AuthenticatedPhilosopherRoute
+  AuthenticatedOraculoRoute: typeof AuthenticatedOraculoRoute
+  AuthenticatedReporteRoute: typeof AuthenticatedReporteRoute
+  AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedPhilosopherRoute: AuthenticatedPhilosopherRoute,
+  AuthenticatedOraculoRoute: AuthenticatedOraculoRoute,
+  AuthenticatedReporteRoute: AuthenticatedReporteRoute,
+  AuthenticatedIndexRoute: AuthenticatedIndexRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
-  PhilosopherRoute: PhilosopherRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
-  OraculoRoute: OraculoRoute,
   PrivacyRoute: PrivacyRoute,
-  ReporteRoute: ReporteRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   ApiPublicTelegramWebhookRoute: ApiPublicTelegramWebhookRoute,
 }

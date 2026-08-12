@@ -1,14 +1,13 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
-import { useAuth } from "@/hooks/use-auth";
 import { generateReport, type PsychReport } from "@/lib/report.functions";
 import { PHILOSOPHERS } from "@/lib/philosophers";
 import { useI18n, LanguageSelector } from "@/lib/i18n";
 import { PneumaMark } from "@/components/pneuma-mark";
 import { GreekGlyph } from "@/components/greek-glyph";
 
-export const Route = createFileRoute("/reporte")({
+export const Route = createFileRoute("/_authenticated/reporte")({
   component: ReportPage,
   head: () => ({
     meta: [
@@ -24,7 +23,6 @@ export const Route = createFileRoute("/reporte")({
 });
 
 function ReportPage() {
-  const { user, loading } = useAuth();
   const navigate = useNavigate();
   const { lang, t } = useI18n();
   const runFn = useServerFn(generateReport);
@@ -33,17 +31,7 @@ function ReportPage() {
   const [running, setRunning] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (!loading && !user) navigate({ to: "/auth" });
-  }, [loading, user, navigate]);
 
-  if (loading || !user) {
-    return (
-      <main className="flex min-h-screen items-center justify-center">
-        <GreekGlyph className="font-display text-3xl text-mist pneuma-breathe" />
-      </main>
-    );
-  }
 
   async function run() {
     if (running) return;
