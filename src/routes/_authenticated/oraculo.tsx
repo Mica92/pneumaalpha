@@ -1,7 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
-import { useAuth } from "@/hooks/use-auth";
 import { matchPhilosopher } from "@/lib/oracle.functions";
 import { PHILOSOPHERS, type PhilosopherId } from "@/lib/philosophers";
 import { useI18n, LanguageSelector } from "@/lib/i18n";
@@ -31,7 +30,6 @@ export const Route = createFileRoute("/_authenticated/oraculo")({
 type Result = { philosopher: PhilosopherId; reason: string };
 
 function OraclePage() {
-  const { user, loading } = useAuth();
   const navigate = useNavigate();
   const { lang, t } = useI18n();
   const matchFn = useServerFn(matchPhilosopher);
@@ -42,21 +40,11 @@ function OraclePage() {
   const [error, setError] = useState<string | null>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
-  useEffect(() => {
-    if (!loading && !user) navigate({ to: "/auth" });
-  }, [loading, user, navigate]);
 
   useEffect(() => {
     inputRef.current?.focus();
   }, []);
 
-  if (loading || !user) {
-    return (
-      <main className="flex min-h-screen items-center justify-center">
-        <GreekGlyph className="font-display text-3xl text-mist pneuma-breathe" />
-      </main>
-    );
-  }
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();

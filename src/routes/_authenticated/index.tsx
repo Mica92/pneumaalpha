@@ -1,6 +1,4 @@
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
-import { useEffect } from "react";
-import { useAuth } from "@/hooks/use-auth";
 import { supabase } from "@/integrations/supabase/client";
 import { PHILOSOPHER_LIST } from "@/lib/philosophers";
 import { useI18n, LanguageSelector } from "@/lib/i18n";
@@ -9,7 +7,6 @@ import { InstallAppCard } from "@/components/install-app";
 import { TelegramCard } from "@/components/telegram-card";
 
 
-import { GreekGlyph } from "@/components/greek-glyph";
 
 
 export const Route = createFileRoute("/_authenticated/")({
@@ -39,21 +36,8 @@ const BENTO_CLASSES = [
 ];
 
 function Index() {
-  const { user, loading } = useAuth();
   const navigate = useNavigate();
   const { lang, t } = useI18n();
-
-  useEffect(() => {
-    if (!loading && !user) navigate({ to: "/auth" });
-  }, [loading, user, navigate]);
-
-  if (loading || !user) {
-    return (
-      <main className="flex min-h-dvh items-center justify-center">
-        <GreekGlyph className="font-display text-3xl text-mist pneuma-breathe" />
-      </main>
-    );
-  }
 
   return (
     <main className="route-enter relative z-10 mx-auto flex min-h-dvh max-w-6xl flex-col px-6 py-10 md:px-10 md:py-14">
