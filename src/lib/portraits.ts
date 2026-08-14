@@ -41,6 +41,7 @@ export function portraitOf(id: string): string | undefined {
 const PORTRAIT_FOCUS: Partial<Record<PhilosopherId, string>> = {
   pohlenz: "object-[50%_35%]",
   schopenhauer: "object-[50%_35%]",
+  rationalism: "object-[50%_28%]",
 };
 
 export function portraitFocus(id: string): string {
