@@ -14,6 +14,8 @@ import { useVoiceDictation } from "@/hooks/use-voice-dictation";
 import { toast } from "sonner";
 import { GreekGlyph } from "@/components/greek-glyph";
 import { portraitOf, portraitFocus } from "@/lib/portraits";
+import { sceneOf } from "@/lib/scenes";
+
 import { PhilosopherProfilePanel } from "@/components/philosopher-profile";
 
 import {
