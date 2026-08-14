@@ -43,6 +43,39 @@ export const T: Dict = {
     en: "Quotes and proverbs from philosophers and writers",
   },
 
+  "knowledge.kicker": { es: "Conocimiento Universal", en: "Universal Knowledge" },
+  "knowledge.title": {
+    es: "La red neuronal de las ideas",
+    en: "The neural network of ideas",
+  },
+  "knowledge.sub": {
+    es: "Filósofos, ideas, movimientos e ideologías conectados por influencia y oposición. Arrastra, acerca y toca cualquier nodo para explorar su ecosistema.",
+    en: "Philosophers, ideas, movements and ideologies connected by influence and opposition. Drag, zoom and tap any node to explore its ecosystem.",
+  },
+  "knowledge.search": { es: "Buscar en la red…", en: "Search the network…" },
+  "knowledge.connections": { es: "Conexiones", en: "Connections" },
+  "knowledge.talk": { es: "Conversar con esta mente", en: "Talk to this mind" },
+  "knowledge.nodes": { es: "nodos en la red", en: "nodes in the network" },
+  "knowledge.empty.kicker": { es: "Ningún nodo elegido", en: "No node selected" },
+  "knowledge.empty.body": {
+    es: "Toca un nodo del mapa para ver su descripción, sus influencias y sus oposiciones. Usa la rueda para acercarte y arrastra para desplazarte.",
+    en: "Tap a node on the map to see its description, influences and oppositions. Scroll to zoom and drag to pan.",
+  },
+  "knowledge.legend": {
+    es: "Línea continua: influencia, pertenencia o desarrollo. Línea punteada: oposición.",
+    en: "Solid line: influence, belonging or development. Dashed line: opposition.",
+  },
+  "knowledge.card.title": {
+    es: "Conocimiento Universal",
+    en: "Universal Knowledge",
+  },
+  "knowledge.card.sub": {
+    es: "Un mapa neuronal interactivo del pensamiento: filósofos, ideas, corrientes e ideologías y sus influencias.",
+    en: "An interactive neural map of thought: philosophers, ideas, currents and ideologies and their influences.",
+  },
+  "knowledge.card.cta": { es: "Explorar la red →", en: "Explore the network →" },
+
+
   "auth.title.signin": { es: "Bienvenido a PneumaA", en: "Welcome to PneumaA" },
   "auth.title.signup": { es: "Crea tu lugar en PneumaA", en: "Create your place in PneumaA" },
   "auth.sub.signin": {

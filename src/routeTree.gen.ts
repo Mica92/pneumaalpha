@@ -16,6 +16,7 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
 import { Route as AuthenticatedReporteRouteImport } from './routes/_authenticated/reporte'
 import { Route as AuthenticatedOraculoRouteImport } from './routes/_authenticated/oraculo'
+import { Route as AuthenticatedConocimientoRouteImport } from './routes/_authenticated/conocimiento'
 import { Route as AuthenticatedPhilosopherRouteImport } from './routes/_authenticated/$philosopher'
 import { Route as ApiPublicTelegramWebhookRouteImport } from './routes/api/public/telegram/webhook'
 
@@ -53,6 +54,12 @@ const AuthenticatedOraculoRoute = AuthenticatedOraculoRouteImport.update({
   path: '/oraculo',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedConocimientoRoute =
+  AuthenticatedConocimientoRouteImport.update({
+    id: '/conocimiento',
+    path: '/conocimiento',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedPhilosopherRoute =
   AuthenticatedPhilosopherRouteImport.update({
     id: '/$philosopher',
@@ -72,6 +79,7 @@ export interface FileRoutesByFullPath {
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/$philosopher': typeof AuthenticatedPhilosopherRoute
+  '/conocimiento': typeof AuthenticatedConocimientoRoute
   '/oraculo': typeof AuthenticatedOraculoRoute
   '/reporte': typeof AuthenticatedReporteRoute
   '/api/public/telegram/webhook': typeof ApiPublicTelegramWebhookRoute
@@ -81,6 +89,7 @@ export interface FileRoutesByTo {
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/$philosopher': typeof AuthenticatedPhilosopherRoute
+  '/conocimiento': typeof AuthenticatedConocimientoRoute
   '/oraculo': typeof AuthenticatedOraculoRoute
   '/reporte': typeof AuthenticatedReporteRoute
   '/': typeof AuthenticatedIndexRoute
@@ -93,6 +102,7 @@ export interface FileRoutesById {
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/_authenticated/$philosopher': typeof AuthenticatedPhilosopherRoute
+  '/_authenticated/conocimiento': typeof AuthenticatedConocimientoRoute
   '/_authenticated/oraculo': typeof AuthenticatedOraculoRoute
   '/_authenticated/reporte': typeof AuthenticatedReporteRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
@@ -106,6 +116,7 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/sitemap.xml'
     | '/$philosopher'
+    | '/conocimiento'
     | '/oraculo'
     | '/reporte'
     | '/api/public/telegram/webhook'
@@ -115,6 +126,7 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/sitemap.xml'
     | '/$philosopher'
+    | '/conocimiento'
     | '/oraculo'
     | '/reporte'
     | '/'
@@ -126,6 +138,7 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/sitemap.xml'
     | '/_authenticated/$philosopher'
+    | '/_authenticated/conocimiento'
     | '/_authenticated/oraculo'
     | '/_authenticated/reporte'
     | '/_authenticated/'
@@ -191,6 +204,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedOraculoRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/conocimiento': {
+      id: '/_authenticated/conocimiento'
+      path: '/conocimiento'
+      fullPath: '/conocimiento'
+      preLoaderRoute: typeof AuthenticatedConocimientoRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/$philosopher': {
       id: '/_authenticated/$philosopher'
       path: '/$philosopher'
@@ -210,6 +230,7 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedPhilosopherRoute: typeof AuthenticatedPhilosopherRoute
+  AuthenticatedConocimientoRoute: typeof AuthenticatedConocimientoRoute
   AuthenticatedOraculoRoute: typeof AuthenticatedOraculoRoute
   AuthenticatedReporteRoute: typeof AuthenticatedReporteRoute
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
@@ -217,6 +238,7 @@ interface AuthenticatedRouteRouteChildren {
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedPhilosopherRoute: AuthenticatedPhilosopherRoute,
+  AuthenticatedConocimientoRoute: AuthenticatedConocimientoRoute,
   AuthenticatedOraculoRoute: AuthenticatedOraculoRoute,
   AuthenticatedReporteRoute: AuthenticatedReporteRoute,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
