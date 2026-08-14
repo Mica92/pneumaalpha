@@ -55,7 +55,7 @@ export function KnowledgeMap({
   const wrapRef = useRef<HTMLDivElement>(null);
   const [hover, setHover] = useState<string | null>(null);
 
-  const viewRef = useRef({ x: 0, y: 0, k: 1 });
+  const viewRef = useRef({ x: 0, y: 0, k: 0.85 });
   const dragRef = useRef<{ mode: "none" | "pan" | "node"; id?: string; px: number; py: number }>({
     mode: "none",
     px: 0,
@@ -180,7 +180,7 @@ export function KnowledgeMap({
               dy = (Math.random() - 0.5) * 2;
               d2 = 4;
             }
-            const f = 2600 / d2;
+            const f = 3800 / d2;
             const d = Math.sqrt(d2);
             const fx = (dx / d) * f;
             const fy = (dy / d) * f;
@@ -408,7 +408,7 @@ export function KnowledgeMap({
     view.k = clamp(view.k * factor, 0.25, 3);
   };
   const reset = () => {
-    viewRef.current = { x: 0, y: 0, k: 1 };
+    viewRef.current = { x: 0, y: 0, k: 0.85 };
     reheat();
   };
 
