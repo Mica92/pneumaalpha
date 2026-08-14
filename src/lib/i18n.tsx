@@ -35,6 +35,14 @@ export const T: Dict = {
   "umbral.enter": { es: "Entrar →", en: "Enter →" },
   "umbral.exit": { es: "Salir", en: "Sign out" },
 
+  "quotes.kicker": { es: "Cita del umbral", en: "Quote of the threshold" },
+  "quotes.refresh": { es: "Otra cita", en: "Another quote" },
+  "quotes.themes": { es: "Temáticas", en: "Themes" },
+  "quotes.aria": {
+    es: "Citas y proverbios de filósofos y literatos",
+    en: "Quotes and proverbs from philosophers and writers",
+  },
+
   "auth.title.signin": { es: "Bienvenido a PneumaA", en: "Welcome to PneumaA" },
   "auth.title.signup": { es: "Crea tu lugar en PneumaA", en: "Create your place in PneumaA" },
   "auth.sub.signin": {
