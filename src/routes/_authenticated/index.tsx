@@ -1,4 +1,4 @@
-import { portraitOf } from "@/lib/portraits";
+import { portraitOf, portraitFocus } from "@/lib/portraits";
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { supabase } from "@/integrations/supabase/client";
 import { PHILOSOPHER_LIST } from "@/lib/philosophers";
@@ -150,7 +150,7 @@ function Index() {
                     src={portrait}
                     alt={`Retrato de ${p.name}`}
                     loading="lazy"
-                    className="h-full w-full object-cover object-top opacity-30 grayscale contrast-125 transition-all duration-[1200ms] group-hover:scale-[1.04] group-hover:opacity-45"
+                    className={`h-full w-full object-cover ${portraitFocus(p.id)} opacity-40 grayscale brightness-125 contrast-105 transition-all duration-[1200ms] group-hover:scale-[1.04] group-hover:opacity-55`}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-card via-card/85 to-card/25" />
                   <div className="absolute inset-0 bg-gradient-to-r from-card/90 via-transparent to-transparent" />
