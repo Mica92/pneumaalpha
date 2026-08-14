@@ -187,6 +187,10 @@ function Index() {
         {PHILOSOPHER_LIST.map((p, i) => {
           const isHero = i === 0;
           const portrait = portraitOf(p.id);
+          const topics = (profileOf(p.id)?.expertise ?? [])
+            .slice(0, isHero ? 4 : 3)
+            .map((e) => e[lang]);
+
           return (
             <Link
               key={p.id}
