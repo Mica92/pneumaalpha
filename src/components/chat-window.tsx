@@ -13,6 +13,7 @@ import { useI18n, LanguageSelector } from "@/lib/i18n";
 import { useVoiceDictation } from "@/hooks/use-voice-dictation";
 import { toast } from "sonner";
 import { GreekGlyph } from "@/components/greek-glyph";
+import { portraitOf } from "@/lib/portraits";
 
 import {
   ContinuationChips,
@@ -261,9 +262,21 @@ function ChatBody({
           </Link>
 
           <div className="flex min-w-0 items-center gap-3">
-            <span className="shrink-0 font-display text-xl text-mist pneuma-breathe" aria-hidden="true">
-              {meta.glyph}
-            </span>
+            {portraitOf(philosopher) ? (
+              <span className="relative h-9 w-9 shrink-0 overflow-hidden rounded-full border border-border/70 ring-1 ring-mist/15">
+                <img
+                  src={portraitOf(philosopher)}
+                  alt={`Retrato de ${meta.name}`}
+                  loading="lazy"
+                  className="h-full w-full object-cover object-top grayscale contrast-125"
+                />
+                <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/50 to-transparent" />
+              </span>
+            ) : (
+              <span className="shrink-0 font-display text-xl text-mist pneuma-breathe" aria-hidden="true">
+                {meta.glyph}
+              </span>
+            )}
             <div className="min-w-0 leading-tight">
               <h1 className="truncate font-display text-sm font-light tracking-wide text-foreground">
                 {meta.name}

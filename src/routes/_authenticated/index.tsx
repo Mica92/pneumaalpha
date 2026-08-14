@@ -1,3 +1,4 @@
+import { portraitOf } from "@/lib/portraits";
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { supabase } from "@/integrations/supabase/client";
 import { PHILOSOPHER_LIST } from "@/lib/philosophers";
@@ -132,6 +133,7 @@ function Index() {
       <section className="grid flex-1 auto-rows-[minmax(180px,auto)] grid-cols-1 gap-3 md:grid-cols-6">
         {PHILOSOPHER_LIST.map((p, i) => {
           const isHero = i === 0;
+          const portrait = portraitOf(p.id);
           return (
             <Link
               key={p.id}
@@ -141,11 +143,25 @@ function Index() {
               className={`group fade-up hover-lift focus-mist relative flex flex-col justify-between overflow-hidden rounded-xl border border-border bg-card/50 p-6 backdrop-blur-sm transition-all duration-500 hover:border-mist/40 hover:bg-card/80 hover:shadow-mist md:p-8 ${BENTO_CLASSES[i] ?? "md:col-span-2 md:row-span-1"}`}
               style={{ animationDelay: `${i * 80}ms` }}
             >
+              {/* Cinematic portrait layer */}
+              {portrait && (
+                <div className="pointer-events-none absolute inset-0">
+                  <img
+                    src={portrait}
+                    alt={`Retrato de ${p.name}`}
+                    loading="lazy"
+                    className="h-full w-full object-cover object-top opacity-30 grayscale contrast-125 transition-all duration-[1200ms] group-hover:scale-[1.04] group-hover:opacity-45"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-card via-card/85 to-card/25" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-card/90 via-transparent to-transparent" />
+                </div>
+              )}
 
               {/* Subtle inner glow on hover */}
               <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-100">
                 <div className="absolute -top-32 left-1/2 h-64 w-64 -translate-x-1/2 rounded-full bg-mist/8 blur-3xl" />
               </div>
+
 
               {/* Index marker — top-right, clinical */}
               <span className="absolute right-5 top-5 font-mono text-[10px] tracking-widest text-muted-foreground/70">
