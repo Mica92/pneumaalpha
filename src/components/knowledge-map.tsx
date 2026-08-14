@@ -21,11 +21,11 @@ type Sim = {
 
 const KIND_ORDER: NodeKind[] = ["philosopher", "idea", "movement", "ideology"];
 
-const KIND_COLOR: Record<NodeKind, string> = {
-  philosopher: "var(--glacier-bright)",
-  idea: "var(--foreground)",
-  movement: "var(--sage)",
-  ideology: "var(--glacier)",
+const KIND_VAR: Record<NodeKind, string> = {
+  philosopher: "--glacier-bright",
+  idea: "--foreground",
+  movement: "--sage",
+  ideology: "--glacier",
 };
 
 export const KIND_DOT: Record<NodeKind, string> = {
@@ -124,6 +124,24 @@ export function KnowledgeMap({
     const wrap = wrapRef.current;
     if (!canvas || !wrap) return;
     const ctx = canvas.getContext("2d")!;
+
+    // canvas cannot read CSS custom properties — resolve them once.
+    const cs = getComputedStyle(document.documentElement);
+    const v = (name: string, fallback: string) => cs.getPropertyValue(name).trim() || fallback;
+    const palette = {
+      foreground: v("--foreground", "#e8eef2"),
+      background: v("--background", "#0b0f12"),
+      glacier: v("--glacier", "#3a4a55"),
+      glacierBright: v("--glacier-bright", "#a8c4d6"),
+      sage: v("--sage", "#9dc3ae"),
+      mist: v("--mist", "#a8b8c2"),
+    };
+    const kindColor: Record<NodeKind, string> = {
+      philosopher: palette.glacierBright,
+      idea: palette.foreground,
+      movement: palette.sage,
+      ideology: palette.glacier,
+    };
     let raf = 0;
     let w = 0;
     let h = 0;
@@ -232,7 +250,7 @@ export function KnowledgeMap({
         const active = focus ? l.source === focus || l.target === focus : false;
         ctx.globalAlpha = focus ? (active ? 0.75 : 0.06) : 0.18;
         ctx.strokeStyle =
-          l.kind === "opposition" ? "var(--sage)" : active ? "var(--glacier-bright)" : "var(--mist, #a8b8c2)";
+          l.kind === "opposition" ? palette.sage : active ? palette.glacierBright : palette.mist;
         ctx.lineWidth = (active ? 1.2 : 0.7) / view.k;
         if (l.kind === "opposition") ctx.setLineDash([4 / view.k, 4 / view.k]);
         else ctx.setLineDash([]);
@@ -255,7 +273,7 @@ export function KnowledgeMap({
         if (isFocus) {
           ctx.beginPath();
           ctx.arc(p.x, p.y, p.r + 8 / view.k, 0, Math.PI * 2);
-          ctx.fillStyle = "var(--glacier)";
+          ctx.fillStyle = palette.glacier;
           ctx.globalAlpha = 0.18;
           ctx.fill();
           ctx.globalAlpha = 1;
@@ -263,19 +281,19 @@ export function KnowledgeMap({
 
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = KIND_COLOR[n.kind];
+        ctx.fillStyle = kindColor[n.kind];
         ctx.globalAlpha = dim ? 0.16 : n.kind === "idea" ? 0.75 : 0.95;
         ctx.fill();
         ctx.globalAlpha = dim ? 0.16 : 1;
         ctx.lineWidth = 1 / view.k;
-        ctx.strokeStyle = "var(--background)";
+        ctx.strokeStyle = palette.background;
         ctx.stroke();
 
         // labels
         const showLabel = view.k > 0.75 || p.deg >= 5 || isFocus || isNear;
         if (showLabel) {
           ctx.globalAlpha = dim ? 0.12 : isFocus || isNear ? 0.95 : 0.55;
-          ctx.fillStyle = "var(--foreground)";
+          ctx.fillStyle = palette.foreground;
           ctx.font = `${(isFocus ? 13 : 11) / view.k}px Manrope, system-ui, sans-serif`;
           ctx.textAlign = "center";
           ctx.textBaseline = "top";
