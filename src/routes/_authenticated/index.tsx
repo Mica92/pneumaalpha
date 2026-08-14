@@ -154,6 +154,31 @@ function Index() {
         </span>
       </Link>
 
+      <Link
+        to="/analisis"
+        className="group fade-up relative mb-3 flex flex-col gap-4 overflow-hidden rounded-xl border border-glacier/40 bg-gradient-to-br from-glacier/12 via-card/60 to-card/25 p-6 backdrop-blur-sm transition-all duration-500 hover:border-glacier/70 hover:shadow-mist md:p-7"
+      >
+        <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-100">
+          <div className="absolute -bottom-24 right-1/4 h-56 w-56 rounded-full bg-glacier/20 blur-3xl" />
+        </div>
+        <div className="relative">
+          <p className="font-display text-[10px] uppercase tracking-[0.35em] text-glacier-bright">
+            {t("analysis.kicker")}
+          </p>
+          <h2 className="mt-3 font-display text-2xl font-light leading-tight tracking-tight text-foreground md:text-[26px]">
+            {t("analysis.card.title")}
+          </h2>
+          <p className="mt-2 max-w-2xl text-xs leading-relaxed text-muted-foreground md:text-sm">
+            {t("analysis.card.sub")}
+          </p>
+        </div>
+        <span className="relative font-display text-[11px] uppercase tracking-[0.3em] text-glacier-bright transition-colors group-hover:text-foreground">
+          {t("analysis.card.cta")}
+        </span>
+      </Link>
+
+
+
 
 
 

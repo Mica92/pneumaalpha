@@ -17,6 +17,7 @@ import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/
 import { Route as AuthenticatedReporteRouteImport } from './routes/_authenticated/reporte'
 import { Route as AuthenticatedOraculoRouteImport } from './routes/_authenticated/oraculo'
 import { Route as AuthenticatedConocimientoRouteImport } from './routes/_authenticated/conocimiento'
+import { Route as AuthenticatedAnalisisRouteImport } from './routes/_authenticated/analisis'
 import { Route as AuthenticatedPhilosopherRouteImport } from './routes/_authenticated/$philosopher'
 import { Route as ApiPublicTelegramWebhookRouteImport } from './routes/api/public/telegram/webhook'
 
@@ -60,6 +61,11 @@ const AuthenticatedConocimientoRoute =
     path: '/conocimiento',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedAnalisisRoute = AuthenticatedAnalisisRouteImport.update({
+  id: '/analisis',
+  path: '/analisis',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedPhilosopherRoute =
   AuthenticatedPhilosopherRouteImport.update({
     id: '/$philosopher',
@@ -79,6 +85,7 @@ export interface FileRoutesByFullPath {
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/$philosopher': typeof AuthenticatedPhilosopherRoute
+  '/analisis': typeof AuthenticatedAnalisisRoute
   '/conocimiento': typeof AuthenticatedConocimientoRoute
   '/oraculo': typeof AuthenticatedOraculoRoute
   '/reporte': typeof AuthenticatedReporteRoute
@@ -89,6 +96,7 @@ export interface FileRoutesByTo {
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/$philosopher': typeof AuthenticatedPhilosopherRoute
+  '/analisis': typeof AuthenticatedAnalisisRoute
   '/conocimiento': typeof AuthenticatedConocimientoRoute
   '/oraculo': typeof AuthenticatedOraculoRoute
   '/reporte': typeof AuthenticatedReporteRoute
@@ -102,6 +110,7 @@ export interface FileRoutesById {
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/_authenticated/$philosopher': typeof AuthenticatedPhilosopherRoute
+  '/_authenticated/analisis': typeof AuthenticatedAnalisisRoute
   '/_authenticated/conocimiento': typeof AuthenticatedConocimientoRoute
   '/_authenticated/oraculo': typeof AuthenticatedOraculoRoute
   '/_authenticated/reporte': typeof AuthenticatedReporteRoute
@@ -116,6 +125,7 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/sitemap.xml'
     | '/$philosopher'
+    | '/analisis'
     | '/conocimiento'
     | '/oraculo'
     | '/reporte'
@@ -126,6 +136,7 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/sitemap.xml'
     | '/$philosopher'
+    | '/analisis'
     | '/conocimiento'
     | '/oraculo'
     | '/reporte'
@@ -138,6 +149,7 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/sitemap.xml'
     | '/_authenticated/$philosopher'
+    | '/_authenticated/analisis'
     | '/_authenticated/conocimiento'
     | '/_authenticated/oraculo'
     | '/_authenticated/reporte'
@@ -211,6 +223,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedConocimientoRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/analisis': {
+      id: '/_authenticated/analisis'
+      path: '/analisis'
+      fullPath: '/analisis'
+      preLoaderRoute: typeof AuthenticatedAnalisisRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/$philosopher': {
       id: '/_authenticated/$philosopher'
       path: '/$philosopher'
@@ -230,6 +249,7 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedPhilosopherRoute: typeof AuthenticatedPhilosopherRoute
+  AuthenticatedAnalisisRoute: typeof AuthenticatedAnalisisRoute
   AuthenticatedConocimientoRoute: typeof AuthenticatedConocimientoRoute
   AuthenticatedOraculoRoute: typeof AuthenticatedOraculoRoute
   AuthenticatedReporteRoute: typeof AuthenticatedReporteRoute
@@ -238,6 +258,7 @@ interface AuthenticatedRouteRouteChildren {
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedPhilosopherRoute: AuthenticatedPhilosopherRoute,
+  AuthenticatedAnalisisRoute: AuthenticatedAnalisisRoute,
   AuthenticatedConocimientoRoute: AuthenticatedConocimientoRoute,
   AuthenticatedOraculoRoute: AuthenticatedOraculoRoute,
   AuthenticatedReporteRoute: AuthenticatedReporteRoute,
