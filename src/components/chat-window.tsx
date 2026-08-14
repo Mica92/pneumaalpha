@@ -717,7 +717,9 @@ function ChatBody({
       )}
 
       <RootQuestionsFab onPick={sendText} disabled={isLoading} />
+      </div>
     </div>
+
 
   );
 }
