@@ -13,6 +13,7 @@ import { useI18n, LanguageSelector } from "@/lib/i18n";
 import { useVoiceDictation } from "@/hooks/use-voice-dictation";
 import { toast } from "sonner";
 import { GreekGlyph } from "@/components/greek-glyph";
+import { portraitOf } from "@/lib/portraits";
 
 import {
   ContinuationChips,
