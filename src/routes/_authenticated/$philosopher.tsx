@@ -44,7 +44,7 @@ export const Route = createFileRoute("/_authenticated/$philosopher")({
 });
 
 function PhilosopherChat() {
-  const { philosopher } = useParams({ from: "/$philosopher" });
+  const { philosopher } = useParams({ from: "/_authenticated/$philosopher" });
   const { user, loading } = useAuth();
   const navigate = useNavigate();
 
