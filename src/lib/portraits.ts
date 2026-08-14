@@ -37,6 +37,17 @@ export function portraitOf(id: string): string | undefined {
   return PORTRAITS[id as PhilosopherId];
 }
 
+/** Encuadre del retrato: baja el recorte donde el rostro queda muy abajo. */
+const PORTRAIT_FOCUS: Partial<Record<PhilosopherId, string>> = {
+  pohlenz: "object-[50%_35%]",
+  schopenhauer: "object-[50%_35%]",
+};
+
+export function portraitFocus(id: string): string {
+  return PORTRAIT_FOCUS[id as PhilosopherId] ?? "object-top";
+}
+
+
 export type PhilosopherProfile = {
   years: string;
   origin: LocalizedString;
