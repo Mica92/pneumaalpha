@@ -1,6 +1,6 @@
 import { useI18n } from "@/lib/i18n";
 import { PHILOSOPHERS, type PhilosopherId } from "@/lib/philosophers";
-import { portraitOf, profileOf } from "@/lib/portraits";
+import { portraitOf, portraitFocus, profileOf } from "@/lib/portraits";
 
 type Props = {
   philosopher: PhilosopherId;
@@ -35,7 +35,7 @@ export function PhilosopherProfilePanel({ philosopher, open, onClose }: Props) {
             <img
               src={portrait}
               alt={`${lang === "es" ? "Retrato de" : "Portrait of"} ${meta.name}`}
-              className="h-72 w-full object-cover object-top grayscale contrast-110"
+              className={`h-72 w-full object-cover ${portraitFocus(philosopher)} grayscale brightness-125 contrast-105`}
             />
           ) : (
             <div className="flex h-40 w-full items-center justify-center">

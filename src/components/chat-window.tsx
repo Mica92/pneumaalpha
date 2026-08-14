@@ -13,7 +13,7 @@ import { useI18n, LanguageSelector } from "@/lib/i18n";
 import { useVoiceDictation } from "@/hooks/use-voice-dictation";
 import { toast } from "sonner";
 import { GreekGlyph } from "@/components/greek-glyph";
-import { portraitOf } from "@/lib/portraits";
+import { portraitOf, portraitFocus } from "@/lib/portraits";
 import { PhilosopherProfilePanel } from "@/components/philosopher-profile";
 
 import {
@@ -276,7 +276,7 @@ function ChatBody({
                   src={portraitOf(philosopher)}
                   alt={`Retrato de ${meta.name}`}
                   loading="lazy"
-                  className="h-full w-full object-cover object-top grayscale contrast-125"
+                  className={`h-full w-full object-cover ${portraitFocus(philosopher)} grayscale brightness-125 contrast-105`}
                 />
                 <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/50 to-transparent" />
               </span>
