@@ -261,7 +261,12 @@ function ChatBody({
             <span aria-hidden="true" className="text-lg leading-none">←</span>
           </Link>
 
-          <div className="flex min-w-0 items-center gap-3">
+          <button
+            type="button"
+            onClick={() => setProfileOpen(true)}
+            aria-label={lang === "es" ? `Ver ficha de ${meta.name}` : `View ${meta.name} profile`}
+            className="focus-mist flex min-w-0 items-center gap-3 rounded-md text-left transition-opacity hover:opacity-80"
+          >
             {portraitOf(philosopher) ? (
               <span className="relative h-9 w-9 shrink-0 overflow-hidden rounded-full border border-border/70 ring-1 ring-mist/15">
                 <img
@@ -281,8 +286,11 @@ function ChatBody({
               <h1 className="truncate font-display text-sm font-light tracking-wide text-foreground">
                 {meta.name}
               </h1>
+              <span className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
+                {lang === "es" ? "Ver ficha" : "View profile"}
+              </span>
             </div>
-          </div>
+          </button>
 
           {/* Desktop actions */}
           <div className="hidden items-center gap-1 md:flex">
