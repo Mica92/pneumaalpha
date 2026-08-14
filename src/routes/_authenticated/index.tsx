@@ -6,6 +6,7 @@ import { useI18n, LanguageSelector } from "@/lib/i18n";
 import { PneumaMark } from "@/components/pneuma-mark";
 import { InstallAppCard } from "@/components/install-app";
 import { TelegramCard } from "@/components/telegram-card";
+import { QuoteCard } from "@/components/quote-card";
 
 
 
@@ -78,6 +79,8 @@ function Index() {
           {t("umbral.sub")}
         </p>
       </header>
+
+      <QuoteCard className="mb-3" />
 
       {/* Oracle + Report entries — two distinctive bands above the bento. */}
       <div className="fade-up mb-3 grid gap-3 md:grid-cols-2">
