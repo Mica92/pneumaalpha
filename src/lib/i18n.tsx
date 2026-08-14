@@ -73,7 +73,54 @@ export const T: Dict = {
     es: "Un mapa neuronal interactivo del pensamiento: filósofos, ideas, corrientes e ideologías y sus influencias.",
     en: "An interactive neural map of thought: philosophers, ideas, currents and ideologies and their influences.",
   },
-  "knowledge.card.cta": { es: "Explorar la red →", en: "Explore the network →" },
+
+  "analysis.kicker": { es: "Análisis", en: "Analysis" },
+  "analysis.card.title": {
+    es: "Analiza un texto, una frase o un concepto",
+    en: "Analyze a text, a phrase or a concept",
+  },
+  "analysis.card.sub": {
+    es: "Lectura detallada con conceptos clave, influencias filosóficas, políticas, literarias, religiosas y científicas, tensiones y linaje.",
+    en: "Detailed reading with key concepts, philosophical, political, literary, religious and scientific influences, tensions and lineage.",
+  },
+  "analysis.card.cta": { es: "Analizar →", en: "Analyze →" },
+  "analysis.page.title": {
+    es: "Análisis de textos, frases y conceptos",
+    en: "Analysis of texts, phrases and concepts",
+  },
+  "analysis.page.sub": {
+    es: "Pega una cita, un párrafo o escribe un concepto. Recibirás una lectura densa: qué afirma, de dónde viene y con qué corrientes dialoga.",
+    en: "Paste a quotation, a paragraph or write a concept. You'll get a dense reading: what it claims, where it comes from and which currents it converses with.",
+  },
+  "analysis.placeholder": {
+    es: "«El hombre está condenado a ser libre» — o un concepto: nihilismo, alienación, epojé…",
+    en: "\u201cMan is condemned to be free\u201d — or a concept: nihilism, alienation, epoché…",
+  },
+  "analysis.submit": { es: "Analizar", en: "Analyze" },
+  "analysis.submitting": { es: "Leyendo el texto…", en: "Reading the text…" },
+  "analysis.again": { es: "Analizar otro material", en: "Analyze other material" },
+  "analysis.back": { es: "Volver al umbral", en: "Back to threshold" },
+  "analysis.error": {
+    es: "No se pudo completar el análisis. Intenta de nuevo en unos segundos.",
+    en: "The analysis could not be completed. Try again in a few seconds.",
+  },
+  "analysis.thesis": { es: "Tesis", en: "Thesis" },
+  "analysis.reading": { es: "Lectura", en: "Reading" },
+  "analysis.concepts": { es: "Conceptos clave", en: "Key concepts" },
+  "analysis.influences": { es: "Influencias", en: "Influences" },
+  "analysis.inf.philosophical": { es: "Filosóficas", en: "Philosophical" },
+  "analysis.inf.political": { es: "Políticas", en: "Political" },
+  "analysis.inf.literary": { es: "Literarias", en: "Literary" },
+  "analysis.inf.religious": { es: "Religiosas", en: "Religious" },
+  "analysis.inf.scientific": { es: "Científicas", en: "Scientific" },
+  "analysis.inf.historical": { es: "Históricas", en: "Historical" },
+  "analysis.lineage": { es: "Linaje", en: "Lineage" },
+  "analysis.precursors": { es: "Precursores", en: "Precursors" },
+  "analysis.heirs": { es: "Herederos", en: "Heirs" },
+  "analysis.tensions": { es: "Tensiones y puntos ciegos", en: "Tensions and blind spots" },
+  "analysis.questions": { es: "Para seguir pensando", en: "To keep thinking" },
+  "analysis.voices": { es: "Conversa sobre esto con", en: "Discuss this with" },
+
 
 
   "auth.title.signin": { es: "Bienvenido a PneumaA", en: "Welcome to PneumaA" },
