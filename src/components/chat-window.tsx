@@ -14,6 +14,7 @@ import { useVoiceDictation } from "@/hooks/use-voice-dictation";
 import { toast } from "sonner";
 import { GreekGlyph } from "@/components/greek-glyph";
 import { portraitOf } from "@/lib/portraits";
+import { PhilosopherProfilePanel } from "@/components/philosopher-profile";
 
 import {
   ContinuationChips,
@@ -83,6 +84,7 @@ function ChatBody({
   const meta = PHILOSOPHERS[philosopher];
   const { lang, t } = useI18n();
   const [archiveOpen, setArchiveOpen] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
   const [migrateOpen, setMigrateOpen] = useState(false);
   const [migrateMode, setMigrateMode] = useState<"full" | "questions">("full");
   const [migrating, setMigrating] = useState<PhilosopherId | null>(null);
@@ -250,6 +252,7 @@ function ChatBody({
 
   return (
     <div className="flex min-h-dvh flex-col">
+      <PhilosopherProfilePanel philosopher={philosopher} open={profileOpen} onClose={() => setProfileOpen(false)} />
       <header className="sticky top-0 z-20 border-b border-border/60 bg-background/80 px-4 py-3 backdrop-blur-xl md:px-6 md:py-4">
         <div className="mx-auto grid max-w-3xl grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3">
           <Link
