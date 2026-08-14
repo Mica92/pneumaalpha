@@ -73,6 +73,9 @@ export const T: Dict = {
     es: "Un mapa neuronal interactivo del pensamiento: filósofos, ideas, corrientes e ideologías y sus influencias.",
     en: "An interactive neural map of thought: philosophers, ideas, currents and ideologies and their influences.",
   },
+  "knowledge.card.cta": { es: "Explorar la red →", en: "Explore the network →" },
+
+
 
   "analysis.kicker": { es: "Análisis", en: "Analysis" },
   "analysis.card.title": {
