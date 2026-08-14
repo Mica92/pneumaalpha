@@ -239,7 +239,24 @@ function Index() {
                 <p className="mt-2 text-xs leading-relaxed text-muted-foreground md:text-sm">
                   {p.subtitle[lang]}
                 </p>
+
+                {topics.length > 0 && (
+                  <ul
+                    aria-label={`${lang === "es" ? "Temas de" : "Topics of"} ${p.name}`}
+                    className="mt-4 flex flex-wrap gap-1.5"
+                  >
+                    {topics.map((topic) => (
+                      <li
+                        key={topic}
+                        className="rounded-full border border-border/70 bg-background/40 px-2.5 py-1 text-[10px] leading-none tracking-wide text-muted-foreground transition-colors group-hover:border-mist/40 group-hover:text-foreground/80"
+                      >
+                        {topic}
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </div>
+
 
               <div className="relative mt-6 space-y-3">
                 {isHero && (
