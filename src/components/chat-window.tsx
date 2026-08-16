@@ -32,9 +32,11 @@ type Props = {
   userId: string;
   philosopher: PhilosopherId;
   onSignOut: () => void;
+  /** Renders the chat inside a page section instead of filling the viewport. */
+  embedded?: boolean;
 };
 
-export function ChatWindow({ userId, philosopher, onSignOut }: Props) {
+export function ChatWindow({ userId, philosopher, onSignOut, embedded = false }: Props) {
   const loadFn = useServerFn(loadMessages);
   const clearFn = useServerFn(clearConversation);
   const { t } = useI18n();
@@ -46,7 +48,7 @@ export function ChatWindow({ userId, philosopher, onSignOut }: Props) {
 
   if (isLoading || !initial) {
     return (
-      <div className="flex min-h-dvh items-center justify-center">
+      <div className={`flex items-center justify-center ${embedded ? "h-[70vh]" : "min-h-dvh"}`}>
         <GreekGlyph className="font-display text-5xl text-mist pneuma-breathe" />
       </div>
     );
@@ -57,6 +59,7 @@ export function ChatWindow({ userId, philosopher, onSignOut }: Props) {
     <ChatBody
       key={`${userId}-${philosopher}`}
       philosopher={philosopher}
+      embedded={embedded}
       initial={initial as UIMessage[]}
       onClear={async () => {
         await clearFn({ data: { philosopher } });
@@ -73,11 +76,13 @@ function ChatBody({
   initial,
   onClear,
   onSignOut,
+  embedded = false,
 }: {
   philosopher: PhilosopherId;
   initial: UIMessage[];
   onClear: () => Promise<void>;
   onSignOut: () => void;
+  embedded?: boolean;
 }) {
   const sendFn = useServerFn(sendChat);
   const historyFn = useServerFn(loadFullHistory);
