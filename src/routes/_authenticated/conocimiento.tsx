@@ -34,7 +34,7 @@ export const Route = createFileRoute("/_authenticated/conocimiento")({
   }),
 });
 
-const KINDS: NodeKind[] = ["philosopher", "idea", "movement", "ideology"];
+const KINDS: NodeKind[] = ["philosopher", "idea", "movement", "ideology", "religion"];
 
 function KnowledgePage() {
   const { lang, t } = useI18n();
