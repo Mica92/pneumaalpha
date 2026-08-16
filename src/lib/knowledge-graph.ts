@@ -247,6 +247,8 @@ export const GRAPH_NODES: GraphNode[] = [
   N("distributism", "Distributismo", "ideology", "Propiedad ampliamente repartida, escala humana.", "Widely distributed property, human scale."),
 
   // ── Derecha: pensadores ───────────────────────────────────────────
+  P("hobbes", "Thomas Hobbes", "1588–1679", "Del estado de naturaleza al Leviatán soberano.", "From the state of nature to the sovereign Leviathan."),
+  P("gramsci", "Antonio Gramsci", "1891–1937", "Hegemonía cultural: el poder se gana antes en la cultura.", "Cultural hegemony: power is won first in culture."),
   P("junger", "Ernst Jünger", "1895–1998", "La movilización total, el Trabajador y el rebelde del bosque.", "Total mobilisation, the Worker and the forest rebel."),
   P("schmitt", "Carl Schmitt", "1888–1985", "Lo político como distinción amigo–enemigo; la decisión soberana.", "The political as friend–enemy distinction; sovereign decision."),
   P("spengler", "Oswald Spengler", "1880–1936", "Culturas como organismos: la decadencia de Occidente.", "Cultures as organisms: the decline of the West."),
@@ -282,6 +284,10 @@ export const GRAPH_NODES: GraphNode[] = [
   N("agrarianism", "Agrarismo", "ideology", "Tierra, arraigo y comunidad campesina.", "Land, rootedness and rural community."),
 
   // ── Derecha: conceptos ────────────────────────────────────────────
+  N("enlightenment", "Ilustración", "movement", "Razón, crítica y emancipación frente a la autoridad heredada.", "Reason, critique and emancipation against inherited authority.", "s. XVIII"),
+  N("historicism", "Historicismo", "movement", "Todo valor es hijo de su época.", "Every value is a child of its epoch."),
+  N("capitalism", "Capitalismo", "idea", "Acumulación, mercado y trabajo asalariado.", "Accumulation, market and wage labour."),
+  N("democracy", "Democracia", "idea", "El poder legitimado por el pueblo.", "Power legitimised by the people."),
   N("friend_enemy", "Amigo–enemigo", "idea", "Criterio de lo político según Schmitt.", "Schmitt's criterion of the political."),
   N("state_of_exception", "Estado de excepción", "idea", "Soberano es quien decide sobre la excepción.", "Sovereign is who decides on the exception."),
   N("political_theology", "Teología política", "idea", "Los conceptos del Estado son teológicos secularizados.", "State concepts are secularised theological ones."),
@@ -662,7 +668,6 @@ export const GRAPH_LINKS: GraphLink[] = [
   { source: "national_bolshevism", target: "liberalism", kind: "opposition" },
   { source: "sombart", target: "capitalism", kind: "opposition" },
   { source: "revolutionary_conservatism", target: "modernity", kind: "opposition" },
-  { source: "revolutionary_conservatism", target: "weimar_liberalism_placeholder", kind: "influence" },
 
   { source: "guenon", target: "integral_traditionalism", kind: "develops" },
   { source: "evola", target: "integral_traditionalism", kind: "belongs" },
@@ -696,7 +701,7 @@ export const GRAPH_LINKS: GraphLink[] = [
   { source: "burke", target: "kirk", kind: "influence" },
   { source: "kirk", target: "tradition", kind: "develops" },
   { source: "oakeshott", target: "conservatism", kind: "belongs" },
-  { source: "oakeshott", target: "rationalism_pol_placeholder", kind: "opposition" },
+  { source: "oakeshott", target: "ideology_critique", kind: "opposition" },
   { source: "oakeshott", target: "technocracy", kind: "opposition" },
   { source: "hoppe", target: "anarcho_capitalism", kind: "develops" },
   { source: "anarcho_capitalism", target: "libertarianism", kind: "belongs" },
