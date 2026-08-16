@@ -363,6 +363,8 @@ function Index() {
         <TelegramCard />
       </div>
 
+      <NewsletterCard className="mt-10" />
+
       <footer className="mt-16 flex flex-wrap items-center justify-between gap-3 border-t border-border/60 pt-6 text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
         <span>PneumaA · {new Date().getFullYear()}</span>
         <span className="hidden font-mono text-muted-foreground/50 md:inline">
