@@ -1,11 +1,12 @@
 import { portraitOf, portraitFocus, profileOf } from "@/lib/portraits";
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { PHILOSOPHER_LIST } from "@/lib/philosophers";
 import { useI18n, LanguageSelector } from "@/lib/i18n";
 import { PneumaMark } from "@/components/pneuma-mark";
 import { InstallAppCard } from "@/components/install-app";
 import { TelegramCard } from "@/components/telegram-card";
 import { QuoteCard } from "@/components/quote-card";
+import { NewsletterCard } from "@/components/newsletter-card";
 
 
 
