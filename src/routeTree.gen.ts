@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
 import { Route as AuthenticatedUmbralRouteImport } from './routes/_authenticated/umbral'
 import { Route as AuthenticatedSocratesRouteImport } from './routes/_authenticated/socrates'
 import { Route as AuthenticatedReporteRouteImport } from './routes/_authenticated/reporte'
@@ -38,6 +39,11 @@ const PrivacyRoute = PrivacyRouteImport.update({
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
   id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedIndexRoute = AuthenticatedIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedUmbralRoute = AuthenticatedUmbralRouteImport.update({
   id: '/umbral',
@@ -104,7 +110,7 @@ const ApiPublicTelegramWebhookRoute =
   } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof AuthenticatedRouteRouteWithChildren
+  '/': typeof AuthenticatedIndexRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/$philosopher': typeof AuthenticatedPhilosopherRoute
@@ -121,7 +127,6 @@ export interface FileRoutesByFullPath {
   '/api/public/telegram/webhook': typeof ApiPublicTelegramWebhookRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof AuthenticatedRouteRouteWithChildren
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/$philosopher': typeof AuthenticatedPhilosopherRoute
@@ -134,6 +139,7 @@ export interface FileRoutesByTo {
   '/reporte': typeof AuthenticatedReporteRoute
   '/socrates': typeof AuthenticatedSocratesRoute
   '/umbral': typeof AuthenticatedUmbralRoute
+  '/': typeof AuthenticatedIndexRoute
   '/api/podcast/speech': typeof ApiPodcastSpeechRoute
   '/api/public/telegram/webhook': typeof ApiPublicTelegramWebhookRoute
 }
@@ -152,6 +158,7 @@ export interface FileRoutesById {
   '/_authenticated/reporte': typeof AuthenticatedReporteRoute
   '/_authenticated/socrates': typeof AuthenticatedSocratesRoute
   '/_authenticated/umbral': typeof AuthenticatedUmbralRoute
+  '/_authenticated/': typeof AuthenticatedIndexRoute
   '/api/podcast/speech': typeof ApiPodcastSpeechRoute
   '/api/public/telegram/webhook': typeof ApiPublicTelegramWebhookRoute
 }
@@ -175,7 +182,6 @@ export interface FileRouteTypes {
     | '/api/public/telegram/webhook'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/'
     | '/privacy'
     | '/sitemap.xml'
     | '/$philosopher'
@@ -188,6 +194,7 @@ export interface FileRouteTypes {
     | '/reporte'
     | '/socrates'
     | '/umbral'
+    | '/'
     | '/api/podcast/speech'
     | '/api/public/telegram/webhook'
   id:
@@ -205,6 +212,7 @@ export interface FileRouteTypes {
     | '/_authenticated/reporte'
     | '/_authenticated/socrates'
     | '/_authenticated/umbral'
+    | '/_authenticated/'
     | '/api/podcast/speech'
     | '/api/public/telegram/webhook'
   fileRoutesById: FileRoutesById
@@ -239,6 +247,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/': {
+      id: '/_authenticated/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/umbral': {
       id: '/_authenticated/umbral'
@@ -338,6 +353,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedReporteRoute: typeof AuthenticatedReporteRoute
   AuthenticatedSocratesRoute: typeof AuthenticatedSocratesRoute
   AuthenticatedUmbralRoute: typeof AuthenticatedUmbralRoute
+  AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
@@ -351,6 +367,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedReporteRoute: AuthenticatedReporteRoute,
   AuthenticatedSocratesRoute: AuthenticatedSocratesRoute,
   AuthenticatedUmbralRoute: AuthenticatedUmbralRoute,
+  AuthenticatedIndexRoute: AuthenticatedIndexRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
