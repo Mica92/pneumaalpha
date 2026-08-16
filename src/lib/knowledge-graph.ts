@@ -111,6 +111,7 @@ export const GRAPH_NODES: GraphNode[] = [
   P("leibniz", "G. W. Leibniz", "1646–1716", "Mónadas, razón suficiente, armonía preestablecida.", "Monads, sufficient reason, pre-established harmony."),
   P("hume", "David Hume", "1711–1776", "Todo conocimiento nace de la impresión; crítica de la causalidad.", "All knowledge comes from impressions; critique of causality."),
   P("locke", "John Locke", "1632–1704", "Mente como tabla rasa; propiedad y consentimiento.", "Mind as blank slate; property and consent."),
+  P("eckhart", "Meister Eckhart", "c. 1260–1328", "El desasimiento y el nacimiento de Dios en el fondo del alma.", "Detachment and the birth of God in the ground of the soul.", "eckhart"),
   P("kant", "Immanuel Kant", "1724–1804", "Condiciones de posibilidad de la experiencia; imperativo categórico.", "Conditions of possible experience; the categorical imperative.", "kant"),
   P("hegel", "G. W. F. Hegel", "1770–1831", "El espíritu se despliega dialécticamente en la historia.", "Spirit unfolds dialectically in history.", "hegel"),
   P("mill", "John Stuart Mill", "1806–1873", "Utilitarismo cualificado y libertad individual.", "Qualified utilitarianism and individual liberty."),
@@ -460,6 +461,10 @@ export const GRAPH_LINKS: GraphLink[] = [
   { source: "angst", target: "freedom", kind: "influence" },
 
   // ── Religiones y teologías ────────────────────────────────────────
+  { source: "eckhart", target: "mysticism", kind: "belongs" },
+  { source: "eckhart", target: "catholicism", kind: "belongs" },
+  { source: "aquinas", target: "eckhart", kind: "influence" },
+  { source: "eckhart", target: "heidegger", kind: "influence" },
   { source: "judaism", target: "christianity", kind: "influence" },
   { source: "judaism", target: "islam", kind: "influence" },
   { source: "christianity", target: "islam", kind: "influence" },
