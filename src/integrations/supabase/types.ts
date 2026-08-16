@@ -41,6 +41,30 @@ export type Database = {
         }
         Relationships: []
       }
+      newsletter_subscribers: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          lang: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          lang?: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          lang?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       philosopher_sources: {
         Row: {
           content: string
@@ -89,6 +113,42 @@ export type Database = {
           created_at?: string
           display_name?: string | null
           id?: string
+        }
+        Relationships: []
+      }
+      shared_fragments: {
+        Row: {
+          created_at: string
+          fragment: string
+          id: string
+          lang: string
+          philosopher: string
+          question: string | null
+          reviewed_at: string | null
+          status: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          fragment: string
+          id?: string
+          lang?: string
+          philosopher: string
+          question?: string | null
+          reviewed_at?: string | null
+          status?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          fragment?: string
+          id?: string
+          lang?: string
+          philosopher?: string
+          question?: string | null
+          reviewed_at?: string | null
+          status?: string
+          user_id?: string
         }
         Relationships: []
       }
@@ -173,11 +233,39 @@ export type Database = {
         }
         Relationships: []
       }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
       match_philosopher_sources: {
         Args: {
           match_count?: number
@@ -195,7 +283,7 @@ export type Database = {
       }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "moderator" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -322,6 +410,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "moderator", "user"],
+    },
   },
 } as const
