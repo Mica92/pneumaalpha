@@ -12,6 +12,11 @@ import yannarasScene from "@/assets/scenes/yannaras.jpg";
 import levinasScene from "@/assets/scenes/levinas.jpg";
 import maimonidesScene from "@/assets/scenes/maimonides.jpg";
 import aquinasScene from "@/assets/scenes/aquinas.jpg";
+import eckhartScene from "@/assets/scenes/eckhart.jpg";
+import kantScene from "@/assets/scenes/kant.jpg";
+import hegelScene from "@/assets/scenes/hegel.jpg";
+import spenglerScene from "@/assets/scenes/spengler.jpg";
+import jungerScene from "@/assets/scenes/junger.jpg";
 import type { PhilosopherId } from "@/lib/philosophers";
 
 /**
@@ -33,6 +38,11 @@ export const SCENES: Partial<Record<PhilosopherId, string>> = {
   levinas: levinasScene,
   maimonides: maimonidesScene,
   aquinas: aquinasScene,
+  eckhart: eckhartScene,
+  kant: kantScene,
+  hegel: hegelScene,
+  spengler: spenglerScene,
+  junger: jungerScene,
 };
 
 export function sceneOf(id: string): string | undefined {

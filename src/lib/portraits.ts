@@ -12,6 +12,11 @@ import yannarasPortrait from "@/assets/portraits/yannaras.jpg.asset.json";
 import levinasPortrait from "@/assets/portraits/levinas.jpg.asset.json";
 import maimonidesPortrait from "@/assets/portraits/maimonides.jpg.asset.json";
 import aquinasPortrait from "@/assets/portraits/aquinas.jpg.asset.json";
+import eckhartPortrait from "@/assets/portraits/eckhart.jpg";
+import kantPortrait from "@/assets/portraits/kant.jpg";
+import hegelPortrait from "@/assets/portraits/hegel.jpg";
+import spenglerPortrait from "@/assets/portraits/spengler.jpg";
+import jungerPortrait from "@/assets/portraits/junger.jpg";
 import type { PhilosopherId } from "@/lib/philosophers";
 import type { LocalizedString } from "@/lib/philosophers";
 
@@ -31,6 +36,11 @@ export const PORTRAITS: Partial<Record<PhilosopherId, string>> = {
   levinas: levinasPortrait.url,
   maimonides: maimonidesPortrait.url,
   aquinas: aquinasPortrait.url,
+  eckhart: eckhartPortrait,
+  kant: kantPortrait,
+  hegel: hegelPortrait,
+  spengler: spenglerPortrait,
+  junger: jungerPortrait,
 };
 
 export function portraitOf(id: string): string | undefined {
@@ -310,6 +320,96 @@ export const PROFILES: Partial<Record<PhilosopherId, PhilosopherProfile>> = {
       { es: "Analogía del ser", en: "Analogy of being" },
       { es: "Método escolástico: objeción y respuesta", en: "Scholastic method: objection and reply" },
       { es: "Aristotelismo cristiano", en: "Christian Aristotelianism" },
+    ],
+  },
+
+  eckhart: {
+    years: "c. 1260 – 1328",
+    origin: { es: "Turingia, Sacro Imperio", en: "Thuringia, Holy Roman Empire" },
+    bio: {
+      es: "Dominico, maestro en teología de París y predicador en lengua vulgar. Enseñó el desasimiento: soltar cosas, imágenes y hasta la idea de Dios para que el Verbo nazca en el fondo del alma. Vivir sin porqué, como la rosa que florece sin razón.",
+      en: "Dominican, master of theology in Paris and preacher in the vernacular. He taught detachment: releasing things, images and even the idea of God so the Word may be born in the ground of the soul. To live without why, as the rose blooms without reason.",
+    },
+    expertise: [
+      { es: "Desasimiento (Abgeschiedenheit)", en: "Detachment (Abgeschiedenheit)" },
+      { es: "El fondo del alma y la chispa", en: "The ground of the soul and the spark" },
+      { es: "Nacimiento de Dios en el alma", en: "The birth of God in the soul" },
+      { es: "Teología negativa", en: "Negative theology" },
+      { es: "Vivir sin porqué", en: "Living without why" },
+      { es: "Mística renana", en: "Rhineland mysticism" },
+      { es: "Acción y contemplación", en: "Action and contemplation" },
+    ],
+  },
+
+  kant: {
+    years: "1724 – 1804",
+    origin: { es: "Königsberg, Prusia", en: "Königsberg, Prussia" },
+    bio: {
+      es: "Autor de las tres Críticas. Realizó el giro copernicano: los objetos se rigen por nuestras formas de conocer. Trazó los límites de la razón teórica y fundó la moral en la autonomía: obrar por deber, según máximas universalizables, tratando a la humanidad como fin.",
+      en: "Author of the three Critiques. He carried out the Copernican turn: objects conform to our forms of knowing. He drew the limits of theoretical reason and founded morality on autonomy: acting from duty, on universalizable maxims, treating humanity as an end.",
+    },
+    expertise: [
+      { es: "Crítica de la razón pura", en: "Critique of Pure Reason" },
+      { es: "Fenómeno y cosa en sí", en: "Phenomenon and thing-in-itself" },
+      { es: "Imperativo categórico", en: "The categorical imperative" },
+      { es: "Autonomía y dignidad", en: "Autonomy and dignity" },
+      { es: "Juicio estético y sublime", en: "Aesthetic judgment and the sublime" },
+      { es: "Ilustración y minoría de edad", en: "Enlightenment and immaturity" },
+      { es: "Paz perpetua y derecho cosmopolita", en: "Perpetual peace and cosmopolitan right" },
+    ],
+  },
+
+  hegel: {
+    years: "1770 – 1831",
+    origin: { es: "Stuttgart, Württemberg", en: "Stuttgart, Württemberg" },
+    bio: {
+      es: "Autor de la Fenomenología del espíritu y la Ciencia de la lógica. Pensó lo real como proceso: cada figura de la conciencia se rompe en su propia contradicción y es superada (aufgehoben) en otra más concreta. La libertad no es un punto de partida: es un resultado histórico.",
+      en: "Author of the Phenomenology of Spirit and the Science of Logic. He thought the real as process: each figure of consciousness breaks on its own contradiction and is sublated into a more concrete one. Freedom is not a starting point but a historical result.",
+    },
+    expertise: [
+      { es: "Dialéctica y Aufhebung", en: "Dialectic and Aufhebung" },
+      { es: "Amo y esclavo, reconocimiento", en: "Master and slave, recognition" },
+      { es: "Fenomenología del espíritu", en: "Phenomenology of Spirit" },
+      { es: "Lógica: ser, nada, devenir", en: "Logic: being, nothing, becoming" },
+      { es: "Eticidad, sociedad civil y Estado", en: "Ethical life, civil society and the State" },
+      { es: "Filosofía de la historia", en: "Philosophy of history" },
+      { es: "Arte, religión y saber absoluto", en: "Art, religion and absolute knowing" },
+    ],
+  },
+
+  spengler: {
+    years: "1880 – 1936",
+    origin: { es: "Blankenburg, Alemania", en: "Blankenburg, Germany" },
+    bio: {
+      es: "Autor de La decadencia de Occidente. Propuso una morfología comparada de las culturas: cada una es un organismo con estaciones, y la civilización es su invierno — urbe, dinero, técnica y cesarismo. Miró la historia con ojo fisonómico, no causal.",
+      en: "Author of The Decline of the West. He proposed a comparative morphology of cultures: each is an organism with seasons, and civilization is its winter — city, money, technics and Caesarism. He read history physiognomically, not causally.",
+    },
+    expertise: [
+      { es: "Morfología de las culturas", en: "Morphology of cultures" },
+      { es: "Cultura y civilización", en: "Culture and civilization" },
+      { es: "El alma fáustica", en: "The Faustian soul" },
+      { es: "Destino frente a causalidad", en: "Destiny versus causality" },
+      { es: "Dinero, urbe y cesarismo", en: "Money, the city and Caesarism" },
+      { es: "El hombre y la técnica", en: "Man and technics" },
+      { es: "Pesimismo histórico", en: "Historical pessimism" },
+    ],
+  },
+
+  junger: {
+    years: "1895 – 1998",
+    origin: { es: "Heidelberg, Alemania", en: "Heidelberg, Germany" },
+    bio: {
+      es: "Escritor, entomólogo y testigo de un siglo. De Tempestades de acero a Sobre los acantilados de mármol y Eumeswil: describió la movilización total, la figura del Trabajador y propuso el Rebelde y el Anarca — la soberanía interior frente a un mundo administrado.",
+      en: "Writer, entomologist and witness of a century. From Storm of Steel to On the Marble Cliffs and Eumeswil: he described total mobilization, the figure of the Worker, and proposed the Rebel and the Anarch — inner sovereignty against an administered world.",
+    },
+    expertise: [
+      { es: "Movilización total y técnica", en: "Total mobilization and technics" },
+      { es: "La figura del Trabajador", en: "The figure of the Worker" },
+      { es: "El Rebelde y la emboscadura", en: "The Rebel and the forest passage" },
+      { es: "El Anarca y la soberanía interior", en: "The Anarch and inner sovereignty" },
+      { es: "Experiencia de la guerra", en: "The experience of war" },
+      { es: "Mirada del naturalista", en: "The naturalist's gaze" },
+      { es: "Tiempo, sueño y percepción", en: "Time, dream and perception" },
     ],
   },
 };
