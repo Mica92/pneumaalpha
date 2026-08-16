@@ -49,10 +49,6 @@ function PhilosopherChat() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!loading && !user) navigate({ to: "/auth" });
-  }, [loading, user, navigate]);
-
-  useEffect(() => {
     if (!isPhilosopherId(philosopher)) navigate({ to: "/" });
   }, [philosopher, navigate]);
 
@@ -68,10 +64,7 @@ function PhilosopherChat() {
     <ChatWindow
       userId={user.id}
       philosopher={philosopher}
-      onSignOut={async () => {
-        await supabase.auth.signOut();
-        navigate({ to: "/auth" });
-      }}
+      onSignOut={() => navigate({ to: "/" })}
     />
   );
 }
