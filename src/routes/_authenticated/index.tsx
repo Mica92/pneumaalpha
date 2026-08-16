@@ -25,6 +25,54 @@ export const Route = createFileRoute("/_authenticated/")({
   }),
 });
 
+// Instrumentos — misma estructura, acento distinto por sección.
+const FEATURES = [
+  {
+    to: "/oraculo",
+    kicker: "oracle.kicker",
+    title: "oracle.card.title",
+    sub: "oracle.card.sub",
+    cta: "oracle.card.cta",
+    accent: "text-glacier-bright",
+    border: "border-glacier/45 hover:border-glacier/80",
+    rule: "bg-gradient-to-r from-transparent via-glacier/70 to-transparent",
+    glow: "bg-glacier/25",
+  },
+  {
+    to: "/reporte",
+    kicker: "report.kicker",
+    title: "report.card.title",
+    sub: "report.card.sub",
+    cta: "report.card.cta",
+    accent: "text-sage",
+    border: "border-sage/40 hover:border-sage/70",
+    rule: "bg-gradient-to-r from-transparent via-sage/70 to-transparent",
+    glow: "bg-sage/20",
+  },
+  {
+    to: "/conocimiento",
+    kicker: "knowledge.kicker",
+    title: "knowledge.card.title",
+    sub: "knowledge.card.sub",
+    cta: "knowledge.card.cta",
+    accent: "text-mist",
+    border: "border-mist/30 hover:border-mist/55",
+    rule: "bg-gradient-to-r from-transparent via-mist/60 to-transparent",
+    glow: "bg-mist/15",
+  },
+  {
+    to: "/analisis",
+    kicker: "analysis.kicker",
+    title: "analysis.card.title",
+    sub: "analysis.card.sub",
+    cta: "analysis.card.cta",
+    accent: "text-glacier-bright",
+    border: "border-glacier/35 hover:border-glacier/65",
+    rule: "bg-gradient-to-r from-transparent via-glacier/50 to-transparent",
+    glow: "bg-glacier/20",
+  },
+] as const;
+
 // Bento span recipe — first card is the cinematic hero tile, others stack quietly.
 const BENTO_CLASSES = [
   "md:col-span-3 md:row-span-2", // hero
@@ -36,6 +84,7 @@ const BENTO_CLASSES = [
   "md:col-span-3 md:row-span-1",
   "md:col-span-6 md:row-span-1",
 ];
+
 
 function Index() {
   const navigate = useNavigate();
@@ -80,110 +129,78 @@ function Index() {
         </p>
       </header>
 
-      <QuoteCard className="mb-3" />
+      <QuoteCard className="mb-10" />
 
-      {/* Oracle + Report entries — two distinctive bands above the bento. */}
-      <div className="fade-up mb-3 grid gap-3 md:grid-cols-2">
-        <Link
-          to="/oraculo"
-          className="group relative flex flex-col gap-4 overflow-hidden rounded-xl border border-glacier/50 bg-gradient-to-br from-glacier/20 via-card/60 to-card/30 p-6 backdrop-blur-sm transition-all duration-500 hover:border-glacier/80 hover:shadow-mist md:p-7"
-        >
-          <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-100">
-            <div className="absolute -top-24 right-10 h-56 w-56 rounded-full bg-glacier/25 blur-3xl" />
-          </div>
-          <div className="relative">
-            <p className="font-display text-[10px] uppercase tracking-[0.35em] text-glacier-bright">
-              {t("oracle.kicker")}
-            </p>
-            <h2 className="mt-3 font-display text-2xl font-light leading-tight tracking-tight text-foreground md:text-[26px]">
-              {t("oracle.card.title")}
-            </h2>
-            <p className="mt-2 max-w-xl text-xs leading-relaxed text-muted-foreground md:text-sm">
-              {t("oracle.card.sub")}
-            </p>
-          </div>
-          <span className="relative font-display text-[11px] uppercase tracking-[0.3em] text-glacier-bright transition-colors group-hover:text-foreground">
-            {t("oracle.card.cta")}
+      {/* Herramientas — cuatro accesos con la misma estructura, distinto acento */}
+      <section aria-labelledby="tools-heading">
+        <div className="mb-4 flex items-baseline justify-between gap-4 border-b border-border/60 pb-3">
+          <h2
+            id="tools-heading"
+            className="font-display text-[10px] uppercase tracking-[0.35em] text-muted-foreground"
+          >
+            {lang === "es" ? "Instrumentos" : "Instruments"}
+          </h2>
+          <span className="font-mono text-[10px] tracking-widest text-muted-foreground/70">
+            {String(FEATURES.length).padStart(2, "0")}
           </span>
-        </Link>
+        </div>
 
-        <Link
-          to="/reporte"
-          className="group relative flex flex-col gap-4 overflow-hidden rounded-xl border border-sage/40 bg-gradient-to-br from-sage/15 via-card/60 to-card/30 p-6 backdrop-blur-sm transition-all duration-500 hover:border-sage/70 hover:shadow-mist md:p-7"
+        <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+          {FEATURES.map((f, i) => (
+            <Link
+              key={f.to}
+              to={f.to}
+              className={`group fade-up hover-lift focus-mist relative flex min-h-[190px] flex-col justify-between overflow-hidden rounded-xl border ${f.border} bg-card/50 p-6 backdrop-blur-sm transition-all duration-500 hover:bg-card/80 hover:shadow-mist`}
+              style={{ animationDelay: `${i * 60}ms` }}
+            >
+              <div
+                className={`pointer-events-none absolute inset-x-0 top-0 h-px ${f.rule} opacity-60 transition-opacity duration-500 group-hover:opacity-100`}
+              />
+              <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-100">
+                <div className={`absolute -top-24 right-0 h-48 w-48 rounded-full ${f.glow} blur-3xl`} />
+              </div>
+
+              <div className="relative">
+                <p className={`font-display text-[10px] uppercase tracking-[0.35em] ${f.accent}`}>
+                  {t(f.kicker)}
+                </p>
+                <h3 className="mt-3 font-display text-xl font-light leading-tight tracking-tight text-foreground md:text-2xl">
+                  {t(f.title)}
+                </h3>
+                <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{t(f.sub)}</p>
+              </div>
+
+              <span
+                className={`relative mt-6 font-display text-[10px] uppercase tracking-[0.3em] ${f.accent} transition-colors group-hover:text-foreground`}
+              >
+                {t(f.cta)}
+              </span>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* Mentes — bento grid, 6 cols, tiles asimétricos */}
+      <div
+        id="minds-heading-wrap"
+        className="mb-4 mt-12 flex items-baseline justify-between gap-4 border-b border-border/60 pb-3"
+      >
+        <h2
+          id="minds-heading"
+          className="font-display text-[10px] uppercase tracking-[0.35em] text-muted-foreground"
         >
-          <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-100">
-            <div className="absolute -bottom-24 left-10 h-56 w-56 rounded-full bg-sage/20 blur-3xl" />
-          </div>
-          <div className="relative">
-            <p className="font-display text-[10px] uppercase tracking-[0.35em] text-sage">
-              {t("report.kicker")}
-            </p>
-            <h2 className="mt-3 font-display text-2xl font-light leading-tight tracking-tight text-foreground md:text-[26px]">
-              {t("report.card.title")}
-            </h2>
-            <p className="mt-2 max-w-xl text-xs leading-relaxed text-muted-foreground md:text-sm">
-              {t("report.card.sub")}
-            </p>
-          </div>
-          <span className="relative font-display text-[11px] uppercase tracking-[0.3em] text-sage/90 transition-colors group-hover:text-foreground">
-            {t("report.card.cta")}
-          </span>
-        </Link>
+          {lang === "es" ? "Las mentes" : "The minds"}
+        </h2>
+        <span className="font-mono text-[10px] tracking-widest text-muted-foreground/70">
+          {String(PHILOSOPHER_LIST.length).padStart(2, "0")}
+        </span>
       </div>
 
-      <Link
-        to="/conocimiento"
-        className="group fade-up relative mb-3 flex flex-col gap-4 overflow-hidden rounded-xl border border-mist/25 bg-gradient-to-br from-card/70 via-card/50 to-card/25 p-6 backdrop-blur-sm transition-all duration-500 hover:border-mist/50 hover:shadow-mist md:p-7"
+      <section
+        aria-labelledby="minds-heading"
+        className="grid flex-1 auto-rows-[minmax(180px,auto)] grid-cols-1 gap-3 md:grid-cols-6"
       >
-        <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-100">
-          <div className="absolute -top-24 left-1/3 h-56 w-56 rounded-full bg-mist/10 blur-3xl" />
-        </div>
-        <div className="relative">
-          <p className="font-display text-[10px] uppercase tracking-[0.35em] text-mist">
-            {t("knowledge.kicker")}
-          </p>
-          <h2 className="mt-3 font-display text-2xl font-light leading-tight tracking-tight text-foreground md:text-[26px]">
-            {t("knowledge.card.title")}
-          </h2>
-          <p className="mt-2 max-w-2xl text-xs leading-relaxed text-muted-foreground md:text-sm">
-            {t("knowledge.card.sub")}
-          </p>
-        </div>
-        <span className="relative font-display text-[11px] uppercase tracking-[0.3em] text-mist transition-colors group-hover:text-foreground">
-          {t("knowledge.card.cta")}
-        </span>
-      </Link>
 
-      <Link
-        to="/analisis"
-        className="group fade-up relative mb-3 flex flex-col gap-4 overflow-hidden rounded-xl border border-glacier/40 bg-gradient-to-br from-glacier/12 via-card/60 to-card/25 p-6 backdrop-blur-sm transition-all duration-500 hover:border-glacier/70 hover:shadow-mist md:p-7"
-      >
-        <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-100">
-          <div className="absolute -bottom-24 right-1/4 h-56 w-56 rounded-full bg-glacier/20 blur-3xl" />
-        </div>
-        <div className="relative">
-          <p className="font-display text-[10px] uppercase tracking-[0.35em] text-glacier-bright">
-            {t("analysis.kicker")}
-          </p>
-          <h2 className="mt-3 font-display text-2xl font-light leading-tight tracking-tight text-foreground md:text-[26px]">
-            {t("analysis.card.title")}
-          </h2>
-          <p className="mt-2 max-w-2xl text-xs leading-relaxed text-muted-foreground md:text-sm">
-            {t("analysis.card.sub")}
-          </p>
-        </div>
-        <span className="relative font-display text-[11px] uppercase tracking-[0.3em] text-glacier-bright transition-colors group-hover:text-foreground">
-          {t("analysis.card.cta")}
-        </span>
-      </Link>
-
-
-
-
-
-
-      {/* Bento grid — 6 cols, asymmetric tiles */}
-      <section className="grid flex-1 auto-rows-[minmax(180px,auto)] grid-cols-1 gap-3 md:grid-cols-6">
         {PHILOSOPHER_LIST.map((p, i) => {
           const isHero = i === 0;
           const portrait = portraitOf(p.id);
@@ -279,20 +296,28 @@ function Index() {
         })}
       </section>
 
-      <InstallAppCard className="mt-12" />
+      {/* Llevarlo contigo */}
+      <div className="mb-4 mt-12 flex items-baseline justify-between gap-4 border-b border-border/60 pb-3">
+        <h2 className="font-display text-[10px] uppercase tracking-[0.35em] text-muted-foreground">
+          {lang === "es" ? "Llévalo contigo" : "Take it with you"}
+        </h2>
+      </div>
 
-      <TelegramCard className="mt-4" />
-
-
-      {/* Footer hairline */}
+      <div className="grid gap-3 lg:grid-cols-2">
+        <InstallAppCard />
+        <TelegramCard />
+      </div>
 
       <footer className="mt-16 flex flex-wrap items-center justify-between gap-3 border-t border-border/60 pt-6 text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
         <span>PneumaA · {new Date().getFullYear()}</span>
+        <span className="hidden font-mono text-muted-foreground/50 md:inline">
+          ∴ · ✦ · ❧ · ☤ · ⚒ · ⚖ · Ω · ◈ · ❋ · ✟ · ☦ · ⧫ · ✡ · ✠
+        </span>
         <Link to="/privacy" className="transition-colors hover:text-foreground">
           {lang === "es" ? "Privacidad" : "Privacy"}
         </Link>
-        <span className="font-mono">∴ · ✦ · ❧ · ☤ · ⚒ · ⚖ · Ω · ✶ · ◈ · ❋ · ✟ · ☦ · ⧫ · ✡ · ✠</span>
       </footer>
+
     </main>
   );
 }
