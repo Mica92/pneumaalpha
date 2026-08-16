@@ -1,20 +1,14 @@
-import { createFileRoute, Outlet, useNavigate } from "@tanstack/react-router";
-import { useEffect } from "react";
+import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { useAuth } from "@/hooks/use-auth";
 import { GreekGlyph } from "@/components/greek-glyph";
 
 export const Route = createFileRoute("/_authenticated")({
   ssr: false,
-  component: AuthenticatedLayout,
+  component: AppLayout,
 });
 
-function AuthenticatedLayout() {
+function AppLayout() {
   const { user, loading } = useAuth();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!loading && !user) navigate({ to: "/auth", replace: true });
-  }, [loading, user, navigate]);
 
   if (loading || !user) {
     return (
