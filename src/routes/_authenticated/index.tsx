@@ -1,11 +1,12 @@
 import { portraitOf, portraitFocus, profileOf } from "@/lib/portraits";
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { PHILOSOPHER_LIST } from "@/lib/philosophers";
 import { useI18n, LanguageSelector } from "@/lib/i18n";
 import { PneumaMark } from "@/components/pneuma-mark";
 import { InstallAppCard } from "@/components/install-app";
 import { TelegramCard } from "@/components/telegram-card";
 import { QuoteCard } from "@/components/quote-card";
+import { NewsletterCard } from "@/components/newsletter-card";
 
 
 
@@ -14,13 +15,43 @@ export const Route = createFileRoute("/_authenticated/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "PneumaA — Umbral · múltiples filósofos, una conversación" },
-      { name: "description", content: "El umbral de PneumaA: elige entre múltiples mentes filosóficas y científicas reconstruidas y conversa con su voz, en español o en inglés." },
-      { property: "og:title", content: "PneumaA — Umbral" },
+      { title: "PneumaA — Umbral · filosofía e IA conversacional" },
+      {
+        name: "description",
+        content:
+          "Filosofía en diálogo: conversa con pensadores reconstruidos con IA (Heidegger, Nietzsche, Marx, Schopenhauer y más), convoca mesas redondas, usa el modo Sócrates y explora el mapa de ideas.",
+      },
+      {
+        name: "keywords",
+        content:
+          "filosofía, IA conversacional, pensadores, Heidegger, Nietzsche, Schopenhauer, Marx, diálogo socrático, historia de las ideas",
+      },
+      { property: "og:title", content: "PneumaA — Umbral · filosofía e IA conversacional" },
       { property: "og:description", content: "Múltiples conciencias filosóficas reconstruidas. Una lámpara distante. Una conversación que no se apaga." },
+      { property: "og:type", content: "website" },
       { property: "og:url", content: "https://pneumaalpha.lovable.app/" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [{ rel: "canonical", href: "https://pneumaalpha.lovable.app/" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          name: "PneumaA",
+          url: "https://pneumaalpha.lovable.app/",
+          inLanguage: ["es", "en"],
+          description:
+            "Conversaciones filosóficas con mentes reconstruidas mediante IA, mesa redonda, modo Sócrates y un mapa interactivo de ideas.",
+          about: [
+            { "@type": "Thing", name: "Filosofía" },
+            { "@type": "Thing", name: "Historia de las ideas" },
+            { "@type": "Thing", name: "Inteligencia artificial conversacional" },
+          ],
+        }),
+      },
+    ],
   }),
 });
 
@@ -81,6 +112,39 @@ const FEATURES = [
     rule: "bg-gradient-to-r from-transparent via-sage/50 to-transparent",
     glow: "bg-sage/20",
   },
+  {
+    to: "/mesa",
+    kicker: "mesa.kicker",
+    title: "mesa.card.title",
+    sub: "mesa.card.sub",
+    cta: "mesa.card.cta",
+    accent: "text-glacier-bright",
+    border: "border-glacier/40 hover:border-glacier/75",
+    rule: "bg-gradient-to-r from-transparent via-glacier/60 to-transparent",
+    glow: "bg-glacier/25",
+  },
+  {
+    to: "/socrates",
+    kicker: "socrates.kicker",
+    title: "socrates.card.title",
+    sub: "socrates.card.sub",
+    cta: "socrates.card.cta",
+    accent: "text-mist",
+    border: "border-mist/30 hover:border-mist/55",
+    rule: "bg-gradient-to-r from-transparent via-mist/60 to-transparent",
+    glow: "bg-mist/15",
+  },
+  {
+    to: "/biblioteca",
+    kicker: "library.kicker",
+    title: "library.card.title",
+    sub: "library.card.sub",
+    cta: "library.card.cta",
+    accent: "text-sage",
+    border: "border-sage/35 hover:border-sage/65",
+    rule: "bg-gradient-to-r from-transparent via-sage/50 to-transparent",
+    glow: "bg-sage/20",
+  },
 ] as const;
 
 // Bento span recipe — first card is the cinematic hero tile, others stack quietly.
@@ -94,6 +158,35 @@ const BENTO_CLASSES = [
   "md:col-span-3 md:row-span-1",
   "md:col-span-6 md:row-span-1",
 ];
+
+// Para indecisos: una mente al azar, elegida en el cliente para no
+// romper la hidratación con un valor distinto en servidor.
+function RandomConversationButton() {
+  const { t } = useI18n();
+  const navigate = useNavigate();
+
+  const go = () => {
+    const pick = PHILOSOPHER_LIST[Math.floor(Math.random() * PHILOSOPHER_LIST.length)];
+    if (!pick) return;
+    void navigate({ to: "/$philosopher", params: { philosopher: pick.id } });
+  };
+
+  return (
+    <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+      <button
+        type="button"
+        onClick={go}
+        className="focus-mist hover-lift inline-flex items-center gap-2 rounded-md border border-glacier/45 bg-glacier/10 px-5 py-3 font-display text-[11px] uppercase tracking-[0.3em] text-foreground transition-all hover:border-glacier/80 hover:bg-glacier/15"
+      >
+        <span aria-hidden="true">✦</span>
+        {t("umbral.random")}
+      </button>
+      <span className="text-[11px] leading-relaxed text-muted-foreground">
+        {t("umbral.random.sub")}
+      </span>
+    </div>
+  );
+}
 
 
 function Index() {
@@ -127,7 +220,29 @@ function Index() {
         <p className="fade-up mt-6 max-w-xl text-sm leading-relaxed text-muted-foreground md:text-base">
           {t("umbral.sub")}
         </p>
+        <div className="fade-up mt-8">
+          <RandomConversationButton />
+        </div>
       </header>
+
+      {/* Qué es esto — conciencias reconstruidas */}
+      <section
+        aria-labelledby="about-heading"
+        className="fade-up mb-10 rounded-xl border border-border/60 bg-card/40 p-6 backdrop-blur-sm md:p-8"
+      >
+        <p className="font-display text-[10px] uppercase tracking-[0.35em] text-mist">
+          {t("umbral.about.kicker")}
+        </p>
+        <h2
+          id="about-heading"
+          className="mt-3 font-display text-xl font-light tracking-tight text-foreground md:text-2xl"
+        >
+          {t("umbral.about.title")}
+        </h2>
+        <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted-foreground">
+          {t("umbral.about.body")}
+        </p>
+      </section>
 
       <QuoteCard className="mb-10" />
 
@@ -307,6 +422,8 @@ function Index() {
         <InstallAppCard />
         <TelegramCard />
       </div>
+
+      <NewsletterCard className="mt-10" />
 
       <footer className="mt-16 flex flex-wrap items-center justify-between gap-3 border-t border-border/60 pt-6 text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
         <span>PneumaA · {new Date().getFullYear()}</span>

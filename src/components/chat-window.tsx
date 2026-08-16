@@ -17,6 +17,8 @@ import { portraitOf, portraitFocus } from "@/lib/portraits";
 import { sceneOf } from "@/lib/scenes";
 
 import { PhilosopherProfilePanel } from "@/components/philosopher-profile";
+import { ShareFragmentButton } from "@/components/share-fragment";
+import { suggestionsFor } from "@/lib/suggestions";
 
 import {
   ContinuationChips,
@@ -403,6 +405,26 @@ function ChatBody({
               <p className="font-display text-xl font-light leading-relaxed text-foreground/90 md:text-2xl">
                 {meta.opening[lang]}
               </p>
+
+              <div className="pt-2">
+                <p className="font-display text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
+                  {t("chat.suggestions")}
+                </p>
+                <ul className="mt-3 flex flex-wrap gap-2">
+                  {suggestionsFor(philosopher, lang).map((s) => (
+                    <li key={s}>
+                      <button
+                        type="button"
+                        onClick={() => sendText(s)}
+                        disabled={isLoading}
+                        className="focus-mist rounded-full border border-border/70 px-3.5 py-2 text-left text-[12px] leading-snug text-muted-foreground transition-colors hover:border-mist/50 hover:text-foreground disabled:opacity-40"
+                      >
+                        {s}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           )}
 
@@ -414,12 +436,24 @@ function ChatBody({
               return <UserBubble key={m.id} text={text} />;
             }
             const showChips = idx === lastAssistantIdx && !isLoading;
+            const prev = messages[idx - 1];
+            const question =
+              prev?.role === "user"
+                ? prev.parts.map((p) => (p.type === "text" ? p.text : "")).join("")
+                : undefined;
             return (
               <article key={m.id} className="fade-up" aria-live={idx === messages.length - 1 ? "polite" : undefined}>
                 <h2 className="mb-3 font-display text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
                   {meta.name}
                 </h2>
                 <AssistantBody text={text} />
+                {!isLoading && text.trim().length > 40 && (
+                  <ShareFragmentButton
+                    philosopher={philosopher}
+                    text={text}
+                    question={question}
+                  />
+                )}
                 {showChips && (
                   <ContinuationChips topic={activeTopic} onPick={sendText} disabled={isLoading} />
                 )}

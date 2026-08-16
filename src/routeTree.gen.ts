@@ -13,10 +13,13 @@ import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
+import { Route as AuthenticatedSocratesRouteImport } from './routes/_authenticated/socrates'
 import { Route as AuthenticatedReporteRouteImport } from './routes/_authenticated/reporte'
 import { Route as AuthenticatedPodcastRouteImport } from './routes/_authenticated/podcast'
 import { Route as AuthenticatedOraculoRouteImport } from './routes/_authenticated/oraculo'
+import { Route as AuthenticatedMesaRouteImport } from './routes/_authenticated/mesa'
 import { Route as AuthenticatedConocimientoRouteImport } from './routes/_authenticated/conocimiento'
+import { Route as AuthenticatedBibliotecaRouteImport } from './routes/_authenticated/biblioteca'
 import { Route as AuthenticatedAnalisisRouteImport } from './routes/_authenticated/analisis'
 import { Route as AuthenticatedPhilosopherRouteImport } from './routes/_authenticated/$philosopher'
 import { Route as ApiPodcastSpeechRouteImport } from './routes/api/podcast/speech'
@@ -41,6 +44,11 @@ const AuthenticatedIndexRoute = AuthenticatedIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedSocratesRoute = AuthenticatedSocratesRouteImport.update({
+  id: '/socrates',
+  path: '/socrates',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedReporteRoute = AuthenticatedReporteRouteImport.update({
   id: '/reporte',
   path: '/reporte',
@@ -56,12 +64,22 @@ const AuthenticatedOraculoRoute = AuthenticatedOraculoRouteImport.update({
   path: '/oraculo',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedMesaRoute = AuthenticatedMesaRouteImport.update({
+  id: '/mesa',
+  path: '/mesa',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedConocimientoRoute =
   AuthenticatedConocimientoRouteImport.update({
     id: '/conocimiento',
     path: '/conocimiento',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedBibliotecaRoute = AuthenticatedBibliotecaRouteImport.update({
+  id: '/biblioteca',
+  path: '/biblioteca',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedAnalisisRoute = AuthenticatedAnalisisRouteImport.update({
   id: '/analisis',
   path: '/analisis',
@@ -91,10 +109,13 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/$philosopher': typeof AuthenticatedPhilosopherRoute
   '/analisis': typeof AuthenticatedAnalisisRoute
+  '/biblioteca': typeof AuthenticatedBibliotecaRoute
   '/conocimiento': typeof AuthenticatedConocimientoRoute
+  '/mesa': typeof AuthenticatedMesaRoute
   '/oraculo': typeof AuthenticatedOraculoRoute
   '/podcast': typeof AuthenticatedPodcastRoute
   '/reporte': typeof AuthenticatedReporteRoute
+  '/socrates': typeof AuthenticatedSocratesRoute
   '/api/podcast/speech': typeof ApiPodcastSpeechRoute
   '/api/public/telegram/webhook': typeof ApiPublicTelegramWebhookRoute
 }
@@ -103,10 +124,13 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/$philosopher': typeof AuthenticatedPhilosopherRoute
   '/analisis': typeof AuthenticatedAnalisisRoute
+  '/biblioteca': typeof AuthenticatedBibliotecaRoute
   '/conocimiento': typeof AuthenticatedConocimientoRoute
+  '/mesa': typeof AuthenticatedMesaRoute
   '/oraculo': typeof AuthenticatedOraculoRoute
   '/podcast': typeof AuthenticatedPodcastRoute
   '/reporte': typeof AuthenticatedReporteRoute
+  '/socrates': typeof AuthenticatedSocratesRoute
   '/': typeof AuthenticatedIndexRoute
   '/api/podcast/speech': typeof ApiPodcastSpeechRoute
   '/api/public/telegram/webhook': typeof ApiPublicTelegramWebhookRoute
@@ -118,10 +142,13 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/_authenticated/$philosopher': typeof AuthenticatedPhilosopherRoute
   '/_authenticated/analisis': typeof AuthenticatedAnalisisRoute
+  '/_authenticated/biblioteca': typeof AuthenticatedBibliotecaRoute
   '/_authenticated/conocimiento': typeof AuthenticatedConocimientoRoute
+  '/_authenticated/mesa': typeof AuthenticatedMesaRoute
   '/_authenticated/oraculo': typeof AuthenticatedOraculoRoute
   '/_authenticated/podcast': typeof AuthenticatedPodcastRoute
   '/_authenticated/reporte': typeof AuthenticatedReporteRoute
+  '/_authenticated/socrates': typeof AuthenticatedSocratesRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
   '/api/podcast/speech': typeof ApiPodcastSpeechRoute
   '/api/public/telegram/webhook': typeof ApiPublicTelegramWebhookRoute
@@ -134,10 +161,13 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/$philosopher'
     | '/analisis'
+    | '/biblioteca'
     | '/conocimiento'
+    | '/mesa'
     | '/oraculo'
     | '/podcast'
     | '/reporte'
+    | '/socrates'
     | '/api/podcast/speech'
     | '/api/public/telegram/webhook'
   fileRoutesByTo: FileRoutesByTo
@@ -146,10 +176,13 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/$philosopher'
     | '/analisis'
+    | '/biblioteca'
     | '/conocimiento'
+    | '/mesa'
     | '/oraculo'
     | '/podcast'
     | '/reporte'
+    | '/socrates'
     | '/'
     | '/api/podcast/speech'
     | '/api/public/telegram/webhook'
@@ -160,10 +193,13 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/_authenticated/$philosopher'
     | '/_authenticated/analisis'
+    | '/_authenticated/biblioteca'
     | '/_authenticated/conocimiento'
+    | '/_authenticated/mesa'
     | '/_authenticated/oraculo'
     | '/_authenticated/podcast'
     | '/_authenticated/reporte'
+    | '/_authenticated/socrates'
     | '/_authenticated/'
     | '/api/podcast/speech'
     | '/api/public/telegram/webhook'
@@ -207,6 +243,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/socrates': {
+      id: '/_authenticated/socrates'
+      path: '/socrates'
+      fullPath: '/socrates'
+      preLoaderRoute: typeof AuthenticatedSocratesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/reporte': {
       id: '/_authenticated/reporte'
       path: '/reporte'
@@ -228,11 +271,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedOraculoRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/mesa': {
+      id: '/_authenticated/mesa'
+      path: '/mesa'
+      fullPath: '/mesa'
+      preLoaderRoute: typeof AuthenticatedMesaRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/conocimiento': {
       id: '/_authenticated/conocimiento'
       path: '/conocimiento'
       fullPath: '/conocimiento'
       preLoaderRoute: typeof AuthenticatedConocimientoRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/biblioteca': {
+      id: '/_authenticated/biblioteca'
+      path: '/biblioteca'
+      fullPath: '/biblioteca'
+      preLoaderRoute: typeof AuthenticatedBibliotecaRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/analisis': {
@@ -269,20 +326,26 @@ declare module '@tanstack/react-router' {
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedPhilosopherRoute: typeof AuthenticatedPhilosopherRoute
   AuthenticatedAnalisisRoute: typeof AuthenticatedAnalisisRoute
+  AuthenticatedBibliotecaRoute: typeof AuthenticatedBibliotecaRoute
   AuthenticatedConocimientoRoute: typeof AuthenticatedConocimientoRoute
+  AuthenticatedMesaRoute: typeof AuthenticatedMesaRoute
   AuthenticatedOraculoRoute: typeof AuthenticatedOraculoRoute
   AuthenticatedPodcastRoute: typeof AuthenticatedPodcastRoute
   AuthenticatedReporteRoute: typeof AuthenticatedReporteRoute
+  AuthenticatedSocratesRoute: typeof AuthenticatedSocratesRoute
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedPhilosopherRoute: AuthenticatedPhilosopherRoute,
   AuthenticatedAnalisisRoute: AuthenticatedAnalisisRoute,
+  AuthenticatedBibliotecaRoute: AuthenticatedBibliotecaRoute,
   AuthenticatedConocimientoRoute: AuthenticatedConocimientoRoute,
+  AuthenticatedMesaRoute: AuthenticatedMesaRoute,
   AuthenticatedOraculoRoute: AuthenticatedOraculoRoute,
   AuthenticatedPodcastRoute: AuthenticatedPodcastRoute,
   AuthenticatedReporteRoute: AuthenticatedReporteRoute,
+  AuthenticatedSocratesRoute: AuthenticatedSocratesRoute,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
 }
 

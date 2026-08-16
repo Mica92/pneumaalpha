@@ -422,6 +422,142 @@ export const T: Dict = {
   "report.recommend.books": { es: "Libros recomendados", en: "Recommended books" },
   "report.recommend.nextVoice": { es: "Próxima voz sugerida", en: "Suggested next voice" },
   "report.recommend.enter": { es: "Entrar →", en: "Enter →" },
+
+  // ── Umbral: qué es esto + conversación aleatoria ─────────────────
+  "umbral.about.kicker": { es: "Qué es esto", en: "What this is" },
+  "umbral.about.title": {
+    es: "Conciencias reconstruidas",
+    en: "Reconstructed minds",
+  },
+  "umbral.about.body": {
+    es: "Cada voz de PneumaA se levanta sobre cuatro capas: su biografía y su época, la obra que escribió, su temperamento y su forma de discutir, y —cuando existe— un corpus de fuentes indexadas del que puede citar. No es una enciclopedia que resume a un filósofo: es un interlocutor que sostiene sus convicciones, te contradice y te devuelve preguntas.",
+    en: "Every PneumaA voice stands on four layers: biography and era, the work they wrote, their temperament and way of arguing, and — where it exists — an indexed corpus of sources they can quote from. It is not an encyclopedia summarising a philosopher: it is an interlocutor who holds convictions, contradicts you and hands questions back.",
+  },
+  "umbral.random": { es: "Conversación aleatoria", en: "Random conversation" },
+  "umbral.random.sub": {
+    es: "Para indecisos: una mente al azar y una pregunta ya abierta.",
+    en: "For the undecided: a random mind and a question already open.",
+  },
+
+  // ── Sugerencias de apertura ──────────────────────────────────────
+  "chat.suggestions": { es: "Para romper el hielo", en: "To break the ice" },
+
+  // ── Compartir fragmento ──────────────────────────────────────────
+  "share.action": { es: "Compartir", en: "Share" },
+  "share.kicker": { es: "Fragmento", en: "Fragment" },
+  "share.title": { es: "Comparte este pasaje", en: "Share this passage" },
+  "share.anonymous": {
+    es: "Se comparte solo el pasaje y el nombre del pensador. Nunca tus datos ni el resto de la conversación.",
+    en: "Only the passage and the thinker's name are shared. Never your data or the rest of the conversation.",
+  },
+  "share.social": { es: "Redes", en: "Social" },
+  "share.copy": { es: "Copiar", en: "Copy" },
+  "share.image": { es: "Imagen", en: "Image" },
+  "share.toLibrary": { es: "Enviar a la Biblioteca", en: "Send to the Library" },
+  "share.submitting": { es: "Enviando…", en: "Sending…" },
+  "share.submitted": { es: "Enviado · pendiente de revisión", en: "Sent · pending review" },
+  "share.copied": { es: "Copiado al portapapeles", en: "Copied to clipboard" },
+  "share.failed": { es: "No se pudo compartir", en: "Could not share" },
+  "share.tooShort": { es: "El pasaje es demasiado breve", en: "The passage is too short" },
+  "share.close": { es: "Cerrar", en: "Close" },
+
+  // ── Mesa redonda ─────────────────────────────────────────────────
+  "mesa.kicker": { es: "Mesa redonda", en: "Round table" },
+  "mesa.card.title": { es: "Convoca una mesa", en: "Convene a table" },
+  "mesa.card.sub": {
+    es: "Sienta hasta tres pensadores en la misma mesa y ponles un tema. Hablan por turnos y se responden entre ellos.",
+    en: "Seat up to three thinkers at one table and give them a topic. They speak in turns and answer each other.",
+  },
+  "mesa.card.cta": { es: "Abrir la mesa →", en: "Open the table →" },
+  "mesa.page.title": { es: "Tres mentes, un tema", en: "Three minds, one topic" },
+  "mesa.page.sub": {
+    es: "Elige el tema, elige a los invitados y escucha cómo discuten. Puedes pedir otra ronda o una síntesis final.",
+    en: "Choose the topic, choose the guests, and listen to them argue. You can ask for another round or a closing synthesis.",
+  },
+  "mesa.topic.label": { es: "Tema de la mesa", en: "Topic of the table" },
+  "mesa.topic.placeholder": {
+    es: "Ej.: ¿Es el sufrimiento necesario para una vida buena?",
+    en: "E.g.: Is suffering necessary for a good life?",
+  },
+  "mesa.seats": { es: "Invitados ({n}/3)", en: "Guests ({n}/3)" },
+  "mesa.seats.hint": { es: "Elige dos o tres.", en: "Choose two or three." },
+  "mesa.seats.full": { es: "La mesa está completa", en: "The table is full" },
+  "mesa.start": { es: "Abrir la mesa", en: "Open the table" },
+  "mesa.round": { es: "Otra ronda", en: "Another round" },
+  "mesa.synthesis": { es: "Síntesis final", en: "Closing synthesis" },
+  "mesa.synthesis.kicker": { es: "Síntesis del moderador", en: "Moderator's synthesis" },
+  "mesa.reset": { es: "Vaciar la mesa", en: "Clear the table" },
+  "mesa.thinking": { es: "La mesa delibera…", en: "The table is deliberating…" },
+  "mesa.error": { es: "La mesa no pudo reunirse. Inténtalo otra vez.", en: "The table could not convene. Try again." },
+  "mesa.roundLabel": { es: "Ronda {n}", en: "Round {n}" },
+  "mesa.back": { es: "Volver", en: "Back" },
+
+  // ── Modo Sócrates ────────────────────────────────────────────────
+  "socrates.kicker": { es: "Modo Sócrates", en: "Socrates mode" },
+  "socrates.card.title": { es: "Piensa en voz alta", en: "Think out loud" },
+  "socrates.card.sub": {
+    es: "Un guía que casi no afirma: te devuelve preguntas hasta que tu propia idea queda clara.",
+    en: "A guide who barely asserts: he hands questions back until your own idea becomes clear.",
+  },
+  "socrates.card.cta": { es: "Empezar →", en: "Begin →" },
+  "socrates.page.title": { es: "Solo preguntas", en: "Only questions" },
+  "socrates.page.sub": {
+    es: "Trae una idea que sostengas. No recibirás doctrina: recibirás preguntas hasta que veas de qué está hecha.",
+    en: "Bring an idea you hold. You won't receive doctrine: you'll receive questions until you see what it's made of.",
+  },
+  "socrates.placeholder": { es: "Escribe tu idea…", en: "Write your idea…" },
+  "socrates.send": { es: "Responder", en: "Reply" },
+  "socrates.thinking": { es: "Sócrates escucha…", en: "Socrates is listening…" },
+  "socrates.summary": { es: "Cerrar y resumir", en: "Close and summarise" },
+  "socrates.summary.kicker": { es: "A dónde llegaste", en: "Where you arrived" },
+  "socrates.restart": { es: "Empezar de nuevo", en: "Start again" },
+  "socrates.error": { es: "No se pudo continuar. Inténtalo otra vez.", en: "Could not continue. Try again." },
+
+  // ── Biblioteca de Ideas ──────────────────────────────────────────
+  "library.kicker": { es: "Biblioteca de Ideas", en: "Library of Ideas" },
+  "library.card.title": { es: "Lo que otros preguntaron", en: "What others asked" },
+  "library.card.sub": {
+    es: "Pasajes y preguntas profundas compartidos por la comunidad, revisados uno a uno.",
+    en: "Passages and deep questions shared by the community, reviewed one by one.",
+  },
+  "library.card.cta": { es: "Entrar a la biblioteca →", en: "Enter the library →" },
+  "library.page.title": { es: "Biblioteca de Ideas", en: "Library of Ideas" },
+  "library.page.sub": {
+    es: "Fragmentos de conversación compartidos de forma anónima. Solo aparecen aquí después de una revisión.",
+    en: "Conversation fragments shared anonymously. They only appear here after review.",
+  },
+  "library.all": { es: "Todas las voces", en: "All voices" },
+  "library.empty": {
+    es: "Todavía no hay fragmentos publicados. Comparte uno desde cualquier conversación.",
+    en: "No published fragments yet. Share one from any conversation.",
+  },
+  "library.loading": { es: "Abriendo la biblioteca…", en: "Opening the library…" },
+  "library.talk": { es: "Conversar con esta mente →", en: "Talk to this mind →" },
+  "library.moderation": { es: "Moderación", en: "Moderation" },
+  "library.pending": { es: "Pendientes ({n})", en: "Pending ({n})" },
+  "library.pending.empty": { es: "Nada pendiente por ahora.", en: "Nothing pending right now." },
+  "library.approve": { es: "Aprobar", en: "Approve" },
+  "library.reject": { es: "Rechazar", en: "Reject" },
+  "library.moderated": { es: "Listo", en: "Done" },
+  "library.back": { es: "Volver", en: "Back" },
+
+  // ── Newsletter ───────────────────────────────────────────────────
+  "news.kicker": { es: "La pregunta de la semana", en: "Question of the week" },
+  "news.title": { es: "Una pregunta, varias voces", en: "One question, several voices" },
+  "news.sub": {
+    es: "Cada semana enviamos una sola pregunta respondida por varios pensadores. Sin ruido, sin promociones.",
+    en: "Each week we send a single question answered by several thinkers. No noise, no promotions.",
+  },
+  "news.placeholder": { es: "tu@correo.com", en: "you@email.com" },
+  "news.submit": { es: "Suscribirme", en: "Subscribe" },
+  "news.submitting": { es: "Enviando…", en: "Sending…" },
+  "news.done": { es: "Listo. Nos leemos el próximo domingo.", en: "Done. We'll write next Sunday." },
+  "news.already": { es: "Ese correo ya estaba en la lista.", en: "That address was already on the list." },
+  "news.error": { es: "No pudimos registrar ese correo.", en: "We couldn't register that address." },
+  "news.privacy": {
+    es: "Solo guardamos tu correo. Puedes pedir la baja cuando quieras.",
+    en: "We only store your address. You can unsubscribe whenever you like.",
+  },
 };
 
 type Ctx = {
