@@ -13,6 +13,7 @@ import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
+import { Route as AuthenticatedUmbralRouteImport } from './routes/_authenticated/umbral'
 import { Route as AuthenticatedSocratesRouteImport } from './routes/_authenticated/socrates'
 import { Route as AuthenticatedReporteRouteImport } from './routes/_authenticated/reporte'
 import { Route as AuthenticatedPodcastRouteImport } from './routes/_authenticated/podcast'
@@ -42,6 +43,11 @@ const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
 const AuthenticatedIndexRoute = AuthenticatedIndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedUmbralRoute = AuthenticatedUmbralRouteImport.update({
+  id: '/umbral',
+  path: '/umbral',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedSocratesRoute = AuthenticatedSocratesRouteImport.update({
@@ -116,6 +122,7 @@ export interface FileRoutesByFullPath {
   '/podcast': typeof AuthenticatedPodcastRoute
   '/reporte': typeof AuthenticatedReporteRoute
   '/socrates': typeof AuthenticatedSocratesRoute
+  '/umbral': typeof AuthenticatedUmbralRoute
   '/api/podcast/speech': typeof ApiPodcastSpeechRoute
   '/api/public/telegram/webhook': typeof ApiPublicTelegramWebhookRoute
 }
@@ -131,6 +138,7 @@ export interface FileRoutesByTo {
   '/podcast': typeof AuthenticatedPodcastRoute
   '/reporte': typeof AuthenticatedReporteRoute
   '/socrates': typeof AuthenticatedSocratesRoute
+  '/umbral': typeof AuthenticatedUmbralRoute
   '/': typeof AuthenticatedIndexRoute
   '/api/podcast/speech': typeof ApiPodcastSpeechRoute
   '/api/public/telegram/webhook': typeof ApiPublicTelegramWebhookRoute
@@ -149,6 +157,7 @@ export interface FileRoutesById {
   '/_authenticated/podcast': typeof AuthenticatedPodcastRoute
   '/_authenticated/reporte': typeof AuthenticatedReporteRoute
   '/_authenticated/socrates': typeof AuthenticatedSocratesRoute
+  '/_authenticated/umbral': typeof AuthenticatedUmbralRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
   '/api/podcast/speech': typeof ApiPodcastSpeechRoute
   '/api/public/telegram/webhook': typeof ApiPublicTelegramWebhookRoute
@@ -168,6 +177,7 @@ export interface FileRouteTypes {
     | '/podcast'
     | '/reporte'
     | '/socrates'
+    | '/umbral'
     | '/api/podcast/speech'
     | '/api/public/telegram/webhook'
   fileRoutesByTo: FileRoutesByTo
@@ -183,6 +193,7 @@ export interface FileRouteTypes {
     | '/podcast'
     | '/reporte'
     | '/socrates'
+    | '/umbral'
     | '/'
     | '/api/podcast/speech'
     | '/api/public/telegram/webhook'
@@ -200,6 +211,7 @@ export interface FileRouteTypes {
     | '/_authenticated/podcast'
     | '/_authenticated/reporte'
     | '/_authenticated/socrates'
+    | '/_authenticated/umbral'
     | '/_authenticated/'
     | '/api/podcast/speech'
     | '/api/public/telegram/webhook'
@@ -241,6 +253,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof AuthenticatedIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/umbral': {
+      id: '/_authenticated/umbral'
+      path: '/umbral'
+      fullPath: '/umbral'
+      preLoaderRoute: typeof AuthenticatedUmbralRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/socrates': {
@@ -333,6 +352,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedPodcastRoute: typeof AuthenticatedPodcastRoute
   AuthenticatedReporteRoute: typeof AuthenticatedReporteRoute
   AuthenticatedSocratesRoute: typeof AuthenticatedSocratesRoute
+  AuthenticatedUmbralRoute: typeof AuthenticatedUmbralRoute
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
 }
 
@@ -346,6 +366,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedPodcastRoute: AuthenticatedPodcastRoute,
   AuthenticatedReporteRoute: AuthenticatedReporteRoute,
   AuthenticatedSocratesRoute: AuthenticatedSocratesRoute,
+  AuthenticatedUmbralRoute: AuthenticatedUmbralRoute,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
 }
 

@@ -32,9 +32,11 @@ type Props = {
   userId: string;
   philosopher: PhilosopherId;
   onSignOut: () => void;
+  /** Renders the chat inside a page section instead of filling the viewport. */
+  embedded?: boolean;
 };
 
-export function ChatWindow({ userId, philosopher, onSignOut }: Props) {
+export function ChatWindow({ userId, philosopher, onSignOut, embedded = false }: Props) {
   const loadFn = useServerFn(loadMessages);
   const clearFn = useServerFn(clearConversation);
   const { t } = useI18n();
@@ -46,7 +48,7 @@ export function ChatWindow({ userId, philosopher, onSignOut }: Props) {
 
   if (isLoading || !initial) {
     return (
-      <div className="flex min-h-dvh items-center justify-center">
+      <div className={`flex items-center justify-center ${embedded ? "h-[70vh]" : "min-h-dvh"}`}>
         <GreekGlyph className="font-display text-5xl text-mist pneuma-breathe" />
       </div>
     );
@@ -57,6 +59,7 @@ export function ChatWindow({ userId, philosopher, onSignOut }: Props) {
     <ChatBody
       key={`${userId}-${philosopher}`}
       philosopher={philosopher}
+      embedded={embedded}
       initial={initial as UIMessage[]}
       onClear={async () => {
         await clearFn({ data: { philosopher } });
@@ -73,11 +76,13 @@ function ChatBody({
   initial,
   onClear,
   onSignOut,
+  embedded = false,
 }: {
   philosopher: PhilosopherId;
   initial: UIMessage[];
   onClear: () => Promise<void>;
   onSignOut: () => void;
+  embedded?: boolean;
 }) {
   const sendFn = useServerFn(sendChat);
   const historyFn = useServerFn(loadFullHistory);
@@ -254,10 +259,15 @@ function ChatBody({
     return -1;
   })();
 
+  const shell = embedded ? "h-[78vh] max-h-[860px] overflow-hidden" : "min-h-dvh";
+
   return (
-    <div className="relative flex min-h-dvh flex-col">
+    <div className={`relative flex flex-col ${shell}`}>
       {sceneOf(philosopher) && (
-        <div aria-hidden className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
+        <div
+          aria-hidden
+          className={`pointer-events-none z-0 overflow-hidden ${embedded ? "absolute inset-0" : "fixed inset-0"}`}
+        >
           <img
             src={sceneOf(philosopher)}
             alt=""
@@ -269,7 +279,7 @@ function ChatBody({
           <span className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/70 to-background/95" />
         </div>
       )}
-      <div className="relative z-10 flex min-h-dvh flex-col">
+      <div className={`relative z-10 flex flex-col ${embedded ? "h-full min-h-0" : "min-h-dvh"}`}>
       <PhilosopherProfilePanel philosopher={philosopher} open={profileOpen} onClose={() => setProfileOpen(false)} />
 
       <header className="sticky top-0 z-20 border-b border-border/60 bg-background/80 px-4 py-3 backdrop-blur-xl md:px-6 md:py-4">
