@@ -13,6 +13,7 @@ import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
+import { Route as AuthenticatedSocratesRouteImport } from './routes/_authenticated/socrates'
 import { Route as AuthenticatedReporteRouteImport } from './routes/_authenticated/reporte'
 import { Route as AuthenticatedPodcastRouteImport } from './routes/_authenticated/podcast'
 import { Route as AuthenticatedOraculoRouteImport } from './routes/_authenticated/oraculo'
@@ -40,6 +41,11 @@ const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
 const AuthenticatedIndexRoute = AuthenticatedIndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedSocratesRoute = AuthenticatedSocratesRouteImport.update({
+  id: '/socrates',
+  path: '/socrates',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedReporteRoute = AuthenticatedReporteRouteImport.update({
@@ -102,6 +108,7 @@ export interface FileRoutesByFullPath {
   '/oraculo': typeof AuthenticatedOraculoRoute
   '/podcast': typeof AuthenticatedPodcastRoute
   '/reporte': typeof AuthenticatedReporteRoute
+  '/socrates': typeof AuthenticatedSocratesRoute
   '/api/podcast/speech': typeof ApiPodcastSpeechRoute
   '/api/public/telegram/webhook': typeof ApiPublicTelegramWebhookRoute
 }
@@ -115,6 +122,7 @@ export interface FileRoutesByTo {
   '/oraculo': typeof AuthenticatedOraculoRoute
   '/podcast': typeof AuthenticatedPodcastRoute
   '/reporte': typeof AuthenticatedReporteRoute
+  '/socrates': typeof AuthenticatedSocratesRoute
   '/': typeof AuthenticatedIndexRoute
   '/api/podcast/speech': typeof ApiPodcastSpeechRoute
   '/api/public/telegram/webhook': typeof ApiPublicTelegramWebhookRoute
@@ -131,6 +139,7 @@ export interface FileRoutesById {
   '/_authenticated/oraculo': typeof AuthenticatedOraculoRoute
   '/_authenticated/podcast': typeof AuthenticatedPodcastRoute
   '/_authenticated/reporte': typeof AuthenticatedReporteRoute
+  '/_authenticated/socrates': typeof AuthenticatedSocratesRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
   '/api/podcast/speech': typeof ApiPodcastSpeechRoute
   '/api/public/telegram/webhook': typeof ApiPublicTelegramWebhookRoute
@@ -148,6 +157,7 @@ export interface FileRouteTypes {
     | '/oraculo'
     | '/podcast'
     | '/reporte'
+    | '/socrates'
     | '/api/podcast/speech'
     | '/api/public/telegram/webhook'
   fileRoutesByTo: FileRoutesByTo
@@ -161,6 +171,7 @@ export interface FileRouteTypes {
     | '/oraculo'
     | '/podcast'
     | '/reporte'
+    | '/socrates'
     | '/'
     | '/api/podcast/speech'
     | '/api/public/telegram/webhook'
@@ -176,6 +187,7 @@ export interface FileRouteTypes {
     | '/_authenticated/oraculo'
     | '/_authenticated/podcast'
     | '/_authenticated/reporte'
+    | '/_authenticated/socrates'
     | '/_authenticated/'
     | '/api/podcast/speech'
     | '/api/public/telegram/webhook'
@@ -217,6 +229,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof AuthenticatedIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/socrates': {
+      id: '/_authenticated/socrates'
+      path: '/socrates'
+      fullPath: '/socrates'
+      preLoaderRoute: typeof AuthenticatedSocratesRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/reporte': {
@@ -293,6 +312,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedOraculoRoute: typeof AuthenticatedOraculoRoute
   AuthenticatedPodcastRoute: typeof AuthenticatedPodcastRoute
   AuthenticatedReporteRoute: typeof AuthenticatedReporteRoute
+  AuthenticatedSocratesRoute: typeof AuthenticatedSocratesRoute
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
 }
 
@@ -304,6 +324,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedOraculoRoute: AuthenticatedOraculoRoute,
   AuthenticatedPodcastRoute: AuthenticatedPodcastRoute,
   AuthenticatedReporteRoute: AuthenticatedReporteRoute,
+  AuthenticatedSocratesRoute: AuthenticatedSocratesRoute,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
 }
 
