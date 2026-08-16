@@ -11,7 +11,7 @@ import { NewsletterCard } from "@/components/newsletter-card";
 
 
 
-export const Route = createFileRoute("/_authenticated/")({
+export const Route = createFileRoute("/_authenticated/umbral")({
   component: Index,
   head: () => ({
     meta: [
@@ -29,10 +29,10 @@ export const Route = createFileRoute("/_authenticated/")({
       { property: "og:title", content: "PneumaA — Umbral · filosofía e IA conversacional" },
       { property: "og:description", content: "Múltiples conciencias filosóficas reconstruidas. Una lámpara distante. Una conversación que no se apaga." },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://pneumaalpha.lovable.app/" },
+      { property: "og:url", content: "https://pneumaalpha.lovable.app/umbral" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "https://pneumaalpha.lovable.app/" }],
+    links: [{ rel: "canonical", href: "https://pneumaalpha.lovable.app/umbral" }],
     scripts: [
       {
         type: "application/ld+json",
@@ -40,7 +40,7 @@ export const Route = createFileRoute("/_authenticated/")({
           "@context": "https://schema.org",
           "@type": "WebSite",
           name: "PneumaA",
-          url: "https://pneumaalpha.lovable.app/",
+          url: "https://pneumaalpha.lovable.app/umbral",
           inLanguage: ["es", "en"],
           description:
             "Conversaciones filosóficas con mentes reconstruidas mediante IA, mesa redonda, modo Sócrates y un mapa interactivo de ideas.",
