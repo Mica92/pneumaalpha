@@ -259,10 +259,15 @@ function ChatBody({
     return -1;
   })();
 
+  const shell = embedded ? "h-[78vh] max-h-[860px] overflow-hidden" : "min-h-dvh";
+
   return (
-    <div className="relative flex min-h-dvh flex-col">
+    <div className={`relative flex flex-col ${shell}`}>
       {sceneOf(philosopher) && (
-        <div aria-hidden className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
+        <div
+          aria-hidden
+          className={`pointer-events-none z-0 overflow-hidden ${embedded ? "absolute inset-0" : "fixed inset-0"}`}
+        >
           <img
             src={sceneOf(philosopher)}
             alt=""
@@ -274,7 +279,7 @@ function ChatBody({
           <span className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/70 to-background/95" />
         </div>
       )}
-      <div className="relative z-10 flex min-h-dvh flex-col">
+      <div className={`relative z-10 flex flex-col ${embedded ? "h-full min-h-0" : "min-h-dvh"}`}>
       <PhilosopherProfilePanel philosopher={philosopher} open={profileOpen} onClose={() => setProfileOpen(false)} />
 
       <header className="sticky top-0 z-20 border-b border-border/60 bg-background/80 px-4 py-3 backdrop-blur-xl md:px-6 md:py-4">
