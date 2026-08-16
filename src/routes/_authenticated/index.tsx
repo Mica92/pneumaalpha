@@ -160,7 +160,29 @@ function Index() {
         <p className="fade-up mt-6 max-w-xl text-sm leading-relaxed text-muted-foreground md:text-base">
           {t("umbral.sub")}
         </p>
+        <div className="fade-up mt-8">
+          <RandomConversationButton />
+        </div>
       </header>
+
+      {/* Qué es esto — conciencias reconstruidas */}
+      <section
+        aria-labelledby="about-heading"
+        className="fade-up mb-10 rounded-xl border border-border/60 bg-card/40 p-6 backdrop-blur-sm md:p-8"
+      >
+        <p className="font-display text-[10px] uppercase tracking-[0.35em] text-mist">
+          {t("umbral.about.kicker")}
+        </p>
+        <h2
+          id="about-heading"
+          className="mt-3 font-display text-xl font-light tracking-tight text-foreground md:text-2xl"
+        >
+          {t("umbral.about.title")}
+        </h2>
+        <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted-foreground">
+          {t("umbral.about.body")}
+        </p>
+      </section>
 
       <QuoteCard className="mb-10" />
 
