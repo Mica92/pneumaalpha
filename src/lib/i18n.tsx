@@ -77,6 +77,44 @@ export const T: Dict = {
 
 
 
+  "podcast.kicker": { es: "Podcast", en: "Podcast" },
+  "podcast.card.title": {
+    es: "Clásicos de la literatura en cinco minutos",
+    en: "Literary classics in five minutes",
+  },
+  "podcast.card.sub": {
+    es: "Diez obras mayores leídas en clave filosófica y narradas con voz natural.",
+    en: "Ten major works read philosophically and narrated with a natural voice.",
+  },
+  "podcast.card.cta": { es: "Escuchar →", en: "Listen →" },
+  "podcast.page.title": {
+    es: "Los clásicos, pensados en voz alta",
+    en: "The classics, thought aloud",
+  },
+  "podcast.page.sub": {
+    es: "Elija una obra: PneumaA escribe un ensayo hablado de máximo cinco minutos y se lo lee con una voz humana, pausada.",
+    en: "Choose a work: PneumaA writes a spoken essay of at most five minutes and reads it to you in a calm, human voice.",
+  },
+  "podcast.catalogue": { es: "Episodios", en: "Episodes" },
+  "podcast.listen": { es: "Escuchar →", en: "Listen →" },
+  "podcast.nowPlaying": { es: "En escucha", en: "Now playing" },
+  "podcast.writing": { es: "Escribiendo el episodio…", en: "Writing the episode…" },
+  "podcast.play": { es: "Reproducir", en: "Play" },
+  "podcast.pause": { es: "Pausar", en: "Pause" },
+  "podcast.restart": { es: "Reiniciar", en: "Restart" },
+  "podcast.buffering": { es: "cargando voz", en: "loading voice" },
+  "podcast.transcript": { es: "Transcripción", en: "Transcript" },
+  "podcast.discuss": { es: "Conversa sobre esto con", en: "Discuss this with" },
+  "podcast.back": { es: "Volver al umbral", en: "Back to threshold" },
+  "podcast.error": {
+    es: "No se pudo escribir el episodio. Intente de nuevo.",
+    en: "The episode could not be written. Please try again.",
+  },
+  "podcast.audioError": {
+    es: "No se pudo generar la voz. Intente de nuevo.",
+    en: "The voice could not be generated. Please try again.",
+  },
+
   "analysis.kicker": { es: "Análisis", en: "Analysis" },
   "analysis.card.title": {
     es: "Analiza un texto, una frase o un concepto",
