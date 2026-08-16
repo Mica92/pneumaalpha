@@ -246,6 +246,57 @@ export const GRAPH_NODES: GraphNode[] = [
   N("theocracy", "Teocracia", "ideology", "La ley divina como ley civil.", "Divine law as civil law."),
   N("distributism", "Distributismo", "ideology", "Propiedad ampliamente repartida, escala humana.", "Widely distributed property, human scale."),
 
+  // ── Derecha: pensadores ───────────────────────────────────────────
+  P("junger", "Ernst Jünger", "1895–1998", "La movilización total, el Trabajador y el rebelde del bosque.", "Total mobilisation, the Worker and the forest rebel."),
+  P("schmitt", "Carl Schmitt", "1888–1985", "Lo político como distinción amigo–enemigo; la decisión soberana.", "The political as friend–enemy distinction; sovereign decision."),
+  P("spengler", "Oswald Spengler", "1880–1936", "Culturas como organismos: la decadencia de Occidente.", "Cultures as organisms: the decline of the West."),
+  P("moeller", "Arthur Moeller van den Bruck", "1876–1925", "El Tercer Reino como síntesis nacional-revolucionaria.", "The Third Realm as national-revolutionary synthesis."),
+  P("niekisch", "Ernst Niekisch", "1889–1967", "Nacionalbolchevismo: nación y revolución contra Occidente.", "National bolshevism: nation and revolution against the West."),
+  P("sombart", "Werner Sombart", "1863–1941", "Héroes contra mercaderes: crítica del espíritu comercial.", "Heroes against merchants: critique of the commercial spirit."),
+  P("evola", "Julius Evola", "1898–1974", "Tradición primordial, jerarquía y cabalgar el tigre.", "Primordial tradition, hierarchy and riding the tiger."),
+  P("guenon", "René Guénon", "1886–1951", "Metafísica perenne y crítica del mundo moderno.", "Perennial metaphysics and critique of the modern world."),
+  P("maistre", "Joseph de Maistre", "1753–1821", "Contrarrevolución, soberanía y misterio del orden.", "Counter-revolution, sovereignty and the mystery of order."),
+  P("donoso", "Juan Donoso Cortés", "1809–1853", "Dictadura o disolución: teología política católica.", "Dictatorship or dissolution: Catholic political theology."),
+  P("maurras", "Charles Maurras", "1868–1952", "Nacionalismo integral y monarquía como orden natural.", "Integral nationalism and monarchy as natural order."),
+  P("oakeshott", "Michael Oakeshott", "1901–1990", "La política como conversación, no como ingeniería racional.", "Politics as conversation, not rational engineering."),
+  P("kirk", "Russell Kirk", "1918–1994", "La mente conservadora: orden moral y prescripción.", "The conservative mind: moral order and prescription."),
+  P("strauss", "Leo Strauss", "1899–1973", "Derecho natural clásico frente al historicismo moderno.", "Classical natural right against modern historicism."),
+  P("hoppe", "Hans-Hermann Hoppe", "1949–", "Propiedad, orden privado y crítica de la democracia.", "Property, private order and critique of democracy."),
+  P("dugin", "Aleksandr Duguin", "1962–", "Cuarta teoría política y geopolítica euroasiática.", "Fourth political theory and Eurasian geopolitics."),
+  P("de_benoist", "Alain de Benoist", "1943–", "Nueva Derecha: etnopluralismo y metapolítica gramsciana.", "New Right: ethnopluralism and Gramscian metapolitics."),
+
+  // ── Derecha: corrientes e ideologías ──────────────────────────────
+  N("revolutionary_conservatism", "Revolución conservadora", "movement", "Alemania de Weimar: conservar creando, no restaurar.", "Weimar Germany: conserving by creating, not restoring.", "1918–1933"),
+  N("national_bolshevism", "Nacionalbolchevismo", "ideology", "Alianza de nación y revolución contra el liberalismo.", "Alliance of nation and revolution against liberalism."),
+  N("counter_revolution", "Contrarrevolución", "movement", "Respuesta católica y monárquica a 1789.", "Catholic and monarchist reply to 1789.", "s. XIX"),
+  N("integral_traditionalism", "Tradicionalismo integral", "movement", "Guénon y Evola: Tradición primordial contra la modernidad.", "Guénon and Evola: primordial Tradition against modernity."),
+  N("new_right", "Nueva Derecha", "movement", "Metapolítica, identidad y crítica del universalismo.", "Metapolitics, identity and critique of universalism.", "s. XX–XXI"),
+  N("paleoconservatism", "Paleoconservadurismo", "ideology", "Nación, localismo y no intervención.", "Nation, localism and non-intervention."),
+  N("neoconservatism", "Neoconservadurismo", "ideology", "Virtud pública y proyección global del orden liberal.", "Public virtue and global projection of liberal order."),
+  N("national_conservatism", "Nacional-conservadurismo", "ideology", "Nación, familia y frontera como bienes políticos.", "Nation, family and border as political goods."),
+  N("anarcho_capitalism", "Anarcocapitalismo", "ideology", "Orden sin Estado por contrato y propiedad.", "Stateless order through contract and property."),
+  N("legitimism", "Legitimismo", "ideology", "Sólo la dinastía legítima funda el orden.", "Only the legitimate dynasty founds order."),
+  N("clerical_authoritarianism", "Autoritarismo clerical", "ideology", "Autoridad política sostenida por la Iglesia.", "Political authority sustained by the Church."),
+  N("identitarianism", "Identitarismo", "ideology", "Identidad cultural como sujeto político.", "Cultural identity as political subject."),
+  N("eurasianism", "Euroasianismo", "ideology", "Civilizaciones plurales frente al Occidente unipolar.", "Plural civilisations against the unipolar West."),
+  N("agrarianism", "Agrarismo", "ideology", "Tierra, arraigo y comunidad campesina.", "Land, rootedness and rural community."),
+
+  // ── Derecha: conceptos ────────────────────────────────────────────
+  N("friend_enemy", "Amigo–enemigo", "idea", "Criterio de lo político según Schmitt.", "Schmitt's criterion of the political."),
+  N("state_of_exception", "Estado de excepción", "idea", "Soberano es quien decide sobre la excepción.", "Sovereign is who decides on the exception."),
+  N("political_theology", "Teología política", "idea", "Los conceptos del Estado son teológicos secularizados.", "State concepts are secularised theological ones."),
+  N("total_mobilization", "Movilización total", "idea", "La técnica convierte la vida entera en trabajo y guerra.", "Technique turns all life into work and war."),
+  N("anarch", "El rebelde del bosque", "idea", "Jünger: la libertad interior frente al Leviatán.", "Jünger: inner freedom against Leviathan."),
+  N("decadence", "Decadencia", "idea", "Las civilizaciones envejecen y se cierran.", "Civilisations age and close."),
+  N("hierarchy", "Jerarquía", "idea", "Orden desigual justificado por función y virtud.", "Unequal order justified by function and virtue."),
+  N("metapolitics", "Metapolítica", "idea", "Ganar la cultura antes que el poder.", "Winning culture before power."),
+  N("rootedness", "Arraigo", "idea", "Pertenencia a un lugar, linaje y costumbre.", "Belonging to place, lineage and custom."),
+  N("subsidiarity", "Subsidiariedad", "idea", "Decidir en la instancia más próxima posible.", "Deciding at the closest possible level."),
+  N("natural_law_right", "Derecho natural clásico", "idea", "Una medida del orden anterior a la ley positiva.", "A measure of order prior to positive law."),
+  N("counter_enlightenment", "Contrailustración", "idea", "Límite de la razón abstracta frente a historia y fe.", "Limit of abstract reason against history and faith."),
+
+
+
   // ── Conceptos político-culturales ─────────────────────────────────
   N("tradition", "Tradición", "idea", "Transmisión viva que precede y sostiene al individuo.", "Living transmission preceding and sustaining the individual."),
   N("nation", "Nación", "idea", "Comunidad de memoria, lengua y destino.", "Community of memory, language and destiny."),
