@@ -49,7 +49,7 @@ function LibraryPage() {
 
   const { data: mod } = useQuery({
     queryKey: ["library-moderator"],
-    queryFn: () => modCheckFn({ data: {} }),
+    queryFn: () => modCheckFn(),
   });
 
   return (
@@ -193,7 +193,7 @@ function ModerationPanel() {
 
   const { data: pending } = useQuery({
     queryKey: ["library-pending"],
-    queryFn: () => pendingFn({ data: {} }),
+    queryFn: () => pendingFn(),
   });
 
   const mutation = useMutation({

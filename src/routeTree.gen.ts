@@ -19,6 +19,7 @@ import { Route as AuthenticatedPodcastRouteImport } from './routes/_authenticate
 import { Route as AuthenticatedOraculoRouteImport } from './routes/_authenticated/oraculo'
 import { Route as AuthenticatedMesaRouteImport } from './routes/_authenticated/mesa'
 import { Route as AuthenticatedConocimientoRouteImport } from './routes/_authenticated/conocimiento'
+import { Route as AuthenticatedBibliotecaRouteImport } from './routes/_authenticated/biblioteca'
 import { Route as AuthenticatedAnalisisRouteImport } from './routes/_authenticated/analisis'
 import { Route as AuthenticatedPhilosopherRouteImport } from './routes/_authenticated/$philosopher'
 import { Route as ApiPodcastSpeechRouteImport } from './routes/api/podcast/speech'
@@ -74,6 +75,11 @@ const AuthenticatedConocimientoRoute =
     path: '/conocimiento',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedBibliotecaRoute = AuthenticatedBibliotecaRouteImport.update({
+  id: '/biblioteca',
+  path: '/biblioteca',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedAnalisisRoute = AuthenticatedAnalisisRouteImport.update({
   id: '/analisis',
   path: '/analisis',
@@ -103,6 +109,7 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/$philosopher': typeof AuthenticatedPhilosopherRoute
   '/analisis': typeof AuthenticatedAnalisisRoute
+  '/biblioteca': typeof AuthenticatedBibliotecaRoute
   '/conocimiento': typeof AuthenticatedConocimientoRoute
   '/mesa': typeof AuthenticatedMesaRoute
   '/oraculo': typeof AuthenticatedOraculoRoute
@@ -117,6 +124,7 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/$philosopher': typeof AuthenticatedPhilosopherRoute
   '/analisis': typeof AuthenticatedAnalisisRoute
+  '/biblioteca': typeof AuthenticatedBibliotecaRoute
   '/conocimiento': typeof AuthenticatedConocimientoRoute
   '/mesa': typeof AuthenticatedMesaRoute
   '/oraculo': typeof AuthenticatedOraculoRoute
@@ -134,6 +142,7 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/_authenticated/$philosopher': typeof AuthenticatedPhilosopherRoute
   '/_authenticated/analisis': typeof AuthenticatedAnalisisRoute
+  '/_authenticated/biblioteca': typeof AuthenticatedBibliotecaRoute
   '/_authenticated/conocimiento': typeof AuthenticatedConocimientoRoute
   '/_authenticated/mesa': typeof AuthenticatedMesaRoute
   '/_authenticated/oraculo': typeof AuthenticatedOraculoRoute
@@ -152,6 +161,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/$philosopher'
     | '/analisis'
+    | '/biblioteca'
     | '/conocimiento'
     | '/mesa'
     | '/oraculo'
@@ -166,6 +176,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/$philosopher'
     | '/analisis'
+    | '/biblioteca'
     | '/conocimiento'
     | '/mesa'
     | '/oraculo'
@@ -182,6 +193,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/_authenticated/$philosopher'
     | '/_authenticated/analisis'
+    | '/_authenticated/biblioteca'
     | '/_authenticated/conocimiento'
     | '/_authenticated/mesa'
     | '/_authenticated/oraculo'
@@ -273,6 +285,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedConocimientoRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/biblioteca': {
+      id: '/_authenticated/biblioteca'
+      path: '/biblioteca'
+      fullPath: '/biblioteca'
+      preLoaderRoute: typeof AuthenticatedBibliotecaRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/analisis': {
       id: '/_authenticated/analisis'
       path: '/analisis'
@@ -307,6 +326,7 @@ declare module '@tanstack/react-router' {
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedPhilosopherRoute: typeof AuthenticatedPhilosopherRoute
   AuthenticatedAnalisisRoute: typeof AuthenticatedAnalisisRoute
+  AuthenticatedBibliotecaRoute: typeof AuthenticatedBibliotecaRoute
   AuthenticatedConocimientoRoute: typeof AuthenticatedConocimientoRoute
   AuthenticatedMesaRoute: typeof AuthenticatedMesaRoute
   AuthenticatedOraculoRoute: typeof AuthenticatedOraculoRoute
@@ -319,6 +339,7 @@ interface AuthenticatedRouteRouteChildren {
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedPhilosopherRoute: AuthenticatedPhilosopherRoute,
   AuthenticatedAnalisisRoute: AuthenticatedAnalisisRoute,
+  AuthenticatedBibliotecaRoute: AuthenticatedBibliotecaRoute,
   AuthenticatedConocimientoRoute: AuthenticatedConocimientoRoute,
   AuthenticatedMesaRoute: AuthenticatedMesaRoute,
   AuthenticatedOraculoRoute: AuthenticatedOraculoRoute,
