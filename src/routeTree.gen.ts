@@ -19,6 +19,7 @@ import { Route as AuthenticatedOraculoRouteImport } from './routes/_authenticate
 import { Route as AuthenticatedConocimientoRouteImport } from './routes/_authenticated/conocimiento'
 import { Route as AuthenticatedAnalisisRouteImport } from './routes/_authenticated/analisis'
 import { Route as AuthenticatedPhilosopherRouteImport } from './routes/_authenticated/$philosopher'
+import { Route as ApiPodcastSpeechRouteImport } from './routes/api/podcast/speech'
 import { Route as ApiPublicTelegramWebhookRouteImport } from './routes/api/public/telegram/webhook'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -72,6 +73,11 @@ const AuthenticatedPhilosopherRoute =
     path: '/$philosopher',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const ApiPodcastSpeechRoute = ApiPodcastSpeechRouteImport.update({
+  id: '/api/podcast/speech',
+  path: '/api/podcast/speech',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicTelegramWebhookRoute =
   ApiPublicTelegramWebhookRouteImport.update({
     id: '/api/public/telegram/webhook',
@@ -89,6 +95,7 @@ export interface FileRoutesByFullPath {
   '/conocimiento': typeof AuthenticatedConocimientoRoute
   '/oraculo': typeof AuthenticatedOraculoRoute
   '/reporte': typeof AuthenticatedReporteRoute
+  '/api/podcast/speech': typeof ApiPodcastSpeechRoute
   '/api/public/telegram/webhook': typeof ApiPublicTelegramWebhookRoute
 }
 export interface FileRoutesByTo {
@@ -101,6 +108,7 @@ export interface FileRoutesByTo {
   '/oraculo': typeof AuthenticatedOraculoRoute
   '/reporte': typeof AuthenticatedReporteRoute
   '/': typeof AuthenticatedIndexRoute
+  '/api/podcast/speech': typeof ApiPodcastSpeechRoute
   '/api/public/telegram/webhook': typeof ApiPublicTelegramWebhookRoute
 }
 export interface FileRoutesById {
@@ -115,6 +123,7 @@ export interface FileRoutesById {
   '/_authenticated/oraculo': typeof AuthenticatedOraculoRoute
   '/_authenticated/reporte': typeof AuthenticatedReporteRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
+  '/api/podcast/speech': typeof ApiPodcastSpeechRoute
   '/api/public/telegram/webhook': typeof ApiPublicTelegramWebhookRoute
 }
 export interface FileRouteTypes {
@@ -129,6 +138,7 @@ export interface FileRouteTypes {
     | '/conocimiento'
     | '/oraculo'
     | '/reporte'
+    | '/api/podcast/speech'
     | '/api/public/telegram/webhook'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -141,6 +151,7 @@ export interface FileRouteTypes {
     | '/oraculo'
     | '/reporte'
     | '/'
+    | '/api/podcast/speech'
     | '/api/public/telegram/webhook'
   id:
     | '__root__'
@@ -154,6 +165,7 @@ export interface FileRouteTypes {
     | '/_authenticated/oraculo'
     | '/_authenticated/reporte'
     | '/_authenticated/'
+    | '/api/podcast/speech'
     | '/api/public/telegram/webhook'
   fileRoutesById: FileRoutesById
 }
@@ -162,6 +174,7 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   PrivacyRoute: typeof PrivacyRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  ApiPodcastSpeechRoute: typeof ApiPodcastSpeechRoute
   ApiPublicTelegramWebhookRoute: typeof ApiPublicTelegramWebhookRoute
 }
 
@@ -237,6 +250,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedPhilosopherRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/api/podcast/speech': {
+      id: '/api/podcast/speech'
+      path: '/api/podcast/speech'
+      fullPath: '/api/podcast/speech'
+      preLoaderRoute: typeof ApiPodcastSpeechRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/telegram/webhook': {
       id: '/api/public/telegram/webhook'
       path: '/api/public/telegram/webhook'
@@ -273,6 +293,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   PrivacyRoute: PrivacyRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  ApiPodcastSpeechRoute: ApiPodcastSpeechRoute,
   ApiPublicTelegramWebhookRoute: ApiPublicTelegramWebhookRoute,
 }
 export const routeTree = rootRouteImport
