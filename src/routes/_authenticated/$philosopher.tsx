@@ -1,7 +1,6 @@
 import { createFileRoute, useNavigate, useParams } from "@tanstack/react-router";
 import { useEffect } from "react";
 import { useAuth } from "@/hooks/use-auth";
-import { supabase } from "@/integrations/supabase/client";
 import { ChatWindow } from "@/components/chat-window";
 import { GreekGlyph } from "@/components/greek-glyph";
 import { PHILOSOPHERS, isPhilosopherId, type PhilosopherId } from "@/lib/philosophers";
@@ -49,10 +48,6 @@ function PhilosopherChat() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!loading && !user) navigate({ to: "/auth" });
-  }, [loading, user, navigate]);
-
-  useEffect(() => {
     if (!isPhilosopherId(philosopher)) navigate({ to: "/" });
   }, [philosopher, navigate]);
 
@@ -68,10 +63,7 @@ function PhilosopherChat() {
     <ChatWindow
       userId={user.id}
       philosopher={philosopher}
-      onSignOut={async () => {
-        await supabase.auth.signOut();
-        navigate({ to: "/auth" });
-      }}
+      onSignOut={() => navigate({ to: "/" })}
     />
   );
 }

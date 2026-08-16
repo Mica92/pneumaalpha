@@ -1,6 +1,5 @@
 import { portraitOf, portraitFocus, profileOf } from "@/lib/portraits";
-import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
-import { supabase } from "@/integrations/supabase/client";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { PHILOSOPHER_LIST } from "@/lib/philosophers";
 import { useI18n, LanguageSelector } from "@/lib/i18n";
 import { PneumaMark } from "@/components/pneuma-mark";
@@ -98,7 +97,6 @@ const BENTO_CLASSES = [
 
 
 function Index() {
-  const navigate = useNavigate();
   const { lang, t } = useI18n();
 
   return (
@@ -114,15 +112,6 @@ function Index() {
         </div>
         <div className="flex items-center gap-4">
           <LanguageSelector />
-          <button
-            onClick={async () => {
-              await supabase.auth.signOut();
-              navigate({ to: "/auth" });
-            }}
-            className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground transition-colors hover:text-foreground"
-          >
-            {t("umbral.exit")}
-          </button>
         </div>
       </nav>
 
