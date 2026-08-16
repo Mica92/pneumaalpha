@@ -17,6 +17,8 @@ import { portraitOf, portraitFocus } from "@/lib/portraits";
 import { sceneOf } from "@/lib/scenes";
 
 import { PhilosopherProfilePanel } from "@/components/philosopher-profile";
+import { ShareFragmentButton } from "@/components/share-fragment";
+import { suggestionsFor } from "@/lib/suggestions";
 
 import {
   ContinuationChips,
