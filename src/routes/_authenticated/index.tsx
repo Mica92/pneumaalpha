@@ -15,13 +15,43 @@ export const Route = createFileRoute("/_authenticated/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "PneumaA — Umbral · múltiples filósofos, una conversación" },
-      { name: "description", content: "El umbral de PneumaA: elige entre múltiples mentes filosóficas y científicas reconstruidas y conversa con su voz, en español o en inglés." },
-      { property: "og:title", content: "PneumaA — Umbral" },
+      { title: "PneumaA — Umbral · filosofía e IA conversacional" },
+      {
+        name: "description",
+        content:
+          "Filosofía en diálogo: conversa con pensadores reconstruidos con IA (Heidegger, Nietzsche, Marx, Schopenhauer y más), convoca mesas redondas, usa el modo Sócrates y explora el mapa de ideas.",
+      },
+      {
+        name: "keywords",
+        content:
+          "filosofía, IA conversacional, pensadores, Heidegger, Nietzsche, Schopenhauer, Marx, diálogo socrático, historia de las ideas",
+      },
+      { property: "og:title", content: "PneumaA — Umbral · filosofía e IA conversacional" },
       { property: "og:description", content: "Múltiples conciencias filosóficas reconstruidas. Una lámpara distante. Una conversación que no se apaga." },
+      { property: "og:type", content: "website" },
       { property: "og:url", content: "https://pneumaalpha.lovable.app/" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [{ rel: "canonical", href: "https://pneumaalpha.lovable.app/" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          name: "PneumaA",
+          url: "https://pneumaalpha.lovable.app/",
+          inLanguage: ["es", "en"],
+          description:
+            "Conversaciones filosóficas con mentes reconstruidas mediante IA, mesa redonda, modo Sócrates y un mapa interactivo de ideas.",
+          about: [
+            { "@type": "Thing", name: "Filosofía" },
+            { "@type": "Thing", name: "Historia de las ideas" },
+            { "@type": "Thing", name: "Inteligencia artificial conversacional" },
+          ],
+        }),
+      },
+    ],
   }),
 });
 
