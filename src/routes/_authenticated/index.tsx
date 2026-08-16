@@ -296,20 +296,28 @@ function Index() {
         })}
       </section>
 
-      <InstallAppCard className="mt-12" />
+      {/* Llevarlo contigo */}
+      <div className="mb-4 mt-12 flex items-baseline justify-between gap-4 border-b border-border/60 pb-3">
+        <h2 className="font-display text-[10px] uppercase tracking-[0.35em] text-muted-foreground">
+          {lang === "es" ? "Llévalo contigo" : "Take it with you"}
+        </h2>
+      </div>
 
-      <TelegramCard className="mt-4" />
-
-
-      {/* Footer hairline */}
+      <div className="grid gap-3 lg:grid-cols-2">
+        <InstallAppCard />
+        <TelegramCard />
+      </div>
 
       <footer className="mt-16 flex flex-wrap items-center justify-between gap-3 border-t border-border/60 pt-6 text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
         <span>PneumaA · {new Date().getFullYear()}</span>
+        <span className="hidden font-mono text-muted-foreground/50 md:inline">
+          ∴ · ✦ · ❧ · ☤ · ⚒ · ⚖ · Ω · ◈ · ❋ · ✟ · ☦ · ⧫ · ✡ · ✠
+        </span>
         <Link to="/privacy" className="transition-colors hover:text-foreground">
           {lang === "es" ? "Privacidad" : "Privacy"}
         </Link>
-        <span className="font-mono">∴ · ✦ · ❧ · ☤ · ⚒ · ⚖ · Ω · ✶ · ◈ · ❋ · ✟ · ☦ · ⧫ · ✡ · ✠</span>
       </footer>
+
     </main>
   );
 }
