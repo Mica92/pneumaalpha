@@ -25,6 +25,54 @@ export const Route = createFileRoute("/_authenticated/")({
   }),
 });
 
+// Instrumentos — misma estructura, acento distinto por sección.
+const FEATURES = [
+  {
+    to: "/oraculo",
+    kicker: "oracle.kicker",
+    title: "oracle.card.title",
+    sub: "oracle.card.sub",
+    cta: "oracle.card.cta",
+    accent: "text-glacier-bright",
+    border: "border-glacier/45 hover:border-glacier/80",
+    rule: "bg-gradient-to-r from-transparent via-glacier/70 to-transparent",
+    glow: "bg-glacier/25",
+  },
+  {
+    to: "/reporte",
+    kicker: "report.kicker",
+    title: "report.card.title",
+    sub: "report.card.sub",
+    cta: "report.card.cta",
+    accent: "text-sage",
+    border: "border-sage/40 hover:border-sage/70",
+    rule: "bg-gradient-to-r from-transparent via-sage/70 to-transparent",
+    glow: "bg-sage/20",
+  },
+  {
+    to: "/conocimiento",
+    kicker: "knowledge.kicker",
+    title: "knowledge.card.title",
+    sub: "knowledge.card.sub",
+    cta: "knowledge.card.cta",
+    accent: "text-mist",
+    border: "border-mist/30 hover:border-mist/55",
+    rule: "bg-gradient-to-r from-transparent via-mist/60 to-transparent",
+    glow: "bg-mist/15",
+  },
+  {
+    to: "/analisis",
+    kicker: "analysis.kicker",
+    title: "analysis.card.title",
+    sub: "analysis.card.sub",
+    cta: "analysis.card.cta",
+    accent: "text-glacier-bright",
+    border: "border-glacier/35 hover:border-glacier/65",
+    rule: "bg-gradient-to-r from-transparent via-glacier/50 to-transparent",
+    glow: "bg-glacier/20",
+  },
+] as const;
+
 // Bento span recipe — first card is the cinematic hero tile, others stack quietly.
 const BENTO_CLASSES = [
   "md:col-span-3 md:row-span-2", // hero
@@ -36,6 +84,7 @@ const BENTO_CLASSES = [
   "md:col-span-3 md:row-span-1",
   "md:col-span-6 md:row-span-1",
 ];
+
 
 function Index() {
   const navigate = useNavigate();
