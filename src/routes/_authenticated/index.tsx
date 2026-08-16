@@ -71,6 +71,17 @@ const FEATURES = [
     rule: "bg-gradient-to-r from-transparent via-glacier/50 to-transparent",
     glow: "bg-glacier/20",
   },
+  {
+    to: "/podcast",
+    kicker: "podcast.kicker",
+    title: "podcast.card.title",
+    sub: "podcast.card.sub",
+    cta: "podcast.card.cta",
+    accent: "text-sage",
+    border: "border-sage/35 hover:border-sage/65",
+    rule: "bg-gradient-to-r from-transparent via-sage/50 to-transparent",
+    glow: "bg-sage/20",
+  },
 ] as const;
 
 // Bento span recipe — first card is the cinematic hero tile, others stack quietly.
