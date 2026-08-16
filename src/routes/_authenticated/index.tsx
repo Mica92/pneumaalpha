@@ -129,6 +129,35 @@ const BENTO_CLASSES = [
   "md:col-span-6 md:row-span-1",
 ];
 
+// Para indecisos: una mente al azar, elegida en el cliente para no
+// romper la hidratación con un valor distinto en servidor.
+function RandomConversationButton() {
+  const { t } = useI18n();
+  const navigate = useNavigate();
+
+  const go = () => {
+    const pick = PHILOSOPHER_LIST[Math.floor(Math.random() * PHILOSOPHER_LIST.length)];
+    if (!pick) return;
+    void navigate({ to: "/$philosopher", params: { philosopher: pick.id } });
+  };
+
+  return (
+    <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+      <button
+        type="button"
+        onClick={go}
+        className="focus-mist hover-lift inline-flex items-center gap-2 rounded-md border border-glacier/45 bg-glacier/10 px-5 py-3 font-display text-[11px] uppercase tracking-[0.3em] text-foreground transition-all hover:border-glacier/80 hover:bg-glacier/15"
+      >
+        <span aria-hidden="true">✦</span>
+        {t("umbral.random")}
+      </button>
+      <span className="text-[11px] leading-relaxed text-muted-foreground">
+        {t("umbral.random.sub")}
+      </span>
+    </div>
+  );
+}
+
 
 function Index() {
   const { lang, t } = useI18n();
