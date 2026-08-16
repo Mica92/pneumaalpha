@@ -19,13 +19,14 @@ type Sim = {
   deg: number;
 };
 
-const KIND_ORDER: NodeKind[] = ["philosopher", "idea", "movement", "ideology"];
+const KIND_ORDER: NodeKind[] = ["philosopher", "idea", "movement", "ideology", "religion"];
 
 const KIND_VAR: Record<NodeKind, string> = {
   philosopher: "--glacier-bright",
   idea: "--foreground",
   movement: "--sage",
   ideology: "--glacier",
+  religion: "--mist",
 };
 
 export const KIND_DOT: Record<NodeKind, string> = {
@@ -33,6 +34,7 @@ export const KIND_DOT: Record<NodeKind, string> = {
   idea: "bg-foreground",
   movement: "bg-sage",
   ideology: "bg-glacier",
+  religion: "bg-mist",
 };
 
 function clamp(v: number, a: number, b: number) {
@@ -141,6 +143,7 @@ export function KnowledgeMap({
       idea: palette.foreground,
       movement: palette.sage,
       ideology: palette.glacier,
+      religion: palette.mist,
     };
     let raf = 0;
     let w = 0;
