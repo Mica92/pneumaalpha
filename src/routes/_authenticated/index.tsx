@@ -114,15 +114,6 @@ function Index() {
         </div>
         <div className="flex items-center gap-4">
           <LanguageSelector />
-          <button
-            onClick={async () => {
-              await supabase.auth.signOut();
-              navigate({ to: "/auth" });
-            }}
-            className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground transition-colors hover:text-foreground"
-          >
-            {t("umbral.exit")}
-          </button>
         </div>
       </nav>
 
