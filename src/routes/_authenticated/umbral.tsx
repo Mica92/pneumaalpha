@@ -158,7 +158,19 @@ function Index() {
   const { lang, t } = useI18n();
 
   return (
+    <>
+    <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-0">
+      <img
+        src={neuralBg}
+        alt=""
+        width={1920}
+        height={1280}
+        className="h-full w-full object-cover opacity-30"
+      />
+      <div className="absolute inset-0 bg-gradient-to-b from-background/85 via-background/75 to-background" />
+    </div>
     <main className="route-enter relative z-10 mx-auto flex min-h-dvh max-w-6xl flex-col px-6 py-10 md:px-10 md:py-14">
+
 
       {/* Top nav — clinical, almost invisible */}
       <nav className="flex items-center justify-between">
