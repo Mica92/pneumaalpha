@@ -390,5 +390,7 @@ function Index() {
       </footer>
 
     </main>
+    </>
+
   );
 }
