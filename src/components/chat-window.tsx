@@ -451,7 +451,7 @@ function ChatBody({
             if (m.role === "user") {
               return <UserBubble key={m.id} text={text} />;
             }
-            const showChips = idx === lastAssistantIdx && !isLoading;
+            const showChips = !embedded && idx === lastAssistantIdx && !isLoading;
             const prev = messages[idx - 1];
             const question =
               prev?.role === "user"
@@ -768,7 +768,7 @@ function ChatBody({
         </div>
       )}
 
-      <RootQuestionsFab onPick={sendText} disabled={isLoading} />
+      {!embedded && <RootQuestionsFab onPick={sendText} disabled={isLoading} />}
       </div>
     </div>
 
