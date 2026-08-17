@@ -69,22 +69,17 @@ export const isModerator = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }): Promise<{ moderator: boolean }> => {
     const { supabase, userId } = context;
-    const [{ data: mod }, { data: admin }] = await Promise.all([
-      supabase.rpc("has_role", { _user_id: userId, _role: "moderator" }),
-      supabase.rpc("has_role", { _user_id: userId, _role: "admin" }),
-    ]);
-    return { moderator: Boolean(mod) || Boolean(admin) };
+    const { hasModeratorRole } = await import("./roles.server");
+    return { moderator: await hasModeratorRole(supabase, userId) };
   });
 
 export const listPendingFragments = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }): Promise<LibraryFragment[]> => {
     const { supabase, userId } = context;
-    const [{ data: mod }, { data: admin }] = await Promise.all([
-      supabase.rpc("has_role", { _user_id: userId, _role: "moderator" }),
-      supabase.rpc("has_role", { _user_id: userId, _role: "admin" }),
-    ]);
-    if (!mod && !admin) throw new Error("Forbidden");
+    const { hasModeratorRole } = await import("./roles.server");
+    if (!(await hasModeratorRole(supabase, userId))) throw new Error("Forbidden");
+
 
     const { data: rows, error } = await supabase
       .from("shared_fragments")
