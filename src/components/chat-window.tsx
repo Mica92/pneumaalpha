@@ -400,10 +400,13 @@ function ChatBody({
         </div>
       </header>
 
-      <div className="sticky top-[57px] z-10 md:top-[73px]">
-        <TopicBar activeTopic={activeTopic} onPick={handleTopicPick} disabled={isLoading} />
-        <DilemmaBanner onConverse={handleDilemma} disabled={isLoading} />
-      </div>
+      {!embedded && (
+        <div className="sticky top-[57px] z-10 md:top-[73px]">
+          <TopicBar activeTopic={activeTopic} onPick={handleTopicPick} disabled={isLoading} />
+          <DilemmaBanner onConverse={handleDilemma} disabled={isLoading} />
+        </div>
+      )}
+
 
       <div ref={scrollRef} className="relative flex-1 overflow-y-auto px-4 py-8 md:py-12">
         <div className="mx-auto max-w-3xl space-y-10">
