@@ -1,26 +1,77 @@
-import { useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
 import { useI18n } from "@/lib/i18n";
+import { useAuth } from "@/hooks/use-auth";
+import { lovable } from "@/integrations/lovable";
 import { subscribeNewsletter } from "@/lib/newsletter.functions";
+
+const PENDING_KEY = "pneuma:newsletter-pending";
 
 export function NewsletterCard({ className = "" }: { className?: string }) {
   const { lang, t } = useI18n();
+  const { user } = useAuth();
   const subscribeFn = useServerFn(subscribeNewsletter);
-  const [email, setEmail] = useState("");
   const [state, setState] = useState<"idle" | "sending" | "done">("idle");
+  const attempted = useRef(false);
 
-  const onSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const value = email.trim();
-    if (!value || state === "sending") return;
+  const email = user?.email ?? null;
+
+  const subscribe = useCallback(
+    async (value: string) => {
+      setState("sending");
+      try {
+        const res = await subscribeFn({ data: { email: value, lang } });
+        setState("done");
+        toast.success(res.already ? t("news.already") : t("news.done"));
+      } catch (err) {
+        console.error("[newsletter] subscribe failed", err);
+        setState("idle");
+        toast.error(t("news.error"));
+      }
+    },
+    [subscribeFn, lang, t],
+  );
+
+  // Returning from the Google redirect: finish the pending subscription.
+  useEffect(() => {
+    if (attempted.current || !email) return;
+    if (typeof window === "undefined") return;
+    if (window.localStorage.getItem(PENDING_KEY) !== "1") return;
+    attempted.current = true;
+    window.localStorage.removeItem(PENDING_KEY);
+    void subscribe(email);
+  }, [email, subscribe]);
+
+  const onGoogle = async () => {
+    if (state === "sending") return;
+    if (email) {
+      await subscribe(email);
+      return;
+    }
     setState("sending");
     try {
-      const res = await subscribeFn({ data: { email: value, lang } });
-      setState("done");
-      toast.success(res.already ? t("news.already") : t("news.done"));
+      window.localStorage.setItem(PENDING_KEY, "1");
+      const res = await lovable.auth.signInWithOAuth("google", {
+        redirect_uri: window.location.origin,
+      });
+      if ("error" in res && res.error) throw res.error;
+      // Non-redirect flow: the session is already set, subscribe right away.
+      if (!("redirected" in res && res.redirected)) {
+        window.localStorage.removeItem(PENDING_KEY);
+        const { supabase } = await import("@/integrations/supabase/client");
+        const { data } = await supabase.auth.getUser();
+        const mail = data.user?.email;
+        if (mail) {
+          attempted.current = true;
+          await subscribe(mail);
+          return;
+        }
+        setState("idle");
+      }
     } catch (err) {
-      console.error("[newsletter] subscribe failed", err);
+      console.error("[newsletter] google sign-in failed", err);
+      window.localStorage.removeItem(PENDING_KEY);
       setState("idle");
       toast.error(t("news.error"));
     }
@@ -48,29 +99,26 @@ export function NewsletterCard({ className = "" }: { className?: string }) {
       {state === "done" ? (
         <p className="mt-5 text-sm text-foreground/85">{t("news.done")}</p>
       ) : (
-        <form onSubmit={onSubmit} className="mt-5 flex flex-col gap-2 sm:flex-row">
-          <label className="sr-only" htmlFor="newsletter-email">
-            {t("news.placeholder")}
-          </label>
-          <input
-            id="newsletter-email"
-            type="email"
-            required
-            autoComplete="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder={t("news.placeholder")}
-            disabled={state === "sending"}
-            className="focus-mist flex-1 rounded-md border border-border bg-input px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-sage/50 focus:outline-none disabled:opacity-50"
-          />
+        <div className="mt-5 flex flex-col items-start gap-2">
           <button
-            type="submit"
+            type="button"
+            onClick={onGoogle}
             disabled={state === "sending"}
-            className="focus-mist rounded-md border border-sage/40 bg-sage/10 px-5 py-2.5 font-display text-[11px] uppercase tracking-[0.3em] text-foreground transition-all hover:border-sage/70 hover:bg-sage/15 disabled:opacity-40"
+            className="focus-mist inline-flex items-center gap-3 rounded-md border border-sage/40 bg-sage/10 px-5 py-2.5 font-display text-[11px] uppercase tracking-[0.3em] text-foreground transition-all hover:border-sage/70 hover:bg-sage/15 disabled:opacity-40"
           >
-            {state === "sending" ? t("news.submitting") : t("news.submit")}
+            <svg aria-hidden="true" viewBox="0 0 24 24" className="h-4 w-4">
+              <path fill="#EA4335" d="M12 10.2v3.9h5.5c-.24 1.4-1.7 4.1-5.5 4.1-3.3 0-6-2.7-6-6.1s2.7-6.1 6-6.1c1.9 0 3.1.8 3.8 1.5l2.6-2.5C16.7 3.4 14.6 2.5 12 2.5 6.8 2.5 2.6 6.7 2.6 12S6.8 21.5 12 21.5c5.5 0 9.1-3.8 9.1-9.2 0-.6-.06-1.1-.15-1.6H12z" />
+            </svg>
+            {state === "sending"
+              ? t("news.submitting")
+              : email
+                ? t("news.googleSub")
+                : t("news.google")}
           </button>
-        </form>
+          {email ? (
+            <p className="text-[11px] text-muted-foreground/80">{email}</p>
+          ) : null}
+        </div>
       )}
       <p className="mt-3 text-[10px] uppercase tracking-[0.2em] text-muted-foreground/70">
         {t("news.privacy")}
