@@ -7,21 +7,39 @@ import { lovable } from "@/integrations/lovable";
 import { subscribeNewsletter } from "@/lib/newsletter.functions";
 
 const PENDING_KEY = "pneuma:newsletter-pending";
+const PENDING_PHONE_KEY = "pneuma:newsletter-phone";
+
+/** Strip spaces, dots, dashes and parentheses; keep a single leading plus. */
+function normalizePhone(raw: string): string {
+  const cleaned = raw.replace(/[^\d+]/g, "");
+  return cleaned.startsWith("+") ? `+${cleaned.slice(1).replace(/\+/g, "")}` : cleaned;
+}
+
+function isValidPhone(value: string): boolean {
+  return /^\+[1-9]\d{6,14}$/.test(value);
+}
 
 export function NewsletterCard({ className = "" }: { className?: string }) {
   const { lang, t } = useI18n();
   const { user } = useAuth();
   const subscribeFn = useServerFn(subscribeNewsletter);
   const [state, setState] = useState<"idle" | "sending" | "done">("idle");
+  const [phone, setPhone] = useState("");
   const attempted = useRef(false);
 
   const email = user?.email ?? null;
 
   const subscribe = useCallback(
-    async (value: string) => {
+    async (value: string, phoneValue?: string) => {
       setState("sending");
       try {
-        const res = await subscribeFn({ data: { email: value, lang } });
+        const res = await subscribeFn({
+          data: {
+            email: value,
+            lang,
+            ...(phoneValue ? { phone: phoneValue } : {}),
+          },
+        });
         setState("done");
         toast.success(res.already ? t("news.already") : t("news.done"));
       } catch (err) {
@@ -39,19 +57,27 @@ export function NewsletterCard({ className = "" }: { className?: string }) {
     if (typeof window === "undefined") return;
     if (window.localStorage.getItem(PENDING_KEY) !== "1") return;
     attempted.current = true;
+    const stored = window.localStorage.getItem(PENDING_PHONE_KEY) ?? "";
     window.localStorage.removeItem(PENDING_KEY);
-    void subscribe(email);
+    window.localStorage.removeItem(PENDING_PHONE_KEY);
+    void subscribe(email, isValidPhone(stored) ? stored : undefined);
   }, [email, subscribe]);
 
   const onGoogle = async () => {
     if (state === "sending") return;
+    const normalized = normalizePhone(phone);
+    if (normalized && !isValidPhone(normalized)) {
+      toast.error(t("news.phoneInvalid"));
+      return;
+    }
     if (email) {
-      await subscribe(email);
+      await subscribe(email, normalized || undefined);
       return;
     }
     setState("sending");
     try {
       window.localStorage.setItem(PENDING_KEY, "1");
+      if (normalized) window.localStorage.setItem(PENDING_PHONE_KEY, normalized);
       const res = await lovable.auth.signInWithOAuth("google", {
         redirect_uri: window.location.origin,
       });
@@ -59,12 +85,13 @@ export function NewsletterCard({ className = "" }: { className?: string }) {
       // Non-redirect flow: the session is already set, subscribe right away.
       if (!("redirected" in res && res.redirected)) {
         window.localStorage.removeItem(PENDING_KEY);
+        window.localStorage.removeItem(PENDING_PHONE_KEY);
         const { supabase } = await import("@/integrations/supabase/client");
         const { data } = await supabase.auth.getUser();
         const mail = data.user?.email;
         if (mail) {
           attempted.current = true;
-          await subscribe(mail);
+          await subscribe(mail, normalized || undefined);
           return;
         }
         setState("idle");
@@ -72,6 +99,7 @@ export function NewsletterCard({ className = "" }: { className?: string }) {
     } catch (err) {
       console.error("[newsletter] google sign-in failed", err);
       window.localStorage.removeItem(PENDING_KEY);
+      window.localStorage.removeItem(PENDING_PHONE_KEY);
       setState("idle");
       toast.error(t("news.error"));
     }
@@ -99,7 +127,33 @@ export function NewsletterCard({ className = "" }: { className?: string }) {
       {state === "done" ? (
         <p className="mt-5 text-sm text-foreground/85">{t("news.done")}</p>
       ) : (
-        <div className="mt-5 flex flex-col items-start gap-2">
+        <div className="mt-5 flex flex-col items-start gap-3">
+          <div className="w-full max-w-xs">
+            <label
+              htmlFor="newsletter-phone"
+              className="font-display text-[10px] uppercase tracking-[0.3em] text-muted-foreground"
+            >
+              {t("news.phoneLabel")}
+            </label>
+            <input
+              id="newsletter-phone"
+              type="tel"
+              inputMode="tel"
+              autoComplete="tel"
+              maxLength={20}
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              placeholder={t("news.phonePlaceholder")}
+              aria-describedby="newsletter-phone-hint"
+              className="focus-mist mt-2 w-full rounded-md border border-sage/30 bg-background/60 px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground/60"
+            />
+            <p
+              id="newsletter-phone-hint"
+              className="mt-1.5 text-[11px] leading-relaxed text-muted-foreground/80"
+            >
+              {t("news.phoneHint")}
+            </p>
+          </div>
           <button
             type="button"
             onClick={onGoogle}
