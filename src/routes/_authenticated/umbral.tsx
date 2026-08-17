@@ -1,12 +1,13 @@
 import { portraitOf, portraitFocus, profileOf } from "@/lib/portraits";
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { PHILOSOPHER_LIST } from "@/lib/philosophers";
 import { useI18n, LanguageSelector } from "@/lib/i18n";
 import { PneumaMark } from "@/components/pneuma-mark";
 import { InstallAppCard } from "@/components/install-app";
 import { TelegramCard } from "@/components/telegram-card";
-import { QuoteCard } from "@/components/quote-card";
 import { NewsletterCard } from "@/components/newsletter-card";
+import neuralBg from "@/assets/neural-bg.jpg";
+
 
 
 
@@ -69,17 +70,7 @@ const FEATURES = [
     glow: "bg-glacier/25",
   },
   {
-    to: "/reporte",
-    kicker: "report.kicker",
-    title: "report.card.title",
-    sub: "report.card.sub",
-    cta: "report.card.cta",
-    accent: "text-sage",
-    border: "border-sage/40 hover:border-sage/70",
-    rule: "bg-gradient-to-r from-transparent via-sage/70 to-transparent",
-    glow: "bg-sage/20",
-  },
-  {
+
     to: "/conocimiento",
     kicker: "knowledge.kicker",
     title: "knowledge.card.title",
@@ -159,41 +150,27 @@ const BENTO_CLASSES = [
   "md:col-span-6 md:row-span-1",
 ];
 
-// Para indecisos: una mente al azar, elegida en el cliente para no
-// romper la hidratación con un valor distinto en servidor.
-function RandomConversationButton() {
-  const { t } = useI18n();
-  const navigate = useNavigate();
 
-  const go = () => {
-    const pick = PHILOSOPHER_LIST[Math.floor(Math.random() * PHILOSOPHER_LIST.length)];
-    if (!pick) return;
-    void navigate({ to: "/$philosopher", params: { philosopher: pick.id } });
-  };
 
-  return (
-    <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
-      <button
-        type="button"
-        onClick={go}
-        className="focus-mist hover-lift inline-flex items-center gap-2 rounded-md border border-glacier/45 bg-glacier/10 px-5 py-3 font-display text-[11px] uppercase tracking-[0.3em] text-foreground transition-all hover:border-glacier/80 hover:bg-glacier/15"
-      >
-        <span aria-hidden="true">✦</span>
-        {t("umbral.random")}
-      </button>
-      <span className="text-[11px] leading-relaxed text-muted-foreground">
-        {t("umbral.random.sub")}
-      </span>
-    </div>
-  );
-}
 
 
 function Index() {
   const { lang, t } = useI18n();
 
   return (
+    <>
+    <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-0">
+      <img
+        src={neuralBg}
+        alt=""
+        width={1920}
+        height={1280}
+        className="h-full w-full object-cover opacity-30"
+      />
+      <div className="absolute inset-0 bg-gradient-to-b from-background/85 via-background/75 to-background" />
+    </div>
     <main className="route-enter relative z-10 mx-auto flex min-h-dvh max-w-6xl flex-col px-6 py-10 md:px-10 md:py-14">
+
 
       {/* Top nav — clinical, almost invisible */}
       <nav className="flex items-center justify-between">
@@ -220,31 +197,8 @@ function Index() {
         <p className="fade-up mt-6 max-w-xl text-sm leading-relaxed text-muted-foreground md:text-base">
           {t("umbral.sub")}
         </p>
-        <div className="fade-up mt-8">
-          <RandomConversationButton />
-        </div>
       </header>
 
-      {/* Qué es esto — conciencias reconstruidas */}
-      <section
-        aria-labelledby="about-heading"
-        className="fade-up mb-10 rounded-xl border border-border/60 bg-card/40 p-6 backdrop-blur-sm md:p-8"
-      >
-        <p className="font-display text-[10px] uppercase tracking-[0.35em] text-mist">
-          {t("umbral.about.kicker")}
-        </p>
-        <h2
-          id="about-heading"
-          className="mt-3 font-display text-xl font-light tracking-tight text-foreground md:text-2xl"
-        >
-          {t("umbral.about.title")}
-        </h2>
-        <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted-foreground">
-          {t("umbral.about.body")}
-        </p>
-      </section>
-
-      <QuoteCard className="mb-10" />
 
       {/* Herramientas — cuatro accesos con la misma estructura, distinto acento */}
       <section aria-labelledby="tools-heading">
@@ -436,5 +390,7 @@ function Index() {
       </footer>
 
     </main>
+    </>
+
   );
 }
