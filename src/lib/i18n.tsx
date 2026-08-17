@@ -550,14 +550,17 @@ export const T: Dict = {
   },
   "news.placeholder": { es: "tu@correo.com", en: "you@email.com" },
   "news.submit": { es: "Suscribirme", en: "Subscribe" },
+  "news.google": { es: "Continuar con Google", en: "Continue with Google" },
+  "news.googleSub": { es: "Suscribirme con Google", en: "Subscribe with Google" },
   "news.submitting": { es: "Enviando…", en: "Sending…" },
   "news.done": { es: "Listo. Nos leemos el próximo domingo.", en: "Done. We'll write next Sunday." },
   "news.already": { es: "Ese correo ya estaba en la lista.", en: "That address was already on the list." },
   "news.error": { es: "No pudimos registrar ese correo.", en: "We couldn't register that address." },
   "news.privacy": {
-    es: "Solo guardamos tu correo. Puedes pedir la baja cuando quieras.",
-    en: "We only store your address. You can unsubscribe whenever you like.",
+    es: "Solo guardamos el correo de tu cuenta de Google. Puedes pedir la baja cuando quieras.",
+    en: "We only store the email of your Google account. You can unsubscribe whenever you like.",
   },
+
 };
 
 type Ctx = {
