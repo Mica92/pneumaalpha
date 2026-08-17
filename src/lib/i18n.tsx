@@ -557,9 +557,20 @@ export const T: Dict = {
   "news.already": { es: "Ese correo ya estaba en la lista.", en: "That address was already on the list." },
   "news.error": { es: "No pudimos registrar ese correo.", en: "We couldn't register that address." },
   "news.privacy": {
-    es: "Solo guardamos el correo de tu cuenta de Google. Puedes pedir la baja cuando quieras.",
-    en: "We only store the email of your Google account. You can unsubscribe whenever you like.",
+    es: "Guardamos el correo de tu cuenta de Google y, si lo entregas, tu número para el grupo de WhatsApp. Puedes pedir la baja cuando quieras.",
+    en: "We store your Google account email and, if you provide it, your number for the WhatsApp group. You can unsubscribe whenever you like.",
   },
+  "news.phoneLabel": { es: "Número de WhatsApp", en: "WhatsApp number" },
+  "news.phonePlaceholder": { es: "+56 9 1234 5678", en: "+1 555 123 4567" },
+  "news.phoneHint": {
+    es: "Formato internacional, con código de país. Lo usamos solo para sumarte al grupo de WhatsApp.",
+    en: "International format, with country code. Used only to add you to the WhatsApp group.",
+  },
+  "news.phoneInvalid": {
+    es: "Escribe el número en formato internacional, por ejemplo +56912345678.",
+    en: "Enter the number in international format, e.g. +15551234567.",
+  },
+
 
 };
 
