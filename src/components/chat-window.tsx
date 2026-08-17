@@ -400,10 +400,13 @@ function ChatBody({
         </div>
       </header>
 
-      <div className="sticky top-[57px] z-10 md:top-[73px]">
-        <TopicBar activeTopic={activeTopic} onPick={handleTopicPick} disabled={isLoading} />
-        <DilemmaBanner onConverse={handleDilemma} disabled={isLoading} />
-      </div>
+      {!embedded && (
+        <div className="sticky top-[57px] z-10 md:top-[73px]">
+          <TopicBar activeTopic={activeTopic} onPick={handleTopicPick} disabled={isLoading} />
+          <DilemmaBanner onConverse={handleDilemma} disabled={isLoading} />
+        </div>
+      )}
+
 
       <div ref={scrollRef} className="relative flex-1 overflow-y-auto px-4 py-8 md:py-12">
         <div className="mx-auto max-w-3xl space-y-10">
@@ -416,25 +419,28 @@ function ChatBody({
                 {meta.opening[lang]}
               </p>
 
-              <div className="pt-2">
-                <p className="font-display text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
-                  {t("chat.suggestions")}
-                </p>
-                <ul className="mt-3 flex flex-wrap gap-2">
-                  {suggestionsFor(philosopher, lang).map((s) => (
-                    <li key={s}>
-                      <button
-                        type="button"
-                        onClick={() => sendText(s)}
-                        disabled={isLoading}
-                        className="focus-mist rounded-full border border-border/70 px-3.5 py-2 text-left text-[12px] leading-snug text-muted-foreground transition-colors hover:border-mist/50 hover:text-foreground disabled:opacity-40"
-                      >
-                        {s}
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              {!embedded && (
+                <div className="pt-2">
+                  <p className="font-display text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
+                    {t("chat.suggestions")}
+                  </p>
+                  <ul className="mt-3 flex flex-wrap gap-2">
+                    {suggestionsFor(philosopher, lang).map((s) => (
+                      <li key={s}>
+                        <button
+                          type="button"
+                          onClick={() => sendText(s)}
+                          disabled={isLoading}
+                          className="focus-mist rounded-full border border-border/70 px-3.5 py-2 text-left text-[12px] leading-snug text-muted-foreground transition-colors hover:border-mist/50 hover:text-foreground disabled:opacity-40"
+                        >
+                          {s}
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
             </div>
           )}
 
@@ -445,7 +451,7 @@ function ChatBody({
             if (m.role === "user") {
               return <UserBubble key={m.id} text={text} />;
             }
-            const showChips = idx === lastAssistantIdx && !isLoading;
+            const showChips = !embedded && idx === lastAssistantIdx && !isLoading;
             const prev = messages[idx - 1];
             const question =
               prev?.role === "user"
@@ -762,7 +768,7 @@ function ChatBody({
         </div>
       )}
 
-      <RootQuestionsFab onPick={sendText} disabled={isLoading} />
+      {!embedded && <RootQuestionsFab onPick={sendText} disabled={isLoading} />}
       </div>
     </div>
 

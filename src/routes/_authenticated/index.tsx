@@ -3,7 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { PHILOSOPHER_LIST, type PhilosopherId } from "@/lib/philosophers";
 import { useI18n, LanguageSelector } from "@/lib/i18n";
 import { PneumaMark } from "@/components/pneuma-mark";
-import { QuoteCard } from "@/components/quote-card";
+import landingBg from "@/assets/landing-bg.jpg";
 import { ChatWindow } from "@/components/chat-window";
 import { GreekGlyph } from "@/components/greek-glyph";
 import { useAuth } from "@/hooks/use-auth";
@@ -46,136 +46,114 @@ function Landing() {
   const meta = PHILOSOPHER_LIST.find((p) => p.id === current)!;
 
   return (
-    <main className="route-enter relative z-10 mx-auto flex min-h-dvh max-w-6xl flex-col px-6 py-10 md:px-10 md:py-14">
-      <nav className="flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <PneumaMark withWordmark size={26} />
-          <span className="hidden text-[10px] uppercase tracking-[0.3em] text-muted-foreground sm:inline">
-            · vol. I
-          </span>
-        </div>
-        <div className="flex items-center gap-4">
+    <>
+      <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-0">
+        <img
+          src={landingBg}
+          alt=""
+          width={1920}
+          height={1080}
+          className="h-full w-full object-cover opacity-40"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/85 via-background/70 to-background" />
+      </div>
+
+      <main className="route-enter relative z-10 mx-auto flex min-h-dvh max-w-5xl flex-col px-6 py-10 md:px-10 md:py-14">
+        <nav className="flex items-center justify-between">
+          <PneumaMark size={26} />
+          <div className="flex items-center gap-4">
+            <Link
+              to="/umbral"
+              className="focus-mist font-display text-[10px] uppercase tracking-[0.3em] text-muted-foreground transition-colors hover:text-foreground"
+            >
+              {lang === "es" ? "Umbral" : "Threshold"}
+            </Link>
+            <LanguageSelector />
+          </div>
+        </nav>
+
+        <header className="mt-20 mb-16 md:mt-28 md:mb-20">
+          <h1 className="fade-up font-display text-4xl font-light tracking-[0.24em] text-foreground md:text-6xl">
+            PneumAlpha
+          </h1>
+          <p className="fade-up mt-6 max-w-md text-sm font-light leading-relaxed text-muted-foreground">
+            {t("umbral.sub")}
+          </p>
+        </header>
+
+        {/* 1 — Conciencias reconstruidas */}
+        <section aria-labelledby="about-heading" className="fade-up mb-16">
+          <p className="font-display text-[10px] uppercase tracking-[0.35em] text-mist">
+            {t("umbral.about.kicker")}
+          </p>
+          <h2
+            id="about-heading"
+            className="mt-4 max-w-2xl font-display text-xl font-light tracking-tight text-foreground md:text-2xl"
+          >
+            {t("umbral.about.title")}
+          </h2>
+          <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+            {t("umbral.about.body")}
+          </p>
+
           <Link
             to="/umbral"
-            className="focus-mist font-display text-[10px] uppercase tracking-[0.3em] text-muted-foreground transition-colors hover:text-foreground"
+            className="focus-mist mt-8 inline-block font-display text-[10px] uppercase tracking-[0.3em] text-glacier-bright transition-colors hover:text-foreground"
           >
-            {lang === "es" ? "Umbral" : "Threshold"}
+            {lang === "es" ? "Ver todas las mentes →" : "See all minds →"}
           </Link>
-          <LanguageSelector />
-        </div>
-      </nav>
+        </section>
 
-      <header className="mt-14 mb-10 md:mt-20 md:mb-12">
-        <p className="tracking-in font-display text-[10px] uppercase text-muted-foreground">
-          {t("umbral.kicker")}
-        </p>
-        <h1 className="fade-up mt-5 max-w-3xl font-display text-4xl font-light leading-[1.05] text-foreground md:text-6xl">
-          {t("umbral.title")}
-        </h1>
-        <p className="fade-up mt-6 max-w-xl text-sm leading-relaxed text-muted-foreground md:text-base">
-          {t("umbral.sub")}
-        </p>
-      </header>
-
-      {/* Conversación aleatoria — ya abierta */}
-      <section
-        aria-labelledby="live-chat-heading"
-        className="fade-up mb-12 overflow-hidden rounded-2xl border border-glacier/40 bg-card/40 backdrop-blur-sm"
-      >
-        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border/60 px-5 py-4">
-          <div className="min-w-0">
-            <h2
-              id="live-chat-heading"
-              className="font-display text-[10px] uppercase tracking-[0.35em] text-glacier-bright"
-            >
-              {t("umbral.random")}
-            </h2>
-            <p className="mt-1 truncate text-xs text-muted-foreground">
-              {meta.name} · {meta.subtitle[lang]}
-            </p>
-          </div>
-          <button
-            type="button"
-            onClick={() => setCurrent((prev) => randomPhilosopher(prev))}
-            className="focus-mist inline-flex items-center gap-2 rounded-md border border-glacier/45 bg-glacier/10 px-4 py-2 font-display text-[10px] uppercase tracking-[0.3em] text-foreground transition-all hover:border-glacier/80 hover:bg-glacier/15"
-          >
-            <span aria-hidden="true">✦</span>
-            {lang === "es" ? "Otra mente" : "Another mind"}
-          </button>
-        </div>
-
-        {loading || !user ? (
-          <div className="flex h-[40vh] items-center justify-center">
-            <GreekGlyph className="font-display text-4xl text-mist pneuma-breathe" />
-          </div>
-        ) : (
-          <ChatWindow
-            key={current}
-            embedded
-            userId={user.id}
-            philosopher={current}
-            onSignOut={() => undefined}
-          />
-        )}
-      </section>
-
-      {/* Qué es esto — conciencias reconstruidas */}
-      <section
-        aria-labelledby="about-heading"
-        className="fade-up mb-10 rounded-xl border border-border/60 bg-card/40 p-6 backdrop-blur-sm md:p-8"
-      >
-        <p className="font-display text-[10px] uppercase tracking-[0.35em] text-mist">
-          {t("umbral.about.kicker")}
-        </p>
-        <h2
-          id="about-heading"
-          className="mt-3 font-display text-xl font-light tracking-tight text-foreground md:text-2xl"
+        {/* 2 — Conversación abierta */}
+        <section
+          aria-labelledby="live-chat-heading"
+          className="fade-up mb-14 overflow-hidden rounded-2xl border border-border/60 bg-card/30 backdrop-blur-sm"
         >
-          {t("umbral.about.title")}
-        </h2>
-        <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted-foreground">
-          {t("umbral.about.body")}
-        </p>
-
-        <ul className="mt-6 flex flex-wrap gap-2">
-          {PHILOSOPHER_LIST.slice(0, 8).map((p) => (
-            <li key={p.id}>
-              <Link
-                to="/$philosopher"
-                params={{ philosopher: p.id }}
-                className="focus-mist inline-flex items-center gap-2 rounded-full border border-border/70 bg-background/40 px-3 py-1.5 text-[11px] text-muted-foreground transition-colors hover:border-mist/40 hover:text-foreground"
+          <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border/50 px-5 py-4">
+            <div className="min-w-0">
+              <h2
+                id="live-chat-heading"
+                className="font-display text-[10px] uppercase tracking-[0.35em] text-muted-foreground"
               >
-                {portraitOf(p.id) && (
-                  <img
-                    src={portraitOf(p.id)}
-                    alt=""
-                    loading="lazy"
-                    className={`h-5 w-5 rounded-full object-cover ${portraitFocus(p.id)} grayscale`}
-                  />
-                )}
-                {p.name}
-              </Link>
-            </li>
-          ))}
-        </ul>
+                {t("umbral.random")}
+              </h2>
+              <p className="mt-1 truncate text-xs text-muted-foreground/80">
+                {meta.name} · {meta.subtitle[lang]}
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() => setCurrent((prev) => randomPhilosopher(prev))}
+              className="focus-mist inline-flex items-center gap-2 rounded-md border border-border/70 px-4 py-2 font-display text-[10px] uppercase tracking-[0.3em] text-muted-foreground transition-all hover:border-mist/50 hover:text-foreground"
+            >
+              <span aria-hidden="true">◇</span>
+              {lang === "es" ? "Otra mente" : "Another mind"}
+            </button>
+          </div>
 
-        <Link
-          to="/umbral"
-          className="focus-mist mt-6 inline-block font-display text-[10px] uppercase tracking-[0.3em] text-glacier-bright transition-colors hover:text-foreground"
-        >
-          {lang === "es" ? "Ver todas las mentes e instrumentos →" : "See all minds and instruments →"}
-        </Link>
-      </section>
+          {loading || !user ? (
+            <div className="flex h-[40vh] items-center justify-center">
+              <GreekGlyph className="font-display text-4xl text-mist pneuma-breathe" />
+            </div>
+          ) : (
+            <ChatWindow
+              key={current}
+              embedded
+              userId={user.id}
+              philosopher={current}
+              onSignOut={() => undefined}
+            />
+          )}
+        </section>
 
-      {/* Citas de los filósofos */}
-      <QuoteCard className="mb-10" />
-
-      <footer className="mt-6 flex flex-wrap items-center justify-between gap-3 border-t border-border/60 pt-6 text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
-        <span>PneumaA · {new Date().getFullYear()}</span>
-        <Link to="/privacy" className="transition-colors hover:text-foreground">
-          {lang === "es" ? "Privacidad" : "Privacy"}
-        </Link>
-      </footer>
-    </main>
+        <footer className="mt-auto flex flex-wrap items-center justify-between gap-3 border-t border-border/50 pt-6 text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
+          <span>PneumAlpha · {new Date().getFullYear()}</span>
+          <Link to="/privacy" className="transition-colors hover:text-foreground">
+            {lang === "es" ? "Privacidad" : "Privacy"}
+          </Link>
+        </footer>
+      </main>
+    </>
   );
 }
+
