@@ -23,7 +23,7 @@ export type Topic = {
 export const TOPICS: Topic[] = [
   {
     id: "work",
-    emoji: "🧠",
+    emoji: "◇",
     label: { es: "Trabajo", en: "Work" },
     prompt: {
       es: "Hablemos sobre el trabajo y lo que hago con mis días.",
@@ -32,7 +32,7 @@ export const TOPICS: Topic[] = [
   },
   {
     id: "love",
-    emoji: "❤️",
+    emoji: "○",
     label: { es: "Amor", en: "Love" },
     prompt: {
       es: "Hablemos del amor: lo que busco, lo que temo, lo que sostengo.",
@@ -41,7 +41,7 @@ export const TOPICS: Topic[] = [
   },
   {
     id: "fear",
-    emoji: "😨",
+    emoji: "△",
     label: { es: "Miedo", en: "Fear" },
     prompt: {
       es: "Quiero hablar de un miedo que me acompaña últimamente.",
@@ -50,7 +50,7 @@ export const TOPICS: Topic[] = [
   },
   {
     id: "purpose",
-    emoji: "🎯",
+    emoji: "◎",
     label: { es: "Propósito", en: "Purpose" },
     prompt: {
       es: "Hablemos sobre el propósito y si tiene sentido buscarlo.",
@@ -59,7 +59,7 @@ export const TOPICS: Topic[] = [
   },
   {
     id: "adventure",
-    emoji: "🌄",
+    emoji: "—",
     label: { es: "Aventura", en: "Adventure" },
     prompt: {
       es: "Hablemos de la aventura y del riesgo en mi vida.",
@@ -68,7 +68,7 @@ export const TOPICS: Topic[] = [
   },
   {
     id: "growth",
-    emoji: "🌱",
+    emoji: "⌇",
     label: { es: "Crecimiento", en: "Growth" },
     prompt: {
       es: "Hablemos de cómo se crece de verdad, sin engañarse.",

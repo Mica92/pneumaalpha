@@ -100,7 +100,7 @@ export function DilemmaBanner({
             title={t("chat.dilemma.restore")}
             className="rounded-full border border-border/60 bg-card/40 px-2 py-1 text-[11px] text-mist/80 transition-all hover:border-mist/40 hover:text-foreground"
           >
-            <span aria-hidden="true">🌟</span>
+            <span aria-hidden="true">◈</span>
           </button>
         </div>
       </div>
@@ -118,7 +118,7 @@ export function DilemmaBanner({
           }}
         >
           <span aria-hidden="true" className="text-base leading-none">
-            🌟
+            ◈
           </span>
           <div className="min-w-0 flex-1">
             <p className="font-display text-[9px] uppercase tracking-[0.32em] text-muted-foreground">
@@ -218,7 +218,7 @@ export function RootQuestionsFab({
         className="fixed bottom-24 right-5 z-40 grid h-12 w-12 place-items-center rounded-full border border-mist/40 bg-mist/15 text-foreground shadow-mist backdrop-blur-md transition-all hover:bg-mist/25 disabled:opacity-40 md:bottom-28 md:right-8"
       >
         <span aria-hidden="true" className="text-lg">
-          💡
+          ◇
         </span>
       </button>
 
