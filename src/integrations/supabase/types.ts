@@ -47,21 +47,27 @@ export type Database = {
           email: string
           id: string
           lang: string
+          phone: string | null
           user_id: string | null
+          whatsapp_optin: boolean
         }
         Insert: {
           created_at?: string
           email: string
           id?: string
           lang?: string
+          phone?: string | null
           user_id?: string | null
+          whatsapp_optin?: boolean
         }
         Update: {
           created_at?: string
           email?: string
           id?: string
           lang?: string
+          phone?: string | null
           user_id?: string | null
+          whatsapp_optin?: boolean
         }
         Relationships: []
       }
