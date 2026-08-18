@@ -10,11 +10,13 @@ import {
   type PhilosopherId,
 } from "@/lib/philosophers";
 import {
+  answerCallbackQuery,
   deriveTelegramWebhookSecret,
   safeEqual,
   sendTelegramChatAction,
   sendTelegramMessage,
   telegramKeys,
+  type InlineKeyboard,
 } from "@/lib/telegram.server";
 
 const FREE_PHILOSOPHERS: PhilosopherId[] = ["heidegger", "pohlenz"];
@@ -24,20 +26,41 @@ type SupabaseAdmin = Awaited<
   typeof import("@/integrations/supabase/client.server")
 >["supabaseAdmin"];
 
-function philosopherMenu(): string {
-  return PHILOSOPHER_LIST.map((p) => `${p.glyph} /con ${p.id} — ${p.name}`).join("\n");
+/** Teclado con todas las mentes, en dos columnas. */
+function philosopherKeyboard(): InlineKeyboard {
+  const rows: InlineKeyboard = [];
+  for (let i = 0; i < PHILOSOPHER_LIST.length; i += 2) {
+    rows.push(
+      PHILOSOPHER_LIST.slice(i, i + 2).map((p) => ({
+        text: `${p.glyph} ${p.name}`,
+        callback_data: `con:${p.id}`,
+      })),
+    );
+  }
+  return rows;
 }
 
 const HELP = [
   "PneumaA en Telegram.",
   "",
-  "/filosofos — ver las mentes disponibles",
-  "/con <nombre> — elegir con quién conversar",
+  "/filosofos — elegir con quién conversar (botones)",
   "/oraculo <texto> — que el oráculo elija por ti",
+  "/actual — ver con quién estás hablando",
+  "/reiniciar — empezar un hilo nuevo",
   "/vincular <código> — unir este chat con tu cuenta de la web",
   "",
   "Después, escribe lo que quieras: te responde esa conciencia.",
 ].join("\n");
+
+/** Marca el update como visto; devuelve false si ya fue procesado. */
+async function claimUpdate(admin: SupabaseAdmin, updateId: number): Promise<boolean> {
+  const { error } = await admin.from("telegram_updates").insert({ update_id: updateId });
+  if (error) {
+    if (error.code === "23505") return false;
+    console.error("[telegram webhook] claim failed", error);
+  }
+  return true;
+}
 
 async function resolveLink(admin: SupabaseAdmin, chatId: number) {
   const { data } = await admin
@@ -92,6 +115,32 @@ async function pickPhilosopher(prompt: string, apiKey: string): Promise<Philosop
   return isPhilosopherId(clean) ? clean : "heidegger";
 }
 
+/** Cambia (o propone) la mente activa para este chat. */
+async function selectPhilosopher(
+  admin: SupabaseAdmin,
+  chatId: number,
+  wanted: PhilosopherId,
+  link: { user_id: string } | null,
+): Promise<void> {
+  if (!link && !FREE_PHILOSOPHERS.includes(wanted)) {
+    await sendTelegramMessage(
+      chatId,
+      "Para conversar con esa mente, vincula tu cuenta: genera un código en la web y escribe /vincular 123456.",
+    );
+    return;
+  }
+  if (link) {
+    await admin
+      .from("telegram_links")
+      .update({ current_philosopher: wanted })
+      .eq("chat_id", chatId);
+  }
+  await sendTelegramMessage(
+    chatId,
+    `${PHILOSOPHERS[wanted].glyph} ${PHILOSOPHERS[wanted].name}\n\n${PHILOSOPHERS[wanted].opening.es}`,
+  );
+}
+
 async function answerAs(
   admin: SupabaseAdmin,
   philosopher: PhilosopherId,
@@ -99,32 +148,32 @@ async function answerAs(
   text: string,
   apiKey: string,
 ): Promise<string> {
-  const history: { role: "user" | "assistant"; content: string }[] = [];
+  const [historyRes, memoryRes] = await Promise.all([
+    userId
+      ? admin
+          .from("messages")
+          .select("role, content, created_at")
+          .eq("user_id", userId)
+          .eq("philosopher", philosopher)
+          .order("created_at", { ascending: false })
+          .limit(HISTORY_LIMIT)
+      : Promise.resolve({ data: [] as any[] }),
+    userId
+      ? admin
+          .from("user_memory")
+          .select("content")
+          .eq("user_id", userId)
+          .eq("philosopher", philosopher)
+          .order("created_at", { ascending: false })
+          .limit(40)
+      : Promise.resolve({ data: [] as any[] }),
+  ]);
 
-  if (userId) {
-    const { data: rows } = await admin
-      .from("messages")
-      .select("role, content, created_at")
-      .eq("user_id", userId)
-      .eq("philosopher", philosopher)
-      .order("created_at", { ascending: false })
-      .limit(HISTORY_LIMIT);
-    for (const r of (rows ?? []).slice().reverse()) {
-      history.push({ role: r.role as "user" | "assistant", content: r.content as string });
-    }
-  }
-
-  let memoryLines: string[] = [];
-  if (userId) {
-    const { data: mem } = await admin
-      .from("user_memory")
-      .select("content")
-      .eq("user_id", userId)
-      .eq("philosopher", philosopher)
-      .order("created_at", { ascending: false })
-      .limit(40);
-    memoryLines = (mem ?? []).map((r) => r.content as string);
-  }
+  const history = ((historyRes.data ?? []) as any[])
+    .slice()
+    .reverse()
+    .map((r) => ({ role: r.role as "user" | "assistant", content: r.content as string }));
+  const memoryLines = ((memoryRes.data ?? []) as any[]).map((r) => r.content as string);
 
   const gateway = createLovableAiGatewayProvider(apiKey);
   const { text: reply } = await generateText({
@@ -164,24 +213,68 @@ export const Route = createFileRoute("/api/public/telegram/webhook")({
         }
 
         const update = (await request.json()) as Record<string, any>;
-        const message = update.message ?? update.edited_message;
+        const callback = update.callback_query;
+        const message = update.message ?? update.edited_message ?? callback?.message;
         const chatId: number | undefined = message?.chat?.id;
-        const text: string = (message?.text ?? "").trim();
-        if (!chatId || !text) return Response.json({ ok: true, ignored: true });
+        const text: string = (callback?.data ?? message?.text ?? "").trim();
+        if (!chatId || !text || typeof update.update_id !== "number") {
+          return Response.json({ ok: true, ignored: true });
+        }
 
         const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
         const admin = supabaseAdmin as SupabaseAdmin;
 
+        // Telegram reintenta si tardamos: no respondas dos veces al mismo update.
+        if (!(await claimUpdate(admin, update.update_id))) {
+          return Response.json({ ok: true, duplicate: true });
+        }
+
         try {
           const link = await resolveLink(admin, chatId);
 
+          if (callback) {
+            await answerCallbackQuery(callback.id);
+            const wanted = text.startsWith("con:") ? text.slice(4) : "";
+            if (isPhilosopherId(wanted)) {
+              await selectPhilosopher(admin, chatId, wanted, link);
+            }
+            return Response.json({ ok: true });
+          }
+
           if (text.startsWith("/start") || text.startsWith("/ayuda") || text.startsWith("/help")) {
-            await sendTelegramMessage(chatId, HELP);
+            await sendTelegramMessage(chatId, HELP, philosopherKeyboard());
             return Response.json({ ok: true });
           }
 
           if (text.startsWith("/filosofos") || text.startsWith("/filósofos")) {
-            await sendTelegramMessage(chatId, philosopherMenu());
+            await sendTelegramMessage(chatId, "Elige una conciencia:", philosopherKeyboard());
+            return Response.json({ ok: true });
+          }
+
+          if (text.startsWith("/actual")) {
+            const current = isPhilosopherId(link?.current_philosopher ?? "")
+              ? (link!.current_philosopher as PhilosopherId)
+              : "heidegger";
+            await sendTelegramMessage(
+              chatId,
+              `Hablas con ${PHILOSOPHERS[current].glyph} ${PHILOSOPHERS[current].name}.`,
+              philosopherKeyboard(),
+            );
+            return Response.json({ ok: true });
+          }
+
+          if (text.startsWith("/reiniciar")) {
+            if (link) {
+              await admin
+                .from("telegram_links")
+                .update({ current_philosopher: "heidegger" })
+                .eq("chat_id", chatId);
+            }
+            await sendTelegramMessage(
+              chatId,
+              "Hilo reiniciado. Elige con quién seguir:",
+              philosopherKeyboard(),
+            );
             return Response.json({ ok: true });
           }
 
@@ -194,26 +287,15 @@ export const Route = createFileRoute("/api/public/telegram/webhook")({
           if (text.startsWith("/con")) {
             const wanted = text.slice("/con".length).trim().toLowerCase();
             if (!isPhilosopherId(wanted)) {
-              await sendTelegramMessage(chatId, "No conozco esa mente.\n\n" + philosopherMenu());
+              await sendTelegramMessage(chatId, "No conozco esa mente.", philosopherKeyboard());
               return Response.json({ ok: true });
             }
-            if (!link && !FREE_PHILOSOPHERS.includes(wanted)) {
-              await sendTelegramMessage(
-                chatId,
-                "Para conversar con esa mente, vincula tu cuenta: genera un código en la web y escribe /vincular 123456.",
-              );
-              return Response.json({ ok: true });
-            }
-            if (link) {
-              await admin
-                .from("telegram_links")
-                .update({ current_philosopher: wanted })
-                .eq("chat_id", chatId);
-            }
-            await sendTelegramMessage(
-              chatId,
-              `${PHILOSOPHERS[wanted].glyph} ${PHILOSOPHERS[wanted].name}\n\n${PHILOSOPHERS[wanted].opening.es}`,
-            );
+            await selectPhilosopher(admin, chatId, wanted, link);
+            return Response.json({ ok: true });
+          }
+
+          if (text.startsWith("/")) {
+            await sendTelegramMessage(chatId, "No conozco ese comando.\n\n" + HELP);
             return Response.json({ ok: true });
           }
 
