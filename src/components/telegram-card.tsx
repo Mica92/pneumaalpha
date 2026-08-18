@@ -37,8 +37,11 @@ export function TelegramCard({ className = "" }: { className?: string }) {
     onSuccess: (data) => {
       setCode(data.code);
       setDeepLink(data.deepLink ?? null);
+      setQrVisible(false);
+      setQrDataUrl(null);
     },
   });
+
 
   const unlinkMutation = useMutation({
     mutationFn: () => unlink(),
