@@ -113,22 +113,6 @@ export function TelegramCard({ className = "" }: { className?: string }) {
 
           {code ? (
             <div className="space-y-3 rounded-md border border-mist/40 bg-mist/10 p-4">
-              {qrDataUrl && (
-                <div className="flex flex-col items-center gap-2">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={qrDataUrl}
-                    alt={t("telegram.qrAlt")}
-                    width={180}
-                    height={180}
-                    className="rounded-md border border-border/50"
-                  />
-                  <p className="text-center text-[10px] uppercase tracking-widest text-muted-foreground">
-                    {t("telegram.qrHint")}
-                  </p>
-                </div>
-              )}
-
               <div className="flex items-center justify-between gap-3 rounded-md border border-border/50 bg-background/30 px-4 py-3">
                 <span className="font-display text-2xl tracking-[0.4em] text-foreground">
                   {code}
@@ -148,8 +132,35 @@ export function TelegramCard({ className = "" }: { className?: string }) {
                   {t("telegram.openTelegram")}
                 </a>
               )}
+
+              {qrVisible ? (
+                qrDataUrl && (
+                  <div className="flex flex-col items-center gap-2 pt-1">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={qrDataUrl}
+                      alt={t("telegram.qrAlt")}
+                      width={180}
+                      height={180}
+                      className="rounded-md border border-border/50"
+                    />
+                    <p className="text-center text-[10px] uppercase tracking-widest text-muted-foreground">
+                      {t("telegram.qrHint")}
+                    </p>
+                  </div>
+                )
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => setQrVisible(true)}
+                  className="w-full rounded-md border border-border bg-background/30 px-4 py-2 font-display text-[10px] uppercase tracking-[0.25em] text-foreground transition-colors hover:bg-background/50"
+                >
+                  {t("telegram.generateQrHere")}
+                </button>
+              )}
             </div>
           ) : (
+
             <button
               type="button"
               onClick={() => codeMutation.mutate()}
