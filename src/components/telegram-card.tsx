@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import QRCode from "qrcode";
 
 import { useAuth } from "@/hooks/use-auth";
 import { useI18n } from "@/lib/i18n";
@@ -8,13 +9,16 @@ import { createTelegramLinkCode, getTelegramLink, unlinkTelegram } from "@/lib/t
 
 /**
  * Tarjeta para llevar PneumaA a Telegram: explica el flujo y genera
- * un código de vinculación que el usuario escribe en el bot con /vincular.
+ * un código de vinculación. El usuario puede escanear el QR o escribir
+ * /vincular seguido del código.
  */
-export function TelegramCard({ className = "", botUsername }: { className?: string; botUsername?: string }) {
+export function TelegramCard({ className = "" }: { className?: string }) {
   const { t } = useI18n();
   const { user } = useAuth();
   const queryClient = useQueryClient();
   const [code, setCode] = useState<string | null>(null);
+  const [deepLink, setDeepLink] = useState<string | null>(null);
+  const [qrDataUrl, setQrDataUrl] = useState<string | null>(null);
 
   const fetchLink = useServerFn(getTelegramLink);
   const createCode = useServerFn(createTelegramLinkCode);
@@ -28,16 +32,38 @@ export function TelegramCard({ className = "", botUsername }: { className?: stri
 
   const codeMutation = useMutation({
     mutationFn: () => createCode(),
-    onSuccess: (data) => setCode(data.code),
+    onSuccess: (data) => {
+      setCode(data.code);
+      setDeepLink(data.deepLink ?? null);
+    },
   });
 
   const unlinkMutation = useMutation({
     mutationFn: () => unlink(),
     onSuccess: () => {
       setCode(null);
+      setDeepLink(null);
+      setQrDataUrl(null);
       queryClient.invalidateQueries({ queryKey: ["telegram-link"] });
     },
   });
+
+  useEffect(() => {
+    if (!deepLink) {
+      setQrDataUrl(null);
+      return;
+    }
+    let cancelled = false;
+    QRCode.toDataURL(deepLink, {
+      width: 180,
+      margin: 1,
+      color: { dark: "#a8b8c2", light: "#0b0f12" },
+      errorCorrectionLevel: "M",
+    }).then((url) => {
+      if (!cancelled) setQrDataUrl(url);
+    });
+    return () => { cancelled = true; };
+  }, [deepLink]);
 
   if (!user) return null;
 
@@ -53,7 +79,6 @@ export function TelegramCard({ className = "", botUsername }: { className?: stri
 
       <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
         {t("telegram.what")}
-        {botUsername ? ` @${botUsername}` : ""}
       </p>
 
       {linked ? (
@@ -76,8 +101,56 @@ export function TelegramCard({ className = "", botUsername }: { className?: stri
             <li>{t("telegram.step1")}</li>
             <li>{t("telegram.step2")}</li>
             <li>{t("telegram.step3")}</li>
-            <li>{t("telegram.step4")}</li>
           </ol>
+
+          {code ? (
+            <div className="space-y-3 rounded-md border border-mist/40 bg-mist/10 p-4">
+              {qrDataUrl && (
+                <div className="flex flex-col items-center gap-2">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={qrDataUrl}
+                    alt={t("telegram.qrAlt")}
+                    width={180}
+                    height={180}
+                    className="rounded-md border border-border/50"
+                  />
+                  <p className="text-center text-[10px] uppercase tracking-widest text-muted-foreground">
+                    {t("telegram.qrHint")}
+                  </p>
+                </div>
+              )}
+
+              <div className="flex items-center justify-between gap-3 rounded-md border border-border/50 bg-background/30 px-4 py-3">
+                <span className="font-display text-2xl tracking-[0.4em] text-foreground">
+                  {code}
+                </span>
+                <span className="text-[10px] uppercase tracking-widest text-muted-foreground">
+                  /vincular
+                </span>
+              </div>
+
+              {deepLink && (
+                <a
+                  href={deepLink}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="block text-center text-xs text-mist underline underline-offset-2 transition-opacity hover:opacity-80"
+                >
+                  {t("telegram.openTelegram")}
+                </a>
+              )}
+            </div>
+          ) : (
+            <button
+              type="button"
+              onClick={() => codeMutation.mutate()}
+              disabled={codeMutation.isPending}
+              className="rounded-md border border-mist/40 bg-mist/95 px-4 py-2 font-display text-[10px] uppercase tracking-[0.25em] text-primary-foreground transition-opacity hover:opacity-90 disabled:opacity-50"
+            >
+              {codeMutation.isPending ? t("telegram.generating") : t("telegram.generate")}
+            </button>
+          )}
 
           <div className="rounded-md border border-border/50 bg-background/30 px-3 py-2.5">
             <p className="font-display text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
@@ -91,26 +164,6 @@ export function TelegramCard({ className = "", botUsername }: { className?: stri
           <p className="text-[10px] leading-relaxed text-muted-foreground/80">
             {t("telegram.freeMinds")}
           </p>
-
-          {code ? (
-            <div className="flex items-center justify-between gap-3 rounded-md border border-mist/40 bg-mist/10 px-4 py-3">
-              <span className="font-display text-2xl tracking-[0.4em] text-foreground">
-                {code}
-              </span>
-              <span className="text-[10px] uppercase tracking-widest text-muted-foreground">
-                /vincular
-              </span>
-            </div>
-          ) : (
-            <button
-              type="button"
-              onClick={() => codeMutation.mutate()}
-              disabled={codeMutation.isPending}
-              className="rounded-md border border-mist/40 bg-mist/95 px-4 py-2 font-display text-[10px] uppercase tracking-[0.25em] text-primary-foreground transition-opacity hover:opacity-90 disabled:opacity-50"
-            >
-              {codeMutation.isPending ? t("telegram.generating") : t("telegram.generate")}
-            </button>
-          )}
 
           {codeMutation.isError && (
             <p className="text-xs text-muted-foreground">{t("telegram.codeError")}</p>
