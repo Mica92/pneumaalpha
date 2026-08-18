@@ -212,6 +212,21 @@ export type Database = {
         }
         Relationships: []
       }
+      telegram_updates: {
+        Row: {
+          created_at: string
+          update_id: number
+        }
+        Insert: {
+          created_at?: string
+          update_id: number
+        }
+        Update: {
+          created_at?: string
+          update_id?: number
+        }
+        Relationships: []
+      }
       user_memory: {
         Row: {
           content: string
