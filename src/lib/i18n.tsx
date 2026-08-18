@@ -577,20 +577,28 @@ export const T: Dict = {
     en: "Talk to the minds from your phone. What you write on Telegram is saved to your web account.",
   },
   "telegram.step1": {
-    es: "Abre Telegram y escríbele al bot.",
-    en: "Open Telegram and message the bot.",
+    es: "Genera tu código en esta pantalla.",
+    en: "Generate your code on this screen.",
   },
   "telegram.step2": {
-    es: "Envía /start para ver los comandos.",
-    en: "Send /start to see the commands.",
+    es: "Escanea el QR con tu celular o abre el enlace.",
+    en: "Scan the QR with your phone or open the link.",
   },
   "telegram.step3": {
-    es: "Genera aquí tu código de 6 dígitos y escribe /vincular seguido del código.",
-    en: "Generate your 6-digit code here and send /vincular followed by the code.",
+    es: "Telegram abre el bot y vincula tu cuenta automáticamente.",
+    en: "Telegram opens the bot and links your account automatically.",
   },
-  "telegram.step4": {
-    es: "Elige un filósofo con /filosofos y empieza a conversar.",
-    en: "Choose a philosopher with /filosofos and start talking.",
+  "telegram.qrAlt": {
+    es: "Código QR para abrir el bot de Telegram",
+    en: "QR code to open the Telegram bot",
+  },
+  "telegram.qrHint": {
+    es: "Escanea para vincular",
+    en: "Scan to link",
+  },
+  "telegram.openTelegram": {
+    es: "Abrir en Telegram",
+    en: "Open in Telegram",
   },
   "telegram.commands": { es: "Comandos útiles", en: "Useful commands" },
   "telegram.commandsList": {
