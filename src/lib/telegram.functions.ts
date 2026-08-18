@@ -2,6 +2,30 @@ import { createServerFn } from "@tanstack/react-start";
 
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
+const GATEWAY_URL = "https://connector-gateway.lovable.dev/telegram";
+
+async function telegramBotUsername(): Promise<string | null> {
+  const lovableApiKey = process.env["LOVABLE_API_KEY"];
+  const telegramApiKey = process.env["TELEGRAM_API_KEY"];
+  if (!lovableApiKey || !telegramApiKey) return null;
+
+  try {
+    const res = await fetch(`${GATEWAY_URL}/getMe`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${lovableApiKey}`,
+        "X-Connection-Api-Key": telegramApiKey,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({}),
+    });
+    const json = await res.json();
+    return json?.ok ? (json.result.username as string) : null;
+  } catch {
+    return null;
+  }
+}
+
 /** Genera (o reutiliza) un código de 6 dígitos para vincular Telegram. */
 export const createTelegramLinkCode = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
@@ -18,8 +42,14 @@ export const createTelegramLinkCode = createServerFn({ method: "POST" })
       .limit(1)
       .maybeSingle();
 
+    const botUsername = await telegramBotUsername();
+
     if (existing) {
-      return { code: existing.code as string, expiresAt: existing.expires_at as string };
+      return {
+        code: existing.code as string,
+        expiresAt: existing.expires_at as string,
+        deepLink: botUsername ? `https://t.me/${botUsername}?start=${existing.code}` : undefined,
+      };
     }
 
     for (let attempt = 0; attempt < 5; attempt++) {
@@ -30,7 +60,11 @@ export const createTelegramLinkCode = createServerFn({ method: "POST" })
         .select("code, expires_at")
         .single();
       if (!error && data) {
-        return { code: data.code as string, expiresAt: data.expires_at as string };
+        return {
+          code: data.code as string,
+          expiresAt: data.expires_at as string,
+          deepLink: botUsername ? `https://t.me/${botUsername}?start=${data.code}` : undefined,
+        };
       }
     }
     throw new Error("No se pudo generar un código. Intenta de nuevo.");
