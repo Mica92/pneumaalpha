@@ -242,6 +242,12 @@ export const Route = createFileRoute("/api/public/telegram/webhook")({
           }
 
           if (text.startsWith("/start") || text.startsWith("/ayuda") || text.startsWith("/help")) {
+            const startParam = text.replace(/^\/start\s*/, "").trim();
+            if (startParam && /^\d{6}$/.test(startParam)) {
+              const reply = await handleLinkCommand(admin, chatId, startParam);
+              await sendTelegramMessage(chatId, reply);
+              return Response.json({ ok: true });
+            }
             await sendTelegramMessage(chatId, HELP, philosopherKeyboard());
             return Response.json({ ok: true });
           }
