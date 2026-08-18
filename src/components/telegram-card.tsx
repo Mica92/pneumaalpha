@@ -49,9 +49,11 @@ export function TelegramCard({ className = "" }: { className?: string }) {
       setCode(null);
       setDeepLink(null);
       setQrDataUrl(null);
+      setQrVisible(false);
       queryClient.invalidateQueries({ queryKey: ["telegram-link"] });
     },
   });
+
 
   useEffect(() => {
     if (!deepLink) {
