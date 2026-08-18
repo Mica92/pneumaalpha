@@ -56,8 +56,8 @@ export function TelegramCard({ className = "" }: { className?: string }) {
 
 
   useEffect(() => {
-    if (!deepLink) {
-      setQrDataUrl(null);
+    if (!deepLink || !qrVisible) {
+      if (!qrVisible) setQrDataUrl(null);
       return;
     }
     let cancelled = false;
@@ -70,7 +70,8 @@ export function TelegramCard({ className = "" }: { className?: string }) {
       if (!cancelled) setQrDataUrl(url);
     });
     return () => { cancelled = true; };
-  }, [deepLink]);
+  }, [deepLink, qrVisible]);
+
 
   if (!user) return null;
 
