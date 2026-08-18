@@ -19,6 +19,8 @@ export function TelegramCard({ className = "" }: { className?: string }) {
   const [code, setCode] = useState<string | null>(null);
   const [deepLink, setDeepLink] = useState<string | null>(null);
   const [qrDataUrl, setQrDataUrl] = useState<string | null>(null);
+  const [qrVisible, setQrVisible] = useState(false);
+
 
   const fetchLink = useServerFn(getTelegramLink);
   const createCode = useServerFn(createTelegramLinkCode);
