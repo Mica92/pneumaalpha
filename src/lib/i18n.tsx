@@ -615,6 +615,8 @@ export const T: Dict = {
   },
   "telegram.generate": { es: "Generar código", en: "Generate code" },
   "telegram.generating": { es: "Generando…", en: "Generating…" },
+  "telegram.generateQrHere": { es: "Generar QR acá", en: "Generate QR here" },
+
   "telegram.unlink": { es: "Desvincular", en: "Unlink" },
   "telegram.codeError": {
     es: "No se pudo generar el código.",
