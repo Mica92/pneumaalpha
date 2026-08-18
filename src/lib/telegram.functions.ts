@@ -5,6 +5,9 @@ import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 const GATEWAY_URL = "https://connector-gateway.lovable.dev/telegram";
 
 async function telegramBotUsername(): Promise<string | null> {
+  const configured = process.env["TELEGRAM Bot username"];
+  if (configured) return configured;
+
   const lovableApiKey = process.env["LOVABLE_API_KEY"];
   const telegramApiKey = process.env["TELEGRAM_API_KEY"];
   if (!lovableApiKey || !telegramApiKey) return null;
