@@ -7,11 +7,11 @@ import { useI18n } from "@/lib/i18n";
 import { createTelegramLinkCode, getTelegramLink, unlinkTelegram } from "@/lib/telegram.functions";
 
 /**
- * Tarjeta para llevar PneumaA a Telegram: genera un código de vinculación
- * que el usuario escribe en el bot con /vincular.
+ * Tarjeta para llevar PneumaA a Telegram: explica el flujo y genera
+ * un código de vinculación que el usuario escribe en el bot con /vincular.
  */
 export function TelegramCard({ className = "", botUsername }: { className?: string; botUsername?: string }) {
-  const { lang } = useI18n();
+  const { t } = useI18n();
   const { user } = useAuth();
   const queryClient = useQueryClient();
   const [code, setCode] = useState<string | null>(null);
@@ -41,7 +41,6 @@ export function TelegramCard({ className = "", botUsername }: { className?: stri
 
   if (!user) return null;
 
-  const es = lang === "es";
   const linked = linkQuery.data?.linked === true;
 
   return (
@@ -49,53 +48,74 @@ export function TelegramCard({ className = "", botUsername }: { className?: stri
       className={`rounded-lg border border-border/60 bg-card/40 px-5 py-4 ${className}`}
     >
       <p className="font-display text-[10px] uppercase tracking-[0.3em] text-foreground">
-        {es ? "Conversar desde Telegram" : "Talk from Telegram"}
+        {t("telegram.title")}
+      </p>
+
+      <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
+        {t("telegram.what")}
+        {botUsername ? ` @${botUsername}` : ""}
       </p>
 
       {linked ? (
-        <>
-          <p className="mt-1.5 text-xs text-muted-foreground">
-            {es
-              ? "Tu cuenta está vinculada. Escribe al bot y el hilo se guarda aquí."
-              : "Your account is linked. Write to the bot and the thread is saved here."}
+        <div className="mt-4 space-y-3">
+          <p className="text-xs leading-relaxed text-foreground/90">
+            {t("telegram.linked")}
           </p>
           <button
             type="button"
             onClick={() => unlinkMutation.mutate()}
             disabled={unlinkMutation.isPending}
-            className="mt-3 rounded-md border border-border px-3 py-2 font-display text-[10px] uppercase tracking-[0.25em] text-muted-foreground transition-colors hover:text-foreground disabled:opacity-50"
+            className="rounded-md border border-border px-3 py-2 font-display text-[10px] uppercase tracking-[0.25em] text-muted-foreground transition-colors hover:text-foreground disabled:opacity-50"
           >
-            {es ? "Desvincular" : "Unlink"}
+            {t("telegram.unlink")}
           </button>
-        </>
+        </div>
       ) : (
-        <>
-          <p className="mt-1.5 text-xs text-muted-foreground">
-            {es
-              ? "Genera un código y escríbelo en el bot como «/vincular 123456»."
-              : "Generate a code and send it to the bot as “/vincular 123456”."}
-            {botUsername ? ` (${botUsername})` : ""}
+        <div className="mt-4 space-y-3">
+          <ol className="list-decimal space-y-1.5 pl-4 text-xs leading-relaxed text-muted-foreground">
+            <li>{t("telegram.step1")}</li>
+            <li>{t("telegram.step2")}</li>
+            <li>{t("telegram.step3")}</li>
+            <li>{t("telegram.step4")}</li>
+          </ol>
+
+          <div className="rounded-md border border-border/50 bg-background/30 px-3 py-2.5">
+            <p className="font-display text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
+              {t("telegram.commands")}
+            </p>
+            <p className="mt-1 font-mono text-xs text-foreground/80">
+              {t("telegram.commandsList")}
+            </p>
+          </div>
+
+          <p className="text-[10px] leading-relaxed text-muted-foreground/80">
+            {t("telegram.freeMinds")}
           </p>
+
           {code ? (
-            <p className="mt-3 font-display text-2xl tracking-[0.4em] text-foreground">{code}</p>
+            <div className="flex items-center justify-between gap-3 rounded-md border border-mist/40 bg-mist/10 px-4 py-3">
+              <span className="font-display text-2xl tracking-[0.4em] text-foreground">
+                {code}
+              </span>
+              <span className="text-[10px] uppercase tracking-widest text-muted-foreground">
+                /vincular
+              </span>
+            </div>
           ) : (
             <button
               type="button"
               onClick={() => codeMutation.mutate()}
               disabled={codeMutation.isPending}
-              className="mt-3 rounded-md border border-mist/40 bg-mist/95 px-4 py-2 font-display text-[10px] uppercase tracking-[0.25em] text-primary-foreground transition-opacity hover:opacity-90 disabled:opacity-50"
+              className="rounded-md border border-mist/40 bg-mist/95 px-4 py-2 font-display text-[10px] uppercase tracking-[0.25em] text-primary-foreground transition-opacity hover:opacity-90 disabled:opacity-50"
             >
-              {codeMutation.isPending
-                ? es ? "Generando…" : "Generating…"
-                : es ? "Generar código" : "Generate code"}
+              {codeMutation.isPending ? t("telegram.generating") : t("telegram.generate")}
             </button>
           )}
+
           {codeMutation.isError && (
-            <p className="mt-2 text-xs text-muted-foreground">
-              {es ? "No se pudo generar el código." : "Could not generate the code."}
-            </p>
+            <p className="text-xs text-muted-foreground">{t("telegram.codeError")}</p>
           )}
-        </>
+        </div>
       )}
     </aside>
   );
