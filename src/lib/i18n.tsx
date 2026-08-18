@@ -571,6 +571,48 @@ export const T: Dict = {
     en: "Enter the number in international format, e.g. +15551234567.",
   },
 
+  "telegram.title": { es: "Conversar desde Telegram", en: "Talk from Telegram" },
+  "telegram.what": {
+    es: "Habla con las conciencias desde tu celular. Lo que escribas en Telegram se guarda en tu cuenta de la web.",
+    en: "Talk to the minds from your phone. What you write on Telegram is saved to your web account.",
+  },
+  "telegram.step1": {
+    es: "Abre Telegram y escríbele al bot.",
+    en: "Open Telegram and message the bot.",
+  },
+  "telegram.step2": {
+    es: "Envía /start para ver los comandos.",
+    en: "Send /start to see the commands.",
+  },
+  "telegram.step3": {
+    es: "Genera aquí tu código de 6 dígitos y escribe /vincular seguido del código.",
+    en: "Generate your 6-digit code here and send /vincular followed by the code.",
+  },
+  "telegram.step4": {
+    es: "Elige un filósofo con /filosofos y empieza a conversar.",
+    en: "Choose a philosopher with /filosofos and start talking.",
+  },
+  "telegram.commands": { es: "Comandos útiles", en: "Useful commands" },
+  "telegram.commandsList": {
+    es: "/filosofos · /actual · /reiniciar · /oraculo",
+    en: "/filosofos · /actual · /reiniciar · /oraculo",
+  },
+  "telegram.freeMinds": {
+    es: "Sin vincular puedes hablar gratis con Heidegger y Pohlenz.",
+    en: "Without linking you can talk free with Heidegger and Pohlenz.",
+  },
+  "telegram.linked": {
+    es: "Tu cuenta está vinculada. Todo lo que escribas en Telegram se sincroniza aquí.",
+    en: "Your account is linked. Everything you write on Telegram syncs here.",
+  },
+  "telegram.generate": { es: "Generar código", en: "Generate code" },
+  "telegram.generating": { es: "Generando…", en: "Generating…" },
+  "telegram.unlink": { es: "Desvincular", en: "Unlink" },
+  "telegram.codeError": {
+    es: "No se pudo generar el código.",
+    en: "Could not generate the code.",
+  },
+
 
 };
 
