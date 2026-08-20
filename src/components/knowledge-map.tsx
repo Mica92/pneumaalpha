@@ -227,7 +227,7 @@ export function KnowledgeMap({
       const sel = selectedRef.current;
       const hov = hoverRef.current;
       const focus = hov ?? sel;
-      const near = focus ? adjacency.get(focus) ?? new Set<string>() : null;
+      const near = focus ? (adjacency.get(focus) ?? new Set<string>()) : null;
       const kinds = kindsRef.current;
       const q = queryRef.current.trim().toLowerCase();
 
@@ -354,7 +354,12 @@ export function KnowledgeMap({
     const onDown = (e: PointerEvent) => {
       canvas.setPointerCapture(e.pointerId);
       const id = pick(e.clientX, e.clientY);
-      dragRef.current = { mode: id ? "node" : "pan", id: id ?? undefined, px: e.clientX, py: e.clientY };
+      dragRef.current = {
+        mode: id ? "node" : "pan",
+        id: id ?? undefined,
+        px: e.clientX,
+        py: e.clientY,
+      };
     };
     const onMove = (e: PointerEvent) => {
       const d = dragRef.current;
@@ -422,7 +427,11 @@ export function KnowledgeMap({
       ref={wrapRef}
       className="relative h-[62vh] min-h-[420px] w-full overflow-hidden rounded-xl border border-border bg-card/40 backdrop-blur-sm md:h-[70vh]"
     >
-      <canvas ref={canvasRef} className="block h-full w-full touch-none" style={{ cursor: "grab" }} />
+      <canvas
+        ref={canvasRef}
+        className="block h-full w-full touch-none"
+        style={{ cursor: "grab" }}
+      />
 
       {/* zoom controls */}
       <div className="absolute bottom-4 right-4 flex flex-col gap-1">

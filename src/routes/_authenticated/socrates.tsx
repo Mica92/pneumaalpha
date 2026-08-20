@@ -139,7 +139,10 @@ function SocratesPage() {
 
         {busy && (
           <div className="flex items-center gap-3">
-            <GreekGlyph className="font-display text-lg text-mist pneuma-breathe" intervalMs={280} />
+            <GreekGlyph
+              className="font-display text-lg text-mist pneuma-breathe"
+              intervalMs={280}
+            />
             <span className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground">
               {t("socrates.thinking")}
             </span>

@@ -76,7 +76,9 @@ export function InstallAppCard({ className = "" }: { className?: string }) {
       className={`flex flex-wrap items-center justify-between gap-4 rounded-lg border border-border/60 bg-card/40 px-5 py-4 ${className}`}
     >
       <div className="min-w-0">
-        <p className="font-display text-[10px] uppercase tracking-[0.3em] text-foreground">{title}</p>
+        <p className="font-display text-[10px] uppercase tracking-[0.3em] text-foreground">
+          {title}
+        </p>
         <p className="mt-1.5 text-xs text-muted-foreground">{body}</p>
       </div>
       <div className="flex items-center gap-2">

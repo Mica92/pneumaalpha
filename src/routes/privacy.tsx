@@ -15,8 +15,7 @@ export const Route = createFileRoute("/privacy")({
       { property: "og:title", content: "PneumaA — Privacy" },
       {
         property: "og:description",
-        content:
-          "Cómo PneumaA trata tus datos, mensajes y memoria conversacional.",
+        content: "Cómo PneumaA trata tus datos, mensajes y memoria conversacional.",
       },
       { property: "og:url", content: "https://pneumaalpha.lovable.app/privacy" },
     ],
@@ -135,17 +134,13 @@ function PrivacyPage() {
           <p className="mt-3 text-[11px] uppercase tracking-[0.25em] text-muted-foreground">
             {c.updated}
           </p>
-          <p className="mt-8 text-base leading-relaxed text-foreground/80">
-            {c.intro}
-          </p>
+          <p className="mt-8 text-base leading-relaxed text-foreground/80">{c.intro}</p>
         </div>
 
         <div className="space-y-8">
           {c.sections.map((s) => (
             <section key={s.h}>
-              <h2 className="font-display text-lg font-light text-foreground">
-                {s.h}
-              </h2>
+              <h2 className="font-display text-lg font-light text-foreground">{s.h}</h2>
               <p className="mt-2 text-sm leading-relaxed text-foreground/70 md:text-[15px]">
                 {s.p}
               </p>

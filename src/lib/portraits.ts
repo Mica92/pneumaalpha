@@ -58,7 +58,6 @@ export function portraitFocus(id: string): string {
   return PORTRAIT_FOCUS[id as PhilosopherId] ?? "object-top";
 }
 
-
 export type PhilosopherProfile = {
   years: string;
   origin: LocalizedString;
@@ -318,7 +317,10 @@ export const PROFILES: Partial<Record<PhilosopherId, PhilosopherProfile>> = {
       { es: "Virtudes y felicidad (beatitudo)", en: "Virtues and happiness (beatitudo)" },
       { es: "Naturaleza y gracia", en: "Nature and grace" },
       { es: "Analogía del ser", en: "Analogy of being" },
-      { es: "Método escolástico: objeción y respuesta", en: "Scholastic method: objection and reply" },
+      {
+        es: "Método escolástico: objeción y respuesta",
+        en: "Scholastic method: objection and reply",
+      },
       { es: "Aristotelismo cristiano", en: "Christian Aristotelianism" },
     ],
   },

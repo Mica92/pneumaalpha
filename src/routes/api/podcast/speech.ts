@@ -24,9 +24,7 @@ export const Route = createFileRoute("/api/podcast/speech")({
         }
         const allowedVoices = ["ash", "ballad", "sage", "coral", "alloy"];
         const voice =
-          typeof body.voice === "string" && allowedVoices.includes(body.voice)
-            ? body.voice
-            : "ash";
+          typeof body.voice === "string" && allowedVoices.includes(body.voice) ? body.voice : "ash";
 
         const upstream = await fetch("https://ai.gateway.lovable.dev/v1/audio/speech", {
           method: "POST",

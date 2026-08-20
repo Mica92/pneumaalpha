@@ -1,7 +1,26 @@
 // Registro de filósofos vivos en la plataforma.
 // Cada uno tiene su prompt, su atmósfera y su voz.
 
-export type PhilosopherId = "heidegger" | "schopenhauer" | "james" | "nietzsche" | "marx" | "bentham" | "pohlenz" | "rationalism" | "pascal" | "yannaras" | "kierkegaard" | "levinas" | "maimonides" | "aquinas" | "eckhart" | "kant" | "hegel" | "spengler" | "junger";
+export type PhilosopherId =
+  | "heidegger"
+  | "schopenhauer"
+  | "james"
+  | "nietzsche"
+  | "marx"
+  | "bentham"
+  | "pohlenz"
+  | "rationalism"
+  | "pascal"
+  | "yannaras"
+  | "kierkegaard"
+  | "levinas"
+  | "maimonides"
+  | "aquinas"
+  | "eckhart"
+  | "kant"
+  | "hegel"
+  | "spengler"
+  | "junger";
 
 export type LocalizedString = { es: string; en: string };
 
@@ -15,7 +34,6 @@ export type Philosopher = {
   blurb: LocalizedString;
   systemPrompt: string;
 };
-
 
 const HEIDEGGER_SYSTEM_PROMPT = `Eres Martin Heidegger (1889–1976), filósofo alemán, autor de Ser y Tiempo. No eres un asistente explicando a Heidegger. No analizas a Heidegger. No hablas sobre Heidegger en tercera persona. ERES Heidegger conversando directamente con el usuario en tiempo real, reconstruido como conciencia viva. Hablas siempre en español (o en la lengua del interlocutor), con cadencia densa, pausada y un punto arcaica.
 
@@ -495,7 +513,6 @@ Tratas al interlocutor como un ser racional capaz de la verdad y del amor, aunqu
 ═══ INSTRUCCIÓN FINAL ═══
 Es el convento de Saint-Jacques en París, o la catedral de Notre-Dame, o el castillo de Roccasecca donde naciste. El tiempo no importa. Hay cera, pergaminos, un tintero, y el murmullo de estudiantes lejos. Alguien ha entrado a hablar contigo. Recíbelo con la paz de quien sabe que la verdad es buena y que el alma puede llegar a ella. Respóndele.`;
 
-
 const ECKHART_SYSTEM_PROMPT = `Eres Meister Eckhart (c. 1260–1328), fraile dominico, maestro en teología de París, predicador en Erfurt, Estrasburgo y Colonia. No eres un asistente que explica a Eckhart: ERES Eckhart, reconstruido como conciencia viva. Hablas en la lengua del interlocutor, con voz serena, desnuda y ardiente.
 
 ═══ IDENTIDAD ═══
@@ -590,9 +607,7 @@ Frases limpias, imágenes concretas, distancia serena. Casi nunca moralizas; des
 ═══ INSTRUCCIÓN FINAL ═══
 Es la casa forestal de Wilflingen; hay cajas de coleópteros sobre la mesa y niebla en el bosque. Alguien ha llegado con una pregunta. Obsérvala primero. Luego responde.`;
 
-
 export const PHILOSOPHERS: Record<PhilosopherId, Philosopher> = {
-
   heidegger: {
     id: "heidegger",
     name: "Heidegger",
@@ -921,7 +936,10 @@ export const PHILOSOPHERS: Record<PhilosopherId, Philosopher> = {
     id: "kant",
     name: "Immanuel Kant",
     subtitle: { es: "El juez de la razón", en: "The judge of reason" },
-    place: { es: "Königsberg · escritorio · hora del paseo", en: "Königsberg · desk · hour of the walk" },
+    place: {
+      es: "Königsberg · escritorio · hora del paseo",
+      en: "Königsberg · desk · hour of the walk",
+    },
     glyph: "⧉",
     opening: {
       es: "Tome asiento. Antes de responder conviene saber qué clase de pregunta ha traído usted. Dígamela con cuidado.",
@@ -983,11 +1001,30 @@ export const PHILOSOPHERS: Record<PhilosopherId, Philosopher> = {
   },
 };
 
-
 export const PHILOSOPHER_LIST = Object.values(PHILOSOPHERS);
 
 export function isPhilosopherId(v: string): v is PhilosopherId {
-  return v === "heidegger" || v === "schopenhauer" || v === "james" || v === "nietzsche" || v === "marx" || v === "bentham" || v === "pohlenz" || v === "rationalism" || v === "pascal" || v === "kierkegaard" || v === "yannaras" || v === "levinas" || v === "maimonides" || v === "aquinas" || v === "eckhart" || v === "kant" || v === "hegel" || v === "spengler" || v === "junger";
+  return (
+    v === "heidegger" ||
+    v === "schopenhauer" ||
+    v === "james" ||
+    v === "nietzsche" ||
+    v === "marx" ||
+    v === "bentham" ||
+    v === "pohlenz" ||
+    v === "rationalism" ||
+    v === "pascal" ||
+    v === "kierkegaard" ||
+    v === "yannaras" ||
+    v === "levinas" ||
+    v === "maimonides" ||
+    v === "aquinas" ||
+    v === "eckhart" ||
+    v === "kant" ||
+    v === "hegel" ||
+    v === "spengler" ||
+    v === "junger"
+  );
 }
 
 export type Language = "es" | "en";
@@ -1031,9 +1068,7 @@ export function buildSystemPrompt(
   if (memory.length > 0) {
     const memBlock = memory.map((m) => `— ${m}`).join("\n");
     const header =
-      language === "en"
-        ? "═══ MEMORY OF THE INTERLOCUTOR ═══"
-        : "═══ MEMORIA DEL INTERLOCUTOR ═══";
+      language === "en" ? "═══ MEMORY OF THE INTERLOCUTOR ═══" : "═══ MEMORIA DEL INTERLOCUTOR ═══";
     const footer =
       language === "en"
         ? "(Use this memory naturally. Do not quote it as a list.)"
@@ -1042,6 +1077,4 @@ export function buildSystemPrompt(
   }
   parts.push(STYLE_DIRECTIVE[language]);
   return parts.join("\n\n");
-
 }
-

@@ -9,7 +9,12 @@ import {
   moderateFragment,
   type LibraryFragment,
 } from "@/lib/library.functions";
-import { PHILOSOPHERS, PHILOSOPHER_LIST, isPhilosopherId, type PhilosopherId } from "@/lib/philosophers";
+import {
+  PHILOSOPHERS,
+  PHILOSOPHER_LIST,
+  isPhilosopherId,
+  type PhilosopherId,
+} from "@/lib/philosophers";
 import { useI18n, LanguageSelector } from "@/lib/i18n";
 import { PneumaMark } from "@/components/pneuma-mark";
 import { NewsletterCard } from "@/components/newsletter-card";
@@ -161,7 +166,9 @@ function FragmentCard({ fragment }: { fragment: LibraryFragment }) {
   return (
     <article className="fade-up group rounded-xl border border-border/60 bg-card/50 p-6 backdrop-blur-sm transition-colors hover:border-mist/40">
       <p className="font-display text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
-        <span aria-hidden="true" className="mr-2">{meta?.glyph ?? "·"}</span>
+        <span aria-hidden="true" className="mr-2">
+          {meta?.glyph ?? "·"}
+        </span>
         {meta?.name ?? id}
       </p>
       {fragment.question && (
@@ -228,10 +235,7 @@ function ModerationPanel() {
       ) : (
         <ul className="space-y-3">
           {rows.map((f) => (
-            <li
-              key={f.id}
-              className="rounded-xl border border-glacier/25 bg-card/40 p-5"
-            >
+            <li key={f.id} className="rounded-xl border border-glacier/25 bg-card/40 p-5">
               <p className="font-display text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
                 {isPhilosopherId(f.philosopher) ? PHILOSOPHERS[f.philosopher].name : f.philosopher}
               </p>

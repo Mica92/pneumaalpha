@@ -31,8 +31,6 @@ function ReportPage() {
   const [running, setRunning] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-
-
   async function run() {
     if (running) return;
     setRunning(true);
@@ -194,9 +192,15 @@ function ReportPage() {
             </h3>
 
             <ListBlock title={t("report.recommend.topics")} items={report.recommendations.topics} />
-            <ListBlock title={t("report.recommend.authors")} items={report.recommendations.authors} />
+            <ListBlock
+              title={t("report.recommend.authors")}
+              items={report.recommendations.authors}
+            />
             <ListBlock title={t("report.recommend.ideas")} items={report.recommendations.ideas} />
-            <ListBlock title={t("report.recommend.practices")} items={report.recommendations.practices} />
+            <ListBlock
+              title={t("report.recommend.practices")}
+              items={report.recommendations.practices}
+            />
 
             {report.recommendations.books.length > 0 && (
               <div>
@@ -260,7 +264,10 @@ function ReportPage() {
           <div className="flex flex-wrap items-center justify-between gap-3 border-t border-border/60 pt-6">
             <button
               type="button"
-              onClick={() => { setReport(null); setError(null); }}
+              onClick={() => {
+                setReport(null);
+                setError(null);
+              }}
               className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground transition-colors hover:text-foreground"
             >
               {t("report.again")}

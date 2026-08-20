@@ -142,9 +142,22 @@ export function ShareFragmentButton({ philosopher, text, question }: Props) {
         aria-label={t("share.action")}
         className="focus-mist mt-3 inline-flex items-center gap-2 rounded-md border border-border/60 px-3 py-1.5 text-[10px] uppercase tracking-[0.25em] text-muted-foreground transition-colors hover:border-mist/40 hover:text-foreground"
       >
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          <circle cx="18" cy="5" r="3" /><circle cx="6" cy="12" r="3" /><circle cx="18" cy="19" r="3" />
-          <line x1="8.6" y1="10.5" x2="15.4" y2="6.5" /><line x1="8.6" y1="13.5" x2="15.4" y2="17.5" />
+        <svg
+          width="13"
+          height="13"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+        >
+          <circle cx="18" cy="5" r="3" />
+          <circle cx="6" cy="12" r="3" />
+          <circle cx="18" cy="19" r="3" />
+          <line x1="8.6" y1="10.5" x2="15.4" y2="6.5" />
+          <line x1="8.6" y1="13.5" x2="15.4" y2="17.5" />
         </svg>
         {t("share.action")}
       </button>
@@ -193,7 +206,11 @@ export function ShareFragmentButton({ philosopher, text, question }: Props) {
                 disabled={sending || sent}
                 className="focus-mist mt-3 w-full rounded-md border border-mist/40 bg-mist/10 px-4 py-2.5 font-display text-[11px] uppercase tracking-[0.3em] text-foreground transition-all hover:border-mist/70 hover:bg-mist/15 disabled:opacity-40"
               >
-                {sent ? t("share.submitted") : sending ? t("share.submitting") : t("share.toLibrary")}
+                {sent
+                  ? t("share.submitted")
+                  : sending
+                    ? t("share.submitting")
+                    : t("share.toLibrary")}
               </button>
             </div>
 
@@ -212,7 +229,13 @@ export function ShareFragmentButton({ philosopher, text, question }: Props) {
   );
 }
 
-function ShareAction({ onClick, children }: { onClick: () => void | Promise<void>; children: React.ReactNode }) {
+function ShareAction({
+  onClick,
+  children,
+}: {
+  onClick: () => void | Promise<void>;
+  children: React.ReactNode;
+}) {
   return (
     <button
       type="button"

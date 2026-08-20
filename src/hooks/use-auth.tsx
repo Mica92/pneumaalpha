@@ -21,7 +21,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     });
 
     (async () => {
-      const { data: { session } } = await supabase.auth.getSession();
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
       if (cancelled) return;
       if (session) {
         setState({ user: session.user, session, loading: false });

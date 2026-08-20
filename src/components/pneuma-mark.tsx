@@ -12,11 +12,7 @@ type Props = {
 export function PneumaMark({ className = "", withWordmark = false, size = 28 }: Props) {
   const label = "Pneumalpha";
   return (
-    <span
-      className={`inline-flex items-center gap-3 ${className}`}
-      role="img"
-      aria-label={label}
-    >
+    <span className={`inline-flex items-center gap-3 ${className}`} role="img" aria-label={label}>
       <svg
         width={size}
         height={size}

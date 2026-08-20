@@ -80,7 +80,6 @@ export const listPendingFragments = createServerFn({ method: "POST" })
     const { hasModeratorRole } = await import("./roles.server");
     if (!(await hasModeratorRole(supabase, userId))) throw new Error("Forbidden");
 
-
     const { data: rows, error } = await supabase
       .from("shared_fragments")
       .select("id, philosopher, question, fragment, lang, status, created_at")

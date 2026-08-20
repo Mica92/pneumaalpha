@@ -161,7 +161,10 @@ export function NewsletterCard({ className = "" }: { className?: string }) {
             className="focus-mist inline-flex items-center gap-3 rounded-md border border-sage/40 bg-sage/10 px-5 py-2.5 font-display text-[11px] uppercase tracking-[0.3em] text-foreground transition-all hover:border-sage/70 hover:bg-sage/15 disabled:opacity-40"
           >
             <svg aria-hidden="true" viewBox="0 0 24 24" className="h-4 w-4">
-              <path fill="#EA4335" d="M12 10.2v3.9h5.5c-.24 1.4-1.7 4.1-5.5 4.1-3.3 0-6-2.7-6-6.1s2.7-6.1 6-6.1c1.9 0 3.1.8 3.8 1.5l2.6-2.5C16.7 3.4 14.6 2.5 12 2.5 6.8 2.5 2.6 6.7 2.6 12S6.8 21.5 12 21.5c5.5 0 9.1-3.8 9.1-9.2 0-.6-.06-1.1-.15-1.6H12z" />
+              <path
+                fill="#EA4335"
+                d="M12 10.2v3.9h5.5c-.24 1.4-1.7 4.1-5.5 4.1-3.3 0-6-2.7-6-6.1s2.7-6.1 6-6.1c1.9 0 3.1.8 3.8 1.5l2.6-2.5C16.7 3.4 14.6 2.5 12 2.5 6.8 2.5 2.6 6.7 2.6 12S6.8 21.5 12 21.5c5.5 0 9.1-3.8 9.1-9.2 0-.6-.06-1.1-.15-1.6H12z"
+              />
             </svg>
             {state === "sending"
               ? t("news.submitting")
@@ -169,9 +172,7 @@ export function NewsletterCard({ className = "" }: { className?: string }) {
                 ? t("news.googleSub")
                 : t("news.google")}
           </button>
-          {email ? (
-            <p className="text-[11px] text-muted-foreground/80">{email}</p>
-          ) : null}
+          {email ? <p className="text-[11px] text-muted-foreground/80">{email}</p> : null}
         </div>
       )}
       <p className="mt-3 text-[10px] uppercase tracking-[0.2em] text-muted-foreground/70">

@@ -23,7 +23,8 @@ export const Route = createFileRoute("/sitemap.xml")({
           ...PHILOSOPHER_LIST.map((p) => `/${p.id}`),
         ];
         const urls = paths.map(
-          (path) => `  <url>\n    <loc>${BASE_URL}${path}</loc>\n    <changefreq>weekly</changefreq>\n  </url>`,
+          (path) =>
+            `  <url>\n    <loc>${BASE_URL}${path}</loc>\n    <changefreq>weekly</changefreq>\n  </url>`,
         );
         const xml = [
           `<?xml version="1.0" encoding="UTF-8"?>`,

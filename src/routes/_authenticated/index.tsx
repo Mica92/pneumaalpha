@@ -79,7 +79,8 @@ function Landing() {
         {/* HERO rupturista — tipografía desbordada y desalineada */}
         <header className="relative mt-16 mb-14 md:mt-24 md:mb-20">
           <span className="absolute -top-6 left-0 font-mono text-[10px] tracking-[0.4em] text-mist/70">
-            {String(PHILOSOPHER_LIST.length).padStart(2, "0")} · {lang === "es" ? "MENTES" : "MINDS"}
+            {String(PHILOSOPHER_LIST.length).padStart(2, "0")} ·{" "}
+            {lang === "es" ? "MENTES" : "MINDS"}
           </span>
 
           <h1 className="fade-up font-display leading-[0.82] text-foreground">
@@ -128,10 +129,7 @@ function Landing() {
         </section>
 
         {/* Conversación abierta */}
-        <section
-          aria-labelledby="live-chat-heading"
-          className="fade-up relative mb-16 md:-mx-4"
-        >
+        <section aria-labelledby="live-chat-heading" className="fade-up relative mb-16 md:-mx-4">
           <div className="overflow-hidden rounded-none border border-border/70 bg-card/40 backdrop-blur-md md:rounded-sm">
             <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border/60 bg-background/40 px-5 py-4">
               <div className="min-w-0">

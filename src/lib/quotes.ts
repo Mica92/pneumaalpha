@@ -18,7 +18,11 @@ export type Quote = {
   theme: QuoteThemeId;
 };
 
-export const QUOTE_THEMES: { id: QuoteThemeId; label: { es: string; en: string }; glyph: string }[] = [
+export const QUOTE_THEMES: {
+  id: QuoteThemeId;
+  label: { es: string; en: string };
+  glyph: string;
+}[] = [
   { id: "amor", label: { es: "Amor", en: "Love" }, glyph: "❧" },
   { id: "muerte", label: { es: "Muerte", en: "Death" }, glyph: "✠" },
   { id: "tiempo", label: { es: "Tiempo", en: "Time" }, glyph: "∴" },

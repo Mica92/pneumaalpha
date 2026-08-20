@@ -89,7 +89,14 @@ export function useVoiceDictation(opts: {
     setListening(false);
   }, []);
 
-  useEffect(() => () => { try { recRef.current?.abort(); } catch {} }, []);
+  useEffect(
+    () => () => {
+      try {
+        recRef.current?.abort();
+      } catch {}
+    },
+    [],
+  );
 
   return { supported, listening, interim, start, stop };
 }

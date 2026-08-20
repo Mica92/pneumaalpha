@@ -83,7 +83,9 @@ export const getTelegramLink = createServerFn({ method: "POST" })
       .select("chat_id, current_philosopher")
       .eq("user_id", userId)
       .maybeSingle();
-    return data ? { linked: true as const, philosopher: data.current_philosopher as string } : { linked: false as const };
+    return data
+      ? { linked: true as const, philosopher: data.current_philosopher as string }
+      : { linked: false as const };
   });
 
 /** Desvincula todos los chats de Telegram del usuario. */

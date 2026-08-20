@@ -75,8 +75,6 @@ export const T: Dict = {
   },
   "knowledge.card.cta": { es: "Explorar la red →", en: "Explore the network →" },
 
-
-
   "podcast.kicker": { es: "Podcast", en: "Podcast" },
   "podcast.card.title": {
     es: "Clásicos de la literatura en cinco minutos",
@@ -162,8 +160,6 @@ export const T: Dict = {
   "analysis.questions": { es: "Para seguir pensando", en: "To keep thinking" },
   "analysis.voices": { es: "Conversa sobre esto con", en: "Discuss this with" },
 
-
-
   "auth.title.signin": { es: "Bienvenido a PneumaA", en: "Welcome to PneumaA" },
   "auth.title.signup": { es: "Crea tu lugar en PneumaA", en: "Create your place in PneumaA" },
   "auth.sub.signin": {
@@ -199,7 +195,10 @@ export const T: Dict = {
     es: "¿Borrar la conversación con {name}?",
     en: "Clear the conversation with {name}?",
   },
-  "chat.cleared": { es: "La conversación ha sido borrada.", en: "The conversation has been cleared." },
+  "chat.cleared": {
+    es: "La conversación ha sido borrada.",
+    en: "The conversation has been cleared.",
+  },
   "chat.placeholder": { es: "Diga algo…", en: "Say something…" },
   "chat.send": { es: "Enviar", en: "Send" },
   "chat.newline": { es: "Shift + Enter para nueva línea", en: "Shift + Enter for a new line" },
@@ -287,10 +286,6 @@ export const T: Dict = {
     en: "⌘/Ctrl + Enter to send",
   },
 
-
-
-
-
   "chat.topics.aria": { es: "Tópicos sugeridos", en: "Suggested topics" },
   "chat.chips.label": { es: "Continuar la conversación", en: "Continue the conversation" },
   "chat.dilemma.kicker": { es: "Dilema de hoy", en: "Today's dilemma" },
@@ -333,7 +328,10 @@ export const T: Dict = {
   },
   "tools.guide.step": { es: "Paso {n}", en: "Step {n}" },
   "tools.guide.next": { es: "Siguiente paso", en: "Next step" },
-  "tools.guide.done": { es: "¡Listo! Terminaste el ejercicio.", en: "Done! You finished the exercise." },
+  "tools.guide.done": {
+    es: "¡Listo! Terminaste el ejercicio.",
+    en: "Done! You finished the exercise.",
+  },
 
   "oracle.kicker": { es: "Oráculo", en: "Oracle" },
   "oracle.card.title": {
@@ -408,7 +406,10 @@ export const T: Dict = {
   "report.signal.reflection": { es: "Reflexión", en: "Reflection" },
   "report.signal.lucidity": { es: "Lucidez", en: "Lucidity" },
   "report.signal.emotionalOpenness": { es: "Apertura emocional", en: "Emotional openness" },
-  "report.signal.intellectualCuriosity": { es: "Curiosidad intelectual", en: "Intellectual curiosity" },
+  "report.signal.intellectualCuriosity": {
+    es: "Curiosidad intelectual",
+    en: "Intellectual curiosity",
+  },
   "report.signal.discursiveDepth": { es: "Profundidad discursiva", en: "Discursive depth" },
   "report.writingStyle": { es: "Tu forma de escribir", en: "Your writing style" },
   "report.themes": { es: "Temas recurrentes", en: "Recurring themes" },
@@ -488,7 +489,10 @@ export const T: Dict = {
   "mesa.synthesis.kicker": { es: "Síntesis del moderador", en: "Moderator's synthesis" },
   "mesa.reset": { es: "Vaciar la mesa", en: "Clear the table" },
   "mesa.thinking": { es: "La mesa delibera…", en: "The table is deliberating…" },
-  "mesa.error": { es: "La mesa no pudo reunirse. Inténtalo otra vez.", en: "The table could not convene. Try again." },
+  "mesa.error": {
+    es: "La mesa no pudo reunirse. Inténtalo otra vez.",
+    en: "The table could not convene. Try again.",
+  },
   "mesa.roundLabel": { es: "Ronda {n}", en: "Round {n}" },
   "mesa.back": { es: "Volver", en: "Back" },
 
@@ -511,7 +515,10 @@ export const T: Dict = {
   "socrates.summary": { es: "Cerrar y resumir", en: "Close and summarise" },
   "socrates.summary.kicker": { es: "A dónde llegaste", en: "Where you arrived" },
   "socrates.restart": { es: "Empezar de nuevo", en: "Start again" },
-  "socrates.error": { es: "No se pudo continuar. Inténtalo otra vez.", en: "Could not continue. Try again." },
+  "socrates.error": {
+    es: "No se pudo continuar. Inténtalo otra vez.",
+    en: "Could not continue. Try again.",
+  },
 
   // ── Biblioteca de Ideas ──────────────────────────────────────────
   "library.kicker": { es: "Biblioteca de Ideas", en: "Library of Ideas" },
@@ -553,9 +560,18 @@ export const T: Dict = {
   "news.google": { es: "Continuar con Google", en: "Continue with Google" },
   "news.googleSub": { es: "Suscribirme con Google", en: "Subscribe with Google" },
   "news.submitting": { es: "Enviando…", en: "Sending…" },
-  "news.done": { es: "Listo. Nos leemos el próximo domingo.", en: "Done. We'll write next Sunday." },
-  "news.already": { es: "Ese correo ya estaba en la lista.", en: "That address was already on the list." },
-  "news.error": { es: "No pudimos registrar ese correo.", en: "We couldn't register that address." },
+  "news.done": {
+    es: "Listo. Nos leemos el próximo domingo.",
+    en: "Done. We'll write next Sunday.",
+  },
+  "news.already": {
+    es: "Ese correo ya estaba en la lista.",
+    en: "That address was already on the list.",
+  },
+  "news.error": {
+    es: "No pudimos registrar ese correo.",
+    en: "We couldn't register that address.",
+  },
   "news.privacy": {
     es: "Guardamos el correo de tu cuenta de Google y, si lo entregas, tu número para el grupo de WhatsApp. Puedes pedir la baja cuando quieras.",
     en: "We store your Google account email and, if you provide it, your number for the WhatsApp group. You can unsubscribe whenever you like.",
@@ -622,8 +638,6 @@ export const T: Dict = {
     es: "No se pudo generar el código.",
     en: "Could not generate the code.",
   },
-
-
 };
 
 type Ctx = {

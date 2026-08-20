@@ -22,7 +22,9 @@ function NotFoundComponent() {
     <div className="relative z-10 flex min-h-screen items-center justify-center px-4">
       <div className="max-w-md text-center">
         <GreekGlyph className="font-display text-7xl text-mist pneuma-breathe" />
-        <h1 className="mt-8 font-display text-2xl font-light text-foreground">Silence — this path leads nowhere</h1>
+        <h1 className="mt-8 font-display text-2xl font-light text-foreground">
+          Silence — this path leads nowhere
+        </h1>
         <p className="mt-3 text-sm text-muted-foreground">El camino se interrumpe en la niebla.</p>
         <Link
           to="/"
@@ -41,15 +43,19 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   return (
     <div className="relative z-10 flex min-h-screen items-center justify-center px-4">
       <div className="max-w-md text-center">
-        <h1 className="font-display text-xl font-light text-foreground">The thought has been interrupted</h1>
+        <h1 className="font-display text-xl font-light text-foreground">
+          The thought has been interrupted
+        </h1>
         <p className="mt-3 text-sm text-muted-foreground">{error.message}</p>
         <button
-          onClick={() => { router.invalidate(); reset(); }}
+          onClick={() => {
+            router.invalidate();
+            reset();
+          }}
           className="mt-8 inline-flex items-center justify-center rounded-md border border-mist/40 bg-mist/95 px-6 py-2.5 text-xs uppercase tracking-[0.25em] text-primary-foreground transition-opacity hover:opacity-90"
         >
           Resume
         </button>
-
       </div>
     </div>
   );
@@ -61,16 +67,42 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "PneumaA — conversaciones con conciencias filosóficas reconstruidas" },
-      { name: "description", content: "PneumaA: conversa libremente, en español o en inglés, con conciencias filosóficas reconstruidas — Heidegger, Schopenhauer, James, Nietzsche, Marx." },
-      { property: "og:title", content: "PneumaA — conversaciones con conciencias filosóficas reconstruidas" },
-      { property: "og:description", content: "PneumaA: conversa libremente, en español o en inglés, con conciencias filosóficas reconstruidas — Heidegger, Schopenhauer, James, Nietzsche, Marx." },
+      {
+        name: "description",
+        content:
+          "PneumaA: conversa libremente, en español o en inglés, con conciencias filosóficas reconstruidas — Heidegger, Schopenhauer, James, Nietzsche, Marx.",
+      },
+      {
+        property: "og:title",
+        content: "PneumaA — conversaciones con conciencias filosóficas reconstruidas",
+      },
+      {
+        property: "og:description",
+        content:
+          "PneumaA: conversa libremente, en español o en inglés, con conciencias filosóficas reconstruidas — Heidegger, Schopenhauer, James, Nietzsche, Marx.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
 
-      { name: "twitter:title", content: "PneumaA — conversaciones con conciencias filosóficas reconstruidas" },
-      { name: "twitter:description", content: "PneumaA: conversa libremente, en español o en inglés, con conciencias filosóficas reconstruidas — Heidegger, Schopenhauer, James, Nietzsche, Marx." },
-      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/6a615d32-8995-4ede-85b3-608b382a2e18" },
-      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/6a615d32-8995-4ede-85b3-608b382a2e18" },
+      {
+        name: "twitter:title",
+        content: "PneumaA — conversaciones con conciencias filosóficas reconstruidas",
+      },
+      {
+        name: "twitter:description",
+        content:
+          "PneumaA: conversa libremente, en español o en inglés, con conciencias filosóficas reconstruidas — Heidegger, Schopenhauer, James, Nietzsche, Marx.",
+      },
+      {
+        property: "og:image",
+        content:
+          "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/6a615d32-8995-4ede-85b3-608b382a2e18",
+      },
+      {
+        name: "twitter:image",
+        content:
+          "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/6a615d32-8995-4ede-85b3-608b382a2e18",
+      },
       { name: "theme-color", content: "#0b0f12" },
       { name: "apple-mobile-web-app-capable", content: "yes" },
       { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
@@ -80,7 +112,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "stylesheet", href: appCss },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Sora:wght@200;300;400;500;600&family=Manrope:wght@300;400;500;600&display=swap" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Sora:wght@200;300;400;500;600&family=Manrope:wght@300;400;500;600&display=swap",
+      },
       { rel: "manifest", href: "/manifest.webmanifest" },
       { rel: "icon", type: "image/png", href: "/favicon.png" },
       { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
@@ -112,7 +147,9 @@ function RootComponent() {
   const router = useRouter();
 
   useEffect(() => {
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(() => {
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange(() => {
       router.invalidate();
       queryClient.invalidateQueries();
     });
@@ -130,6 +167,5 @@ function RootComponent() {
         </AuthProvider>
       </I18nProvider>
     </QueryClientProvider>
-
   );
 }

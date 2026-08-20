@@ -5,7 +5,27 @@ import { createLovableAiGatewayProvider } from "@/lib/ai-gateway";
 import { buildSystemPrompt, isPhilosopherId, type PhilosopherId } from "@/lib/philosophers";
 import { z } from "zod";
 
-const PhilosopherSchema = z.enum(["heidegger", "schopenhauer", "james", "nietzsche", "marx", "bentham", "pohlenz", "rationalism", "pascal", "kierkegaard", "yannaras", "levinas", "maimonides", "aquinas", "eckhart", "kant", "hegel", "spengler", "junger"]);
+const PhilosopherSchema = z.enum([
+  "heidegger",
+  "schopenhauer",
+  "james",
+  "nietzsche",
+  "marx",
+  "bentham",
+  "pohlenz",
+  "rationalism",
+  "pascal",
+  "kierkegaard",
+  "yannaras",
+  "levinas",
+  "maimonides",
+  "aquinas",
+  "eckhart",
+  "kant",
+  "hegel",
+  "spengler",
+  "junger",
+]);
 const LanguageSchema = z.enum(["es", "en"]).default("es");
 
 const LoadSchema = z.object({ philosopher: PhilosopherSchema });
@@ -20,8 +40,6 @@ const MigrateSchema = z.object({
   to: PhilosopherSchema,
   mode: z.enum(["full", "questions"]).default("full"),
 });
-
-
 
 export const loadMessages = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
@@ -138,9 +156,7 @@ export const sendChat = createServerFn({ method: "POST" })
             if (relevant.length > 0) {
               ragContext =
                 "\n\n[FUENTES INDEXADAS — cita textualmente cuando corresponda, indicando la referencia entre paréntesis]\n" +
-                relevant
-                  .map((r) => `• (${r.reference}) «${r.content}»`)
-                  .join("\n");
+                relevant.map((r) => `• (${r.reference}) «${r.content}»`).join("\n");
             }
           }
         }
@@ -214,9 +230,7 @@ export const migrateConversation = createServerFn({ method: "POST" })
     if (error) throw error;
 
     const source = rows ?? [];
-    const filtered = data.mode === "questions"
-      ? source.filter((r) => r.role === "user")
-      : source;
+    const filtered = data.mode === "questions" ? source.filter((r) => r.role === "user") : source;
     if (filtered.length === 0) return { ok: true, copied: 0 };
 
     const payload = filtered.map((r) => ({
@@ -230,4 +244,3 @@ export const migrateConversation = createServerFn({ method: "POST" })
     if (insertError) throw insertError;
     return { ok: true, copied: payload.length };
   });
-
