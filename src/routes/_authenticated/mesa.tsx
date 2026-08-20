@@ -170,7 +170,9 @@ function RoundTablePage() {
                         : "border-border/70 text-muted-foreground hover:border-glacier/40 hover:text-foreground"
                     }`}
                   >
-                    <span aria-hidden="true" className="mr-1.5">{p.glyph}</span>
+                    <span aria-hidden="true" className="mr-1.5">
+                      {p.glyph}
+                    </span>
                     {p.name}
                   </button>
                 </li>
@@ -231,7 +233,10 @@ function RoundTablePage() {
 
         {busy && (
           <div className="fade-up flex items-center gap-3">
-            <GreekGlyph className="font-display text-lg text-glacier-bright pneuma-breathe" intervalMs={280} />
+            <GreekGlyph
+              className="font-display text-lg text-glacier-bright pneuma-breathe"
+              intervalMs={280}
+            />
             <span className="text-[11px] uppercase tracking-[0.3em] glacier-shimmer">
               {t("mesa.thinking")}
             </span>

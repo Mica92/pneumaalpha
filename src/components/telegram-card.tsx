@@ -21,7 +21,6 @@ export function TelegramCard({ className = "" }: { className?: string }) {
   const [qrDataUrl, setQrDataUrl] = useState<string | null>(null);
   const [qrVisible, setQrVisible] = useState(false);
 
-
   const fetchLink = useServerFn(getTelegramLink);
   const createCode = useServerFn(createTelegramLinkCode);
   const unlink = useServerFn(unlinkTelegram);
@@ -42,7 +41,6 @@ export function TelegramCard({ className = "" }: { className?: string }) {
     },
   });
 
-
   const unlinkMutation = useMutation({
     mutationFn: () => unlink(),
     onSuccess: () => {
@@ -53,7 +51,6 @@ export function TelegramCard({ className = "" }: { className?: string }) {
       queryClient.invalidateQueries({ queryKey: ["telegram-link"] });
     },
   });
-
 
   useEffect(() => {
     if (!deepLink || !qrVisible) {
@@ -69,31 +66,26 @@ export function TelegramCard({ className = "" }: { className?: string }) {
     }).then((url) => {
       if (!cancelled) setQrDataUrl(url);
     });
-    return () => { cancelled = true; };
+    return () => {
+      cancelled = true;
+    };
   }, [deepLink, qrVisible]);
-
 
   if (!user) return null;
 
   const linked = linkQuery.data?.linked === true;
 
   return (
-    <aside
-      className={`rounded-lg border border-border/60 bg-card/40 px-5 py-4 ${className}`}
-    >
+    <aside className={`rounded-lg border border-border/60 bg-card/40 px-5 py-4 ${className}`}>
       <p className="font-display text-[10px] uppercase tracking-[0.3em] text-foreground">
         {t("telegram.title")}
       </p>
 
-      <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
-        {t("telegram.what")}
-      </p>
+      <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{t("telegram.what")}</p>
 
       {linked ? (
         <div className="mt-4 space-y-3">
-          <p className="text-xs leading-relaxed text-foreground/90">
-            {t("telegram.linked")}
-          </p>
+          <p className="text-xs leading-relaxed text-foreground/90">{t("telegram.linked")}</p>
           <button
             type="button"
             onClick={() => unlinkMutation.mutate()}
@@ -160,7 +152,6 @@ export function TelegramCard({ className = "" }: { className?: string }) {
               )}
             </div>
           ) : (
-
             <button
               type="button"
               onClick={() => codeMutation.mutate()}

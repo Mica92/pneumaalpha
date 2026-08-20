@@ -41,7 +41,9 @@ const INFLUENCE_KEYS = [
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <section className="mt-8 border-t border-border/60 pt-6">
-      <p className="font-display text-[10px] uppercase tracking-[0.3em] text-glacier-bright">{title}</p>
+      <p className="font-display text-[10px] uppercase tracking-[0.3em] text-glacier-bright">
+        {title}
+      </p>
       <div className="mt-3">{children}</div>
     </section>
   );
@@ -51,7 +53,9 @@ function InfluenceGroup({ label, items }: { label: string; items: InfluenceItem[
   if (items.length === 0) return null;
   return (
     <div className="rounded-lg border border-border/70 bg-background/30 p-4">
-      <p className="font-display text-[10px] uppercase tracking-[0.25em] text-muted-foreground">{label}</p>
+      <p className="font-display text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
+        {label}
+      </p>
       <ul className="mt-2 space-y-2">
         {items.map((i, k) => (
           <li key={`${i.name}-${k}`} className="text-sm leading-relaxed text-foreground/85">
@@ -229,7 +233,10 @@ function AnalysisPage() {
               <div className="grid gap-3 md:grid-cols-2">
                 {(["precursors", "heirs"] as const).map((k) =>
                   result.lineage[k].length > 0 ? (
-                    <div key={k} className="rounded-lg border border-border/70 bg-background/30 p-4">
+                    <div
+                      key={k}
+                      className="rounded-lg border border-border/70 bg-background/30 p-4"
+                    >
                       <p className="font-display text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
                         {t(k === "precursors" ? "analysis.precursors" : "analysis.heirs")}
                       </p>

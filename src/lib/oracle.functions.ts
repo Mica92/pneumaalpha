@@ -36,12 +36,14 @@ export const matchPhilosopher = createServerFn({ method: "POST" })
     const catalog = buildCatalog(lang);
     const ids = Object.keys(PHILOSOPHERS).join(", ");
 
-    const system = lang === "es"
-      ? `Eres un curador silencioso de PneumaA. Tu tarea: leer la inquietud, pregunta o frase del usuario y elegir, de un catálogo cerrado de mentes filosóficas y científicas, la ÚNICA voz mejor preparada para responderle con profundidad. Considera el tema, el tono emocional, la naturaleza de la pregunta (existencial, ética, racional, política, científica, estética, espiritual) y el temperamento de cada pensador. No expliques la app. No saludes. Responde SIEMPRE en JSON estricto.`
-      : `You are a silent curator at PneumaA. Your task: read the user's concern, question, or phrase and choose, from a closed catalog of philosophical and scientific minds, the SINGLE voice best prepared to answer with depth. Consider topic, emotional tone, nature of the question (existential, ethical, rational, political, scientific, aesthetic, spiritual) and each thinker's temperament. Do not explain the app. Do not greet. ALWAYS reply in strict JSON.`;
+    const system =
+      lang === "es"
+        ? `Eres un curador silencioso de PneumaA. Tu tarea: leer la inquietud, pregunta o frase del usuario y elegir, de un catálogo cerrado de mentes filosóficas y científicas, la ÚNICA voz mejor preparada para responderle con profundidad. Considera el tema, el tono emocional, la naturaleza de la pregunta (existencial, ética, racional, política, científica, estética, espiritual) y el temperamento de cada pensador. No expliques la app. No saludes. Responde SIEMPRE en JSON estricto.`
+        : `You are a silent curator at PneumaA. Your task: read the user's concern, question, or phrase and choose, from a closed catalog of philosophical and scientific minds, the SINGLE voice best prepared to answer with depth. Consider topic, emotional tone, nature of the question (existential, ethical, rational, political, scientific, aesthetic, spiritual) and each thinker's temperament. Do not explain the app. Do not greet. ALWAYS reply in strict JSON.`;
 
-    const prompt = lang === "es"
-      ? `Catálogo de voces disponibles (id | nombre — descripción):
+    const prompt =
+      lang === "es"
+        ? `Catálogo de voces disponibles (id | nombre — descripción):
 ${catalog}
 
 Inquietud del usuario:
@@ -51,7 +53,7 @@ ${data.inquiry}
 
 Devuelve EXCLUSIVAMENTE un JSON con esta forma exacta, sin texto adicional, sin markdown, sin backticks:
 {"philosopher":"<uno de: ${ids}>","reason":"<2 a 3 frases en español, en segunda persona ('te conviene…'), explicando con calidez por qué esta voz es la indicada para esta inquietud. Sobrio, sin clichés. Sin nombrar a otros pensadores del catálogo.>"}`
-      : `Catalog of available voices (id | name — description):
+        : `Catalog of available voices (id | name — description):
 ${catalog}
 
 User's concern:
@@ -79,19 +81,22 @@ Return ONLY a JSON object with this exact shape, no extra text, no markdown, no 
     } catch {
       const match = text.match(/\{[\s\S]*\}/);
       if (match) {
-        try { parsed = JSON.parse(match[0]); } catch { /* ignore */ }
+        try {
+          parsed = JSON.parse(match[0]);
+        } catch {
+          /* ignore */
+        }
       }
     }
 
-    const id = parsed?.philosopher && isPhilosopherId(parsed.philosopher)
-      ? parsed.philosopher
-      : "james"; // James as gentle fallback for general inquiries
+    const id =
+      parsed?.philosopher && isPhilosopherId(parsed.philosopher) ? parsed.philosopher : "james"; // James as gentle fallback for general inquiries
 
-    const reason = (parsed?.reason ?? "").toString().trim() || (
-      lang === "es"
+    const reason =
+      (parsed?.reason ?? "").toString().trim() ||
+      (lang === "es"
         ? "Esta voz, por su temperamento y sus obsesiones, es la que mejor puede acompañarte ahora mismo."
-        : "This voice, by temperament and lifelong concerns, is the one best suited to sit with you right now."
-    );
+        : "This voice, by temperament and lifelong concerns, is the one best suited to sit with you right now.");
 
     return { philosopher: id, reason };
   });

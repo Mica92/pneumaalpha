@@ -1,0 +1,2 @@
+CREATE INDEX IF NOT EXISTS idx_user_memory_user_philosopher_created ON public.user_memory (user_id, philosopher, created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_messages_user_philosopher_created ON public.messages (user_id, philosopher, created_at DESC);

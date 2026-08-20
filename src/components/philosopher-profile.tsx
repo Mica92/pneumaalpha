@@ -39,7 +39,9 @@ export function PhilosopherProfilePanel({ philosopher, open, onClose }: Props) {
             />
           ) : (
             <div className="flex h-40 w-full items-center justify-center">
-              <span className="font-display text-6xl text-mist" aria-hidden="true">{meta.glyph}</span>
+              <span className="font-display text-6xl text-mist" aria-hidden="true">
+                {meta.glyph}
+              </span>
             </div>
           )}
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-card via-card/30 to-transparent" />

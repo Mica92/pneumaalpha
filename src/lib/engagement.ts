@@ -5,13 +5,7 @@
 
 import type { Language } from "@/lib/i18n";
 
-export type TopicId =
-  | "work"
-  | "love"
-  | "fear"
-  | "purpose"
-  | "adventure"
-  | "growth";
+export type TopicId = "work" | "love" | "fear" | "purpose" | "adventure" | "growth";
 
 export type Topic = {
   id: TopicId;
@@ -189,9 +183,18 @@ const DILEMMAS: { es: string; en: string }[] = [
   { es: "¿Hago lo que debo o lo que deseo?", en: "Do I do what I must, or what I desire?" },
   { es: "¿Perdono o me alejo?", en: "Do I forgive, or do I walk away?" },
   { es: "¿Estoy creciendo o sólo ocupado?", en: "Am I growing, or just busy?" },
-  { es: "¿El éxito me hace feliz o sólo me distrae?", en: "Does success make me happy, or only distract me?" },
-  { es: "¿Hablo por convicción o por miedo al silencio?", en: "Do I speak from conviction, or from fear of silence?" },
-  { es: "¿Estoy eligiendo mi vida, o sólo reaccionando?", en: "Am I choosing my life, or only reacting?" },
+  {
+    es: "¿El éxito me hace feliz o sólo me distrae?",
+    en: "Does success make me happy, or only distract me?",
+  },
+  {
+    es: "¿Hablo por convicción o por miedo al silencio?",
+    en: "Do I speak from conviction, or from fear of silence?",
+  },
+  {
+    es: "¿Estoy eligiendo mi vida, o sólo reaccionando?",
+    en: "Am I choosing my life, or only reacting?",
+  },
   { es: "¿Qué parte de mí estoy postergando?", en: "What part of myself am I postponing?" },
 ];
 

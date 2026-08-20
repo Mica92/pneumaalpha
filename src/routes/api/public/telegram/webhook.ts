@@ -98,7 +98,9 @@ async function handleLinkCommand(
     .update({ used_at: new Date().toISOString() })
     .eq("id", row.id as string);
 
-  return "Cuenta vinculada. Tus conversaciones aquí quedan guardadas junto a las de la web.\n\n" + HELP;
+  return (
+    "Cuenta vinculada. Tus conversaciones aquí quedan guardadas junto a las de la web.\n\n" + HELP
+  );
 }
 
 async function pickPhilosopher(prompt: string, apiKey: string): Promise<PhilosopherId> {
@@ -111,7 +113,10 @@ async function pickPhilosopher(prompt: string, apiKey: string): Promise<Philosop
       ids,
     prompt,
   });
-  const clean = text.trim().toLowerCase().replace(/[^a-z]/g, "");
+  const clean = text
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z]/g, "");
   return isPhilosopherId(clean) ? clean : "heidegger";
 }
 
@@ -313,7 +318,10 @@ export const Route = createFileRoute("/api/public/telegram/webhook")({
           if (text.startsWith("/oraculo") || text.startsWith("/oráculo")) {
             body = text.replace(/^\/or[aá]culo/, "").trim();
             if (!body) {
-              await sendTelegramMessage(chatId, "Escribe: /oraculo seguido de tu pregunta o frase.");
+              await sendTelegramMessage(
+                chatId,
+                "Escribe: /oraculo seguido de tu pregunta o frase.",
+              );
               return Response.json({ ok: true });
             }
             await sendTelegramChatAction(chatId);
@@ -330,7 +338,13 @@ export const Route = createFileRoute("/api/public/telegram/webhook")({
           if (!link && !FREE_PHILOSOPHERS.includes(philosopher)) philosopher = "heidegger";
 
           await sendTelegramChatAction(chatId);
-          const reply = await answerAs(admin, philosopher, link?.user_id ?? null, body, lovableApiKey);
+          const reply = await answerAs(
+            admin,
+            philosopher,
+            link?.user_id ?? null,
+            body,
+            lovableApiKey,
+          );
           await sendTelegramMessage(chatId, `${PHILOSOPHERS[philosopher].glyph} ${reply}`);
 
           if (!link) {

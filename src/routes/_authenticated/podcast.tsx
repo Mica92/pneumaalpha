@@ -21,7 +21,8 @@ export const Route = createFileRoute("/_authenticated/podcast")({
       { property: "og:title", content: "PneumaA — Podcast filosófico" },
       {
         property: "og:description",
-        content: "Diez clásicos, cinco minutos cada uno, leídos como pensamiento y no como resumen escolar.",
+        content:
+          "Diez clásicos, cinco minutos cada uno, leídos como pensamiento y no como resumen escolar.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -31,7 +32,10 @@ export const Route = createFileRoute("/_authenticated/podcast")({
 
 /** Split the script into TTS-sized chunks at paragraph/sentence boundaries. */
 function chunkScript(text: string, maxChars = 900): string[] {
-  const paragraphs = text.split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean);
+  const paragraphs = text
+    .split(/\n\s*\n/)
+    .map((p) => p.trim())
+    .filter(Boolean);
   const chunks: string[] = [];
   let current = "";
   const push = () => {
@@ -102,7 +106,13 @@ function PodcastPage() {
     setBuffering(false);
   }, []);
 
-  useEffect(() => () => { stop(); revokeAll(); }, [stop, revokeAll]);
+  useEffect(
+    () => () => {
+      stop();
+      revokeAll();
+    },
+    [stop, revokeAll],
+  );
 
   const fetchChunk = useCallback(
     async (i: number): Promise<string | null> => {
@@ -198,7 +208,10 @@ function PodcastPage() {
     void playFrom(indexRef.current);
   }
 
-  const minutes = Math.max(1, Math.round(((episode?.script.split(/\s+/).length ?? 0) / 150) * 10) / 10);
+  const minutes = Math.max(
+    1,
+    Math.round(((episode?.script.split(/\s+/).length ?? 0) / 150) * 10) / 10,
+  );
 
   return (
     <main className="route-enter relative z-10 mx-auto flex min-h-dvh max-w-5xl flex-col px-6 py-10 md:px-10 md:py-14">
@@ -306,7 +319,11 @@ function PodcastPage() {
               <div className="mt-4 h-px w-full bg-border/60">
                 <div
                   className="h-px bg-sage transition-all duration-500"
-                  style={{ width: chunkTotal ? `${((chunkIndex + (playing ? 1 : 0)) / chunkTotal) * 100}%` : "0%" }}
+                  style={{
+                    width: chunkTotal
+                      ? `${((chunkIndex + (playing ? 1 : 0)) / chunkTotal) * 100}%`
+                      : "0%",
+                  }}
                 />
               </div>
 
@@ -336,8 +353,14 @@ function PodcastPage() {
                           params={{ philosopher: id }}
                           className="rounded-full border border-border/70 px-3 py-1 text-xs text-foreground/85 transition-colors hover:border-mist/60 hover:text-foreground"
                         >
-                          {(PHILOSOPHERS as Record<string, { glyph: string; name: string }>)[id].glyph}{" "}
-                          {(PHILOSOPHERS as Record<string, { glyph: string; name: string }>)[id].name}
+                          {
+                            (PHILOSOPHERS as Record<string, { glyph: string; name: string }>)[id]
+                              .glyph
+                          }{" "}
+                          {
+                            (PHILOSOPHERS as Record<string, { glyph: string; name: string }>)[id]
+                              .name
+                          }
                         </Link>
                       ))}
                   </div>
@@ -385,13 +408,19 @@ function PodcastPage() {
               <div>
                 <div className="flex items-baseline justify-between">
                   <span className="font-display text-lg text-mist">{b.glyph}</span>
-                  <span className="font-mono text-[10px] tracking-widest text-muted-foreground/70">{b.year}</span>
+                  <span className="font-mono text-[10px] tracking-widest text-muted-foreground/70">
+                    {b.year}
+                  </span>
                 </div>
                 <h3 className="mt-3 font-display text-lg font-light leading-tight text-foreground">
                   {b.title[lang]}
                 </h3>
-                <p className="mt-1 text-[11px] uppercase tracking-[0.2em] text-muted-foreground">{b.author}</p>
-                <p className="mt-3 text-xs leading-relaxed text-muted-foreground">{b.blurb[lang]}</p>
+                <p className="mt-1 text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
+                  {b.author}
+                </p>
+                <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
+                  {b.blurb[lang]}
+                </p>
               </div>
               <div className="mt-4 flex flex-wrap gap-1.5">
                 {b.themes.map((th) => (

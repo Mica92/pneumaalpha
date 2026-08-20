@@ -54,7 +54,10 @@ function asItems(raw: unknown): InfluenceItem[] {
 
 function asStrings(raw: unknown): string[] {
   if (!Array.isArray(raw)) return [];
-  return raw.map((r) => String(r ?? "").trim()).filter(Boolean).slice(0, 8);
+  return raw
+    .map((r) => String(r ?? "").trim())
+    .filter(Boolean)
+    .slice(0, 8);
 }
 
 export const analyzeText = createServerFn({ method: "POST" })

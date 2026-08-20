@@ -42,7 +42,7 @@ function KnowledgePage() {
   const [query, setQuery] = useState("");
   const [kinds, setKinds] = useState<Set<NodeKind>>(new Set(KINDS));
 
-  const node = selected ? NODE_BY_ID.get(selected) ?? null : null;
+  const node = selected ? (NODE_BY_ID.get(selected) ?? null) : null;
   const links = useMemo(() => (selected ? neighborsOf(selected) : []), [selected]);
 
   const toggleKind = (k: NodeKind) => {
@@ -107,7 +107,9 @@ function KnowledgePage() {
                     : "border-border bg-transparent text-muted-foreground hover:text-foreground"
                 }`}
               >
-                <span className={`h-1.5 w-1.5 rounded-full ${KIND_DOT[k]} ${on ? "" : "opacity-40"}`} />
+                <span
+                  className={`h-1.5 w-1.5 rounded-full ${KIND_DOT[k]} ${on ? "" : "opacity-40"}`}
+                />
                 {KIND_LABEL[k][lang]}
               </button>
             );
@@ -116,7 +118,12 @@ function KnowledgePage() {
       </div>
 
       <div className="grid gap-3 lg:grid-cols-[1fr_320px]">
-        <KnowledgeMap selected={selected} onSelect={setSelected} activeKinds={kinds} query={query} />
+        <KnowledgeMap
+          selected={selected}
+          onSelect={setSelected}
+          activeKinds={kinds}
+          query={query}
+        />
 
         {/* Detail panel */}
         <aside className="flex max-h-[70vh] flex-col overflow-hidden rounded-xl border border-border bg-card/50 backdrop-blur-sm">
@@ -129,7 +136,9 @@ function KnowledgePage() {
               <h2 className="mt-2 font-display text-xl font-light leading-tight text-foreground">
                 {node.label}
               </h2>
-              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{node.note[lang]}</p>
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                {node.note[lang]}
+              </p>
 
               {node.chat && (
                 <Link
@@ -158,7 +167,9 @@ function KnowledgePage() {
                           : `← ${LINK_LABEL[l.kind][lang]}`}
                       </span>
                       <span className="flex items-center gap-2 text-sm text-foreground/85 group-hover:text-foreground">
-                        <span className={`h-1.5 w-1.5 shrink-0 rounded-full ${KIND_DOT[l.node.kind]}`} />
+                        <span
+                          className={`h-1.5 w-1.5 shrink-0 rounded-full ${KIND_DOT[l.node.kind]}`}
+                        />
                         {l.node.label}
                       </span>
                     </button>
@@ -171,7 +182,9 @@ function KnowledgePage() {
               <p className="font-display text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
                 {t("knowledge.empty.kicker")}
               </p>
-              <p className="text-sm leading-relaxed text-muted-foreground">{t("knowledge.empty.body")}</p>
+              <p className="text-sm leading-relaxed text-muted-foreground">
+                {t("knowledge.empty.body")}
+              </p>
               <p className="mt-2 font-mono text-[11px] text-muted-foreground/70">
                 {GRAPH_NODES.length} {t("knowledge.nodes")}
               </p>
@@ -180,7 +193,9 @@ function KnowledgePage() {
         </aside>
       </div>
 
-      <p className="mt-3 text-[11px] leading-relaxed text-muted-foreground/70">{t("knowledge.legend")}</p>
+      <p className="mt-3 text-[11px] leading-relaxed text-muted-foreground/70">
+        {t("knowledge.legend")}
+      </p>
 
       <footer className="mt-14 flex flex-wrap items-center justify-between gap-3 border-t border-border/60 pt-6 text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
         <span>PneumaA · {new Date().getFullYear()}</span>

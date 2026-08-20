@@ -49,14 +49,11 @@ export const retrieveSources = createServerFn({ method: "POST" })
   .handler(async ({ data, context }) => {
     try {
       const embedding = await embed(data.query);
-      const { data: rows, error } = await context.supabase.rpc(
-        "match_philosopher_sources",
-        {
-          query_embedding: toVectorLiteral(embedding),
-          target_philosopher: data.philosopher,
-          match_count: data.matchCount,
-        },
-      );
+      const { data: rows, error } = await context.supabase.rpc("match_philosopher_sources", {
+        query_embedding: toVectorLiteral(embedding),
+        target_philosopher: data.philosopher,
+        match_count: data.matchCount,
+      });
       if (error) {
         console.error("[retrieveSources] rpc error", error);
         return [];

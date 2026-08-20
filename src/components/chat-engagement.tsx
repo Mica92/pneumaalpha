@@ -124,9 +124,7 @@ export function DilemmaBanner({
             <p className="font-display text-[9px] uppercase tracking-[0.32em] text-muted-foreground">
               {t("chat.dilemma.kicker")}
             </p>
-            <p className="mt-0.5 truncate text-[13px] leading-snug text-foreground/90">
-              {dilemma}
-            </p>
+            <p className="mt-0.5 truncate text-[13px] leading-snug text-foreground/90">{dilemma}</p>
           </div>
           <button
             onClick={onConverse}
@@ -141,7 +139,16 @@ export function DilemmaBanner({
             title={t("chat.dilemma.close")}
             className="shrink-0 rounded-full p-1 text-muted-foreground transition-colors hover:text-foreground"
           >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
               <line x1="6" y1="6" x2="18" y2="18" />
               <line x1="18" y1="6" x2="6" y2="18" />
             </svg>
@@ -188,13 +195,7 @@ export function ContinuationChips({
 
 /* ----------------------- Root questions FAB + sheet ----------------------- */
 
-export function RootQuestionsFab({
-  onPick,
-  disabled,
-}: {
-  onPick: SendFn;
-  disabled?: boolean;
-}) {
+export function RootQuestionsFab({ onPick, disabled }: { onPick: SendFn; disabled?: boolean }) {
   const { lang, t } = useI18n();
   const [open, setOpen] = useState(false);
 

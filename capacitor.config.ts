@@ -1,11 +1,11 @@
-import type { CapacitorConfig } from '@capacitor/cli';
+import type { CapacitorConfig } from "@capacitor/cli";
 
 const config: CapacitorConfig = {
-  appId: 'app.pneuma.alpha',
-  appName: 'Pneuma Alpha',
-  webDir: 'dist/client',
+  appId: "app.pneuma.alpha",
+  appName: "Pneuma Alpha",
+  webDir: "dist/client",
   server: {
-    androidScheme: 'https',
+    androidScheme: "https",
   },
   android: {
     allowMixedContent: false,

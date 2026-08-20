@@ -70,18 +70,30 @@ export const generateReport = createServerFn({ method: "POST" })
       return {
         generatedAt: new Date().toISOString(),
         messagesAnalyzed: messages.length,
-        scores: { reflection: 0, lucidity: 0, emotionalOpenness: 0, intellectualCuriosity: 0, discursiveDepth: 0 },
+        scores: {
+          reflection: 0,
+          lucidity: 0,
+          emotionalOpenness: 0,
+          intellectualCuriosity: 0,
+          discursiveDepth: 0,
+        },
         archetype: lang === "es" ? "Aún en silencio" : "Still in silence",
-        summary: lang === "es"
-          ? "Todavía no hay suficientes conversaciones para leerte con honestidad. Conversa un poco más con cualquiera de las voces y vuelve cuando hayas dejado algunas huellas."
-          : "There aren't enough conversations yet to read you honestly. Talk a little more with any of the voices and come back once you've left some traces.",
+        summary:
+          lang === "es"
+            ? "Todavía no hay suficientes conversaciones para leerte con honestidad. Conversa un poco más con cualquiera de las voces y vuelve cuando hayas dejado algunas huellas."
+            : "There aren't enough conversations yet to read you honestly. Talk a little more with any of the voices and come back once you've left some traces.",
         writingStyle: "",
         recurringThemes: [],
         shadows: [],
         strengths: [],
         recommendations: {
-          topics: [], authors: [], books: [], ideas: [], practices: [],
-          nextPhilosopher: null, nextPhilosopherReason: "",
+          topics: [],
+          authors: [],
+          books: [],
+          ideas: [],
+          practices: [],
+          nextPhilosopher: null,
+          nextPhilosopherReason: "",
         },
       };
     }
@@ -99,12 +111,14 @@ export const generateReport = createServerFn({ method: "POST" })
     const catalog = buildCatalog(lang);
     const ids = Object.keys(PHILOSOPHERS).join(", ");
 
-    const system = lang === "es"
-      ? `Eres un lector psicológico-filosófico de PneumaA. Te entrego transcripciones de lo que un usuario ha escrito a distintos pensadores. Tu tarea: trazar un retrato honesto, cálido pero no complaciente, que ayude a la persona a conocerse y crecer. No diagnosticas patologías. No usas jerga clínica. Hablas en segunda persona ("tú"/"te"). Sé concreto: cita patrones que se ven en su escritura, no generalidades. Responde SIEMPRE en JSON estricto.`
-      : `You are a psychological-philosophical reader for PneumaA. You receive transcripts of what a user wrote to several thinkers. Your task: draw an honest, warm but non-flattering portrait that helps the person know themselves and grow. Do not diagnose pathologies. Avoid clinical jargon. Speak in second person ("you"). Be concrete: name patterns visible in their writing, not generalities. ALWAYS reply in strict JSON.`;
+    const system =
+      lang === "es"
+        ? `Eres un lector psicológico-filosófico de PneumaA. Te entrego transcripciones de lo que un usuario ha escrito a distintos pensadores. Tu tarea: trazar un retrato honesto, cálido pero no complaciente, que ayude a la persona a conocerse y crecer. No diagnosticas patologías. No usas jerga clínica. Hablas en segunda persona ("tú"/"te"). Sé concreto: cita patrones que se ven en su escritura, no generalidades. Responde SIEMPRE en JSON estricto.`
+        : `You are a psychological-philosophical reader for PneumaA. You receive transcripts of what a user wrote to several thinkers. Your task: draw an honest, warm but non-flattering portrait that helps the person know themselves and grow. Do not diagnose pathologies. Avoid clinical jargon. Speak in second person ("you"). Be concrete: name patterns visible in their writing, not generalities. ALWAYS reply in strict JSON.`;
 
-    const prompt = lang === "es"
-      ? `Catálogo de voces disponibles para recomendar como próximo interlocutor:
+    const prompt =
+      lang === "es"
+        ? `Catálogo de voces disponibles para recomendar como próximo interlocutor:
 ${catalog}
 
 Transcripción (mensajes del usuario, en orden cronológico):
@@ -140,7 +154,7 @@ Devuelve EXCLUSIVAMENTE JSON con esta forma exacta, sin markdown ni backticks:
   }
 }
 Incluye entre 3 y 5 libros. Sé específico y serio: nada de listas genéricas tipo "leer más".`
-      : `Catalog of available voices to recommend as next interlocutor:
+        : `Catalog of available voices to recommend as next interlocutor:
 ${catalog}
 
 Transcript (user messages, chronological order):
@@ -188,9 +202,17 @@ Include between 3 and 5 books. Be specific and serious: no generic "read more" f
     });
 
     let parsed: any = null;
-    try { parsed = JSON.parse(text); } catch {
+    try {
+      parsed = JSON.parse(text);
+    } catch {
       const m = text.match(/\{[\s\S]*\}/);
-      if (m) { try { parsed = JSON.parse(m[0]); } catch { /* ignore */ } }
+      if (m) {
+        try {
+          parsed = JSON.parse(m[0]);
+        } catch {
+          /* ignore */
+        }
+      }
     }
     if (!parsed || typeof parsed !== "object") {
       throw new Error("No se pudo interpretar el reporte.");
@@ -204,11 +226,15 @@ Include between 3 and 5 books. Be specific and serious: no generic "read more" f
     const asArr = (v: unknown): string[] =>
       Array.isArray(v) ? v.map((x) => String(x ?? "").trim()).filter(Boolean) : [];
     const asBooks = (v: unknown) =>
-      Array.isArray(v) ? v.map((b: any) => ({
-        title: String(b?.title ?? "").trim(),
-        author: String(b?.author ?? "").trim(),
-        why: String(b?.why ?? "").trim(),
-      })).filter((b) => b.title) : [];
+      Array.isArray(v)
+        ? v
+            .map((b: any) => ({
+              title: String(b?.title ?? "").trim(),
+              author: String(b?.author ?? "").trim(),
+              why: String(b?.why ?? "").trim(),
+            }))
+            .filter((b) => b.title)
+        : [];
 
     const nextRaw = parsed?.recommendations?.nextPhilosopher;
     const nextPhilosopher: PhilosopherId | null =
@@ -224,7 +250,9 @@ Include between 3 and 5 books. Be specific and serious: no generic "read more" f
         intellectualCuriosity: clampScore(parsed?.scores?.intellectualCuriosity),
         discursiveDepth: clampScore(parsed?.scores?.discursiveDepth),
       },
-      archetype: String(parsed?.archetype ?? "").trim() || (lang === "es" ? "Buscador silencioso" : "Silent seeker"),
+      archetype:
+        String(parsed?.archetype ?? "").trim() ||
+        (lang === "es" ? "Buscador silencioso" : "Silent seeker"),
       summary: String(parsed?.summary ?? "").trim(),
       writingStyle: String(parsed?.writingStyle ?? "").trim(),
       recurringThemes: asArr(parsed?.recurringThemes).slice(0, 8),

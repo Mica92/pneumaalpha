@@ -17,9 +17,7 @@ export function telegramKeys() {
 
 /** Deterministic webhook secret derived from the connection key. */
 export function deriveTelegramWebhookSecret(telegramApiKey: string): string {
-  return createHash("sha256")
-    .update(`telegram-webhook:${telegramApiKey}`)
-    .digest("base64url");
+  return createHash("sha256").update(`telegram-webhook:${telegramApiKey}`).digest("base64url");
 }
 
 export function safeEqual(a: string, b: string): boolean {

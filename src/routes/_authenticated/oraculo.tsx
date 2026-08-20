@@ -40,11 +40,9 @@ function OraclePage() {
   const [error, setError] = useState<string | null>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
-
   useEffect(() => {
     inputRef.current?.focus();
   }, []);
-
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();

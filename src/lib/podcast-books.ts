@@ -186,8 +186,7 @@ export const PODCAST_BOOKS: PodcastBook[] = [
   },
 ];
 
-export const isPodcastBookId = (id: string): boolean =>
-  PODCAST_BOOKS.some((b) => b.id === id);
+export const isPodcastBookId = (id: string): boolean => PODCAST_BOOKS.some((b) => b.id === id);
 
 export const getPodcastBook = (id: string): PodcastBook | undefined =>
   PODCAST_BOOKS.find((b) => b.id === id);
