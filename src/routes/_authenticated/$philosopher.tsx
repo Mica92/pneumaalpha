@@ -4,6 +4,9 @@ import { useAuth } from "@/hooks/use-auth";
 import { ChatWindow } from "@/components/chat-window";
 import { GreekGlyph } from "@/components/greek-glyph";
 import { PHILOSOPHERS, isPhilosopherId, type PhilosopherId } from "@/lib/philosophers";
+import { entityForChat } from "@/lib/atlas";
+import { useJourney } from "@/lib/atlas/use-journey";
+
 
 export const Route = createFileRoute("/_authenticated/$philosopher")({
   component: PhilosopherChat,
