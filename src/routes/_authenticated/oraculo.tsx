@@ -8,9 +8,8 @@ import { PneumaMark } from "@/components/pneuma-mark";
 import { GreekGlyph } from "@/components/greek-glyph";
 
 export const Route = createFileRoute("/_authenticated/oraculo")({
-  validateSearch: (search: Record<string, unknown>) => ({
-    q: typeof search.q === "string" ? search.q : undefined,
-  }),
+  validateSearch: (search: Record<string, unknown>): { q?: string } =>
+    typeof search.q === "string" && search.q ? { q: search.q } : {},
   component: OraclePage,
   head: () => ({
     meta: [

@@ -7,9 +7,8 @@ import { PHILOSOPHERS, isPhilosopherId, type PhilosopherId } from "@/lib/philoso
 
 export const Route = createFileRoute("/_authenticated/$philosopher")({
   component: PhilosopherChat,
-  validateSearch: (search: Record<string, unknown>) => ({
-    q: typeof search.q === "string" ? search.q : undefined,
-  }),
+  validateSearch: (search: Record<string, unknown>): { q?: string } =>
+    typeof search.q === "string" && search.q ? { q: search.q } : {},
   head: ({ params }) => {
     const id = params.philosopher as string;
     if (!isPhilosopherId(id)) {
