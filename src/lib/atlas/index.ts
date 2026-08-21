@@ -231,3 +231,11 @@ export function philosopherName(id: PhilosopherId): string {
 }
 
 export const DOMAIN_IDS = DOMAINS.map((d) => d.id);
+
+/** Entidad del atlas que corresponde a un filósofo conversable. */
+const CHAT_TO_ENTITY = new Map<string, AtlasEntity>();
+for (const e of entities) if (e.chat) CHAT_TO_ENTITY.set(e.chat, e);
+
+export function entityForChat(chat: string): AtlasEntity | undefined {
+  return CHAT_TO_ENTITY.get(chat);
+}
