@@ -61,27 +61,36 @@ export function SiteNav({ className = "" }: { className?: string }) {
           ))}
           <LanguageSelector />
           {signedIn ? (
-            <Link
-              to="/perfil"
-              aria-label={lang === "es" ? "Tu perfil" : "Your profile"}
-              className="focus-mist inline-flex items-center gap-2 rounded-full border border-border/70 py-1 pr-3 pl-1 text-[13px] text-muted-foreground transition-colors hover:text-foreground"
-              activeProps={{ className: "text-foreground" }}
-            >
-              {avatar ? (
-                <img
-                  src={avatar}
-                  alt=""
-                  width={24}
-                  height={24}
-                  className="h-6 w-6 rounded-full object-cover"
-                />
-              ) : (
-                <span className="grid h-6 w-6 place-items-center rounded-full bg-bronze/20 text-[11px] text-bronze">
-                  ●
-                </span>
-              )}
-              {lang === "es" ? "Perfil" : "Profile"}
-            </Link>
+            <>
+              <Link
+                to="/perfil"
+                aria-label={lang === "es" ? "Tu perfil" : "Your profile"}
+                className="focus-mist inline-flex items-center gap-2 rounded-full border border-border/70 py-1 pr-3 pl-1 text-[13px] text-muted-foreground transition-colors hover:text-foreground"
+                activeProps={{ className: "text-foreground" }}
+              >
+                {avatar ? (
+                  <img
+                    src={avatar}
+                    alt=""
+                    width={24}
+                    height={24}
+                    className="h-6 w-6 rounded-full object-cover"
+                  />
+                ) : (
+                  <span className="grid h-6 w-6 place-items-center rounded-full bg-bronze/20 text-[11px] text-bronze">
+                    ●
+                  </span>
+                )}
+                {lang === "es" ? "Perfil" : "Profile"}
+              </Link>
+              <button
+                type="button"
+                onClick={signOut}
+                className="focus-mist text-[13px] text-muted-foreground transition-colors hover:text-foreground"
+              >
+                {lang === "es" ? "Salir" : "Sign out"}
+              </button>
+            </>
           ) : (
             <button
               type="button"
