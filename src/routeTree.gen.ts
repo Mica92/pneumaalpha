@@ -20,6 +20,7 @@ import { Route as AuthenticatedRecorridoRouteImport } from './routes/_authentica
 import { Route as AuthenticatedPodcastRouteImport } from './routes/_authenticated/podcast'
 import { Route as AuthenticatedOraculoRouteImport } from './routes/_authenticated/oraculo'
 import { Route as AuthenticatedMesaRouteImport } from './routes/_authenticated/mesa'
+import { Route as AuthenticatedExplorarRouteImport } from './routes/_authenticated/explorar'
 import { Route as AuthenticatedConocimientoRouteImport } from './routes/_authenticated/conocimiento'
 import { Route as AuthenticatedCompararRouteImport } from './routes/_authenticated/comparar'
 import { Route as AuthenticatedBuscarRouteImport } from './routes/_authenticated/buscar'
@@ -87,6 +88,11 @@ const AuthenticatedOraculoRoute = AuthenticatedOraculoRouteImport.update({
 const AuthenticatedMesaRoute = AuthenticatedMesaRouteImport.update({
   id: '/mesa',
   path: '/mesa',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedExplorarRoute = AuthenticatedExplorarRouteImport.update({
+  id: '/explorar',
+  path: '/explorar',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedConocimientoRoute =
@@ -175,6 +181,7 @@ export interface FileRoutesByFullPath {
   '/buscar': typeof AuthenticatedBuscarRoute
   '/comparar': typeof AuthenticatedCompararRoute
   '/conocimiento': typeof AuthenticatedConocimientoRoute
+  '/explorar': typeof AuthenticatedExplorarRoute
   '/mesa': typeof AuthenticatedMesaRoute
   '/oraculo': typeof AuthenticatedOraculoRoute
   '/podcast': typeof AuthenticatedPodcastRoute
@@ -200,6 +207,7 @@ export interface FileRoutesByTo {
   '/buscar': typeof AuthenticatedBuscarRoute
   '/comparar': typeof AuthenticatedCompararRoute
   '/conocimiento': typeof AuthenticatedConocimientoRoute
+  '/explorar': typeof AuthenticatedExplorarRoute
   '/mesa': typeof AuthenticatedMesaRoute
   '/oraculo': typeof AuthenticatedOraculoRoute
   '/podcast': typeof AuthenticatedPodcastRoute
@@ -228,6 +236,7 @@ export interface FileRoutesById {
   '/_authenticated/buscar': typeof AuthenticatedBuscarRoute
   '/_authenticated/comparar': typeof AuthenticatedCompararRoute
   '/_authenticated/conocimiento': typeof AuthenticatedConocimientoRoute
+  '/_authenticated/explorar': typeof AuthenticatedExplorarRoute
   '/_authenticated/mesa': typeof AuthenticatedMesaRoute
   '/_authenticated/oraculo': typeof AuthenticatedOraculoRoute
   '/_authenticated/podcast': typeof AuthenticatedPodcastRoute
@@ -257,6 +266,7 @@ export interface FileRouteTypes {
     | '/buscar'
     | '/comparar'
     | '/conocimiento'
+    | '/explorar'
     | '/mesa'
     | '/oraculo'
     | '/podcast'
@@ -282,6 +292,7 @@ export interface FileRouteTypes {
     | '/buscar'
     | '/comparar'
     | '/conocimiento'
+    | '/explorar'
     | '/mesa'
     | '/oraculo'
     | '/podcast'
@@ -309,6 +320,7 @@ export interface FileRouteTypes {
     | '/_authenticated/buscar'
     | '/_authenticated/comparar'
     | '/_authenticated/conocimiento'
+    | '/_authenticated/explorar'
     | '/_authenticated/mesa'
     | '/_authenticated/oraculo'
     | '/_authenticated/podcast'
@@ -412,6 +424,13 @@ declare module '@tanstack/react-router' {
       path: '/mesa'
       fullPath: '/mesa'
       preLoaderRoute: typeof AuthenticatedMesaRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/explorar': {
+      id: '/_authenticated/explorar'
+      path: '/explorar'
+      fullPath: '/explorar'
+      preLoaderRoute: typeof AuthenticatedExplorarRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/conocimiento': {
@@ -522,6 +541,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedBuscarRoute: typeof AuthenticatedBuscarRoute
   AuthenticatedCompararRoute: typeof AuthenticatedCompararRoute
   AuthenticatedConocimientoRoute: typeof AuthenticatedConocimientoRoute
+  AuthenticatedExplorarRoute: typeof AuthenticatedExplorarRoute
   AuthenticatedMesaRoute: typeof AuthenticatedMesaRoute
   AuthenticatedOraculoRoute: typeof AuthenticatedOraculoRoute
   AuthenticatedPodcastRoute: typeof AuthenticatedPodcastRoute
@@ -545,6 +565,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedBuscarRoute: AuthenticatedBuscarRoute,
   AuthenticatedCompararRoute: AuthenticatedCompararRoute,
   AuthenticatedConocimientoRoute: AuthenticatedConocimientoRoute,
+  AuthenticatedExplorarRoute: AuthenticatedExplorarRoute,
   AuthenticatedMesaRoute: AuthenticatedMesaRoute,
   AuthenticatedOraculoRoute: AuthenticatedOraculoRoute,
   AuthenticatedPodcastRoute: AuthenticatedPodcastRoute,
