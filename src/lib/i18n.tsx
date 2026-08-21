@@ -698,6 +698,42 @@ export const T: Dict = {
     es: "Imaginamos un mundo en el que cada persona, sin importar su origen, pueda acceder a las ideas, herramientas y redes necesarias para desarrollar su conciencia y vivir mejor. Un mundo donde el progreso técnico esté al servicio de la vida, y no al revés.",
     en: "We imagine a world in which every person, regardless of origin, can access the ideas, tools and networks necessary to develop their consciousness and live better. A world where technical progress is at the service of life, and not the other way around.",
   },
+  "about.values.title": { es: "Valores", en: "Values" },
+  "about.values.1.h": { es: "Conciencia", en: "Consciousness" },
+  "about.values.1.p": {
+    es: "Creemos que el desarrollo humano comienza por la capacidad de observarse, cuestionarse y comprenderse. La conciencia no es un concepto abstracto: es la base desde la cual cada persona puede habitar su vida con mayor sentido, responsabilidad y libertad.",
+    en: "We believe human development begins with the capacity to observe, question and understand oneself. Consciousness is not an abstract concept: it is the ground from which each person can inhabit their life with greater meaning, responsibility and freedom.",
+  },
+  "about.values.2.h": { es: "Pensamiento crítico", en: "Critical thinking" },
+  "about.values.2.p": {
+    es: "Valoramos la reflexión por encima de la repetición. En un mundo saturado de información, pensar críticamente no es un lujo, sino una forma de resistencia y de construcción. Promovemos la pregunta antes que la respuesta automática.",
+    en: "We value reflection over repetition. In a world saturated with information, thinking critically is not a luxury but a form of resistance and of construction. We promote the question before the automatic answer.",
+  },
+  "about.values.3.h": { es: "Integración", en: "Integration" },
+  "about.values.3.p": {
+    es: "No creemos en el conocimiento fragmentado. Buscamos integrar disciplinas, perspectivas y experiencias diversas para comprender la complejidad de la vida humana. La riqueza está en el encuentro entre lo técnico, lo filosófico, lo científico y lo humano.",
+    en: "We do not believe in fragmented knowledge. We seek to integrate diverse disciplines, perspectives and experiences in order to understand the complexity of human life. The richness lies in the encounter between the technical, the philosophical, the scientific and the human.",
+  },
+  "about.values.4.h": { es: "Bienestar colectivo", en: "Collective wellbeing" },
+  "about.values.4.p": {
+    es: "El desarrollo personal solo tiene sentido cuando se conecta con el bienestar de los demás. Trabajamos para que cada avance individual contribuya a construir sociedades más justas, conscientes y equilibradas.",
+    en: "Personal development only makes sense when it connects with the wellbeing of others. We work so that every individual advance contributes to building fairer, more conscious and more balanced societies.",
+  },
+  "about.values.5.h": { es: "Accesibilidad", en: "Accessibility" },
+  "about.values.5.p": {
+    es: "El conocimiento y las herramientas para el desarrollo humano no deben ser privilegio de unos pocos. Creemos en la democratización del acceso a ideas, redes y recursos que permitan a cualquier persona potenciar su vida.",
+    en: "Knowledge and the tools for human development must not be the privilege of a few. We believe in democratizing access to the ideas, networks and resources that allow anyone to strengthen their life.",
+  },
+  "about.values.6.h": { es: "Ética", en: "Ethics" },
+  "about.values.6.p": {
+    es: "La técnica y la inteligencia artificial deben estar al servicio de la vida. Actuamos con responsabilidad, transparencia y respeto por la dignidad humana, cuidando que el progreso no se convierta en un fin en sí mismo.",
+    en: "Technology and artificial intelligence must be at the service of life. We act with responsibility, transparency and respect for human dignity, making sure progress does not become an end in itself.",
+  },
+  "about.values.7.h": { es: "Sabiduría aplicada", en: "Applied wisdom" },
+  "about.values.7.p": {
+    es: "No nos interesa el conocimiento que solo se acumula. Valoramos el saber que se traduce en mejores decisiones, mejores vínculos y mejores formas de habitar el mundo. Aprender para vivir mejor.",
+    en: "We are not interested in knowledge that merely accumulates. We value understanding that translates into better decisions, better bonds and better ways of inhabiting the world. Learning in order to live better.",
+  },
 };
 
 type Ctx = {
