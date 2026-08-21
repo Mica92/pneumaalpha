@@ -16,8 +16,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     let cancelled = false;
 
-    const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
-      setState({ user: session?.user ?? null, session, loading: false });
+    const { data: sub } = supabase.auth.onAuthStateChange((event, session) => {
+      setState({ user: session?.user ?? null, session, loading: event !== "SIGNED_OUT" && !session });
+      // After signing out of Google the visitor keeps browsing: hand them back
+      // an anonymous session so conversations still persist.
+      if (event === "SIGNED_OUT") {
+        void supabase.auth.signInAnonymously();
+      }
     });
 
     (async () => {

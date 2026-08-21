@@ -1,9 +1,11 @@
 import { useState } from "react";
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
+import { useQueryClient } from "@tanstack/react-query";
 import { PneumaMark } from "@/components/pneuma-mark";
 import { LanguageSelector, useI18n } from "@/lib/i18n";
 import { useAuth } from "@/hooks/use-auth";
 import { lovable } from "@/integrations/lovable";
+import { supabase } from "@/integrations/supabase/client";
 import { cn } from "@/lib/utils";
 
 const LINKS = [
@@ -25,12 +27,21 @@ function isGoogleUser(user: ReturnType<typeof useAuth>["user"]) {
 export function SiteNav({ className = "" }: { className?: string }) {
   const { lang } = useI18n();
   const { user } = useAuth();
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const [open, setOpen] = useState(false);
   const signedIn = isGoogleUser(user);
   const avatar = (user?.user_metadata?.avatar_url as string | undefined) ?? null;
 
   async function signIn() {
     await lovable.auth.signInWithOAuth("google", { redirect_uri: window.location.origin });
+  }
+
+  async function signOut() {
+    await queryClient.cancelQueries();
+    queryClient.clear();
+    await supabase.auth.signOut();
+    await navigate({ to: "/" });
   }
 
   return (
@@ -61,27 +72,36 @@ export function SiteNav({ className = "" }: { className?: string }) {
           ))}
           <LanguageSelector />
           {signedIn ? (
-            <Link
-              to="/perfil"
-              aria-label={lang === "es" ? "Tu perfil" : "Your profile"}
-              className="focus-mist inline-flex items-center gap-2 rounded-full border border-border/70 py-1 pr-3 pl-1 text-[13px] text-muted-foreground transition-colors hover:text-foreground"
-              activeProps={{ className: "text-foreground" }}
-            >
-              {avatar ? (
-                <img
-                  src={avatar}
-                  alt=""
-                  width={24}
-                  height={24}
-                  className="h-6 w-6 rounded-full object-cover"
-                />
-              ) : (
-                <span className="grid h-6 w-6 place-items-center rounded-full bg-bronze/20 text-[11px] text-bronze">
-                  ●
-                </span>
-              )}
-              {lang === "es" ? "Perfil" : "Profile"}
-            </Link>
+            <>
+              <Link
+                to="/perfil"
+                aria-label={lang === "es" ? "Tu perfil" : "Your profile"}
+                className="focus-mist inline-flex items-center gap-2 rounded-full border border-border/70 py-1 pr-3 pl-1 text-[13px] text-muted-foreground transition-colors hover:text-foreground"
+                activeProps={{ className: "text-foreground" }}
+              >
+                {avatar ? (
+                  <img
+                    src={avatar}
+                    alt=""
+                    width={24}
+                    height={24}
+                    className="h-6 w-6 rounded-full object-cover"
+                  />
+                ) : (
+                  <span className="grid h-6 w-6 place-items-center rounded-full bg-bronze/20 text-[11px] text-bronze">
+                    ●
+                  </span>
+                )}
+                {lang === "es" ? "Perfil" : "Profile"}
+              </Link>
+              <button
+                type="button"
+                onClick={signOut}
+                className="focus-mist text-[13px] text-muted-foreground transition-colors hover:text-foreground"
+              >
+                {lang === "es" ? "Salir" : "Sign out"}
+              </button>
+            </>
           ) : (
             <button
               type="button"
@@ -124,13 +144,25 @@ export function SiteNav({ className = "" }: { className?: string }) {
               </Link>
             ))}
             {signedIn ? (
-              <Link
-                to="/perfil"
-                onClick={() => setOpen(false)}
-                className="focus-mist py-3 text-sm text-muted-foreground transition-colors hover:text-foreground"
-              >
-                {lang === "es" ? "Tu perfil" : "Your profile"}
-              </Link>
+              <>
+                <Link
+                  to="/perfil"
+                  onClick={() => setOpen(false)}
+                  className="focus-mist border-b border-border/40 py-3 text-sm text-muted-foreground transition-colors hover:text-foreground"
+                >
+                  {lang === "es" ? "Tu perfil" : "Your profile"}
+                </Link>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setOpen(false);
+                    void signOut();
+                  }}
+                  className="focus-mist py-3 text-left text-sm text-muted-foreground transition-colors hover:text-foreground"
+                >
+                  {lang === "es" ? "Cerrar sesión" : "Sign out"}
+                </button>
+              </>
             ) : (
               <button
                 type="button"
