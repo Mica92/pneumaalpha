@@ -1,9 +1,11 @@
 import { useState } from "react";
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
+import { useQueryClient } from "@tanstack/react-query";
 import { PneumaMark } from "@/components/pneuma-mark";
 import { LanguageSelector, useI18n } from "@/lib/i18n";
 import { useAuth } from "@/hooks/use-auth";
 import { lovable } from "@/integrations/lovable";
+import { supabase } from "@/integrations/supabase/client";
 import { cn } from "@/lib/utils";
 
 const LINKS = [
@@ -31,6 +33,13 @@ export function SiteNav({ className = "" }: { className?: string }) {
 
   async function signIn() {
     await lovable.auth.signInWithOAuth("google", { redirect_uri: window.location.origin });
+  }
+
+  async function signOut() {
+    await queryClient.cancelQueries();
+    queryClient.clear();
+    await supabase.auth.signOut();
+    await navigate({ to: "/" });
   }
 
   return (
