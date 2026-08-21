@@ -310,7 +310,15 @@ export const QUESTIONS: QuestionSeed[] = [
       es: "Entre el mundo y nosotros hay siempre un ojo, una lengua, una época.",
       en: "Between the world and us there is always an eye, a language, an era.",
     },
-    related: ["kant", "descartes", "hume", "husserl", "cogito", "metaphysics_crit", "phenomenology"],
+    related: [
+      "kant",
+      "descartes",
+      "hume",
+      "husserl",
+      "cogito",
+      "metaphysics_crit",
+      "phenomenology",
+    ],
   },
   {
     id: "q_other",
@@ -341,7 +349,10 @@ export const QUESTIONS: QuestionSeed[] = [
   },
   {
     id: "q_truth",
-    label: { es: "¿Existe la verdad o solo interpretaciones?", en: "Is there truth, or only readings?" },
+    label: {
+      es: "¿Existe la verdad o solo interpretaciones?",
+      en: "Is there truth, or only readings?",
+    },
     note: {
       es: "Una sospecha moderna que sigue sin resolverse.",
       en: "A modern suspicion that remains unresolved.",

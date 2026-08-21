@@ -2,7 +2,11 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useCallback, useMemo, useState } from "react";
 import { SiteNav } from "@/components/site-nav";
 import { SiteFooter } from "@/components/site-footer";
-import { AtlasCanvas, type AtlasViewLink, type AtlasViewNode } from "@/components/atlas/atlas-canvas";
+import {
+  AtlasCanvas,
+  type AtlasViewLink,
+  type AtlasViewNode,
+} from "@/components/atlas/atlas-canvas";
 import { AtlasPanel } from "@/components/atlas/atlas-panel";
 import { useI18n } from "@/lib/i18n";
 import { useJourney } from "@/lib/atlas/use-journey";
@@ -222,9 +226,7 @@ function PersonalMapPage() {
                         add(
                           s.id,
                           s.kind,
-                          lang === "es"
-                            ? `Sugerido desde ${s.from}.`
-                            : `Suggested from ${s.from}.`,
+                          lang === "es" ? `Sugerido desde ${s.from}.` : `Suggested from ${s.from}.`,
                         )
                       }
                       className="card-editorial p-4 text-left transition-colors hover:border-primary/50"

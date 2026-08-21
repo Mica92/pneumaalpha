@@ -126,9 +126,7 @@ export function AtlasPanel({ entity, relation, onSelect, onClose, onAdd, reason,
             search={{ q: prompt }}
             className="btn-gold"
           >
-            {entity.chat
-              ? COPY.talk[lang]
-              : `${COPY.talkAbout[lang]} ${philosopherName(chat)}`}
+            {entity.chat ? COPY.talk[lang] : `${COPY.talkAbout[lang]} ${philosopherName(chat)}`}
           </Link>
         )}
         {onAdd && (

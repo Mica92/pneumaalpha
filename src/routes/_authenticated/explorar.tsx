@@ -2,7 +2,11 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useCallback, useMemo, useState } from "react";
 import { SiteNav } from "@/components/site-nav";
 import { SiteFooter } from "@/components/site-footer";
-import { AtlasCanvas, type AtlasViewLink, type AtlasViewNode } from "@/components/atlas/atlas-canvas";
+import {
+  AtlasCanvas,
+  type AtlasViewLink,
+  type AtlasViewNode,
+} from "@/components/atlas/atlas-canvas";
 import { AtlasPanel } from "@/components/atlas/atlas-panel";
 import { useI18n } from "@/lib/i18n";
 import { useJourney } from "@/lib/atlas/use-journey";
@@ -65,10 +69,7 @@ function ExplorePage() {
   const [relation, setRelation] = useState<{ source: string; target: string } | null>(null);
   const [query, setQuery] = useState("");
 
-  const visitedIds = useMemo(
-    () => new Set(journeyNodes.map((n) => n.entityId)),
-    [journeyNodes],
-  );
+  const visitedIds = useMemo(() => new Set(journeyNodes.map((n) => n.entityId)), [journeyNodes]);
 
   const visible = useMemo(() => {
     const ids = new Set<string>(DOMAINS.map((d) => d.id));

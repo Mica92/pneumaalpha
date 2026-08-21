@@ -495,7 +495,11 @@ export function AtlasCanvas({ nodes, links, focus, onSelect, onSelectLink, class
 
   return (
     <div ref={wrapRef} className={className}>
-      <canvas ref={canvasRef} className="block h-full w-full touch-none" style={{ cursor: "grab" }} />
+      <canvas
+        ref={canvasRef}
+        className="block h-full w-full touch-none"
+        style={{ cursor: "grab" }}
+      />
       <div className="absolute bottom-4 right-4 flex flex-col gap-1">
         {[
           { label: "+", fn: () => zoomBy(1.25), aria: "Zoom in" },
