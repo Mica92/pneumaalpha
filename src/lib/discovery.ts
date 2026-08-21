@@ -85,6 +85,78 @@ export const CENTRAL_QUESTIONS: Record<PhilosopherId, LocalizedString> = {
     es: "¿Cómo conservar la libertad interior dentro de la máquina?",
     en: "How do you keep inner freedom inside the machine?",
   },
+  cioran: {
+    es: "¿Y si nada tuviera sentido y eso, en el fondo, te aliviara?",
+    en: "What if nothing had meaning — and that, deep down, relieved you?",
+  },
+  rousseau: {
+    es: "¿Cuánto de lo que eres lo eres para los demás?",
+    en: "How much of who you are, are you for other people?",
+  },
+  burke: {
+    es: "Antes de cambiar algo, ¿sabes por qué ha durado tanto?",
+    en: "Before changing something, do you know why it has lasted?",
+  },
+  emerson: {
+    es: "¿Qué estás imitando que no te pertenece?",
+    en: "What are you imitating that isn't yours?",
+  },
+  thoreau: {
+    es: "¿Cuántas horas de tu vida cuesta lo que posees?",
+    en: "How many hours of your life does what you own cost?",
+  },
+  stirner: {
+    es: "Eso que crees que debes hacer, ¿quién te lo mandó?",
+    en: "That thing you think you must do — who ordered it?",
+  },
+  bakunin: {
+    es: "¿Quién manda sobre ti, y hace falta que siga mandando?",
+    en: "Who rules over you, and must he keep ruling?",
+  },
+  arendt: {
+    es: "¿Qué haces tú para sostener el mundo que compartes?",
+    en: "What do you do to hold up the world you share?",
+  },
+  negrihardt: {
+    es: "¿Quién se queda con lo que produces cuando trabajas?",
+    en: "Who keeps what you produce when you work?",
+  },
+  rand: {
+    es: "¿Estás viviendo tu vida o pidiendo permiso para vivirla?",
+    en: "Are you living your life, or asking permission to live it?",
+  },
+  gadamer: {
+    es: "¿Y si el otro tuviera razón en algo que no quieres oír?",
+    en: "What if the other person were right about something you'd rather not hear?",
+  },
+  ibnkhaldun: {
+    es: "¿Qué mantiene unido a tu grupo — y cuánto le queda?",
+    en: "What holds your group together — and how long will it last?",
+  },
+  nishida: {
+    es: "¿Qué había antes de que separaras el que mira y lo mirado?",
+    en: "What was there before you split the seer from the seen?",
+  },
+  iqbal: {
+    es: "¿Qué te haría más fuerte por dentro, no sólo más tranquilo?",
+    en: "What would make you stronger inside, not merely calmer?",
+  },
+  eliade: {
+    es: "¿Qué momentos de tu vida siguen siendo sagrados para ti?",
+    en: "Which moments of your life are still sacred to you?",
+  },
+  evola: {
+    es: "Si tu época se derrumba, ¿en qué te sostienes tú?",
+    en: "If your age collapses, what do you stand on?",
+  },
+  jabri: {
+    es: "¿Qué heredaste sin haberlo examinado nunca?",
+    en: "What did you inherit and never once examine?",
+  },
+  quoist: {
+    es: "¿A quién le estás dando tu tiempo, de verdad?",
+    en: "Who are you actually giving your time to?",
+  },
 };
 
 export function centralQuestion(id: PhilosopherId, lang: Lang): string {
