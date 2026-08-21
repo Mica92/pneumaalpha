@@ -8,8 +8,10 @@ const LINKS = [
   { to: "/filosofos", es: "Filósofos", en: "Philosophers" },
   { to: "/ideas", es: "Ideas", en: "Ideas" },
   { to: "/rutas", es: "Rutas", en: "Paths" },
+  { to: "/comparar", es: "Comparar", en: "Compare" },
   { to: "/umbral", es: "Instrumentos", en: "Instruments" },
   { to: "/recorrido", es: "Mi recorrido", en: "My journey" },
+  { to: "/buscar", es: "Buscar", en: "Search" },
 ] as const;
 
 export function SiteNav({ className = "" }: { className?: string }) {

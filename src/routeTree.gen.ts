@@ -22,6 +22,7 @@ import { Route as AuthenticatedOraculoRouteImport } from './routes/_authenticate
 import { Route as AuthenticatedMesaRouteImport } from './routes/_authenticated/mesa'
 import { Route as AuthenticatedConocimientoRouteImport } from './routes/_authenticated/conocimiento'
 import { Route as AuthenticatedCompararRouteImport } from './routes/_authenticated/comparar'
+import { Route as AuthenticatedBuscarRouteImport } from './routes/_authenticated/buscar'
 import { Route as AuthenticatedBibliotecaRouteImport } from './routes/_authenticated/biblioteca'
 import { Route as AuthenticatedAnalisisRouteImport } from './routes/_authenticated/analisis'
 import { Route as AuthenticatedPhilosopherRouteImport } from './routes/_authenticated/$philosopher'
@@ -99,6 +100,11 @@ const AuthenticatedCompararRoute = AuthenticatedCompararRouteImport.update({
   path: '/comparar',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedBuscarRoute = AuthenticatedBuscarRouteImport.update({
+  id: '/buscar',
+  path: '/buscar',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedBibliotecaRoute = AuthenticatedBibliotecaRouteImport.update({
   id: '/biblioteca',
   path: '/biblioteca',
@@ -166,6 +172,7 @@ export interface FileRoutesByFullPath {
   '/$philosopher': typeof AuthenticatedPhilosopherRoute
   '/analisis': typeof AuthenticatedAnalisisRoute
   '/biblioteca': typeof AuthenticatedBibliotecaRoute
+  '/buscar': typeof AuthenticatedBuscarRoute
   '/comparar': typeof AuthenticatedCompararRoute
   '/conocimiento': typeof AuthenticatedConocimientoRoute
   '/mesa': typeof AuthenticatedMesaRoute
@@ -190,6 +197,7 @@ export interface FileRoutesByTo {
   '/$philosopher': typeof AuthenticatedPhilosopherRoute
   '/analisis': typeof AuthenticatedAnalisisRoute
   '/biblioteca': typeof AuthenticatedBibliotecaRoute
+  '/buscar': typeof AuthenticatedBuscarRoute
   '/comparar': typeof AuthenticatedCompararRoute
   '/conocimiento': typeof AuthenticatedConocimientoRoute
   '/mesa': typeof AuthenticatedMesaRoute
@@ -217,6 +225,7 @@ export interface FileRoutesById {
   '/_authenticated/$philosopher': typeof AuthenticatedPhilosopherRoute
   '/_authenticated/analisis': typeof AuthenticatedAnalisisRoute
   '/_authenticated/biblioteca': typeof AuthenticatedBibliotecaRoute
+  '/_authenticated/buscar': typeof AuthenticatedBuscarRoute
   '/_authenticated/comparar': typeof AuthenticatedCompararRoute
   '/_authenticated/conocimiento': typeof AuthenticatedConocimientoRoute
   '/_authenticated/mesa': typeof AuthenticatedMesaRoute
@@ -245,6 +254,7 @@ export interface FileRouteTypes {
     | '/$philosopher'
     | '/analisis'
     | '/biblioteca'
+    | '/buscar'
     | '/comparar'
     | '/conocimiento'
     | '/mesa'
@@ -269,6 +279,7 @@ export interface FileRouteTypes {
     | '/$philosopher'
     | '/analisis'
     | '/biblioteca'
+    | '/buscar'
     | '/comparar'
     | '/conocimiento'
     | '/mesa'
@@ -295,6 +306,7 @@ export interface FileRouteTypes {
     | '/_authenticated/$philosopher'
     | '/_authenticated/analisis'
     | '/_authenticated/biblioteca'
+    | '/_authenticated/buscar'
     | '/_authenticated/comparar'
     | '/_authenticated/conocimiento'
     | '/_authenticated/mesa'
@@ -416,6 +428,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedCompararRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/buscar': {
+      id: '/_authenticated/buscar'
+      path: '/buscar'
+      fullPath: '/buscar'
+      preLoaderRoute: typeof AuthenticatedBuscarRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/biblioteca': {
       id: '/_authenticated/biblioteca'
       path: '/biblioteca'
@@ -500,6 +519,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedPhilosopherRoute: typeof AuthenticatedPhilosopherRoute
   AuthenticatedAnalisisRoute: typeof AuthenticatedAnalisisRoute
   AuthenticatedBibliotecaRoute: typeof AuthenticatedBibliotecaRoute
+  AuthenticatedBuscarRoute: typeof AuthenticatedBuscarRoute
   AuthenticatedCompararRoute: typeof AuthenticatedCompararRoute
   AuthenticatedConocimientoRoute: typeof AuthenticatedConocimientoRoute
   AuthenticatedMesaRoute: typeof AuthenticatedMesaRoute
@@ -522,6 +542,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedPhilosopherRoute: AuthenticatedPhilosopherRoute,
   AuthenticatedAnalisisRoute: AuthenticatedAnalisisRoute,
   AuthenticatedBibliotecaRoute: AuthenticatedBibliotecaRoute,
+  AuthenticatedBuscarRoute: AuthenticatedBuscarRoute,
   AuthenticatedCompararRoute: AuthenticatedCompararRoute,
   AuthenticatedConocimientoRoute: AuthenticatedConocimientoRoute,
   AuthenticatedMesaRoute: AuthenticatedMesaRoute,
