@@ -1,40 +1,31 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useCallback, useMemo, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
 import { SiteNav } from "@/components/site-nav";
 import { SiteFooter } from "@/components/site-footer";
-import {
-  AtlasCanvas,
-  type AtlasViewLink,
-  type AtlasViewNode,
-} from "@/components/atlas/atlas-canvas";
-import { AtlasPanel } from "@/components/atlas/atlas-panel";
+import { ChatWindow } from "@/components/chat-window";
+import { GreekGlyph } from "@/components/greek-glyph";
 import { useI18n } from "@/lib/i18n";
-import { useJourney } from "@/lib/atlas/use-journey";
-import {
-  ATLAS_RELATIONS,
-  DOMAINS,
-  ENTITY_BY_ID,
-  expansionOf,
-  degreeOf,
-  kindLabel,
-  searchAtlas,
-  type EntityKind,
-} from "@/lib/atlas";
+import { useAuth } from "@/hooks/use-auth";
+import { matchPhilosopher } from "@/lib/oracle.functions";
+import { PHILOSOPHERS, type PhilosopherId } from "@/lib/philosophers";
+import { CATEGORIES, IDEAS, REAL_PROBLEMS, centralQuestion } from "@/lib/discovery";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/_authenticated/explorar")({
   component: ExplorePage,
   head: () => ({
     meta: [
-      { title: "Explora el Pensamiento Humano — PneumAlpha" },
+      { title: "Explorar — habla y encuentra tu filósofo | PneumAlpha" },
       {
         name: "description",
         content:
-          "Un mapa vivo del pensamiento: dominios, filósofos, conceptos y preguntas conectados por influencia, oposición y desarrollo.",
+          "Escribe lo que tengas en mente y la IA te asigna la mente filosófica adecuada para conversar. Con una guía de temas y preguntas para empezar.",
       },
-      { property: "og:title", content: "Explora el Pensamiento Humano — PneumAlpha" },
+      { property: "og:title", content: "Explorar — habla y encuentra tu filósofo | PneumAlpha" },
       {
         property: "og:description",
-        content: "Navega el conocimiento filosófico como un territorio y conversa desde cada nodo.",
+        content: "Un chat abierto: cuenta lo que te ocurre y conversa con la mente adecuada.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -43,191 +34,254 @@ export const Route = createFileRoute("/_authenticated/explorar")({
 });
 
 const COPY = {
-  kicker: { es: "Cartografía", en: "Cartography" },
-  title: { es: "Explora el Pensamiento Humano", en: "Explore Human Thought" },
+  kicker: { es: "Conversación abierta", en: "Open conversation" },
+  title: { es: "Habla. Nosotros elegimos la mente.", en: "Speak. We choose the mind." },
   sub: {
-    es: "Empieza por un gran dominio. Cada nodo abre lo que lo rodea: quién lo pensó, contra quién, y qué pregunta lo sostiene.",
-    en: "Start from a great domain. Each node opens what surrounds it: who thought it, against whom, and which question sustains it.",
+    es: "Escribe lo que tengas en la cabeza —una duda, una frase, un problema real— y te asignamos al pensador mejor preparado para responderte. La conversación empieza aquí mismo.",
+    en: "Write whatever is on your mind — a doubt, a phrase, a real problem — and we assign the thinker best prepared to answer. The conversation starts right here.",
   },
-  search: { es: "Buscar una idea, un filósofo, una pregunta…", en: "Search an idea, a thinker…" },
-  domains: { es: "Dominios", en: "Domains" },
-  reset: { es: "Volver al inicio", en: "Back to start" },
-  empty: {
-    es: "Toca un dominio para desplegar su territorio. Toca una línea para leer la relación entre dos mentes.",
-    en: "Tap a domain to unfold its territory. Tap a line to read the relation between two minds.",
+  placeholder: {
+    es: "Lo que quieras: “No sé si quedarme en este trabajo”, “¿qué es una vida buena?”…",
+    en: "Anything: “I don't know whether to stay in this job”, “what is a good life?”…",
   },
-  hint: { es: "Cómo leerlo", en: "How to read it" },
+  submit: { es: "Encontrar mi filósofo", en: "Find my philosopher" },
+  submitting: { es: "Buscando…", en: "Searching…" },
+  error: {
+    es: "No pudimos elegir una voz ahora mismo. Inténtalo otra vez.",
+    en: "We couldn't choose a voice right now. Try again.",
+  },
+  guideTitle: { es: "Guía de temas y preguntas", en: "Guide of topics and questions" },
+  guideSub: {
+    es: "Si no sabes por dónde empezar, elige y lo escribimos por ti.",
+    en: "If you don't know where to start, pick one and we write it for you.",
+  },
+  topics: { es: "Temas", en: "Topics" },
+  problems: { es: "Situaciones reales", en: "Real situations" },
+  questions: { es: "Grandes preguntas", en: "Great questions" },
+  chosen: { es: "Tu voz para esta conversación", en: "Your voice for this conversation" },
+  again: { es: "Elegir otra mente", en: "Choose another mind" },
 } as const;
 
-const MAX_NODES = 90;
+type Result = { philosopher: PhilosopherId; reason: string };
 
 function ExplorePage() {
   const { lang } = useI18n();
-  const { nodes: journeyNodes, add } = useJourney();
-  const [expanded, setExpanded] = useState<Set<string>>(new Set(DOMAINS.map((d) => d.id)));
-  const [selected, setSelected] = useState<string | null>(null);
-  const [relation, setRelation] = useState<{ source: string; target: string } | null>(null);
-  const [query, setQuery] = useState("");
+  const { user } = useAuth();
+  const matchFn = useServerFn(matchPhilosopher);
 
-  const visitedIds = useMemo(() => new Set(journeyNodes.map((n) => n.entityId)), [journeyNodes]);
+  const [inquiry, setInquiry] = useState("");
+  const [result, setResult] = useState<Result | null>(null);
+  const [sentPrompt, setSentPrompt] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
 
-  const visible = useMemo(() => {
-    const ids = new Set<string>(DOMAINS.map((d) => d.id));
-    for (const id of expanded) {
-      ids.add(id);
-      for (const n of expansionOf(id, 8)) {
-        if (ids.size >= MAX_NODES) break;
-        ids.add(n.id);
-      }
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
+
+  const questions = IDEAS.slice(0, 6).flatMap((i) => i.questions.slice(0, 1).map((q) => q[lang]));
+
+  async function run(text: string) {
+    const q = text.trim();
+    if (q.length < 3 || submitting) return;
+    setSubmitting(true);
+    setError(null);
+    setResult(null);
+    try {
+      const r = await matchFn({ data: { inquiry: q, language: lang } });
+      setResult(r);
+      setSentPrompt(q);
+    } catch (err) {
+      console.error("[explore] match failed", err);
+      setError(COPY.error[lang]);
+    } finally {
+      setSubmitting(false);
     }
-    if (selected) ids.add(selected);
-    return ids;
-  }, [expanded, selected]);
+  }
 
-  const viewNodes: AtlasViewNode[] = useMemo(
-    () =>
-      [...visible].flatMap((id) => {
-        const e = ENTITY_BY_ID.get(id);
-        if (!e) return [];
-        return [
-          {
-            id,
-            kind: e.kind,
-            label: e.label[lang],
-            weight: Math.min(1, degreeOf(id) / 24),
-            visited: visitedIds.has(id),
-          },
-        ];
-      }),
-    [visible, lang, visitedIds],
-  );
+  function pick(text: string) {
+    setInquiry(text);
+    inputRef.current?.focus();
+  }
 
-  const viewLinks: AtlasViewLink[] = useMemo(
-    () =>
-      ATLAS_RELATIONS.filter((r) => visible.has(r.source) && visible.has(r.target)).map((r) => ({
-        source: r.source,
-        target: r.target,
-        kind: r.kind,
-      })),
-    [visible],
-  );
-
-  const handleSelect = useCallback((id: string | null) => {
-    setRelation(null);
-    setSelected(id);
-    if (id) setExpanded((prev) => (prev.has(id) ? prev : new Set(prev).add(id)));
-  }, []);
-
-  const handleLink = useCallback((source: string, target: string) => {
-    setSelected(null);
-    setRelation({ source, target });
-  }, []);
-
-  const entity = selected ? (ENTITY_BY_ID.get(selected) ?? null) : null;
-  const results = useMemo(() => searchAtlas(query, lang, 6), [query, lang]);
+  const chosen = result ? PHILOSOPHERS[result.philosopher] : null;
 
   return (
     <>
       <SiteNav />
-      <main className="route-enter relative z-10 mx-auto flex min-h-dvh max-w-6xl flex-col px-6 py-10 md:px-10 md:py-14">
-        <header className="mb-8 mt-14">
-          <p className="label text-primary">{COPY.kicker[lang]}</p>
-          <h1 className="mt-4 max-w-3xl font-serif text-4xl font-light leading-[1.05] text-foreground md:text-6xl">
+      <main className="route-enter relative z-10 mx-auto max-w-4xl px-5 py-14 md:px-8 md:py-20">
+        <header>
+          <p className="label">{COPY.kicker[lang]}</p>
+          <h1 className="fade-up mt-4 max-w-3xl font-serif text-4xl leading-[1.05] font-light text-foreground md:text-6xl">
             {COPY.title[lang]}
           </h1>
-          <p className="mt-5 max-w-2xl text-sm leading-relaxed text-muted-foreground md:text-base">
+          <p className="fade-up mt-5 max-w-2xl text-sm leading-relaxed text-muted-foreground md:text-base">
             {COPY.sub[lang]}
           </p>
         </header>
 
-        <div className="mb-3 flex flex-wrap items-center gap-2">
-          <div className="relative w-full max-w-sm">
-            <input
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder={COPY.search[lang]}
-              aria-label={COPY.search[lang]}
-              className="h-10 w-full rounded-md border border-border bg-card/40 px-3 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-primary/60"
-            />
-            {results.length > 0 && query.trim() && (
-              <ul className="absolute z-20 mt-1 w-full overflow-hidden rounded-md border border-border bg-background/95 backdrop-blur">
-                {results.map((r) => (
-                  <li key={r.id}>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        handleSelect(r.id);
-                        setQuery("");
-                      }}
-                      className="flex w-full flex-col px-3 py-2 text-left transition-colors hover:bg-card/70"
-                    >
-                      <span className="text-sm text-foreground">{r.label[lang]}</span>
-                      <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-                        {kindLabel(r.kind as EntityKind, lang)}
-                      </span>
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
-          <button
-            type="button"
-            className="btn-ghost-gold"
-            onClick={() => {
-              setExpanded(new Set(DOMAINS.map((d) => d.id)));
-              setSelected(null);
-              setRelation(null);
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            void run(inquiry);
+          }}
+          className="fade-up mt-10 flex flex-col gap-4"
+        >
+          <textarea
+            ref={inputRef}
+            value={inquiry}
+            onChange={(e) => setInquiry(e.target.value)}
+            placeholder={COPY.placeholder[lang]}
+            rows={4}
+            maxLength={2000}
+            disabled={submitting}
+            aria-label={COPY.placeholder[lang]}
+            className="w-full resize-none rounded-xl border border-border bg-input px-5 py-4 text-[15px] leading-relaxed text-foreground placeholder:text-muted-foreground focus:border-bronze/50 focus:ring-1 focus:ring-bronze/20 focus:outline-none disabled:opacity-50"
+            onKeyDown={(e) => {
+              if ((e.metaKey || e.ctrlKey) && e.key === "Enter")
+                (e.currentTarget.form as HTMLFormElement | null)?.requestSubmit();
             }}
-          >
-            {COPY.reset[lang]}
-          </button>
-        </div>
-
-        <div className="grid gap-3 lg:grid-cols-[1fr_340px]">
-          <AtlasCanvas
-            nodes={viewNodes}
-            links={viewLinks}
-            focus={selected}
-            onSelect={handleSelect}
-            onSelectLink={handleLink}
-            className="relative h-[64vh] min-h-[440px] w-full overflow-hidden rounded-xl border border-border bg-card/30 backdrop-blur-sm md:h-[76vh]"
           />
+          <div className="flex items-center justify-between gap-4">
+            <span className="label">{inquiry.length}/2000</span>
+            <button
+              type="submit"
+              disabled={submitting || inquiry.trim().length < 3}
+              className="btn-gold disabled:cursor-not-allowed disabled:opacity-40"
+            >
+              {submitting ? COPY.submitting[lang] : COPY.submit[lang]}
+            </button>
+          </div>
+        </form>
 
-          {entity || relation ? (
-            <AtlasPanel
-              entity={entity}
-              relation={relation}
-              onSelect={handleSelect}
-              onClose={() => {
-                setSelected(null);
-                setRelation(null);
-              }}
-              onAdd={
-                entity
-                  ? (id) => {
-                      const e = ENTITY_BY_ID.get(id);
-                      add(
-                        id,
-                        e?.kind ?? "concept",
-                        lang === "es"
-                          ? "Lo añadiste desde el mapa universal."
-                          : "You added it from the universal map.",
-                      );
-                    }
-                  : undefined
-              }
-            />
-          ) : (
-            <aside className="card-editorial flex flex-col justify-center gap-3 p-6">
-              <p className="label text-muted-foreground">{COPY.hint[lang]}</p>
-              <p className="text-sm leading-relaxed text-muted-foreground">{COPY.empty[lang]}</p>
-              <p className="mt-2 font-mono text-[11px] text-muted-foreground/70">
-                {viewNodes.length} / {ATLAS_RELATIONS.length}
-              </p>
-            </aside>
-          )}
-        </div>
+        {submitting && (
+          <p className="mt-8 flex items-center gap-3 text-sm text-muted-foreground">
+            <GreekGlyph className="pneuma-breathe font-serif text-2xl text-bronze" />
+            {COPY.submitting[lang]}
+          </p>
+        )}
+
+        {error && (
+          <p className="mt-6 rounded-md border border-destructive/30 bg-destructive/5 px-4 py-3 text-sm text-destructive">
+            {error}
+          </p>
+        )}
+
+        {chosen && result && (
+          <section aria-live="polite" className="fade-up mt-12">
+            <div className="card-editorial p-6 md:p-8">
+              <p className="label text-bronze">{COPY.chosen[lang]}</p>
+              <div className="mt-4 flex items-start gap-5">
+                <span className="pneuma-breathe font-serif text-5xl text-foreground/90">
+                  {chosen.glyph}
+                </span>
+                <div>
+                  <h2 className="font-serif text-3xl font-light text-foreground">{chosen.name}</h2>
+                  <p className="mt-1 text-xs text-muted-foreground md:text-sm">
+                    {chosen.subtitle[lang]}
+                  </p>
+                </div>
+              </div>
+              <p className="mt-5 text-sm leading-relaxed text-foreground/85">{result.reason}</p>
+              <button
+                type="button"
+                onClick={() => {
+                  setResult(null);
+                  setInquiry("");
+                  requestAnimationFrame(() => inputRef.current?.focus());
+                }}
+                className="btn-ghost-gold mt-6"
+              >
+                {COPY.again[lang]}
+              </button>
+            </div>
+
+            {user && (
+              <div className="mt-8 overflow-hidden rounded-xl border border-border/60">
+                <ChatWindow
+                  key={chosen.id}
+                  userId={user.id}
+                  philosopher={chosen.id}
+                  embedded
+                  initialPrompt={sentPrompt}
+                  onSignOut={() => void supabase.auth.signOut()}
+                />
+              </div>
+            )}
+          </section>
+        )}
+
+        {/* ── Guía de temas y preguntas ─────────────────────────── */}
+        <section className="mt-20" aria-labelledby="guide-heading">
+          <div className="rule-hairline mb-6" />
+          <h2 id="guide-heading" className="font-serif text-3xl font-light text-foreground">
+            {COPY.guideTitle[lang]}
+          </h2>
+          <p className="mt-2 text-sm text-muted-foreground">{COPY.guideSub[lang]}</p>
+
+          <h3 className="label mt-8">{COPY.topics[lang]}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {CATEGORIES.map((c) => (
+              <button
+                key={c.id}
+                type="button"
+                onClick={() => pick(c.seed[lang])}
+                className="card-editorial p-4 text-left transition-colors hover:border-bronze/50"
+              >
+                <span className="font-serif text-2xl text-bronze">{c.glyph}</span>
+                <p className="mt-2 font-serif text-xl text-foreground">{c.title[lang]}</p>
+                <p className="mt-1 text-xs text-muted-foreground">{c.tags[lang]}</p>
+              </button>
+            ))}
+          </div>
+
+          <h3 className="label mt-10">{COPY.problems[lang]}</h3>
+          <div className="mt-3 flex flex-wrap gap-2">
+            {REAL_PROBLEMS.map((p) => (
+              <button
+                key={p.id}
+                type="button"
+                onClick={() => pick(p.text[lang])}
+                className="rounded-full border border-border/70 px-4 py-2 text-[13px] text-muted-foreground transition-colors hover:border-bronze/60 hover:text-foreground"
+              >
+                {p.text[lang]}
+              </button>
+            ))}
+          </div>
+
+          <h3 className="label mt-10">{COPY.questions[lang]}</h3>
+          <ul className="mt-3 grid gap-2 sm:grid-cols-2">
+            {questions.map((q) => (
+              <li key={q}>
+                <button
+                  type="button"
+                  onClick={() => pick(q)}
+                  className="w-full border-b border-border/40 py-3 text-left font-serif text-lg text-foreground/90 transition-colors hover:text-bronze"
+                >
+                  {q}
+                </button>
+              </li>
+            ))}
+          </ul>
+
+          <h3 className="label mt-10">
+            {lang === "es" ? "Preguntas centrales de cada mente" : "Each mind's central question"}
+          </h3>
+          <ul className="mt-3 flex flex-wrap gap-2">
+            {(Object.keys(PHILOSOPHERS) as PhilosopherId[]).slice(0, 10).map((id) => (
+              <li key={id}>
+                <button
+                  type="button"
+                  onClick={() => pick(centralQuestion(id, lang))}
+                  className="rounded-full border border-border/70 px-4 py-2 text-[13px] text-muted-foreground transition-colors hover:border-bronze/60 hover:text-foreground"
+                >
+                  {centralQuestion(id, lang)}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </section>
       </main>
       <SiteFooter />
     </>
