@@ -10,7 +10,7 @@ type Props = {
 };
 
 export function PneumaMark({ className = "", withWordmark = false, size = 28 }: Props) {
-  const label = "PneumaA";
+  const label = "PneumAlpha";
   return (
     <span className={`inline-flex items-center gap-3 ${className}`} role="img" aria-label={label}>
       <svg
@@ -43,7 +43,7 @@ export function PneumaMark({ className = "", withWordmark = false, size = 28 }: 
           aria-hidden="true"
           className="font-serif text-xl font-medium tracking-[0.14em] text-foreground"
         >
-          Pneuma<span className="text-bronze">A</span>
+          Pneum<span className="text-bronze">Alpha</span>
         </span>
       )}
     </span>
