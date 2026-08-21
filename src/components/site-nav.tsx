@@ -27,6 +27,8 @@ function isGoogleUser(user: ReturnType<typeof useAuth>["user"]) {
 export function SiteNav({ className = "" }: { className?: string }) {
   const { lang } = useI18n();
   const { user } = useAuth();
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const [open, setOpen] = useState(false);
   const signedIn = isGoogleUser(user);
   const avatar = (user?.user_metadata?.avatar_url as string | undefined) ?? null;
