@@ -31,7 +31,7 @@ function NotFoundComponent() {
           to="/"
           className="mt-8 inline-flex items-center justify-center rounded-md border border-border bg-card/60 px-6 py-2.5 text-xs uppercase tracking-[0.25em] text-foreground transition-colors hover:border-primary/50 hover:bg-card"
         >
-          ← PneumaA
+          ← PneumAlpha
         </Link>
       </div>
     </div>
@@ -67,32 +67,32 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "PneumaA — conversaciones con conciencias filosóficas reconstruidas" },
+      { title: "PneumAlpha — conversaciones con conciencias filosóficas reconstruidas" },
       {
         name: "description",
         content:
-          "PneumaA: conversa libremente, en español o en inglés, con conciencias filosóficas reconstruidas — Heidegger, Schopenhauer, James, Nietzsche, Marx.",
+          "PneumAlpha: conversa libremente, en español o en inglés, con conciencias filosóficas reconstruidas — Heidegger, Schopenhauer, James, Nietzsche, Marx.",
       },
       {
         property: "og:title",
-        content: "PneumaA — conversaciones con conciencias filosóficas reconstruidas",
+        content: "PneumAlpha — conversaciones con conciencias filosóficas reconstruidas",
       },
       {
         property: "og:description",
         content:
-          "PneumaA: conversa libremente, en español o en inglés, con conciencias filosóficas reconstruidas — Heidegger, Schopenhauer, James, Nietzsche, Marx.",
+          "PneumAlpha: conversa libremente, en español o en inglés, con conciencias filosóficas reconstruidas — Heidegger, Schopenhauer, James, Nietzsche, Marx.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
 
       {
         name: "twitter:title",
-        content: "PneumaA — conversaciones con conciencias filosóficas reconstruidas",
+        content: "PneumAlpha — conversaciones con conciencias filosóficas reconstruidas",
       },
       {
         name: "twitter:description",
         content:
-          "PneumaA: conversa libremente, en español o en inglés, con conciencias filosóficas reconstruidas — Heidegger, Schopenhauer, James, Nietzsche, Marx.",
+          "PneumAlpha: conversa libremente, en español o en inglés, con conciencias filosóficas reconstruidas — Heidegger, Schopenhauer, James, Nietzsche, Marx.",
       },
       {
         property: "og:image",
@@ -107,7 +107,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "theme-color", content: "#0B0B0D" },
       { name: "apple-mobile-web-app-capable", content: "yes" },
       { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
-      { name: "apple-mobile-web-app-title", content: "PneumaA" },
+      { name: "apple-mobile-web-app-title", content: "PneumAlpha" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },

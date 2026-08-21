@@ -17,10 +17,10 @@ export const Route = createFileRoute("/_authenticated/ideas/$id")({
     const idea = loaderData ? ideaById(loaderData.id) : undefined;
     if (!idea) {
       return {
-        meta: [{ title: "Idea no disponible — PneumaA" }, { name: "robots", content: "noindex" }],
+        meta: [{ title: "Idea no disponible — PneumAlpha" }, { name: "robots", content: "noindex" }],
       };
     }
-    const title = `${idea.title.es} — Grandes ideas | PneumaA`;
+    const title = `${idea.title.es} — Grandes ideas | PneumAlpha`;
     return {
       meta: [
         { title },

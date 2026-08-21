@@ -17,7 +17,7 @@ function detectInitial(): Language {
 type Dict = Record<string, { es: string; en: string }>;
 
 export const T: Dict = {
-  "app.name": { es: "PneumaA", en: "PneumaA" },
+  "app.name": { es: "PneumAlpha", en: "PneumAlpha" },
   "app.tagline": {
     es: "Conversaciones con conciencias filosóficas reconstruidas.",
     en: "Conversations with reconstructed philosophical minds.",
@@ -90,8 +90,8 @@ export const T: Dict = {
     en: "The classics, thought aloud",
   },
   "podcast.page.sub": {
-    es: "Elija una obra: PneumaA escribe un ensayo hablado de máximo cinco minutos y se lo lee con una voz humana, pausada.",
-    en: "Choose a work: PneumaA writes a spoken essay of at most five minutes and reads it to you in a calm, human voice.",
+    es: "Elija una obra: PneumAlpha escribe un ensayo hablado de máximo cinco minutos y se lo lee con una voz humana, pausada.",
+    en: "Choose a work: PneumAlpha writes a spoken essay of at most five minutes and reads it to you in a calm, human voice.",
   },
   "podcast.catalogue": { es: "Episodios", en: "Episodes" },
   "podcast.listen": { es: "Escuchar →", en: "Listen →" },
@@ -160,8 +160,8 @@ export const T: Dict = {
   "analysis.questions": { es: "Para seguir pensando", en: "To keep thinking" },
   "analysis.voices": { es: "Conversa sobre esto con", en: "Discuss this with" },
 
-  "auth.title.signin": { es: "Bienvenido a PneumaA", en: "Welcome to PneumaA" },
-  "auth.title.signup": { es: "Crea tu lugar en PneumaA", en: "Create your place in PneumaA" },
+  "auth.title.signin": { es: "Bienvenido a PneumAlpha", en: "Welcome to PneumAlpha" },
+  "auth.title.signup": { es: "Crea tu lugar en PneumAlpha", en: "Create your place in PneumAlpha" },
   "auth.sub.signin": {
     es: "Vuelve a la cabaña. La lámpara sigue encendida.",
     en: "Return to the cabin. The lamp is still burning.",
@@ -431,8 +431,8 @@ export const T: Dict = {
     en: "Reconstructed minds",
   },
   "umbral.about.body": {
-    es: "Cada voz de PneumaA se levanta sobre cuatro capas: su biografía y su época, la obra que escribió, su temperamento y su forma de discutir, y —cuando existe— un corpus de fuentes indexadas del que puede citar. No es una enciclopedia que resume a un filósofo: es un interlocutor que sostiene sus convicciones, te contradice y te devuelve preguntas.",
-    en: "Every PneumaA voice stands on four layers: biography and era, the work they wrote, their temperament and way of arguing, and — where it exists — an indexed corpus of sources they can quote from. It is not an encyclopedia summarising a philosopher: it is an interlocutor who holds convictions, contradicts you and hands questions back.",
+    es: "Cada voz de PneumAlpha se levanta sobre cuatro capas: su biografía y su época, la obra que escribió, su temperamento y su forma de discutir, y —cuando existe— un corpus de fuentes indexadas del que puede citar. No es una enciclopedia que resume a un filósofo: es un interlocutor que sostiene sus convicciones, te contradice y te devuelve preguntas.",
+    en: "Every PneumAlpha voice stands on four layers: biography and era, the work they wrote, their temperament and way of arguing, and — where it exists — an indexed corpus of sources they can quote from. It is not an encyclopedia summarising a philosopher: it is an interlocutor who holds convictions, contradicts you and hands questions back.",
   },
   "umbral.random": { es: "Conversación aleatoria", en: "Random conversation" },
   "umbral.random.sub": {

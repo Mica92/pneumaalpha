@@ -17,11 +17,11 @@ export const Route = createFileRoute("/_authenticated/filosofos/$id")({
   head: ({ loaderData }) => {
     if (!loaderData) {
       return {
-        meta: [{ title: "Perfil no disponible — PneumaA" }, { name: "robots", content: "noindex" }],
+        meta: [{ title: "Perfil no disponible — PneumAlpha" }, { name: "robots", content: "noindex" }],
       };
     }
     const p = PHILOSOPHERS[loaderData.id];
-    const title = `${p.name} — ${p.subtitle.es} | PneumaA`;
+    const title = `${p.name} — ${p.subtitle.es} | PneumAlpha`;
     const description = p.blurb.es;
     return {
       meta: [

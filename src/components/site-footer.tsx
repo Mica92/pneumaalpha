@@ -69,7 +69,7 @@ export function SiteFooter() {
 
       <div className="border-t border-border/50">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-5 py-6 text-[11px] text-muted-foreground md:px-8">
-          <span>PneumaA · {new Date().getFullYear()}</span>
+          <span>PneumAlpha · {new Date().getFullYear()}</span>
           <span className="text-muted-foreground/60">
             {es ? "Pensar despacio, otra vez." : "Thinking slowly, again."}
           </span>

@@ -1,5 +1,5 @@
 /**
- * PneumaA mark — chevron glyph in the "Dark editorial" palette.
+ * PneumAlpha mark — chevron glyph in the "Dark editorial" palette.
  * Two stacked angle shapes (bronze + paper) folding inward, like a breath
  * turning back on itself. Used as the brand logo across nav, footer and auth.
  */

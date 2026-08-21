@@ -25,13 +25,13 @@ export const Route = createFileRoute("/_authenticated/biblioteca")({
   component: LibraryPage,
   head: () => ({
     meta: [
-      { title: "PneumaA — Biblioteca de Ideas · pasajes y preguntas profundas" },
+      { title: "PneumAlpha — Biblioteca de Ideas · pasajes y preguntas profundas" },
       {
         name: "description",
         content:
           "Fragmentos de conversación filosófica compartidos de forma anónima y revisados uno a uno: preguntas profundas y pasajes de pensadores reconstruidos con IA.",
       },
-      { property: "og:title", content: "PneumaA — Biblioteca de Ideas" },
+      { property: "og:title", content: "PneumAlpha — Biblioteca de Ideas" },
       {
         property: "og:description",
         content: "Lo que otros preguntaron: pasajes escogidos de conversaciones filosóficas.",
