@@ -40,9 +40,17 @@ type Props = {
   onSignOut: () => void;
   /** Renders the chat inside a page section instead of filling the viewport. */
   embedded?: boolean;
+  /** Pre-fills the composer, e.g. when arriving from a philosophical path. */
+  initialPrompt?: string;
 };
 
-export function ChatWindow({ userId, philosopher, onSignOut, embedded = false }: Props) {
+export function ChatWindow({
+  userId,
+  philosopher,
+  onSignOut,
+  embedded = false,
+  initialPrompt,
+}: Props) {
   const loadFn = useServerFn(loadMessages);
   const clearFn = useServerFn(clearConversation);
   const { t } = useI18n();
@@ -70,6 +78,7 @@ export function ChatWindow({ userId, philosopher, onSignOut, embedded = false }:
       philosopher={philosopher}
       embedded={embedded}
       initial={initial as UIMessage[]}
+      initialPrompt={initialPrompt}
       onClear={async () => {
         await clearFn({ data: { philosopher } });
         toast.success(t("chat.cleared"));
@@ -86,12 +95,14 @@ function ChatBody({
   onClear,
   onSignOut,
   embedded = false,
+  initialPrompt,
 }: {
   philosopher: PhilosopherId;
   initial: UIMessage[];
   onClear: () => Promise<void>;
   onSignOut: () => void;
   embedded?: boolean;
+  initialPrompt?: string;
 }) {
   const sendFn = useServerFn(sendChat);
   const historyFn = useServerFn(loadFullHistory);
@@ -108,7 +119,7 @@ function ChatBody({
   const [migrating, setMigrating] = useState<PhilosopherId | null>(null);
   const [activeTopic, setActiveTopic] = useState<TopicId | null>(null);
   const [actionsOpen, setActionsOpen] = useState(false);
-  const [composerText, setComposerText] = useState("");
+  const [composerText, setComposerText] = useState(initialPrompt ?? "");
   const [atBottom, setAtBottom] = useState(true);
 
   const {
