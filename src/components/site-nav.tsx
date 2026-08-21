@@ -144,13 +144,25 @@ export function SiteNav({ className = "" }: { className?: string }) {
               </Link>
             ))}
             {signedIn ? (
-              <Link
-                to="/perfil"
-                onClick={() => setOpen(false)}
-                className="focus-mist py-3 text-sm text-muted-foreground transition-colors hover:text-foreground"
-              >
-                {lang === "es" ? "Tu perfil" : "Your profile"}
-              </Link>
+              <>
+                <Link
+                  to="/perfil"
+                  onClick={() => setOpen(false)}
+                  className="focus-mist border-b border-border/40 py-3 text-sm text-muted-foreground transition-colors hover:text-foreground"
+                >
+                  {lang === "es" ? "Tu perfil" : "Your profile"}
+                </Link>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setOpen(false);
+                    void signOut();
+                  }}
+                  className="focus-mist py-3 text-left text-sm text-muted-foreground transition-colors hover:text-foreground"
+                >
+                  {lang === "es" ? "Cerrar sesión" : "Sign out"}
+                </button>
+              </>
             ) : (
               <button
                 type="button"
