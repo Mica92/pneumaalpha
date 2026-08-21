@@ -11,21 +11,36 @@ export const Route = createFileRoute("/_authenticated/nosotros")({
       {
         name: "description",
         content:
-          "Conocimiento como puente. Quiénes somos, nuestra misión y nuestra visión para una sociedad centrada en la conciencia humana.",
+          "Conocimiento como puente: quiénes somos, nuestra misión, visión y valores para una sociedad centrada en la conciencia humana.",
       },
       { property: "og:title", content: "PneumAlpha — Nosotros" },
       {
         property: "og:description",
         content:
-          "Conocimiento como puente. Quiénes somos, nuestra misión y nuestra visión para una sociedad centrada en la conciencia humana.",
+          "Conocimiento como puente: quiénes somos, nuestra misión, visión y valores para una sociedad centrada en la conciencia humana.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://pneumaalpha.lovable.app/nosotros" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [{ rel: "canonical", href: "https://pneumaalpha.lovable.app/nosotros" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          name: "PneumAlpha",
+          url: "https://pneumaalpha.lovable.app",
+          description:
+            "Conocimiento como puente: misión, visión y valores de PneumAlpha, un punto de encuentro con las grandes conciencias filosóficas.",
+        }),
+      },
+    ],
   }),
 });
+
+const VALUES = [1, 2, 3, 4, 5, 6, 7] as const;
 
 function NosotrosPage() {
   const { lang, t } = useI18n();
@@ -71,6 +86,30 @@ function NosotrosPage() {
                 <p>{t("about.mission.p4")}</p>
                 <p>{t("about.mission.p5")}</p>
               </div>
+            </div>
+          </section>
+
+          <section aria-labelledby="values-heading">
+            <div className="mb-6 flex items-baseline justify-between gap-4 border-b border-border/60 pb-3">
+              <h2
+                id="values-heading"
+                className="font-display text-[10px] uppercase tracking-[0.35em] text-muted-foreground"
+              >
+                {t("about.values.title")}
+              </h2>
+            </div>
+            <div className="grid gap-4 md:grid-cols-2">
+              {VALUES.map((n) => (
+                <article key={n} className="card-editorial p-6 md:p-7">
+                  <h3 className="font-serif text-2xl font-light text-foreground">
+                    {t(`about.values.${n}.h`)}
+                  </h3>
+                  <div className="rule-hairline my-4" />
+                  <p className="text-sm leading-relaxed text-foreground/85">
+                    {t(`about.values.${n}.p`)}
+                  </p>
+                </article>
+              ))}
             </div>
           </section>
 
