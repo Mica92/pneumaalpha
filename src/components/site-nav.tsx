@@ -18,6 +18,7 @@ const LINKS = [
   { to: "/umbral", es: "Instrumentos", en: "Instruments" },
   { to: "/mi-mapa", es: "Mi mapa", en: "My map" },
   { to: "/buscar", es: "Buscar", en: "Search" },
+  { to: "/nosotros", es: "Nosotros", en: "About" },
 ] as const;
 
 function isGoogleUser(user: ReturnType<typeof useAuth>["user"]) {

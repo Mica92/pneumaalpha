@@ -25,6 +25,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           "/mesa",
           "/socrates",
           "/biblioteca",
+          "/nosotros",
           "/privacy",
           ...PHILOSOPHER_LIST.map((p) => `/${p.id}`),
         ];
