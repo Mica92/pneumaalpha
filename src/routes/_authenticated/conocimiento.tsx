@@ -1,7 +1,8 @@
+import { SiteNav } from "@/components/site-nav";
+import { SiteFooter } from "@/components/site-footer";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
-import { useI18n, LanguageSelector } from "@/lib/i18n";
-import { PneumaMark } from "@/components/pneuma-mark";
+import { useI18n } from "@/lib/i18n";
 import { KnowledgeMap, KIND_DOT } from "@/components/knowledge-map";
 import {
   GRAPH_NODES,
@@ -55,22 +56,9 @@ function KnowledgePage() {
   };
 
   return (
+    <>
+    <SiteNav />
     <main className="route-enter relative z-10 mx-auto flex min-h-dvh max-w-6xl flex-col px-6 py-10 md:px-10 md:py-14">
-      <nav className="flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-3">
-          <PneumaMark withWordmark size={24} />
-        </Link>
-        <div className="flex items-center gap-4">
-          <LanguageSelector />
-          <Link
-            to="/"
-            className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground transition-colors hover:text-foreground"
-          >
-            {t("chat.back")}
-          </Link>
-        </div>
-      </nav>
-
       <header className="mt-14 mb-8">
         <p className="tracking-in font-display text-[10px] uppercase tracking-[0.35em] text-glacier-bright">
           {t("knowledge.kicker")}
@@ -197,12 +185,8 @@ function KnowledgePage() {
         {t("knowledge.legend")}
       </p>
 
-      <footer className="mt-14 flex flex-wrap items-center justify-between gap-3 border-t border-border/60 pt-6 text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
-        <span>PneumaA · {new Date().getFullYear()}</span>
-        <Link to="/privacy" className="transition-colors hover:text-foreground">
-          {lang === "es" ? "Privacidad" : "Privacy"}
-        </Link>
-      </footer>
     </main>
+    <SiteFooter />
+    </>
   );
 }

@@ -1,3 +1,5 @@
+import { SiteNav } from "@/components/site-nav";
+import { SiteFooter } from "@/components/site-footer";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
@@ -15,8 +17,7 @@ import {
   isPhilosopherId,
   type PhilosopherId,
 } from "@/lib/philosophers";
-import { useI18n, LanguageSelector } from "@/lib/i18n";
-import { PneumaMark } from "@/components/pneuma-mark";
+import { useI18n } from "@/lib/i18n";
 import { NewsletterCard } from "@/components/newsletter-card";
 import { toast } from "sonner";
 
@@ -58,22 +59,9 @@ function LibraryPage() {
   });
 
   return (
+    <>
+    <SiteNav />
     <main className="route-enter relative z-10 mx-auto flex min-h-dvh max-w-4xl flex-col px-6 py-10 md:px-10 md:py-14">
-      <nav className="flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-3">
-          <PneumaMark withWordmark size={26} />
-        </Link>
-        <div className="flex items-center gap-4">
-          <LanguageSelector />
-          <Link
-            to="/"
-            className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground transition-colors hover:text-foreground"
-          >
-            {t("library.back")}
-          </Link>
-        </div>
-      </nav>
-
       <header className="mt-16 mb-10 md:mt-20 md:mb-12">
         <p className="tracking-in font-display text-[10px] uppercase text-muted-foreground">
           {t("library.kicker")}
@@ -119,6 +107,8 @@ function LibraryPage() {
 
       <NewsletterCard className="mt-14" />
     </main>
+    <SiteFooter />
+    </>
   );
 }
 

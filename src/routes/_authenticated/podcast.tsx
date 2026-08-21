@@ -1,11 +1,12 @@
+import { SiteNav } from "@/components/site-nav";
+import { SiteFooter } from "@/components/site-footer";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { generateEpisode, type PodcastEpisode } from "@/lib/podcast.functions";
 import { PODCAST_BOOKS, type PodcastBook } from "@/lib/podcast-books";
 import { PHILOSOPHERS } from "@/lib/philosophers";
-import { useI18n, LanguageSelector } from "@/lib/i18n";
-import { PneumaMark } from "@/components/pneuma-mark";
+import { useI18n } from "@/lib/i18n";
 import { GreekGlyph } from "@/components/greek-glyph";
 
 export const Route = createFileRoute("/_authenticated/podcast")({
@@ -214,22 +215,9 @@ function PodcastPage() {
   );
 
   return (
+    <>
+    <SiteNav />
     <main className="route-enter relative z-10 mx-auto flex min-h-dvh max-w-5xl flex-col px-6 py-10 md:px-10 md:py-14">
-      <nav className="flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-3">
-          <PneumaMark withWordmark size={26} />
-        </Link>
-        <div className="flex items-center gap-4">
-          <LanguageSelector />
-          <Link
-            to="/"
-            className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground transition-colors hover:text-foreground"
-          >
-            {t("podcast.back")}
-          </Link>
-        </div>
-      </nav>
-
       <header className="mt-16 mb-10 md:mt-20 md:mb-12">
         <p className="tracking-in font-display text-[10px] uppercase tracking-[0.35em] text-sage">
           {t("podcast.kicker")}
@@ -440,5 +428,7 @@ function PodcastPage() {
         </div>
       </section>
     </main>
+    <SiteFooter />
+    </>
   );
 }
