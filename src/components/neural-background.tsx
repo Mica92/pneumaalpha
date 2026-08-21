@@ -31,12 +31,25 @@ export function NeuralBackground() {
         width={1920}
         height={1280}
         loading="lazy"
-        className="h-full w-full object-cover opacity-[0.45]"
+        className="h-full w-full object-cover opacity-[0.45] grayscale"
       />
       {tint && (
+        // The tint layer is clipped by the image itself, so only the bright
+        // network lines and nodes take colour; the surrounding field stays ink.
         <div
-          className="absolute inset-0 opacity-60 mix-blend-color"
-          style={{ backgroundColor: tint }}
+          className="absolute inset-0 opacity-90 mix-blend-screen"
+          style={{
+            backgroundColor: tint,
+            maskImage: `url(${neuralBg})`,
+            WebkitMaskImage: `url(${neuralBg})`,
+            maskSize: "cover",
+            WebkitMaskSize: "cover",
+            maskPosition: "center",
+            WebkitMaskPosition: "center",
+            maskRepeat: "no-repeat",
+            WebkitMaskRepeat: "no-repeat",
+            maskMode: "luminance",
+􀀀          }}
         />
       )}
       <div className="absolute inset-0 bg-gradient-to-b from-background/55 via-background/65 to-background/85" />
