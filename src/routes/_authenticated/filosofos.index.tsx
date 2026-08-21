@@ -82,7 +82,9 @@ function PhilosophersIndex() {
               id="philosopher-search"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder={es ? "Buscar: libertad, muerte, poder…" : "Search: freedom, death, power…"}
+              placeholder={
+                es ? "Buscar: libertad, muerte, poder…" : "Search: freedom, death, power…"
+              }
               className="focus-mist w-full max-w-md rounded-md border border-border/70 bg-input px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/70"
             />
 

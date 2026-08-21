@@ -362,10 +362,8 @@ function Index() {
         </div>
 
         <NewsletterCard className="mt-10" />
-
       </main>
       <SiteFooter />
     </>
-
   );
 }

@@ -57,136 +57,135 @@ function KnowledgePage() {
 
   return (
     <>
-    <SiteNav />
-    <main className="route-enter relative z-10 mx-auto flex min-h-dvh max-w-6xl flex-col px-6 py-10 md:px-10 md:py-14">
-      <header className="mt-14 mb-8">
-        <p className="tracking-in font-display text-[10px] uppercase tracking-[0.35em] text-glacier-bright">
-          {t("knowledge.kicker")}
-        </p>
-        <h1 className="fade-up mt-4 max-w-3xl font-display text-3xl font-light leading-[1.1] text-foreground md:text-5xl">
-          {t("knowledge.title")}
-        </h1>
-        <p className="fade-up mt-5 max-w-2xl text-sm leading-relaxed text-muted-foreground md:text-base">
-          {t("knowledge.sub")}
-        </p>
-      </header>
+      <SiteNav />
+      <main className="route-enter relative z-10 mx-auto flex min-h-dvh max-w-6xl flex-col px-6 py-10 md:px-10 md:py-14">
+        <header className="mt-14 mb-8">
+          <p className="tracking-in font-display text-[10px] uppercase tracking-[0.35em] text-glacier-bright">
+            {t("knowledge.kicker")}
+          </p>
+          <h1 className="fade-up mt-4 max-w-3xl font-display text-3xl font-light leading-[1.1] text-foreground md:text-5xl">
+            {t("knowledge.title")}
+          </h1>
+          <p className="fade-up mt-5 max-w-2xl text-sm leading-relaxed text-muted-foreground md:text-base">
+            {t("knowledge.sub")}
+          </p>
+        </header>
 
-      {/* Controls */}
-      <div className="mb-3 flex flex-wrap items-center gap-2">
-        <input
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder={t("knowledge.search")}
-          aria-label={t("knowledge.search")}
-          className="h-9 w-full max-w-xs rounded-md border border-border bg-card/40 px-3 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-glacier md:w-64"
-        />
-        <div className="flex flex-wrap gap-1.5">
-          {KINDS.map((k) => {
-            const on = kinds.has(k);
-            return (
-              <button
-                key={k}
-                type="button"
-                onClick={() => toggleKind(k)}
-                aria-pressed={on}
-                className={`flex items-center gap-2 rounded-full border px-3 py-1.5 text-[11px] uppercase tracking-[0.15em] transition-colors ${
-                  on
-                    ? "border-glacier/70 bg-card/70 text-foreground"
-                    : "border-border bg-transparent text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                <span
-                  className={`h-1.5 w-1.5 rounded-full ${KIND_DOT[k]} ${on ? "" : "opacity-40"}`}
-                />
-                {KIND_LABEL[k][lang]}
-              </button>
-            );
-          })}
-        </div>
-      </div>
-
-      <div className="grid gap-3 lg:grid-cols-[1fr_320px]">
-        <KnowledgeMap
-          selected={selected}
-          onSelect={setSelected}
-          activeKinds={kinds}
-          query={query}
-        />
-
-        {/* Detail panel */}
-        <aside className="flex max-h-[70vh] flex-col overflow-hidden rounded-xl border border-border bg-card/50 backdrop-blur-sm">
-          {node ? (
-            <div className="flex flex-col overflow-y-auto p-5">
-              <p className="font-display text-[10px] uppercase tracking-[0.3em] text-glacier-bright">
-                {KIND_LABEL[node.kind][lang]}
-                {node.era ? ` · ${node.era}` : ""}
-              </p>
-              <h2 className="mt-2 font-display text-xl font-light leading-tight text-foreground">
-                {node.label}
-              </h2>
-              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                {node.note[lang]}
-              </p>
-
-              {node.chat && (
-                <Link
-                  to="/$philosopher"
-                  params={{ philosopher: node.chat }}
-                  className="mt-4 inline-flex items-center justify-center rounded-md border border-glacier/60 bg-glacier/10 px-3 py-2 font-display text-[11px] uppercase tracking-[0.25em] text-glacier-bright transition-colors hover:bg-glacier/20 hover:text-foreground"
+        {/* Controls */}
+        <div className="mb-3 flex flex-wrap items-center gap-2">
+          <input
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder={t("knowledge.search")}
+            aria-label={t("knowledge.search")}
+            className="h-9 w-full max-w-xs rounded-md border border-border bg-card/40 px-3 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-glacier md:w-64"
+          />
+          <div className="flex flex-wrap gap-1.5">
+            {KINDS.map((k) => {
+              const on = kinds.has(k);
+              return (
+                <button
+                  key={k}
+                  type="button"
+                  onClick={() => toggleKind(k)}
+                  aria-pressed={on}
+                  className={`flex items-center gap-2 rounded-full border px-3 py-1.5 text-[11px] uppercase tracking-[0.15em] transition-colors ${
+                    on
+                      ? "border-glacier/70 bg-card/70 text-foreground"
+                      : "border-border bg-transparent text-muted-foreground hover:text-foreground"
+                  }`}
                 >
-                  {t("knowledge.talk")}
-                </Link>
-              )}
+                  <span
+                    className={`h-1.5 w-1.5 rounded-full ${KIND_DOT[k]} ${on ? "" : "opacity-40"}`}
+                  />
+                  {KIND_LABEL[k][lang]}
+                </button>
+              );
+            })}
+          </div>
+        </div>
 
-              <p className="mt-6 font-display text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
-                {t("knowledge.connections")} · {links.length}
-              </p>
-              <ul className="mt-2 space-y-1">
-                {links.map((l, i) => (
-                  <li key={`${l.node.id}-${i}`}>
-                    <button
-                      type="button"
-                      onClick={() => setSelected(l.node.id)}
-                      className="group flex w-full flex-col gap-0.5 rounded-md border border-transparent px-2 py-1.5 text-left transition-colors hover:border-border hover:bg-background/40"
-                    >
-                      <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-                        {l.direction === "out"
-                          ? LINK_LABEL[l.kind][lang]
-                          : `← ${LINK_LABEL[l.kind][lang]}`}
-                      </span>
-                      <span className="flex items-center gap-2 text-sm text-foreground/85 group-hover:text-foreground">
-                        <span
-                          className={`h-1.5 w-1.5 shrink-0 rounded-full ${KIND_DOT[l.node.kind]}`}
-                        />
-                        {l.node.label}
-                      </span>
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ) : (
-            <div className="flex flex-1 flex-col justify-center gap-3 p-6">
-              <p className="font-display text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
-                {t("knowledge.empty.kicker")}
-              </p>
-              <p className="text-sm leading-relaxed text-muted-foreground">
-                {t("knowledge.empty.body")}
-              </p>
-              <p className="mt-2 font-mono text-[11px] text-muted-foreground/70">
-                {GRAPH_NODES.length} {t("knowledge.nodes")}
-              </p>
-            </div>
-          )}
-        </aside>
-      </div>
+        <div className="grid gap-3 lg:grid-cols-[1fr_320px]">
+          <KnowledgeMap
+            selected={selected}
+            onSelect={setSelected}
+            activeKinds={kinds}
+            query={query}
+          />
 
-      <p className="mt-3 text-[11px] leading-relaxed text-muted-foreground/70">
-        {t("knowledge.legend")}
-      </p>
+          {/* Detail panel */}
+          <aside className="flex max-h-[70vh] flex-col overflow-hidden rounded-xl border border-border bg-card/50 backdrop-blur-sm">
+            {node ? (
+              <div className="flex flex-col overflow-y-auto p-5">
+                <p className="font-display text-[10px] uppercase tracking-[0.3em] text-glacier-bright">
+                  {KIND_LABEL[node.kind][lang]}
+                  {node.era ? ` · ${node.era}` : ""}
+                </p>
+                <h2 className="mt-2 font-display text-xl font-light leading-tight text-foreground">
+                  {node.label}
+                </h2>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                  {node.note[lang]}
+                </p>
 
-    </main>
-    <SiteFooter />
+                {node.chat && (
+                  <Link
+                    to="/$philosopher"
+                    params={{ philosopher: node.chat }}
+                    className="mt-4 inline-flex items-center justify-center rounded-md border border-glacier/60 bg-glacier/10 px-3 py-2 font-display text-[11px] uppercase tracking-[0.25em] text-glacier-bright transition-colors hover:bg-glacier/20 hover:text-foreground"
+                  >
+                    {t("knowledge.talk")}
+                  </Link>
+                )}
+
+                <p className="mt-6 font-display text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
+                  {t("knowledge.connections")} · {links.length}
+                </p>
+                <ul className="mt-2 space-y-1">
+                  {links.map((l, i) => (
+                    <li key={`${l.node.id}-${i}`}>
+                      <button
+                        type="button"
+                        onClick={() => setSelected(l.node.id)}
+                        className="group flex w-full flex-col gap-0.5 rounded-md border border-transparent px-2 py-1.5 text-left transition-colors hover:border-border hover:bg-background/40"
+                      >
+                        <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+                          {l.direction === "out"
+                            ? LINK_LABEL[l.kind][lang]
+                            : `← ${LINK_LABEL[l.kind][lang]}`}
+                        </span>
+                        <span className="flex items-center gap-2 text-sm text-foreground/85 group-hover:text-foreground">
+                          <span
+                            className={`h-1.5 w-1.5 shrink-0 rounded-full ${KIND_DOT[l.node.kind]}`}
+                          />
+                          {l.node.label}
+                        </span>
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ) : (
+              <div className="flex flex-1 flex-col justify-center gap-3 p-6">
+                <p className="font-display text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
+                  {t("knowledge.empty.kicker")}
+                </p>
+                <p className="text-sm leading-relaxed text-muted-foreground">
+                  {t("knowledge.empty.body")}
+                </p>
+                <p className="mt-2 font-mono text-[11px] text-muted-foreground/70">
+                  {GRAPH_NODES.length} {t("knowledge.nodes")}
+                </p>
+              </div>
+            )}
+          </aside>
+        </div>
+
+        <p className="mt-3 text-[11px] leading-relaxed text-muted-foreground/70">
+          {t("knowledge.legend")}
+        </p>
+      </main>
+      <SiteFooter />
     </>
   );
 }
