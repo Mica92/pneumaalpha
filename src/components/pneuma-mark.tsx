@@ -1,7 +1,7 @@
 /**
- * Pneumalpha mark — chevron glyph adapted to the "Arrival fog" palette.
- * Two stacked angle shapes (mist + foreground) pointing inward, like a breath
- * folding back on itself. Used as the brand logo across nav and auth.
+ * PneumaA mark — chevron glyph in the "Dark editorial" palette.
+ * Two stacked angle shapes (bronze + paper) folding inward, like a breath
+ * turning back on itself. Used as the brand logo across nav, footer and auth.
  */
 type Props = {
   className?: string;
@@ -10,7 +10,7 @@ type Props = {
 };
 
 export function PneumaMark({ className = "", withWordmark = false, size = 28 }: Props) {
-  const label = "Pneumalpha";
+  const label = "PneumaA";
   return (
     <span className={`inline-flex items-center gap-3 ${className}`} role="img" aria-label={label}>
       <svg
@@ -22,16 +22,14 @@ export function PneumaMark({ className = "", withWordmark = false, size = 28 }: 
         focusable="false"
         className="shrink-0"
       >
-        {/* Outer chevron — mist (softer tone) */}
         <path
           d="M28 14 L14 32 L28 50"
-          stroke="var(--mist)"
+          stroke="var(--bronze)"
           strokeWidth="9"
           strokeLinecap="round"
           strokeLinejoin="round"
-          opacity="0.55"
+          opacity="0.85"
         />
-        {/* Inner chevron — foreground (crisper) */}
         <path
           d="M50 14 L30 32 L50 50"
           stroke="var(--foreground)"
@@ -41,15 +39,12 @@ export function PneumaMark({ className = "", withWordmark = false, size = 28 }: 
         />
       </svg>
       {withWordmark && (
-        <>
-          <span aria-hidden="true" className="h-6 w-px bg-border" />
-          <span
-            aria-hidden="true"
-            className="font-display text-base font-bold tracking-[0.22em] text-foreground"
-          >
-            PNEUMALPHA
-          </span>
-        </>
+        <span
+          aria-hidden="true"
+          className="font-serif text-xl font-medium tracking-[0.14em] text-foreground"
+        >
+          Pneuma<span className="text-bronze">A</span>
+        </span>
       )}
     </span>
   );

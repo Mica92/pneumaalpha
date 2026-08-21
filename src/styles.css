@@ -6,15 +6,16 @@
 
 /*
  * PNEUMAA — Design System
- * "Arrival fog": glacier blue, mist, slow contemplation.
- * Sora display + Manrope text. Cinematic, mature, silent.
- * Inspirations: Blade Runner 2049, Dune, Arrival, Apple, Arc, Nordic minimalism.
+ * "Dark editorial": ink black, warm paper, bronze accent.
+ * Cormorant Garamond (editorial headings) + Manrope (interface).
+ * Elegant, intellectual, mysterious, human, modern, warm, minimal.
  */
 
 @theme inline {
-  --font-display: "Sora", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Manrope", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
-  --font-serif: "Sora", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Cormorant Garamond", ui-serif, Georgia, serif;
+  --font-editorial: "Cormorant Garamond", ui-serif, Georgia, serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 
   --radius-sm: calc(var(--radius) - 2px);
@@ -41,81 +42,109 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+
+  /* Editorial tokens */
+  --color-ink: var(--ink);
+  --color-surface: var(--surface);
+  --color-paper: var(--paper);
+  --color-bronze: var(--bronze);
+  --color-bronze-bright: var(--bronze-bright);
+  --color-bronze-soft: var(--bronze-soft);
+
+  /* Legacy aliases — old markup keeps working, remapped to the editorial palette */
   --color-mist: var(--mist);
   --color-glacier: var(--glacier);
   --color-glacier-bright: var(--glacier-bright);
   --color-fog: var(--fog);
   --color-sage: var(--sage);
 
-  --shadow-mist: 0 30px 80px -40px color-mix(in oklab, var(--glacier) 40%, transparent);
+  --shadow-mist: 0 30px 80px -40px color-mix(in oklab, var(--bronze) 30%, transparent);
+  --shadow-editorial: 0 40px 120px -50px oklch(0 0 0 / 0.85);
   --shadow-deep: 0 40px 100px -30px oklch(0 0 0 / 0.7);
-  --shadow-inset-line: inset 0 1px 0 0 color-mix(in oklab, var(--mist) 8%, transparent);
+  --shadow-inset-line: inset 0 1px 0 0 color-mix(in oklab, var(--paper) 8%, transparent);
 }
 
 :root {
-  --radius: 0.625rem;
+  --radius: 0.5rem;
 
-  /* Arrival — niebla fría */
-  --background: oklch(0.155 0.008 235);        /* #0b0f12 — deep void */
-  --foreground: oklch(0.82 0.018 230);          /* #a8b8c2 — mist */
+  /* Ink base */
+  --background: oklch(0.145 0.003 286);         /* #0B0B0D */
+  --foreground: oklch(0.945 0.008 85);          /* #F2EFE8 — warm paper */
 
-  --card: oklch(0.22 0.010 232);                /* #1a2228 — fog surface */
-  --card-foreground: oklch(0.86 0.018 230);
+  --card: oklch(0.185 0.004 286);               /* #121216 */
+  --card-foreground: oklch(0.945 0.008 85);
 
-  --popover: oklch(0.20 0.010 232);
-  --popover-foreground: oklch(0.86 0.018 230);
+  --popover: oklch(0.215 0.005 286);            /* #19191F */
+  --popover-foreground: oklch(0.945 0.008 85);
 
-  --primary: oklch(0.82 0.018 230);             /* mist — primary speaks in light */
-  --primary-foreground: oklch(0.14 0.008 235);
+  --primary: oklch(0.70 0.062 78);              /* #B89A62 — bronze CTA */
+  --primary-foreground: oklch(0.145 0.003 286);
 
-  --secondary: oklch(0.26 0.012 232);
-  --secondary-foreground: oklch(0.86 0.018 230);
+  --secondary: oklch(0.245 0.006 286);          /* #24242B */
+  --secondary-foreground: oklch(0.945 0.008 85);
 
-  --muted: oklch(0.22 0.010 232);
-  --muted-foreground: oklch(0.56 0.016 228);
+  --muted: oklch(0.215 0.005 286);
+  --muted-foreground: oklch(0.715 0.011 85);    /* #A9A49A — warm grey */
 
-  --accent: oklch(0.32 0.018 230);
-  --accent-foreground: oklch(0.90 0.018 228);
+  --accent: oklch(0.245 0.006 286);
+  --accent-foreground: oklch(0.945 0.008 85);
 
   --destructive: oklch(0.58 0.14 25);
-  --destructive-foreground: oklch(0.96 0.01 230);
+  --destructive-foreground: oklch(0.96 0.01 85);
 
-  --border: oklch(0.28 0.014 232);              /* #3a4a55 — boundary */
-  --input: oklch(0.20 0.010 232);
-  --ring: oklch(0.55 0.020 230);
+  --border: oklch(0.275 0.006 286);
+  --input: oklch(0.215 0.005 286);
+  --ring: oklch(0.70 0.062 78);
 
-  --mist: oklch(0.82 0.018 230);                /* #a8b8c2 */
-  --glacier: oklch(0.55 0.030 228);             /* mid blue-gray — surfaces, borders */
-  --glacier-bright: oklch(0.80 0.045 228);      /* text-safe glacier, AA on card */
-  --fog: oklch(0.42 0.020 230);                 /* #3a4a55 */
-  --sage: oklch(0.74 0.045 160);                /* cool sage — kit accent, AAA on card */
+  /* Editorial */
+  --ink: oklch(0.145 0.003 286);
+  --surface: oklch(0.215 0.005 286);
+  --paper: oklch(0.945 0.008 85);
+  --bronze: oklch(0.70 0.062 78);               /* #B89A62 */
+  --bronze-bright: oklch(0.80 0.068 80);
+  --bronze-soft: oklch(0.55 0.048 78);
+
+  /* Legacy aliases */
+  --mist: oklch(0.945 0.008 85);
+  --glacier: oklch(0.70 0.062 78);
+  --glacier-bright: oklch(0.80 0.068 80);
+  --fog: oklch(0.55 0.048 78);
+  --sage: oklch(0.80 0.068 80);
 }
 
 .dark {
-  --background: oklch(0.155 0.008 235);
-  --foreground: oklch(0.82 0.018 230);
-  --card: oklch(0.22 0.010 232);
-  --card-foreground: oklch(0.86 0.018 230);
-  --popover: oklch(0.20 0.010 232);
-  --popover-foreground: oklch(0.86 0.018 230);
-  --primary: oklch(0.82 0.018 230);
-  --primary-foreground: oklch(0.14 0.008 235);
-  --secondary: oklch(0.26 0.012 232);
-  --secondary-foreground: oklch(0.86 0.018 230);
-  --muted: oklch(0.22 0.010 232);
-  --muted-foreground: oklch(0.56 0.016 228);
-  --accent: oklch(0.32 0.018 230);
-  --accent-foreground: oklch(0.90 0.018 228);
+  --background: oklch(0.145 0.003 286);
+  --foreground: oklch(0.945 0.008 85);
+  --card: oklch(0.185 0.004 286);
+  --card-foreground: oklch(0.945 0.008 85);
+  --popover: oklch(0.215 0.005 286);
+  --popover-foreground: oklch(0.945 0.008 85);
+  --primary: oklch(0.70 0.062 78);
+  --primary-foreground: oklch(0.145 0.003 286);
+  --secondary: oklch(0.245 0.006 286);
+  --secondary-foreground: oklch(0.945 0.008 85);
+  --muted: oklch(0.215 0.005 286);
+  --muted-foreground: oklch(0.715 0.011 85);
+  --accent: oklch(0.245 0.006 286);
+  --accent-foreground: oklch(0.945 0.008 85);
   --destructive: oklch(0.58 0.14 25);
-  --destructive-foreground: oklch(0.96 0.01 230);
-  --border: oklch(0.28 0.014 232);
-  --input: oklch(0.20 0.010 232);
-  --ring: oklch(0.55 0.020 230);
-  --mist: oklch(0.82 0.018 230);
-  --glacier: oklch(0.55 0.030 228);
-  --fog: oklch(0.42 0.020 230);
-  --sage: oklch(0.74 0.045 160);
+  --destructive-foreground: oklch(0.96 0.01 85);
+  --border: oklch(0.275 0.006 286);
+  --input: oklch(0.215 0.005 286);
+  --ring: oklch(0.70 0.062 78);
+  --ink: oklch(0.145 0.003 286);
+  --surface: oklch(0.215 0.005 286);
+  --paper: oklch(0.945 0.008 85);
+  --bronze: oklch(0.70 0.062 78);
+  --bronze-bright: oklch(0.80 0.068 80);
+  --bronze-soft: oklch(0.55 0.048 78);
+  --mist: oklch(0.945 0.008 85);
+  --glacier: oklch(0.70 0.062 78);
+  --glacier-bright: oklch(0.80 0.068 80);
+  --fog: oklch(0.55 0.048 78);
+  --sage: oklch(0.80 0.068 80);
 }
+
 
 @layer base {
   * { border-color: var(--color-border); }
@@ -159,10 +188,11 @@
   }
 
   h1, h2, h3, h4 {
-    font-family: var(--font-display);
+    font-family: var(--font-serif);
     font-weight: 300;
-    letter-spacing: -0.022em;
+    letter-spacing: -0.008em;
   }
+
 
   ::selection {
     background-color: color-mix(in oklab, var(--mist) 25%, transparent);
@@ -278,3 +308,64 @@
   .pneuma-breathe, .ember-breathe { animation: none !important; opacity: 0.85 !important; }
 }
 
+
+/* --- Editorial utilities --- */
+
+@utility label {
+  font-family: var(--font-sans);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+
+@utility rule-hairline {
+  border-top: 1px solid color-mix(in oklab, var(--border) 100%, transparent);
+}
+
+@utility btn-gold {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: var(--bronze);
+  color: var(--primary-foreground);
+  font-weight: 600;
+  border-radius: var(--radius);
+  transition: background 0.25s ease, transform 0.25s ease;
+  &:hover {
+    background: var(--bronze-bright);
+  }
+  &:active {
+    transform: translateY(1px);
+  }
+}
+
+@utility btn-ghost-gold {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: 1px solid color-mix(in oklab, var(--bronze) 45%, transparent);
+  color: var(--bronze-bright);
+  border-radius: var(--radius);
+  transition: border-color 0.25s ease, background 0.25s ease, color 0.25s ease;
+  &:hover {
+    border-color: var(--bronze);
+    background: color-mix(in oklab, var(--bronze) 10%, transparent);
+    color: var(--foreground);
+  }
+}
+
+@utility card-editorial {
+  background: color-mix(in oklab, var(--card) 92%, transparent);
+  border: 1px solid color-mix(in oklab, var(--border) 100%, transparent);
+  border-radius: var(--radius);
+  transition: border-color 0.35s ease, transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 0.35s ease;
+  &:hover {
+    border-color: color-mix(in oklab, var(--bronze) 45%, transparent);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-editorial);
+  }
+}

@@ -7,6 +7,8 @@ import { PHILOSOPHERS, isPhilosopherId, type PhilosopherId } from "@/lib/philoso
 
 export const Route = createFileRoute("/_authenticated/$philosopher")({
   component: PhilosopherChat,
+  validateSearch: (search: Record<string, unknown>): { q?: string } =>
+    typeof search.q === "string" && search.q ? { q: search.q } : {},
   head: ({ params }) => {
     const id = params.philosopher as string;
     if (!isPhilosopherId(id)) {
@@ -44,6 +46,7 @@ export const Route = createFileRoute("/_authenticated/$philosopher")({
 
 function PhilosopherChat() {
   const { philosopher } = useParams({ from: "/_authenticated/$philosopher" });
+  const { q } = Route.useSearch();
   const { user, loading } = useAuth();
   const navigate = useNavigate();
 
@@ -63,6 +66,7 @@ function PhilosopherChat() {
     <ChatWindow
       userId={user.id}
       philosopher={philosopher}
+      initialPrompt={q}
       onSignOut={() => navigate({ to: "/" })}
     />
   );

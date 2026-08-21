@@ -16,6 +16,7 @@ import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/
 import { Route as AuthenticatedUmbralRouteImport } from './routes/_authenticated/umbral'
 import { Route as AuthenticatedSocratesRouteImport } from './routes/_authenticated/socrates'
 import { Route as AuthenticatedReporteRouteImport } from './routes/_authenticated/reporte'
+import { Route as AuthenticatedRecorridoRouteImport } from './routes/_authenticated/recorrido'
 import { Route as AuthenticatedPodcastRouteImport } from './routes/_authenticated/podcast'
 import { Route as AuthenticatedOraculoRouteImport } from './routes/_authenticated/oraculo'
 import { Route as AuthenticatedMesaRouteImport } from './routes/_authenticated/mesa'
@@ -23,7 +24,13 @@ import { Route as AuthenticatedConocimientoRouteImport } from './routes/_authent
 import { Route as AuthenticatedBibliotecaRouteImport } from './routes/_authenticated/biblioteca'
 import { Route as AuthenticatedAnalisisRouteImport } from './routes/_authenticated/analisis'
 import { Route as AuthenticatedPhilosopherRouteImport } from './routes/_authenticated/$philosopher'
+import { Route as AuthenticatedRutasIndexRouteImport } from './routes/_authenticated/rutas.index'
+import { Route as AuthenticatedIdeasIndexRouteImport } from './routes/_authenticated/ideas.index'
+import { Route as AuthenticatedFilosofosIndexRouteImport } from './routes/_authenticated/filosofos.index'
 import { Route as ApiPodcastSpeechRouteImport } from './routes/api/podcast/speech'
+import { Route as AuthenticatedRutasIdRouteImport } from './routes/_authenticated/rutas.$id'
+import { Route as AuthenticatedIdeasIdRouteImport } from './routes/_authenticated/ideas.$id'
+import { Route as AuthenticatedFilosofosIdRouteImport } from './routes/_authenticated/filosofos.$id'
 import { Route as ApiPublicTelegramWebhookRouteImport } from './routes/api/public/telegram/webhook'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -58,6 +65,11 @@ const AuthenticatedSocratesRoute = AuthenticatedSocratesRouteImport.update({
 const AuthenticatedReporteRoute = AuthenticatedReporteRouteImport.update({
   id: '/reporte',
   path: '/reporte',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedRecorridoRoute = AuthenticatedRecorridoRouteImport.update({
+  id: '/recorrido',
+  path: '/recorrido',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedPodcastRoute = AuthenticatedPodcastRouteImport.update({
@@ -97,11 +109,43 @@ const AuthenticatedPhilosopherRoute =
     path: '/$philosopher',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedRutasIndexRoute = AuthenticatedRutasIndexRouteImport.update({
+  id: '/rutas/',
+  path: '/rutas/',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedIdeasIndexRoute = AuthenticatedIdeasIndexRouteImport.update({
+  id: '/ideas/',
+  path: '/ideas/',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedFilosofosIndexRoute =
+  AuthenticatedFilosofosIndexRouteImport.update({
+    id: '/filosofos/',
+    path: '/filosofos/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const ApiPodcastSpeechRoute = ApiPodcastSpeechRouteImport.update({
   id: '/api/podcast/speech',
   path: '/api/podcast/speech',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedRutasIdRoute = AuthenticatedRutasIdRouteImport.update({
+  id: '/rutas/$id',
+  path: '/rutas/$id',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedIdeasIdRoute = AuthenticatedIdeasIdRouteImport.update({
+  id: '/ideas/$id',
+  path: '/ideas/$id',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedFilosofosIdRoute =
+  AuthenticatedFilosofosIdRouteImport.update({
+    id: '/filosofos/$id',
+    path: '/filosofos/$id',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const ApiPublicTelegramWebhookRoute =
   ApiPublicTelegramWebhookRouteImport.update({
     id: '/api/public/telegram/webhook',
@@ -120,10 +164,17 @@ export interface FileRoutesByFullPath {
   '/mesa': typeof AuthenticatedMesaRoute
   '/oraculo': typeof AuthenticatedOraculoRoute
   '/podcast': typeof AuthenticatedPodcastRoute
+  '/recorrido': typeof AuthenticatedRecorridoRoute
   '/reporte': typeof AuthenticatedReporteRoute
   '/socrates': typeof AuthenticatedSocratesRoute
   '/umbral': typeof AuthenticatedUmbralRoute
+  '/filosofos/$id': typeof AuthenticatedFilosofosIdRoute
+  '/ideas/$id': typeof AuthenticatedIdeasIdRoute
+  '/rutas/$id': typeof AuthenticatedRutasIdRoute
   '/api/podcast/speech': typeof ApiPodcastSpeechRoute
+  '/filosofos/': typeof AuthenticatedFilosofosIndexRoute
+  '/ideas/': typeof AuthenticatedIdeasIndexRoute
+  '/rutas/': typeof AuthenticatedRutasIndexRoute
   '/api/public/telegram/webhook': typeof ApiPublicTelegramWebhookRoute
 }
 export interface FileRoutesByTo {
@@ -136,11 +187,18 @@ export interface FileRoutesByTo {
   '/mesa': typeof AuthenticatedMesaRoute
   '/oraculo': typeof AuthenticatedOraculoRoute
   '/podcast': typeof AuthenticatedPodcastRoute
+  '/recorrido': typeof AuthenticatedRecorridoRoute
   '/reporte': typeof AuthenticatedReporteRoute
   '/socrates': typeof AuthenticatedSocratesRoute
   '/umbral': typeof AuthenticatedUmbralRoute
   '/': typeof AuthenticatedIndexRoute
+  '/filosofos/$id': typeof AuthenticatedFilosofosIdRoute
+  '/ideas/$id': typeof AuthenticatedIdeasIdRoute
+  '/rutas/$id': typeof AuthenticatedRutasIdRoute
   '/api/podcast/speech': typeof ApiPodcastSpeechRoute
+  '/filosofos': typeof AuthenticatedFilosofosIndexRoute
+  '/ideas': typeof AuthenticatedIdeasIndexRoute
+  '/rutas': typeof AuthenticatedRutasIndexRoute
   '/api/public/telegram/webhook': typeof ApiPublicTelegramWebhookRoute
 }
 export interface FileRoutesById {
@@ -155,11 +213,18 @@ export interface FileRoutesById {
   '/_authenticated/mesa': typeof AuthenticatedMesaRoute
   '/_authenticated/oraculo': typeof AuthenticatedOraculoRoute
   '/_authenticated/podcast': typeof AuthenticatedPodcastRoute
+  '/_authenticated/recorrido': typeof AuthenticatedRecorridoRoute
   '/_authenticated/reporte': typeof AuthenticatedReporteRoute
   '/_authenticated/socrates': typeof AuthenticatedSocratesRoute
   '/_authenticated/umbral': typeof AuthenticatedUmbralRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
+  '/_authenticated/filosofos/$id': typeof AuthenticatedFilosofosIdRoute
+  '/_authenticated/ideas/$id': typeof AuthenticatedIdeasIdRoute
+  '/_authenticated/rutas/$id': typeof AuthenticatedRutasIdRoute
   '/api/podcast/speech': typeof ApiPodcastSpeechRoute
+  '/_authenticated/filosofos/': typeof AuthenticatedFilosofosIndexRoute
+  '/_authenticated/ideas/': typeof AuthenticatedIdeasIndexRoute
+  '/_authenticated/rutas/': typeof AuthenticatedRutasIndexRoute
   '/api/public/telegram/webhook': typeof ApiPublicTelegramWebhookRoute
 }
 export interface FileRouteTypes {
@@ -175,10 +240,17 @@ export interface FileRouteTypes {
     | '/mesa'
     | '/oraculo'
     | '/podcast'
+    | '/recorrido'
     | '/reporte'
     | '/socrates'
     | '/umbral'
+    | '/filosofos/$id'
+    | '/ideas/$id'
+    | '/rutas/$id'
     | '/api/podcast/speech'
+    | '/filosofos/'
+    | '/ideas/'
+    | '/rutas/'
     | '/api/public/telegram/webhook'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -191,11 +263,18 @@ export interface FileRouteTypes {
     | '/mesa'
     | '/oraculo'
     | '/podcast'
+    | '/recorrido'
     | '/reporte'
     | '/socrates'
     | '/umbral'
     | '/'
+    | '/filosofos/$id'
+    | '/ideas/$id'
+    | '/rutas/$id'
     | '/api/podcast/speech'
+    | '/filosofos'
+    | '/ideas'
+    | '/rutas'
     | '/api/public/telegram/webhook'
   id:
     | '__root__'
@@ -209,11 +288,18 @@ export interface FileRouteTypes {
     | '/_authenticated/mesa'
     | '/_authenticated/oraculo'
     | '/_authenticated/podcast'
+    | '/_authenticated/recorrido'
     | '/_authenticated/reporte'
     | '/_authenticated/socrates'
     | '/_authenticated/umbral'
     | '/_authenticated/'
+    | '/_authenticated/filosofos/$id'
+    | '/_authenticated/ideas/$id'
+    | '/_authenticated/rutas/$id'
     | '/api/podcast/speech'
+    | '/_authenticated/filosofos/'
+    | '/_authenticated/ideas/'
+    | '/_authenticated/rutas/'
     | '/api/public/telegram/webhook'
   fileRoutesById: FileRoutesById
 }
@@ -276,6 +362,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedReporteRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/recorrido': {
+      id: '/_authenticated/recorrido'
+      path: '/recorrido'
+      fullPath: '/recorrido'
+      preLoaderRoute: typeof AuthenticatedRecorridoRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/podcast': {
       id: '/_authenticated/podcast'
       path: '/podcast'
@@ -325,12 +418,54 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedPhilosopherRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/rutas/': {
+      id: '/_authenticated/rutas/'
+      path: '/rutas'
+      fullPath: '/rutas/'
+      preLoaderRoute: typeof AuthenticatedRutasIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/ideas/': {
+      id: '/_authenticated/ideas/'
+      path: '/ideas'
+      fullPath: '/ideas/'
+      preLoaderRoute: typeof AuthenticatedIdeasIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/filosofos/': {
+      id: '/_authenticated/filosofos/'
+      path: '/filosofos'
+      fullPath: '/filosofos/'
+      preLoaderRoute: typeof AuthenticatedFilosofosIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/api/podcast/speech': {
       id: '/api/podcast/speech'
       path: '/api/podcast/speech'
       fullPath: '/api/podcast/speech'
       preLoaderRoute: typeof ApiPodcastSpeechRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/rutas/$id': {
+      id: '/_authenticated/rutas/$id'
+      path: '/rutas/$id'
+      fullPath: '/rutas/$id'
+      preLoaderRoute: typeof AuthenticatedRutasIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/ideas/$id': {
+      id: '/_authenticated/ideas/$id'
+      path: '/ideas/$id'
+      fullPath: '/ideas/$id'
+      preLoaderRoute: typeof AuthenticatedIdeasIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/filosofos/$id': {
+      id: '/_authenticated/filosofos/$id'
+      path: '/filosofos/$id'
+      fullPath: '/filosofos/$id'
+      preLoaderRoute: typeof AuthenticatedFilosofosIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/api/public/telegram/webhook': {
       id: '/api/public/telegram/webhook'
@@ -350,10 +485,17 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedMesaRoute: typeof AuthenticatedMesaRoute
   AuthenticatedOraculoRoute: typeof AuthenticatedOraculoRoute
   AuthenticatedPodcastRoute: typeof AuthenticatedPodcastRoute
+  AuthenticatedRecorridoRoute: typeof AuthenticatedRecorridoRoute
   AuthenticatedReporteRoute: typeof AuthenticatedReporteRoute
   AuthenticatedSocratesRoute: typeof AuthenticatedSocratesRoute
   AuthenticatedUmbralRoute: typeof AuthenticatedUmbralRoute
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
+  AuthenticatedFilosofosIdRoute: typeof AuthenticatedFilosofosIdRoute
+  AuthenticatedIdeasIdRoute: typeof AuthenticatedIdeasIdRoute
+  AuthenticatedRutasIdRoute: typeof AuthenticatedRutasIdRoute
+  AuthenticatedFilosofosIndexRoute: typeof AuthenticatedFilosofosIndexRoute
+  AuthenticatedIdeasIndexRoute: typeof AuthenticatedIdeasIndexRoute
+  AuthenticatedRutasIndexRoute: typeof AuthenticatedRutasIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
@@ -364,10 +506,17 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedMesaRoute: AuthenticatedMesaRoute,
   AuthenticatedOraculoRoute: AuthenticatedOraculoRoute,
   AuthenticatedPodcastRoute: AuthenticatedPodcastRoute,
+  AuthenticatedRecorridoRoute: AuthenticatedRecorridoRoute,
   AuthenticatedReporteRoute: AuthenticatedReporteRoute,
   AuthenticatedSocratesRoute: AuthenticatedSocratesRoute,
   AuthenticatedUmbralRoute: AuthenticatedUmbralRoute,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
+  AuthenticatedFilosofosIdRoute: AuthenticatedFilosofosIdRoute,
+  AuthenticatedIdeasIdRoute: AuthenticatedIdeasIdRoute,
+  AuthenticatedRutasIdRoute: AuthenticatedRutasIdRoute,
+  AuthenticatedFilosofosIndexRoute: AuthenticatedFilosofosIndexRoute,
+  AuthenticatedIdeasIndexRoute: AuthenticatedIdeasIndexRoute,
+  AuthenticatedRutasIndexRoute: AuthenticatedRutasIndexRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =

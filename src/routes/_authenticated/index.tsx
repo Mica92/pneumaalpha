@@ -1,28 +1,29 @@
 import { useMemo, useState } from "react";
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { PHILOSOPHER_LIST, type PhilosopherId } from "@/lib/philosophers";
-import { useI18n, LanguageSelector } from "@/lib/i18n";
-import { PneumaMark } from "@/components/pneuma-mark";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { PHILOSOPHERS, PHILOSOPHER_LIST, type PhilosopherId } from "@/lib/philosophers";
+import { portraitFocus, portraitOf, profileOf } from "@/lib/portraits";
+import { CATEGORIES, IDEAS, REAL_PROBLEMS, ROUTES, centralQuestion } from "@/lib/discovery";
+import { useI18n } from "@/lib/i18n";
+import { SiteNav } from "@/components/site-nav";
+import { SiteFooter } from "@/components/site-footer";
+import { PhilosopherCard } from "@/components/philosopher-card";
 import landingBg from "@/assets/landing-bg.jpg";
-import { ChatWindow } from "@/components/chat-window";
-import { GreekGlyph } from "@/components/greek-glyph";
-import { useAuth } from "@/hooks/use-auth";
 
 export const Route = createFileRoute("/_authenticated/")({
-  component: Landing,
+  component: Home,
   head: () => ({
     meta: [
-      { title: "PneumaA — conciencias filosóficas reconstruidas, una conversación" },
+      { title: "PneumaA — Conversa con los grandes pensadores de la historia" },
       {
         name: "description",
         content:
-          "Empieza a conversar al instante con una conciencia filosófica elegida al azar. Qué es PneumaA, citas de los pensadores y acceso a todas las mentes.",
+          "Escribe lo que te preocupa y habla con una conciencia filosófica reconstruida. Diecinueve mentes, grandes ideas y rutas guiadas para pensar tu vida.",
       },
-      { property: "og:title", content: "PneumaA — conciencias reconstruidas" },
+      { property: "og:title", content: "PneumaA — Conversa con los grandes pensadores" },
       {
         property: "og:description",
         content:
-          "Una conversación abierta desde el primer segundo: filósofos reconstruidos, citas y diálogo bilingüe ES / EN.",
+          "No es una enciclopedia: es una conversación. Entra por una pregunta, no por un autor.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://pneumaalpha.lovable.app/" },
@@ -32,156 +33,324 @@ export const Route = createFileRoute("/_authenticated/")({
   }),
 });
 
-function randomPhilosopher(exclude?: PhilosopherId): PhilosopherId {
-  const pool = PHILOSOPHER_LIST.filter((p) => p.id !== exclude);
-  const pick = pool[Math.floor(Math.random() * pool.length)] ?? PHILOSOPHER_LIST[0];
-  return pick.id;
-}
+function Home() {
+  const { lang } = useI18n();
+  const es = lang === "es";
+  const navigate = useNavigate();
+  const [inquiry, setInquiry] = useState("");
 
-function Landing() {
-  const { lang, t } = useI18n();
-  const { user, loading } = useAuth();
-  const first = useMemo(() => randomPhilosopher(), []);
-  const [current, setCurrent] = useState<PhilosopherId>(first);
-  const meta = PHILOSOPHER_LIST.find((p) => p.id === current)!;
+  const featured = useMemo(() => {
+    const ids: PhilosopherId[] = ["heidegger", "nietzsche", "pohlenz", "levinas", "marx", "kant"];
+    return ids.filter((id) => id in PHILOSOPHERS);
+  }, []);
+
+  const spotlight = useMemo(() => {
+    const day = new Date().getUTCDate();
+    return PHILOSOPHER_LIST[day % PHILOSOPHER_LIST.length];
+  }, []);
+
+  function ask(text: string) {
+    const q = text.trim();
+    if (!q) return;
+    navigate({ to: "/oraculo", search: { q } });
+  }
 
   return (
     <>
-      {/* Fondo — imagen + retícula rota */}
-      <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-0">
-        <img
-          src={landingBg}
-          alt=""
-          width={1920}
-          height={1080}
-          className="h-full w-full scale-105 object-cover opacity-30 grayscale"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/70 to-background" />
-        <div className="absolute inset-y-0 left-[8%] hidden w-px bg-border/60 md:block" />
-        <div className="absolute inset-y-0 right-[22%] hidden w-px bg-border/40 md:block" />
-        <div className="absolute -right-40 top-1/4 h-[28rem] w-[28rem] rounded-full bg-glacier/10 blur-[120px]" />
-      </div>
+      <SiteNav />
 
-      <main className="route-enter relative z-10 mx-auto flex min-h-dvh max-w-6xl flex-col px-5 py-8 md:px-10 md:py-12">
-        <nav className="flex items-center justify-between">
-          <PneumaMark size={26} />
-          <div className="flex items-center gap-5">
-            <Link
-              to="/umbral"
-              className="focus-mist font-display text-[10px] uppercase tracking-[0.3em] text-muted-foreground transition-colors hover:text-foreground"
-            >
-              {lang === "es" ? "Umbral" : "Threshold"}
-            </Link>
-            <LanguageSelector />
+      <main className="route-enter relative z-10">
+        {/* ── Hero ─────────────────────────────────────────────── */}
+        <section className="relative overflow-hidden border-b border-border/60">
+          <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+            <img
+              src={landingBg}
+              alt=""
+              className="h-full w-full scale-105 object-cover opacity-20 grayscale"
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/85 to-background" />
           </div>
-        </nav>
 
-        {/* HERO rupturista — tipografía desbordada y desalineada */}
-        <header className="relative mt-16 mb-14 md:mt-24 md:mb-20">
-          <span className="absolute -top-6 left-0 font-mono text-[10px] tracking-[0.4em] text-mist/70">
-            {String(PHILOSOPHER_LIST.length).padStart(2, "0")} ·{" "}
-            {lang === "es" ? "MENTES" : "MINDS"}
-          </span>
-
-          <h1 className="fade-up font-display leading-[0.82] text-foreground">
-            <span className="block text-[15vw] font-extralight tracking-[-0.04em] md:text-[9rem]">
-              PNEUM
-            </span>
-            <span className="ml-[18%] block text-[15vw] font-bold tracking-[-0.05em] text-glacier-bright md:ml-[26%] md:text-[9rem]">
-              ALPHA
-            </span>
-          </h1>
-
-          <div className="mt-8 grid gap-6 md:grid-cols-[1fr_auto] md:items-end">
-            <p className="fade-up max-w-md text-sm font-light leading-relaxed text-muted-foreground">
-              {t("umbral.sub")}
+          <div className="relative mx-auto max-w-4xl px-5 py-24 text-center md:px-8 md:py-36">
+            <p className="label">
+              {PHILOSOPHER_LIST.length} {es ? "conciencias reconstruidas" : "reconstructed minds"}
             </p>
-            <Link
-              to="/umbral"
-              className="focus-mist group inline-flex w-fit items-center gap-3 border-b border-glacier/50 pb-2 font-display text-[11px] uppercase tracking-[0.32em] text-glacier-bright transition-colors hover:border-foreground hover:text-foreground"
-            >
-              {lang === "es" ? "Todas las mentes" : "All minds"}
-              <span aria-hidden="true" className="transition-transform group-hover:translate-x-1">
-                →
-              </span>
-            </Link>
-          </div>
-        </header>
-
-        {/* Manifiesto — bloque diagonal, texto grande */}
-        <section aria-labelledby="about-heading" className="fade-up relative mb-16">
-          <div className="grid gap-8 border-t border-border/60 pt-8 md:grid-cols-[auto_1fr] md:gap-14">
-            <p className="font-display text-[10px] uppercase leading-relaxed tracking-[0.4em] text-mist md:[writing-mode:vertical-rl]">
-              {t("umbral.about.kicker")}
+            <h1 className="fade-up mx-auto mt-6 max-w-3xl font-serif text-5xl font-light leading-[1.02] text-foreground md:text-7xl">
+              {es ? (
+                <>
+                  ¿Qué pregunta llevas <em className="text-bronze not-italic">contigo</em> hoy?
+                </>
+              ) : (
+                <>
+                  What question are you <em className="text-bronze not-italic">carrying</em> today?
+                </>
+              )}
+            </h1>
+            <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg">
+              {es
+                ? "Escríbela como te salga. Te pondremos frente a la mente que lleva siglos pensándola."
+                : "Write it however it comes. We'll put you in front of the mind that has spent centuries on it."}
             </p>
-            <div>
-              <h2
-                id="about-heading"
-                className="max-w-3xl font-display text-2xl font-light leading-[1.15] tracking-tight text-foreground md:text-4xl"
-              >
-                {t("umbral.about.title")}
-              </h2>
-              <p className="mt-6 max-w-xl text-sm leading-relaxed text-muted-foreground md:text-base">
-                {t("umbral.about.body")}
-              </p>
-            </div>
-          </div>
-        </section>
 
-        {/* Conversación abierta */}
-        <section aria-labelledby="live-chat-heading" className="fade-up relative mb-16 md:-mx-4">
-          <div className="overflow-hidden rounded-none border border-border/70 bg-card/40 backdrop-blur-md md:rounded-sm">
-            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border/60 bg-background/40 px-5 py-4">
-              <div className="min-w-0">
-                <h2
-                  id="live-chat-heading"
-                  className="font-display text-[10px] uppercase tracking-[0.4em] text-mist"
-                >
-                  {t("umbral.random")}
-                </h2>
-                <p className="mt-1 truncate font-display text-base font-light tracking-tight text-foreground">
-                  {meta.name}
-                  <span className="ml-2 text-xs text-muted-foreground/80">
-                    {meta.subtitle[lang]}
-                  </span>
-                </p>
-              </div>
-              <button
-                type="button"
-                onClick={() => setCurrent((prev) => randomPhilosopher(prev))}
-                className="focus-mist inline-flex items-center gap-2 border border-glacier/40 bg-glacier/10 px-5 py-2.5 font-display text-[10px] uppercase tracking-[0.3em] text-foreground transition-all hover:border-glacier/80 hover:bg-glacier/20"
-              >
-                <span aria-hidden="true">✦</span>
-                {lang === "es" ? "Otra mente" : "Another mind"}
-              </button>
-            </div>
-
-            {loading || !user ? (
-              <div className="flex h-[40vh] items-center justify-center">
-                <GreekGlyph className="font-display text-4xl text-mist pneuma-breathe" />
-              </div>
-            ) : (
-              <ChatWindow
-                key={current}
-                embedded
-                userId={user.id}
-                philosopher={current}
-                onSignOut={() => undefined}
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                ask(inquiry);
+              }}
+              className="mx-auto mt-10 flex max-w-xl flex-col gap-3 sm:flex-row"
+            >
+              <label className="sr-only" htmlFor="home-inquiry">
+                {es ? "Tu pregunta" : "Your question"}
+              </label>
+              <input
+                id="home-inquiry"
+                value={inquiry}
+                onChange={(e) => setInquiry(e.target.value)}
+                placeholder={
+                  es ? "No sé qué hacer con mi vida…" : "I don't know what to do with my life…"
+                }
+                className="focus-mist flex-1 rounded-md border border-border/70 bg-input px-4 py-3.5 text-sm text-foreground placeholder:text-muted-foreground/70"
               />
-            )}
+              <button type="submit" className="btn-gold focus-mist px-6 py-3.5 text-sm">
+                {es ? "Empezar" : "Begin"}
+              </button>
+            </form>
+
+            <ul className="mx-auto mt-6 flex max-w-2xl flex-wrap justify-center gap-2">
+              {REAL_PROBLEMS.slice(0, 4).map((p) => (
+                <li key={p.id}>
+                  <button
+                    type="button"
+                    onClick={() => ask(p.text[lang])}
+                    className="focus-mist rounded-full border border-border/60 px-3.5 py-1.5 text-xs text-muted-foreground transition-colors hover:border-bronze/50 hover:text-foreground"
+                  >
+                    {p.text[lang]}
+                  </button>
+                </li>
+              ))}
+            </ul>
           </div>
         </section>
 
-        <footer className="mt-auto flex flex-wrap items-center justify-between gap-3 border-t border-border/60 pt-6 text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
-          <span>PneumAlpha · {new Date().getFullYear()}</span>
-          <span className="hidden font-mono text-muted-foreground/50 md:inline">
-            ∴ · ✦ · Ω · ◈ · ⧫
-          </span>
-          <Link to="/privacy" className="transition-colors hover:text-foreground">
-            {lang === "es" ? "Privacidad" : "Privacy"}
-          </Link>
-        </footer>
+        {/* ── ¿Qué estás buscando? ─────────────────────────────── */}
+        <section className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-28">
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <p className="label">{es ? "Por dónde entrar" : "Where to start"}</p>
+              <h2 className="mt-3 font-serif text-3xl font-light text-foreground md:text-5xl">
+                {es ? "¿Qué estás buscando?" : "What are you looking for?"}
+              </h2>
+            </div>
+            <Link
+              to="/filosofos"
+              className="focus-mist text-sm text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline"
+            >
+              {es ? "Ver todas las mentes →" : "See all minds →"}
+            </Link>
+          </div>
+
+          <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {CATEGORIES.map((c) => (
+              <li key={c.id}>
+                <Link
+                  to="/oraculo"
+                  search={{ q: c.seed[lang] }}
+                  className="card-editorial focus-mist flex h-full flex-col p-6"
+                >
+                  <span aria-hidden="true" className="font-serif text-2xl text-bronze">
+                    {c.glyph}
+                  </span>
+                  <h3 className="mt-4 font-serif text-2xl font-light text-foreground">
+                    {c.title[lang]}
+                  </h3>
+                  <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
+                    {c.tags[lang]}
+                  </p>
+                  <p className="mt-5 text-[11px] text-bronze-bright">
+                    {c.philosophers
+                      .slice(0, 3)
+                      .map((p) => PHILOSOPHERS[p]?.name)
+                      .join(" · ")}
+                  </p>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        {/* ── Mentes destacadas ────────────────────────────────── */}
+        <section className="border-y border-border/60 bg-card/25">
+          <div className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-28">
+            <p className="label">{es ? "Empieza por aquí" : "Start here"}</p>
+            <h2 className="mt-3 max-w-2xl font-serif text-3xl font-light text-foreground md:text-5xl">
+              {es ? "Seis mentes para una primera conversación" : "Six minds for a first conversation"}
+            </h2>
+            <ul className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {featured.map((id) => (
+                <li key={id}>
+                  <PhilosopherCard id={id} />
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        {/* ── Filosofía para problemas reales ──────────────────── */}
+        <section className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-28">
+          <p className="label">{es ? "Filosofía aplicada" : "Applied philosophy"}</p>
+          <h2 className="mt-3 max-w-2xl font-serif text-3xl font-light text-foreground md:text-5xl">
+            {es ? "Para lo que te está pasando ahora" : "For what is happening to you now"}
+          </h2>
+
+          <ul className="mt-10 grid gap-4 md:grid-cols-2">
+            {REAL_PROBLEMS.map((p) => (
+              <li key={p.id} className="card-editorial flex flex-col gap-4 p-6 sm:flex-row sm:items-center">
+                <p className="flex-1 font-serif text-xl font-light leading-snug text-foreground">
+                  “{p.text[lang]}”
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {p.philosophers.map((pid) => (
+                    <Link
+                      key={pid}
+                      to="/$philosopher"
+                      params={{ philosopher: pid }}
+                      search={{ q: p.text[lang] }}
+                      className="btn-ghost-gold focus-mist px-3 py-1.5 text-xs"
+                    >
+                      {PHILOSOPHERS[pid]?.name}
+                    </Link>
+                  ))}
+                </div>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        {/* ── Grandes ideas ────────────────────────────────────── */}
+        <section className="border-y border-border/60 bg-card/25">
+          <div className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-28">
+            <div className="flex flex-wrap items-end justify-between gap-4">
+              <div>
+                <p className="label">{es ? "Grandes ideas" : "Great ideas"}</p>
+                <h2 className="mt-3 font-serif text-3xl font-light text-foreground md:text-5xl">
+                  {es ? "Conceptos, en lenguaje simple" : "Concepts, in plain language"}
+                </h2>
+              </div>
+              <Link
+                to="/ideas"
+                className="focus-mist text-sm text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline"
+              >
+                {es ? "Ver todas las ideas →" : "See all ideas →"}
+              </Link>
+            </div>
+
+            <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              {IDEAS.slice(0, 4).map((idea) => (
+                <li key={idea.id}>
+                  <Link
+                    to="/ideas/$id"
+                    params={{ id: idea.id }}
+                    className="card-editorial focus-mist flex h-full flex-col p-6"
+                  >
+                    <h3 className="font-serif text-2xl font-light text-foreground">
+                      {idea.title[lang]}
+                    </h3>
+                    <p className="mt-2 text-sm text-bronze-bright">{idea.short[lang]}</p>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        {/* ── Rutas ────────────────────────────────────────────── */}
+        <section className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-28">
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <p className="label">{es ? "Rutas filosóficas" : "Philosophical paths"}</p>
+              <h2 className="mt-3 max-w-xl font-serif text-3xl font-light text-foreground md:text-5xl">
+                {es ? "Una pregunta, cuatro mentes" : "One question, four minds"}
+              </h2>
+            </div>
+            <Link
+              to="/rutas"
+              className="focus-mist text-sm text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline"
+            >
+              {es ? "Ver todas las rutas →" : "See all paths →"}
+            </Link>
+          </div>
+
+          <ul className="mt-10 grid gap-4 md:grid-cols-3">
+            {ROUTES.slice(0, 3).map((r) => (
+              <li key={r.id}>
+                <Link
+                  to="/rutas/$id"
+                  params={{ id: r.id }}
+                  className="card-editorial focus-mist flex h-full flex-col p-6"
+                >
+                  <p className="label">
+                    {r.steps.length} {es ? "pasos" : "steps"}
+                  </p>
+                  <h3 className="mt-3 font-serif text-2xl font-light leading-tight text-foreground">
+                    {r.question[lang]}
+                  </h3>
+                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                    {r.intro[lang]}
+                  </p>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        {/* ── Mente del día ────────────────────────────────────── */}
+        <section className="border-t border-border/60 bg-card/25">
+          <div className="mx-auto grid max-w-6xl gap-10 px-5 py-20 md:grid-cols-[280px_1fr] md:items-center md:px-8 md:py-28">
+            <div className="overflow-hidden rounded-md border border-border/70 bg-secondary">
+              {portraitOf(spotlight.id) ? (
+                <img
+                  src={portraitOf(spotlight.id)}
+                  alt={`${spotlight.name}, ${profileOf(spotlight.id)?.years ?? ""}`}
+                  loading="lazy"
+                  className={`aspect-[3/4] w-full object-cover ${portraitFocus(spotlight.id)} opacity-80 grayscale`}
+                />
+              ) : (
+                <div className="flex aspect-[3/4] items-center justify-center font-serif text-5xl text-bronze">
+                  {spotlight.glyph}
+                </div>
+              )}
+            </div>
+            <div>
+              <p className="label">{es ? "Mente del día" : "Mind of the day"}</p>
+              <h2 className="mt-3 font-serif text-4xl font-light text-foreground md:text-6xl">
+                {spotlight.name}
+              </h2>
+              <p className="mt-2 text-sm text-muted-foreground">{spotlight.subtitle[lang]}</p>
+              <p className="mt-6 max-w-lg font-serif text-2xl font-light italic leading-snug text-bronze-bright">
+                {centralQuestion(spotlight.id, lang)}
+              </p>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <Link
+                  to="/$philosopher"
+                  params={{ philosopher: spotlight.id }}
+                  className="btn-gold focus-mist px-6 py-3 text-sm"
+                >
+                  {es ? "Conversar ahora" : "Talk now"}
+                </Link>
+                <Link
+                  to="/filosofos/$id"
+                  params={{ id: spotlight.id }}
+                  className="btn-ghost-gold focus-mist px-5 py-3 text-sm"
+                >
+                  {es ? "Ver perfil" : "View profile"}
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
+
+      <SiteFooter />
     </>
   );
 }

@@ -8,6 +8,8 @@ import { PneumaMark } from "@/components/pneuma-mark";
 import { GreekGlyph } from "@/components/greek-glyph";
 
 export const Route = createFileRoute("/_authenticated/oraculo")({
+  validateSearch: (search: Record<string, unknown>): { q?: string } =>
+    typeof search.q === "string" && search.q ? { q: search.q } : {},
   component: OraclePage,
   head: () => ({
     meta: [
@@ -34,7 +36,8 @@ function OraclePage() {
   const { lang, t } = useI18n();
   const matchFn = useServerFn(matchPhilosopher);
 
-  const [inquiry, setInquiry] = useState("");
+  const { q } = Route.useSearch();
+  const [inquiry, setInquiry] = useState(q ?? "");
   const [result, setResult] = useState<Result | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
