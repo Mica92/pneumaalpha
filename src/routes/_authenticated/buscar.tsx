@@ -62,7 +62,17 @@ function SearchPage() {
     for (const p of PHILOSOPHER_LIST) {
       const prof = profileOf(p.id);
       const themes = (prof?.expertise ?? []).map((e) => e[lang]).join(" · ");
-      if (match(p.name, themes, centralQuestion(p.id, lang), prof?.bio?.[lang] ?? "")) {
+      const themesAll = (prof?.expertise ?? []).flatMap((e) => [e.es, e.en]).join(" ");
+      if (
+        match(
+          p.name,
+          themesAll,
+          centralQuestion(p.id, "es"),
+          centralQuestion(p.id, "en"),
+          prof?.bio?.es ?? "",
+          prof?.bio?.en ?? "",
+        )
+      ) {
         out.push({
           key: `p-${p.id}`,
           kind: es ? "Filósofo" : "Philosopher",
@@ -75,7 +85,16 @@ function SearchPage() {
     }
 
     for (const idea of IDEAS) {
-      if (match(idea.title[lang], idea.short[lang], idea.explanation[lang])) {
+      if (
+        match(
+          idea.title.es,
+          idea.title.en,
+          idea.short.es,
+          idea.short.en,
+          idea.explanation.es,
+          idea.explanation.en,
+        )
+      ) {
         out.push({
           key: `i-${idea.id}`,
           kind: es ? "Idea" : "Idea",
@@ -88,7 +107,7 @@ function SearchPage() {
     }
 
     for (const r of ROUTES) {
-      if (match(r.question[lang], r.intro[lang])) {
+      if (match(r.question.es, r.question.en, r.intro.es, r.intro.en)) {
         out.push({
           key: `r-${r.id}`,
           kind: es ? "Ruta" : "Path",
@@ -101,7 +120,7 @@ function SearchPage() {
     }
 
     for (const c of CATEGORIES) {
-      if (match(c.title[lang], c.tags[lang], c.seed[lang])) {
+      if (match(c.title.es, c.title.en, c.tags.es, c.tags.en)) {
         out.push({
           key: `c-${c.id}`,
           kind: es ? "Tema" : "Topic",
@@ -114,7 +133,7 @@ function SearchPage() {
     }
 
     for (const rp of REAL_PROBLEMS) {
-      if (match(rp.text[lang])) {
+      if (match(rp.text.es, rp.text.en)) {
         out.push({
           key: `q-${rp.id}`,
           kind: es ? "Pregunta" : "Question",
