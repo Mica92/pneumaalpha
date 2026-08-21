@@ -414,6 +414,297 @@ export const PROFILES: Partial<Record<PhilosopherId, PhilosopherProfile>> = {
       { es: "Tiempo, sueño y percepción", en: "Time, dream and perception" },
     ],
   },
+
+  cioran: {
+    years: "1911 – 1995",
+    origin: { es: "Rășinari, Rumanía", en: "Rășinari, Romania" },
+    bio: {
+      es: "Escribió en rumano y luego en francés desde una buhardilla parisina. Insomne crónico, hizo del fragmento y el aforismo su forma de pensar: el nacimiento como catástrofe, el fracaso como maestro, la lucidez sin consuelo — y, pese a todo, una alegría negra que le mantuvo escribiendo.",
+      en: "He wrote in Romanian and then in French from a Paris attic. A chronic insomniac, he made the fragment and the aphorism his way of thinking: birth as catastrophe, failure as teacher, lucidity without consolation — and, despite it all, a black joy that kept him writing.",
+    },
+    expertise: [
+      { es: "Pesimismo y lucidez", en: "Pessimism and lucidity" },
+      { es: "El insomnio como método", en: "Insomnia as method" },
+      { es: "El sinsentido y el suicidio como idea", en: "Meaninglessness and suicide as an idea" },
+      { es: "Desarraigo y exilio", en: "Rootlessness and exile" },
+      { es: "Mística sin Dios", en: "Mysticism without God" },
+      { es: "El aforismo como forma", en: "The aphorism as form" },
+    ],
+  },
+
+  rousseau: {
+    years: "1712 – 1778",
+    origin: { es: "Ginebra, Suiza", en: "Geneva, Switzerland" },
+    bio: {
+      es: "Autor del Discurso sobre la desigualdad, El contrato social, Emilio y Las confesiones. Sostuvo que el hombre nace bueno y la sociedad lo corrompe, que la desigualdad nació con la propiedad y que sólo es libre quien obedece la ley que se ha dado a sí mismo.",
+      en: "Author of the Discourse on Inequality, The Social Contract, Emile and the Confessions. He held that man is born good and society corrupts him, that inequality began with property, and that only those who obey the law they give themselves are free.",
+    },
+    expertise: [
+      { es: "Bondad natural y sociedad", en: "Natural goodness and society" },
+      { es: "Origen de la desigualdad", en: "The origin of inequality" },
+      { es: "Contrato social y voluntad general", en: "Social contract and general will" },
+      { es: "Educación (Emilio)", en: "Education (Emile)" },
+      { es: "Autenticidad frente a la máscara social", en: "Authenticity against the social mask" },
+      { es: "Confesión e interioridad", en: "Confession and inwardness" },
+    ],
+  },
+
+  burke: {
+    years: "1729 – 1797",
+    origin: { es: "Dublín, Irlanda", en: "Dublin, Ireland" },
+    bio: {
+      es: "Orador y parlamentario, autor de las Reflexiones sobre la Revolución en Francia. Defendió a las colonias americanas y denunció los abusos coloniales en la India, pero combatió la política deducida de abstracciones: la sociedad es un pacto entre generaciones y se reforma con prudencia.",
+      en: "Orator and MP, author of the Reflections on the Revolution in France. He defended the American colonies and denounced colonial abuse in India, yet fought politics deduced from abstractions: society is a compact between generations, reformed with prudence.",
+    },
+    expertise: [
+      { es: "Tradición y prudencia política", en: "Tradition and political prudence" },
+      { es: "Reforma frente a revolución", en: "Reform against revolution" },
+      { es: "Cuerpos intermedios y costumbre", en: "Intermediate bodies and custom" },
+      { es: "Lo sublime y lo bello", en: "The sublime and the beautiful" },
+      { es: "Rendición de cuentas del poder", en: "Accountability of power" },
+    ],
+  },
+
+  emerson: {
+    years: "1803 – 1882",
+    origin: { es: "Boston, EE. UU.", en: "Boston, USA" },
+    bio: {
+      es: "Padre del trascendentalismo norteamericano. Dejó el púlpito para escribir Naturaleza, Confianza en uno mismo y Compensación: hay una relación directa entre cada alma y el universo, y la conformidad es la muerte del carácter.",
+      en: "Father of American transcendentalism. He left the pulpit to write Nature, Self-Reliance and Compensation: there is a direct relation between each soul and the universe, and conformity is the death of character.",
+    },
+    expertise: [
+      { es: "Confianza en uno mismo", en: "Self-reliance" },
+      { es: "Naturaleza y espíritu", en: "Nature and spirit" },
+      { es: "Intuición y Over-Soul", en: "Intuition and the Over-Soul" },
+      { es: "Compensación: toda acción tiene precio", en: "Compensation: every act has its price" },
+      { es: "Inconformismo y carácter", en: "Nonconformity and character" },
+    ],
+  },
+
+  thoreau: {
+    years: "1817 – 1862",
+    origin: { es: "Concord, EE. UU.", en: "Concord, USA" },
+    bio: {
+      es: "Vivió dos años junto a la laguna de Walden para reducir la vida a lo esencial. Escribió Walden y Desobediencia civil, texto que inspiró a Gandhi y a King: la conciencia está por encima de la ley injusta, y el precio de una cosa es la vida que cuesta.",
+      en: "He lived two years by Walden Pond to reduce life to essentials. He wrote Walden and Civil Disobedience, which inspired Gandhi and King: conscience stands above unjust law, and the price of a thing is the life it costs.",
+    },
+    expertise: [
+      { es: "Simplicidad voluntaria", en: "Voluntary simplicity" },
+      { es: "Vida deliberada y esencial", en: "Deliberate, essential living" },
+      { es: "Desobediencia civil", en: "Civil disobedience" },
+      { es: "Naturaleza y observación", en: "Nature and observation" },
+      { es: "Economía de la vida y el tiempo", en: "The economy of life and time" },
+    ],
+  },
+
+  stirner: {
+    years: "1806 – 1856",
+    origin: { es: "Bayreuth, Alemania", en: "Bayreuth, Germany" },
+    bio: {
+      es: "Autor de El único y su propiedad (1844). Llamó espectros a Dios, el Estado, la Moral y la Humanidad: ideas fijas que exigen sacrificios. Frente a ellas propuso la propiedad de sí y la asociación libre de egoístas.",
+      en: "Author of The Ego and Its Own (1844). He called God, the State, Morality and Humanity spooks: fixed ideas demanding sacrifice. Against them he proposed ownness and the free union of egoists.",
+    },
+    expertise: [
+      { es: "El Único y la propiedad de sí", en: "The Unique One and ownness" },
+      { es: "Crítica de los ideales (espectros)", en: "Critique of ideals (spooks)" },
+      { es: "Egoísmo consciente", en: "Conscious egoism" },
+      { es: "Insurrección frente a revolución", en: "Insurrection against revolution" },
+      { es: "Crítica de la moral y el deber", en: "Critique of morality and duty" },
+    ],
+  },
+
+  bakunin: {
+    years: "1814 – 1876",
+    origin: { es: "Priamújino, Rusia", en: "Pryamukhino, Russia" },
+    bio: {
+      es: "Revolucionario errante y fundador del anarquismo colectivista. Preso en Rusia y deportado a Siberia, se fugó dando la vuelta al mundo. En la Internacional se opuso a Marx y anticipó que la dictadura del proletariado sería una nueva casta de burócratas.",
+      en: "Wandering revolutionary and founder of collectivist anarchism. Jailed in Russia and exiled to Siberia, he escaped around the world. In the International he opposed Marx and foresaw that the dictatorship of the proletariat would become a new caste of bureaucrats.",
+    },
+    expertise: [
+      { es: "Crítica de toda autoridad", en: "Critique of all authority" },
+      { es: "Libertad e igualdad juntas", en: "Freedom and equality together" },
+      { es: "Federalismo desde abajo", en: "Federalism from below" },
+      { es: "Dios y el Estado", en: "God and the State" },
+      { es: "Polémica con el socialismo autoritario", en: "Against authoritarian socialism" },
+    ],
+  },
+
+  arendt: {
+    years: "1906 – 1975",
+    origin: { es: "Hannover, Alemania", en: "Hanover, Germany" },
+    bio: {
+      es: "Apátrida durante dieciocho años, después teórica política en Nueva York. Escribió Los orígenes del totalitarismo, La condición humana y Eichmann en Jerusalén, donde acuñó la banalidad del mal: no monstruos, sino incapacidad de pensar.",
+      en: "Stateless for eighteen years, later a political theorist in New York. She wrote The Origins of Totalitarianism, The Human Condition and Eichmann in Jerusalem, coining the banality of evil: not monsters, but the inability to think.",
+    },
+    expertise: [
+      { es: "Totalitarismo y sociedad de masas", en: "Totalitarianism and mass society" },
+      { es: "Acción, natalidad y esfera pública", en: "Action, natality and the public realm" },
+      { es: "La banalidad del mal", en: "The banality of evil" },
+      { es: "Poder frente a violencia", en: "Power versus violence" },
+      { es: "El derecho a tener derechos", en: "The right to have rights" },
+      { es: "Pensar y juzgar", en: "Thinking and judging" },
+    ],
+  },
+
+  negrihardt: {
+    years: "1933 – 2023 · 1960 –",
+    origin: { es: "Padua, Italia · Washington, EE. UU.", en: "Padua, Italy · Washington, USA" },
+    bio: {
+      es: "Antonio Negri, del obrerismo italiano y la cárcel, y Michael Hardt, teórico literario norteamericano, escribieron juntos Imperio, Multitud, Commonwealth y Asamblea: el poder global ya no tiene centro, y frente a él aparece la multitud que produce lo común.",
+      en: "Antonio Negri, from Italian operaismo and prison, and Michael Hardt, an American literary theorist, wrote Empire, Multitude, Commonwealth and Assembly together: global power no longer has a centre, and facing it stands the multitude that produces the common.",
+    },
+    expertise: [
+      { es: "Imperio: poder global sin centro", en: "Empire: global power without a centre" },
+      { es: "Multitud y singularidades", en: "Multitude and singularities" },
+      { es: "Trabajo inmaterial y afectivo", en: "Immaterial and affective labour" },
+      { es: "Lo común frente a público y privado", en: "The common beyond public and private" },
+      { es: "Biopolítica desde abajo", en: "Biopolitics from below" },
+    ],
+  },
+
+  rand: {
+    years: "1905 – 1982",
+    origin: { es: "San Petersburgo, Rusia", en: "Saint Petersburg, Russia" },
+    bio: {
+      es: "Emigró a Estados Unidos tras la revolución bolchevique. Novelista de El manantial y La rebelión de Atlas y fundadora del objetivismo: la realidad es objetiva, la razón es el único medio de conocimiento y el interés propio racional es una virtud.",
+      en: "She emigrated to the United States after the Bolshevik revolution. Novelist of The Fountainhead and Atlas Shrugged and founder of Objectivism: reality is objective, reason is the only means of knowledge, and rational self-interest is a virtue.",
+    },
+    expertise: [
+      { es: "Objetivismo y razón", en: "Objectivism and reason" },
+      { es: "Egoísmo racional", en: "Rational self-interest" },
+      { es: "Productividad y creación", en: "Productiveness and creation" },
+      { es: "Individuo frente a colectivo", en: "Individual versus collective" },
+      { es: "Ética del capitalismo", en: "The ethics of capitalism" },
+    ],
+  },
+
+  gadamer: {
+    years: "1900 – 2002",
+    origin: { es: "Marburgo, Alemania", en: "Marburg, Germany" },
+    bio: {
+      es: "Autor de Verdad y método (1960). Mostró que comprender no es aplicar un método sino el modo mismo de existir: partimos siempre de prejuicios heredados y entendemos cuando nuestro horizonte se funde con el del otro, en el diálogo.",
+      en: "Author of Truth and Method (1960). He showed that understanding is not applying a method but the very way we exist: we always begin from inherited prejudices and understand when our horizon fuses with another's, in dialogue.",
+    },
+    expertise: [
+      { es: "Hermenéutica filosófica", en: "Philosophical hermeneutics" },
+      { es: "Prejuicio y tradición", en: "Prejudice and tradition" },
+      { es: "Fusión de horizontes", en: "Fusion of horizons" },
+      { es: "Diálogo y pregunta", en: "Dialogue and questioning" },
+      { es: "Arte, juego y verdad", en: "Art, play and truth" },
+    ],
+  },
+
+  ibnkhaldun: {
+    years: "1332 – 1406",
+    origin: { es: "Túnez", en: "Tunis" },
+    bio: {
+      es: "Magistrado y consejero de sultanes, escribió la Muqaddima, donde fundó una ciencia de la civilización. Su concepto de 'asabiyya —la cohesión de grupo— explica el ascenso y la caída cíclica de las dinastías en tres o cuatro generaciones.",
+      en: "A judge and adviser to sultans, he wrote the Muqaddima, founding a science of civilization. His concept of 'asabiyya — group cohesion — explains the cyclical rise and fall of dynasties over three or four generations.",
+    },
+    expertise: [
+      { es: "'Asabiyya: cohesión de grupo", en: "'Asabiyya: group cohesion" },
+      { es: "Ciclos de auge y decadencia", en: "Cycles of rise and decline" },
+      { es: "Ciudad y desierto", en: "City and desert" },
+      { es: "Economía, oficios e impuestos", en: "Economy, crafts and taxation" },
+      { es: "Método histórico y crítica de fuentes", en: "Historical method and source criticism" },
+    ],
+  },
+
+  nishida: {
+    years: "1870 – 1945",
+    origin: { es: "Kanazawa, Japón", en: "Kanazawa, Japan" },
+    bio: {
+      es: "Fundador de la Escuela de Kioto y autor de Indagación sobre el bien. Practicante de zazen, partió de la experiencia pura —anterior a la división entre sujeto y objeto— y desarrolló la lógica del lugar (basho) y la nada absoluta.",
+      en: "Founder of the Kyoto School and author of An Inquiry into the Good. A zazen practitioner, he began from pure experience — prior to the split of subject and object — and developed the logic of place (basho) and absolute nothingness.",
+    },
+    expertise: [
+      { es: "Experiencia pura", en: "Pure experience" },
+      { es: "Lugar (basho) y nada absoluta", en: "Place (basho) and absolute nothingness" },
+      { es: "Zen y filosofía occidental", en: "Zen and Western philosophy" },
+      { es: "Autoidentidad de los contradictorios", en: "Self-identity of contradictories" },
+      { es: "Acción-intuición y vida cotidiana", en: "Action-intuition and daily life" },
+    ],
+  },
+
+  iqbal: {
+    years: "1877 – 1938",
+    origin: { es: "Sialkot, Punyab", en: "Sialkot, Punjab" },
+    bio: {
+      es: "Poeta en persa y urdu y filósofo formado en Cambridge y Múnich. En La reconstrucción del pensamiento religioso en el islam defendió el ijtihad —volver a pensar la tradición— y en su poesía elaboró el khudi: el yo creador que se fortalece.",
+      en: "A poet in Persian and Urdu and a philosopher trained in Cambridge and Munich. In The Reconstruction of Religious Thought in Islam he defended ijtihad — rethinking tradition — and in his poetry elaborated khudi: the creative self that grows strong.",
+    },
+    expertise: [
+      { es: "Khudi: el yo creador", en: "Khudi: the creative self" },
+      { es: "Amor ('ishq) como energía", en: "Love ('ishq) as energy" },
+      { es: "Ijtihad y reforma del pensamiento", en: "Ijtihad and reform of thought" },
+      { es: "Islam y modernidad", en: "Islam and modernity" },
+      { es: "Poesía filosófica", en: "Philosophical poetry" },
+    ],
+  },
+
+  eliade: {
+    years: "1907 – 1986",
+    origin: { es: "Bucarest, Rumanía", en: "Bucharest, Romania" },
+    bio: {
+      es: "Historiador de las religiones formado en la India y profesor en Chicago. Estudió cómo lo sagrado irrumpe en el mundo —la hierofanía—, el mito del eterno retorno, la iniciación y el chamanismo, y mostró los mitos escondidos en la vida moderna.",
+      en: "A historian of religions trained in India and professor in Chicago. He studied how the sacred breaks into the world — hierophany — along with the myth of eternal return, initiation and shamanism, revealing the myths hidden in modern life.",
+    },
+    expertise: [
+      { es: "Lo sagrado y lo profano", en: "The sacred and the profane" },
+      { es: "Mito del eterno retorno", en: "The myth of eternal return" },
+      { es: "Ritos de iniciación", en: "Rites of initiation" },
+      { es: "Chamanismo y éxtasis", en: "Shamanism and ecstasy" },
+      { es: "Símbolos en la vida moderna", en: "Symbols in modern life" },
+    ],
+  },
+
+  evola: {
+    years: "1898 – 1974",
+    origin: { es: "Roma, Italia", en: "Rome, Italy" },
+    bio: {
+      es: "Pintor dadaísta en su juventud y después pensador tradicionalista. En Revuelta contra el mundo moderno leyó la historia como involución cíclica, y en Cabalgar el tigre propuso al hombre diferenciado: mantenerse en pie mientras el ciclo se agota.",
+      en: "A Dadaist painter in his youth and later a traditionalist thinker. In Revolt Against the Modern World he read history as cyclical involution, and in Ride the Tiger he proposed the differentiated man: standing firm while the cycle exhausts itself.",
+    },
+    expertise: [
+      { es: "Tradición y ciclos cósmicos", en: "Tradition and cosmic cycles" },
+      { es: "Crítica del mundo moderno", en: "Critique of the modern world" },
+      { es: "El hombre diferenciado", en: "The differentiated man" },
+      { es: "Ascesis y desapego", en: "Ascesis and detachment" },
+      { es: "Esoterismo, hermetismo y despertar", en: "Esotericism, hermeticism and awakening" },
+    ],
+  },
+
+  jabri: {
+    years: "1935 – 2010",
+    origin: { es: "Figuig, Marruecos", en: "Figuig, Morocco" },
+    bio: {
+      es: "Filósofo marroquí, autor de la Crítica de la razón árabe. Distinguió tres sistemas de conocimiento heredados —bayan, 'irfan y burhan— y propuso recuperar el racionalismo crítico de Averroes para leer la tradición sin repetirla ni abandonarla.",
+      en: "Moroccan philosopher, author of the Critique of Arab Reason. He distinguished three inherited systems of knowledge — bayan, 'irfan and burhan — and proposed recovering Averroes' critical rationalism to read tradition without repeating or abandoning it.",
+    },
+    expertise: [
+      { es: "Crítica de la razón árabe", en: "Critique of Arab reason" },
+      { es: "Bayan, 'irfan y burhan", en: "Bayan, 'irfan and burhan" },
+      { es: "Averroísmo y racionalismo", en: "Averroism and rationalism" },
+      { es: "Lectura crítica de la tradición", en: "Critical reading of tradition" },
+      { es: "Razón política y poder", en: "Political reason and power" },
+    ],
+  },
+
+  quoist: {
+    years: "1921 – 1997",
+    origin: { es: "Le Havre, Francia", en: "Le Havre, France" },
+    bio: {
+      es: "Sacerdote y sociólogo francés, autor de Oraciones, traducido a decenas de lenguas. Trabajó con jóvenes y obreros y escribió plegarias hechas de vida cotidiana: el tiempo, el trabajo, el amor y el otro como lugar del encuentro con Dios.",
+      en: "French priest and sociologist, author of Prayers, translated into dozens of languages. He worked with young people and workers and wrote prayers made of daily life: time, work, love and the other as the place of encounter with God.",
+    },
+    expertise: [
+      { es: "Oración desde lo cotidiano", en: "Prayer out of daily life" },
+      { es: "Amor y entrega concreta", en: "Love as concrete self-giving" },
+      { es: "El uso del tiempo", en: "The use of time" },
+      { es: "Trabajo y justicia social", en: "Work and social justice" },
+      { es: "Acompañamiento y escucha", en: "Accompaniment and listening" },
+    ],
+  },
 };
 
 export function profileOf(id: string): PhilosopherProfile | undefined {
