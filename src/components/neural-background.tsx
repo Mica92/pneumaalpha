@@ -49,7 +49,8 @@ export function NeuralBackground() {
             maskRepeat: "no-repeat",
             WebkitMaskRepeat: "no-repeat",
             maskMode: "luminance",
-􀀀          }}
+            WebkitMaskComposite: "source-over",
+          }}
         />
       )}
       <div className="absolute inset-0 bg-gradient-to-b from-background/55 via-background/65 to-background/85" />
