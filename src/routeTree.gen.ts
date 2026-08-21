@@ -21,6 +21,8 @@ import { Route as AuthenticatedPodcastRouteImport } from './routes/_authenticate
 import { Route as AuthenticatedOraculoRouteImport } from './routes/_authenticated/oraculo'
 import { Route as AuthenticatedMesaRouteImport } from './routes/_authenticated/mesa'
 import { Route as AuthenticatedConocimientoRouteImport } from './routes/_authenticated/conocimiento'
+import { Route as AuthenticatedCompararRouteImport } from './routes/_authenticated/comparar'
+import { Route as AuthenticatedBuscarRouteImport } from './routes/_authenticated/buscar'
 import { Route as AuthenticatedBibliotecaRouteImport } from './routes/_authenticated/biblioteca'
 import { Route as AuthenticatedAnalisisRouteImport } from './routes/_authenticated/analisis'
 import { Route as AuthenticatedPhilosopherRouteImport } from './routes/_authenticated/$philosopher'
@@ -93,6 +95,16 @@ const AuthenticatedConocimientoRoute =
     path: '/conocimiento',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedCompararRoute = AuthenticatedCompararRouteImport.update({
+  id: '/comparar',
+  path: '/comparar',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedBuscarRoute = AuthenticatedBuscarRouteImport.update({
+  id: '/buscar',
+  path: '/buscar',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedBibliotecaRoute = AuthenticatedBibliotecaRouteImport.update({
   id: '/biblioteca',
   path: '/biblioteca',
@@ -160,6 +172,8 @@ export interface FileRoutesByFullPath {
   '/$philosopher': typeof AuthenticatedPhilosopherRoute
   '/analisis': typeof AuthenticatedAnalisisRoute
   '/biblioteca': typeof AuthenticatedBibliotecaRoute
+  '/buscar': typeof AuthenticatedBuscarRoute
+  '/comparar': typeof AuthenticatedCompararRoute
   '/conocimiento': typeof AuthenticatedConocimientoRoute
   '/mesa': typeof AuthenticatedMesaRoute
   '/oraculo': typeof AuthenticatedOraculoRoute
@@ -183,6 +197,8 @@ export interface FileRoutesByTo {
   '/$philosopher': typeof AuthenticatedPhilosopherRoute
   '/analisis': typeof AuthenticatedAnalisisRoute
   '/biblioteca': typeof AuthenticatedBibliotecaRoute
+  '/buscar': typeof AuthenticatedBuscarRoute
+  '/comparar': typeof AuthenticatedCompararRoute
   '/conocimiento': typeof AuthenticatedConocimientoRoute
   '/mesa': typeof AuthenticatedMesaRoute
   '/oraculo': typeof AuthenticatedOraculoRoute
@@ -209,6 +225,8 @@ export interface FileRoutesById {
   '/_authenticated/$philosopher': typeof AuthenticatedPhilosopherRoute
   '/_authenticated/analisis': typeof AuthenticatedAnalisisRoute
   '/_authenticated/biblioteca': typeof AuthenticatedBibliotecaRoute
+  '/_authenticated/buscar': typeof AuthenticatedBuscarRoute
+  '/_authenticated/comparar': typeof AuthenticatedCompararRoute
   '/_authenticated/conocimiento': typeof AuthenticatedConocimientoRoute
   '/_authenticated/mesa': typeof AuthenticatedMesaRoute
   '/_authenticated/oraculo': typeof AuthenticatedOraculoRoute
@@ -236,6 +254,8 @@ export interface FileRouteTypes {
     | '/$philosopher'
     | '/analisis'
     | '/biblioteca'
+    | '/buscar'
+    | '/comparar'
     | '/conocimiento'
     | '/mesa'
     | '/oraculo'
@@ -259,6 +279,8 @@ export interface FileRouteTypes {
     | '/$philosopher'
     | '/analisis'
     | '/biblioteca'
+    | '/buscar'
+    | '/comparar'
     | '/conocimiento'
     | '/mesa'
     | '/oraculo'
@@ -284,6 +306,8 @@ export interface FileRouteTypes {
     | '/_authenticated/$philosopher'
     | '/_authenticated/analisis'
     | '/_authenticated/biblioteca'
+    | '/_authenticated/buscar'
+    | '/_authenticated/comparar'
     | '/_authenticated/conocimiento'
     | '/_authenticated/mesa'
     | '/_authenticated/oraculo'
@@ -397,6 +421,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedConocimientoRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/comparar': {
+      id: '/_authenticated/comparar'
+      path: '/comparar'
+      fullPath: '/comparar'
+      preLoaderRoute: typeof AuthenticatedCompararRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/buscar': {
+      id: '/_authenticated/buscar'
+      path: '/buscar'
+      fullPath: '/buscar'
+      preLoaderRoute: typeof AuthenticatedBuscarRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/biblioteca': {
       id: '/_authenticated/biblioteca'
       path: '/biblioteca'
@@ -481,6 +519,8 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedPhilosopherRoute: typeof AuthenticatedPhilosopherRoute
   AuthenticatedAnalisisRoute: typeof AuthenticatedAnalisisRoute
   AuthenticatedBibliotecaRoute: typeof AuthenticatedBibliotecaRoute
+  AuthenticatedBuscarRoute: typeof AuthenticatedBuscarRoute
+  AuthenticatedCompararRoute: typeof AuthenticatedCompararRoute
   AuthenticatedConocimientoRoute: typeof AuthenticatedConocimientoRoute
   AuthenticatedMesaRoute: typeof AuthenticatedMesaRoute
   AuthenticatedOraculoRoute: typeof AuthenticatedOraculoRoute
@@ -502,6 +542,8 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedPhilosopherRoute: AuthenticatedPhilosopherRoute,
   AuthenticatedAnalisisRoute: AuthenticatedAnalisisRoute,
   AuthenticatedBibliotecaRoute: AuthenticatedBibliotecaRoute,
+  AuthenticatedBuscarRoute: AuthenticatedBuscarRoute,
+  AuthenticatedCompararRoute: AuthenticatedCompararRoute,
   AuthenticatedConocimientoRoute: AuthenticatedConocimientoRoute,
   AuthenticatedMesaRoute: AuthenticatedMesaRoute,
   AuthenticatedOraculoRoute: AuthenticatedOraculoRoute,
