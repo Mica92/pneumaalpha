@@ -114,7 +114,9 @@ function ComparePage() {
               value={question}
               onChange={(e) => setQuestion(e.target.value)}
               placeholder={
-                es ? "¿Qué hago con el miedo a equivocarme?" : "What do I do with the fear of error?"
+                es
+                  ? "¿Qué hago con el miedo a equivocarme?"
+                  : "What do I do with the fear of error?"
               }
               className="focus-mist mt-2 w-full resize-none rounded-xl border border-border bg-input px-5 py-4 text-[15px] leading-relaxed text-foreground placeholder:text-muted-foreground focus:outline-none"
             />
