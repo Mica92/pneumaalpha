@@ -25,13 +25,13 @@ export const Route = createFileRoute("/_authenticated/explorar")({
   component: ExplorePage,
   head: () => ({
     meta: [
-      { title: "Explora el Pensamiento Humano — PneumaA" },
+      { title: "Explora el Pensamiento Humano — PneumAlpha" },
       {
         name: "description",
         content:
           "Un mapa vivo del pensamiento: dominios, filósofos, conceptos y preguntas conectados por influencia, oposición y desarrollo.",
       },
-      { property: "og:title", content: "Explora el Pensamiento Humano — PneumaA" },
+      { property: "og:title", content: "Explora el Pensamiento Humano — PneumAlpha" },
       {
         property: "og:description",
         content: "Navega el conocimiento filosófico como un territorio y conversa desde cada nodo.",

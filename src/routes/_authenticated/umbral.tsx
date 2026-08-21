@@ -7,13 +7,12 @@ import { useI18n } from "@/lib/i18n";
 import { InstallAppCard } from "@/components/install-app";
 import { TelegramCard } from "@/components/telegram-card";
 import { NewsletterCard } from "@/components/newsletter-card";
-import neuralBg from "@/assets/neural-bg.jpg";
 
 export const Route = createFileRoute("/_authenticated/umbral")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "PneumaA — Umbral · filosofía e IA conversacional" },
+      { title: "PneumAlpha — Umbral · filosofía e IA conversacional" },
       {
         name: "description",
         content:
@@ -24,7 +23,7 @@ export const Route = createFileRoute("/_authenticated/umbral")({
         content:
           "filosofía, IA conversacional, pensadores, Heidegger, Nietzsche, Schopenhauer, Marx, diálogo socrático, historia de las ideas",
       },
-      { property: "og:title", content: "PneumaA — Umbral · filosofía e IA conversacional" },
+      { property: "og:title", content: "PneumAlpha — Umbral · filosofía e IA conversacional" },
       {
         property: "og:description",
         content:
@@ -41,7 +40,7 @@ export const Route = createFileRoute("/_authenticated/umbral")({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "WebSite",
-          name: "PneumaA",
+          name: "PneumAlpha",
           url: "https://pneumaalpha.lovable.app/umbral",
           inLanguage: ["es", "en"],
           description:
@@ -69,17 +68,6 @@ const FEATURES = [
     border: "border-glacier/45 hover:border-glacier/80",
     rule: "bg-gradient-to-r from-transparent via-glacier/70 to-transparent",
     glow: "bg-glacier/25",
-  },
-  {
-    to: "/conocimiento",
-    kicker: "knowledge.kicker",
-    title: "knowledge.card.title",
-    sub: "knowledge.card.sub",
-    cta: "knowledge.card.cta",
-    accent: "text-mist",
-    border: "border-mist/30 hover:border-mist/55",
-    rule: "bg-gradient-to-r from-transparent via-mist/60 to-transparent",
-    glow: "bg-mist/15",
   },
   {
     to: "/analisis",
@@ -155,16 +143,6 @@ function Index() {
 
   return (
     <>
-      <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-0">
-        <img
-          src={neuralBg}
-          alt=""
-          width={1920}
-          height={1280}
-          className="h-full w-full object-cover opacity-30"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/85 via-background/75 to-background" />
-      </div>
       <SiteNav />
       <main className="route-enter relative z-10 mx-auto flex min-h-dvh max-w-6xl flex-col px-6 py-10 md:px-10 md:py-14">
         {/* Top nav — clinical, almost invisible */}
@@ -175,7 +153,7 @@ function Index() {
           </p>
           <h1 className="fade-up mt-5 max-w-3xl font-display text-4xl font-light leading-[1.05] text-foreground md:text-6xl">
             <span className="sr-only">
-              PneumaA — conversaciones con múltiples mentes filosóficas reconstruidas.{" "}
+              PneumAlpha — conversaciones con múltiples mentes filosóficas reconstruidas.{" "}
             </span>
             {t("umbral.title")}
           </h1>

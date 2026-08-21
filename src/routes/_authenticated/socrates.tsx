@@ -12,13 +12,13 @@ export const Route = createFileRoute("/_authenticated/socrates")({
   component: SocratesPage,
   head: () => ({
     meta: [
-      { title: "PneumaA — Modo Sócrates · piensa tus propias ideas" },
+      { title: "PneumAlpha — Modo Sócrates · piensa tus propias ideas" },
       {
         name: "description",
         content:
           "Un guía socrático que solo pregunta: clarifica tus propias ideas, descubre supuestos ocultos y cierra con una síntesis de a dónde llegaste. Filosofía e IA conversacional.",
       },
-      { property: "og:title", content: "PneumaA — Modo Sócrates" },
+      { property: "og:title", content: "PneumAlpha — Modo Sócrates" },
       {
         property: "og:description",
         content: "Solo preguntas, hasta que tu propia idea queda clara.",

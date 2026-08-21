@@ -18,13 +18,13 @@ export const Route = createFileRoute("/_authenticated/comparar")({
   component: ComparePage,
   head: () => ({
     meta: [
-      { title: "Comparar perspectivas — PneumaA" },
+      { title: "Comparar perspectivas — PneumAlpha" },
       {
         name: "description",
         content:
           "Una misma pregunta, respondida en paralelo por dos o tres mentes filosóficas. Compara las perspectivas y continúa la conversación con la que te interpele.",
       },
-      { property: "og:title", content: "Comparar perspectivas — PneumaA" },
+      { property: "og:title", content: "Comparar perspectivas — PneumAlpha" },
       {
         property: "og:description",
         content: "Una pregunta, varias mentes respondiendo al mismo tiempo.",

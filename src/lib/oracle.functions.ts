@@ -38,8 +38,8 @@ export const matchPhilosopher = createServerFn({ method: "POST" })
 
     const system =
       lang === "es"
-        ? `Eres un curador silencioso de PneumaA. Tu tarea: leer la inquietud, pregunta o frase del usuario y elegir, de un catálogo cerrado de mentes filosóficas y científicas, la ÚNICA voz mejor preparada para responderle con profundidad. Considera el tema, el tono emocional, la naturaleza de la pregunta (existencial, ética, racional, política, científica, estética, espiritual) y el temperamento de cada pensador. No expliques la app. No saludes. Responde SIEMPRE en JSON estricto.`
-        : `You are a silent curator at PneumaA. Your task: read the user's concern, question, or phrase and choose, from a closed catalog of philosophical and scientific minds, the SINGLE voice best prepared to answer with depth. Consider topic, emotional tone, nature of the question (existential, ethical, rational, political, scientific, aesthetic, spiritual) and each thinker's temperament. Do not explain the app. Do not greet. ALWAYS reply in strict JSON.`;
+        ? `Eres un curador silencioso de PneumAlpha. Tu tarea: leer la inquietud, pregunta o frase del usuario y elegir, de un catálogo cerrado de mentes filosóficas y científicas, la ÚNICA voz mejor preparada para responderle con profundidad. Considera el tema, el tono emocional, la naturaleza de la pregunta (existencial, ética, racional, política, científica, estética, espiritual) y el temperamento de cada pensador. No expliques la app. No saludes. Responde SIEMPRE en JSON estricto.`
+        : `You are a silent curator at PneumAlpha. Your task: read the user's concern, question, or phrase and choose, from a closed catalog of philosophical and scientific minds, the SINGLE voice best prepared to answer with depth. Consider topic, emotional tone, nature of the question (existential, ethical, rational, political, scientific, aesthetic, spiritual) and each thinker's temperament. Do not explain the app. Do not greet. ALWAYS reply in strict JSON.`;
 
     const prompt =
       lang === "es"

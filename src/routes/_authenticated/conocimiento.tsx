@@ -17,13 +17,13 @@ export const Route = createFileRoute("/_authenticated/conocimiento")({
   component: KnowledgePage,
   head: () => ({
     meta: [
-      { title: "PneumaA — Conocimiento Universal · red de ideas y filósofos" },
+      { title: "PneumAlpha — Conocimiento Universal · red de ideas y filósofos" },
       {
         name: "description",
         content:
           "Mapa neuronal interactivo de filósofos, ideas, movimientos e ideologías: explora influencias, oposiciones y linajes del pensamiento.",
       },
-      { property: "og:title", content: "PneumaA — Conocimiento Universal" },
+      { property: "og:title", content: "PneumAlpha — Conocimiento Universal" },
       {
         property: "og:description",
         content:

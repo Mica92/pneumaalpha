@@ -41,7 +41,7 @@ function philosopherKeyboard(): InlineKeyboard {
 }
 
 const HELP = [
-  "PneumaA en Telegram.",
+  "PneumAlpha en Telegram.",
   "",
   "/filosofos — elegir con quién conversar (botones)",
   "/oraculo <texto> — que el oráculo elija por ti",

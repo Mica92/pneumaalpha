@@ -12,13 +12,13 @@ export const Route = createFileRoute("/_authenticated/recorrido")({
   component: JourneyPage,
   head: () => ({
     meta: [
-      { title: "Mi recorrido — PneumaA" },
+      { title: "Mi recorrido — PneumAlpha" },
       {
         name: "description",
         content:
-          "Las mentes con las que has hablado, las ideas que exploraste y las rutas que empezaste: tu recorrido intelectual en PneumaA.",
+          "Las mentes con las que has hablado, las ideas que exploraste y las rutas que empezaste: tu recorrido intelectual en PneumAlpha.",
       },
-      { property: "og:title", content: "Mi recorrido — PneumaA" },
+      { property: "og:title", content: "Mi recorrido — PneumAlpha" },
       {
         property: "og:description",
         content: "Tu historial de pensamiento, guardado en tu propio navegador.",

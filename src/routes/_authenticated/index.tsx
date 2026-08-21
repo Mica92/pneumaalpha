@@ -13,13 +13,13 @@ export const Route = createFileRoute("/_authenticated/")({
   component: Home,
   head: () => ({
     meta: [
-      { title: "PneumaA — Conversa con los grandes pensadores de la historia" },
+      { title: "PneumAlpha — Conversa con los grandes pensadores de la historia" },
       {
         name: "description",
         content:
           "Escribe lo que te preocupa y habla con una conciencia filosófica reconstruida. Diecinueve mentes, grandes ideas y rutas guiadas para pensar tu vida.",
       },
-      { property: "og:title", content: "PneumaA — Conversa con los grandes pensadores" },
+      { property: "og:title", content: "PneumAlpha — Conversa con los grandes pensadores" },
       {
         property: "og:description",
         content:
