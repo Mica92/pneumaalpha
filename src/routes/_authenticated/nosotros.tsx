@@ -11,13 +11,13 @@ export const Route = createFileRoute("/_authenticated/nosotros")({
       {
         name: "description",
         content:
-          "Conocimiento como puente. Quiénes somos, nuestra misión y nuestra visión para una sociedad centrada en la conciencia humana.",
+          "Conocimiento como puente: quiénes somos, nuestra misión, visión y valores para una sociedad centrada en la conciencia humana.",
       },
       { property: "og:title", content: "PneumAlpha — Nosotros" },
       {
         property: "og:description",
         content:
-          "Conocimiento como puente. Quiénes somos, nuestra misión y nuestra visión para una sociedad centrada en la conciencia humana.",
+          "Conocimiento como puente: quiénes somos, nuestra misión, visión y valores para una sociedad centrada en la conciencia humana.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://pneumaalpha.lovable.app/nosotros" },
