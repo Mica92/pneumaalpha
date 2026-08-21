@@ -89,6 +89,30 @@ function NosotrosPage() {
             </div>
           </section>
 
+          <section aria-labelledby="values-heading">
+            <div className="mb-6 flex items-baseline justify-between gap-4 border-b border-border/60 pb-3">
+              <h2
+                id="values-heading"
+                className="font-display text-[10px] uppercase tracking-[0.35em] text-muted-foreground"
+              >
+                {t("about.values.title")}
+              </h2>
+            </div>
+            <div className="grid gap-4 md:grid-cols-2">
+              {VALUES.map((n) => (
+                <article key={n} className="card-editorial p-6 md:p-7">
+                  <h3 className="font-serif text-2xl font-light text-foreground">
+                    {t(`about.values.${n}.h`)}
+                  </h3>
+                  <div className="rule-hairline my-4" />
+                  <p className="text-sm leading-relaxed text-foreground/85">
+                    {t(`about.values.${n}.p`)}
+                  </p>
+                </article>
+              ))}
+            </div>
+          </section>
+
           <section aria-labelledby="vision-heading">
             <div className="mb-6 flex items-baseline justify-between gap-4 border-b border-border/60 pb-3">
               <h2
