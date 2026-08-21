@@ -20,6 +20,7 @@ import { Route as AuthenticatedRecorridoRouteImport } from './routes/_authentica
 import { Route as AuthenticatedPodcastRouteImport } from './routes/_authenticated/podcast'
 import { Route as AuthenticatedPerfilRouteImport } from './routes/_authenticated/perfil'
 import { Route as AuthenticatedOraculoRouteImport } from './routes/_authenticated/oraculo'
+import { Route as AuthenticatedNosotrosRouteImport } from './routes/_authenticated/nosotros'
 import { Route as AuthenticatedMiMapaRouteImport } from './routes/_authenticated/mi-mapa'
 import { Route as AuthenticatedMesaRouteImport } from './routes/_authenticated/mesa'
 import { Route as AuthenticatedExplorarRouteImport } from './routes/_authenticated/explorar'
@@ -90,6 +91,11 @@ const AuthenticatedPerfilRoute = AuthenticatedPerfilRouteImport.update({
 const AuthenticatedOraculoRoute = AuthenticatedOraculoRouteImport.update({
   id: '/oraculo',
   path: '/oraculo',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedNosotrosRoute = AuthenticatedNosotrosRouteImport.update({
+  id: '/nosotros',
+  path: '/nosotros',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedMiMapaRoute = AuthenticatedMiMapaRouteImport.update({
@@ -196,6 +202,7 @@ export interface FileRoutesByFullPath {
   '/explorar': typeof AuthenticatedExplorarRoute
   '/mesa': typeof AuthenticatedMesaRoute
   '/mi-mapa': typeof AuthenticatedMiMapaRoute
+  '/nosotros': typeof AuthenticatedNosotrosRoute
   '/oraculo': typeof AuthenticatedOraculoRoute
   '/perfil': typeof AuthenticatedPerfilRoute
   '/podcast': typeof AuthenticatedPodcastRoute
@@ -224,6 +231,7 @@ export interface FileRoutesByTo {
   '/explorar': typeof AuthenticatedExplorarRoute
   '/mesa': typeof AuthenticatedMesaRoute
   '/mi-mapa': typeof AuthenticatedMiMapaRoute
+  '/nosotros': typeof AuthenticatedNosotrosRoute
   '/oraculo': typeof AuthenticatedOraculoRoute
   '/perfil': typeof AuthenticatedPerfilRoute
   '/podcast': typeof AuthenticatedPodcastRoute
@@ -255,6 +263,7 @@ export interface FileRoutesById {
   '/_authenticated/explorar': typeof AuthenticatedExplorarRoute
   '/_authenticated/mesa': typeof AuthenticatedMesaRoute
   '/_authenticated/mi-mapa': typeof AuthenticatedMiMapaRoute
+  '/_authenticated/nosotros': typeof AuthenticatedNosotrosRoute
   '/_authenticated/oraculo': typeof AuthenticatedOraculoRoute
   '/_authenticated/perfil': typeof AuthenticatedPerfilRoute
   '/_authenticated/podcast': typeof AuthenticatedPodcastRoute
@@ -287,6 +296,7 @@ export interface FileRouteTypes {
     | '/explorar'
     | '/mesa'
     | '/mi-mapa'
+    | '/nosotros'
     | '/oraculo'
     | '/perfil'
     | '/podcast'
@@ -315,6 +325,7 @@ export interface FileRouteTypes {
     | '/explorar'
     | '/mesa'
     | '/mi-mapa'
+    | '/nosotros'
     | '/oraculo'
     | '/perfil'
     | '/podcast'
@@ -345,6 +356,7 @@ export interface FileRouteTypes {
     | '/_authenticated/explorar'
     | '/_authenticated/mesa'
     | '/_authenticated/mi-mapa'
+    | '/_authenticated/nosotros'
     | '/_authenticated/oraculo'
     | '/_authenticated/perfil'
     | '/_authenticated/podcast'
@@ -448,6 +460,13 @@ declare module '@tanstack/react-router' {
       path: '/oraculo'
       fullPath: '/oraculo'
       preLoaderRoute: typeof AuthenticatedOraculoRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/nosotros': {
+      id: '/_authenticated/nosotros'
+      path: '/nosotros'
+      fullPath: '/nosotros'
+      preLoaderRoute: typeof AuthenticatedNosotrosRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/mi-mapa': {
@@ -582,6 +601,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedExplorarRoute: typeof AuthenticatedExplorarRoute
   AuthenticatedMesaRoute: typeof AuthenticatedMesaRoute
   AuthenticatedMiMapaRoute: typeof AuthenticatedMiMapaRoute
+  AuthenticatedNosotrosRoute: typeof AuthenticatedNosotrosRoute
   AuthenticatedOraculoRoute: typeof AuthenticatedOraculoRoute
   AuthenticatedPerfilRoute: typeof AuthenticatedPerfilRoute
   AuthenticatedPodcastRoute: typeof AuthenticatedPodcastRoute
@@ -608,6 +628,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedExplorarRoute: AuthenticatedExplorarRoute,
   AuthenticatedMesaRoute: AuthenticatedMesaRoute,
   AuthenticatedMiMapaRoute: AuthenticatedMiMapaRoute,
+  AuthenticatedNosotrosRoute: AuthenticatedNosotrosRoute,
   AuthenticatedOraculoRoute: AuthenticatedOraculoRoute,
   AuthenticatedPerfilRoute: AuthenticatedPerfilRoute,
   AuthenticatedPodcastRoute: AuthenticatedPodcastRoute,

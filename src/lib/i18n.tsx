@@ -638,6 +638,66 @@ export const T: Dict = {
     es: "No se pudo generar el código.",
     en: "Could not generate the code.",
   },
+
+  "about.kicker": { es: "Nosotros", en: "About us" },
+  "about.title": {
+    es: "Conocimiento como puente",
+    en: "Knowledge as a bridge",
+  },
+  "about.intro.p1": {
+    es: "Somos un grupo de ciudadanos comprometidos con el bienestar de la sociedad. No nos define una sola profesión ni una sola forma de pensar; nos define una convicción compartida: que el desarrollo de la vida humana es el propósito más importante de nuestra época.",
+    en: "We are a group of citizens committed to the wellbeing of society. We are not defined by a single profession or a single way of thinking; we are defined by a shared conviction: that the development of human life is the most important purpose of our time.",
+  },
+  "about.intro.p2": {
+    es: "Por eso nos juntamos. Queremos entregar una herramienta poderosa, un punto de encuentro entre las mentes más prodigiosas de la humanidad y todas aquellas personas que buscan algo más que información: buscan comprensión, criterio y crecimiento.",
+    en: "That is why we came together. We want to deliver a powerful tool, a meeting point between the most prodigious minds of humanity and all those people who seek something more than information: understanding, judgment and growth.",
+  },
+  "about.intro.p3": {
+    es: "A través de esa red, buscamos que los usuarios puedan potenciarse a nivel personal. Que puedan conocerse mejor, pensar con más claridad, tomar decisiones con más conciencia y, en definitiva, vivir de mejor manera.",
+    en: "Through this network, we seek to empower users on a personal level. To know themselves better, think more clearly, make decisions more consciously and, ultimately, live better.",
+  },
+  "about.intro.p4": {
+    es: "No creemos en el conocimiento como privilegio. Creemos en el conocimiento como puente. Un puente entre disciplinas, entre generaciones, entre culturas y, sobre todo, entre el potencial de cada persona y su vida concreta.",
+    en: "We do not believe in knowledge as a privilege. We believe in knowledge as a bridge. A bridge between disciplines, generations, cultures and, above all, between the potential of each person and their concrete life.",
+  },
+  "about.mission.title": { es: "Misión", en: "Mission" },
+  "about.mission.p1": {
+    es: "Hoy, gracias a la inteligencia artificial, la información dejó de ser un valor único para transformarse en un recurso básico, un commodity. Durante siglos, tener información era tener poder. Hoy, la información está en todas partes; lo que escasea es la capacidad de darle sentido.",
+    en: "Today, thanks to artificial intelligence, information has ceased to be a unique value and has become a basic resource, a commodity. For centuries, having information was having power. Today, information is everywhere; what is scarce is the ability to make sense of it.",
+  },
+  "about.mission.p2": {
+    es: "Este cambio transformará la dinámica de la economía mundial. Pondrá, más temprano que tarde, al ser humano en el centro de todo, porque el valor ya no estará en acumular datos, sino en la capacidad de reflexión y de crítica para el desarrollo personal y colectivo.",
+    en: "This change will transform the dynamics of the world economy. Sooner rather than later, it will place the human being at the center of everything, because value will no longer lie in accumulating data, but in the capacity for reflection and critique for personal and collective development.",
+  },
+  "about.mission.p3": {
+    es: "A través de este cambio de paradigma, la economía pasará de una lógica binaria —donde las cosas parecen ser blancas o negras, ganar o perder, producir o consumir— a una lógica multidimensional. En ese nuevo escenario, ecosistemas que aún no existen podrán convertirse en industrias prósperas, creadas para generar un impacto virtuoso.",
+    en: "Through this paradigm shift, the economy will move from a binary logic —where things seem to be black or white, win or lose, produce or consume— to a multidimensional logic. In this new scenario, ecosystems that do not yet exist will be able to become prosperous industries, created to generate a virtuous impact.",
+  },
+  "about.mission.p4": {
+    es: "Filosóficamente hablando, el mundo de la técnica ha dominado la historia de Occidente. Nos ha traído avances extraordinarios, pero también ha generado errores profundos: desconexión con la naturaleza y pérdida de sentido. En el futuro, la técnica continuará su progreso, sin embargo, el centro del desarrollo de la sociedad cambiará de protagonista: pasará de la técnica a la conciencia del ser humano.",
+    en: "Philosophically speaking, the world of technique has dominated the history of the West. It has brought us extraordinary advances, but it has also generated profound errors: disconnection from nature and loss of meaning. In the future, technique will continue its progress, but the center of societal development will change protagonists: it will shift from technique to the consciousness of the human being.",
+  },
+  "about.mission.p5": {
+    es: "Para este nuevo mundo, pensar, integrar y cultivar nuevas formas de habitar el planeta será clave para el bienestar de las sociedades. No se tratará solo de adaptarse al cambio, sino de aprender a habitarlo con sabiduría.",
+    en: "For this new world, thinking, integrating and cultivating new ways of inhabiting the planet will be key to the wellbeing of societies. It will not be just about adapting to change, but about learning to inhabit it with wisdom.",
+  },
+  "about.vision.title": { es: "Visión", en: "Vision" },
+  "about.vision.p1": {
+    es: "Ser la plataforma que impulse la transición hacia una sociedad centrada en la conciencia humana, donde la inteligencia artificial y la tecnología actúen como herramientas liberadoras del potencial personal y colectivo.",
+    en: "To be the platform that drives the transition toward a society centered on human consciousness, where artificial intelligence and technology act as liberating tools for personal and collective potential.",
+  },
+  "about.vision.p2": {
+    es: "Aspiramos a construir un ecosistema global de mentes que conecte conocimiento, reflexión crítica y desarrollo humano. Queremos que ese ecosistema no sea una promesa lejana, sino una realidad accesible para cualquier persona que quiera participar.",
+    en: "We aspire to build a global ecosystem of minds that connects knowledge, critical reflection and human development. We want that ecosystem to be not a distant promise, but an accessible reality for anyone who wants to participate.",
+  },
+  "about.vision.p3": {
+    es: "Visualizamos un futuro donde las industrias multidimensionales florezcan para generar bienestar real, ético y sostenible. Un futuro en el que la economía no se mida solo por lo que produce, sino por la calidad de vida que hace posible.",
+    en: "We envision a future where multidimensional industries flourish to generate real, ethical and sustainable wellbeing. A future in which the economy is measured not only by what it produces, but by the quality of life it makes possible.",
+  },
+  "about.vision.p4": {
+    es: "Imaginamos un mundo en el que cada persona, sin importar su origen, pueda acceder a las ideas, herramientas y redes necesarias para desarrollar su conciencia y vivir mejor. Un mundo donde el progreso técnico esté al servicio de la vida, y no al revés.",
+    en: "We imagine a world in which every person, regardless of origin, can access the ideas, tools and networks necessary to develop their consciousness and live better. A world where technical progress is at the service of life, and not the other way around.",
+  },
 };
 
 type Ctx = {
