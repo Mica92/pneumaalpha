@@ -1,7 +1,10 @@
 // Registro de filósofos vivos en la plataforma.
 // Cada uno tiene su prompt, su atmósfera y su voz.
 
+import { EXTRA_PHILOSOPHERS, type ExtraPhilosopherId } from "@/lib/philosophers-extra";
+
 export type PhilosopherId =
+  | ExtraPhilosopherId
   | "heidegger"
   | "schopenhauer"
   | "james"
