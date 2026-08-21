@@ -17,6 +17,24 @@ import kantScene from "@/assets/scenes/kant.jpg";
 import hegelScene from "@/assets/scenes/hegel.jpg";
 import spenglerScene from "@/assets/scenes/spengler.jpg";
 import jungerScene from "@/assets/scenes/junger.jpg";
+import cioranScene from "@/assets/scenes/cioran.jpg";
+import rousseauScene from "@/assets/scenes/rousseau.jpg";
+import burkeScene from "@/assets/scenes/burke.jpg";
+import emersonScene from "@/assets/scenes/emerson.jpg";
+import thoreauScene from "@/assets/scenes/thoreau.jpg";
+import stirnerScene from "@/assets/scenes/stirner.jpg";
+import bakuninScene from "@/assets/scenes/bakunin.jpg";
+import arendtScene from "@/assets/scenes/arendt.jpg";
+import negrihardtScene from "@/assets/scenes/negrihardt.jpg";
+import randScene from "@/assets/scenes/rand.jpg";
+import gadamerScene from "@/assets/scenes/gadamer.jpg";
+import ibnkhaldunScene from "@/assets/scenes/ibnkhaldun.jpg";
+import nishidaScene from "@/assets/scenes/nishida.jpg";
+import iqbalScene from "@/assets/scenes/iqbal.jpg";
+import eliadeScene from "@/assets/scenes/eliade.jpg";
+import evolaScene from "@/assets/scenes/evola.jpg";
+import jabriScene from "@/assets/scenes/jabri.jpg";
+import quoistScene from "@/assets/scenes/quoist.jpg";
 import type { PhilosopherId } from "@/lib/philosophers";
 
 /**
@@ -43,6 +61,24 @@ export const SCENES: Partial<Record<PhilosopherId, string>> = {
   hegel: hegelScene,
   spengler: spenglerScene,
   junger: jungerScene,
+  cioran: cioranScene,
+  rousseau: rousseauScene,
+  burke: burkeScene,
+  emerson: emersonScene,
+  thoreau: thoreauScene,
+  stirner: stirnerScene,
+  bakunin: bakuninScene,
+  arendt: arendtScene,
+  negrihardt: negrihardtScene,
+  rand: randScene,
+  gadamer: gadamerScene,
+  ibnkhaldun: ibnkhaldunScene,
+  nishida: nishidaScene,
+  iqbal: iqbalScene,
+  eliade: eliadeScene,
+  evola: evolaScene,
+  jabri: jabriScene,
+  quoist: quoistScene,
 };
 
 export function sceneOf(id: string): string | undefined {

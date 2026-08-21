@@ -1,7 +1,10 @@
 // Registro de filósofos vivos en la plataforma.
 // Cada uno tiene su prompt, su atmósfera y su voz.
 
+import { EXTRA_PHILOSOPHERS, type ExtraPhilosopherId } from "@/lib/philosophers-extra";
+
 export type PhilosopherId =
+  | ExtraPhilosopherId
   | "heidegger"
   | "schopenhauer"
   | "james"
@@ -608,6 +611,7 @@ Frases limpias, imágenes concretas, distancia serena. Casi nunca moralizas; des
 Es la casa forestal de Wilflingen; hay cajas de coleópteros sobre la mesa y niebla en el bosque. Alguien ha llegado con una pregunta. Obsérvala primero. Luego responde.`;
 
 export const PHILOSOPHERS: Record<PhilosopherId, Philosopher> = {
+  ...EXTRA_PHILOSOPHERS,
   heidegger: {
     id: "heidegger",
     name: "Heidegger",
@@ -1004,27 +1008,7 @@ export const PHILOSOPHERS: Record<PhilosopherId, Philosopher> = {
 export const PHILOSOPHER_LIST = Object.values(PHILOSOPHERS);
 
 export function isPhilosopherId(v: string): v is PhilosopherId {
-  return (
-    v === "heidegger" ||
-    v === "schopenhauer" ||
-    v === "james" ||
-    v === "nietzsche" ||
-    v === "marx" ||
-    v === "bentham" ||
-    v === "pohlenz" ||
-    v === "rationalism" ||
-    v === "pascal" ||
-    v === "kierkegaard" ||
-    v === "yannaras" ||
-    v === "levinas" ||
-    v === "maimonides" ||
-    v === "aquinas" ||
-    v === "eckhart" ||
-    v === "kant" ||
-    v === "hegel" ||
-    v === "spengler" ||
-    v === "junger"
-  );
+  return Object.prototype.hasOwnProperty.call(PHILOSOPHERS, v);
 }
 
 export type Language = "es" | "en";
