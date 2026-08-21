@@ -366,6 +366,6 @@ function Index() {
       </main>
       <SiteFooter />
     </>
-    </>
+
   );
 }
