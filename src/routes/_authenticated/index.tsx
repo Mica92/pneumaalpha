@@ -183,7 +183,9 @@ function Home() {
           <div className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-28">
             <p className="label">{es ? "Empieza por aquí" : "Start here"}</p>
             <h2 className="mt-3 max-w-2xl font-serif text-3xl font-light text-foreground md:text-5xl">
-              {es ? "Seis mentes para una primera conversación" : "Six minds for a first conversation"}
+              {es
+                ? "Seis mentes para una primera conversación"
+                : "Six minds for a first conversation"}
             </h2>
             <ul className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {featured.map((id) => (
@@ -204,7 +206,10 @@ function Home() {
 
           <ul className="mt-10 grid gap-4 md:grid-cols-2">
             {REAL_PROBLEMS.map((p) => (
-              <li key={p.id} className="card-editorial flex flex-col gap-4 p-6 sm:flex-row sm:items-center">
+              <li
+                key={p.id}
+                className="card-editorial flex flex-col gap-4 p-6 sm:flex-row sm:items-center"
+              >
                 <p className="flex-1 font-serif text-xl font-light leading-snug text-foreground">
                   “{p.text[lang]}”
                 </p>

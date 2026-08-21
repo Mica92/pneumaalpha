@@ -1,8 +1,9 @@
 import { portraitOf, portraitFocus, profileOf } from "@/lib/portraits";
+import { SiteNav } from "@/components/site-nav";
+import { SiteFooter } from "@/components/site-footer";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PHILOSOPHER_LIST } from "@/lib/philosophers";
-import { useI18n, LanguageSelector } from "@/lib/i18n";
-import { PneumaMark } from "@/components/pneuma-mark";
+import { useI18n } from "@/lib/i18n";
 import { InstallAppCard } from "@/components/install-app";
 import { TelegramCard } from "@/components/telegram-card";
 import { NewsletterCard } from "@/components/newsletter-card";
@@ -164,20 +165,9 @@ function Index() {
         />
         <div className="absolute inset-0 bg-gradient-to-b from-background/85 via-background/75 to-background" />
       </div>
+      <SiteNav />
       <main className="route-enter relative z-10 mx-auto flex min-h-dvh max-w-6xl flex-col px-6 py-10 md:px-10 md:py-14">
         {/* Top nav — clinical, almost invisible */}
-        <nav className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <PneumaMark withWordmark size={26} />
-            <span className="hidden text-[10px] uppercase tracking-[0.3em] text-muted-foreground sm:inline">
-              · {lang === "es" ? "vol. I" : "vol. I"}
-            </span>
-          </div>
-          <div className="flex items-center gap-4">
-            <LanguageSelector />
-          </div>
-        </nav>
-
         {/* Hero header */}
         <header className="mt-16 mb-12 md:mt-24 md:mb-16">
           <p className="tracking-in font-display text-[10px] uppercase text-muted-foreground">
@@ -372,17 +362,8 @@ function Index() {
         </div>
 
         <NewsletterCard className="mt-10" />
-
-        <footer className="mt-16 flex flex-wrap items-center justify-between gap-3 border-t border-border/60 pt-6 text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
-          <span>PneumaA · {new Date().getFullYear()}</span>
-          <span className="hidden font-mono text-muted-foreground/50 md:inline">
-            ∴ · ✦ · ❧ · ☤ · ⚒ · ⚖ · Ω · ◈ · ❋ · ✟ · ☦ · ⧫ · ✡ · ✠
-          </span>
-          <Link to="/privacy" className="transition-colors hover:text-foreground">
-            {lang === "es" ? "Privacidad" : "Privacy"}
-          </Link>
-        </footer>
       </main>
+      <SiteFooter />
     </>
   );
 }

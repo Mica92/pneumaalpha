@@ -18,7 +18,8 @@ export const Route = createFileRoute("/_authenticated/ideas/")({
       { property: "og:title", content: "Grandes ideas — PneumaA" },
       {
         property: "og:description",
-        content: "Entra por la idea, no por el autor. Cada concepto abre las mentes que lo pensaron.",
+        content:
+          "Entra por la idea, no por el autor. Cada concepto abre las mentes que lo pensaron.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },

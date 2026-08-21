@@ -115,7 +115,9 @@ function PhilosopherProfilePage() {
 
               {profile?.expertise && profile.expertise.length > 0 && (
                 <section className="mt-10">
-                  <h2 className="label">{es ? "De qué puedes hablar" : "What you can talk about"}</h2>
+                  <h2 className="label">
+                    {es ? "De qué puedes hablar" : "What you can talk about"}
+                  </h2>
                   <ul className="mt-4 grid gap-2 sm:grid-cols-2">
                     {profile.expertise.map((e) => (
                       <li
@@ -146,7 +148,9 @@ function PhilosopherProfilePage() {
         </div>
 
         <section className="mx-auto max-w-6xl px-5 py-16 md:px-8 md:py-24">
-          <h2 className="label">{es ? "Si te interesa esta mente" : "If this mind speaks to you"}</h2>
+          <h2 className="label">
+            {es ? "Si te interesa esta mente" : "If this mind speaks to you"}
+          </h2>
           <ul className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {suggestions.map((sid) => (
               <li key={sid}>

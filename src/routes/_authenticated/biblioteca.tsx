@@ -1,3 +1,5 @@
+import { SiteNav } from "@/components/site-nav";
+import { SiteFooter } from "@/components/site-footer";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
@@ -15,8 +17,7 @@ import {
   isPhilosopherId,
   type PhilosopherId,
 } from "@/lib/philosophers";
-import { useI18n, LanguageSelector } from "@/lib/i18n";
-import { PneumaMark } from "@/components/pneuma-mark";
+import { useI18n } from "@/lib/i18n";
 import { NewsletterCard } from "@/components/newsletter-card";
 import { toast } from "sonner";
 
@@ -58,67 +59,56 @@ function LibraryPage() {
   });
 
   return (
-    <main className="route-enter relative z-10 mx-auto flex min-h-dvh max-w-4xl flex-col px-6 py-10 md:px-10 md:py-14">
-      <nav className="flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-3">
-          <PneumaMark withWordmark size={26} />
-        </Link>
-        <div className="flex items-center gap-4">
-          <LanguageSelector />
-          <Link
-            to="/"
-            className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground transition-colors hover:text-foreground"
-          >
-            {t("library.back")}
-          </Link>
-        </div>
-      </nav>
-
-      <header className="mt-16 mb-10 md:mt-20 md:mb-12">
-        <p className="tracking-in font-display text-[10px] uppercase text-muted-foreground">
-          {t("library.kicker")}
-        </p>
-        <h1 className="fade-up mt-5 font-display text-3xl font-light leading-[1.1] text-foreground md:text-5xl">
-          {t("library.page.title")}
-        </h1>
-        <p className="fade-up mt-5 max-w-xl text-sm leading-relaxed text-muted-foreground md:text-base">
-          {t("library.page.sub")}
-        </p>
-      </header>
-
-      <div className="mb-8 flex flex-wrap gap-2">
-        <FilterChip active={filter === null} onClick={() => setFilter(null)}>
-          {t("library.all")}
-        </FilterChip>
-        {PHILOSOPHER_LIST.map((p) => (
-          <FilterChip key={p.id} active={filter === p.id} onClick={() => setFilter(p.id)}>
-            {p.name}
-          </FilterChip>
-        ))}
-      </div>
-
-      <section aria-live="polite" className="space-y-4">
-        {isLoading && (
-          <>
-            <SkeletonCard />
-            <SkeletonCard />
-            <SkeletonCard />
-          </>
-        )}
-        {!isLoading && (fragments ?? []).length === 0 && (
-          <p className="rounded-xl border border-border/60 bg-card/40 p-6 text-sm text-muted-foreground">
-            {t("library.empty")}
+    <>
+      <SiteNav />
+      <main className="route-enter relative z-10 mx-auto flex min-h-dvh max-w-4xl flex-col px-6 py-10 md:px-10 md:py-14">
+        <header className="mt-16 mb-10 md:mt-20 md:mb-12">
+          <p className="tracking-in font-display text-[10px] uppercase text-muted-foreground">
+            {t("library.kicker")}
           </p>
-        )}
-        {(fragments ?? []).map((f) => (
-          <FragmentCard key={f.id} fragment={f} />
-        ))}
-      </section>
+          <h1 className="fade-up mt-5 font-display text-3xl font-light leading-[1.1] text-foreground md:text-5xl">
+            {t("library.page.title")}
+          </h1>
+          <p className="fade-up mt-5 max-w-xl text-sm leading-relaxed text-muted-foreground md:text-base">
+            {t("library.page.sub")}
+          </p>
+        </header>
 
-      {mod?.moderator && <ModerationPanel />}
+        <div className="mb-8 flex flex-wrap gap-2">
+          <FilterChip active={filter === null} onClick={() => setFilter(null)}>
+            {t("library.all")}
+          </FilterChip>
+          {PHILOSOPHER_LIST.map((p) => (
+            <FilterChip key={p.id} active={filter === p.id} onClick={() => setFilter(p.id)}>
+              {p.name}
+            </FilterChip>
+          ))}
+        </div>
 
-      <NewsletterCard className="mt-14" />
-    </main>
+        <section aria-live="polite" className="space-y-4">
+          {isLoading && (
+            <>
+              <SkeletonCard />
+              <SkeletonCard />
+              <SkeletonCard />
+            </>
+          )}
+          {!isLoading && (fragments ?? []).length === 0 && (
+            <p className="rounded-xl border border-border/60 bg-card/40 p-6 text-sm text-muted-foreground">
+              {t("library.empty")}
+            </p>
+          )}
+          {(fragments ?? []).map((f) => (
+            <FragmentCard key={f.id} fragment={f} />
+          ))}
+        </section>
+
+        {mod?.moderator && <ModerationPanel />}
+
+        <NewsletterCard className="mt-14" />
+      </main>
+      <SiteFooter />
+    </>
   );
 }
 
