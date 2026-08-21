@@ -24,8 +24,23 @@ export const Route = createFileRoute("/_authenticated/nosotros")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [{ rel: "canonical", href: "https://pneumaalpha.lovable.app/nosotros" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          name: "PneumAlpha",
+          url: "https://pneumaalpha.lovable.app",
+          description:
+            "Conocimiento como puente: misión, visión y valores de PneumAlpha, un punto de encuentro con las grandes conciencias filosóficas.",
+        }),
+      },
+    ],
   }),
 });
+
+const VALUES = [1, 2, 3, 4, 5, 6, 7] as const;
 
 function NosotrosPage() {
   const { lang, t } = useI18n();
