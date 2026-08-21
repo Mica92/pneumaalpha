@@ -4,6 +4,9 @@ import { useAuth } from "@/hooks/use-auth";
 import { ChatWindow } from "@/components/chat-window";
 import { GreekGlyph } from "@/components/greek-glyph";
 import { PHILOSOPHERS, isPhilosopherId, type PhilosopherId } from "@/lib/philosophers";
+import { entityForChat } from "@/lib/atlas";
+import { useJourney } from "@/lib/atlas/use-journey";
+
 
 export const Route = createFileRoute("/_authenticated/$philosopher")({
   component: PhilosopherChat,
@@ -49,10 +52,21 @@ function PhilosopherChat() {
   const { q } = Route.useSearch();
   const { user, loading } = useAuth();
   const navigate = useNavigate();
+  const { add } = useJourney();
 
   useEffect(() => {
     if (!isPhilosopherId(philosopher)) navigate({ to: "/" });
   }, [philosopher, navigate]);
+
+  // Cada conversación deja huella en el mapa personal.
+  useEffect(() => {
+    if (!user || !isPhilosopherId(philosopher)) return;
+    const entity = entityForChat(philosopher);
+    if (!entity) return;
+    add(entity.id, entity.kind, `Conversaste con ${PHILOSOPHERS[philosopher].name}.`);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [philosopher, user?.id]);
+
 
   if (loading || !user || !isPhilosopherId(philosopher)) {
     return (

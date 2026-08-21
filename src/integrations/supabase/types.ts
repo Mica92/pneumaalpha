@@ -14,6 +14,39 @@ export type Database = {
   }
   public: {
     Tables: {
+      journey_nodes: {
+        Row: {
+          count: number
+          created_at: string
+          entity_id: string
+          entity_kind: string
+          id: string
+          reason: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          count?: number
+          created_at?: string
+          entity_id: string
+          entity_kind: string
+          id?: string
+          reason?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          count?: number
+          created_at?: string
+          entity_id?: string
+          entity_kind?: string
+          id?: string
+          reason?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       messages: {
         Row: {
           content: string

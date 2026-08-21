@@ -5,14 +5,16 @@ import { LanguageSelector, useI18n } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
 const LINKS = [
+  { to: "/explorar", es: "Explorar", en: "Explore" },
   { to: "/filosofos", es: "Filósofos", en: "Philosophers" },
   { to: "/ideas", es: "Ideas", en: "Ideas" },
   { to: "/rutas", es: "Rutas", en: "Paths" },
   { to: "/comparar", es: "Comparar", en: "Compare" },
   { to: "/umbral", es: "Instrumentos", en: "Instruments" },
-  { to: "/recorrido", es: "Mi recorrido", en: "My journey" },
+  { to: "/mi-mapa", es: "Mi mapa", en: "My map" },
   { to: "/buscar", es: "Buscar", en: "Search" },
 ] as const;
+
 
 export function SiteNav({ className = "" }: { className?: string }) {
   const { lang } = useI18n();
