@@ -157,7 +157,7 @@ export const CENTRAL_QUESTIONS: Record<PhilosopherId, LocalizedString> = {
     es: "¿A quién le estás dando tu tiempo, de verdad?",
     en: "Who are you actually giving your time to?",
   },
-}  sartre: {
+sartre: {
     es: "¿Qué excusa llevas años repitiéndote?",
     en: "What excuse have you been repeating to yourself for years?",
   },
