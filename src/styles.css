@@ -130,6 +130,7 @@
   --surface: oklch(0.215 0.005 286);
   --paper: oklch(0.945 0.008 85);
   --bronze: oklch(0.70 0.062 78);               /* #B89A62 */
+  --tint: oklch(0.70 0.062 78);                 /* visit tint, set at runtime */
   --bronze-bright: oklch(0.80 0.068 80);
   --bronze-soft: oklch(0.55 0.048 78);
 
