@@ -35,6 +35,12 @@ import eliadePortrait from "@/assets/portraits/eliade.jpg";
 import evolaPortrait from "@/assets/portraits/evola.jpg";
 import jabriPortrait from "@/assets/portraits/jabri.jpg";
 import quoistPortrait from "@/assets/portraits/quoist.jpg";
+import sartrePortrait from "@/assets/portraits/sartre.jpg";
+import camusPortrait from "@/assets/portraits/camus.jpg";
+import berlinPortrait from "@/assets/portraits/berlin.jpg";
+import bostromPortrait from "@/assets/portraits/bostrom.jpg";
+import krishnamurtiPortrait from "@/assets/portraits/krishnamurti.jpg";
+import zubiriPortrait from "@/assets/portraits/zubiri.jpg";
 import type { PhilosopherId } from "@/lib/philosophers";
 import type { LocalizedString } from "@/lib/philosophers";
 
@@ -77,6 +83,12 @@ export const PORTRAITS: Partial<Record<PhilosopherId, string>> = {
   evola: evolaPortrait,
   jabri: jabriPortrait,
   quoist: quoistPortrait,
+  sartre: sartrePortrait,
+  camus: camusPortrait,
+  berlin: berlinPortrait,
+  bostrom: bostromPortrait,
+  krishnamurti: krishnamurtiPortrait,
+  zubiri: zubiriPortrait,
 };
 
 export function portraitOf(id: string): string | undefined {
