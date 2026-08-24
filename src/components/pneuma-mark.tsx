@@ -39,8 +39,8 @@ const HIGHLIGHT = [
   [4, 7],
   [5, 7],
   [4, 8],
+  [5, 8],
   [3, 9],
-  [4, 9],
 ];
 
 const LEAF = [
@@ -68,7 +68,7 @@ export function PneumaMark({ className = "", withWordmark = false, size = 28 }: 
   const body = base;
   const shade = `color-mix(in oklab, ${base} 62%, black)`;
   const light = `color-mix(in oklab, ${base} 55%, white)`;
-  const outline = "color-mix(in oklab, var(--ink) 82%, black)";
+  const outline = `color-mix(in oklab, ${base} 42%, black)`;
   const leaf = `color-mix(in oklab, ${base} 45%, oklch(0.62 0.16 145))`;
   const label = "PneumAlpha";
 
@@ -91,7 +91,7 @@ export function PneumaMark({ className = "", withWordmark = false, size = 28 }: 
           (y === 6 && x >= RIGHT_HUMP[0] && x <= RIGHT_HUMP[1]);
         const inNext = next && x >= next[0] && x <= next[1];
         const edge = x === x0 || x === x1 || !inPrev || !inNext;
-        push(x, y, edge ? outline : y >= 12 ? shade : body, `b${y}-${si}-${x}`);
+        push(x, y, edge ? outline : y >= 13 ? shade : body, `b${y}-${si}-${x}`);
       }
     });
   });
