@@ -157,6 +157,30 @@ export const CENTRAL_QUESTIONS: Record<PhilosopherId, LocalizedString> = {
     es: "¿A quién le estás dando tu tiempo, de verdad?",
     en: "Who are you actually giving your time to?",
   },
+}  sartre: {
+    es: "¿Qué excusa llevas años repitiéndote?",
+    en: "What excuse have you been repeating to yourself for years?",
+  },
+  camus: {
+    es: "Si nada tuviera sentido, ¿qué seguirías haciendo igual?",
+    en: "If nothing had meaning, what would you still keep doing?",
+  },
+  berlin: {
+    es: "¿Entre qué dos cosas buenas estás obligado a elegir?",
+    en: "Which two good things are you being forced to choose between?",
+  },
+  bostrom: {
+    es: "¿Qué llamas tú realidad, exactamente?",
+    en: "What exactly do you call reality?",
+  },
+  krishnamurti: {
+    es: "¿Puedes mirar tu miedo sin querer cambiarlo?",
+    en: "Can you look at your fear without wanting to change it?",
+  },
+  zubiri: {
+    es: "¿Qué es lo que de verdad estás sintiendo, antes de interpretarlo?",
+    en: "What are you actually sensing, before you interpret it?",
+  },
 };
 
 export function centralQuestion(id: PhilosopherId, lang: Lang): string {

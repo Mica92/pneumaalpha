@@ -753,6 +753,102 @@ export const PROFILES: Partial<Record<PhilosopherId, PhilosopherProfile>> = {
       { es: "Acompañamiento y escucha", en: "Accompaniment and listening" },
     ],
   },
+
+  sartre: {
+    years: "1905 – 1980",
+    origin: { es: "París, Francia", en: "Paris, France" },
+    bio: {
+      es: "Filósofo, novelista y dramaturgo francés, figura central del existencialismo. Sostuvo que la existencia precede a la esencia: nadie nace con un destino escrito, y por eso estamos condenados a ser libres y responsables de lo que hacemos con lo que nos hicieron.",
+      en: "French philosopher, novelist and playwright, the central figure of existentialism. He held that existence precedes essence: nobody is born with a written destiny, so we are condemned to be free and responsible for what we make of what was made of us.",
+    },
+    expertise: [
+      { es: "Libertad y responsabilidad", en: "Freedom and responsibility" },
+      { es: "Mala fe y autoengaño", en: "Bad faith and self-deception" },
+      { es: "La mirada del otro", en: "The gaze of the other" },
+      { es: "Angustia y contingencia", en: "Anguish and contingency" },
+      { es: "Compromiso político y literatura", en: "Political commitment and literature" },
+    ],
+  },
+
+  camus: {
+    years: "1913 – 1960",
+    origin: { es: "Mondovi, Argelia francesa", en: "Mondovi, French Algeria" },
+    bio: {
+      es: "Escritor y pensador francoargelino, Nobel de Literatura. Del choque entre nuestra sed de sentido y el silencio del mundo no dedujo el suicidio ni el nihilismo, sino la rebeldía lúcida: vivir sin consuelo y sin resignación, con el cuerpo, el sol y los otros.",
+      en: "French-Algerian writer and thinker, Nobel laureate. From the clash between our thirst for meaning and the world's silence he drew neither suicide nor nihilism, but lucid revolt: living without consolation and without resignation, with the body, the sun and others.",
+    },
+    expertise: [
+      { es: "El absurdo y Sísifo", en: "The absurd and Sisyphus" },
+      { es: "La rebeldía y sus límites", en: "Revolt and its limits" },
+      { es: "Decencia sin heroísmo", en: "Decency without heroism" },
+      { es: "Mediterráneo, cuerpo y luz", en: "Mediterranean, body and light" },
+      { es: "Crítica del terror ideológico", en: "Critique of ideological terror" },
+    ],
+  },
+
+  berlin: {
+    years: "1909 – 1997",
+    origin: { es: "Riga, Letonia", en: "Riga, Latvia" },
+    bio: {
+      es: "Historiador de las ideas y filósofo político de Oxford. Defendió el pluralismo de valores: los bienes humanos son varios y a veces incompatibles, y quien promete un mundo donde todos encajan acaba justificando la coerción.",
+      en: "Oxford historian of ideas and political philosopher. He defended value pluralism: human goods are many and sometimes incompatible, and whoever promises a world where all of them fit ends up justifying coercion.",
+    },
+    expertise: [
+      { es: "Pluralismo de valores", en: "Value pluralism" },
+      { es: "Libertad negativa y positiva", en: "Negative and positive liberty" },
+      { es: "El erizo y el zorro", en: "The hedgehog and the fox" },
+      { es: "Crítica del determinismo histórico", en: "Critique of historical determinism" },
+      { es: "Contra-Ilustración y romanticismo", en: "Counter-Enlightenment and romanticism" },
+    ],
+  },
+
+  bostrom: {
+    years: "1797 – 1866",
+    origin: { es: "Piteå, Suecia", en: "Piteå, Sweden" },
+    bio: {
+      es: "Profesor en Upsala y el filósofo sueco más influyente del siglo XIX. Su idealismo racional sostiene que sólo existen personas: el mundo material es la percepción confusa que un espíritu finito tiene de otros espíritus, y Dios es el sistema eterno de todos ellos.",
+      en: "Professor at Uppsala and the most influential Swedish philosopher of the 19th century. His rational idealism holds that only persons exist: the material world is the confused perception a finite spirit has of other spirits, and God is their eternal system.",
+    },
+    expertise: [
+      { es: "Idealismo racional", en: "Rational idealism" },
+      { es: "Personalismo metafísico", en: "Metaphysical personalism" },
+      { es: "Tiempo, espacio y percepción", en: "Time, space and perception" },
+      { es: "Crítica de Hegel", en: "Critique of Hegel" },
+      { es: "Filosofía del Estado y del derecho", en: "Philosophy of state and law" },
+    ],
+  },
+
+  krishnamurti: {
+    years: "1895 – 1986",
+    origin: { es: "Madanapalle, India", en: "Madanapalle, India" },
+    bio: {
+      es: "Educado como futuro maestro del mundo por la Sociedad Teosófica, en 1929 disolvió la organización creada para él: la verdad es una tierra sin caminos. Habló durante sesenta años sin doctrina ni discípulos, invitando a mirar el propio condicionamiento sin autoridad alguna.",
+      en: "Raised as the future world teacher by the Theosophical Society, in 1929 he dissolved the organisation built for him: truth is a pathless land. He spoke for sixty years without doctrine or disciples, inviting people to look at their own conditioning without any authority.",
+    },
+    expertise: [
+      { es: "Atención sin elección", en: "Choiceless awareness" },
+      { es: "El observador y lo observado", en: "The observer and the observed" },
+      { es: "Miedo, deseo y soledad", en: "Fear, desire and loneliness" },
+      { es: "Condicionamiento y autoridad", en: "Conditioning and authority" },
+      { es: "Educación y libertad interior", en: "Education and inner freedom" },
+    ],
+  },
+
+  zubiri: {
+    years: "1898 – 1983",
+    origin: { es: "San Sebastián, España", en: "San Sebastián, Spain" },
+    bio: {
+      es: "Filósofo español formado con Ortega, Husserl y Heidegger, y lector atento de la física y la biología de su tiempo. Propuso la inteligencia sentiente: sentir e inteligir son dos momentos de un mismo acto, y lo primero que aprehendemos es la cosa como realidad.",
+      en: "Spanish philosopher trained with Ortega, Husserl and Heidegger, and a close reader of the physics and biology of his time. He proposed sentient intelligence: sensing and understanding are two moments of one act, and what we first apprehend is the thing as reality.",
+    },
+    expertise: [
+      { es: "Inteligencia sentiente", en: "Sentient intelligence" },
+      { es: "Realidad y aprehensión", en: "Reality and apprehension" },
+      { es: "Esencia y sustantividad", en: "Essence and substantivity" },
+      { es: "Religación y experiencia de Dios", en: "Religation and the experience of God" },
+      { es: "La persona como suidad", en: "The person as suity" },
+    ],
+  },
 };
 
 export function profileOf(id: string): PhilosopherProfile | undefined {
