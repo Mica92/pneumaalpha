@@ -60,7 +60,7 @@ export function SiteNav({ className = "" }: { className?: string }) {
           <PneumaMark size={24} withWordmark />
         </Link>
 
-        <div className="hidden items-center gap-6 md:flex">
+        <div className="hidden items-center gap-4 md:flex lg:gap-6">
           {LINKS.map((l) => (
             <Link
               key={l.to}
