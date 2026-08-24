@@ -224,11 +224,35 @@
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.55  0 0 0 0 0.65  0 0 0 0 0.72  0 0 0 0.5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
   }
 
+  /* Editorial serif for headings — balanced lines, optical tracking */
   h1, h2, h3, h4 {
     font-family: var(--font-serif);
     font-weight: 300;
-    letter-spacing: -0.008em;
+    letter-spacing: -0.012em;
+    line-height: 1.12;
+    text-wrap: balance;
   }
+  h1 { letter-spacing: -0.02em; line-height: 1.05; }
+  h4 { letter-spacing: -0.006em; line-height: 1.25; }
+
+  /* Cormorant is high-contrast: below subtitle size it reads thin.
+     Small serif headings fall back to the interface sans. */
+  h5, h6 {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    letter-spacing: -0.002em;
+  }
+
+  p, li {
+    text-wrap: pretty;
+  }
+
+  /* Real italics instead of a synthesised slant */
+  em, i, .italic { font-synthesis-style: none; }
+
+  /* Numbers should never dance between renders */
+  time, output, th, td { font-variant-numeric: tabular-nums; }
+
 
 
   ::selection {
