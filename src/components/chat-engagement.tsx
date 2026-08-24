@@ -39,13 +39,13 @@ export function TopicBar({
                 aria-selected={active}
                 disabled={disabled}
                 onClick={() => onPick(topic.id)}
-                className={`group flex shrink-0 items-center gap-2 rounded-full border px-3.5 py-1.5 text-[11px] uppercase tracking-[0.22em] transition-all disabled:opacity-40 ${
+                className={`group flex shrink-0 items-center gap-2 rounded-full border px-3.5 py-1.5 text-micro uppercase tracking-[0.22em] transition-all disabled:opacity-40 ${
                   active
                     ? "border-mist/50 bg-mist/10 text-foreground"
                     : "border-border/70 bg-card/40 text-muted-foreground hover:border-mist/40 hover:text-foreground"
                 }`}
               >
-                <span aria-hidden="true" className="text-sm leading-none opacity-90">
+                <span aria-hidden="true" className="text-small leading-none opacity-90">
                   {topic.emoji}
                 </span>
                 <span className="font-display">{topic.label[lang]}</span>
@@ -98,7 +98,7 @@ export function DilemmaBanner({
             onClick={() => setMin(false)}
             aria-label={t("chat.dilemma.restore")}
             title={t("chat.dilemma.restore")}
-            className="rounded-full border border-border/60 bg-card/40 px-2 py-1 text-[11px] text-mist/80 transition-all hover:border-mist/40 hover:text-foreground"
+            className="rounded-full border border-border/60 bg-card/40 px-2 py-1 text-micro text-mist/80 transition-all hover:border-mist/40 hover:text-foreground"
           >
             <span aria-hidden="true">◈</span>
           </button>
@@ -124,12 +124,12 @@ export function DilemmaBanner({
             <p className="font-display text-[9px] uppercase tracking-[0.32em] text-muted-foreground">
               {t("chat.dilemma.kicker")}
             </p>
-            <p className="mt-0.5 truncate text-[13px] leading-snug text-foreground/90">{dilemma}</p>
+            <p className="mt-0.5 truncate text-small leading-snug text-foreground/90">{dilemma}</p>
           </div>
           <button
             onClick={onConverse}
             disabled={disabled}
-            className="shrink-0 rounded-full border border-mist/40 bg-mist/15 px-3 py-1.5 font-display text-[10px] uppercase tracking-[0.25em] text-foreground transition-all hover:bg-mist/25 disabled:opacity-40"
+            className="shrink-0 rounded-full border border-mist/40 bg-mist/15 px-3 py-1.5 font-display text-micro uppercase tracking-[0.25em] text-foreground transition-all hover:bg-mist/25 disabled:opacity-40"
           >
             {t("chat.dilemma.converse")}
           </button>
@@ -237,7 +237,7 @@ export function RootQuestionsFab({ onPick, disabled }: { onPick: SendFn; disable
           >
             <header className="flex items-center justify-between border-b border-border/60 px-6 py-4">
               <div>
-                <p className="font-display text-[10px] uppercase tracking-[0.32em] text-muted-foreground">
+                <p className="font-display text-micro uppercase tracking-[0.32em] text-muted-foreground">
                   {t("chat.root.kicker")}
                 </p>
                 <h2 className="mt-1 font-display text-base font-light text-foreground">
@@ -246,7 +246,7 @@ export function RootQuestionsFab({ onPick, disabled }: { onPick: SendFn; disable
               </div>
               <button
                 onClick={() => setOpen(false)}
-                className="rounded-md px-3 py-1.5 text-[10px] uppercase tracking-[0.25em] text-muted-foreground transition-colors hover:bg-card hover:text-foreground"
+                className="rounded-md px-3 py-1.5 text-micro uppercase tracking-[0.25em] text-muted-foreground transition-colors hover:bg-card hover:text-foreground"
               >
                 {t("chat.archive.close")}
               </button>

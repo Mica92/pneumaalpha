@@ -56,13 +56,13 @@ function ReportPage() {
       <SiteNav />
       <main className="relative z-10 mx-auto flex min-h-screen max-w-3xl flex-col px-6 py-10 md:px-10 md:py-14">
         <header className="mt-16 mb-10 md:mt-24 md:mb-14">
-          <p className="tracking-in font-display text-[10px] uppercase text-muted-foreground">
+          <p className="tracking-in font-display text-micro uppercase text-muted-foreground">
             {t("report.kicker")}
           </p>
           <h1 className="fade-up mt-5 max-w-2xl font-display text-3xl font-light leading-[1.1] text-foreground md:text-5xl">
             {t("report.page.title")}
           </h1>
-          <p className="fade-up mt-5 max-w-xl text-sm leading-relaxed text-muted-foreground md:text-base">
+          <p className="fade-up mt-5 max-w-xl text-small leading-relaxed text-muted-foreground md:text-base">
             {t("report.page.sub")}
           </p>
         </header>
@@ -72,25 +72,25 @@ function ReportPage() {
             <button
               type="button"
               onClick={run}
-              className="rounded-md border border-mist/40 bg-mist/10 px-6 py-3 font-display text-[11px] uppercase tracking-[0.3em] text-foreground transition-all hover:border-mist/70 hover:bg-mist/15"
+              className="rounded-md border border-mist/40 bg-mist/10 px-6 py-3 font-display text-micro uppercase tracking-[0.3em] text-foreground transition-all hover:border-mist/70 hover:bg-mist/15"
             >
               {t("report.generate")}
             </button>
-            <p className="max-w-md text-xs leading-relaxed text-muted-foreground">
+            <p className="max-w-md text-micro leading-relaxed text-muted-foreground">
               {t("report.hint")}
             </p>
           </div>
         )}
 
         {running && (
-          <div className="fade-up flex items-center gap-3 text-sm text-muted-foreground">
-            <GreekGlyph className="font-display text-2xl text-mist pneuma-breathe" />
+          <div className="fade-up flex items-center gap-3 text-small text-muted-foreground">
+            <GreekGlyph className="font-display text-subtitle text-mist pneuma-breathe" />
             <span>{t("report.running")}</span>
           </div>
         )}
 
         {error && (
-          <p className="mt-6 rounded-md border border-destructive/30 bg-destructive/5 px-4 py-3 text-sm text-destructive">
+          <p className="mt-6 rounded-md border border-destructive/30 bg-destructive/5 px-4 py-3 text-small text-destructive">
             {error}
           </p>
         )}
@@ -99,18 +99,18 @@ function ReportPage() {
           <article className="fade-up mt-2 space-y-10">
             {/* Archetype + summary */}
             <section className="overflow-hidden rounded-xl border border-mist/30 bg-card/60 p-7 backdrop-blur-sm md:p-9">
-              <p className="font-display text-[10px] uppercase tracking-[0.3em] text-mist">
+              <p className="font-display text-micro uppercase tracking-[0.3em] text-mist">
                 {t("report.archetype")}
               </p>
-              <h2 className="mt-3 font-display text-2xl font-light tracking-tight text-foreground md:text-3xl">
+              <h2 className="mt-3 font-display text-subtitle font-light tracking-tight text-foreground md:text-3xl">
                 {report.archetype}
               </h2>
               {report.summary && (
-                <p className="mt-5 text-sm leading-relaxed text-foreground/85 md:text-[15px]">
+                <p className="mt-5 text-small leading-relaxed text-foreground/85 md:text-[15px]">
                   {report.summary}
                 </p>
               )}
-              <p className="mt-5 font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground/70">
+              <p className="mt-5 font-mono text-micro uppercase tracking-[0.25em] text-muted-foreground/70">
                 {t("report.basedOn", { n: String(report.messagesAnalyzed) })}
               </p>
             </section>
@@ -118,7 +118,7 @@ function ReportPage() {
             {/* Scores */}
             {report.messagesAnalyzed >= 3 && (
               <section>
-                <h3 className="font-display text-[11px] uppercase tracking-[0.3em] text-muted-foreground">
+                <h3 className="font-display text-micro uppercase tracking-[0.3em] text-muted-foreground">
                   {t("report.signals")}
                 </h3>
                 <ul className="mt-5 space-y-3">
@@ -134,10 +134,10 @@ function ReportPage() {
                     <li key={key} className="grid grid-cols-[1fr_auto] items-center gap-4">
                       <div>
                         <div className="flex items-baseline justify-between">
-                          <span className="text-xs uppercase tracking-[0.2em] text-foreground/80">
+                          <span className="text-micro uppercase tracking-[0.2em] text-foreground/80">
                             {t(`report.signal.${key}`)}
                           </span>
-                          <span className="font-mono text-[10px] text-muted-foreground/80">
+                          <span className="font-mono text-micro text-muted-foreground/80">
                             {val}/100
                           </span>
                         </div>
@@ -157,10 +157,10 @@ function ReportPage() {
             {/* Writing style */}
             {report.writingStyle && (
               <section>
-                <h3 className="font-display text-[11px] uppercase tracking-[0.3em] text-muted-foreground">
+                <h3 className="font-display text-micro uppercase tracking-[0.3em] text-muted-foreground">
                   {t("report.writingStyle")}
                 </h3>
-                <p className="mt-4 text-sm leading-relaxed text-foreground/85 md:text-[15px]">
+                <p className="mt-4 text-small leading-relaxed text-foreground/85 md:text-[15px]">
                   {report.writingStyle}
                 </p>
               </section>
@@ -175,7 +175,7 @@ function ReportPage() {
 
             {/* Recommendations */}
             <section className="space-y-8">
-              <h3 className="font-display text-[11px] uppercase tracking-[0.3em] text-mist">
+              <h3 className="font-display text-micro uppercase tracking-[0.3em] text-mist">
                 {t("report.recommend.kicker")}
               </h3>
 
@@ -195,7 +195,7 @@ function ReportPage() {
 
               {report.recommendations.books.length > 0 && (
                 <div>
-                  <h4 className="text-xs uppercase tracking-[0.25em] text-foreground/80">
+                  <h4 className="text-micro uppercase tracking-[0.25em] text-foreground/80">
                     {t("report.recommend.books")}
                   </h4>
                   <ul className="mt-4 space-y-4">
@@ -203,10 +203,10 @@ function ReportPage() {
                       <li key={i} className="rounded-lg border border-border/60 bg-card/30 p-4">
                         <p className="font-display text-base text-foreground">
                           {b.title}
-                          <span className="ml-2 text-xs text-muted-foreground">— {b.author}</span>
+                          <span className="ml-2 text-micro text-muted-foreground">— {b.author}</span>
                         </p>
                         {b.why && (
-                          <p className="mt-2 text-xs leading-relaxed text-muted-foreground md:text-sm">
+                          <p className="mt-2 text-micro leading-relaxed text-muted-foreground md:text-small">
                             {b.why}
                           </p>
                         )}
@@ -218,7 +218,7 @@ function ReportPage() {
 
               {next && (
                 <div className="overflow-hidden rounded-xl border border-mist/30 bg-card/60 p-6">
-                  <p className="font-display text-[10px] uppercase tracking-[0.3em] text-mist">
+                  <p className="font-display text-micro uppercase tracking-[0.3em] text-mist">
                     {t("report.recommend.nextVoice")}
                   </p>
                   <div className="mt-4 flex items-start gap-4">
@@ -226,16 +226,16 @@ function ReportPage() {
                       {next.glyph}
                     </span>
                     <div className="flex-1">
-                      <h4 className="font-display text-xl font-light tracking-tight text-foreground">
+                      <h4 className="font-display text-subtitle font-light tracking-tight text-foreground">
                         {next.name}
                       </h4>
-                      <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+                      <p className="mt-1 text-micro leading-relaxed text-muted-foreground">
                         {next.subtitle[lang]}
                       </p>
                     </div>
                   </div>
                   {report.recommendations.nextPhilosopherReason && (
-                    <p className="mt-4 text-sm leading-relaxed text-foreground/85">
+                    <p className="mt-4 text-small leading-relaxed text-foreground/85">
                       {report.recommendations.nextPhilosopherReason}
                     </p>
                   )}
@@ -243,7 +243,7 @@ function ReportPage() {
                     <Link
                       to="/$philosopher"
                       params={{ philosopher: next.id }}
-                      className="rounded-md border border-mist/50 bg-mist/15 px-4 py-2 font-display text-[10px] uppercase tracking-[0.3em] text-foreground transition-all hover:border-mist/80 hover:bg-mist/25"
+                      className="rounded-md border border-mist/50 bg-mist/15 px-4 py-2 font-display text-micro uppercase tracking-[0.3em] text-foreground transition-all hover:border-mist/80 hover:bg-mist/25"
                     >
                       {t("report.recommend.enter")}
                     </Link>
@@ -259,11 +259,11 @@ function ReportPage() {
                   setReport(null);
                   setError(null);
                 }}
-                className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground transition-colors hover:text-foreground"
+                className="text-micro uppercase tracking-[0.3em] text-muted-foreground transition-colors hover:text-foreground"
               >
                 {t("report.again")}
               </button>
-              <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground/70">
+              <span className="font-mono text-micro uppercase tracking-[0.25em] text-muted-foreground/70">
                 {new Date(report.generatedAt).toLocaleString(lang === "es" ? "es-ES" : "en-US")}
               </span>
             </div>
@@ -279,12 +279,12 @@ function ChipsBlock({ title, items }: { title: string; items: string[] }) {
   if (!items.length) return null;
   return (
     <div>
-      <h4 className="text-xs uppercase tracking-[0.25em] text-foreground/80">{title}</h4>
+      <h4 className="text-micro uppercase tracking-[0.25em] text-foreground/80">{title}</h4>
       <ul className="mt-3 flex flex-wrap gap-2">
         {items.map((s, i) => (
           <li
             key={i}
-            className="rounded-full border border-border/60 bg-card/40 px-3 py-1 text-xs text-foreground/80"
+            className="rounded-full border border-border/60 bg-card/40 px-3 py-1 text-micro text-foreground/80"
           >
             {s}
           </li>
@@ -298,10 +298,10 @@ function ListBlock({ title, items }: { title: string; items: string[] }) {
   if (!items.length) return null;
   return (
     <div>
-      <h4 className="text-xs uppercase tracking-[0.25em] text-foreground/80">{title}</h4>
+      <h4 className="text-micro uppercase tracking-[0.25em] text-foreground/80">{title}</h4>
       <ul className="mt-3 space-y-2">
         {items.map((s, i) => (
-          <li key={i} className="text-sm leading-relaxed text-foreground/85 md:text-[15px]">
+          <li key={i} className="text-small leading-relaxed text-foreground/85 md:text-[15px]">
             — {s}
           </li>
         ))}

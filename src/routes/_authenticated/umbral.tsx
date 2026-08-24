@@ -148,7 +148,7 @@ function Index() {
         {/* Top nav — clinical, almost invisible */}
         {/* Hero header */}
         <header className="mt-16 mb-12 md:mt-24 md:mb-16">
-          <p className="tracking-in font-display text-[10px] uppercase text-muted-foreground">
+          <p className="tracking-in font-display text-micro uppercase text-muted-foreground">
             {t("umbral.kicker")}
           </p>
           <h1 className="fade-up mt-5 max-w-3xl font-display text-4xl font-light leading-[1.05] text-foreground md:text-6xl">
@@ -157,7 +157,7 @@ function Index() {
             </span>
             {t("umbral.title")}
           </h1>
-          <p className="fade-up mt-6 max-w-xl text-sm leading-relaxed text-muted-foreground md:text-base">
+          <p className="fade-up mt-6 max-w-xl text-small leading-relaxed text-muted-foreground md:text-base">
             {t("umbral.sub")}
           </p>
         </header>
@@ -167,11 +167,11 @@ function Index() {
           <div className="mb-4 flex items-baseline justify-between gap-4 border-b border-border/60 pb-3">
             <h2
               id="tools-heading"
-              className="font-display text-[10px] uppercase tracking-[0.35em] text-muted-foreground"
+              className="font-display text-micro uppercase tracking-[0.35em] text-muted-foreground"
             >
               {lang === "es" ? "Instrumentos" : "Instruments"}
             </h2>
-            <span className="font-mono text-[10px] tracking-widest text-muted-foreground/70">
+            <span className="font-mono text-micro tracking-widest text-muted-foreground/70">
               {String(FEATURES.length).padStart(2, "0")}
             </span>
           </div>
@@ -194,17 +194,17 @@ function Index() {
                 </div>
 
                 <div className="relative">
-                  <p className={`font-display text-[10px] uppercase tracking-[0.35em] ${f.accent}`}>
+                  <p className={`font-display text-micro uppercase tracking-[0.35em] ${f.accent}`}>
                     {t(f.kicker)}
                   </p>
-                  <h3 className="mt-3 font-display text-xl font-light leading-tight tracking-tight text-foreground md:text-2xl">
+                  <h3 className="mt-3 font-display text-subtitle font-light leading-tight tracking-tight text-foreground md:text-subtitle">
                     {t(f.title)}
                   </h3>
-                  <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{t(f.sub)}</p>
+                  <p className="mt-2 text-micro leading-relaxed text-muted-foreground">{t(f.sub)}</p>
                 </div>
 
                 <span
-                  className={`relative mt-6 font-display text-[10px] uppercase tracking-[0.3em] ${f.accent} transition-colors group-hover:text-foreground`}
+                  className={`relative mt-6 font-display text-micro uppercase tracking-[0.3em] ${f.accent} transition-colors group-hover:text-foreground`}
                 >
                   {t(f.cta)}
                 </span>
@@ -220,11 +220,11 @@ function Index() {
         >
           <h2
             id="minds-heading"
-            className="font-display text-[10px] uppercase tracking-[0.35em] text-muted-foreground"
+            className="font-display text-micro uppercase tracking-[0.35em] text-muted-foreground"
           >
             {lang === "es" ? "Las mentes" : "The minds"}
           </h2>
-          <span className="font-mono text-[10px] tracking-widest text-muted-foreground/70">
+          <span className="font-mono text-micro tracking-widest text-muted-foreground/70">
             {String(PHILOSOPHER_LIST.length).padStart(2, "0")}
           </span>
         </div>
@@ -269,7 +269,7 @@ function Index() {
                 </div>
 
                 {/* Index marker — top-right, clinical */}
-                <span className="absolute right-5 top-5 font-mono text-[10px] tracking-widest text-muted-foreground/70">
+                <span className="absolute right-5 top-5 font-mono text-micro tracking-widest text-muted-foreground/70">
                   {String(i + 1).padStart(2, "0")} /{" "}
                   {String(PHILOSOPHER_LIST.length).padStart(2, "0")}
                 </span>
@@ -284,12 +284,12 @@ function Index() {
                   </span>
                   <h2
                     className={`mt-6 font-display font-light tracking-tight text-foreground ${
-                      isHero ? "text-3xl md:text-4xl" : "text-xl md:text-2xl"
+                      isHero ? "text-3xl md:text-4xl" : "text-subtitle md:text-subtitle"
                     }`}
                   >
                     {p.name}
                   </h2>
-                  <p className="mt-2 text-xs leading-relaxed text-muted-foreground md:text-sm">
+                  <p className="mt-2 text-micro leading-relaxed text-muted-foreground md:text-small">
                     {p.subtitle[lang]}
                   </p>
 
@@ -301,7 +301,7 @@ function Index() {
                       {topics.map((topic) => (
                         <li
                           key={topic}
-                          className="rounded-full border border-border/70 bg-background/40 px-2.5 py-1 text-[10px] leading-none tracking-wide text-muted-foreground transition-colors group-hover:border-mist/40 group-hover:text-foreground/80"
+                          className="rounded-full border border-border/70 bg-background/40 px-2.5 py-1 text-micro leading-none tracking-wide text-muted-foreground transition-colors group-hover:border-mist/40 group-hover:text-foreground/80"
                         >
                           {topic}
                         </li>
@@ -312,12 +312,12 @@ function Index() {
 
                 <div className="relative mt-6 space-y-3">
                   {isHero && (
-                    <p className="max-w-md text-sm leading-relaxed text-foreground/75 md:text-[15px]">
+                    <p className="max-w-md text-small leading-relaxed text-foreground/75 md:text-[15px]">
                       {p.blurb[lang]}
                     </p>
                   )}
                   <div className="flex items-center justify-end border-t border-border/60 pt-3">
-                    <span className="font-display text-[10px] uppercase tracking-[0.3em] text-muted-foreground opacity-0 transition-all duration-500 group-hover:translate-x-0 group-hover:text-foreground group-hover:opacity-100">
+                    <span className="font-display text-micro uppercase tracking-[0.3em] text-muted-foreground opacity-0 transition-all duration-500 group-hover:translate-x-0 group-hover:text-foreground group-hover:opacity-100">
                       {t("umbral.enter")}
                     </span>
                   </div>
@@ -329,7 +329,7 @@ function Index() {
 
         {/* Llevarlo contigo */}
         <div className="mb-4 mt-12 flex items-baseline justify-between gap-4 border-b border-border/60 pb-3">
-          <h2 className="font-display text-[10px] uppercase tracking-[0.35em] text-muted-foreground">
+          <h2 className="font-display text-micro uppercase tracking-[0.35em] text-muted-foreground">
             {lang === "es" ? "Llévalo contigo" : "Take it with you"}
           </h2>
         </div>

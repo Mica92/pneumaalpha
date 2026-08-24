@@ -85,7 +85,7 @@ function PhilosophersIndex() {
               placeholder={
                 es ? "Buscar: libertad, muerte, poder…" : "Search: freedom, death, power…"
               }
-              className="focus-mist w-full max-w-md rounded-md border border-border/70 bg-input px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/70"
+              className="focus-mist w-full max-w-md rounded-md border border-border/70 bg-input px-4 py-3 text-small text-foreground placeholder:text-muted-foreground/70"
             />
 
             <div className="flex flex-wrap gap-2">
@@ -106,7 +106,7 @@ function PhilosophersIndex() {
 
         <section className="mx-auto max-w-6xl px-5 py-12 md:px-8 md:py-16">
           {results.length === 0 ? (
-            <p className="text-sm text-muted-foreground">
+            <p className="text-small text-muted-foreground">
               {es ? "Ninguna mente coincide con esa búsqueda." : "No mind matches that search."}
             </p>
           ) : (
@@ -139,7 +139,7 @@ function FilterChip({
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      className={`focus-mist rounded-full border px-3.5 py-1.5 text-xs transition-colors ${
+      className={`focus-mist rounded-full border px-3.5 py-1.5 text-micro transition-colors ${
         active
           ? "border-bronze/60 bg-bronze/12 text-foreground"
           : "border-border/70 text-muted-foreground hover:border-bronze/40 hover:text-foreground"

@@ -511,7 +511,7 @@ export function AtlasCanvas({ nodes, links, focus, onSelect, onSelectLink, class
             type="button"
             onClick={b.fn}
             aria-label={b.aria}
-            className="h-8 w-8 rounded-md border border-border bg-background/70 text-sm text-muted-foreground backdrop-blur transition-colors hover:text-foreground"
+            className="h-8 w-8 rounded-md border border-border bg-background/70 text-small text-muted-foreground backdrop-blur transition-colors hover:text-foreground"
           >
             {b.label}
           </button>

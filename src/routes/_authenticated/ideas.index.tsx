@@ -59,11 +59,11 @@ function IdeasIndex() {
                   <h2 className="font-serif text-3xl font-light text-foreground">
                     {idea.title[lang]}
                   </h2>
-                  <p className="mt-2 text-sm text-bronze-bright">{idea.short[lang]}</p>
-                  <p className="mt-4 line-clamp-3 text-sm leading-relaxed text-muted-foreground">
+                  <p className="mt-2 text-small text-bronze-bright">{idea.short[lang]}</p>
+                  <p className="mt-4 line-clamp-3 text-small leading-relaxed text-muted-foreground">
                     {idea.explanation[lang]}
                   </p>
-                  <p className="mt-auto pt-5 text-[11px] text-muted-foreground/80">
+                  <p className="mt-auto pt-5 text-micro text-muted-foreground/80">
                     {idea.philosophers.map((p) => PHILOSOPHERS[p]?.name).join(" · ")}
                   </p>
                 </Link>

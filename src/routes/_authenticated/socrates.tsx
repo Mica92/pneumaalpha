@@ -95,7 +95,7 @@ function SocratesPage() {
           <h1 className="fade-up mt-5 font-serif text-4xl font-light leading-[1.08] text-foreground md:text-6xl">
             {t("socrates.page.title")}
           </h1>
-          <p className="fade-up mt-5 max-w-xl text-sm leading-relaxed text-muted-foreground md:text-base">
+          <p className="fade-up mt-5 max-w-xl text-small leading-relaxed text-muted-foreground md:text-base">
             {t("socrates.page.sub")}
           </p>
         </header>
@@ -115,7 +115,7 @@ function SocratesPage() {
               }
             >
               {turn.role === "assistant" && (
-                <p className="mb-1.5 font-display text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
+                <p className="mb-1.5 font-display text-micro uppercase tracking-[0.3em] text-muted-foreground">
                   Σωκράτης
                 </p>
               )}
@@ -129,7 +129,7 @@ function SocratesPage() {
                 className="font-display text-lg text-mist pneuma-breathe"
                 intervalMs={280}
               />
-              <span className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground">
+              <span className="text-micro uppercase tracking-[0.3em] text-muted-foreground">
                 {t("socrates.thinking")}
               </span>
             </div>
@@ -137,7 +137,7 @@ function SocratesPage() {
 
           {summary && (
             <div className="fade-up rounded-xl border border-sage/35 bg-card/60 p-6 backdrop-blur-sm">
-              <p className="font-display text-[10px] uppercase tracking-[0.35em] text-sage">
+              <p className="font-display text-micro uppercase tracking-[0.35em] text-sage">
                 {t("socrates.summary.kicker")}
               </p>
               <p className="mt-4 whitespace-pre-wrap text-[15px] leading-relaxed text-foreground/90">
@@ -147,7 +147,7 @@ function SocratesPage() {
           )}
 
           {error && (
-            <p className="rounded-md border border-destructive/30 bg-destructive/5 px-4 py-3 text-sm text-destructive">
+            <p className="rounded-md border border-destructive/30 bg-destructive/5 px-4 py-3 text-small text-destructive">
               {error}
             </p>
           )}
@@ -177,7 +177,7 @@ function SocratesPage() {
             <button
               type="submit"
               disabled={busy || !input.trim()}
-              className="focus-mist rounded-md border border-mist/40 bg-mist/10 px-4 py-2.5 font-display text-[10px] uppercase tracking-[0.3em] text-foreground transition-all hover:border-mist/70 disabled:opacity-30"
+              className="focus-mist rounded-md border border-mist/40 bg-mist/10 px-4 py-2.5 font-display text-micro uppercase tracking-[0.3em] text-foreground transition-all hover:border-mist/70 disabled:opacity-30"
             >
               {t("socrates.send")}
             </button>
@@ -188,7 +188,7 @@ function SocratesPage() {
                 type="button"
                 onClick={close}
                 disabled={busy}
-                className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground transition-colors hover:text-foreground disabled:opacity-40"
+                className="text-micro uppercase tracking-[0.25em] text-muted-foreground transition-colors hover:text-foreground disabled:opacity-40"
               >
                 {t("socrates.summary")}
               </button>
@@ -196,7 +196,7 @@ function SocratesPage() {
                 type="button"
                 onClick={restart}
                 disabled={busy}
-                className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground transition-colors hover:text-foreground disabled:opacity-40"
+                className="text-micro uppercase tracking-[0.25em] text-muted-foreground transition-colors hover:text-foreground disabled:opacity-40"
               >
                 {t("socrates.restart")}
               </button>

@@ -61,10 +61,10 @@ function RoutesIndex() {
                   <h2 className="mt-3 font-serif text-3xl font-light leading-tight text-foreground">
                     {r.question[lang]}
                   </h2>
-                  <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+                  <p className="mt-4 text-small leading-relaxed text-muted-foreground">
                     {r.intro[lang]}
                   </p>
-                  <ol className="mt-6 flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] text-bronze-bright">
+                  <ol className="mt-6 flex flex-wrap items-center gap-x-2 gap-y-1 text-micro text-bronze-bright">
                     {r.steps.map((s, i) => (
                       <li key={s.philosopher}>
                         {i > 0 && <span className="mr-2 text-muted-foreground/50">→</span>}

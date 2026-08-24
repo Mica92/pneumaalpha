@@ -73,13 +73,13 @@ function OraclePage() {
       <SiteNav />
       <main className="relative z-10 mx-auto flex min-h-screen max-w-3xl flex-col px-6 py-10 md:px-10 md:py-14">
         <header className="mt-16 mb-10 md:mt-24 md:mb-14">
-          <p className="tracking-in font-display text-[10px] uppercase text-muted-foreground">
+          <p className="tracking-in font-display text-micro uppercase text-muted-foreground">
             {t("oracle.kicker")}
           </p>
           <h1 className="fade-up mt-5 max-w-2xl font-display text-3xl font-light leading-[1.1] text-foreground md:text-5xl">
             {t("oracle.page.title")}
           </h1>
-          <p className="fade-up mt-5 max-w-xl text-sm leading-relaxed text-muted-foreground md:text-base">
+          <p className="fade-up mt-5 max-w-xl text-small leading-relaxed text-muted-foreground md:text-base">
             {t("oracle.page.sub")}
           </p>
         </header>
@@ -101,13 +101,13 @@ function OraclePage() {
             }}
           />
           <div className="flex items-center justify-between">
-            <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground/70">
+            <span className="font-mono text-micro uppercase tracking-[0.25em] text-muted-foreground/70">
               {inquiry.length}/2000
             </span>
             <button
               type="submit"
               disabled={submitting || inquiry.trim().length < 3}
-              className="rounded-md border border-mist/40 bg-mist/10 px-5 py-2.5 font-display text-[11px] uppercase tracking-[0.3em] text-foreground transition-all hover:border-mist/70 hover:bg-mist/15 disabled:cursor-not-allowed disabled:opacity-40"
+              className="rounded-md border border-mist/40 bg-mist/10 px-5 py-2.5 font-display text-micro uppercase tracking-[0.3em] text-foreground transition-all hover:border-mist/70 hover:bg-mist/15 disabled:cursor-not-allowed disabled:opacity-40"
             >
               {submitting ? t("oracle.submitting") : t("oracle.submit")}
             </button>
@@ -115,7 +115,7 @@ function OraclePage() {
         </form>
 
         {error && (
-          <p className="mt-6 rounded-md border border-destructive/30 bg-destructive/5 px-4 py-3 text-sm text-destructive">
+          <p className="mt-6 rounded-md border border-destructive/30 bg-destructive/5 px-4 py-3 text-small text-destructive">
             {error}
           </p>
         )}
@@ -126,7 +126,7 @@ function OraclePage() {
             className="fade-up mt-12 overflow-hidden rounded-xl border border-mist/30 bg-card/60 p-7 backdrop-blur-sm md:p-9"
             style={{ animationDelay: "60ms" }}
           >
-            <p className="font-display text-[10px] uppercase tracking-[0.3em] text-mist">
+            <p className="font-display text-micro uppercase tracking-[0.3em] text-mist">
               {t("oracle.result.kicker")}
             </p>
             <div className="mt-5 flex items-start gap-5">
@@ -134,16 +134,16 @@ function OraclePage() {
                 {chosen.glyph}
               </span>
               <div className="flex-1">
-                <h2 className="font-display text-2xl font-light tracking-tight text-foreground md:text-3xl">
+                <h2 className="font-display text-subtitle font-light tracking-tight text-foreground md:text-3xl">
                   {chosen.name}
                 </h2>
-                <p className="mt-1 text-xs leading-relaxed text-muted-foreground md:text-sm">
+                <p className="mt-1 text-micro leading-relaxed text-muted-foreground md:text-small">
                   {chosen.subtitle[lang]}
                 </p>
               </div>
             </div>
 
-            <p className="mt-6 text-sm leading-relaxed text-foreground/85 md:text-[15px]">
+            <p className="mt-6 text-small leading-relaxed text-foreground/85 md:text-[15px]">
               {result.reason}
             </p>
 
@@ -156,14 +156,14 @@ function OraclePage() {
                   setInquiry("");
                   requestAnimationFrame(() => inputRef.current?.focus());
                 }}
-                className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground transition-colors hover:text-foreground"
+                className="text-micro uppercase tracking-[0.3em] text-muted-foreground transition-colors hover:text-foreground"
               >
                 {t("oracle.result.again")}
               </button>
               <Link
                 to="/$philosopher"
                 params={{ philosopher: chosen.id }}
-                className="rounded-md border border-mist/50 bg-mist/15 px-5 py-2.5 font-display text-[11px] uppercase tracking-[0.3em] text-foreground transition-all hover:border-mist/80 hover:bg-mist/25"
+                className="rounded-md border border-mist/50 bg-mist/15 px-5 py-2.5 font-display text-micro uppercase tracking-[0.3em] text-foreground transition-all hover:border-mist/80 hover:bg-mist/25"
               >
                 {t("oracle.result.enter")}
               </Link>

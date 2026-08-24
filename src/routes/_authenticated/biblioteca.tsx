@@ -63,13 +63,13 @@ function LibraryPage() {
       <SiteNav />
       <main className="route-enter relative z-10 mx-auto flex min-h-dvh max-w-4xl flex-col px-6 py-10 md:px-10 md:py-14">
         <header className="mt-16 mb-10 md:mt-20 md:mb-12">
-          <p className="tracking-in font-display text-[10px] uppercase text-muted-foreground">
+          <p className="tracking-in font-display text-micro uppercase text-muted-foreground">
             {t("library.kicker")}
           </p>
           <h1 className="fade-up mt-5 font-display text-3xl font-light leading-[1.1] text-foreground md:text-5xl">
             {t("library.page.title")}
           </h1>
-          <p className="fade-up mt-5 max-w-xl text-sm leading-relaxed text-muted-foreground md:text-base">
+          <p className="fade-up mt-5 max-w-xl text-small leading-relaxed text-muted-foreground md:text-base">
             {t("library.page.sub")}
           </p>
         </header>
@@ -94,7 +94,7 @@ function LibraryPage() {
             </>
           )}
           {!isLoading && (fragments ?? []).length === 0 && (
-            <p className="rounded-xl border border-border/60 bg-card/40 p-6 text-sm text-muted-foreground">
+            <p className="rounded-xl border border-border/60 bg-card/40 p-6 text-small text-muted-foreground">
               {t("library.empty")}
             </p>
           )}
@@ -126,7 +126,7 @@ function FilterChip({
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      className={`focus-mist rounded-full border px-3 py-1.5 text-[11px] tracking-wide transition-colors ${
+      className={`focus-mist rounded-full border px-3 py-1.5 text-micro tracking-wide transition-colors ${
         active
           ? "border-mist/60 bg-mist/10 text-foreground"
           : "border-border/70 text-muted-foreground hover:border-mist/40 hover:text-foreground"
@@ -155,14 +155,14 @@ function FragmentCard({ fragment }: { fragment: LibraryFragment }) {
 
   return (
     <article className="fade-up group rounded-xl border border-border/60 bg-card/50 p-6 backdrop-blur-sm transition-colors hover:border-mist/40">
-      <p className="font-display text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
+      <p className="font-display text-micro uppercase tracking-[0.3em] text-muted-foreground">
         <span aria-hidden="true" className="mr-2">
           {meta?.glyph ?? "·"}
         </span>
         {meta?.name ?? id}
       </p>
       {fragment.question && (
-        <p className="mt-3 text-xs italic leading-relaxed text-muted-foreground">
+        <p className="mt-3 text-micro italic leading-relaxed text-muted-foreground">
           “{fragment.question}”
         </p>
       )}
@@ -173,7 +173,7 @@ function FragmentCard({ fragment }: { fragment: LibraryFragment }) {
         <Link
           to="/$philosopher"
           params={{ philosopher: id }}
-          className="mt-4 inline-block font-display text-[10px] uppercase tracking-[0.3em] text-mist transition-colors hover:text-foreground"
+          className="mt-4 inline-block font-display text-micro uppercase tracking-[0.3em] text-mist transition-colors hover:text-foreground"
         >
           {t("library.talk")}
         </Link>
@@ -211,25 +211,25 @@ function ModerationPanel() {
       <div className="mb-4 flex items-baseline justify-between gap-4 border-b border-border/60 pb-3">
         <h2
           id="moderation-heading"
-          className="font-display text-[10px] uppercase tracking-[0.35em] text-glacier-bright"
+          className="font-display text-micro uppercase tracking-[0.35em] text-glacier-bright"
         >
           {t("library.moderation")}
         </h2>
-        <span className="font-mono text-[10px] tracking-widest text-muted-foreground/70">
+        <span className="font-mono text-micro tracking-widest text-muted-foreground/70">
           {t("library.pending", { n: String(rows.length) })}
         </span>
       </div>
 
       {rows.length === 0 ? (
-        <p className="text-sm text-muted-foreground">{t("library.pending.empty")}</p>
+        <p className="text-small text-muted-foreground">{t("library.pending.empty")}</p>
       ) : (
         <ul className="space-y-3">
           {rows.map((f) => (
             <li key={f.id} className="rounded-xl border border-glacier/25 bg-card/40 p-5">
-              <p className="font-display text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
+              <p className="font-display text-micro uppercase tracking-[0.3em] text-muted-foreground">
                 {isPhilosopherId(f.philosopher) ? PHILOSOPHERS[f.philosopher].name : f.philosopher}
               </p>
-              <p className="mt-3 whitespace-pre-wrap text-sm leading-relaxed text-foreground/85">
+              <p className="mt-3 whitespace-pre-wrap text-small leading-relaxed text-foreground/85">
                 {f.fragment}
               </p>
               <div className="mt-4 flex gap-2">
@@ -237,7 +237,7 @@ function ModerationPanel() {
                   type="button"
                   disabled={mutation.isPending}
                   onClick={() => mutation.mutate({ id: f.id, status: "approved" })}
-                  className="focus-mist rounded-md border border-sage/40 px-4 py-2 text-[10px] uppercase tracking-[0.25em] text-foreground transition-colors hover:bg-sage/10 disabled:opacity-40"
+                  className="focus-mist rounded-md border border-sage/40 px-4 py-2 text-micro uppercase tracking-[0.25em] text-foreground transition-colors hover:bg-sage/10 disabled:opacity-40"
                 >
                   {t("library.approve")}
                 </button>
@@ -245,7 +245,7 @@ function ModerationPanel() {
                   type="button"
                   disabled={mutation.isPending}
                   onClick={() => mutation.mutate({ id: f.id, status: "rejected" })}
-                  className="focus-mist rounded-md border border-border/70 px-4 py-2 text-[10px] uppercase tracking-[0.25em] text-muted-foreground transition-colors hover:text-foreground disabled:opacity-40"
+                  className="focus-mist rounded-md border border-border/70 px-4 py-2 text-micro uppercase tracking-[0.25em] text-muted-foreground transition-colors hover:text-foreground disabled:opacity-40"
                 >
                   {t("library.reject")}
                 </button>

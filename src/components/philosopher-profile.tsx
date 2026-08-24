@@ -53,10 +53,10 @@ export function PhilosopherProfilePanel({ philosopher, open, onClose }: Props) {
             <span aria-hidden="true">✕</span>
           </button>
           <div className="absolute bottom-4 left-6 right-6">
-            <h2 className="font-display text-2xl font-light tracking-tight text-foreground">
+            <h2 className="font-display text-subtitle font-light tracking-tight text-foreground">
               {meta.name}
             </h2>
-            <p className="mt-1 text-xs uppercase tracking-[0.25em] text-muted-foreground">
+            <p className="mt-1 text-micro uppercase tracking-[0.25em] text-muted-foreground">
               {meta.subtitle[lang]}
             </p>
           </div>
@@ -64,26 +64,26 @@ export function PhilosopherProfilePanel({ philosopher, open, onClose }: Props) {
 
         <div className="space-y-6 px-6 py-6">
           {profile && (
-            <div className="flex flex-wrap gap-x-6 gap-y-1 font-mono text-[11px] tracking-widest text-muted-foreground">
+            <div className="flex flex-wrap gap-x-6 gap-y-1 font-mono text-micro tracking-widest text-muted-foreground">
               <span>{profile.years}</span>
               <span>{profile.origin[lang]}</span>
             </div>
           )}
 
-          <p className="text-sm leading-relaxed text-foreground/80">
+          <p className="text-small leading-relaxed text-foreground/80">
             {profile ? profile.bio[lang] : meta.blurb[lang]}
           </p>
 
           {profile && (
             <section>
-              <h3 className="font-display text-[10px] uppercase tracking-[0.35em] text-mist">
+              <h3 className="font-display text-micro uppercase tracking-[0.35em] text-mist">
                 {lang === "es" ? "Temas de experticia" : "Areas of expertise"}
               </h3>
               <ul className="mt-3 flex flex-wrap gap-2">
                 {profile.expertise.map((topic) => (
                   <li
                     key={topic.en}
-                    className="rounded-full border border-border/70 bg-background/40 px-3 py-1.5 text-xs text-foreground/75"
+                    className="rounded-full border border-border/70 bg-background/40 px-3 py-1.5 text-micro text-foreground/75"
                   >
                     {topic[lang]}
                   </li>

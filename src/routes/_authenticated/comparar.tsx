@@ -127,7 +127,7 @@ function ComparePage() {
               <p className="label">
                 {es ? "Mentes elegidas" : "Chosen minds"} · {seats.length}/{MAX_COMPARE}
               </p>
-              <span className="text-[11px] text-muted-foreground/70">
+              <span className="text-micro text-muted-foreground/70">
                 {es ? "Elige entre 2 y 3" : "Pick 2 to 3"}
               </span>
             </div>
@@ -164,7 +164,7 @@ function ComparePage() {
           </button>
 
           {error && (
-            <p className="rounded-md border border-destructive/30 bg-destructive/5 px-4 py-3 text-sm text-destructive">
+            <p className="rounded-md border border-destructive/30 bg-destructive/5 px-4 py-3 text-small text-destructive">
               {error}
             </p>
           )}
@@ -196,11 +196,11 @@ function ComparePage() {
                           className={`h-10 w-10 rounded-full border border-border/70 object-cover ${portraitFocus(turn.philosopher)} grayscale`}
                         />
                       ) : (
-                        <span aria-hidden="true" className="font-serif text-2xl text-bronze">
+                        <span aria-hidden="true" className="font-serif text-subtitle text-bronze">
                           {meta.glyph}
                         </span>
                       )}
-                      <h2 className="font-serif text-2xl font-light text-foreground">
+                      <h2 className="font-serif text-subtitle font-light text-foreground">
                         {meta.name}
                       </h2>
                     </div>

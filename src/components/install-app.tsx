@@ -76,17 +76,17 @@ export function InstallAppCard({ className = "" }: { className?: string }) {
       className={`flex flex-wrap items-center justify-between gap-4 rounded-lg border border-border/60 bg-card/40 px-5 py-4 ${className}`}
     >
       <div className="min-w-0">
-        <p className="font-display text-[10px] uppercase tracking-[0.3em] text-foreground">
+        <p className="font-display text-micro uppercase tracking-[0.3em] text-foreground">
           {title}
         </p>
-        <p className="mt-1.5 text-xs text-muted-foreground">{body}</p>
+        <p className="mt-1.5 text-micro text-muted-foreground">{body}</p>
       </div>
       <div className="flex items-center gap-2">
         {deferred && (
           <button
             type="button"
             onClick={install}
-            className="rounded-md border border-mist/40 bg-mist/95 px-4 py-2 font-display text-[10px] uppercase tracking-[0.25em] text-primary-foreground transition-opacity hover:opacity-90"
+            className="rounded-md border border-mist/40 bg-mist/95 px-4 py-2 font-display text-micro uppercase tracking-[0.25em] text-primary-foreground transition-opacity hover:opacity-90"
           >
             {lang === "es" ? "Instalar" : "Install"}
           </button>
@@ -94,7 +94,7 @@ export function InstallAppCard({ className = "" }: { className?: string }) {
         <button
           type="button"
           onClick={close}
-          className="rounded-md border border-border px-3 py-2 font-display text-[10px] uppercase tracking-[0.25em] text-muted-foreground transition-colors hover:text-foreground"
+          className="rounded-md border border-border px-3 py-2 font-display text-micro uppercase tracking-[0.25em] text-muted-foreground transition-colors hover:text-foreground"
         >
           {lang === "es" ? "Ahora no" : "Not now"}
         </button>

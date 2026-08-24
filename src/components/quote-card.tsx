@@ -28,24 +28,24 @@ export function QuoteCard({ className = "" }: { className?: string }) {
       <div className="pointer-events-none absolute -top-24 right-8 h-56 w-56 rounded-full bg-mist/8 blur-3xl" />
 
       <div className="relative flex items-start justify-between gap-4">
-        <p className="font-display text-[10px] uppercase tracking-[0.35em] text-muted-foreground">
+        <p className="font-display text-micro uppercase tracking-[0.35em] text-muted-foreground">
           {t("quotes.kicker")}
         </p>
         <button
           type="button"
           onClick={refresh}
-          className="focus-mist shrink-0 rounded-full border border-border/70 bg-card/40 px-3.5 py-1.5 font-display text-[10px] uppercase tracking-[0.25em] text-muted-foreground transition-all hover:border-mist/40 hover:text-foreground"
+          className="focus-mist shrink-0 rounded-full border border-border/70 bg-card/40 px-3.5 py-1.5 font-display text-micro uppercase tracking-[0.25em] text-muted-foreground transition-all hover:border-mist/40 hover:text-foreground"
         >
           {t("quotes.refresh")}
         </button>
       </div>
 
       <blockquote className="relative mt-6 min-h-[92px]">
-        <p className="max-w-3xl font-display text-xl font-light leading-relaxed text-foreground/90 md:text-2xl">
+        <p className="max-w-3xl font-display text-subtitle font-light leading-relaxed text-foreground/90 md:text-subtitle">
           {quote ? `“${quote.text[lang]}”` : "…"}
         </p>
         {quote && (
-          <footer className="mt-4 text-[11px] uppercase tracking-[0.3em] text-muted-foreground">
+          <footer className="mt-4 text-micro uppercase tracking-[0.3em] text-muted-foreground">
             — {quote.author}
           </footer>
         )}
@@ -64,13 +64,13 @@ export function QuoteCard({ className = "" }: { className?: string }) {
                 type="button"
                 aria-pressed={active}
                 onClick={() => pickTheme(th.id)}
-                className={`focus-mist flex items-center gap-2 rounded-full border px-3.5 py-1.5 font-display text-[10px] uppercase tracking-[0.22em] transition-all ${
+                className={`focus-mist flex items-center gap-2 rounded-full border px-3.5 py-1.5 font-display text-micro uppercase tracking-[0.22em] transition-all ${
                   active
                     ? "border-mist/50 bg-mist/10 text-foreground"
                     : "border-border/70 bg-card/40 text-muted-foreground hover:border-mist/40 hover:text-foreground"
                 }`}
               >
-                <span aria-hidden="true" className="text-sm leading-none opacity-80">
+                <span aria-hidden="true" className="text-small leading-none opacity-80">
                   {th.glyph}
                 </span>
                 {th.label[lang]}

@@ -444,7 +444,7 @@ export function KnowledgeMap({
             key={b.label}
             type="button"
             onClick={b.fn}
-            className="h-8 w-8 rounded-md border border-border bg-background/70 text-sm text-muted-foreground backdrop-blur transition-colors hover:text-foreground"
+            className="h-8 w-8 rounded-md border border-border bg-background/70 text-small text-muted-foreground backdrop-blur transition-colors hover:text-foreground"
           >
             {b.label}
           </button>
@@ -453,11 +453,11 @@ export function KnowledgeMap({
 
       {hoverNode && (
         <div className="pointer-events-none absolute left-4 top-4 max-w-xs rounded-lg border border-border bg-background/85 p-3 backdrop-blur">
-          <p className="font-display text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
+          <p className="font-display text-micro uppercase tracking-[0.3em] text-muted-foreground">
             {KIND_LABEL[hoverNode.kind][lang]}
             {hoverNode.era ? ` · ${hoverNode.era}` : ""}
           </p>
-          <p className="mt-1 font-display text-sm text-foreground">{hoverNode.label}</p>
+          <p className="mt-1 font-display text-small text-foreground">{hoverNode.label}</p>
         </div>
       )}
     </div>

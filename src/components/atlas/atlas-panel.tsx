@@ -52,13 +52,13 @@ export function AtlasPanel({ entity, relation, onSelect, onClose, onAdd, reason,
     return (
       <Shell onClose={onClose}>
         <p className="label text-primary">{COPY.relation[lang]}</p>
-        <h2 className="mt-3 font-serif text-2xl font-light leading-tight text-foreground">
+        <h2 className="mt-3 font-serif text-subtitle font-light leading-tight text-foreground">
           {a.label[lang]} <span className="text-primary">→</span> {b.label[lang]}
         </h2>
-        <p className="mt-1 text-xs uppercase tracking-[0.2em] text-muted-foreground">
+        <p className="mt-1 text-micro uppercase tracking-[0.2em] text-muted-foreground">
           {relationLabel(rel.kind, lang)}
         </p>
-        <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+        <p className="mt-4 text-small leading-relaxed text-muted-foreground">
           {relationNote(rel.kind, lang)}
         </p>
         <div className="mt-6 flex flex-wrap gap-2">
@@ -97,23 +97,23 @@ export function AtlasPanel({ entity, relation, onSelect, onClose, onAdd, reason,
             {kindLabel(entity.kind, lang)}
             {entity.era ? ` · ${entity.era}` : ""}
           </p>
-          <h2 className="mt-2 font-serif text-2xl font-light leading-tight text-foreground">
+          <h2 className="mt-2 font-serif text-subtitle font-light leading-tight text-foreground">
             {entity.label[lang]}
           </h2>
         </div>
       </div>
 
-      <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{entity.note[lang]}</p>
+      <p className="mt-4 text-small leading-relaxed text-muted-foreground">{entity.note[lang]}</p>
 
       {reason && (
         <div className="mt-5 rounded-lg border border-border/70 bg-background/40 p-3">
           <p className="label text-muted-foreground">{COPY.why[lang]}</p>
-          <p className="mt-1 text-sm text-foreground/85">{reason}</p>
+          <p className="mt-1 text-small text-foreground/85">{reason}</p>
         </div>
       )}
 
       {typeof count === "number" && count > 0 && (
-        <p className="mt-3 text-xs text-muted-foreground">
+        <p className="mt-3 text-micro text-muted-foreground">
           {count} {COPY.times[lang]}
         </p>
       )}
@@ -147,12 +147,12 @@ export function AtlasPanel({ entity, relation, onSelect, onClose, onAdd, reason,
               onClick={() => onSelect(n.id)}
               className="group flex w-full flex-col gap-0.5 rounded-md border border-transparent px-2 py-1.5 text-left transition-colors hover:border-border hover:bg-background/40"
             >
-              <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+              <span className="text-micro uppercase tracking-[0.2em] text-muted-foreground">
                 {n.direction === "out"
                   ? relationLabel(n.kind, lang)
                   : `← ${relationLabel(n.kind, lang)}`}
               </span>
-              <span className="text-sm text-foreground/85 group-hover:text-foreground">
+              <span className="text-small text-foreground/85 group-hover:text-foreground">
                 {n.entity.label[lang]}
               </span>
             </button>
@@ -169,7 +169,7 @@ export function AtlasPanel({ entity, relation, onSelect, onClose, onAdd, reason,
                 key={s.id}
                 type="button"
                 onClick={() => onSelect(s.id)}
-                className="rounded-full border border-border px-3 py-1.5 text-xs text-muted-foreground transition-colors hover:border-primary/60 hover:text-foreground"
+                className="rounded-full border border-border px-3 py-1.5 text-micro text-muted-foreground transition-colors hover:border-primary/60 hover:text-foreground"
               >
                 {s.label[lang]}
               </button>
@@ -189,7 +189,7 @@ function Shell({ children, onClose }: { children: React.ReactNode; onClose: () =
         type="button"
         onClick={onClose}
         aria-label={COPY.close[lang]}
-        className="absolute right-3 top-3 text-sm text-muted-foreground transition-colors hover:text-foreground"
+        className="absolute right-3 top-3 text-small text-muted-foreground transition-colors hover:text-foreground"
       >
         ✕
       </button>

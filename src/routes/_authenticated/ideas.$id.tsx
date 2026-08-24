@@ -54,7 +54,7 @@ function IdeaPage() {
         <article className="mx-auto max-w-3xl px-5 pt-12 md:px-8 md:pt-20">
           <Link
             to="/ideas"
-            className="focus-mist text-xs text-muted-foreground transition-colors hover:text-foreground"
+            className="focus-mist text-micro text-muted-foreground transition-colors hover:text-foreground"
           >
             ← {es ? "Todas las ideas" : "All ideas"}
           </Link>
@@ -62,7 +62,7 @@ function IdeaPage() {
           <h1 className="mt-3 font-serif text-5xl font-light leading-none text-foreground md:text-7xl">
             {idea.title[lang]}
           </h1>
-          <p className="mt-5 font-serif text-2xl font-light italic text-bronze-bright">
+          <p className="mt-5 font-serif text-subtitle font-light italic text-bronze-bright">
             {idea.short[lang]}
           </p>
           <p className="mt-8 text-lg leading-relaxed text-foreground/90">
@@ -75,7 +75,7 @@ function IdeaPage() {
               {idea.questions.map((q) => (
                 <li
                   key={q.en}
-                  className="rule-hairline pt-3 font-serif text-xl font-light text-foreground"
+                  className="rule-hairline pt-3 font-serif text-subtitle font-light text-foreground"
                 >
                   {q[lang]}
                 </li>
@@ -103,7 +103,7 @@ function IdeaPage() {
                 <Link
                   to="/ideas/$id"
                   params={{ id: o.id }}
-                  className="btn-ghost-gold focus-mist px-4 py-2 text-sm"
+                  className="btn-ghost-gold focus-mist px-4 py-2 text-small"
                 >
                   {o.title[lang]}
                 </Link>

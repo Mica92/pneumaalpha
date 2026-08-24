@@ -152,19 +152,19 @@ function PersonalMapPage() {
           <h1 className="mt-4 max-w-3xl font-serif text-4xl font-light leading-[1.05] text-foreground md:text-6xl">
             {COPY.title[lang]}
           </h1>
-          <p className="mt-5 max-w-2xl text-sm leading-relaxed text-muted-foreground md:text-base">
+          <p className="mt-5 max-w-2xl text-small leading-relaxed text-muted-foreground md:text-base">
             {COPY.sub[lang]}
           </p>
         </header>
 
         {isLoading ? (
-          <p className="text-sm text-muted-foreground">{COPY.loading[lang]}</p>
+          <p className="text-small text-muted-foreground">{COPY.loading[lang]}</p>
         ) : journey.length === 0 ? (
           <div className="card-editorial max-w-xl p-8">
-            <h2 className="font-serif text-2xl font-light text-foreground">
+            <h2 className="font-serif text-subtitle font-light text-foreground">
               {COPY.emptyTitle[lang]}
             </h2>
-            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+            <p className="mt-3 text-small leading-relaxed text-muted-foreground">
               {COPY.emptyBody[lang]}
             </p>
             <Link to="/explorar" className="btn-gold mt-6 inline-flex">
@@ -198,7 +198,7 @@ function PersonalMapPage() {
                         remove(entity.id);
                         setSelected(null);
                       }}
-                      className="self-start text-xs text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline"
+                      className="self-start text-micro text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline"
                     >
                       {COPY.remove[lang]}
                     </button>
@@ -207,7 +207,7 @@ function PersonalMapPage() {
               ) : (
                 <aside className="card-editorial flex flex-col justify-center gap-3 p-6">
                   <p className="label text-muted-foreground">{COPY.you[lang]}</p>
-                  <p className="text-sm leading-relaxed text-muted-foreground">
+                  <p className="text-small leading-relaxed text-muted-foreground">
                     {COPY.youNote[lang]}
                   </p>
                 </aside>
@@ -232,7 +232,7 @@ function PersonalMapPage() {
                       className="card-editorial p-4 text-left transition-colors hover:border-primary/50"
                     >
                       <p className="font-serif text-lg font-light text-foreground">{s.label}</p>
-                      <p className="mt-1 text-xs text-muted-foreground">
+                      <p className="mt-1 text-micro text-muted-foreground">
                         {lang === "es" ? `Desde ${s.from}` : `From ${s.from}`}
                       </p>
                     </button>

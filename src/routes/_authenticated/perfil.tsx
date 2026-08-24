@@ -70,20 +70,20 @@ function ProfilePage() {
                   className="h-16 w-16 rounded-full object-cover"
                 />
               ) : (
-                <span className="grid h-16 w-16 place-items-center rounded-full bg-bronze/20 font-serif text-2xl text-bronze">
+                <span className="grid h-16 w-16 place-items-center rounded-full bg-bronze/20 font-serif text-subtitle text-bronze">
                   {name.slice(0, 1)}
                 </span>
               )}
               <div>
-                <p className="font-serif text-2xl text-foreground">{name}</p>
-                {email && <p className="text-sm text-muted-foreground">{email}</p>}
+                <p className="font-serif text-subtitle text-foreground">{name}</p>
+                {email && <p className="text-small text-muted-foreground">{email}</p>}
               </div>
             </div>
 
             <div className="mt-8 grid gap-4 sm:grid-cols-2">
               <Link to="/mi-mapa" className="card-editorial p-5 transition-colors hover:bg-card/70">
                 <p className="label">{es ? "Cartografía" : "Cartography"}</p>
-                <p className="mt-2 font-serif text-xl text-foreground">
+                <p className="mt-2 font-serif text-subtitle text-foreground">
                   {es ? "Tu mapa filosófico" : "Your philosophical map"}
                 </p>
               </Link>
@@ -92,7 +92,7 @@ function ProfilePage() {
                 className="card-editorial p-5 transition-colors hover:bg-card/70"
               >
                 <p className="label">{es ? "Diario" : "Journal"}</p>
-                <p className="mt-2 font-serif text-xl text-foreground">
+                <p className="mt-2 font-serif text-subtitle text-foreground">
                   {es ? "Mi recorrido" : "My journey"}
                 </p>
               </Link>
@@ -104,7 +104,7 @@ function ProfilePage() {
           </>
         ) : (
           <>
-            <p className="mt-6 max-w-xl text-sm leading-relaxed text-muted-foreground">
+            <p className="mt-6 max-w-xl text-small leading-relaxed text-muted-foreground">
               {es
                 ? "Puedes seguir usando PneumAlpha sin cuenta. Si entras con Google, tus conversaciones, tu mapa y tu recorrido te acompañan en cualquier dispositivo."
                 : "You can keep using PneumAlpha without an account. Sign in with Google and your conversations, map and journey follow you on any device."}
