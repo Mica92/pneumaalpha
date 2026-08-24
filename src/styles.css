@@ -18,6 +18,35 @@
   --font-editorial: "Cormorant Garamond", ui-serif, Georgia, serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 
+  /* Fluid typographic scale — one ladder for the whole app */
+  --text-display: clamp(2.75rem, 1.6rem + 5.2vw, 5.25rem);
+  --text-display--line-height: 1.02;
+  --text-display--letter-spacing: -0.022em;
+
+  --text-title: clamp(2rem, 1.35rem + 2.6vw, 3.25rem);
+  --text-title--line-height: 1.08;
+  --text-title--letter-spacing: -0.016em;
+
+  --text-heading: clamp(1.5rem, 1.2rem + 1.2vw, 2.125rem);
+  --text-heading--line-height: 1.15;
+  --text-heading--letter-spacing: -0.01em;
+
+  --text-subtitle: clamp(1.1875rem, 1.08rem + 0.5vw, 1.4375rem);
+  --text-subtitle--line-height: 1.3;
+  --text-subtitle--letter-spacing: -0.004em;
+
+  --text-lead: clamp(1.0625rem, 1rem + 0.35vw, 1.1875rem);
+  --text-lead--line-height: 1.62;
+
+  --text-body: 1rem;
+  --text-body--line-height: 1.65;
+
+  --text-small: 0.9375rem;
+  --text-small--line-height: 1.55;
+
+  --text-micro: 0.8125rem;
+  --text-micro--line-height: 1.45;
+
   --radius-sm: calc(var(--radius) - 2px);
   --radius-md: var(--radius);
   --radius-lg: calc(var(--radius) + 4px);
