@@ -871,7 +871,7 @@ const UserBubble = memo(function UserBubble({ text }: { text: string }) {
 
 const AssistantBody = memo(function AssistantBody({ text }: { text: string }) {
   return (
-    <div className="prose prose-invert measure-wide prose-p:my-4 prose-p:leading-[1.7] prose-p:text-[1rem] prose-p:text-pretty prose-p:text-foreground/90 prose-strong:text-foreground prose-em:text-mist max-w-none">
+    <div className="prose prose-invert measure-wide prose-p:my-4 prose-p:leading-[1.7] prose-p:text-[1rem] prose-p:text-pretty prose-p:text-foreground/90 prose-strong:text-foreground prose-em:text-mist">
       <ReactMarkdown>{text}</ReactMarkdown>
     </div>
   );

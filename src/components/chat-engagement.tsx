@@ -183,7 +183,7 @@ export function ContinuationChips({
             key={text}
             disabled={disabled}
             onClick={() => onPick(text)}
-            className="rounded-full border border-border/70 bg-card/40 px-3.5 py-1.5 text-[12.5px] leading-snug text-foreground/85 transition-all hover:border-mist/40 hover:bg-card/70 hover:text-foreground disabled:opacity-40"
+            className="rounded-full border border-border/70 bg-card/40 px-3.5 py-1.5 text-micro text-foreground/85 transition-all hover:border-mist/40 hover:bg-card/70 hover:text-foreground disabled:opacity-40"
           >
             {text}
           </button>
