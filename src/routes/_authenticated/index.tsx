@@ -86,7 +86,7 @@ function Home() {
                 </>
               )}
             </h1>
-            <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg">
+            <p className="lead measure mx-auto mt-6">
               {es
                 ? "Escríbela como te salga. Te pondremos frente a la mente que lleva siglos pensándola."
                 : "Write it however it comes. We'll put you in front of the mind that has spent centuries on it."}
