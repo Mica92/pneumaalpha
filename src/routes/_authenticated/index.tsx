@@ -75,7 +75,7 @@ function Home() {
             <p className="label">
               {PHILOSOPHER_LIST.length} {es ? "conciencias reconstruidas" : "reconstructed minds"}
             </p>
-            <h1 className="fade-up mx-auto mt-6 max-w-3xl font-serif text-5xl font-light leading-[1.02] text-foreground md:text-7xl">
+            <h1 className="fade-up balance mx-auto mt-6 max-w-3xl font-serif text-display font-light text-foreground">
               {es ? (
                 <>
                   ¿Qué pregunta llevas <em className="text-bronze not-italic">contigo</em> hoy?
