@@ -137,7 +137,7 @@ function Home() {
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
               <p className="label">{es ? "Por dónde entrar" : "Where to start"}</p>
-              <h2 className="mt-3 font-serif text-3xl font-light text-foreground md:text-5xl">
+              <h2 className="balance mt-3 font-serif text-title font-light text-foreground">
                 {es ? "¿Qué estás buscando?" : "What are you looking for?"}
               </h2>
             </div>
