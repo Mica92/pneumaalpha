@@ -491,7 +491,7 @@ function ChatBody({
                             type="button"
                             onClick={() => sendText(s)}
                             disabled={isLoading}
-                            className="focus-mist rounded-full border border-border/70 px-3.5 py-2 text-left text-[12px] leading-snug text-muted-foreground transition-colors hover:border-mist/50 hover:text-foreground disabled:opacity-40"
+                            className="focus-mist rounded-full border border-border/70 px-3.5 py-2 text-left text-micro text-muted-foreground transition-colors hover:border-mist/50 hover:text-foreground disabled:opacity-40"
                           >
                             {s}
                           </button>
@@ -795,7 +795,7 @@ function ChatBody({
                         <ol className="flex flex-col gap-1.5">
                           {preview.slice(-40).map((m) => (
                             <li key={m.id} className="flex gap-2 text-micro">
-                              <span className="shrink-0 text-[9px] uppercase tracking-[0.2em] text-muted-foreground/80 pt-0.5 w-14">
+                              <span className="shrink-0 text-micro uppercase tracking-[0.14em] text-muted-foreground/80 pt-0.5 w-14">
                                 {m.role === "user" ? t("chat.you") : t("chat.migrate.assistant")}
                               </span>
                               <span className="flex-1 text-foreground/75 line-clamp-2">
@@ -871,7 +871,7 @@ const UserBubble = memo(function UserBubble({ text }: { text: string }) {
 
 const AssistantBody = memo(function AssistantBody({ text }: { text: string }) {
   return (
-    <div className="prose prose-invert prose-p:my-3 prose-p:leading-[1.75] prose-p:text-[15px] prose-p:text-foreground/90 prose-strong:text-foreground prose-em:text-mist max-w-none">
+    <div className="prose prose-invert measure-wide prose-p:my-4 prose-p:leading-[1.7] prose-p:text-[1rem] prose-p:text-pretty prose-p:text-foreground/90 prose-strong:text-foreground prose-em:text-mist max-w-none">
       <ReactMarkdown>{text}</ReactMarkdown>
     </div>
   );

@@ -197,7 +197,7 @@ function Index() {
                   <p className={`font-display text-micro uppercase tracking-[0.35em] ${f.accent}`}>
                     {t(f.kicker)}
                   </p>
-                  <h3 className="mt-3 font-display text-subtitle font-light leading-tight tracking-tight text-foreground md:text-subtitle">
+                  <h3 className="mt-3 font-display text-subtitle font-light tracking-tight text-foreground">
                     {t(f.title)}
                   </h3>
                   <p className="mt-2 text-micro leading-relaxed text-muted-foreground">{t(f.sub)}</p>
@@ -312,7 +312,7 @@ function Index() {
 
                 <div className="relative mt-6 space-y-3">
                   {isHero && (
-                    <p className="max-w-md text-small leading-relaxed text-foreground/75 md:text-[15px]">
+                    <p className="max-w-md text-body text-foreground/75">
                       {p.blurb[lang]}
                     </p>
                   )}
