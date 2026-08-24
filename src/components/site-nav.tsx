@@ -65,7 +65,7 @@ export function SiteNav({ className = "" }: { className?: string }) {
             <Link
               key={l.to}
               to={l.to}
-              className="focus-mist text-small text-muted-foreground transition-colors hover:text-foreground"
+              className="focus-mist whitespace-nowrap text-small text-muted-foreground transition-colors hover:text-foreground"
               activeProps={{ className: "text-foreground" }}
             >
               {l[lang]}
@@ -98,7 +98,7 @@ export function SiteNav({ className = "" }: { className?: string }) {
               <button
                 type="button"
                 onClick={signOut}
-                className="focus-mist text-small text-muted-foreground transition-colors hover:text-foreground"
+                className="focus-mist whitespace-nowrap text-small text-muted-foreground transition-colors hover:text-foreground"
               >
                 {lang === "es" ? "Salir" : "Sign out"}
               </button>
@@ -107,7 +107,7 @@ export function SiteNav({ className = "" }: { className?: string }) {
             <button
               type="button"
               onClick={signIn}
-              className="btn-gold rounded-full px-4 py-1.5 text-micro"
+              className="btn-gold whitespace-nowrap rounded-full px-4 py-1.5 text-micro"
             >
               {lang === "es" ? "Entrar con Google" : "Sign in with Google"}
             </button>
