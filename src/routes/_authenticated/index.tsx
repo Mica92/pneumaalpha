@@ -160,13 +160,13 @@ function Home() {
                   <span aria-hidden="true" className="font-serif text-2xl text-bronze">
                     {c.glyph}
                   </span>
-                  <h3 className="mt-4 font-serif text-2xl font-light text-foreground">
+                  <h3 className="mt-4 font-serif text-subtitle font-light text-foreground">
                     {c.title[lang]}
                   </h3>
-                  <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
+                  <p className="mt-2 text-small text-muted-foreground">
                     {c.tags[lang]}
                   </p>
-                  <p className="mt-5 text-[11px] text-bronze-bright">
+                  <p className="mt-5 text-micro text-bronze-bright">
                     {c.philosophers
                       .slice(0, 3)
                       .map((p) => PHILOSOPHERS[p]?.name)
