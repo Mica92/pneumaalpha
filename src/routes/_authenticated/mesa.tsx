@@ -103,7 +103,7 @@ function RoundTablePage() {
       <main className="route-enter relative z-10 mx-auto flex max-w-3xl flex-col px-6 py-10 md:px-10 md:py-14">
         <header className="mt-10 mb-10 md:mt-14 md:mb-12">
           <p className="label">{t("mesa.kicker")}</p>
-          <h1 className="fade-up mt-5 font-serif text-4xl font-light leading-[1.08] text-foreground md:text-6xl">
+          <h1 className="fade-up mt-5 font-serif text-title font-light text-foreground">
             {t("mesa.page.title")}
           </h1>
           <p className="fade-up mt-5 max-w-xl text-small leading-relaxed text-muted-foreground md:text-base">

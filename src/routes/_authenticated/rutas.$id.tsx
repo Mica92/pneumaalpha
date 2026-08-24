@@ -60,7 +60,7 @@ function RoutePage() {
           <p className="label mt-8">
             {route.steps.length} {es ? "conversaciones" : "conversations"}
           </p>
-          <h1 className="mt-3 font-serif text-4xl font-light leading-[1.05] text-foreground md:text-6xl">
+          <h1 className="mt-3 font-serif text-title font-light text-foreground">
             {route.question[lang]}
           </h1>
           <p className="mt-5 text-base leading-relaxed text-muted-foreground">

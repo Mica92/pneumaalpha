@@ -222,7 +222,7 @@ function PodcastPage() {
           <p className="tracking-in font-display text-micro uppercase tracking-[0.35em] text-sage">
             {t("podcast.kicker")}
           </p>
-          <h1 className="fade-up mt-5 max-w-2xl font-display text-3xl font-light leading-[1.1] text-foreground md:text-5xl">
+          <h1 className="fade-up mt-5 max-w-2xl font-display text-title font-light text-foreground">
             {t("podcast.page.title")}
           </h1>
           <p className="fade-up mt-5 max-w-xl text-small leading-relaxed text-muted-foreground">

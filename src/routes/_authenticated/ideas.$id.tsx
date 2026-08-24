@@ -59,7 +59,7 @@ function IdeaPage() {
             ← {es ? "Todas las ideas" : "All ideas"}
           </Link>
           <p className="label mt-8">{es ? "Gran idea" : "Great idea"}</p>
-          <h1 className="mt-3 font-serif text-5xl font-light leading-none text-foreground md:text-7xl">
+          <h1 className="mt-3 font-serif text-display font-light text-foreground">
             {idea.title[lang]}
           </h1>
           <p className="mt-5 font-serif text-subtitle font-light italic text-bronze-bright">

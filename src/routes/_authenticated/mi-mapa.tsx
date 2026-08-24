@@ -149,7 +149,7 @@ function PersonalMapPage() {
       <main className="route-enter relative z-10 mx-auto flex min-h-dvh max-w-6xl flex-col px-6 py-10 md:px-10 md:py-14">
         <header className="mb-8 mt-14">
           <p className="label text-primary">{COPY.kicker[lang]}</p>
-          <h1 className="mt-4 max-w-3xl font-serif text-4xl font-light leading-[1.05] text-foreground md:text-6xl">
+          <h1 className="mt-4 max-w-3xl font-serif text-title font-light text-foreground">
             {COPY.title[lang]}
           </h1>
           <p className="mt-5 max-w-2xl text-small leading-relaxed text-muted-foreground md:text-base">

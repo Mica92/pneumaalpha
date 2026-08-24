@@ -54,7 +54,7 @@ function ProfilePage() {
       <SiteNav />
       <main className="route-enter relative z-10 mx-auto max-w-3xl px-5 py-16 md:px-8 md:py-24">
         <p className="label">{es ? "Tu cuenta" : "Your account"}</p>
-        <h1 className="mt-4 font-serif text-4xl font-light text-foreground md:text-5xl">
+        <h1 className="mt-4 font-serif text-title font-light text-foreground">
           {es ? "Perfil" : "Profile"}
         </h1>
 

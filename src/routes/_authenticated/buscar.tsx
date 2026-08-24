@@ -154,7 +154,7 @@ function SearchPage() {
       <main className="route-enter relative z-10">
         <div className="mx-auto max-w-4xl px-5 pt-14 md:px-8 md:pt-20">
           <p className="label">{es ? "Buscador" : "Search"}</p>
-          <h1 className="mt-3 font-serif text-4xl font-light leading-[1.08] text-foreground md:text-6xl">
+          <h1 className="mt-3 font-serif text-title font-light text-foreground">
             {es ? "Busca en todo PneumAlpha" : "Search all of PneumAlpha"}
           </h1>
 

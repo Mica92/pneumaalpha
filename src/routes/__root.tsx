@@ -23,7 +23,7 @@ function NotFoundComponent() {
     <div className="relative z-10 flex min-h-screen items-center justify-center px-4">
       <div className="max-w-md text-center">
         <GreekGlyph className="font-serif text-7xl text-bronze pneuma-breathe" />
-        <h1 className="mt-8 font-serif text-3xl font-light text-foreground">
+        <h1 className="mt-8 font-serif text-heading font-light text-foreground">
           Este camino no lleva a ninguna parte
         </h1>
         <p className="mt-3 text-small text-muted-foreground">La página que buscas no existe. Vuelve al principio y empieza una conversación.</p>

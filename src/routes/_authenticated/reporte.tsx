@@ -59,7 +59,7 @@ function ReportPage() {
           <p className="tracking-in font-display text-micro uppercase text-muted-foreground">
             {t("report.kicker")}
           </p>
-          <h1 className="fade-up mt-5 max-w-2xl font-display text-3xl font-light leading-[1.1] text-foreground md:text-5xl">
+          <h1 className="fade-up mt-5 max-w-2xl font-display text-title font-light text-foreground">
             {t("report.page.title")}
           </h1>
           <p className="fade-up mt-5 max-w-xl text-small leading-relaxed text-muted-foreground md:text-base">
@@ -102,7 +102,7 @@ function ReportPage() {
               <p className="font-display text-micro uppercase tracking-[0.3em] text-mist">
                 {t("report.archetype")}
               </p>
-              <h2 className="mt-3 font-display text-subtitle font-light tracking-tight text-foreground md:text-3xl">
+              <h2 className="mt-3 font-display text-heading font-light tracking-tight text-foreground">
                 {report.archetype}
               </h2>
               {report.summary && (

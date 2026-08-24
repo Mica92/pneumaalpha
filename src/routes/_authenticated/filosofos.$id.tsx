@@ -95,11 +95,11 @@ function PhilosopherProfilePage() {
 
             <div>
               <p className="label">{p.subtitle[lang]}</p>
-              <h1 className="mt-3 font-serif text-5xl font-light leading-none text-foreground md:text-7xl">
+              <h1 className="mt-3 font-serif text-display font-light text-foreground">
                 {p.name}
               </h1>
 
-              <p className="mt-8 font-serif text-subtitle font-light italic leading-snug text-bronze-bright md:text-3xl">
+              <p className="mt-8 font-serif text-heading font-light italic text-bronze-bright">
                 {centralQuestion(id, lang)}
               </p>
 

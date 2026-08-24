@@ -51,7 +51,7 @@ function JourneyPage() {
       <main className="route-enter relative z-10">
         <div className="mx-auto max-w-6xl px-5 pt-14 md:px-8 md:pt-20">
           <p className="label">{es ? "Mi recorrido" : "My journey"}</p>
-          <h1 className="mt-3 max-w-3xl font-serif text-4xl font-light leading-[1.08] text-foreground md:text-6xl">
+          <h1 className="mt-3 max-w-3xl font-serif text-title font-light text-foreground">
             {es ? "Lo que has estado pensando" : "What you have been thinking"}
           </h1>
           <p className="mt-5 max-w-xl text-base leading-relaxed text-muted-foreground">

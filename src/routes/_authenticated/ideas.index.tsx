@@ -37,7 +37,7 @@ function IdeasIndex() {
       <main className="route-enter relative z-10">
         <div className="mx-auto max-w-6xl px-5 pt-14 md:px-8 md:pt-20">
           <p className="label">{es ? "Grandes ideas" : "Great ideas"}</p>
-          <h1 className="mt-3 max-w-3xl font-serif text-4xl font-light leading-[1.08] text-foreground md:text-6xl">
+          <h1 className="mt-3 max-w-3xl font-serif text-title font-light text-foreground">
             {es ? "Entra por la idea, no por el autor" : "Enter through the idea, not the author"}
           </h1>
           <p className="mt-5 max-w-xl text-base leading-relaxed text-muted-foreground">
@@ -56,7 +56,7 @@ function IdeasIndex() {
                   params={{ id: idea.id }}
                   className="card-editorial focus-mist flex h-full flex-col p-6"
                 >
-                  <h2 className="font-serif text-3xl font-light text-foreground">
+                  <h2 className="font-serif text-heading font-light text-foreground">
                     {idea.title[lang]}
                   </h2>
                   <p className="mt-2 text-small text-bronze-bright">{idea.short[lang]}</p>

@@ -151,7 +151,7 @@ function Index() {
           <p className="tracking-in font-display text-micro uppercase text-muted-foreground">
             {t("umbral.kicker")}
           </p>
-          <h1 className="fade-up mt-5 max-w-3xl font-display text-4xl font-light leading-[1.05] text-foreground md:text-6xl">
+          <h1 className="fade-up mt-5 max-w-3xl font-display text-title font-light text-foreground">
             <span className="sr-only">
               PneumAlpha — conversaciones con múltiples mentes filosóficas reconstruidas.{" "}
             </span>

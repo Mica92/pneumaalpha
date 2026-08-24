@@ -51,7 +51,7 @@ function NosotrosPage() {
       <main className="route-enter relative z-10 mx-auto flex min-h-dvh max-w-3xl flex-col px-6 py-10 md:px-10 md:py-14">
         <header className="mt-10 mb-12 md:mt-16 md:mb-16">
           <p className="label text-bronze">{t("about.kicker")}</p>
-          <h1 className="mt-5 font-serif text-4xl font-light leading-[1.05] text-foreground md:text-6xl">
+          <h1 className="mt-5 font-serif text-title font-light text-foreground">
             {t("about.title")}
           </h1>
         </header>

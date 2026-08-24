@@ -128,7 +128,7 @@ function PrivacyPage() {
           <p className="font-mono text-micro uppercase tracking-[0.35em] text-muted-foreground">
             {c.kicker}
           </p>
-          <h1 className="mt-4 font-display text-3xl font-light text-foreground md:text-4xl">
+          <h1 className="mt-4 font-display text-title font-light text-foreground">
             {c.title}
           </h1>
           <p className="mt-3 text-micro uppercase tracking-[0.25em] text-muted-foreground">

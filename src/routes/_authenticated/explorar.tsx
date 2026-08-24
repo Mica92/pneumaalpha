@@ -113,7 +113,7 @@ function ExplorePage() {
       <main className="route-enter relative z-10 mx-auto max-w-4xl px-5 py-14 md:px-8 md:py-20">
         <header>
           <p className="label">{COPY.kicker[lang]}</p>
-          <h1 className="fade-up mt-4 max-w-3xl font-serif text-4xl leading-[1.05] font-light text-foreground md:text-6xl">
+          <h1 className="fade-up mt-4 max-w-3xl font-serif text-title font-light text-foreground">
             {COPY.title[lang]}
           </h1>
           <p className="fade-up mt-5 max-w-2xl text-small leading-relaxed text-muted-foreground md:text-base">
@@ -177,7 +177,7 @@ function ExplorePage() {
                   {chosen.glyph}
                 </span>
                 <div>
-                  <h2 className="font-serif text-3xl font-light text-foreground">{chosen.name}</h2>
+                  <h2 className="font-serif text-heading font-light text-foreground">{chosen.name}</h2>
                   <p className="mt-1 text-micro text-muted-foreground md:text-small">
                     {chosen.subtitle[lang]}
                   </p>
@@ -215,7 +215,7 @@ function ExplorePage() {
         {/* ── Guía de temas y preguntas ─────────────────────────── */}
         <section className="mt-20" aria-labelledby="guide-heading">
           <div className="rule-hairline mb-6" />
-          <h2 id="guide-heading" className="font-serif text-3xl font-light text-foreground">
+          <h2 id="guide-heading" className="font-serif text-heading font-light text-foreground">
             {COPY.guideTitle[lang]}
           </h2>
           <p className="mt-2 text-small text-muted-foreground">{COPY.guideSub[lang]}</p>
