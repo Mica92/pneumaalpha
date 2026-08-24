@@ -219,13 +219,13 @@ function PodcastPage() {
       <SiteNav />
       <main className="route-enter relative z-10 mx-auto flex min-h-dvh max-w-5xl flex-col px-6 py-10 md:px-10 md:py-14">
         <header className="mt-16 mb-10 md:mt-20 md:mb-12">
-          <p className="tracking-in font-display text-[10px] uppercase tracking-[0.35em] text-sage">
+          <p className="tracking-in font-display text-micro uppercase tracking-[0.35em] text-sage">
             {t("podcast.kicker")}
           </p>
-          <h1 className="fade-up mt-5 max-w-2xl font-display text-3xl font-light leading-[1.1] text-foreground md:text-5xl">
+          <h1 className="fade-up mt-5 max-w-2xl font-display text-title font-light text-foreground">
             {t("podcast.page.title")}
           </h1>
-          <p className="fade-up mt-5 max-w-xl text-sm leading-relaxed text-muted-foreground">
+          <p className="fade-up mt-5 max-w-xl text-small leading-relaxed text-muted-foreground">
             {t("podcast.page.sub")}
           </p>
         </header>
@@ -235,13 +235,13 @@ function PodcastPage() {
           <section className="fade-up mb-10 rounded-xl border border-sage/40 bg-card/60 p-6 backdrop-blur-sm">
             <div className="flex flex-wrap items-baseline justify-between gap-3">
               <div>
-                <p className="font-display text-[10px] uppercase tracking-[0.3em] text-sage">
+                <p className="font-display text-micro uppercase tracking-[0.3em] text-sage">
                   {t("podcast.nowPlaying")}
                 </p>
-                <h2 className="mt-2 font-display text-xl font-light text-foreground md:text-2xl">
+                <h2 className="mt-2 font-display text-subtitle font-light text-foreground md:text-subtitle">
                   {active.title[lang]}
                 </h2>
-                <p className="text-xs text-muted-foreground">
+                <p className="text-micro text-muted-foreground">
                   {active.author} · {active.year}
                 </p>
               </div>
@@ -257,7 +257,7 @@ function PodcastPage() {
                       setChunkIndex(0);
                       setVoice(v.id);
                     }}
-                    className={`rounded-full border px-3 py-1 text-[10px] uppercase tracking-[0.2em] transition-colors ${
+                    className={`rounded-full border px-3 py-1 text-micro uppercase tracking-[0.2em] transition-colors ${
                       voice === v.id
                         ? "border-sage/70 text-sage"
                         : "border-border/60 text-muted-foreground hover:text-foreground"
@@ -270,13 +270,13 @@ function PodcastPage() {
             </div>
 
             {loading && (
-              <div className="mt-6 flex items-center gap-3 text-sm text-muted-foreground">
+              <div className="mt-6 flex items-center gap-3 text-small text-muted-foreground">
                 <GreekGlyph />
                 <span>{t("podcast.writing")}</span>
               </div>
             )}
 
-            {error && <p className="mt-6 text-sm text-destructive">{error}</p>}
+            {error && <p className="mt-6 text-small text-destructive">{error}</p>}
 
             {episode && (
               <>
@@ -294,11 +294,11 @@ function PodcastPage() {
                       indexRef.current = 0;
                       setChunkIndex(0);
                     }}
-                    className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground transition-colors hover:text-foreground"
+                    className="text-micro uppercase tracking-[0.25em] text-muted-foreground transition-colors hover:text-foreground"
                   >
                     {t("podcast.restart")}
                   </button>
-                  <span className="font-mono text-[10px] tracking-widest text-muted-foreground/80">
+                  <span className="font-mono text-micro tracking-widest text-muted-foreground/80">
                     ≈ {minutes} min · {chunkTotal > 0 ? `${chunkIndex + 1}/${chunkTotal}` : "—"}
                     {buffering ? ` · ${t("podcast.buffering")}` : ""}
                   </span>
@@ -316,10 +316,10 @@ function PodcastPage() {
                 </div>
 
                 <details className="mt-6 group">
-                  <summary className="cursor-pointer list-none font-display text-[10px] uppercase tracking-[0.25em] text-muted-foreground transition-colors hover:text-foreground">
+                  <summary className="cursor-pointer list-none font-display text-micro uppercase tracking-[0.25em] text-muted-foreground transition-colors hover:text-foreground">
                     {t("podcast.transcript")}
                   </summary>
-                  <div className="mt-4 space-y-4 text-sm leading-relaxed text-foreground/85">
+                  <div className="mt-4 space-y-4 text-small leading-relaxed text-foreground/85">
                     {episode.script.split(/\n\s*\n/).map((p, i) => (
                       <p key={i}>{p}</p>
                     ))}
@@ -328,7 +328,7 @@ function PodcastPage() {
 
                 {active.voices.length > 0 && (
                   <div className="mt-6 border-t border-border/60 pt-4">
-                    <p className="font-display text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
+                    <p className="font-display text-micro uppercase tracking-[0.25em] text-muted-foreground">
                       {t("podcast.discuss")}
                     </p>
                     <div className="mt-2 flex flex-wrap gap-2">
@@ -339,7 +339,7 @@ function PodcastPage() {
                             key={id}
                             to="/$philosopher"
                             params={{ philosopher: id }}
-                            className="rounded-full border border-border/70 px-3 py-1 text-xs text-foreground/85 transition-colors hover:border-mist/60 hover:text-foreground"
+                            className="rounded-full border border-border/70 px-3 py-1 text-micro text-foreground/85 transition-colors hover:border-mist/60 hover:text-foreground"
                           >
                             {
                               (PHILOSOPHERS as Record<string, { glyph: string; name: string }>)[id]
@@ -373,11 +373,11 @@ function PodcastPage() {
           <div className="mb-4 flex items-baseline justify-between gap-4 border-b border-border/60 pb-3">
             <h2
               id="episodes-heading"
-              className="font-display text-[10px] uppercase tracking-[0.35em] text-muted-foreground"
+              className="font-display text-micro uppercase tracking-[0.35em] text-muted-foreground"
             >
               {t("podcast.catalogue")}
             </h2>
-            <span className="font-mono text-[10px] tracking-widest text-muted-foreground/70">
+            <span className="font-mono text-micro tracking-widest text-muted-foreground/70">
               {String(PODCAST_BOOKS.length).padStart(2, "0")}
             </span>
           </div>
@@ -396,17 +396,17 @@ function PodcastPage() {
                 <div>
                   <div className="flex items-baseline justify-between">
                     <span className="font-display text-lg text-mist">{b.glyph}</span>
-                    <span className="font-mono text-[10px] tracking-widest text-muted-foreground/70">
+                    <span className="font-mono text-micro tracking-widest text-muted-foreground/70">
                       {b.year}
                     </span>
                   </div>
                   <h3 className="mt-3 font-display text-lg font-light leading-tight text-foreground">
                     {b.title[lang]}
                   </h3>
-                  <p className="mt-1 text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
+                  <p className="mt-1 text-micro uppercase tracking-[0.2em] text-muted-foreground">
                     {b.author}
                   </p>
-                  <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
+                  <p className="mt-3 text-micro leading-relaxed text-muted-foreground">
                     {b.blurb[lang]}
                   </p>
                 </div>
@@ -414,13 +414,13 @@ function PodcastPage() {
                   {b.themes.map((th) => (
                     <span
                       key={th.en}
-                      className="rounded-full border border-border/60 px-2 py-0.5 text-[10px] text-muted-foreground"
+                      className="rounded-full border border-border/60 px-2 py-0.5 text-micro text-muted-foreground"
                     >
                       {th[lang]}
                     </span>
                   ))}
                 </div>
-                <span className="mt-4 font-display text-[10px] uppercase tracking-[0.3em] text-sage transition-colors group-hover:text-foreground">
+                <span className="mt-4 font-display text-micro uppercase tracking-[0.3em] text-sage transition-colors group-hover:text-foreground">
                   {t("podcast.listen")}
                 </span>
               </button>

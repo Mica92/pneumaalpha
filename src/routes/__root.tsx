@@ -23,13 +23,13 @@ function NotFoundComponent() {
     <div className="relative z-10 flex min-h-screen items-center justify-center px-4">
       <div className="max-w-md text-center">
         <GreekGlyph className="font-serif text-7xl text-bronze pneuma-breathe" />
-        <h1 className="mt-8 font-serif text-3xl font-light text-foreground">
+        <h1 className="mt-8 font-serif text-heading font-light text-foreground">
           Este camino no lleva a ninguna parte
         </h1>
-        <p className="mt-3 text-sm text-muted-foreground">La página que buscas no existe. Vuelve al principio y empieza una conversación.</p>
+        <p className="mt-3 text-small text-muted-foreground">La página que buscas no existe. Vuelve al principio y empieza una conversación.</p>
         <Link
           to="/"
-          className="mt-8 inline-flex items-center justify-center rounded-md border border-border bg-card/60 px-6 py-2.5 text-xs uppercase tracking-[0.25em] text-foreground transition-colors hover:border-primary/50 hover:bg-card"
+          className="mt-8 inline-flex items-center justify-center rounded-md border border-border bg-card/60 px-6 py-2.5 text-micro uppercase tracking-[0.25em] text-foreground transition-colors hover:border-primary/50 hover:bg-card"
         >
           ← PneumAlpha
         </Link>
@@ -44,16 +44,16 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   return (
     <div className="relative z-10 flex min-h-screen items-center justify-center px-4">
       <div className="max-w-md text-center">
-        <h1 className="font-serif text-2xl font-light text-foreground">
+        <h1 className="font-serif text-subtitle font-light text-foreground">
           Algo interrumpió la conversación
         </h1>
-        <p className="mt-3 text-sm text-muted-foreground">{error.message}</p>
+        <p className="mt-3 text-small text-muted-foreground">{error.message}</p>
         <button
           onClick={() => {
             router.invalidate();
             reset();
           }}
-          className="mt-8 inline-flex items-center justify-center rounded-md border border-transparent bg-primary px-6 py-2.5 text-xs uppercase tracking-[0.25em] text-primary-foreground transition-opacity hover:opacity-90"
+          className="mt-8 inline-flex items-center justify-center rounded-md border border-transparent bg-primary px-6 py-2.5 text-micro uppercase tracking-[0.25em] text-primary-foreground transition-opacity hover:opacity-90"
         >
           Reintentar
         </button>
@@ -115,7 +115,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Manrope:wght@300;400;500;600;700&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Manrope:wght@400;500;600;700&display=swap",
       },
       { rel: "manifest", href: "/manifest.webmanifest" },
       { rel: "icon", type: "image/png", href: "/favicon.png" },

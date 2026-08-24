@@ -36,7 +36,7 @@ function RoutesIndex() {
       <main className="route-enter relative z-10">
         <div className="mx-auto max-w-6xl px-5 pt-14 md:px-8 md:pt-20">
           <p className="label">{es ? "Rutas filosóficas" : "Philosophical paths"}</p>
-          <h1 className="mt-3 max-w-3xl font-serif text-4xl font-light leading-[1.08] text-foreground md:text-6xl">
+          <h1 className="mt-3 max-w-3xl font-serif text-title font-light text-foreground">
             {es ? "Una pregunta, cuatro mentes" : "One question, four minds"}
           </h1>
           <p className="mt-5 max-w-xl text-base leading-relaxed text-muted-foreground">
@@ -58,13 +58,13 @@ function RoutesIndex() {
                   <p className="label">
                     {r.steps.length} {es ? "conversaciones" : "conversations"}
                   </p>
-                  <h2 className="mt-3 font-serif text-3xl font-light leading-tight text-foreground">
+                  <h2 className="mt-3 font-serif text-heading font-light text-foreground">
                     {r.question[lang]}
                   </h2>
-                  <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+                  <p className="mt-4 text-small leading-relaxed text-muted-foreground">
                     {r.intro[lang]}
                   </p>
-                  <ol className="mt-6 flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] text-bronze-bright">
+                  <ol className="mt-6 flex flex-wrap items-center gap-x-2 gap-y-1 text-micro text-bronze-bright">
                     {r.steps.map((s, i) => (
                       <li key={s.philosopher}>
                         {i > 0 && <span className="mr-2 text-muted-foreground/50">→</span>}

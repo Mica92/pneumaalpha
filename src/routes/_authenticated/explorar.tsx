@@ -113,10 +113,10 @@ function ExplorePage() {
       <main className="route-enter relative z-10 mx-auto max-w-4xl px-5 py-14 md:px-8 md:py-20">
         <header>
           <p className="label">{COPY.kicker[lang]}</p>
-          <h1 className="fade-up mt-4 max-w-3xl font-serif text-4xl leading-[1.05] font-light text-foreground md:text-6xl">
+          <h1 className="fade-up mt-4 max-w-3xl font-serif text-title font-light text-foreground">
             {COPY.title[lang]}
           </h1>
-          <p className="fade-up mt-5 max-w-2xl text-sm leading-relaxed text-muted-foreground md:text-base">
+          <p className="fade-up mt-5 max-w-2xl text-small leading-relaxed text-muted-foreground md:text-base">
             {COPY.sub[lang]}
           </p>
         </header>
@@ -137,7 +137,7 @@ function ExplorePage() {
             maxLength={2000}
             disabled={submitting}
             aria-label={COPY.placeholder[lang]}
-            className="w-full resize-none rounded-xl border border-border bg-input px-5 py-4 text-[15px] leading-relaxed text-foreground placeholder:text-muted-foreground focus:border-bronze/50 focus:ring-1 focus:ring-bronze/20 focus:outline-none disabled:opacity-50"
+            className="w-full resize-none rounded-xl border border-border bg-input px-5 py-4 text-body text-foreground placeholder:text-muted-foreground focus:border-bronze/50 focus:ring-1 focus:ring-bronze/20 focus:outline-none disabled:opacity-50"
             onKeyDown={(e) => {
               if ((e.metaKey || e.ctrlKey) && e.key === "Enter")
                 (e.currentTarget.form as HTMLFormElement | null)?.requestSubmit();
@@ -156,14 +156,14 @@ function ExplorePage() {
         </form>
 
         {submitting && (
-          <p className="mt-8 flex items-center gap-3 text-sm text-muted-foreground">
-            <GreekGlyph className="pneuma-breathe font-serif text-2xl text-bronze" />
+          <p className="mt-8 flex items-center gap-3 text-small text-muted-foreground">
+            <GreekGlyph className="pneuma-breathe font-serif text-subtitle text-bronze" />
             {COPY.submitting[lang]}
           </p>
         )}
 
         {error && (
-          <p className="mt-6 rounded-md border border-destructive/30 bg-destructive/5 px-4 py-3 text-sm text-destructive">
+          <p className="mt-6 rounded-md border border-destructive/30 bg-destructive/5 px-4 py-3 text-small text-destructive">
             {error}
           </p>
         )}
@@ -177,13 +177,13 @@ function ExplorePage() {
                   {chosen.glyph}
                 </span>
                 <div>
-                  <h2 className="font-serif text-3xl font-light text-foreground">{chosen.name}</h2>
-                  <p className="mt-1 text-xs text-muted-foreground md:text-sm">
+                  <h2 className="font-serif text-heading font-light text-foreground">{chosen.name}</h2>
+                  <p className="mt-1 text-micro text-muted-foreground md:text-small">
                     {chosen.subtitle[lang]}
                   </p>
                 </div>
               </div>
-              <p className="mt-5 text-sm leading-relaxed text-foreground/85">{result.reason}</p>
+              <p className="mt-5 text-small leading-relaxed text-foreground/85">{result.reason}</p>
               <button
                 type="button"
                 onClick={() => {
@@ -215,10 +215,10 @@ function ExplorePage() {
         {/* ── Guía de temas y preguntas ─────────────────────────── */}
         <section className="mt-20" aria-labelledby="guide-heading">
           <div className="rule-hairline mb-6" />
-          <h2 id="guide-heading" className="font-serif text-3xl font-light text-foreground">
+          <h2 id="guide-heading" className="font-serif text-heading font-light text-foreground">
             {COPY.guideTitle[lang]}
           </h2>
-          <p className="mt-2 text-sm text-muted-foreground">{COPY.guideSub[lang]}</p>
+          <p className="mt-2 text-small text-muted-foreground">{COPY.guideSub[lang]}</p>
 
           <h3 className="label mt-8">{COPY.topics[lang]}</h3>
           <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -229,9 +229,9 @@ function ExplorePage() {
                 onClick={() => pick(c.seed[lang])}
                 className="card-editorial p-4 text-left transition-colors hover:border-bronze/50"
               >
-                <span className="font-serif text-2xl text-bronze">{c.glyph}</span>
-                <p className="mt-2 font-serif text-xl text-foreground">{c.title[lang]}</p>
-                <p className="mt-1 text-xs text-muted-foreground">{c.tags[lang]}</p>
+                <span className="font-serif text-subtitle text-bronze">{c.glyph}</span>
+                <p className="mt-2 font-serif text-subtitle text-foreground">{c.title[lang]}</p>
+                <p className="mt-1 text-micro text-muted-foreground">{c.tags[lang]}</p>
               </button>
             ))}
           </div>
@@ -243,7 +243,7 @@ function ExplorePage() {
                 key={p.id}
                 type="button"
                 onClick={() => pick(p.text[lang])}
-                className="rounded-full border border-border/70 px-4 py-2 text-[13px] text-muted-foreground transition-colors hover:border-bronze/60 hover:text-foreground"
+                className="rounded-full border border-border/70 px-4 py-2 text-small text-muted-foreground transition-colors hover:border-bronze/60 hover:text-foreground"
               >
                 {p.text[lang]}
               </button>
@@ -274,7 +274,7 @@ function ExplorePage() {
                 <button
                   type="button"
                   onClick={() => pick(centralQuestion(id, lang))}
-                  className="rounded-full border border-border/70 px-4 py-2 text-[13px] text-muted-foreground transition-colors hover:border-bronze/60 hover:text-foreground"
+                  className="rounded-full border border-border/70 px-4 py-2 text-small text-muted-foreground transition-colors hover:border-bronze/60 hover:text-foreground"
                 >
                   {centralQuestion(id, lang)}
                 </button>

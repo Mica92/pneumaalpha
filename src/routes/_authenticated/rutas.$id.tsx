@@ -53,14 +53,14 @@ function RoutePage() {
         <div className="mx-auto max-w-3xl px-5 pt-12 md:px-8 md:pt-20">
           <Link
             to="/rutas"
-            className="focus-mist text-xs text-muted-foreground transition-colors hover:text-foreground"
+            className="focus-mist text-micro text-muted-foreground transition-colors hover:text-foreground"
           >
             ← {es ? "Todas las rutas" : "All paths"}
           </Link>
           <p className="label mt-8">
             {route.steps.length} {es ? "conversaciones" : "conversations"}
           </p>
-          <h1 className="mt-3 font-serif text-4xl font-light leading-[1.05] text-foreground md:text-6xl">
+          <h1 className="mt-3 font-serif text-title font-light text-foreground">
             {route.question[lang]}
           </h1>
           <p className="mt-5 text-base leading-relaxed text-muted-foreground">
@@ -88,10 +88,10 @@ function RoutePage() {
                   <p className="label">
                     {es ? "Paso" : "Step"} {i + 1} · {profileOf(step.philosopher)?.years ?? ""}
                   </p>
-                  <h2 className="mt-1.5 font-serif text-2xl font-light text-foreground">
+                  <h2 className="mt-1.5 font-serif text-subtitle font-light text-foreground">
                     {p.name}
                   </h2>
-                  <p className="mt-1 text-sm text-muted-foreground">{step.note[lang]}</p>
+                  <p className="mt-1 text-small text-muted-foreground">{step.note[lang]}</p>
                   <p className="mt-3 font-serif text-lg italic text-bronze-bright">
                     {step.prompt[lang]}
                   </p>
@@ -99,7 +99,7 @@ function RoutePage() {
                     to="/$philosopher"
                     params={{ philosopher: step.philosopher }}
                     search={{ q: step.prompt[lang] }}
-                    className="btn-gold focus-mist mt-4 px-4 py-2 text-xs"
+                    className="btn-gold focus-mist mt-4 px-4 py-2 text-micro"
                   >
                     {es ? "Empezar este paso" : "Start this step"}
                   </Link>

@@ -332,17 +332,17 @@ function ChatBody({
                 </span>
               ) : (
                 <span
-                  className="shrink-0 font-display text-xl text-mist pneuma-breathe"
+                  className="shrink-0 font-display text-subtitle text-mist pneuma-breathe"
                   aria-hidden="true"
                 >
                   {meta.glyph}
                 </span>
               )}
               <div className="min-w-0 leading-tight">
-                <h1 className="truncate font-display text-sm font-light tracking-wide text-foreground">
+                <h1 className="truncate font-display text-small font-light tracking-wide text-foreground">
                   {meta.name}
                 </h1>
-                <span className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
+                <span className="text-micro uppercase tracking-[0.25em] text-muted-foreground">
                   {lang === "es" ? "Ver ficha" : "View profile"}
                 </span>
               </div>
@@ -472,16 +472,16 @@ function ChatBody({
           <div className="mx-auto max-w-3xl space-y-10">
             {messages.length === 0 && (
               <div className="fade-up space-y-6 py-8">
-                <p className="font-display text-[10px] uppercase tracking-[0.4em] text-muted-foreground">
+                <p className="font-display text-micro uppercase tracking-[0.4em] text-muted-foreground">
                   {meta.name}
                 </p>
-                <p className="font-display text-xl font-light leading-relaxed text-foreground/90 md:text-2xl">
+                <p className="font-display text-heading font-light text-foreground/90">
                   {meta.opening[lang]}
                 </p>
 
                 {!embedded && (
                   <div className="pt-2">
-                    <p className="font-display text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
+                    <p className="font-display text-micro uppercase tracking-[0.3em] text-muted-foreground">
                       {t("chat.suggestions")}
                     </p>
                     <ul className="mt-3 flex flex-wrap gap-2">
@@ -491,7 +491,7 @@ function ChatBody({
                             type="button"
                             onClick={() => sendText(s)}
                             disabled={isLoading}
-                            className="focus-mist rounded-full border border-border/70 px-3.5 py-2 text-left text-[12px] leading-snug text-muted-foreground transition-colors hover:border-mist/50 hover:text-foreground disabled:opacity-40"
+                            className="focus-mist rounded-full border border-border/70 px-3.5 py-2 text-left text-micro text-muted-foreground transition-colors hover:border-mist/50 hover:text-foreground disabled:opacity-40"
                           >
                             {s}
                           </button>
@@ -520,7 +520,7 @@ function ChatBody({
                   className="fade-up"
                   aria-live={idx === messages.length - 1 ? "polite" : undefined}
                 >
-                  <h2 className="mb-3 font-display text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
+                  <h2 className="mb-3 font-display text-micro uppercase tracking-[0.3em] text-muted-foreground">
                     {meta.name}
                   </h2>
                   <AssistantBody text={text} />
@@ -540,7 +540,7 @@ function ChatBody({
 
             {status === "submitted" && (
               <div className="fade-up">
-                <p className="mb-3 font-display text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
+                <p className="mb-3 font-display text-micro uppercase tracking-[0.3em] text-muted-foreground">
                   {meta.name}
                 </p>
                 <div className="flex items-center gap-3 py-2">
@@ -548,14 +548,14 @@ function ChatBody({
                     className="font-display text-lg text-mist pneuma-breathe"
                     intervalMs={280}
                   />
-                  <span className="text-[11px] uppercase tracking-[0.3em] glacier-shimmer">
+                  <span className="text-micro uppercase tracking-[0.3em] glacier-shimmer">
                     {t("chat.thinking")}
                   </span>
                 </div>
               </div>
             )}
 
-            {error && <p className="text-center text-xs text-destructive">{error.message}</p>}
+            {error && <p className="text-center text-micro text-destructive">{error.message}</p>}
           </div>
 
           {!atBottom && messages.length > 2 && (
@@ -567,7 +567,7 @@ function ChatBody({
                 });
                 setAtBottom(true);
               }}
-              className="focus-mist sticky bottom-4 left-1/2 -translate-x-1/2 rounded-full border border-border/60 bg-card/90 px-4 py-2 text-[10px] uppercase tracking-[0.25em] text-muted-foreground shadow-mist backdrop-blur-xl transition-colors hover:border-mist/40 hover:text-foreground"
+              className="focus-mist sticky bottom-4 left-1/2 -translate-x-1/2 rounded-full border border-border/60 bg-card/90 px-4 py-2 text-micro uppercase tracking-[0.25em] text-muted-foreground shadow-mist backdrop-blur-xl transition-colors hover:border-mist/40 hover:text-foreground"
             >
               ↓ {t("chat.scrollDown")}
             </button>
@@ -604,7 +604,7 @@ function ChatBody({
                 ta.style.height = "auto";
                 ta.style.height = Math.min(ta.scrollHeight, 200) + "px";
               }}
-              className="focus-mist flex-1 resize-none rounded-xl border border-border bg-input px-4 py-3 text-[15px] leading-relaxed text-foreground placeholder:text-muted-foreground transition-colors focus:border-mist/50 disabled:opacity-50"
+              className="focus-mist flex-1 resize-none rounded-xl border border-border bg-input px-4 py-3 text-body text-foreground placeholder:text-muted-foreground transition-colors focus:border-mist/50 disabled:opacity-50"
             />
             <button
               type="button"
@@ -645,7 +645,7 @@ function ChatBody({
               type="submit"
               disabled={isLoading || !composerText.trim()}
               aria-label={t("chat.send")}
-              className="focus-mist inline-flex h-11 shrink-0 items-center justify-center self-end rounded-xl border border-mist/40 bg-mist/95 px-5 font-display text-sm text-primary-foreground transition-all hover:bg-mist disabled:cursor-not-allowed disabled:opacity-30"
+              className="focus-mist inline-flex h-11 shrink-0 items-center justify-center self-end rounded-xl border border-mist/40 bg-mist/95 px-5 font-display text-small text-primary-foreground transition-all hover:bg-mist disabled:cursor-not-allowed disabled:opacity-30"
             >
               <span className="hidden sm:inline">{t("chat.send")}</span>
               <svg
@@ -664,7 +664,7 @@ function ChatBody({
               </svg>
             </button>
           </form>
-          <p className="mx-auto mt-2 hidden max-w-3xl text-center text-[10px] uppercase tracking-[0.3em] text-muted-foreground md:block">
+          <p className="mx-auto mt-2 hidden max-w-3xl text-center text-micro uppercase tracking-[0.3em] text-muted-foreground md:block">
             {t("chat.newline")} · {t("chat.send.hint")}
           </p>
         </footer>
@@ -680,30 +680,30 @@ function ChatBody({
             >
               <header className="flex items-center justify-between border-b border-border/60 px-6 py-5">
                 <div className="leading-tight">
-                  <p className="font-display text-[10px] uppercase tracking-[0.4em] text-muted-foreground">
+                  <p className="font-display text-micro uppercase tracking-[0.4em] text-muted-foreground">
                     {meta.name}
                   </p>
                   <h2 className="mt-1 font-display text-base font-light text-foreground">
                     {t("chat.archive.title", { name: meta.name })}
                   </h2>
-                  <p className="mt-1.5 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground/80">
+                  <p className="mt-1.5 font-mono text-micro uppercase tracking-[0.2em] text-muted-foreground/80">
                     {t("chat.archive.subtitle", { name: meta.name })}
                   </p>
                 </div>
                 <button
                   onClick={() => setArchiveOpen(false)}
-                  className="rounded-md px-3 py-1.5 text-[10px] uppercase tracking-[0.25em] text-muted-foreground transition-colors hover:bg-card hover:text-foreground"
+                  className="rounded-md px-3 py-1.5 text-micro uppercase tracking-[0.25em] text-muted-foreground transition-colors hover:bg-card hover:text-foreground"
                 >
                   {t("chat.archive.close")}
                 </button>
               </header>
               <div className="flex-1 overflow-y-auto px-6 py-6">
                 {historyLoading && (!history || history.length === 0) ? (
-                  <p className="text-center text-[11px] uppercase tracking-[0.3em] text-muted-foreground pneuma-breathe">
+                  <p className="text-center text-micro uppercase tracking-[0.3em] text-muted-foreground pneuma-breathe">
                     {t("chat.archive.loading")}
                   </p>
                 ) : !history || history.length === 0 ? (
-                  <p className="text-center text-[11px] uppercase tracking-[0.3em] text-muted-foreground">
+                  <p className="text-center text-micro uppercase tracking-[0.3em] text-muted-foreground">
                     {t("chat.archive.empty")}
                   </p>
                 ) : (
@@ -721,14 +721,14 @@ function ChatBody({
                       return (
                         <li key={m.id} className="border-l border-border/50 pl-4">
                           <div className="mb-1.5 flex items-center justify-between">
-                            <span className="font-display text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
+                            <span className="font-display text-micro uppercase tracking-[0.3em] text-muted-foreground">
                               {author}
                             </span>
-                            <span className="font-mono text-[10px] tracking-[0.15em] text-muted-foreground/70">
+                            <span className="font-mono text-micro tracking-[0.15em] text-muted-foreground/70">
                               {stamp}
                             </span>
                           </div>
-                          <p className="whitespace-pre-wrap text-[13.5px] leading-relaxed text-foreground/85">
+                          <p className="whitespace-pre-wrap text-small text-foreground/85">
                             {m.content}
                           </p>
                         </li>
@@ -751,10 +751,10 @@ function ChatBody({
               onClick={(e) => e.stopPropagation()}
             >
               <header className="border-b border-border/60 px-5 py-4">
-                <p className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
+                <p className="text-micro uppercase tracking-[0.3em] text-muted-foreground">
                   {t("chat.migrate.title")}
                 </p>
-                <p className="mt-2 text-sm text-foreground/85">{t("chat.migrate.subtitle")}</p>
+                <p className="mt-2 text-small text-foreground/85">{t("chat.migrate.subtitle")}</p>
               </header>
 
               <div className="flex flex-wrap gap-2 border-b border-border/60 px-5 py-3">
@@ -762,7 +762,7 @@ function ChatBody({
                   <button
                     key={mode}
                     onClick={() => setMigrateMode(mode)}
-                    className={`rounded-full border px-3 py-1 text-[11px] tracking-wide transition-colors ${
+                    className={`rounded-full border px-3 py-1 text-micro tracking-wide transition-colors ${
                       migrateMode === mode
                         ? "border-foreground/60 bg-foreground/10 text-foreground"
                         : "border-border/60 text-muted-foreground hover:text-foreground"
@@ -779,23 +779,23 @@ function ChatBody({
                 );
                 return (
                   <div className="border-b border-border/60 px-5 py-3">
-                    <p className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
+                    <p className="text-micro uppercase tracking-[0.25em] text-muted-foreground">
                       {t("chat.migrate.preview", { count: String(preview.length) })}
                     </p>
                     <div className="mt-2 max-h-40 overflow-y-auto rounded-md border border-border/40 bg-background/40 p-2">
                       {historyLoading && !history ? (
-                        <p className="px-1 py-2 text-xs text-muted-foreground">
+                        <p className="px-1 py-2 text-micro text-muted-foreground">
                           {t("chat.migrate.preview.loading")}
                         </p>
                       ) : preview.length === 0 ? (
-                        <p className="px-1 py-2 text-xs text-muted-foreground">
+                        <p className="px-1 py-2 text-micro text-muted-foreground">
                           {t("chat.migrate.preview.empty")}
                         </p>
                       ) : (
                         <ol className="flex flex-col gap-1.5">
                           {preview.slice(-40).map((m) => (
-                            <li key={m.id} className="flex gap-2 text-xs">
-                              <span className="shrink-0 text-[9px] uppercase tracking-[0.2em] text-muted-foreground/80 pt-0.5 w-14">
+                            <li key={m.id} className="flex gap-2 text-micro">
+                              <span className="shrink-0 text-micro uppercase tracking-[0.14em] text-muted-foreground/80 pt-0.5 w-14">
                                 {m.role === "user" ? t("chat.you") : t("chat.migrate.assistant")}
                               </span>
                               <span className="flex-1 text-foreground/75 line-clamp-2">
@@ -811,7 +811,7 @@ function ChatBody({
               })()}
 
               <div className="max-h-[45vh] overflow-y-auto px-3 py-3">
-                <p className="px-2 pb-2 text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
+                <p className="px-2 pb-2 text-micro uppercase tracking-[0.25em] text-muted-foreground">
                   {t("chat.migrate.pick")}
                 </p>
                 <ul className="flex flex-col gap-1">
@@ -824,13 +824,13 @@ function ChatBody({
                       >
                         <span className="text-lg text-foreground/70">{p.glyph}</span>
                         <span className="flex-1">
-                          <span className="block text-sm text-foreground">{p.name}</span>
-                          <span className="block text-xs text-muted-foreground">
+                          <span className="block text-small text-foreground">{p.name}</span>
+                          <span className="block text-micro text-muted-foreground">
                             {p.subtitle[lang]}
                           </span>
                         </span>
                         {migrating === p.id && (
-                          <span className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
+                          <span className="text-micro uppercase tracking-[0.25em] text-muted-foreground">
                             …
                           </span>
                         )}
@@ -844,7 +844,7 @@ function ChatBody({
                 <button
                   onClick={() => setMigrateOpen(false)}
                   disabled={!!migrating}
-                  className="rounded-md px-3 py-1.5 text-[10px] uppercase tracking-[0.25em] text-muted-foreground transition-colors hover:bg-background hover:text-foreground disabled:opacity-50"
+                  className="rounded-md px-3 py-1.5 text-micro uppercase tracking-[0.25em] text-muted-foreground transition-colors hover:bg-background hover:text-foreground disabled:opacity-50"
                 >
                   {t("chat.migrate.close")}
                 </button>
@@ -862,7 +862,7 @@ function ChatBody({
 const UserBubble = memo(function UserBubble({ text }: { text: string }) {
   return (
     <div className="flex justify-end fade-up">
-      <div className="max-w-[85%] rounded-2xl rounded-tr-sm border border-border/60 bg-secondary/70 px-4 py-3 text-[15px] leading-relaxed text-secondary-foreground shadow-sm">
+      <div className="max-w-[85%] rounded-2xl rounded-tr-sm border border-border/60 bg-secondary/70 px-4 py-3 text-body text-secondary-foreground shadow-sm">
         {text}
       </div>
     </div>
@@ -871,7 +871,7 @@ const UserBubble = memo(function UserBubble({ text }: { text: string }) {
 
 const AssistantBody = memo(function AssistantBody({ text }: { text: string }) {
   return (
-    <div className="prose prose-invert prose-p:my-3 prose-p:leading-[1.75] prose-p:text-[15px] prose-p:text-foreground/90 prose-strong:text-foreground prose-em:text-mist max-w-none">
+    <div className="prose prose-invert measure-wide prose-p:my-4 prose-p:leading-[1.7] prose-p:text-[1rem] prose-p:text-pretty prose-p:text-foreground/90 prose-strong:text-foreground prose-em:text-mist">
       <ReactMarkdown>{text}</ReactMarkdown>
     </div>
   );
@@ -906,7 +906,7 @@ function CorpusBadge() {
       onClick={handleSeed}
       disabled={seeding}
       title="Indexar / re-indexar corpus de Santo Tomás en el RAG"
-      className="rounded-md border border-border/60 px-3 py-1.5 text-[10px] uppercase tracking-[0.25em] text-muted-foreground transition-colors hover:bg-card hover:text-foreground disabled:opacity-50"
+      className="rounded-md border border-border/60 px-3 py-1.5 text-micro uppercase tracking-[0.25em] text-muted-foreground transition-colors hover:bg-card hover:text-foreground disabled:opacity-50"
     >
       {seeding ? "Indexando…" : `Corpus · ${count}`}
     </button>
@@ -923,7 +923,7 @@ function HeaderAction({
   return (
     <button
       onClick={onClick}
-      className="focus-mist rounded-md px-3 py-1.5 text-[10px] uppercase tracking-[0.25em] text-muted-foreground transition-colors hover:bg-card hover:text-foreground"
+      className="focus-mist rounded-md px-3 py-1.5 text-micro uppercase tracking-[0.25em] text-muted-foreground transition-colors hover:bg-card hover:text-foreground"
     >
       {children}
     </button>
@@ -941,7 +941,7 @@ function MenuItem({
     <button
       role="menuitem"
       onClick={onClick}
-      className="w-full px-4 py-3 text-left text-xs uppercase tracking-[0.25em] text-muted-foreground transition-colors hover:bg-background/60 hover:text-foreground"
+      className="w-full px-4 py-3 text-left text-micro uppercase tracking-[0.25em] text-muted-foreground transition-colors hover:bg-background/60 hover:text-foreground"
     >
       {children}
     </button>

@@ -12,14 +12,14 @@ export function SiteFooter() {
       <div className="mx-auto grid max-w-6xl gap-10 px-5 py-14 md:grid-cols-[1.4fr_1fr_1fr] md:px-8">
         <div>
           <PneumaMark size={24} withWordmark />
-          <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">
+          <p className="mt-4 max-w-xs text-small leading-relaxed text-muted-foreground">
             {es
               ? `${PHILOSOPHER_LIST.length} conciencias filosóficas reconstruidas para pensar tu vida, no para recitar historia.`
               : `${PHILOSOPHER_LIST.length} reconstructed philosophical minds, here to think your life through — not to recite history.`}
           </p>
         </div>
 
-        <nav aria-label={es ? "Explorar" : "Explore"} className="text-sm">
+        <nav aria-label={es ? "Explorar" : "Explore"} className="text-small">
           <p className="label mb-4">{es ? "Explorar" : "Explore"}</p>
           <ul className="space-y-2.5 text-muted-foreground">
             <li>
@@ -45,7 +45,7 @@ export function SiteFooter() {
           </ul>
         </nav>
 
-        <nav aria-label={es ? "Tu espacio" : "Your space"} className="text-sm">
+        <nav aria-label={es ? "Tu espacio" : "Your space"} className="text-small">
           <p className="label mb-4">{es ? "Tu espacio" : "Your space"}</p>
           <ul className="space-y-2.5 text-muted-foreground">
             <li>
@@ -68,7 +68,7 @@ export function SiteFooter() {
       </div>
 
       <div className="border-t border-border/50">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-5 py-6 text-[11px] text-muted-foreground md:px-8">
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-5 py-6 text-micro text-muted-foreground md:px-8">
           <span>PneumAlpha · {new Date().getFullYear()}</span>
           <span className="text-muted-foreground/60">
             {es ? "Pensar despacio, otra vez." : "Thinking slowly, again."}

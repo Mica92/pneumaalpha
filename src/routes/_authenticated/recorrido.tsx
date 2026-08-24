@@ -51,7 +51,7 @@ function JourneyPage() {
       <main className="route-enter relative z-10">
         <div className="mx-auto max-w-6xl px-5 pt-14 md:px-8 md:pt-20">
           <p className="label">{es ? "Mi recorrido" : "My journey"}</p>
-          <h1 className="mt-3 max-w-3xl font-serif text-4xl font-light leading-[1.08] text-foreground md:text-6xl">
+          <h1 className="mt-3 max-w-3xl font-serif text-title font-light text-foreground">
             {es ? "Lo que has estado pensando" : "What you have been thinking"}
           </h1>
           <p className="mt-5 max-w-xl text-base leading-relaxed text-muted-foreground">
@@ -64,19 +64,19 @@ function JourneyPage() {
         {empty ? (
           <section className="mx-auto max-w-6xl px-5 py-16 md:px-8">
             <div className="card-editorial p-10 text-center">
-              <p className="font-serif text-2xl font-light text-foreground">
+              <p className="font-serif text-subtitle font-light text-foreground">
                 {es ? "Tu recorrido está en blanco." : "Your journey is still blank."}
               </p>
-              <p className="mt-3 text-sm text-muted-foreground">
+              <p className="mt-3 text-small text-muted-foreground">
                 {es
                   ? "Empieza por una idea o por una mente; aquí quedará el rastro."
                   : "Start with an idea or a mind; the trace will appear here."}
               </p>
               <div className="mt-7 flex flex-wrap justify-center gap-3">
-                <Link to="/filosofos" className="btn-gold focus-mist px-5 py-3 text-sm">
+                <Link to="/filosofos" className="btn-gold focus-mist px-5 py-3 text-small">
                   {es ? "Ver filósofos" : "See philosophers"}
                 </Link>
-                <Link to="/ideas" className="btn-ghost-gold focus-mist px-5 py-3 text-sm">
+                <Link to="/ideas" className="btn-ghost-gold focus-mist px-5 py-3 text-small">
                   {es ? "Ver ideas" : "See ideas"}
                 </Link>
               </div>
@@ -110,10 +110,10 @@ function JourneyPage() {
                             )}
                           </div>
                           <div className="min-w-0">
-                            <p className="font-serif text-xl font-light text-foreground">
+                            <p className="font-serif text-subtitle font-light text-foreground">
                               {p.name}
                             </p>
-                            <p className="truncate text-xs text-muted-foreground">
+                            <p className="truncate text-micro text-muted-foreground">
                               {p.subtitle[lang]}
                             </p>
                           </div>
@@ -137,7 +137,7 @@ function JourneyPage() {
                         <Link
                           to="/ideas/$id"
                           params={{ id }}
-                          className="btn-ghost-gold focus-mist px-4 py-2 text-sm"
+                          className="btn-ghost-gold focus-mist px-4 py-2 text-small"
                         >
                           {idea.title[lang]}
                         </Link>
@@ -162,10 +162,10 @@ function JourneyPage() {
                           params={{ id }}
                           className="card-editorial focus-mist block p-5"
                         >
-                          <p className="font-serif text-xl font-light text-foreground">
+                          <p className="font-serif text-subtitle font-light text-foreground">
                             {r.question[lang]}
                           </p>
-                          <p className="mt-1 text-xs text-muted-foreground">
+                          <p className="mt-1 text-micro text-muted-foreground">
                             {r.steps.length} {es ? "conversaciones" : "conversations"}
                           </p>
                         </Link>

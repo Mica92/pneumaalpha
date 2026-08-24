@@ -111,27 +111,27 @@ export function NewsletterCard({ className = "" }: { className?: string }) {
       className={`relative overflow-hidden rounded-xl border border-sage/35 bg-card/50 p-6 backdrop-blur-sm md:p-8 ${className}`}
     >
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-sage/60 to-transparent" />
-      <p className="font-display text-[10px] uppercase tracking-[0.35em] text-sage">
+      <p className="font-display text-micro uppercase tracking-[0.35em] text-sage">
         {t("news.kicker")}
       </p>
       <h2
         id="newsletter-heading"
-        className="mt-3 font-display text-xl font-light tracking-tight text-foreground md:text-2xl"
+        className="mt-3 font-display text-subtitle font-light tracking-tight text-foreground md:text-subtitle"
       >
         {t("news.title")}
       </h2>
-      <p className="mt-2 max-w-lg text-xs leading-relaxed text-muted-foreground md:text-sm">
+      <p className="mt-2 max-w-lg text-micro leading-relaxed text-muted-foreground md:text-small">
         {t("news.sub")}
       </p>
 
       {state === "done" ? (
-        <p className="mt-5 text-sm text-foreground/85">{t("news.done")}</p>
+        <p className="mt-5 text-small text-foreground/85">{t("news.done")}</p>
       ) : (
         <div className="mt-5 flex flex-col items-start gap-3">
           <div className="w-full max-w-xs">
             <label
               htmlFor="newsletter-phone"
-              className="font-display text-[10px] uppercase tracking-[0.3em] text-muted-foreground"
+              className="font-display text-micro uppercase tracking-[0.3em] text-muted-foreground"
             >
               {t("news.phoneLabel")}
             </label>
@@ -145,11 +145,11 @@ export function NewsletterCard({ className = "" }: { className?: string }) {
               onChange={(e) => setPhone(e.target.value)}
               placeholder={t("news.phonePlaceholder")}
               aria-describedby="newsletter-phone-hint"
-              className="focus-mist mt-2 w-full rounded-md border border-sage/30 bg-background/60 px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground/60"
+              className="focus-mist mt-2 w-full rounded-md border border-sage/30 bg-background/60 px-3 py-2 text-small text-foreground placeholder:text-muted-foreground/60"
             />
             <p
               id="newsletter-phone-hint"
-              className="mt-1.5 text-[11px] leading-relaxed text-muted-foreground/80"
+              className="mt-1.5 text-micro leading-relaxed text-muted-foreground/80"
             >
               {t("news.phoneHint")}
             </p>
@@ -158,7 +158,7 @@ export function NewsletterCard({ className = "" }: { className?: string }) {
             type="button"
             onClick={onGoogle}
             disabled={state === "sending"}
-            className="focus-mist inline-flex items-center gap-3 rounded-md border border-sage/40 bg-sage/10 px-5 py-2.5 font-display text-[11px] uppercase tracking-[0.3em] text-foreground transition-all hover:border-sage/70 hover:bg-sage/15 disabled:opacity-40"
+            className="focus-mist inline-flex items-center gap-3 rounded-md border border-sage/40 bg-sage/10 px-5 py-2.5 font-display text-micro uppercase tracking-[0.3em] text-foreground transition-all hover:border-sage/70 hover:bg-sage/15 disabled:opacity-40"
           >
             <svg aria-hidden="true" viewBox="0 0 24 24" className="h-4 w-4">
               <path
@@ -172,10 +172,10 @@ export function NewsletterCard({ className = "" }: { className?: string }) {
                 ? t("news.googleSub")
                 : t("news.google")}
           </button>
-          {email ? <p className="text-[11px] text-muted-foreground/80">{email}</p> : null}
+          {email ? <p className="text-micro text-muted-foreground/80">{email}</p> : null}
         </div>
       )}
-      <p className="mt-3 text-[10px] uppercase tracking-[0.2em] text-muted-foreground/70">
+      <p className="mt-3 text-micro uppercase tracking-[0.2em] text-muted-foreground/70">
         {t("news.privacy")}
       </p>
     </section>

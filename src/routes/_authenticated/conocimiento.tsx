@@ -60,13 +60,13 @@ function KnowledgePage() {
       <SiteNav />
       <main className="route-enter relative z-10 mx-auto flex min-h-dvh max-w-6xl flex-col px-6 py-10 md:px-10 md:py-14">
         <header className="mt-14 mb-8">
-          <p className="tracking-in font-display text-[10px] uppercase tracking-[0.35em] text-glacier-bright">
+          <p className="tracking-in font-display text-micro uppercase tracking-[0.35em] text-glacier-bright">
             {t("knowledge.kicker")}
           </p>
-          <h1 className="fade-up mt-4 max-w-3xl font-display text-3xl font-light leading-[1.1] text-foreground md:text-5xl">
+          <h1 className="fade-up mt-4 max-w-3xl font-display text-title font-light text-foreground">
             {t("knowledge.title")}
           </h1>
-          <p className="fade-up mt-5 max-w-2xl text-sm leading-relaxed text-muted-foreground md:text-base">
+          <p className="fade-up mt-5 max-w-2xl text-small leading-relaxed text-muted-foreground md:text-base">
             {t("knowledge.sub")}
           </p>
         </header>
@@ -78,7 +78,7 @@ function KnowledgePage() {
             onChange={(e) => setQuery(e.target.value)}
             placeholder={t("knowledge.search")}
             aria-label={t("knowledge.search")}
-            className="h-9 w-full max-w-xs rounded-md border border-border bg-card/40 px-3 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-glacier md:w-64"
+            className="h-9 w-full max-w-xs rounded-md border border-border bg-card/40 px-3 text-small text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-glacier md:w-64"
           />
           <div className="flex flex-wrap gap-1.5">
             {KINDS.map((k) => {
@@ -89,7 +89,7 @@ function KnowledgePage() {
                   type="button"
                   onClick={() => toggleKind(k)}
                   aria-pressed={on}
-                  className={`flex items-center gap-2 rounded-full border px-3 py-1.5 text-[11px] uppercase tracking-[0.15em] transition-colors ${
+                  className={`flex items-center gap-2 rounded-full border px-3 py-1.5 text-micro uppercase tracking-[0.15em] transition-colors ${
                     on
                       ? "border-glacier/70 bg-card/70 text-foreground"
                       : "border-border bg-transparent text-muted-foreground hover:text-foreground"
@@ -117,14 +117,14 @@ function KnowledgePage() {
           <aside className="flex max-h-[70vh] flex-col overflow-hidden rounded-xl border border-border bg-card/50 backdrop-blur-sm">
             {node ? (
               <div className="flex flex-col overflow-y-auto p-5">
-                <p className="font-display text-[10px] uppercase tracking-[0.3em] text-glacier-bright">
+                <p className="font-display text-micro uppercase tracking-[0.3em] text-glacier-bright">
                   {KIND_LABEL[node.kind][lang]}
                   {node.era ? ` · ${node.era}` : ""}
                 </p>
-                <h2 className="mt-2 font-display text-xl font-light leading-tight text-foreground">
+                <h2 className="mt-2 font-display text-subtitle font-light leading-tight text-foreground">
                   {node.label}
                 </h2>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                <p className="mt-3 text-small leading-relaxed text-muted-foreground">
                   {node.note[lang]}
                 </p>
 
@@ -132,13 +132,13 @@ function KnowledgePage() {
                   <Link
                     to="/$philosopher"
                     params={{ philosopher: node.chat }}
-                    className="mt-4 inline-flex items-center justify-center rounded-md border border-glacier/60 bg-glacier/10 px-3 py-2 font-display text-[11px] uppercase tracking-[0.25em] text-glacier-bright transition-colors hover:bg-glacier/20 hover:text-foreground"
+                    className="mt-4 inline-flex items-center justify-center rounded-md border border-glacier/60 bg-glacier/10 px-3 py-2 font-display text-micro uppercase tracking-[0.25em] text-glacier-bright transition-colors hover:bg-glacier/20 hover:text-foreground"
                   >
                     {t("knowledge.talk")}
                   </Link>
                 )}
 
-                <p className="mt-6 font-display text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
+                <p className="mt-6 font-display text-micro uppercase tracking-[0.3em] text-muted-foreground">
                   {t("knowledge.connections")} · {links.length}
                 </p>
                 <ul className="mt-2 space-y-1">
@@ -149,12 +149,12 @@ function KnowledgePage() {
                         onClick={() => setSelected(l.node.id)}
                         className="group flex w-full flex-col gap-0.5 rounded-md border border-transparent px-2 py-1.5 text-left transition-colors hover:border-border hover:bg-background/40"
                       >
-                        <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+                        <span className="text-micro uppercase tracking-[0.2em] text-muted-foreground">
                           {l.direction === "out"
                             ? LINK_LABEL[l.kind][lang]
                             : `← ${LINK_LABEL[l.kind][lang]}`}
                         </span>
-                        <span className="flex items-center gap-2 text-sm text-foreground/85 group-hover:text-foreground">
+                        <span className="flex items-center gap-2 text-small text-foreground/85 group-hover:text-foreground">
                           <span
                             className={`h-1.5 w-1.5 shrink-0 rounded-full ${KIND_DOT[l.node.kind]}`}
                           />
@@ -167,13 +167,13 @@ function KnowledgePage() {
               </div>
             ) : (
               <div className="flex flex-1 flex-col justify-center gap-3 p-6">
-                <p className="font-display text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
+                <p className="font-display text-micro uppercase tracking-[0.3em] text-muted-foreground">
                   {t("knowledge.empty.kicker")}
                 </p>
-                <p className="text-sm leading-relaxed text-muted-foreground">
+                <p className="text-small leading-relaxed text-muted-foreground">
                   {t("knowledge.empty.body")}
                 </p>
-                <p className="mt-2 font-mono text-[11px] text-muted-foreground/70">
+                <p className="mt-2 font-mono text-micro text-muted-foreground/70">
                   {GRAPH_NODES.length} {t("knowledge.nodes")}
                 </p>
               </div>
@@ -181,7 +181,7 @@ function KnowledgePage() {
           </aside>
         </div>
 
-        <p className="mt-3 text-[11px] leading-relaxed text-muted-foreground/70">
+        <p className="mt-3 text-micro leading-relaxed text-muted-foreground/70">
           {t("knowledge.legend")}
         </p>
       </main>

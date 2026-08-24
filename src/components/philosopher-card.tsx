@@ -39,8 +39,8 @@ export function PhilosopherCard({ id }: { id: PhilosopherId }) {
 
       <div className="flex flex-1 flex-col p-5">
         <p className="label">{profile?.years ?? p.subtitle[lang]}</p>
-        <h3 className="mt-2 font-serif text-2xl font-normal text-foreground">{p.name}</h3>
-        <p className="mt-1 text-sm text-muted-foreground">{p.subtitle[lang]}</p>
+        <h3 className="mt-2 font-serif text-subtitle font-normal text-foreground">{p.name}</h3>
+        <p className="mt-1 text-small text-muted-foreground">{p.subtitle[lang]}</p>
 
         <p className="mt-4 font-serif text-base italic leading-snug text-bronze-bright">
           {centralQuestion(id, lang)}
@@ -51,7 +51,7 @@ export function PhilosopherCard({ id }: { id: PhilosopherId }) {
             {themes.map((t) => (
               <li
                 key={t.en}
-                className="rounded-full border border-border/70 px-2.5 py-1 text-[11px] text-muted-foreground"
+                className="rounded-full border border-border/70 px-2.5 py-1 text-micro text-muted-foreground"
               >
                 {t[lang]}
               </li>
@@ -63,14 +63,14 @@ export function PhilosopherCard({ id }: { id: PhilosopherId }) {
           <Link
             to="/$philosopher"
             params={{ philosopher: id }}
-            className="btn-gold focus-mist px-4 py-2 text-xs"
+            className="btn-gold focus-mist px-4 py-2 text-micro"
           >
             {lang === "es" ? "Conversar" : "Talk"}
           </Link>
           <Link
             to="/filosofos/$id"
             params={{ id }}
-            className="focus-mist text-xs text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline"
+            className="focus-mist text-micro text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline"
           >
             {lang === "es" ? "Ver perfil" : "View profile"}
           </Link>

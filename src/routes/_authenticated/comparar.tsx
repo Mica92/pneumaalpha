@@ -92,7 +92,7 @@ function ComparePage() {
       <main className="route-enter relative z-10">
         <div className="mx-auto max-w-5xl px-5 pt-14 md:px-8 md:pt-20">
           <p className="label">{es ? "Comparar perspectivas" : "Compare perspectives"}</p>
-          <h1 className="mt-3 max-w-3xl font-serif text-4xl font-light leading-[1.08] text-foreground md:text-6xl">
+          <h1 className="mt-3 max-w-3xl font-serif text-title font-light text-foreground">
             {es ? "Una pregunta, varias respuestas" : "One question, several answers"}
           </h1>
           <p className="mt-5 max-w-xl text-base leading-relaxed text-muted-foreground">
@@ -118,7 +118,7 @@ function ComparePage() {
                   ? "¿Qué hago con el miedo a equivocarme?"
                   : "What do I do with the fear of error?"
               }
-              className="focus-mist mt-2 w-full resize-none rounded-xl border border-border bg-input px-5 py-4 text-[15px] leading-relaxed text-foreground placeholder:text-muted-foreground focus:outline-none"
+              className="focus-mist mt-2 w-full resize-none rounded-xl border border-border bg-input px-5 py-4 text-body text-foreground placeholder:text-muted-foreground focus:outline-none"
             />
           </div>
 
@@ -127,7 +127,7 @@ function ComparePage() {
               <p className="label">
                 {es ? "Mentes elegidas" : "Chosen minds"} · {seats.length}/{MAX_COMPARE}
               </p>
-              <span className="text-[11px] text-muted-foreground/70">
+              <span className="text-micro text-muted-foreground/70">
                 {es ? "Elige entre 2 y 3" : "Pick 2 to 3"}
               </span>
             </div>
@@ -142,7 +142,7 @@ function ComparePage() {
                       onClick={() => toggle(p.id)}
                       disabled={disabled || busy}
                       aria-pressed={active}
-                      className={`focus-mist rounded-full border px-3 py-1.5 text-[12px] transition-colors disabled:opacity-30 ${
+                      className={`focus-mist rounded-full border px-3 py-1.5 text-micro transition-colors disabled:opacity-30 ${
                         active
                           ? "border-bronze bg-bronze/15 text-foreground"
                           : "border-border/70 text-muted-foreground hover:border-bronze/50 hover:text-foreground"
@@ -164,7 +164,7 @@ function ComparePage() {
           </button>
 
           {error && (
-            <p className="rounded-md border border-destructive/30 bg-destructive/5 px-4 py-3 text-sm text-destructive">
+            <p className="rounded-md border border-destructive/30 bg-destructive/5 px-4 py-3 text-small text-destructive">
               {error}
             </p>
           )}
@@ -196,15 +196,15 @@ function ComparePage() {
                           className={`h-10 w-10 rounded-full border border-border/70 object-cover ${portraitFocus(turn.philosopher)} grayscale`}
                         />
                       ) : (
-                        <span aria-hidden="true" className="font-serif text-2xl text-bronze">
+                        <span aria-hidden="true" className="font-serif text-subtitle text-bronze">
                           {meta.glyph}
                         </span>
                       )}
-                      <h2 className="font-serif text-2xl font-light text-foreground">
+                      <h2 className="font-serif text-subtitle font-light text-foreground">
                         {meta.name}
                       </h2>
                     </div>
-                    <p className="mt-4 whitespace-pre-wrap text-[15px] leading-relaxed text-foreground/90">
+                    <p className="mt-4 whitespace-pre-wrap text-body text-foreground/90">
                       {turn.text}
                     </p>
                     <Link

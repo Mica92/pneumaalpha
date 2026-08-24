@@ -140,7 +140,7 @@ export function ShareFragmentButton({ philosopher, text, question }: Props) {
         type="button"
         onClick={() => setOpen(true)}
         aria-label={t("share.action")}
-        className="focus-mist mt-3 inline-flex items-center gap-2 rounded-md border border-border/60 px-3 py-1.5 text-[10px] uppercase tracking-[0.25em] text-muted-foreground transition-colors hover:border-mist/40 hover:text-foreground"
+        className="focus-mist mt-3 inline-flex items-center gap-2 rounded-md border border-border/60 px-3 py-1.5 text-micro uppercase tracking-[0.25em] text-muted-foreground transition-colors hover:border-mist/40 hover:text-foreground"
       >
         <svg
           width="13"
@@ -175,7 +175,7 @@ export function ShareFragmentButton({ philosopher, text, question }: Props) {
             onClick={(e) => e.stopPropagation()}
           >
             <header className="border-b border-border/60 px-6 py-4">
-              <p className="font-display text-[10px] uppercase tracking-[0.35em] text-mist">
+              <p className="font-display text-micro uppercase tracking-[0.35em] text-mist">
                 {t("share.kicker")}
               </p>
               <h2 className="mt-1.5 font-display text-lg font-light text-foreground">
@@ -184,13 +184,13 @@ export function ShareFragmentButton({ philosopher, text, question }: Props) {
             </header>
 
             <div className="px-6 py-5">
-              <blockquote className="rounded-lg border border-border/60 bg-background/50 p-4 text-sm leading-relaxed text-foreground/90">
+              <blockquote className="rounded-lg border border-border/60 bg-background/50 p-4 text-small leading-relaxed text-foreground/90">
                 “{excerpt}”
-                <footer className="mt-3 font-display text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
+                <footer className="mt-3 font-display text-micro uppercase tracking-[0.3em] text-muted-foreground">
                   — {author}
                 </footer>
               </blockquote>
-              <p className="mt-3 text-[11px] leading-relaxed text-muted-foreground">
+              <p className="mt-3 text-micro leading-relaxed text-muted-foreground">
                 {t("share.anonymous")}
               </p>
 
@@ -204,7 +204,7 @@ export function ShareFragmentButton({ philosopher, text, question }: Props) {
                 type="button"
                 onClick={handleSubmit}
                 disabled={sending || sent}
-                className="focus-mist mt-3 w-full rounded-md border border-mist/40 bg-mist/10 px-4 py-2.5 font-display text-[11px] uppercase tracking-[0.3em] text-foreground transition-all hover:border-mist/70 hover:bg-mist/15 disabled:opacity-40"
+                className="focus-mist mt-3 w-full rounded-md border border-mist/40 bg-mist/10 px-4 py-2.5 font-display text-micro uppercase tracking-[0.3em] text-foreground transition-all hover:border-mist/70 hover:bg-mist/15 disabled:opacity-40"
               >
                 {sent
                   ? t("share.submitted")
@@ -217,7 +217,7 @@ export function ShareFragmentButton({ philosopher, text, question }: Props) {
             <footer className="flex justify-end border-t border-border/60 px-6 py-3">
               <button
                 onClick={() => setOpen(false)}
-                className="rounded-md px-3 py-1.5 text-[10px] uppercase tracking-[0.25em] text-muted-foreground transition-colors hover:text-foreground"
+                className="rounded-md px-3 py-1.5 text-micro uppercase tracking-[0.25em] text-muted-foreground transition-colors hover:text-foreground"
               >
                 {t("share.close")}
               </button>
@@ -240,7 +240,7 @@ function ShareAction({
     <button
       type="button"
       onClick={onClick}
-      className="focus-mist rounded-md border border-border/60 px-3 py-2 text-[10px] uppercase tracking-[0.25em] text-muted-foreground transition-colors hover:border-mist/40 hover:text-foreground"
+      className="focus-mist rounded-md border border-border/60 px-3 py-2 text-micro uppercase tracking-[0.25em] text-muted-foreground transition-colors hover:border-mist/40 hover:text-foreground"
     >
       {children}
     </button>

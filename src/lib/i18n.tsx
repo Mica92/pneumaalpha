@@ -781,7 +781,7 @@ export function LanguageSelector({ className = "" }: { className?: string }) {
   const { lang, setLang } = useI18n();
   return (
     <div
-      className={`inline-flex items-center rounded-md border border-border bg-card/40 p-0.5 text-[10px] uppercase tracking-widest ${className}`}
+      className={`inline-flex items-center rounded-md border border-border bg-card/40 p-0.5 text-micro uppercase tracking-widest ${className}`}
       role="group"
       aria-label="Language selector"
     >

@@ -125,13 +125,13 @@ function PrivacyPage() {
 
       <article className="mt-12 space-y-10">
         <div>
-          <p className="font-mono text-[10px] uppercase tracking-[0.35em] text-muted-foreground">
+          <p className="font-mono text-micro uppercase tracking-[0.35em] text-muted-foreground">
             {c.kicker}
           </p>
-          <h1 className="mt-4 font-display text-3xl font-light text-foreground md:text-4xl">
+          <h1 className="mt-4 font-display text-title font-light text-foreground">
             {c.title}
           </h1>
-          <p className="mt-3 text-[11px] uppercase tracking-[0.25em] text-muted-foreground">
+          <p className="mt-3 text-micro uppercase tracking-[0.25em] text-muted-foreground">
             {c.updated}
           </p>
           <p className="mt-8 text-base leading-relaxed text-foreground/80">{c.intro}</p>
@@ -141,7 +141,7 @@ function PrivacyPage() {
           {c.sections.map((s) => (
             <section key={s.h}>
               <h2 className="font-display text-lg font-light text-foreground">{s.h}</h2>
-              <p className="mt-2 text-sm leading-relaxed text-foreground/70 md:text-[15px]">
+              <p className="mt-2 text-body text-foreground/70">
                 {s.p}
               </p>
             </section>
@@ -149,7 +149,7 @@ function PrivacyPage() {
         </div>
       </article>
 
-      <footer className="mt-16 flex items-center justify-between border-t border-border/60 pt-6 text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
+      <footer className="mt-16 flex items-center justify-between border-t border-border/60 pt-6 text-micro uppercase tracking-[0.3em] text-muted-foreground">
         <Link to="/" className="transition-colors hover:text-foreground">
           {c.back}
         </Link>

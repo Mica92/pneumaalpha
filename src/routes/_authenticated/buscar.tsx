@@ -154,7 +154,7 @@ function SearchPage() {
       <main className="route-enter relative z-10">
         <div className="mx-auto max-w-4xl px-5 pt-14 md:px-8 md:pt-20">
           <p className="label">{es ? "Buscador" : "Search"}</p>
-          <h1 className="mt-3 font-serif text-4xl font-light leading-[1.08] text-foreground md:text-6xl">
+          <h1 className="mt-3 font-serif text-title font-light text-foreground">
             {es ? "Busca en todo PneumAlpha" : "Search all of PneumAlpha"}
           </h1>
 
@@ -178,7 +178,7 @@ function SearchPage() {
 
         <section className="mx-auto max-w-4xl px-5 py-10 md:px-8 md:py-14" aria-live="polite">
           {query.trim().length >= 2 && hits.length === 0 && (
-            <p className="text-sm text-muted-foreground">
+            <p className="text-small text-muted-foreground">
               {es ? "Nada por aquí. Prueba con otra palabra." : "Nothing here. Try another word."}
             </p>
           )}
@@ -197,10 +197,10 @@ function SearchPage() {
                 >
                   <span className="min-w-0">
                     <span className="label">{h.kind}</span>
-                    <span className="mt-1 block truncate font-serif text-2xl font-light text-foreground">
+                    <span className="mt-1 block truncate font-serif text-subtitle font-light text-foreground">
                       {h.title}
                     </span>
-                    <span className="mt-1 block truncate text-sm text-muted-foreground">
+                    <span className="mt-1 block truncate text-small text-muted-foreground">
                       {h.sub}
                     </span>
                   </span>

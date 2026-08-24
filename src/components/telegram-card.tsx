@@ -77,27 +77,27 @@ export function TelegramCard({ className = "" }: { className?: string }) {
 
   return (
     <aside className={`rounded-lg border border-border/60 bg-card/40 px-5 py-4 ${className}`}>
-      <p className="font-display text-[10px] uppercase tracking-[0.3em] text-foreground">
+      <p className="font-display text-micro uppercase tracking-[0.3em] text-foreground">
         {t("telegram.title")}
       </p>
 
-      <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{t("telegram.what")}</p>
+      <p className="mt-2 text-micro leading-relaxed text-muted-foreground">{t("telegram.what")}</p>
 
       {linked ? (
         <div className="mt-4 space-y-3">
-          <p className="text-xs leading-relaxed text-foreground/90">{t("telegram.linked")}</p>
+          <p className="text-micro leading-relaxed text-foreground/90">{t("telegram.linked")}</p>
           <button
             type="button"
             onClick={() => unlinkMutation.mutate()}
             disabled={unlinkMutation.isPending}
-            className="rounded-md border border-border px-3 py-2 font-display text-[10px] uppercase tracking-[0.25em] text-muted-foreground transition-colors hover:text-foreground disabled:opacity-50"
+            className="rounded-md border border-border px-3 py-2 font-display text-micro uppercase tracking-[0.25em] text-muted-foreground transition-colors hover:text-foreground disabled:opacity-50"
           >
             {t("telegram.unlink")}
           </button>
         </div>
       ) : (
         <div className="mt-4 space-y-3">
-          <ol className="list-decimal space-y-1.5 pl-4 text-xs leading-relaxed text-muted-foreground">
+          <ol className="list-decimal space-y-1.5 pl-4 text-micro leading-relaxed text-muted-foreground">
             <li>{t("telegram.step1")}</li>
             <li>{t("telegram.step2")}</li>
             <li>{t("telegram.step3")}</li>
@@ -106,10 +106,10 @@ export function TelegramCard({ className = "" }: { className?: string }) {
           {code ? (
             <div className="space-y-3 rounded-md border border-mist/40 bg-mist/10 p-4">
               <div className="flex items-center justify-between gap-3 rounded-md border border-border/50 bg-background/30 px-4 py-3">
-                <span className="font-display text-2xl tracking-[0.4em] text-foreground">
+                <span className="font-display text-subtitle tracking-[0.4em] text-foreground">
                   {code}
                 </span>
-                <span className="text-[10px] uppercase tracking-widest text-muted-foreground">
+                <span className="text-micro uppercase tracking-widest text-muted-foreground">
                   /vincular
                 </span>
               </div>
@@ -119,7 +119,7 @@ export function TelegramCard({ className = "" }: { className?: string }) {
                   href={deepLink}
                   target="_blank"
                   rel="noreferrer"
-                  className="block text-center text-xs text-mist underline underline-offset-2 transition-opacity hover:opacity-80"
+                  className="block text-center text-micro text-mist underline underline-offset-2 transition-opacity hover:opacity-80"
                 >
                   {t("telegram.openTelegram")}
                 </a>
@@ -136,7 +136,7 @@ export function TelegramCard({ className = "" }: { className?: string }) {
                       height={180}
                       className="rounded-md border border-border/50"
                     />
-                    <p className="text-center text-[10px] uppercase tracking-widest text-muted-foreground">
+                    <p className="text-center text-micro uppercase tracking-widest text-muted-foreground">
                       {t("telegram.qrHint")}
                     </p>
                   </div>
@@ -145,7 +145,7 @@ export function TelegramCard({ className = "" }: { className?: string }) {
                 <button
                   type="button"
                   onClick={() => setQrVisible(true)}
-                  className="w-full rounded-md border border-border bg-background/30 px-4 py-2 font-display text-[10px] uppercase tracking-[0.25em] text-foreground transition-colors hover:bg-background/50"
+                  className="w-full rounded-md border border-border bg-background/30 px-4 py-2 font-display text-micro uppercase tracking-[0.25em] text-foreground transition-colors hover:bg-background/50"
                 >
                   {t("telegram.generateQrHere")}
                 </button>
@@ -156,27 +156,27 @@ export function TelegramCard({ className = "" }: { className?: string }) {
               type="button"
               onClick={() => codeMutation.mutate()}
               disabled={codeMutation.isPending}
-              className="rounded-md border border-mist/40 bg-mist/95 px-4 py-2 font-display text-[10px] uppercase tracking-[0.25em] text-primary-foreground transition-opacity hover:opacity-90 disabled:opacity-50"
+              className="rounded-md border border-mist/40 bg-mist/95 px-4 py-2 font-display text-micro uppercase tracking-[0.25em] text-primary-foreground transition-opacity hover:opacity-90 disabled:opacity-50"
             >
               {codeMutation.isPending ? t("telegram.generating") : t("telegram.generate")}
             </button>
           )}
 
           <div className="rounded-md border border-border/50 bg-background/30 px-3 py-2.5">
-            <p className="font-display text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
+            <p className="font-display text-micro uppercase tracking-[0.25em] text-muted-foreground">
               {t("telegram.commands")}
             </p>
-            <p className="mt-1 font-mono text-xs text-foreground/80">
+            <p className="mt-1 font-mono text-micro text-foreground/80">
               {t("telegram.commandsList")}
             </p>
           </div>
 
-          <p className="text-[10px] leading-relaxed text-muted-foreground/80">
+          <p className="text-micro leading-relaxed text-muted-foreground/80">
             {t("telegram.freeMinds")}
           </p>
 
           {codeMutation.isError && (
-            <p className="text-xs text-muted-foreground">{t("telegram.codeError")}</p>
+            <p className="text-micro text-muted-foreground">{t("telegram.codeError")}</p>
           )}
         </div>
       )}

@@ -42,7 +42,7 @@ const INFLUENCE_KEYS = [
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <section className="mt-8 border-t border-border/60 pt-6">
-      <p className="font-display text-[10px] uppercase tracking-[0.3em] text-glacier-bright">
+      <p className="font-display text-micro uppercase tracking-[0.3em] text-glacier-bright">
         {title}
       </p>
       <div className="mt-3">{children}</div>
@@ -54,12 +54,12 @@ function InfluenceGroup({ label, items }: { label: string; items: InfluenceItem[
   if (items.length === 0) return null;
   return (
     <div className="rounded-lg border border-border/70 bg-background/30 p-4">
-      <p className="font-display text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
+      <p className="font-display text-micro uppercase tracking-[0.25em] text-muted-foreground">
         {label}
       </p>
       <ul className="mt-2 space-y-2">
         {items.map((i, k) => (
-          <li key={`${i.name}-${k}`} className="text-sm leading-relaxed text-foreground/85">
+          <li key={`${i.name}-${k}`} className="text-small leading-relaxed text-foreground/85">
             <span className="text-foreground">{i.name}</span>
             {i.note && <span className="text-muted-foreground"> — {i.note}</span>}
           </li>
@@ -109,13 +109,13 @@ function AnalysisPage() {
       <SiteNav />
       <main className="route-enter relative z-10 mx-auto flex min-h-dvh max-w-3xl flex-col px-6 py-10 md:px-10 md:py-14">
         <header className="mt-16 mb-10 md:mt-20 md:mb-12">
-          <p className="tracking-in font-display text-[10px] uppercase tracking-[0.35em] text-glacier-bright">
+          <p className="tracking-in font-display text-micro uppercase tracking-[0.35em] text-glacier-bright">
             {t("analysis.kicker")}
           </p>
-          <h1 className="fade-up mt-5 max-w-2xl font-display text-3xl font-light leading-[1.1] text-foreground md:text-5xl">
+          <h1 className="fade-up mt-5 max-w-2xl font-display text-title font-light text-foreground">
             {t("analysis.page.title")}
           </h1>
-          <p className="fade-up mt-5 max-w-xl text-sm leading-relaxed text-muted-foreground md:text-base">
+          <p className="fade-up mt-5 max-w-xl text-small leading-relaxed text-muted-foreground md:text-base">
             {t("analysis.page.sub")}
           </p>
         </header>
@@ -129,7 +129,7 @@ function AnalysisPage() {
             rows={7}
             maxLength={6000}
             disabled={submitting}
-            className="w-full resize-none rounded-xl border border-border bg-input px-5 py-4 text-[15px] leading-relaxed text-foreground placeholder:text-muted-foreground focus:border-glacier/60 focus:outline-none focus:ring-1 focus:ring-glacier/20 disabled:opacity-50"
+            className="w-full resize-none rounded-xl border border-border bg-input px-5 py-4 text-body text-foreground placeholder:text-muted-foreground focus:border-glacier/60 focus:outline-none focus:ring-1 focus:ring-glacier/20 disabled:opacity-50"
             onKeyDown={(e) => {
               if ((e.metaKey || e.ctrlKey) && e.key === "Enter") {
                 (e.currentTarget.form as HTMLFormElement | null)?.requestSubmit();
@@ -137,13 +137,13 @@ function AnalysisPage() {
             }}
           />
           <div className="flex items-center justify-between">
-            <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground/70">
+            <span className="font-mono text-micro uppercase tracking-[0.25em] text-muted-foreground/70">
               {input.length}/6000
             </span>
             <button
               type="submit"
               disabled={submitting || input.trim().length < 3}
-              className="rounded-md border border-glacier/50 bg-glacier/10 px-5 py-2.5 font-display text-[11px] uppercase tracking-[0.3em] text-foreground transition-all hover:border-glacier/80 hover:bg-glacier/20 disabled:cursor-not-allowed disabled:opacity-40"
+              className="rounded-md border border-glacier/50 bg-glacier/10 px-5 py-2.5 font-display text-micro uppercase tracking-[0.3em] text-foreground transition-all hover:border-glacier/80 hover:bg-glacier/20 disabled:cursor-not-allowed disabled:opacity-40"
             >
               {submitting ? t("analysis.submitting") : t("analysis.submit")}
             </button>
@@ -153,12 +153,12 @@ function AnalysisPage() {
         {submitting && (
           <div className="mt-10 flex items-center gap-3 text-muted-foreground">
             <GreekGlyph />
-            <span className="text-sm">{t("analysis.submitting")}</span>
+            <span className="text-small">{t("analysis.submitting")}</span>
           </div>
         )}
 
         {error && (
-          <p className="mt-6 rounded-md border border-destructive/30 bg-destructive/5 px-4 py-3 text-sm text-destructive">
+          <p className="mt-6 rounded-md border border-destructive/30 bg-destructive/5 px-4 py-3 text-small text-destructive">
             {error}
           </p>
         )}
@@ -168,11 +168,11 @@ function AnalysisPage() {
             aria-live="polite"
             className="fade-up mt-12 rounded-xl border border-glacier/30 bg-card/60 p-6 backdrop-blur-sm md:p-9"
           >
-            <p className="font-display text-[10px] uppercase tracking-[0.3em] text-glacier-bright">
+            <p className="font-display text-micro uppercase tracking-[0.3em] text-glacier-bright">
               {result.kind}
             </p>
             {result.thesis && (
-              <h2 className="mt-3 font-display text-xl font-light leading-snug text-foreground md:text-2xl">
+              <h2 className="mt-3 font-display text-subtitle font-light leading-snug text-foreground md:text-subtitle">
                 {result.thesis}
               </h2>
             )}
@@ -183,7 +183,7 @@ function AnalysisPage() {
                   {result.reading.map((p, i) => (
                     <p
                       key={i}
-                      className="text-sm leading-relaxed text-foreground/85 md:text-[15px]"
+                      className="text-body text-foreground/85"
                     >
                       {p}
                     </p>
@@ -196,7 +196,7 @@ function AnalysisPage() {
               <Section title={t("analysis.concepts")}>
                 <ul className="space-y-3">
                   {result.concepts.map((c, i) => (
-                    <li key={`${c.term}-${i}`} className="text-sm leading-relaxed">
+                    <li key={`${c.term}-${i}`} className="text-small leading-relaxed">
                       <span className="font-display text-foreground">{c.term}</span>
                       <span className="text-muted-foreground"> — {c.gloss}</span>
                     </li>
@@ -228,14 +228,14 @@ function AnalysisPage() {
                         key={k}
                         className="rounded-lg border border-border/70 bg-background/30 p-4"
                       >
-                        <p className="font-display text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
+                        <p className="font-display text-micro uppercase tracking-[0.25em] text-muted-foreground">
                           {t(k === "precursors" ? "analysis.precursors" : "analysis.heirs")}
                         </p>
                         <div className="mt-2 flex flex-wrap gap-1.5">
                           {result.lineage[k].map((n, i) => (
                             <span
                               key={`${n}-${i}`}
-                              className="rounded-full border border-border bg-card/60 px-3 py-1 text-xs text-foreground/85"
+                              className="rounded-full border border-border bg-card/60 px-3 py-1 text-micro text-foreground/85"
                             >
                               {n}
                             </span>
@@ -252,7 +252,7 @@ function AnalysisPage() {
               <Section title={t("analysis.tensions")}>
                 <ul className="space-y-2">
                   {result.tensions.map((x, i) => (
-                    <li key={i} className="text-sm leading-relaxed text-foreground/85">
+                    <li key={i} className="text-small leading-relaxed text-foreground/85">
                       · {x}
                     </li>
                   ))}
@@ -264,7 +264,7 @@ function AnalysisPage() {
               <Section title={t("analysis.questions")}>
                 <ul className="space-y-2">
                   {result.questions.map((q, i) => (
-                    <li key={i} className="text-sm leading-relaxed text-muted-foreground">
+                    <li key={i} className="text-small leading-relaxed text-muted-foreground">
                       {q}
                     </li>
                   ))}
@@ -282,7 +282,7 @@ function AnalysisPage() {
                         key={id}
                         to="/$philosopher"
                         params={{ philosopher: id }}
-                        className="flex items-center gap-2 rounded-md border border-glacier/50 bg-glacier/10 px-4 py-2 text-sm text-foreground transition-colors hover:bg-glacier/20"
+                        className="flex items-center gap-2 rounded-md border border-glacier/50 bg-glacier/10 px-4 py-2 text-small text-foreground transition-colors hover:bg-glacier/20"
                       >
                         <span className="font-display text-base">{p.glyph}</span>
                         {p.name}
@@ -302,7 +302,7 @@ function AnalysisPage() {
                   setInput("");
                   requestAnimationFrame(() => inputRef.current?.focus());
                 }}
-                className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground transition-colors hover:text-foreground"
+                className="text-micro uppercase tracking-[0.3em] text-muted-foreground transition-colors hover:text-foreground"
               >
                 {t("analysis.again")}
               </button>

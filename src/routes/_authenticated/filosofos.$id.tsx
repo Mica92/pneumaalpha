@@ -67,7 +67,7 @@ function PhilosopherProfilePage() {
         <div className="mx-auto max-w-6xl px-5 pt-10 md:px-8 md:pt-14">
           <Link
             to="/filosofos"
-            className="focus-mist text-xs text-muted-foreground transition-colors hover:text-foreground"
+            className="focus-mist text-micro text-muted-foreground transition-colors hover:text-foreground"
           >
             ← {es ? "Todos los filósofos" : "All philosophers"}
           </Link>
@@ -87,7 +87,7 @@ function PhilosopherProfilePage() {
                   </div>
                 )}
               </div>
-              <div className="mt-4 space-y-1 text-xs text-muted-foreground">
+              <div className="mt-4 space-y-1 text-micro text-muted-foreground">
                 {profile?.years && <p>{profile.years}</p>}
                 {profile?.origin && <p>{profile.origin[lang]}</p>}
               </div>
@@ -95,11 +95,11 @@ function PhilosopherProfilePage() {
 
             <div>
               <p className="label">{p.subtitle[lang]}</p>
-              <h1 className="mt-3 font-serif text-5xl font-light leading-none text-foreground md:text-7xl">
+              <h1 className="mt-3 font-serif text-display font-light text-foreground">
                 {p.name}
               </h1>
 
-              <p className="mt-8 font-serif text-2xl font-light italic leading-snug text-bronze-bright md:text-3xl">
+              <p className="mt-8 font-serif text-heading font-light italic text-bronze-bright">
                 {centralQuestion(id, lang)}
               </p>
 
@@ -107,7 +107,7 @@ function PhilosopherProfilePage() {
                 <h2 className="label">{es ? "Quién es" : "Who they are"}</h2>
                 <p className="mt-3 text-base leading-relaxed text-foreground/90">{p.blurb[lang]}</p>
                 {profile?.bio && (
-                  <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+                  <p className="mt-4 text-small leading-relaxed text-muted-foreground">
                     {profile.bio[lang]}
                   </p>
                 )}
@@ -122,7 +122,7 @@ function PhilosopherProfilePage() {
                     {profile.expertise.map((e) => (
                       <li
                         key={e.en}
-                        className="rounded-md border border-border/60 px-3 py-2 text-sm text-muted-foreground"
+                        className="rounded-md border border-border/60 px-3 py-2 text-small text-muted-foreground"
                       >
                         {e[lang]}
                       </li>
@@ -135,11 +135,11 @@ function PhilosopherProfilePage() {
                 <Link
                   to="/$philosopher"
                   params={{ philosopher: id }}
-                  className="btn-gold focus-mist px-6 py-3 text-sm"
+                  className="btn-gold focus-mist px-6 py-3 text-small"
                 >
                   {es ? `Conversar con ${p.name}` : `Talk with ${p.name}`}
                 </Link>
-                <Link to="/rutas" className="btn-ghost-gold focus-mist px-5 py-3 text-sm">
+                <Link to="/rutas" className="btn-ghost-gold focus-mist px-5 py-3 text-small">
                   {es ? "Ver rutas filosóficas" : "See philosophical paths"}
                 </Link>
               </div>

@@ -60,12 +60,12 @@ export function SiteNav({ className = "" }: { className?: string }) {
           <PneumaMark size={24} withWordmark />
         </Link>
 
-        <div className="hidden items-center gap-6 md:flex">
+        <div className="hidden items-center gap-4 md:flex lg:gap-6">
           {LINKS.map((l) => (
             <Link
               key={l.to}
               to={l.to}
-              className="focus-mist text-[13px] text-muted-foreground transition-colors hover:text-foreground"
+              className="focus-mist whitespace-nowrap text-small text-muted-foreground transition-colors hover:text-foreground"
               activeProps={{ className: "text-foreground" }}
             >
               {l[lang]}
@@ -77,7 +77,7 @@ export function SiteNav({ className = "" }: { className?: string }) {
               <Link
                 to="/perfil"
                 aria-label={lang === "es" ? "Tu perfil" : "Your profile"}
-                className="focus-mist inline-flex items-center gap-2 rounded-full border border-border/70 py-1 pr-3 pl-1 text-[13px] text-muted-foreground transition-colors hover:text-foreground"
+                className="focus-mist inline-flex items-center gap-2 rounded-full border border-border/70 py-1 pr-3 pl-1 text-small text-muted-foreground transition-colors hover:text-foreground"
                 activeProps={{ className: "text-foreground" }}
               >
                 {avatar ? (
@@ -89,7 +89,7 @@ export function SiteNav({ className = "" }: { className?: string }) {
                     className="h-6 w-6 rounded-full object-cover"
                   />
                 ) : (
-                  <span className="grid h-6 w-6 place-items-center rounded-full bg-bronze/20 text-[11px] text-bronze">
+                  <span className="grid h-6 w-6 place-items-center rounded-full bg-bronze/20 text-micro text-bronze">
                     ●
                   </span>
                 )}
@@ -98,7 +98,7 @@ export function SiteNav({ className = "" }: { className?: string }) {
               <button
                 type="button"
                 onClick={signOut}
-                className="focus-mist text-[13px] text-muted-foreground transition-colors hover:text-foreground"
+                className="focus-mist whitespace-nowrap text-small text-muted-foreground transition-colors hover:text-foreground"
               >
                 {lang === "es" ? "Salir" : "Sign out"}
               </button>
@@ -107,7 +107,7 @@ export function SiteNav({ className = "" }: { className?: string }) {
             <button
               type="button"
               onClick={signIn}
-              className="btn-gold rounded-full px-4 py-1.5 text-[12px]"
+              className="btn-gold whitespace-nowrap rounded-full px-4 py-1.5 text-micro"
             >
               {lang === "es" ? "Entrar con Google" : "Sign in with Google"}
             </button>
@@ -123,7 +123,7 @@ export function SiteNav({ className = "" }: { className?: string }) {
             aria-label={lang === "es" ? "Abrir menú" : "Open menu"}
             className="focus-mist inline-flex h-9 w-9 items-center justify-center rounded-md border border-border/70 text-foreground"
           >
-            <span aria-hidden="true" className="text-sm">
+            <span aria-hidden="true" className="text-small">
               {open ? "✕" : "☰"}
             </span>
           </button>
@@ -138,7 +138,7 @@ export function SiteNav({ className = "" }: { className?: string }) {
                 key={l.to}
                 to={l.to}
                 onClick={() => setOpen(false)}
-                className="focus-mist border-b border-border/40 py-3 text-sm text-muted-foreground transition-colors hover:text-foreground"
+                className="focus-mist border-b border-border/40 py-3 text-small text-muted-foreground transition-colors hover:text-foreground"
                 activeProps={{ className: "text-foreground" }}
               >
                 {l[lang]}
@@ -149,7 +149,7 @@ export function SiteNav({ className = "" }: { className?: string }) {
                 <Link
                   to="/perfil"
                   onClick={() => setOpen(false)}
-                  className="focus-mist border-b border-border/40 py-3 text-sm text-muted-foreground transition-colors hover:text-foreground"
+                  className="focus-mist border-b border-border/40 py-3 text-small text-muted-foreground transition-colors hover:text-foreground"
                 >
                   {lang === "es" ? "Tu perfil" : "Your profile"}
                 </Link>
@@ -159,7 +159,7 @@ export function SiteNav({ className = "" }: { className?: string }) {
                     setOpen(false);
                     void signOut();
                   }}
-                  className="focus-mist py-3 text-left text-sm text-muted-foreground transition-colors hover:text-foreground"
+                  className="focus-mist py-3 text-left text-small text-muted-foreground transition-colors hover:text-foreground"
                 >
                   {lang === "es" ? "Cerrar sesión" : "Sign out"}
                 </button>
@@ -171,7 +171,7 @@ export function SiteNav({ className = "" }: { className?: string }) {
                   setOpen(false);
                   void signIn();
                 }}
-                className="btn-gold my-3 rounded-full px-4 py-2 text-[12px]"
+                className="btn-gold my-3 rounded-full px-4 py-2 text-micro"
               >
                 {lang === "es" ? "Entrar con Google" : "Sign in with Google"}
               </button>
