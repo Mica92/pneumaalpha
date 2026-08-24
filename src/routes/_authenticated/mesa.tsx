@@ -126,7 +126,7 @@ function RoundTablePage() {
               maxLength={1200}
               onChange={(e) => setTopic(e.target.value)}
               placeholder={t("mesa.topic.placeholder")}
-              className="focus-mist mt-2 w-full resize-none rounded-xl border border-border bg-input px-5 py-4 text-[15px] leading-relaxed text-foreground placeholder:text-muted-foreground focus:border-glacier/50 focus:outline-none"
+              className="focus-mist mt-2 w-full resize-none rounded-xl border border-border bg-input px-5 py-4 text-body text-foreground placeholder:text-muted-foreground focus:border-glacier/50 focus:outline-none"
             />
           </div>
 
@@ -234,7 +234,7 @@ function RoundTablePage() {
               <p className="font-display text-micro uppercase tracking-[0.35em] text-mist">
                 {t("mesa.synthesis.kicker")}
               </p>
-              <p className="mt-4 whitespace-pre-wrap text-[15px] leading-relaxed text-foreground/90">
+              <p className="mt-4 whitespace-pre-wrap text-body text-foreground/90">
                 {synthesis}
               </p>
             </div>
@@ -270,7 +270,7 @@ function SeatTurn({ turn }: { turn: RoundtableTurn }) {
         <h3 className="font-display text-micro uppercase tracking-[0.3em] text-muted-foreground">
           {meta.name}
         </h3>
-        <p className="mt-2 whitespace-pre-wrap text-[15px] leading-relaxed text-foreground/90">
+        <p className="mt-2 whitespace-pre-wrap text-body text-foreground/90">
           {turn.text}
         </p>
       </div>

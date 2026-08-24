@@ -106,7 +106,7 @@ function ReportPage() {
                 {report.archetype}
               </h2>
               {report.summary && (
-                <p className="mt-5 text-small leading-relaxed text-foreground/85 md:text-[15px]">
+                <p className="mt-5 text-body text-foreground/85">
                   {report.summary}
                 </p>
               )}
@@ -160,7 +160,7 @@ function ReportPage() {
                 <h3 className="font-display text-micro uppercase tracking-[0.3em] text-muted-foreground">
                   {t("report.writingStyle")}
                 </h3>
-                <p className="mt-4 text-small leading-relaxed text-foreground/85 md:text-[15px]">
+                <p className="mt-4 text-body text-foreground/85">
                   {report.writingStyle}
                 </p>
               </section>
@@ -301,7 +301,7 @@ function ListBlock({ title, items }: { title: string; items: string[] }) {
       <h4 className="text-micro uppercase tracking-[0.25em] text-foreground/80">{title}</h4>
       <ul className="mt-3 space-y-2">
         {items.map((s, i) => (
-          <li key={i} className="text-small leading-relaxed text-foreground/85 md:text-[15px]">
+          <li key={i} className="text-body text-foreground/85">
             — {s}
           </li>
         ))}

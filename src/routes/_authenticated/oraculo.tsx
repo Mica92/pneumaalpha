@@ -93,7 +93,7 @@ function OraclePage() {
             rows={5}
             maxLength={2000}
             disabled={submitting}
-            className="w-full resize-none rounded-xl border border-border bg-input px-5 py-4 text-[15px] leading-relaxed text-foreground placeholder:text-muted-foreground focus:border-mist/50 focus:outline-none focus:ring-1 focus:ring-mist/15 disabled:opacity-50"
+            className="w-full resize-none rounded-xl border border-border bg-input px-5 py-4 text-body text-foreground placeholder:text-muted-foreground focus:border-mist/50 focus:outline-none focus:ring-1 focus:ring-mist/15 disabled:opacity-50"
             onKeyDown={(e) => {
               if ((e.metaKey || e.ctrlKey) && e.key === "Enter") {
                 (e.currentTarget.form as HTMLFormElement | null)?.requestSubmit();
@@ -143,7 +143,7 @@ function OraclePage() {
               </div>
             </div>
 
-            <p className="mt-6 text-small leading-relaxed text-foreground/85 md:text-[15px]">
+            <p className="mt-6 text-body text-foreground/85">
               {result.reason}
             </p>
 

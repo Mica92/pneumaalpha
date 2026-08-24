@@ -52,7 +52,7 @@ export function QuoteCard({ className = "" }: { className?: string }) {
       </blockquote>
 
       <div className="relative mt-6 border-t border-border/60 pt-4">
-        <p className="mb-3 font-display text-[9px] uppercase tracking-[0.32em] text-muted-foreground">
+        <p className="mb-3 font-display text-micro uppercase tracking-[0.32em] text-muted-foreground">
           {t("quotes.themes")}
         </p>
         <div className="flex flex-wrap gap-2">

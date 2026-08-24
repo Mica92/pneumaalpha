@@ -137,7 +137,7 @@ function ExplorePage() {
             maxLength={2000}
             disabled={submitting}
             aria-label={COPY.placeholder[lang]}
-            className="w-full resize-none rounded-xl border border-border bg-input px-5 py-4 text-[15px] leading-relaxed text-foreground placeholder:text-muted-foreground focus:border-bronze/50 focus:ring-1 focus:ring-bronze/20 focus:outline-none disabled:opacity-50"
+            className="w-full resize-none rounded-xl border border-border bg-input px-5 py-4 text-body text-foreground placeholder:text-muted-foreground focus:border-bronze/50 focus:ring-1 focus:ring-bronze/20 focus:outline-none disabled:opacity-50"
             onKeyDown={(e) => {
               if ((e.metaKey || e.ctrlKey) && e.key === "Enter")
                 (e.currentTarget.form as HTMLFormElement | null)?.requestSubmit();

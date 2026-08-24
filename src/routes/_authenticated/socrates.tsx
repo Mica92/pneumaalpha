@@ -101,7 +101,7 @@ function SocratesPage() {
         </header>
 
         <section className="flex-1 space-y-6" aria-live="polite">
-          <p className="fade-up rounded-xl border border-mist/25 bg-card/50 p-5 text-[15px] leading-relaxed text-foreground/90">
+          <p className="fade-up rounded-xl border border-mist/25 bg-card/50 p-5 text-body text-foreground/90">
             {SOCRATIC_OPENING[lang]}
           </p>
 
@@ -110,8 +110,8 @@ function SocratesPage() {
               key={i}
               className={
                 turn.role === "user"
-                  ? "fade-up ml-auto max-w-[85%] rounded-xl border border-border/60 bg-secondary/40 px-4 py-3 text-[15px] leading-relaxed text-foreground"
-                  : "fade-up max-w-[90%] text-[15px] leading-relaxed text-foreground/90"
+                  ? "fade-up ml-auto max-w-[85%] rounded-xl border border-border/60 bg-secondary/40 px-4 py-3 text-body text-foreground"
+                  : "fade-up max-w-[90%] text-body text-foreground/90"
               }
             >
               {turn.role === "assistant" && (
@@ -140,7 +140,7 @@ function SocratesPage() {
               <p className="font-display text-micro uppercase tracking-[0.35em] text-sage">
                 {t("socrates.summary.kicker")}
               </p>
-              <p className="mt-4 whitespace-pre-wrap text-[15px] leading-relaxed text-foreground/90">
+              <p className="mt-4 whitespace-pre-wrap text-body text-foreground/90">
                 {summary}
               </p>
             </div>
@@ -172,7 +172,7 @@ function SocratesPage() {
                 }
               }}
               placeholder={t("socrates.placeholder")}
-              className="focus-mist flex-1 resize-none bg-transparent px-3 py-2 text-[15px] leading-relaxed text-foreground placeholder:text-muted-foreground focus:outline-none"
+              className="focus-mist flex-1 resize-none bg-transparent px-3 py-2 text-body text-foreground placeholder:text-muted-foreground focus:outline-none"
             />
             <button
               type="submit"

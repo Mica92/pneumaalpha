@@ -166,7 +166,7 @@ function FragmentCard({ fragment }: { fragment: LibraryFragment }) {
           “{fragment.question}”
         </p>
       )}
-      <blockquote className="mt-3 whitespace-pre-wrap text-[15px] leading-relaxed text-foreground/90">
+      <blockquote className="mt-3 whitespace-pre-wrap text-body text-foreground/90">
         {fragment.fragment}
       </blockquote>
       {isPhilosopherId(id) && (

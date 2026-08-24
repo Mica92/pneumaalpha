@@ -141,7 +141,7 @@ function PrivacyPage() {
           {c.sections.map((s) => (
             <section key={s.h}>
               <h2 className="font-display text-lg font-light text-foreground">{s.h}</h2>
-              <p className="mt-2 text-small leading-relaxed text-foreground/70 md:text-[15px]">
+              <p className="mt-2 text-body text-foreground/70">
                 {s.p}
               </p>
             </section>

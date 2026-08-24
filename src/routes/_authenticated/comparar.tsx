@@ -118,7 +118,7 @@ function ComparePage() {
                   ? "¿Qué hago con el miedo a equivocarme?"
                   : "What do I do with the fear of error?"
               }
-              className="focus-mist mt-2 w-full resize-none rounded-xl border border-border bg-input px-5 py-4 text-[15px] leading-relaxed text-foreground placeholder:text-muted-foreground focus:outline-none"
+              className="focus-mist mt-2 w-full resize-none rounded-xl border border-border bg-input px-5 py-4 text-body text-foreground placeholder:text-muted-foreground focus:outline-none"
             />
           </div>
 
@@ -142,7 +142,7 @@ function ComparePage() {
                       onClick={() => toggle(p.id)}
                       disabled={disabled || busy}
                       aria-pressed={active}
-                      className={`focus-mist rounded-full border px-3 py-1.5 text-[12px] transition-colors disabled:opacity-30 ${
+                      className={`focus-mist rounded-full border px-3 py-1.5 text-micro transition-colors disabled:opacity-30 ${
                         active
                           ? "border-bronze bg-bronze/15 text-foreground"
                           : "border-border/70 text-muted-foreground hover:border-bronze/50 hover:text-foreground"
@@ -204,7 +204,7 @@ function ComparePage() {
                         {meta.name}
                       </h2>
                     </div>
-                    <p className="mt-4 whitespace-pre-wrap text-[15px] leading-relaxed text-foreground/90">
+                    <p className="mt-4 whitespace-pre-wrap text-body text-foreground/90">
                       {turn.text}
                     </p>
                     <Link

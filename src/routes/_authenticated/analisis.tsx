@@ -129,7 +129,7 @@ function AnalysisPage() {
             rows={7}
             maxLength={6000}
             disabled={submitting}
-            className="w-full resize-none rounded-xl border border-border bg-input px-5 py-4 text-[15px] leading-relaxed text-foreground placeholder:text-muted-foreground focus:border-glacier/60 focus:outline-none focus:ring-1 focus:ring-glacier/20 disabled:opacity-50"
+            className="w-full resize-none rounded-xl border border-border bg-input px-5 py-4 text-body text-foreground placeholder:text-muted-foreground focus:border-glacier/60 focus:outline-none focus:ring-1 focus:ring-glacier/20 disabled:opacity-50"
             onKeyDown={(e) => {
               if ((e.metaKey || e.ctrlKey) && e.key === "Enter") {
                 (e.currentTarget.form as HTMLFormElement | null)?.requestSubmit();
@@ -183,7 +183,7 @@ function AnalysisPage() {
                   {result.reading.map((p, i) => (
                     <p
                       key={i}
-                      className="text-small leading-relaxed text-foreground/85 md:text-[15px]"
+                      className="text-body text-foreground/85"
                     >
                       {p}
                     </p>

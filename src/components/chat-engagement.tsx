@@ -121,7 +121,7 @@ export function DilemmaBanner({
             ◈
           </span>
           <div className="min-w-0 flex-1">
-            <p className="font-display text-[9px] uppercase tracking-[0.32em] text-muted-foreground">
+            <p className="font-display text-micro uppercase tracking-[0.32em] text-muted-foreground">
               {t("chat.dilemma.kicker")}
             </p>
             <p className="mt-0.5 truncate text-small leading-snug text-foreground/90">{dilemma}</p>
@@ -174,7 +174,7 @@ export function ContinuationChips({
   const items = getContinuations(topic, lang);
   return (
     <div className="mt-4">
-      <p className="mb-2 font-display text-[9px] uppercase tracking-[0.32em] text-muted-foreground">
+      <p className="mb-2 font-display text-micro uppercase tracking-[0.32em] text-muted-foreground">
         {t("chat.chips.label")}
       </p>
       <div className="flex flex-wrap gap-2">
@@ -259,7 +259,7 @@ export function RootQuestionsFab({ onPick, disabled }: { onPick: SendFn; disable
                       setOpen(false);
                       onPick(q[lang]);
                     }}
-                    className="flex w-full items-start gap-3 rounded-xl border border-border/70 bg-card/40 px-4 py-3 text-left text-[13.5px] leading-relaxed text-foreground/90 transition-all hover:border-mist/40 hover:bg-card/70"
+                    className="flex w-full items-start gap-3 rounded-xl border border-border/70 bg-card/40 px-4 py-3 text-left text-small text-foreground/90 transition-all hover:border-mist/40 hover:bg-card/70"
                   >
                     <span aria-hidden="true" className="mt-0.5 text-mist/80">
                       ✦

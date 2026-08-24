@@ -107,7 +107,7 @@ export function SiteNav({ className = "" }: { className?: string }) {
             <button
               type="button"
               onClick={signIn}
-              className="btn-gold rounded-full px-4 py-1.5 text-[12px]"
+              className="btn-gold rounded-full px-4 py-1.5 text-micro"
             >
               {lang === "es" ? "Entrar con Google" : "Sign in with Google"}
             </button>
@@ -171,7 +171,7 @@ export function SiteNav({ className = "" }: { className?: string }) {
                   setOpen(false);
                   void signIn();
                 }}
-                className="btn-gold my-3 rounded-full px-4 py-2 text-[12px]"
+                className="btn-gold my-3 rounded-full px-4 py-2 text-micro"
               >
                 {lang === "es" ? "Entrar con Google" : "Sign in with Google"}
               </button>
