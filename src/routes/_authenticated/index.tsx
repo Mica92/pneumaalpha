@@ -109,9 +109,9 @@ function Home() {
                 placeholder={
                   es ? "No sé qué hacer con mi vida…" : "I don't know what to do with my life…"
                 }
-                className="focus-mist flex-1 rounded-md border border-border/70 bg-input px-4 py-3.5 text-sm text-foreground placeholder:text-muted-foreground/70"
+                className="focus-mist flex-1 rounded-md border border-border/70 bg-input px-4 py-3.5 text-body text-foreground placeholder:text-muted-foreground/70"
               />
-              <button type="submit" className="btn-gold focus-mist px-6 py-3.5 text-sm">
+              <button type="submit" className="btn-gold focus-mist px-6 py-3.5 text-small">
                 {es ? "Empezar" : "Begin"}
               </button>
             </form>
