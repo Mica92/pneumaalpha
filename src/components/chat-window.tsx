@@ -475,7 +475,7 @@ function ChatBody({
                 <p className="font-display text-micro uppercase tracking-[0.4em] text-muted-foreground">
                   {meta.name}
                 </p>
-                <p className="font-display text-subtitle font-light leading-relaxed text-foreground/90 md:text-subtitle">
+                <p className="font-display text-heading font-light text-foreground/90">
                   {meta.opening[lang]}
                 </p>
 
@@ -604,7 +604,7 @@ function ChatBody({
                 ta.style.height = "auto";
                 ta.style.height = Math.min(ta.scrollHeight, 200) + "px";
               }}
-              className="focus-mist flex-1 resize-none rounded-xl border border-border bg-input px-4 py-3 text-[15px] leading-relaxed text-foreground placeholder:text-muted-foreground transition-colors focus:border-mist/50 disabled:opacity-50"
+              className="focus-mist flex-1 resize-none rounded-xl border border-border bg-input px-4 py-3 text-body text-foreground placeholder:text-muted-foreground transition-colors focus:border-mist/50 disabled:opacity-50"
             />
             <button
               type="button"
@@ -728,7 +728,7 @@ function ChatBody({
                               {stamp}
                             </span>
                           </div>
-                          <p className="whitespace-pre-wrap text-[13.5px] leading-relaxed text-foreground/85">
+                          <p className="whitespace-pre-wrap text-small text-foreground/85">
                             {m.content}
                           </p>
                         </li>
@@ -862,7 +862,7 @@ function ChatBody({
 const UserBubble = memo(function UserBubble({ text }: { text: string }) {
   return (
     <div className="flex justify-end fade-up">
-      <div className="max-w-[85%] rounded-2xl rounded-tr-sm border border-border/60 bg-secondary/70 px-4 py-3 text-[15px] leading-relaxed text-secondary-foreground shadow-sm">
+      <div className="max-w-[85%] rounded-2xl rounded-tr-sm border border-border/60 bg-secondary/70 px-4 py-3 text-body text-secondary-foreground shadow-sm">
         {text}
       </div>
     </div>

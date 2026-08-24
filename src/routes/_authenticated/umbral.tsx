@@ -284,7 +284,7 @@ function Index() {
                   </span>
                   <h2
                     className={`mt-6 font-display font-light tracking-tight text-foreground ${
-                      isHero ? "text-3xl md:text-4xl" : "text-subtitle md:text-subtitle"
+                      isHero ? "text-title" : "text-subtitle"
                     }`}
                   >
                     {p.name}
