@@ -35,6 +35,12 @@ import eliadeScene from "@/assets/scenes/eliade.jpg";
 import evolaScene from "@/assets/scenes/evola.jpg";
 import jabriScene from "@/assets/scenes/jabri.jpg";
 import quoistScene from "@/assets/scenes/quoist.jpg";
+import sartreScene from "@/assets/scenes/sartre.jpg";
+import camusScene from "@/assets/scenes/camus.jpg";
+import berlinScene from "@/assets/scenes/berlin.jpg";
+import bostromScene from "@/assets/scenes/bostrom.jpg";
+import krishnamurtiScene from "@/assets/scenes/krishnamurti.jpg";
+import zubiriScene from "@/assets/scenes/zubiri.jpg";
 import type { PhilosopherId } from "@/lib/philosophers";
 
 /**
@@ -79,6 +85,12 @@ export const SCENES: Partial<Record<PhilosopherId, string>> = {
   evola: evolaScene,
   jabri: jabriScene,
   quoist: quoistScene,
+  sartre: sartreScene,
+  camus: camusScene,
+  berlin: berlinScene,
+  bostrom: bostromScene,
+  krishnamurti: krishnamurtiScene,
+  zubiri: zubiriScene,
 };
 
 export function sceneOf(id: string): string | undefined {
