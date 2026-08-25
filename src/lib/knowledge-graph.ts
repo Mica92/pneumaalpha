@@ -1989,7 +1989,47 @@ export const GRAPH_LINKS: GraphLink[] = [
   { source: "fascism", target: "revolutionary_conservatism", kind: "opposition" },
 ];
 
+/* ── Mentes vivas añadidas después del dataset original ───────────── */
+// Enlaza con el chat los nodos que ya existían.
+const LINK_EXISTING: PhilosopherId[] = ["burke", "arendt", "evola", "sartre"];
+for (const n of GRAPH_NODES) {
+  if (!n.chat && (LINK_EXISTING as string[]).includes(n.id)) n.chat = n.id as PhilosopherId;
+}
+
+// Nodos nuevos para mentes vivas que aún no estaban en la red.
+const NEW_MINDS: [PhilosopherId, string, string, string, string, string[]][] = [
+  ["cioran", "Emil Cioran", "1911–1995", "Lucidez, insomnio y el inconveniente de haber nacido.", "Lucidity, insomnia and the trouble with being born.", ["nihilism", "existentialism", "suffering", "decadence"]],
+  ["rousseau", "Jean-Jacques Rousseau", "1712–1778", "El hombre nace libre; voluntad general y contrato social.", "Man is born free; general will and the social contract.", ["social_contract", "enlightenment", "romanticism", "equality"]],
+  ["emerson", "Ralph Waldo Emerson", "1803–1882", "Confianza en sí mismo y naturaleza como revelación.", "Self-reliance and nature as revelation.", ["romanticism", "transcendence", "freedom"]],
+  ["thoreau", "Henry David Thoreau", "1817–1862", "Vida deliberada, desobediencia civil y bosque.", "Deliberate life, civil disobedience and the woods.", ["freedom", "anarchism", "rootedness"]],
+  ["stirner", "Max Stirner", "1806–1856", "El Único y su propiedad: contra toda idea fija.", "The Ego and its Own: against every fixed idea.", ["anarchism", "nihilism", "ideology_critique"]],
+  ["bakunin", "Mijaíl Bakunin", "1814–1876", "Libertad sin Estado: anarquismo colectivista.", "Freedom without the State: collectivist anarchism.", ["anarchism", "socialism", "authority"]],
+  ["negrihardt", "Negri & Hardt", "s. XX–XXI", "Imperio, multitud y trabajo inmaterial.", "Empire, multitude and immaterial labour.", ["marxism_leninism", "capitalism", "postmodernism", "power_knowledge"]],
+  ["rand", "Ayn Rand", "1905–1982", "Objetivismo: egoísmo racional y capitalismo.", "Objectivism: rational egoism and capitalism.", ["libertarianism", "capitalism", "classical_liberalism"]],
+  ["gadamer", "Hans-Georg Gadamer", "1900–2002", "Fusión de horizontes: verdad y método.", "Fusion of horizons: truth and method.", ["hermeneutics", "phenomenology", "interpretation", "tradition"]],
+  ["ibnkhaldun", "Ibn Jaldún", "1332–1406", "Asabiyyah: cohesión, ciclos y decadencia de imperios.", "Asabiyyah: cohesion, cycles and imperial decline.", ["islam", "decadence", "sovereignty"]],
+  ["nishida", "Kitaro Nishida", "1870–1945", "Lugar de la nada y experiencia pura.", "Place of nothingness and pure experience.", ["buddhism", "phenomenology", "metaphysics_crit"]],
+  ["iqbal", "Muhammad Iqbal", "1877–1938", "El yo (khudi) y la reconstrucción del pensamiento islámico.", "Selfhood (khudi) and the reconstruction of Islamic thought.", ["islam", "sufism", "vitalism"]],
+  ["eliade", "Mircea Eliade", "1907–1986", "Lo sagrado y lo profano: el eterno retorno del mito.", "The sacred and the profane: the eternal return of myth.", ["sacred", "perennialism", "mysticism"]],
+  ["jabri", "Mohammed Abed al-Jabri", "1935–2010", "Crítica de la razón árabe.", "Critique of Arab reason.", ["islam", "modernity", "ideology_critique"]],
+  ["quoist", "Michel Quoist", "1921–1997", "Oración cotidiana y humanismo cristiano.", "Everyday prayer and Christian humanism.", ["catholicism", "personalism", "christianity"]],
+  ["camus", "Albert Camus", "1913–1960", "Absurdo, rebeldía y fidelidad a la tierra.", "The absurd, revolt and fidelity to the earth.", ["existentialism", "nihilism", "freedom"]],
+  ["berlin", "Isaiah Berlin", "1909–1997", "Dos conceptos de libertad y pluralismo de valores.", "Two concepts of liberty and value pluralism.", ["liberalism", "freedom", "counter_enlightenment"]],
+  ["bostrom", "Christopher J. Boström", "1797–1866", "Idealismo racional sueco: la realidad como sistema de espíritus.", "Swedish rational idealism: reality as a system of spirits.", ["idealism_ger", "metaphysics_crit", "monarchism"]],
+  ["krishnamurti", "Jiddu Krishnamurti", "1895–1986", "La verdad es una tierra sin caminos.", "Truth is a pathless land.", ["mysticism", "hinduism", "buddhism"]],
+  ["zubiri", "Xavier Zubiri", "1898–1983", "Inteligencia sentiente y realidad.", "Sentient intelligence and reality.", ["phenomenology", "thomism", "catholicism"]],
+];
+
+for (const [id, label, era, es, en, related] of NEW_MINDS) {
+  if (GRAPH_NODES.some((n) => n.id === id)) continue;
+  GRAPH_NODES.push({ id, label, kind: "philosopher", era, note: { es, en }, chat: id });
+  for (const target of related) {
+    GRAPH_LINKS.push({ source: id, target, kind: "develops" });
+  }
+}
+
 export const NODE_BY_ID = new Map(GRAPH_NODES.map((n) => [n.id, n]));
+
 
 export function neighborsOf(id: string) {
   const out: { node: GraphNode; kind: LinkKind; direction: "out" | "in" }[] = [];
