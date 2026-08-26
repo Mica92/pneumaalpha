@@ -179,84 +179,150 @@ function PhilosophersIndex() {
           </p>
 
           <div className="mt-10 flex flex-col gap-4">
-            <label className="sr-only" htmlFor="philosopher-search">
-              {es ? "Buscar filósofo o tema" : "Search philosopher or theme"}
-            </label>
-            <input
-              id="philosopher-search"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder={
-                es ? "Buscar: libertad, muerte, poder…" : "Search: freedom, death, power…"
-              }
-              className="focus-mist w-full max-w-md rounded-md border border-border/70 bg-input px-4 py-3 text-small text-foreground placeholder:text-muted-foreground/70"
-            />
+            <div className="flex flex-wrap items-center gap-3">
+              <label className="sr-only" htmlFor="philosopher-search">
+                {es ? "Buscar filósofo o tema" : "Search philosopher or theme"}
+              </label>
+              <input
+                id="philosopher-search"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder={
+                  es ? "Buscar: libertad, muerte, poder…" : "Search: freedom, death, power…"
+                }
+                className="focus-mist w-full max-w-md rounded-md border border-border/70 bg-input px-4 py-3 text-small text-foreground placeholder:text-muted-foreground/70"
+              />
 
-            <div className="flex flex-wrap gap-2">
-              <FilterChip active={cat === "all"} onClick={() => setCat("all")}>
-                {es ? "Todos" : "All"}
-              </FilterChip>
-              {CATEGORIES.map((c) => (
-                <FilterChip key={c.id} active={cat === c.id} onClick={() => setCat(c.id)}>
-                  <span aria-hidden="true" className="mr-1.5 text-bronze">
-                    {c.glyph}
+              <button
+                type="button"
+                onClick={() => setOpen((o) => !o)}
+                aria-expanded={open}
+                aria-controls="philosopher-filters"
+                className={`focus-mist inline-flex items-center gap-2 rounded-full border px-4 py-2.5 text-micro uppercase tracking-[0.22em] backdrop-blur-md transition-all ${
+                  open || activeCount > 0
+                    ? "border-bronze/60 bg-bronze/12 text-foreground shadow-[0_0_24px_-12px_var(--bronze)]"
+                    : "border-border/70 bg-card/30 text-muted-foreground hover:border-bronze/40 hover:text-foreground"
+                }`}
+              >
+                <span aria-hidden="true" className="text-bronze">
+                  ◈
+                </span>
+                {es ? "Filtros" : "Filters"}
+                {activeCount > 0 && (
+                  <span className="rounded-full border border-bronze/50 bg-bronze/15 px-1.5 py-0.5 text-[0.65em] leading-none text-foreground">
+                    {activeCount}
                   </span>
-                  {c.title[lang]}
-                </FilterChip>
-              ))}
+                )}
+                <span
+                  aria-hidden="true"
+                  className={`transition-transform duration-300 ${open ? "rotate-180" : ""}`}
+                >
+                  ▾
+                </span>
+              </button>
             </div>
 
-            <FilterGroup label={es ? "Ordenar por" : "Sort by"}>
-              {SORTS.map((s) => (
-                <FilterChip key={s.id} active={sort === s.id} onClick={() => setSort(s.id)}>
-                  {s.label[lang]}
-                </FilterChip>
-              ))}
-            </FilterGroup>
+            <div
+              id="philosopher-filters"
+              hidden={!open}
+              className="fade-up relative overflow-hidden rounded-xl border border-bronze/25 bg-background/55 p-5 backdrop-blur-xl md:p-6"
+              style={{
+                backgroundImage:
+                  "radial-gradient(120% 100% at 0% 0%, color-mix(in oklab, var(--bronze) 8%, transparent), transparent 60%)",
+              }}
+            >
+              <div className="rule-hairline absolute inset-x-0 top-0" aria-hidden="true" />
+              <div className="grid gap-6 md:grid-cols-2">
+                <FilterGroup label={es ? "Ordenar por" : "Sort by"}>
+                  {SORTS.map((s) => (
+                    <FilterChip key={s.id} active={sort === s.id} onClick={() => setSort(s.id)}>
+                      {s.label[lang]}
+                    </FilterChip>
+                  ))}
+                </FilterGroup>
 
-            <FilterGroup label={es ? "Ámbito" : "Field"}>
-              {FAMILY_IDS.map((f) => (
-                <FilterChip
-                  key={f}
-                  active={families.includes(f)}
-                  onClick={() => toggle(families, setFamilies, f)}
+                <FilterGroup label={es ? "Camino" : "Path"}>
+                  <FilterChip active={cat === "all"} onClick={() => setCat("all")}>
+                    {es ? "Todos" : "All"}
+                  </FilterChip>
+                  {CATEGORIES.map((c) => (
+                    <FilterChip key={c.id} active={cat === c.id} onClick={() => setCat(c.id)}>
+                      <span aria-hidden="true" className="mr-1.5 text-bronze">
+                        {c.glyph}
+                      </span>
+                      {c.title[lang]}
+                    </FilterChip>
+                  ))}
+                </FilterGroup>
+
+                <FilterGroup label={es ? "Ámbito" : "Field"}>
+                  {FAMILY_IDS.map((f) => (
+                    <FilterChip
+                      key={f}
+                      active={families.includes(f)}
+                      onClick={() => toggle(families, setFamilies, f)}
+                    >
+                      {FAMILY_LABELS[f][lang]}
+                    </FilterChip>
+                  ))}
+                </FilterGroup>
+
+                <FilterGroup
+                  label={es ? "Posición política" : "Political position"}
+                  hint={
+                    es
+                      ? "Lectura orientativa; sólo mentes con carga política."
+                      : "Indicative reading; only politically charged minds."
+                  }
                 >
-                  {FAMILY_LABELS[f][lang]}
-                </FilterChip>
-              ))}
-            </FilterGroup>
+                  {POLITICS_ORDER.map((p) => (
+                    <FilterChip
+                      key={p}
+                      active={politics.includes(p)}
+                      onClick={() => toggle(politics, setPolitics, p)}
+                    >
+                      {POLITICS_LABELS[p][lang]}
+                    </FilterChip>
+                  ))}
+                </FilterGroup>
 
-            <FilterGroup label={es ? "Movimiento" : "Movement"}>
-              {movementIds.map((m) => (
-                <FilterChip
-                  key={m}
-                  active={movements.includes(m)}
-                  onClick={() => toggle(movements, setMovements, m)}
-                >
-                  {MOVEMENT_LABELS[m][lang]}
-                </FilterChip>
-              ))}
-            </FilterGroup>
+                <FilterGroup label={es ? "Movimiento" : "Movement"}>
+                  {movementIds.map((m) => (
+                    <FilterChip
+                      key={m}
+                      active={movements.includes(m)}
+                      onClick={() => toggle(movements, setMovements, m)}
+                    >
+                      {MOVEMENT_LABELS[m][lang]}
+                    </FilterChip>
+                  ))}
+                </FilterGroup>
 
-            <FilterGroup label={es ? "Época" : "Era"}>
-              {ERA_IDS.map((e) => (
-                <FilterChip key={e} active={eras.includes(e)} onClick={() => toggle(eras, setEras, e)}>
-                  {ERA_LABELS[e][lang]}
-                </FilterChip>
-              ))}
-            </FilterGroup>
+                <FilterGroup label={es ? "Época" : "Era"}>
+                  {ERA_IDS.map((e) => (
+                    <FilterChip
+                      key={e}
+                      active={eras.includes(e)}
+                      onClick={() => toggle(eras, setEras, e)}
+                    >
+                      {ERA_LABELS[e][lang]}
+                    </FilterChip>
+                  ))}
+                </FilterGroup>
 
-            <FilterGroup label={es ? "Nivel" : "Level"}>
-              {LEVEL_IDS.map((l) => (
-                <FilterChip
-                  key={l}
-                  active={levels.includes(l)}
-                  onClick={() => toggle(levels, setLevels, l)}
-                >
-                  {LEVEL_LABELS[l][lang]}
-                </FilterChip>
-              ))}
-            </FilterGroup>
+                <FilterGroup label={es ? "Nivel" : "Level"}>
+                  {LEVEL_IDS.map((l) => (
+                    <FilterChip
+                      key={l}
+                      active={levels.includes(l)}
+                      onClick={() => toggle(levels, setLevels, l)}
+                    >
+                      {LEVEL_LABELS[l][lang]}
+                    </FilterChip>
+                  ))}
+                </FilterGroup>
+              </div>
+            </div>
 
             <div className="flex items-center gap-4">
               <p aria-live="polite" className="text-micro text-muted-foreground">
@@ -296,14 +362,24 @@ function PhilosophersIndex() {
   );
 }
 
-function FilterGroup({ label, children }: { label: string; children: React.ReactNode }) {
+function FilterGroup({
+  label,
+  hint,
+  children,
+}: {
+  label: string;
+  hint?: string;
+  children: React.ReactNode;
+}) {
   return (
     <div className="flex flex-col gap-2">
       <p className="label">{label}</p>
+      {hint && <p className="-mt-1 text-micro text-muted-foreground/70">{hint}</p>}
       <div className="flex flex-wrap gap-2">{children}</div>
     </div>
   );
 }
+
 
 
 function FilterChip({
