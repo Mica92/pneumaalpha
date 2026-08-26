@@ -641,98 +641,82 @@ export const T: Dict = {
 
   "about.kicker": { es: "Nosotros", en: "About us" },
   "about.title": {
-    es: "Conocimiento como puente",
-    en: "Knowledge as a bridge",
+    es: "Conocimiento al servicio de la conciencia",
+    en: "Knowledge at the service of consciousness",
   },
+
   "about.intro.p1": {
-    es: "Somos un grupo de ciudadanos comprometidos con el bienestar de la sociedad. No nos define una sola profesión ni una sola forma de pensar; nos define una convicción compartida: que el desarrollo de la vida humana es el propósito más importante de nuestra época.",
-    en: "We are a group of citizens committed to the wellbeing of society. We are not defined by a single profession or a single way of thinking; we are defined by a shared conviction: that the development of human life is the most important purpose of our time.",
+    es: "Somos un grupo de ciudadanos convencidos de que la tecnología debe estar al servicio de la conciencia humana.",
+    en: "We are a group of citizens convinced that technology must be at the service of human consciousness.",
   },
   "about.intro.p2": {
-    es: "Por eso nos juntamos. Queremos entregar una herramienta poderosa, un punto de encuentro entre las mentes más prodigiosas de la humanidad y todas aquellas personas que buscan algo más que información: buscan comprensión, criterio y crecimiento.",
-    en: "That is why we came together. We want to deliver a powerful tool, a meeting point between the most prodigious minds of humanity and all those people who seek something more than information: understanding, judgment and growth.",
+    es: "Creemos que el conocimiento no debe ser un privilegio, sino una herramienta accesible para todos.",
+    en: "We believe knowledge should not be a privilege, but an accessible tool for everyone.",
   },
   "about.intro.p3": {
-    es: "A través de esa red, buscamos que los usuarios puedan potenciarse a nivel personal. Que puedan conocerse mejor, pensar con más claridad, tomar decisiones con más conciencia y, en definitiva, vivir de mejor manera.",
-    en: "Through this network, we seek to empower users on a personal level. To know themselves better, think more clearly, make decisions more consciously and, ultimately, live better.",
+    es: "Por eso reunimos mentes brillantes y las conectamos con personas que quieren pensar mejor, decidir mejor y vivir mejor.",
+    en: "That is why we bring together brilliant minds and connect them with people who want to think better, decide better and live better.",
   },
-  "about.intro.p4": {
-    es: "No creemos en el conocimiento como privilegio. Creemos en el conocimiento como puente. Un puente entre disciplinas, entre generaciones, entre culturas y, sobre todo, entre el potencial de cada persona y su vida concreta.",
-    en: "We do not believe in knowledge as a privilege. We believe in knowledge as a bridge. A bridge between disciplines, generations, cultures and, above all, between the potential of each person and their concrete life.",
+
+  "about.what.title": { es: "Qué hacemos", en: "What we do" },
+  "about.what.p1": {
+    es: "Entrenamos inteligencias artificiales con el pensamiento de grandes filósofos.",
+    en: "We train artificial intelligences with the thought of great philosophers.",
   },
+  "about.what.p2": {
+    es: "Creamos mentes digitalizadas: modelos de IA capaces de conversar, explicar y reflexionar como lo harían esos pensadores.",
+    en: "We create digitized minds: AI models capable of conversing, explaining and reflecting as those thinkers would.",
+  },
+  "about.what.p3": {
+    es: "Así, cualquier persona puede dialogar con las ideas de los grandes maestros, aprender de ellas y aplicarlas a su vida cotidiana.",
+    en: "Thus, anyone can dialogue with the ideas of the great masters, learn from them and apply them to daily life.",
+  },
+
   "about.mission.title": { es: "Misión", en: "Mission" },
   "about.mission.p1": {
-    es: "Hoy, gracias a la inteligencia artificial, la información dejó de ser un valor único para transformarse en un recurso básico, un commodity. Durante siglos, tener información era tener poder. Hoy, la información está en todas partes; lo que escasea es la capacidad de darle sentido.",
-    en: "Today, thanks to artificial intelligence, information has ceased to be a unique value and has become a basic resource, a commodity. For centuries, having information was having power. Today, information is everywhere; what is scarce is the ability to make sense of it.",
+    es: "Poner la inteligencia artificial y el conocimiento filosófico al alcance de todos.",
+    en: "To put artificial intelligence and philosophical knowledge within everyone's reach.",
   },
   "about.mission.p2": {
-    es: "Este cambio transformará la dinámica de la economía mundial. Pondrá, más temprano que tarde, al ser humano en el centro de todo, porque el valor ya no estará en acumular datos, sino en la capacidad de reflexión y de crítica para el desarrollo personal y colectivo.",
-    en: "This change will transform the dynamics of the world economy. Sooner rather than later, it will place the human being at the center of everything, because value will no longer lie in accumulating data, but in the capacity for reflection and critique for personal and collective development.",
+    es: "Hoy la información ya no es el valor principal; el valor está en la capacidad de reflexión, pensamiento crítico y conciencia. Nuestra misión es ayudar a cada persona a desarrollar ese potencial.",
+    en: "Today information is no longer the main value; value lies in the capacity for reflection, critical thinking and consciousness. Our mission is to help every person develop that potential.",
   },
-  "about.mission.p3": {
-    es: "A través de este cambio de paradigma, la economía pasará de una lógica binaria —donde las cosas parecen ser blancas o negras, ganar o perder, producir o consumir— a una lógica multidimensional. En ese nuevo escenario, ecosistemas que aún no existen podrán convertirse en industrias prósperas, creadas para generar un impacto virtuoso.",
-    en: "Through this paradigm shift, the economy will move from a binary logic —where things seem to be black or white, win or lose, produce or consume— to a multidimensional logic. In this new scenario, ecosystems that do not yet exist will be able to become prosperous industries, created to generate a virtuous impact.",
-  },
-  "about.mission.p4": {
-    es: "Filosóficamente hablando, el mundo de la técnica ha dominado la historia de Occidente. Nos ha traído avances extraordinarios, pero también ha generado errores profundos: desconexión con la naturaleza y pérdida de sentido. En el futuro, la técnica continuará su progreso, sin embargo, el centro del desarrollo de la sociedad cambiará de protagonista: pasará de la técnica a la conciencia del ser humano.",
-    en: "Philosophically speaking, the world of technique has dominated the history of the West. It has brought us extraordinary advances, but it has also generated profound errors: disconnection from nature and loss of meaning. In the future, technique will continue its progress, but the center of societal development will change protagonists: it will shift from technique to the consciousness of the human being.",
-  },
-  "about.mission.p5": {
-    es: "Para este nuevo mundo, pensar, integrar y cultivar nuevas formas de habitar el planeta será clave para el bienestar de las sociedades. No se tratará solo de adaptarse al cambio, sino de aprender a habitarlo con sabiduría.",
-    en: "For this new world, thinking, integrating and cultivating new ways of inhabiting the planet will be key to the wellbeing of societies. It will not be just about adapting to change, but about learning to inhabit it with wisdom.",
-  },
+
   "about.vision.title": { es: "Visión", en: "Vision" },
   "about.vision.p1": {
-    es: "Ser la plataforma que impulse la transición hacia una sociedad centrada en la conciencia humana, donde la inteligencia artificial y la tecnología actúen como herramientas liberadoras del potencial personal y colectivo.",
-    en: "To be the platform that drives the transition toward a society centered on human consciousness, where artificial intelligence and technology act as liberating tools for personal and collective potential.",
+    es: "Un mundo donde la tecnología libere el potencial humano y no lo esclavice.",
+    en: "A world where technology frees human potential rather than enslaving it.",
   },
   "about.vision.p2": {
-    es: "Aspiramos a construir un ecosistema global de mentes que conecte conocimiento, reflexión crítica y desarrollo humano. Queremos que ese ecosistema no sea una promesa lejana, sino una realidad accesible para cualquier persona que quiera participar.",
-    en: "We aspire to build a global ecosystem of minds that connects knowledge, critical reflection and human development. We want that ecosystem to be not a distant promise, but an accessible reality for anyone who wants to participate.",
+    es: "Imaginamos una sociedad centrada en la conciencia, donde cualquier persona pueda acceder al pensamiento de las mentes más brillantes para vivir con más claridad, ética y bienestar.",
+    en: "We imagine a society centered on consciousness, where anyone can access the thought of the brightest minds to live with greater clarity, ethics and wellbeing.",
   },
-  "about.vision.p3": {
-    es: "Visualizamos un futuro donde las industrias multidimensionales florezcan para generar bienestar real, ético y sostenible. Un futuro en el que la economía no se mida solo por lo que produce, sino por la calidad de vida que hace posible.",
-    en: "We envision a future where multidimensional industries flourish to generate real, ethical and sustainable wellbeing. A future in which the economy is measured not only by what it produces, but by the quality of life it makes possible.",
-  },
-  "about.vision.p4": {
-    es: "Imaginamos un mundo en el que cada persona, sin importar su origen, pueda acceder a las ideas, herramientas y redes necesarias para desarrollar su conciencia y vivir mejor. Un mundo donde el progreso técnico esté al servicio de la vida, y no al revés.",
-    en: "We imagine a world in which every person, regardless of origin, can access the ideas, tools and networks necessary to develop their consciousness and live better. A world where technical progress is at the service of life, and not the other way around.",
-  },
+
   "about.values.title": { es: "Valores", en: "Values" },
   "about.values.1.h": { es: "Conciencia", en: "Consciousness" },
   "about.values.1.p": {
-    es: "Creemos que el desarrollo humano comienza por la capacidad de observarse, cuestionarse y comprenderse. La conciencia no es un concepto abstracto: es la base desde la cual cada persona puede habitar su vida con mayor sentido, responsabilidad y libertad.",
-    en: "We believe human development begins with the capacity to observe, question and understand oneself. Consciousness is not an abstract concept: it is the ground from which each person can inhabit their life with greater meaning, responsibility and freedom.",
+    es: "Pensar antes de actuar.",
+    en: "Think before acting.",
   },
   "about.values.2.h": { es: "Pensamiento crítico", en: "Critical thinking" },
   "about.values.2.p": {
-    es: "Valoramos la reflexión por encima de la repetición. En un mundo saturado de información, pensar críticamente no es un lujo, sino una forma de resistencia y de construcción. Promovemos la pregunta antes que la respuesta automática.",
-    en: "We value reflection over repetition. In a world saturated with information, thinking critically is not a luxury but a form of resistance and of construction. We promote the question before the automatic answer.",
+    es: "Cuestionar, no repetir.",
+    en: "Question, don't repeat.",
   },
-  "about.values.3.h": { es: "Integración", en: "Integration" },
+  "about.values.3.h": { es: "Accesibilidad", en: "Accessibility" },
   "about.values.3.p": {
-    es: "No creemos en el conocimiento fragmentado. Buscamos integrar disciplinas, perspectivas y experiencias diversas para comprender la complejidad de la vida humana. La riqueza está en el encuentro entre lo técnico, lo filosófico, lo científico y lo humano.",
-    en: "We do not believe in fragmented knowledge. We seek to integrate diverse disciplines, perspectives and experiences in order to understand the complexity of human life. The richness lies in the encounter between the technical, the philosophical, the scientific and the human.",
+    es: "El conocimiento es para todos.",
+    en: "Knowledge is for everyone.",
   },
-  "about.values.4.h": { es: "Bienestar colectivo", en: "Collective wellbeing" },
+  "about.values.4.h": { es: "Ética", en: "Ethics" },
   "about.values.4.p": {
-    es: "El desarrollo personal solo tiene sentido cuando se conecta con el bienestar de los demás. Trabajamos para que cada avance individual contribuya a construir sociedades más justas, conscientes y equilibradas.",
-    en: "Personal development only makes sense when it connects with the wellbeing of others. We work so that every individual advance contributes to building fairer, more conscious and more balanced societies.",
+    es: "La tecnología al servicio de la vida.",
+    en: "Technology at the service of life.",
   },
-  "about.values.5.h": { es: "Accesibilidad", en: "Accessibility" },
+  "about.values.5.h": { es: "Integración", en: "Integration" },
   "about.values.5.p": {
-    es: "El conocimiento y las herramientas para el desarrollo humano no deben ser privilegio de unos pocos. Creemos en la democratización del acceso a ideas, redes y recursos que permitan a cualquier persona potenciar su vida.",
-    en: "Knowledge and the tools for human development must not be the privilege of a few. We believe in democratizing access to the ideas, networks and resources that allow anyone to strengthen their life.",
-  },
-  "about.values.6.h": { es: "Ética", en: "Ethics" },
-  "about.values.6.p": {
-    es: "La técnica y la inteligencia artificial deben estar al servicio de la vida. Actuamos con responsabilidad, transparencia y respeto por la dignidad humana, cuidando que el progreso no se convierta en un fin en sí mismo.",
-    en: "Technology and artificial intelligence must be at the service of life. We act with responsibility, transparency and respect for human dignity, making sure progress does not become an end in itself.",
-  },
-  "about.values.7.h": { es: "Sabiduría aplicada", en: "Applied wisdom" },
-  "about.values.7.p": {
-    es: "No nos interesa el conocimiento que solo se acumula. Valoramos el saber que se traduce en mejores decisiones, mejores vínculos y mejores formas de habitar el mundo. Aprender para vivir mejor.",
-    en: "We are not interested in knowledge that merely accumulates. We value understanding that translates into better decisions, better bonds and better ways of inhabiting the world. Learning in order to live better.",
+    es: "Unir filosofía, ciencia y humanidad.",
+    en: "Unite philosophy, science and humanity.",
   },
 };
 
