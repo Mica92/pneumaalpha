@@ -457,6 +457,59 @@ export const ERA_LABELS: Record<EraId, LocalizedString> = {
 export const LEVEL_ORDER: Record<LevelId, number> = { intro: 0, mid: 1, deep: 2 };
 export const ERA_ORDER: Record<EraId, number> = { ancient: 0, modern: 1, c19: 2, c20: 3 };
 
+/* ── Eje político ────────────────────────────────────────────────── */
+
+export type PoliticsId = "left" | "center" | "right";
+
+export const POLITICS_LABELS: Record<PoliticsId, LocalizedString> = {
+  left: { es: "Izquierda", en: "Left" },
+  center: { es: "Centro", en: "Center" },
+  right: { es: "Derecha", en: "Right" },
+};
+
+export const POLITICS_ORDER: PoliticsId[] = ["left", "center", "right"];
+
+/**
+ * Lectura orientativa de la posición política de cada mente.
+ * Sólo se etiqueta a quienes tienen una dimensión política reconocible.
+ */
+export const POLITICS: Partial<Record<PhilosopherId, PoliticsId>> = {
+  marx: "left",
+  bakunin: "left",
+  stirner: "left",
+  negrihardt: "left",
+  weil: "left",
+  rousseau: "left",
+  kusch: "left",
+  jabri: "left",
+  sartre: "left",
+  thoreau: "left",
+  mill: "center",
+  berlin: "center",
+  arendt: "center",
+  bentham: "center",
+  wollstonecraft: "center",
+  astell: "center",
+  camus: "center",
+  marinella: "center",
+  hegel: "center",
+  kant: "center",
+  burke: "right",
+  spengler: "right",
+  junger: "right",
+  evola: "right",
+  rand: "right",
+  bostrom: "right",
+  aquinas: "right",
+  hildebrand: "right",
+  ibnkhaldun: "right",
+};
+
+export function politicsOf(id: PhilosopherId): PoliticsId | undefined {
+  return POLITICS[id];
+}
+
+
 export type Facet = {
   families: FamilyId[];
   movements: MovementId[];
