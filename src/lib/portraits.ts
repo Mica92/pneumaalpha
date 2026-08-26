@@ -881,6 +881,262 @@ export const PROFILES: Partial<Record<PhilosopherId, PhilosopherProfile>> = {
       { es: "La persona como suidad", en: "The person as suity" },
     ],
   },
+
+  wollstonecraft: {
+    years: "1759 – 1797",
+    origin: { es: "Londres, Inglaterra", en: "London, England" },
+    bio: {
+      es: "Escritora y educadora inglesa, autora de la Vindicación de los derechos de la mujer (1792). Sostuvo que la aparente inferioridad femenina era obra de una educación diseñada para agradar, y reclamó para la mujer la condición de criatura racional. Vivió el amor, la miseria y la Revolución francesa con la misma intensidad con que escribió.",
+      en: "English writer and educator, author of A Vindication of the Rights of Woman (1792). She argued that women's apparent inferiority was the product of an education designed to please, and claimed for women the status of rational creatures. She lived love, poverty and the French Revolution as intensely as she wrote.",
+    },
+    expertise: [
+      { es: "Derechos y educación de la mujer", en: "Women's rights and education" },
+      { es: "Virtud y libertad", en: "Virtue and liberty" },
+      { es: "Crítica a Rousseau", en: "A critique of Rousseau" },
+      { es: "Matrimonio y dependencia", en: "Marriage and dependence" },
+      { es: "Razón contra sensibilidad", en: "Reason against sensibility" },
+    ],
+  },
+
+  astell: {
+    years: "1666 – 1731",
+    origin: { es: "Newcastle / Chelsea, Inglaterra", en: "Newcastle / Chelsea, England" },
+    bio: {
+      es: "Primera filósofa feminista inglesa, cartesiana y anglicana. Propuso un retiro académico para mujeres donde pudieran formar el entendimiento y la amistad. Su pregunta —si todos los hombres nacen libres, ¿cómo es que todas las mujeres nacen esclavas?— sigue sin respuesta cómoda.",
+      en: "The first English feminist philosopher, a Cartesian and an Anglican. She proposed an academic retreat for women where understanding and friendship could be formed. Her question — if all men are born free, how is it that all women are born slaves? — still has no comfortable answer.",
+    },
+    expertise: [
+      { es: "Educación de las mujeres", en: "Women's education" },
+      { es: "Autoconocimiento cartesiano", en: "Cartesian self-knowledge" },
+      { es: "Amistad y comunidad", en: "Friendship and community" },
+      { es: "Matrimonio y obediencia", en: "Marriage and obedience" },
+      { es: "Fe anglicana y razón", en: "Anglican faith and reason" },
+    ],
+  },
+
+  mill: {
+    years: "1806 – 1873",
+    origin: { es: "Londres, Inglaterra", en: "London, England" },
+    bio: {
+      es: "Educado por su padre en un experimento pedagógico severo, sufrió a los veinte años una crisis que le enseñó que la razón sola no basta. Formuló el principio del daño, defendió la libertad de opinión como condición de toda verdad viva y denunció la sujeción de la mujer.",
+      en: "Raised by his father in a severe pedagogical experiment, at twenty he suffered a crisis that taught him reason alone is not enough. He formulated the harm principle, defended freedom of opinion as the condition of any living truth, and denounced the subjection of women.",
+    },
+    expertise: [
+      { es: "Principio del daño", en: "The harm principle" },
+      { es: "Libertad de expresión", en: "Freedom of expression" },
+      { es: "Utilitarismo cualitativo", en: "Qualitative utilitarianism" },
+      { es: "Tiranía de la mayoría", en: "Tyranny of the majority" },
+      { es: "La sujeción de la mujer", en: "The subjection of women" },
+    ],
+  },
+
+  weil: {
+    years: "1909 – 1943",
+    origin: { es: "París, Francia", en: "Paris, France" },
+    bio: {
+      es: "Filósofa y obrera, judía atraída por Cristo y ajena a toda pertenencia. Trabajó en fábrica y en el campo para pensar desde la desgracia y no sobre ella. Murió en Inglaterra a los treinta y cuatro años, negándose a comer más que sus compatriotas ocupados.",
+      en: "Philosopher and factory worker, a Jew drawn to Christ and belonging nowhere. She worked in factories and fields in order to think from affliction rather than about it. She died in England at thirty-four, refusing to eat more than her occupied compatriots.",
+    },
+    expertise: [
+      { es: "La atención pura", en: "Pure attention" },
+      { es: "Desgracia y fuerza", en: "Affliction and force" },
+      { es: "Desarraigo y trabajo", en: "Uprootedness and labour" },
+      { es: "Gravedad y gracia", en: "Gravity and grace" },
+      { es: "Justicia y necesidad", en: "Justice and necessity" },
+    ],
+  },
+
+  kusch: {
+    years: "1922 – 1979",
+    origin: { es: "Buenos Aires / Maimará, Argentina", en: "Buenos Aires / Maimará, Argentina" },
+    bio: {
+      es: "Filósofo argentino que abandonó la cátedra porteña para pensar desde el altiplano. Distinguió el ser alguien europeo del estar aquí americano y buscó un pensamiento seminal, arraigado en el suelo, el rito y la vida popular.",
+      en: "Argentine philosopher who left the Buenos Aires chair to think from the high plateau. He distinguished the European drive to be someone from the American mode of being here, seeking a seminal thought rooted in soil, ritual and popular life.",
+    },
+    expertise: [
+      { es: "Ser alguien / estar aquí", en: "Being someone / being here" },
+      { es: "Hedor y pulcritud", en: "Stench and neatness" },
+      { es: "Geocultura", en: "Geoculture" },
+      { es: "Pensamiento popular andino", en: "Andean popular thought" },
+      { es: "Crítica al intelectual colonizado", en: "Critique of the colonised intellectual" },
+    ],
+  },
+
+  giannini: {
+    years: "1927 – 2014",
+    origin: { es: "Santiago, Chile", en: "Santiago, Chile" },
+    bio: {
+      es: "Filósofo chileno de la vida cotidiana. Mostró que el itinerario común —domicilio, calle, trabajo— tiene una estructura moral, y que la reflexión es literalmente un regreso sobre lo vivido. Enseñó durante décadas con humor y una paciencia socrática.",
+      en: "Chilean philosopher of everyday life. He showed that the ordinary itinerary — home, street, work — has a moral structure, and that reflection is literally a return upon what has been lived. He taught for decades with humour and Socratic patience.",
+    },
+    expertise: [
+      { es: "La vida cotidiana", en: "Everyday life" },
+      { es: "La calle y el otro", en: "The street and the other" },
+      { es: "La reflexión como regreso", en: "Reflection as return" },
+      { es: "Hábito y transgresión", en: "Habit and transgression" },
+      { es: "Ética situada", en: "Situated ethics" },
+    ],
+  },
+
+  derrida: {
+    years: "1930 – 2004",
+    origin: { es: "El Biar, Argelia / París", en: "El Biar, Algeria / Paris" },
+    bio: {
+      es: "Judío argelino en Francia, inventó la deconstrucción: no una destrucción, sino la lectura que muestra lo que un texto excluye para poder decirse. Différance, huella y suplemento reorganizaron la filosofía, la literatura y el derecho del siglo XX.",
+      en: "An Algerian Jew in France, he devised deconstruction: not a destruction but a reading that shows what a text excludes in order to speak. Différance, trace and supplement reshaped twentieth-century philosophy, literature and law.",
+    },
+    expertise: [
+      { es: "Différance y huella", en: "Différance and trace" },
+      { es: "Metafísica de la presencia", en: "Metaphysics of presence" },
+      { es: "Escritura y suplemento", en: "Writing and supplement" },
+      { es: "Hospitalidad y don", en: "Hospitality and gift" },
+      { es: "Justicia indeconstruible", en: "Undeconstructible justice" },
+    ],
+  },
+
+  porete: {
+    years: "† 1310",
+    origin: { es: "Hainaut / París", en: "Hainaut / Paris" },
+    bio: {
+      es: "Beguina del Hainaut, autora del Espejo de las almas simples. Escribió en lengua vulgar una mística del alma aniquilada, libre de la propia voluntad y aun de las virtudes. Fue quemada en la Plaza de Grève por negarse a retractarse.",
+      en: "A beguine from Hainaut, author of The Mirror of Simple Souls. In the vernacular she wrote a mysticism of the annihilated soul, freed from its own will and even from the virtues. She was burned at the Place de Grève for refusing to recant.",
+    },
+    expertise: [
+      { es: "El alma aniquilada", en: "The annihilated soul" },
+      { es: "Amor sobre la Razón", en: "Love above Reason" },
+      { es: "Los siete estados", en: "The seven states" },
+      { es: "Iglesia grande e Iglesia pequeña", en: "The great and the little Church" },
+      { es: "Mística vernácula", en: "Vernacular mysticism" },
+    ],
+  },
+
+  marinella: {
+    years: "1571 – 1653",
+    origin: { es: "Venecia, Italia", en: "Venice, Italy" },
+    bio: {
+      es: "Erudita veneciana, hija de médico, respondió con La nobleza y excelencia de las mujeres a la misoginia docta de su tiempo. Usó a Platón, Aristóteles y la historia para desmontar el prejuicio, con ironía cortesana y sin pedir permiso.",
+      en: "A Venetian scholar, daughter of a physician, she answered the learned misogyny of her age with The Nobility and Excellence of Women. She used Plato, Aristotle and history to dismantle prejudice, with courtly irony and without asking permission.",
+    },
+    expertise: [
+      { es: "Excelencia de las mujeres", en: "The excellence of women" },
+      { es: "Vicios de los hombres", en: "The defects of men" },
+      { es: "Belleza neoplatónica", en: "Neoplatonic beauty" },
+      { es: "Educación negada", en: "Denied education" },
+      { es: "Polémica renacentista", en: "Renaissance polemic" },
+    ],
+  },
+
+  deshoulieres: {
+    years: "1638 – 1694",
+    origin: { es: "París, Francia", en: "Paris, France" },
+    bio: {
+      es: "Poeta francesa llamada la décima musa, lectora de Gassendi y del epicureísmo. Sus idilios oponen a la vanidad de la corte la sabiduría muda de la naturaleza. Escribió con gracia sobre el desengaño y soportó con humor una larga enfermedad.",
+      en: "French poet known as the tenth muse, a reader of Gassendi and of Epicureanism. Her idylls set the mute wisdom of nature against the vanity of the court. She wrote gracefully about disillusion and bore a long illness with humour.",
+    },
+    expertise: [
+      { es: "Escepticismo y desengaño", en: "Scepticism and disillusion" },
+      { es: "La naturaleza como maestra", en: "Nature as teacher" },
+      { es: "Placer moderado", en: "Moderate pleasure" },
+      { es: "El salón y el ingenio", en: "The salon and wit" },
+      { es: "Poesía filosófica", en: "Philosophical poetry" },
+    ],
+  },
+
+  sable: {
+    years: "1598 – 1678",
+    origin: { es: "París, Francia", en: "Paris, France" },
+    bio: {
+      es: "Anfitriona de uno de los salones más agudos de París y ligada a Port-Royal. Convirtió la máxima en un género: frases breves que desnudan el amor propio escondido tras la virtud. La Rochefoucauld pulió sus máximas discutiéndolas con ella.",
+      en: "Hostess of one of the sharpest salons in Paris and close to Port-Royal. She turned the maxim into a genre: brief sentences that lay bare the self-love hidden behind virtue. La Rochefoucauld polished his maxims by arguing them with her.",
+    },
+    expertise: [
+      { es: "Amor propio", en: "Self-love" },
+      { es: "El arte de la máxima", en: "The art of the maxim" },
+      { es: "Amistad y conversación", en: "Friendship and conversation" },
+      { es: "Jansenismo", en: "Jansenism" },
+      { es: "Moral de salón", en: "Salon morality" },
+    ],
+  },
+
+  hildebrand: {
+    years: "1923 – 2022",
+    origin: { es: "Bruselas / Nueva York", en: "Brussels / New York" },
+    bio: {
+      es: "Filósofa católica belga, profesora durante treinta y siete años en Hunter College, donde defendió el realismo de los valores frente al relativismo dominante. Continuó y difundió la obra de su marido, Dietrich von Hildebrand.",
+      en: "Belgian Catholic philosopher, for thirty-seven years a professor at Hunter College, where she defended the realism of values against the prevailing relativism. She continued and spread the work of her husband, Dietrich von Hildebrand.",
+    },
+    expertise: [
+      { es: "Reverencia", en: "Reverence" },
+      { es: "Valores objetivos", en: "Objective values" },
+      { es: "El corazón como centro", en: "The heart as centre" },
+      { es: "Amor esponsal", en: "Spousal love" },
+      { es: "Crítica del relativismo", en: "Critique of relativism" },
+    ],
+  },
+
+  ziemiecka: {
+    years: "1815 – 1869",
+    origin: { es: "Varsovia, Polonia", en: "Warsaw, Poland" },
+    bio: {
+      es: "Considerada la primera filósofa polaca, editó la revista Pielgrzym y buscó una filosofía cristiana capaz de resistir tanto al idealismo alemán como al fideísmo. Escribió sobre educación y sobre el deber moral en una nación sin Estado.",
+      en: "Regarded as the first Polish woman philosopher, she edited the journal Pielgrzym and sought a Christian philosophy able to resist both German idealism and fideism. She wrote on education and on moral duty in a nation without a state.",
+    },
+    expertise: [
+      { es: "Filosofía cristiana", en: "Christian philosophy" },
+      { es: "Razón y revelación", en: "Reason and revelation" },
+      { es: "Crítica del idealismo alemán", en: "Critique of German idealism" },
+      { es: "Educación de la mujer", en: "Women's education" },
+      { es: "Nación y providencia", en: "Nation and providence" },
+    ],
+  },
+
+  stein: {
+    years: "1891 – 1942",
+    origin: { es: "Breslau / Auschwitz", en: "Breslau / Auschwitz" },
+    bio: {
+      es: "Judía de Breslau, asistente de Husserl y autora de una tesis sobre la empatía. Convertida al catolicismo, entró en el Carmelo como Teresa Benedicta de la Cruz y unió fenomenología y tomismo. Fue deportada y asesinada en Auschwitz en 1942.",
+      en: "A Jew from Breslau, Husserl's assistant and author of a dissertation on empathy. Converted to Catholicism, she entered Carmel as Teresa Benedicta of the Cross and joined phenomenology to Thomism. She was deported and murdered at Auschwitz in 1942.",
+    },
+    expertise: [
+      { es: "Empatía", en: "Empathy" },
+      { es: "Persona e individualidad", en: "Person and individuality" },
+      { es: "Ser finito y eterno", en: "Finite and eternal being" },
+      { es: "La mujer y su vocación", en: "Woman and her vocation" },
+      { es: "Ciencia de la cruz", en: "Science of the cross" },
+    ],
+  },
+
+  anscombe: {
+    years: "1919 – 2001",
+    origin: { es: "Cambridge / Oxford, Inglaterra", en: "Cambridge / Oxford, England" },
+    bio: {
+      es: "Alumna, amiga y traductora de Wittgenstein, católica y madre de siete hijos. Su libro Intención refundó la filosofía de la acción, y su ensayo sobre la filosofía moral moderna abrió el camino a la ética de la virtud contemporánea.",
+      en: "Wittgenstein's student, friend and translator, a Catholic and mother of seven. Her book Intention refounded the philosophy of action, and her essay on modern moral philosophy opened the way to contemporary virtue ethics.",
+    },
+    expertise: [
+      { es: "Intención y acción", en: "Intention and action" },
+      { es: "Contra el consecuencialismo", en: "Against consequentialism" },
+      { es: "Doble efecto", en: "Double effect" },
+      { es: "Wittgenstein y el lenguaje", en: "Wittgenstein and language" },
+      { es: "Causalidad y primera persona", en: "Causality and the first person" },
+    ],
+  },
+
+  lipman: {
+    years: "1922 – 2010",
+    origin: { es: "Nueva Jersey, EE. UU.", en: "New Jersey, USA" },
+    bio: {
+      es: "Profesor estadounidense que, al ver a sus alumnos incapaces de razonar, creó Filosofía para Niños. Escribió novelas filosóficas para el aula y propuso la comunidad de indagación: pensar juntos, pedir razones y cuidar la pregunta.",
+      en: "American professor who, on finding his students unable to reason, created Philosophy for Children. He wrote philosophical novels for the classroom and proposed the community of inquiry: thinking together, asking for reasons, caring for the question.",
+    },
+    expertise: [
+      { es: "Comunidad de indagación", en: "Community of inquiry" },
+      { es: "Pensamiento crítico y creativo", en: "Critical and creative thinking" },
+      { es: "Caring thinking", en: "Caring thinking" },
+      { es: "Novela filosófica", en: "The philosophical novel" },
+      { es: "Educación democrática", en: "Democratic education" },
+    ],
+  },
 };
 
 export function profileOf(id: string): PhilosopherProfile | undefined {
