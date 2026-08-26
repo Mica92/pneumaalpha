@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { PHILOSOPHER_LIST, type PhilosopherId } from "@/lib/philosophers";
 import { profileOf } from "@/lib/portraits";
