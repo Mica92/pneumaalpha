@@ -3,10 +3,12 @@
 
 import { EXTRA_PHILOSOPHERS, type ExtraPhilosopherId } from "@/lib/philosophers-extra";
 import { WAVE3_PHILOSOPHERS, type Wave3PhilosopherId } from "@/lib/philosophers-wave3";
+import { WAVE4_PHILOSOPHERS, type Wave4PhilosopherId } from "@/lib/philosophers-wave4";
 
 export type PhilosopherId =
   | ExtraPhilosopherId
   | Wave3PhilosopherId
+  | Wave4PhilosopherId
   | "heidegger"
   | "schopenhauer"
   | "james"
@@ -615,6 +617,7 @@ Es la casa forestal de Wilflingen; hay cajas de coleópteros sobre la mesa y nie
 export const PHILOSOPHERS: Record<PhilosopherId, Philosopher> = {
   ...EXTRA_PHILOSOPHERS,
   ...WAVE3_PHILOSOPHERS,
+  ...WAVE4_PHILOSOPHERS,
   heidegger: {
     id: "heidegger",
     name: "Heidegger",
