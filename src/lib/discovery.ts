@@ -181,6 +181,70 @@ sartre: {
     es: "¿Qué es lo que de verdad estás sintiendo, antes de interpretarlo?",
     en: "What are you actually sensing, before you interpret it?",
   },
+  wollstonecraft: {
+    es: "¿Qué virtud te exigen sin darte antes libertad?",
+    en: "What virtue is demanded of you without first giving you freedom?",
+  },
+  astell: {
+    es: "¿Qué crees por costumbre y no por haberlo examinado?",
+    en: "What do you believe from custom rather than from examination?",
+  },
+  mill: {
+    es: "¿Qué opinión tuya no has puesto nunca a prueba contra la contraria?",
+    en: "Which of your opinions have you never tested against its opposite?",
+  },
+  weil: {
+    es: "¿Puedes mirar esa desgracia sin apartar la vista ni consolarla?",
+    en: "Can you look at that affliction without turning away or consoling it?",
+  },
+  kusch: {
+    es: "¿Desde qué suelo estás pensando, y de cuál te avergüenzas?",
+    en: "From what ground are you thinking, and which one shames you?",
+  },
+  giannini: {
+    es: "¿En qué parte de tu día te detienes de verdad?",
+    en: "At what point in your day do you truly stop?",
+  },
+  derrida: {
+    es: "¿Qué palabra estás usando como si fuera evidente?",
+    en: "Which word are you using as if it were obvious?",
+  },
+  porete: {
+    es: "¿Qué es lo que todavía quieres para ti?",
+    en: "What do you still want for yourself?",
+  },
+  marinella: {
+    es: "¿Qué prejuicio has aceptado como si fuera autoridad?",
+    en: "What prejudice have you accepted as if it were authority?",
+  },
+  deshoulieres: {
+    es: "¿Qué ambición te quita el sueño y qué te daría en verdad?",
+    en: "What ambition keeps you awake, and what would it really give you?",
+  },
+  sable: {
+    es: "¿Qué interés propio se esconde en tu última generosidad?",
+    en: "What self-interest hides in your latest act of generosity?",
+  },
+  hildebrand: {
+    es: "¿Qué consideras verdaderamente valioso, y por qué?",
+    en: "What do you consider truly valuable, and why?",
+  },
+  ziemiecka: {
+    es: "¿Dónde chocan hoy lo que crees y lo que piensas?",
+    en: "Where do what you believe and what you think collide today?",
+  },
+  stein: {
+    es: "¿Qué te ocurre exactamente, antes de interpretarlo?",
+    en: "What exactly is happening to you, before you interpret it?",
+  },
+  anscombe: {
+    es: "¿Qué estás haciendo, y bajo qué descripción?",
+    en: "What are you doing, and under what description?",
+  },
+  lipman: {
+    es: "¿Cuál es tu pregunta, dicha tal como te sale?",
+    en: "What is your question, said just as it comes?",
+  },
 };
 
 export function centralQuestion(id: PhilosopherId, lang: Lang): string {

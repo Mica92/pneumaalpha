@@ -1991,7 +1991,7 @@ export const GRAPH_LINKS: GraphLink[] = [
 
 /* ── Mentes vivas añadidas después del dataset original ───────────── */
 // Enlaza con el chat los nodos que ya existían.
-const LINK_EXISTING: PhilosopherId[] = ["burke", "arendt", "evola", "sartre"];
+const LINK_EXISTING: PhilosopherId[] = ["burke", "arendt", "evola", "sartre", "mill"];
 for (const n of GRAPH_NODES) {
   if (!n.chat && (LINK_EXISTING as string[]).includes(n.id)) n.chat = n.id as PhilosopherId;
 }
@@ -2018,6 +2018,21 @@ const NEW_MINDS: [PhilosopherId, string, string, string, string, string[]][] = [
   ["bostrom", "Christopher J. Boström", "1797–1866", "Idealismo racional sueco: la realidad como sistema de espíritus.", "Swedish rational idealism: reality as a system of spirits.", ["idealism_ger", "metaphysics_crit", "monarchism"]],
   ["krishnamurti", "Jiddu Krishnamurti", "1895–1986", "La verdad es una tierra sin caminos.", "Truth is a pathless land.", ["mysticism", "hinduism", "buddhism"]],
   ["zubiri", "Xavier Zubiri", "1898–1983", "Inteligencia sentiente y realidad.", "Sentient intelligence and reality.", ["phenomenology", "thomism", "catholicism"]],
+  ["wollstonecraft", "Mary Wollstonecraft", "1759–1797", "Derechos, educación y virtud de la mujer.", "Rights, education and the virtue of women.", ["feminism", "enlightenment", "equality", "freedom"]],
+  ["astell", "Mary Astell", "1666–1731", "La mente no tiene sexo: educación y autoconocimiento.", "The mind has no sex: education and self-knowledge.", ["feminism", "rationalism", "christianity", "equality"]],
+  ["weil", "Simone Weil", "1909–1943", "Atención, desgracia y gracia.", "Attention, affliction and grace.", ["mysticism", "christianity", "suffering", "justice"]],
+  ["kusch", "Rodolfo Kusch", "1922–1979", "Estar-siendo americano: hedor, suelo y geocultura.", "American being-here: stench, ground and geoculture.", ["sacred", "phenomenology", "rootedness"]],
+  ["giannini", "Humberto Giannini", "1927–2014", "La filosofía de lo cotidiano y la calle.", "The philosophy of everyday life and the street.", ["phenomenology", "hermeneutics", "existentialism"]],
+  ["derrida", "Jacques Derrida", "1930–2004", "Deconstrucción, huella y différance.", "Deconstruction, trace and différance.", ["deconstruction", "structuralism", "postmodernism", "language_limits"]],
+  ["porete", "Margarita Porete", "†1310", "El alma aniquilada y el Amor sobre la Razón.", "The annihilated soul and Love above Reason.", ["mysticism", "negative_theology", "christianity"]],
+  ["marinella", "Lucrezia Marinella", "1571–1653", "Nobleza y excelencia de las mujeres.", "Nobility and excellence of women.", ["feminism", "platonism", "christianity"]],
+  ["deshoulieres", "Madame Deshoulières", "1638–1694", "Escepticismo lírico y naturaleza.", "Lyrical scepticism and nature.", ["empiricism", "enlightenment", "romanticism"]],
+  ["sable", "Madame de Sablé", "1598–1678", "Amor propio, máximas y jansenismo.", "Self-love, maxims and Jansenism.", ["catholicism", "enlightenment", "faith"]],
+  ["hildebrand", "Alice von Hildebrand", "1923–2022", "Reverencia, valores objetivos y corazón.", "Reverence, objective values and the heart.", ["phenomenology", "catholicism", "personalism"]],
+  ["ziemiecka", "Eleonora Ziemięcka", "1815–1869", "Filosofía cristiana polaca entre razón y fe.", "Polish Christian philosophy between reason and faith.", ["catholicism", "romanticism", "faith"]],
+  ["stein", "Edith Stein", "1891–1942", "Empatía, persona y ciencia de la cruz.", "Empathy, person and the science of the cross.", ["phenomenology", "catholicism", "mysticism"]],
+  ["anscombe", "Elizabeth Anscombe", "1919–2001", "Intención, acción y crítica del consecuencialismo.", "Intention, action and a critique of consequentialism.", ["analytic", "catholicism", "natural_law"]],
+  ["lipman", "Matthew Lipman", "1922–2010", "Filosofía para niños y comunidad de indagación.", "Philosophy for children and the community of inquiry.", ["pragmatism", "analytic", "democracy"]],
 ];
 
 for (const [id, label, era, es, en, related] of NEW_MINDS) {
