@@ -107,7 +107,7 @@ function Home() {
                 value={inquiry}
                 onChange={(e) => setInquiry(e.target.value)}
                 placeholder={
-                  es ? "No sé qué hacer con mi vida…" : "I don't know what to do with my life…"
+                  es ? "Quiero encontrar mi vocación…" : "I want to find my vocation…"
                 }
                 className="focus-mist flex-1 rounded-md border border-border/70 bg-input px-4 py-3.5 text-body text-foreground placeholder:text-muted-foreground/70"
               />
