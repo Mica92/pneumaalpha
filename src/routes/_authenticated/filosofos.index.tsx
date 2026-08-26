@@ -5,18 +5,21 @@ import { profileOf } from "@/lib/portraits";
 import {
   CATEGORIES,
   ERA_LABELS,
-  ERA_ORDER,
   FACETS,
   FAMILY_LABELS,
   LEVEL_LABELS,
   LEVEL_ORDER,
   MOVEMENT_LABELS,
+  POLITICS_LABELS,
+  POLITICS_ORDER,
   eraOf,
+  politicsOf,
   type CategoryId,
   type EraId,
   type FamilyId,
   type LevelId,
   type MovementId,
+  type PoliticsId,
 } from "@/lib/discovery";
 import { PhilosopherCard } from "@/components/philosopher-card";
 import { SiteNav } from "@/components/site-nav";
