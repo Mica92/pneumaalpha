@@ -67,12 +67,23 @@ function PhilosophersIndex() {
   const { lang } = useI18n();
   const es = lang === "es";
   const [query, setQuery] = useState("");
+  const [open, setOpen] = useState(false);
   const [cat, setCat] = useState<CategoryId | "all">("all");
   const [sort, setSort] = useState<SortId>("az");
   const [families, setFamilies] = useState<FamilyId[]>([]);
   const [movements, setMovements] = useState<MovementId[]>([]);
   const [levels, setLevels] = useState<LevelId[]>([]);
   const [eras, setEras] = useState<EraId[]>([]);
+  const [politics, setPolitics] = useState<PoliticsId[]>([]);
+
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
 
   const movementIds = useMemo(() => {
     const used = new Set<MovementId>();
@@ -85,14 +96,16 @@ function PhilosophersIndex() {
   const toggle = <T,>(list: T[], set: (v: T[]) => void, value: T) =>
     set(list.includes(value) ? list.filter((x) => x !== value) : [...list, value]);
 
-  const dirty =
-    query !== "" ||
-    cat !== "all" ||
-    sort !== "az" ||
-    families.length > 0 ||
-    movements.length > 0 ||
-    levels.length > 0 ||
-    eras.length > 0;
+  const activeCount =
+    (cat === "all" ? 0 : 1) +
+    (sort === "az" ? 0 : 1) +
+    families.length +
+    movements.length +
+    levels.length +
+    eras.length +
+    politics.length;
+
+  const dirty = query !== "" || activeCount > 0;
 
   const clearAll = () => {
     setQuery("");
@@ -102,7 +115,9 @@ function PhilosophersIndex() {
     setMovements([]);
     setLevels([]);
     setEras([]);
+    setPolitics([]);
   };
+
 
   const results = useMemo(() => {
     const q = query.trim().toLowerCase();
