@@ -351,35 +351,394 @@ export type RealProblem = {
 export const REAL_PROBLEMS: RealProblem[] = [
   {
     id: "lost",
-    text: { es: "No sé qué hacer con mi vida.", en: "I don't know what to do with my life." },
+    text: { es: "Quiero encontrar mi vocación.", en: "I want to find my vocation." },
     philosophers: ["heidegger", "nietzsche", "kierkegaard"],
   },
   {
     id: "fear",
-    text: { es: "Tengo miedo de fracasar.", en: "I'm afraid of failing." },
+    text: { es: "Quiero decidir con más valentía.", en: "I want to decide with more courage." },
     philosophers: ["nietzsche", "pohlenz", "kierkegaard"],
   },
   {
     id: "someone",
-    text: { es: "No puedo dejar de pensar en alguien.", en: "I can't stop thinking about someone." },
+    text: { es: "Quiero fortalecer mis vínculos.", en: "I want to strengthen my bonds." },
     philosophers: ["schopenhauer", "levinas", "kierkegaard"],
   },
   {
     id: "work",
-    text: { es: "No encuentro sentido a mi trabajo.", en: "My work feels meaningless." },
+    text: { es: "Quiero darle sentido a mi trabajo.", en: "I want to give my work meaning." },
     philosophers: ["marx", "heidegger", "junger"],
   },
   {
     id: "better",
-    text: { es: "Quiero aprender a vivir mejor.", en: "I want to learn to live better." },
+    text: {
+      es: "Quiero vivir con más calma y claridad.",
+      en: "I want to live with more calm and clarity.",
+    },
     philosophers: ["pohlenz", "bentham", "eckhart"],
   },
   {
     id: "alone",
-    text: { es: "Me siento solo, incluso rodeado de gente.", en: "I feel alone, even around people." },
+    text: { es: "Quiero aprender a pensar mejor.", en: "I want to learn to think better." },
     philosophers: ["pascal", "yannaras", "levinas"],
   },
 ];
+
+/* ── Facetas para filtrar y ordenar las mentes ──────────────────── */
+
+export type FamilyId = "politics" | "religion" | "ethics" | "existence" | "knowledge" | "society";
+export type MovementId =
+  | "existentialism"
+  | "stoicism"
+  | "rationalism"
+  | "phenomenology"
+  | "marxism"
+  | "mysticism"
+  | "pragmatism"
+  | "feminism"
+  | "liberalism"
+  | "anarchism"
+  | "romanticism"
+  | "hermeneutics"
+  | "scholastic"
+  | "nihilism"
+  | "idealism"
+  | "utilitarianism"
+  | "postmodern"
+  | "eastern"
+  | "conservatism";
+export type LevelId = "intro" | "mid" | "deep";
+export type EraId = "ancient" | "modern" | "c19" | "c20";
+
+export const FAMILY_LABELS: Record<FamilyId, LocalizedString> = {
+  politics: { es: "Política", en: "Politics" },
+  religion: { es: "Religión y teología", en: "Religion & theology" },
+  ethics: { es: "Ética y vida", en: "Ethics & living" },
+  existence: { es: "Existencia", en: "Existence" },
+  knowledge: { es: "Conocimiento y realidad", en: "Knowledge & reality" },
+  society: { es: "Sociedad y cultura", en: "Society & culture" },
+};
+
+export const MOVEMENT_LABELS: Record<MovementId, LocalizedString> = {
+  existentialism: { es: "Existencialismo", en: "Existentialism" },
+  stoicism: { es: "Estoicismo", en: "Stoicism" },
+  rationalism: { es: "Racionalismo", en: "Rationalism" },
+  phenomenology: { es: "Fenomenología", en: "Phenomenology" },
+  marxism: { es: "Marxismo", en: "Marxism" },
+  mysticism: { es: "Mística", en: "Mysticism" },
+  pragmatism: { es: "Pragmatismo", en: "Pragmatism" },
+  feminism: { es: "Feminismo", en: "Feminism" },
+  liberalism: { es: "Liberalismo", en: "Liberalism" },
+  anarchism: { es: "Anarquismo", en: "Anarchism" },
+  romanticism: { es: "Romanticismo", en: "Romanticism" },
+  hermeneutics: { es: "Hermenéutica", en: "Hermeneutics" },
+  scholastic: { es: "Escolástica", en: "Scholasticism" },
+  nihilism: { es: "Nihilismo", en: "Nihilism" },
+  idealism: { es: "Idealismo", en: "Idealism" },
+  utilitarianism: { es: "Utilitarismo", en: "Utilitarianism" },
+  postmodern: { es: "Posestructuralismo", en: "Post-structuralism" },
+  eastern: { es: "Pensamiento oriental", en: "Eastern thought" },
+  conservatism: { es: "Conservadurismo", en: "Conservatism" },
+};
+
+export const LEVEL_LABELS: Record<LevelId, LocalizedString> = {
+  intro: { es: "Principiante", en: "Beginner" },
+  mid: { es: "Intermedio", en: "Intermediate" },
+  deep: { es: "Avanzado", en: "Advanced" },
+};
+
+export const ERA_LABELS: Record<EraId, LocalizedString> = {
+  ancient: { es: "Antigua y medieval", en: "Ancient & medieval" },
+  modern: { es: "Moderna (s. XVI–XVIII)", en: "Modern (16th–18th c.)" },
+  c19: { es: "Siglo XIX", en: "19th century" },
+  c20: { es: "Siglos XX–XXI", en: "20th–21st century" },
+};
+
+export const LEVEL_ORDER: Record<LevelId, number> = { intro: 0, mid: 1, deep: 2 };
+export const ERA_ORDER: Record<EraId, number> = { ancient: 0, modern: 1, c19: 2, c20: 3 };
+
+export type Facet = {
+  families: FamilyId[];
+  movements: MovementId[];
+  level: LevelId;
+  /** Año de nacimiento aproximado, para ordenar por época. */
+  year: number;
+};
+
+export const FACETS: Record<PhilosopherId, Facet> = {
+  heidegger: {
+    families: ["existence", "knowledge"],
+    movements: ["existentialism", "phenomenology"],
+    level: "deep",
+    year: 1889,
+  },
+  schopenhauer: {
+    families: ["existence", "ethics"],
+    movements: ["idealism", "nihilism"],
+    level: "mid",
+    year: 1788,
+  },
+  james: {
+    families: ["knowledge", "ethics"],
+    movements: ["pragmatism"],
+    level: "intro",
+    year: 1842,
+  },
+  nietzsche: {
+    families: ["existence", "ethics"],
+    movements: ["nihilism"],
+    level: "intro",
+    year: 1844,
+  },
+  marx: { families: ["politics", "society"], movements: ["marxism"], level: "mid", year: 1818 },
+  bentham: {
+    families: ["politics", "ethics"],
+    movements: ["utilitarianism"],
+    level: "intro",
+    year: 1748,
+  },
+  pohlenz: {
+    families: ["ethics", "existence"],
+    movements: ["stoicism"],
+    level: "intro",
+    year: 1872,
+  },
+  rationalism: {
+    families: ["knowledge"],
+    movements: ["rationalism"],
+    level: "mid",
+    year: 1650,
+  },
+  pascal: { families: ["religion", "existence"], movements: [], level: "intro", year: 1623 },
+  kierkegaard: {
+    families: ["existence", "religion"],
+    movements: ["existentialism"],
+    level: "mid",
+    year: 1813,
+  },
+  yannaras: {
+    families: ["religion", "existence"],
+    movements: ["mysticism", "phenomenology"],
+    level: "deep",
+    year: 1935,
+  },
+  levinas: {
+    families: ["ethics", "religion"],
+    movements: ["phenomenology"],
+    level: "deep",
+    year: 1906,
+  },
+  maimonides: {
+    families: ["religion", "knowledge"],
+    movements: ["scholastic"],
+    level: "deep",
+    year: 1138,
+  },
+  aquinas: {
+    families: ["religion", "knowledge"],
+    movements: ["scholastic"],
+    level: "mid",
+    year: 1225,
+  },
+  eckhart: { families: ["religion"], movements: ["mysticism"], level: "mid", year: 1260 },
+  kant: { families: ["knowledge", "ethics"], movements: ["idealism"], level: "deep", year: 1724 },
+  hegel: { families: ["knowledge", "politics"], movements: ["idealism"], level: "deep", year: 1770 },
+  spengler: {
+    families: ["society", "politics"],
+    movements: ["conservatism"],
+    level: "mid",
+    year: 1880,
+  },
+  junger: {
+    families: ["existence", "society"],
+    movements: ["conservatism"],
+    level: "mid",
+    year: 1895,
+  },
+  cioran: { families: ["existence"], movements: ["nihilism"], level: "intro", year: 1911 },
+  rousseau: {
+    families: ["politics", "society"],
+    movements: ["romanticism"],
+    level: "intro",
+    year: 1712,
+  },
+  burke: { families: ["politics"], movements: ["conservatism"], level: "mid", year: 1729 },
+  emerson: {
+    families: ["existence", "ethics"],
+    movements: ["romanticism"],
+    level: "intro",
+    year: 1803,
+  },
+  thoreau: {
+    families: ["ethics", "society"],
+    movements: ["romanticism"],
+    level: "intro",
+    year: 1817,
+  },
+  stirner: {
+    families: ["politics", "existence"],
+    movements: ["anarchism", "nihilism"],
+    level: "mid",
+    year: 1806,
+  },
+  bakunin: {
+    families: ["politics", "society"],
+    movements: ["anarchism"],
+    level: "intro",
+    year: 1814,
+  },
+  arendt: { families: ["politics", "society"], movements: [], level: "mid", year: 1906 },
+  negrihardt: {
+    families: ["politics", "society"],
+    movements: ["marxism"],
+    level: "deep",
+    year: 1933,
+  },
+  rand: { families: ["politics", "ethics"], movements: ["liberalism"], level: "intro", year: 1905 },
+  gadamer: { families: ["knowledge"], movements: ["hermeneutics"], level: "deep", year: 1900 },
+  ibnkhaldun: { families: ["society", "politics"], movements: [], level: "mid", year: 1332 },
+  nishida: {
+    families: ["knowledge", "existence"],
+    movements: ["eastern", "phenomenology"],
+    level: "deep",
+    year: 1870,
+  },
+  iqbal: {
+    families: ["religion", "existence"],
+    movements: ["eastern", "mysticism"],
+    level: "mid",
+    year: 1877,
+  },
+  eliade: {
+    families: ["religion", "society"],
+    movements: ["mysticism"],
+    level: "mid",
+    year: 1907,
+  },
+  evola: {
+    families: ["politics", "religion"],
+    movements: ["conservatism"],
+    level: "deep",
+    year: 1898,
+  },
+  jabri: { families: ["politics", "knowledge"], movements: ["eastern"], level: "deep", year: 1935 },
+  quoist: { families: ["religion", "ethics"], movements: ["mysticism"], level: "intro", year: 1921 },
+  sartre: {
+    families: ["existence", "politics"],
+    movements: ["existentialism"],
+    level: "intro",
+    year: 1905,
+  },
+  camus: {
+    families: ["existence", "ethics"],
+    movements: ["existentialism"],
+    level: "intro",
+    year: 1913,
+  },
+  berlin: { families: ["politics"], movements: ["liberalism"], level: "mid", year: 1909 },
+  bostrom: {
+    families: ["knowledge", "religion"],
+    movements: ["idealism"],
+    level: "deep",
+    year: 1797,
+  },
+  krishnamurti: {
+    families: ["existence", "ethics"],
+    movements: ["eastern"],
+    level: "intro",
+    year: 1895,
+  },
+  zubiri: {
+    families: ["knowledge", "religion"],
+    movements: ["phenomenology"],
+    level: "deep",
+    year: 1898,
+  },
+  wollstonecraft: {
+    families: ["politics", "society"],
+    movements: ["feminism", "liberalism"],
+    level: "intro",
+    year: 1759,
+  },
+  astell: {
+    families: ["politics", "religion"],
+    movements: ["feminism"],
+    level: "mid",
+    year: 1666,
+  },
+  mill: {
+    families: ["politics", "ethics"],
+    movements: ["liberalism", "utilitarianism"],
+    level: "intro",
+    year: 1806,
+  },
+  weil: {
+    families: ["religion", "ethics", "politics"],
+    movements: ["mysticism"],
+    level: "mid",
+    year: 1909,
+  },
+  kusch: { families: ["society", "knowledge"], movements: [], level: "mid", year: 1922 },
+  giannini: {
+    families: ["ethics", "existence"],
+    movements: ["phenomenology"],
+    level: "intro",
+    year: 1927,
+  },
+  derrida: {
+    families: ["knowledge"],
+    movements: ["postmodern", "hermeneutics"],
+    level: "deep",
+    year: 1930,
+  },
+  porete: { families: ["religion"], movements: ["mysticism"], level: "mid", year: 1250 },
+  marinella: {
+    families: ["society", "politics"],
+    movements: ["feminism"],
+    level: "mid",
+    year: 1571,
+  },
+  deshoulieres: { families: ["ethics", "existence"], movements: [], level: "intro", year: 1638 },
+  sable: { families: ["ethics", "society"], movements: [], level: "intro", year: 1598 },
+  hildebrand: {
+    families: ["religion", "ethics"],
+    movements: ["phenomenology"],
+    level: "intro",
+    year: 1923,
+  },
+  ziemiecka: {
+    families: ["religion", "knowledge"],
+    movements: ["idealism"],
+    level: "mid",
+    year: 1815,
+  },
+  stein: {
+    families: ["religion", "knowledge"],
+    movements: ["phenomenology"],
+    level: "deep",
+    year: 1891,
+  },
+  anscombe: { families: ["ethics", "knowledge"], movements: [], level: "deep", year: 1919 },
+  lipman: {
+    families: ["knowledge", "ethics"],
+    movements: ["pragmatism"],
+    level: "intro",
+    year: 1922,
+  },
+};
+
+export function facetOf(id: PhilosopherId): Facet {
+  return FACETS[id];
+}
+
+export function eraOf(id: PhilosopherId): EraId {
+  const y = FACETS[id]?.year ?? 1900;
+  if (y < 1500) return "ancient";
+  if (y < 1800) return "modern";
+  if (y < 1880) return "c19";
+  return "c20";
+}
+
 
 /* ── Grandes ideas ───────────────────────────────────────────────── */
 
