@@ -180,7 +180,7 @@ function PhilosophersIndex() {
       }
     });
     return sorted;
-  }, [query, cat, lang, sort, families, movements, levels, eras]);
+  }, [query, cat, lang, sort, families, movements, levels, eras, politics]);
 
   return (
     <>
