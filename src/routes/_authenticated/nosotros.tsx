@@ -11,13 +11,13 @@ export const Route = createFileRoute("/_authenticated/nosotros")({
       {
         name: "description",
         content:
-          "Conocimiento como puente: quiénes somos, nuestra misión, visión y valores para una sociedad centrada en la conciencia humana.",
+          "Somos un grupo de ciudadanos convencidos de que la tecnología debe estar al servicio de la conciencia humana. Entrenamos inteligencias artificiales con el pensamiento de grandes filósofos para que cualquiera pueda pensar, decidir y vivir mejor.",
       },
       { property: "og:title", content: "PneumAlpha — Nosotros" },
       {
         property: "og:description",
         content:
-          "Conocimiento como puente: quiénes somos, nuestra misión, visión y valores para una sociedad centrada en la conciencia humana.",
+          "Somos un grupo de ciudadanos convencidos de que la tecnología debe estar al servicio de la conciencia humana. Entrenamos inteligencias artificiales con el pensamiento de grandes filósofos para que cualquiera pueda pensar, decidir y vivir mejor.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://pneumaalpha.lovable.app/nosotros" },
@@ -33,14 +33,14 @@ export const Route = createFileRoute("/_authenticated/nosotros")({
           name: "PneumAlpha",
           url: "https://pneumaalpha.lovable.app",
           description:
-            "Conocimiento como puente: misión, visión y valores de PneumAlpha, un punto de encuentro con las grandes conciencias filosóficas.",
+            "Conocimiento al servicio de la conciencia: inteligencia artificial entrenada con grandes filósofos para ayudar a cada persona a pensar, decidir y vivir mejor.",
         }),
       },
     ],
   }),
 });
 
-const VALUES = [1, 2, 3, 4, 5, 6, 7] as const;
+const VALUES = [1, 2, 3, 4, 5] as const;
 
 function NosotrosPage() {
   const { lang, t } = useI18n();
@@ -65,7 +65,24 @@ function NosotrosPage() {
               <p>{t("about.intro.p1")}</p>
               <p>{t("about.intro.p2")}</p>
               <p>{t("about.intro.p3")}</p>
-              <p>{t("about.intro.p4")}</p>
+            </div>
+          </section>
+
+          <section aria-labelledby="what-heading">
+            <div className="mb-6 flex items-baseline justify-between gap-4 border-b border-border/60 pb-3">
+              <h2
+                id="what-heading"
+                className="font-display text-micro uppercase tracking-[0.35em] text-muted-foreground"
+              >
+                {t("about.what.title")}
+              </h2>
+            </div>
+            <div className="card-editorial p-6 md:p-10">
+              <div className="space-y-5 text-small leading-relaxed text-foreground/85 md:text-base">
+                <p>{t("about.what.p1")}</p>
+                <p>{t("about.what.p2")}</p>
+                <p>{t("about.what.p3")}</p>
+              </div>
             </div>
           </section>
 
@@ -82,9 +99,23 @@ function NosotrosPage() {
               <div className="space-y-5 text-small leading-relaxed text-foreground/85 md:text-base">
                 <p>{t("about.mission.p1")}</p>
                 <p>{t("about.mission.p2")}</p>
-                <p>{t("about.mission.p3")}</p>
-                <p>{t("about.mission.p4")}</p>
-                <p>{t("about.mission.p5")}</p>
+              </div>
+            </div>
+          </section>
+
+          <section aria-labelledby="vision-heading">
+            <div className="mb-6 flex items-baseline justify-between gap-4 border-b border-border/60 pb-3">
+              <h2
+                id="vision-heading"
+                className="font-display text-micro uppercase tracking-[0.35em] text-muted-foreground"
+              >
+                {t("about.vision.title")}
+              </h2>
+            </div>
+            <div className="card-editorial p-6 md:p-10">
+              <div className="space-y-5 text-small leading-relaxed text-foreground/85 md:text-base">
+                <p>{t("about.vision.p1")}</p>
+                <p>{t("about.vision.p2")}</p>
               </div>
             </div>
           </section>
@@ -110,25 +141,6 @@ function NosotrosPage() {
                   </p>
                 </article>
               ))}
-            </div>
-          </section>
-
-          <section aria-labelledby="vision-heading">
-            <div className="mb-6 flex items-baseline justify-between gap-4 border-b border-border/60 pb-3">
-              <h2
-                id="vision-heading"
-                className="font-display text-micro uppercase tracking-[0.35em] text-muted-foreground"
-              >
-                {t("about.vision.title")}
-              </h2>
-            </div>
-            <div className="card-editorial p-6 md:p-10">
-              <div className="space-y-5 text-small leading-relaxed text-foreground/85 md:text-base">
-                <p>{t("about.vision.p1")}</p>
-                <p>{t("about.vision.p2")}</p>
-                <p>{t("about.vision.p3")}</p>
-                <p>{t("about.vision.p4")}</p>
-              </div>
             </div>
           </section>
 
