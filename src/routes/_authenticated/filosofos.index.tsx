@@ -2,11 +2,28 @@ import { useMemo, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { PHILOSOPHER_LIST, type PhilosopherId } from "@/lib/philosophers";
 import { profileOf } from "@/lib/portraits";
-import { CATEGORIES, type CategoryId } from "@/lib/discovery";
+import {
+  CATEGORIES,
+  ERA_LABELS,
+  ERA_ORDER,
+  FACETS,
+  FAMILY_LABELS,
+  LEVEL_LABELS,
+  LEVEL_ORDER,
+  MOVEMENT_LABELS,
+  eraOf,
+  type CategoryId,
+  type EraId,
+  type FamilyId,
+  type LevelId,
+  type MovementId,
+} from "@/lib/discovery";
 import { PhilosopherCard } from "@/components/philosopher-card";
 import { SiteNav } from "@/components/site-nav";
 import { SiteFooter } from "@/components/site-footer";
 import { useI18n } from "@/lib/i18n";
+
+const COUNT = PHILOSOPHER_LIST.length;
 
 export const Route = createFileRoute("/_authenticated/filosofos/")({
   component: PhilosophersIndex,
@@ -15,8 +32,7 @@ export const Route = createFileRoute("/_authenticated/filosofos/")({
       { title: "Filósofos — PneumAlpha" },
       {
         name: "description",
-        content:
-          "Diecinueve conciencias filosóficas reconstruidas: quién es cada una, qué pregunta la mueve y de qué puedes hablar con ella.",
+        content: `${COUNT} conciencias filosóficas reconstruidas: quién es cada una, qué pregunta la mueve y de qué puedes hablar con ella.`,
       },
       { property: "og:title", content: "Filósofos — PneumAlpha" },
       {
@@ -29,11 +45,61 @@ export const Route = createFileRoute("/_authenticated/filosofos/")({
   }),
 });
 
+type SortId = "az" | "za" | "era-asc" | "era-desc" | "level-asc" | "level-desc";
+
+const SORTS: { id: SortId; label: { es: string; en: string } }[] = [
+  { id: "az", label: { es: "A–Z", en: "A–Z" } },
+  { id: "za", label: { es: "Z–A", en: "Z–A" } },
+  { id: "era-asc", label: { es: "Época: antiguos primero", en: "Era: oldest first" } },
+  { id: "era-desc", label: { es: "Época: recientes primero", en: "Era: newest first" } },
+  { id: "level-asc", label: { es: "Principiantes primero", en: "Beginners first" } },
+  { id: "level-desc", label: { es: "Avanzados primero", en: "Advanced first" } },
+];
+
+const FAMILY_IDS = Object.keys(FAMILY_LABELS) as FamilyId[];
+const LEVEL_IDS = Object.keys(LEVEL_LABELS) as LevelId[];
+const ERA_IDS = Object.keys(ERA_LABELS) as EraId[];
+
 function PhilosophersIndex() {
   const { lang } = useI18n();
   const es = lang === "es";
   const [query, setQuery] = useState("");
   const [cat, setCat] = useState<CategoryId | "all">("all");
+  const [sort, setSort] = useState<SortId>("az");
+  const [families, setFamilies] = useState<FamilyId[]>([]);
+  const [movements, setMovements] = useState<MovementId[]>([]);
+  const [levels, setLevels] = useState<LevelId[]>([]);
+  const [eras, setEras] = useState<EraId[]>([]);
+
+  const movementIds = useMemo(() => {
+    const used = new Set<MovementId>();
+    for (const p of PHILOSOPHER_LIST) {
+      for (const m of FACETS[p.id]?.movements ?? []) used.add(m);
+    }
+    return (Object.keys(MOVEMENT_LABELS) as MovementId[]).filter((m) => used.has(m));
+  }, []);
+
+  const toggle = <T,>(list: T[], set: (v: T[]) => void, value: T) =>
+    set(list.includes(value) ? list.filter((x) => x !== value) : [...list, value]);
+
+  const dirty =
+    query !== "" ||
+    cat !== "all" ||
+    sort !== "az" ||
+    families.length > 0 ||
+    movements.length > 0 ||
+    levels.length > 0 ||
+    eras.length > 0;
+
+  const clearAll = () => {
+    setQuery("");
+    setCat("all");
+    setSort("az");
+    setFamilies([]);
+    setMovements([]);
+    setLevels([]);
+    setEras([]);
+  };
 
   const results = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -41,7 +107,13 @@ function PhilosophersIndex() {
       cat === "all"
         ? PHILOSOPHER_LIST.map((p) => p.id)
         : (CATEGORIES.find((c) => c.id === cat)?.philosophers ?? []);
-    return pool.filter((id) => {
+
+    const filtered = (pool as PhilosopherId[]).filter((id) => {
+      const facet = FACETS[id];
+      if (families.length && !families.some((f) => facet?.families.includes(f))) return false;
+      if (movements.length && !movements.some((m) => facet?.movements.includes(m))) return false;
+      if (levels.length && !levels.includes(facet?.level)) return false;
+      if (eras.length && !eras.includes(eraOf(id))) return false;
       if (!q) return true;
       const p = PHILOSOPHER_LIST.find((x) => x.id === id);
       if (!p) return false;
@@ -52,12 +124,42 @@ function PhilosophersIndex() {
         p.blurb[lang],
         profile?.years ?? "",
         ...(profile?.expertise ?? []).map((e) => e[lang]),
+        ...(facet?.families ?? []).map((f) => FAMILY_LABELS[f][lang]),
+        ...(facet?.movements ?? []).map((m) => MOVEMENT_LABELS[m][lang]),
       ]
         .join(" ")
         .toLowerCase();
       return hay.includes(q);
-    }) as PhilosopherId[];
-  }, [query, cat, lang]);
+    });
+
+    const nameOf = (id: PhilosopherId) => PHILOSOPHER_LIST.find((x) => x.id === id)?.name ?? "";
+    const sorted = [...filtered];
+    sorted.sort((a, b) => {
+      switch (sort) {
+        case "az":
+          return nameOf(a).localeCompare(nameOf(b), lang);
+        case "za":
+          return nameOf(b).localeCompare(nameOf(a), lang);
+        case "era-asc":
+          return (FACETS[a]?.year ?? 0) - (FACETS[b]?.year ?? 0);
+        case "era-desc":
+          return (FACETS[b]?.year ?? 0) - (FACETS[a]?.year ?? 0);
+        case "level-asc":
+          return (
+            LEVEL_ORDER[FACETS[a]?.level ?? "mid"] - LEVEL_ORDER[FACETS[b]?.level ?? "mid"] ||
+            nameOf(a).localeCompare(nameOf(b), lang)
+          );
+        case "level-desc":
+          return (
+            LEVEL_ORDER[FACETS[b]?.level ?? "mid"] - LEVEL_ORDER[FACETS[a]?.level ?? "mid"] ||
+            nameOf(a).localeCompare(nameOf(b), lang)
+          );
+        default:
+          return 0;
+      }
+    });
+    return sorted;
+  }, [query, cat, lang, sort, families, movements, levels, eras]);
 
   return (
     <>
@@ -66,7 +168,9 @@ function PhilosophersIndex() {
         <div className="mx-auto max-w-6xl px-5 pt-14 md:px-8 md:pt-20">
           <p className="label">{es ? "Las mentes" : "The minds"}</p>
           <h1 className="mt-3 max-w-3xl font-serif text-title font-light text-foreground">
-            {es ? "Diecinueve maneras de pensar tu vida" : "Nineteen ways to think your life"}
+            {es
+              ? `${COUNT} maneras de pensar tu vida`
+              : `${COUNT} ways to think your life`}
           </h1>
           <p className="mt-5 max-w-xl text-base leading-relaxed text-muted-foreground">
             {es
@@ -101,6 +205,73 @@ function PhilosophersIndex() {
                 </FilterChip>
               ))}
             </div>
+
+            <FilterGroup label={es ? "Ordenar por" : "Sort by"}>
+              {SORTS.map((s) => (
+                <FilterChip key={s.id} active={sort === s.id} onClick={() => setSort(s.id)}>
+                  {s.label[lang]}
+                </FilterChip>
+              ))}
+            </FilterGroup>
+
+            <FilterGroup label={es ? "Ámbito" : "Field"}>
+              {FAMILY_IDS.map((f) => (
+                <FilterChip
+                  key={f}
+                  active={families.includes(f)}
+                  onClick={() => toggle(families, setFamilies, f)}
+                >
+                  {FAMILY_LABELS[f][lang]}
+                </FilterChip>
+              ))}
+            </FilterGroup>
+
+            <FilterGroup label={es ? "Movimiento" : "Movement"}>
+              {movementIds.map((m) => (
+                <FilterChip
+                  key={m}
+                  active={movements.includes(m)}
+                  onClick={() => toggle(movements, setMovements, m)}
+                >
+                  {MOVEMENT_LABELS[m][lang]}
+                </FilterChip>
+              ))}
+            </FilterGroup>
+
+            <FilterGroup label={es ? "Época" : "Era"}>
+              {ERA_IDS.map((e) => (
+                <FilterChip key={e} active={eras.includes(e)} onClick={() => toggle(eras, setEras, e)}>
+                  {ERA_LABELS[e][lang]}
+                </FilterChip>
+              ))}
+            </FilterGroup>
+
+            <FilterGroup label={es ? "Nivel" : "Level"}>
+              {LEVEL_IDS.map((l) => (
+                <FilterChip
+                  key={l}
+                  active={levels.includes(l)}
+                  onClick={() => toggle(levels, setLevels, l)}
+                >
+                  {LEVEL_LABELS[l][lang]}
+                </FilterChip>
+              ))}
+            </FilterGroup>
+
+            <div className="flex items-center gap-4">
+              <p aria-live="polite" className="text-micro text-muted-foreground">
+                {results.length} {es ? "mentes" : "minds"}
+              </p>
+              {dirty && (
+                <button
+                  type="button"
+                  onClick={clearAll}
+                  className="focus-mist text-micro text-bronze underline-offset-4 hover:underline"
+                >
+                  {es ? "Limpiar filtros" : "Clear filters"}
+                </button>
+              )}
+            </div>
           </div>
         </div>
 
@@ -124,6 +295,16 @@ function PhilosophersIndex() {
     </>
   );
 }
+
+function FilterGroup({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <div className="flex flex-col gap-2">
+      <p className="label">{label}</p>
+      <div className="flex flex-wrap gap-2">{children}</div>
+    </div>
+  );
+}
+
 
 function FilterChip({
   active,
