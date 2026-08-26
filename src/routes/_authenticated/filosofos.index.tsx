@@ -128,10 +128,12 @@ function PhilosophersIndex() {
 
     const filtered = (pool as PhilosopherId[]).filter((id) => {
       const facet = FACETS[id];
+      const pol = politicsOf(id);
       if (families.length && !families.some((f) => facet?.families.includes(f))) return false;
       if (movements.length && !movements.some((m) => facet?.movements.includes(m))) return false;
       if (levels.length && !levels.includes(facet?.level)) return false;
       if (eras.length && !eras.includes(eraOf(id))) return false;
+      if (politics.length && (!pol || !politics.includes(pol))) return false;
       if (!q) return true;
       const p = PHILOSOPHER_LIST.find((x) => x.id === id);
       if (!p) return false;
@@ -144,6 +146,7 @@ function PhilosophersIndex() {
         ...(profile?.expertise ?? []).map((e) => e[lang]),
         ...(facet?.families ?? []).map((f) => FAMILY_LABELS[f][lang]),
         ...(facet?.movements ?? []).map((m) => MOVEMENT_LABELS[m][lang]),
+        pol ? POLITICS_LABELS[pol][lang] : "",
       ]
         .join(" ")
         .toLowerCase();
