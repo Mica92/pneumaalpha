@@ -41,6 +41,22 @@ import berlinPortrait from "@/assets/portraits/berlin.jpg";
 import bostromPortrait from "@/assets/portraits/bostrom.jpg";
 import krishnamurtiPortrait from "@/assets/portraits/krishnamurti.jpg";
 import zubiriPortrait from "@/assets/portraits/zubiri.jpg";
+import wollstonecraftPortrait from "@/assets/portraits/wollstonecraft.jpg";
+import astellPortrait from "@/assets/portraits/astell.jpg";
+import millPortrait from "@/assets/portraits/mill.jpg";
+import weilPortrait from "@/assets/portraits/weil.jpg";
+import kuschPortrait from "@/assets/portraits/kusch.jpg";
+import gianniniPortrait from "@/assets/portraits/giannini.jpg";
+import derridaPortrait from "@/assets/portraits/derrida.jpg";
+import poretePortrait from "@/assets/portraits/porete.jpg";
+import marinellaPortrait from "@/assets/portraits/marinella.jpg";
+import deshoulieresPortrait from "@/assets/portraits/deshoulieres.jpg";
+import sablePortrait from "@/assets/portraits/sable.jpg";
+import hildebrandPortrait from "@/assets/portraits/hildebrand.jpg";
+import ziemieckaPortrait from "@/assets/portraits/ziemiecka.jpg";
+import steinPortrait from "@/assets/portraits/stein.jpg";
+import anscombePortrait from "@/assets/portraits/anscombe.jpg";
+import lipmanPortrait from "@/assets/portraits/lipman.jpg";
 import type { PhilosopherId } from "@/lib/philosophers";
 import type { LocalizedString } from "@/lib/philosophers";
 
@@ -89,6 +105,22 @@ export const PORTRAITS: Partial<Record<PhilosopherId, string>> = {
   bostrom: bostromPortrait,
   krishnamurti: krishnamurtiPortrait,
   zubiri: zubiriPortrait,
+  wollstonecraft: wollstonecraftPortrait,
+  astell: astellPortrait,
+  mill: millPortrait,
+  weil: weilPortrait,
+  kusch: kuschPortrait,
+  giannini: gianniniPortrait,
+  derrida: derridaPortrait,
+  porete: poretePortrait,
+  marinella: marinellaPortrait,
+  deshoulieres: deshoulieresPortrait,
+  sable: sablePortrait,
+  hildebrand: hildebrandPortrait,
+  ziemiecka: ziemieckaPortrait,
+  stein: steinPortrait,
+  anscombe: anscombePortrait,
+  lipman: lipmanPortrait,
 };
 
 export function portraitOf(id: string): string | undefined {

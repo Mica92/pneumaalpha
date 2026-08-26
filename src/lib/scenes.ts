@@ -41,6 +41,22 @@ import berlinScene from "@/assets/scenes/berlin.jpg";
 import bostromScene from "@/assets/scenes/bostrom.jpg";
 import krishnamurtiScene from "@/assets/scenes/krishnamurti.jpg";
 import zubiriScene from "@/assets/scenes/zubiri.jpg";
+import wollstonecraftScene from "@/assets/scenes/wollstonecraft.jpg";
+import astellScene from "@/assets/scenes/astell.jpg";
+import millScene from "@/assets/scenes/mill.jpg";
+import weilScene from "@/assets/scenes/weil.jpg";
+import kuschScene from "@/assets/scenes/kusch.jpg";
+import gianniniScene from "@/assets/scenes/giannini.jpg";
+import derridaScene from "@/assets/scenes/derrida.jpg";
+import poreteScene from "@/assets/scenes/porete.jpg";
+import marinellaScene from "@/assets/scenes/marinella.jpg";
+import deshoulieresScene from "@/assets/scenes/deshoulieres.jpg";
+import sableScene from "@/assets/scenes/sable.jpg";
+import hildebrandScene from "@/assets/scenes/hildebrand.jpg";
+import ziemieckaScene from "@/assets/scenes/ziemiecka.jpg";
+import steinScene from "@/assets/scenes/stein.jpg";
+import anscombeScene from "@/assets/scenes/anscombe.jpg";
+import lipmanScene from "@/assets/scenes/lipman.jpg";
 import type { PhilosopherId } from "@/lib/philosophers";
 
 /**
@@ -91,6 +107,22 @@ export const SCENES: Partial<Record<PhilosopherId, string>> = {
   bostrom: bostromScene,
   krishnamurti: krishnamurtiScene,
   zubiri: zubiriScene,
+  wollstonecraft: wollstonecraftScene,
+  astell: astellScene,
+  mill: millScene,
+  weil: weilScene,
+  kusch: kuschScene,
+  giannini: gianniniScene,
+  derrida: derridaScene,
+  porete: poreteScene,
+  marinella: marinellaScene,
+  deshoulieres: deshoulieresScene,
+  sable: sableScene,
+  hildebrand: hildebrandScene,
+  ziemiecka: ziemieckaScene,
+  stein: steinScene,
+  anscombe: anscombeScene,
+  lipman: lipmanScene,
 };
 
 export function sceneOf(id: string): string | undefined {
