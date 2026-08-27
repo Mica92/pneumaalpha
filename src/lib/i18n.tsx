@@ -590,57 +590,7 @@ export const T: Dict = {
     en: "Enter the number in international format, e.g. +15551234567.",
   },
 
-  "telegram.title": { es: "Conversar desde Telegram", en: "Talk from Telegram" },
-  "telegram.what": {
-    es: "Habla con las conciencias desde tu celular. Lo que escribas en Telegram se guarda en tu cuenta de la web.",
-    en: "Talk to the minds from your phone. What you write on Telegram is saved to your web account.",
-  },
-  "telegram.step1": {
-    es: "Genera tu código en esta pantalla.",
-    en: "Generate your code on this screen.",
-  },
-  "telegram.step2": {
-    es: "Escanea el QR con tu celular o abre el enlace.",
-    en: "Scan the QR with your phone or open the link.",
-  },
-  "telegram.step3": {
-    es: "Telegram abre el bot y vincula tu cuenta automáticamente.",
-    en: "Telegram opens the bot and links your account automatically.",
-  },
-  "telegram.qrAlt": {
-    es: "Código QR para abrir el bot de Telegram",
-    en: "QR code to open the Telegram bot",
-  },
-  "telegram.qrHint": {
-    es: "Escanea para vincular",
-    en: "Scan to link",
-  },
-  "telegram.openTelegram": {
-    es: "Abrir en Telegram",
-    en: "Open in Telegram",
-  },
-  "telegram.commands": { es: "Comandos útiles", en: "Useful commands" },
-  "telegram.commandsList": {
-    es: "/filosofos · /actual · /reiniciar · /oraculo",
-    en: "/filosofos · /actual · /reiniciar · /oraculo",
-  },
-  "telegram.freeMinds": {
-    es: "Sin vincular puedes hablar gratis con Heidegger y Pohlenz.",
-    en: "Without linking you can talk free with Heidegger and Pohlenz.",
-  },
-  "telegram.linked": {
-    es: "Tu cuenta está vinculada. Todo lo que escribas en Telegram se sincroniza aquí.",
-    en: "Your account is linked. Everything you write on Telegram syncs here.",
-  },
-  "telegram.generate": { es: "Generar código", en: "Generate code" },
-  "telegram.generating": { es: "Generando…", en: "Generating…" },
-  "telegram.generateQrHere": { es: "Generar QR acá", en: "Generate QR here" },
 
-  "telegram.unlink": { es: "Desvincular", en: "Unlink" },
-  "telegram.codeError": {
-    es: "No se pudo generar el código.",
-    en: "Could not generate the code.",
-  },
 
   "about.kicker": { es: "Nosotros", en: "About us" },
   "about.title": {
