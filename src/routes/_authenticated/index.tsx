@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { PHILOSOPHERS, PHILOSOPHER_LIST, type PhilosopherId } from "@/lib/philosophers";
 import { portraitFocus, portraitOf, profileOf } from "@/lib/portraits";
@@ -6,6 +6,8 @@ import { CATEGORIES, IDEAS, REAL_PROBLEMS, ROUTES, centralQuestion } from "@/lib
 import { useI18n } from "@/lib/i18n";
 import { SITE_URL, SITE_NAME } from "@/lib/site";
 import { SiteNav } from "@/components/site-nav";
+import { ToneSelect } from "@/components/tone-select";
+import { loadStoredTone, storeTone, type ToneId } from "@/lib/tones";
 import { SiteFooter } from "@/components/site-footer";
 import { PhilosopherCard } from "@/components/philosopher-card";
 import landingBg from "@/assets/landing-bg.jpg";
@@ -89,6 +91,11 @@ function Home() {
   const es = lang === "es";
   const navigate = useNavigate();
   const [inquiry, setInquiry] = useState("");
+  const [tone, setTone] = useState<ToneId | null>(null);
+
+  useEffect(() => {
+    setTone(loadStoredTone());
+  }, []);
 
   const featured = useMemo(() => {
     const ids: PhilosopherId[] = ["heidegger", "nietzsche", "pohlenz", "levinas", "marx", "kant"];
@@ -103,7 +110,7 @@ function Home() {
   function ask(text: string) {
     const q = text.trim();
     if (!q) return;
-    navigate({ to: "/oraculo", search: { q } });
+    navigate({ to: "/oraculo", search: tone ? { q, tone } : { q } });
   }
 
   return (
@@ -166,6 +173,16 @@ function Home() {
                 {es ? "Empezar" : "Begin"}
               </button>
             </form>
+
+            <div className="mx-auto mt-4 flex max-w-xl justify-center">
+              <ToneSelect
+                value={tone}
+                onChange={(v) => {
+                  setTone(v);
+                  storeTone(v);
+                }}
+              />
+            </div>
 
             <ul className="mx-auto mt-6 flex max-w-2xl flex-wrap justify-center gap-2">
               {REAL_PROBLEMS.slice(0, 4).map((p) => (

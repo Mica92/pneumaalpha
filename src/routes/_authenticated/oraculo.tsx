@@ -7,10 +7,14 @@ import { matchPhilosopher } from "@/lib/oracle.functions";
 import { PHILOSOPHERS, type PhilosopherId } from "@/lib/philosophers";
 import { useI18n } from "@/lib/i18n";
 import { GreekGlyph } from "@/components/greek-glyph";
+import { ToneSelect } from "@/components/tone-select";
+import { isToneId, loadStoredTone, storeTone, type ToneId } from "@/lib/tones";
 
 export const Route = createFileRoute("/_authenticated/oraculo")({
-  validateSearch: (search: Record<string, unknown>): { q?: string } =>
-    typeof search.q === "string" && search.q ? { q: search.q } : {},
+  validateSearch: (search: Record<string, unknown>): { q?: string; tone?: string } => ({
+    ...(typeof search.q === "string" && search.q ? { q: search.q } : {}),
+    ...(isToneId(search.tone) ? { tone: search.tone } : {}),
+  }),
   component: OraclePage,
   head: () => ({
     meta: [
@@ -37,8 +41,14 @@ function OraclePage() {
   const { lang, t } = useI18n();
   const matchFn = useServerFn(matchPhilosopher);
 
-  const { q } = Route.useSearch();
+  const { q, tone: toneParam } = Route.useSearch();
   const [inquiry, setInquiry] = useState(q ?? "");
+  const [tone, setTone] = useState<ToneId | null>(isToneId(toneParam) ? toneParam : null);
+
+  useEffect(() => {
+    if (isToneId(toneParam)) storeTone(toneParam);
+    else setTone(loadStoredTone());
+  }, [toneParam]);
   const [result, setResult] = useState<Result | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -56,7 +66,9 @@ function OraclePage() {
     setError(null);
     setResult(null);
     try {
-      const r = await matchFn({ data: { inquiry: text, language: lang } });
+      const r = await matchFn({
+        data: { inquiry: text, language: lang, tone: tone ?? undefined },
+      });
       setResult(r);
     } catch (err) {
       console.error("[oracle] match failed", err);
@@ -99,6 +111,14 @@ function OraclePage() {
                 (e.currentTarget.form as HTMLFormElement | null)?.requestSubmit();
               }
             }}
+          />
+          <ToneSelect
+            value={tone}
+            onChange={(v) => {
+              setTone(v);
+              storeTone(v);
+            }}
+            className="self-start"
           />
           <div className="flex items-center justify-between">
             <span className="font-mono text-micro uppercase tracking-[0.25em] text-muted-foreground/70">
