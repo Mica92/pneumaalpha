@@ -1,0 +1,86 @@
+#!/usr/bin/env python3
+"""Genera public/og-image.png (1200x630) con el cisne de origami de Pneuma Alpha."""
+from PIL import Image, ImageDraw, ImageFont, ImageFilter
+
+W, H = 1200, 630
+BG = (11, 11, 13)
+GOLD = (201, 162, 75)
+
+
+def bezier(p0, p1, p2, p3, n=40):
+    pts = []
+    for i in range(n + 1):
+        t = i / n
+        x = (1 - t) ** 3 * p0[0] + 3 * (1 - t) ** 2 * t * p1[0] + 3 * (1 - t) * t ** 2 * p2[0] + t ** 3 * p3[0]
+        y = (1 - t) ** 3 * p0[1] + 3 * (1 - t) ** 2 * t * p1[1] + 3 * (1 - t) * t ** 2 * p2[1] + t ** 3 * p3[1]
+        pts.append((x, y))
+    return pts
+
+
+# facetas del cisne de origami (coordenadas del favicon) con tono de gris
+facets = [
+    ([(37, 41), (13, 6), (26, 34)], 96),
+    ([(37, 41), (26, 34), (30, 12)], 126),
+    ([(37, 41), (30, 12), (10, 16)], 246),
+    ([(37, 41), (10, 16), (20, 33)], 216),
+    ([(37, 41), (20, 33), (7, 27)], 96),
+    ([(37, 41), (7, 27), (18, 38)], 246),
+    ([(37, 41), (18, 38), (9, 39)], 178),
+    ([(37, 41), (9, 39), (20, 45)], 216),
+    ([(37, 41), (20, 45), (18, 52), (30, 58)], 96),
+    ([(37, 41), (30, 58), (45, 57)], 178),
+    ([(37, 41), (45, 57), (50, 46)], 216),
+    ([(37, 41), (50, 46), (52, 40)], 126),
+]
+neck = bezier((49, 47), (44, 30), (44, 16), (52, 14))[:-1] + bezier((52, 14), (59, 12), (61, 20), (56, 23))
+head = [(55, 17), (60, 20), (56, 24)]
+beak = [(56, 23), (62, 27), (55, 26)]
+
+S = 7.2
+minx, maxx = 7, 62
+miny, maxy = 6, 58
+OX = (W - (maxx - minx) * S) / 2 - minx * S
+OY = 250 - (maxy + miny) / 2 * S
+
+
+def T(p):
+    return (OX + p[0] * S, OY + p[1] * S)
+
+
+img = Image.new("RGB", (W, H), BG)
+# resplandor suave
+glow = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+gd = ImageDraw.Draw(glow)
+gd.ellipse([600 - 460, 160 - 460, 600 + 460, 160 + 460], fill=(61, 180, 242, 55))
+gd.ellipse([350 - 300, 420 - 300, 350 + 300, 420 + 300], fill=(240, 163, 92, 35))
+glow = glow.filter(ImageFilter.GaussianBlur(160))
+img = Image.alpha_composite(img.convert("RGBA"), glow).convert("RGB")
+d = ImageDraw.Draw(img)
+
+for pts, g in facets:
+    d.polygon([T(p) for p in pts], fill=(g, g, g))
+d.line([T(p) for p in neck], fill=(245, 245, 245), width=int(5 * S), joint="curve")
+d.polygon([T(p) for p in head], fill=(150, 150, 150))
+d.polygon([T(p) for p in beak], fill=GOLD)
+
+# tipografía
+def font(path, size):
+    try:
+        return ImageFont.truetype(path, size)
+    except Exception:
+        return ImageFont.load_default()
+
+
+serif_b = font("C:/Windows/Fonts/GARABD.TTF", 92)
+sans = font("C:/Windows/Fonts/arial.ttf", 28)
+
+brand = "Pneuma Alpha"
+tb = d.textbbox((0, 0), brand, font=serif_b)
+d.text(((W - (tb[2] - tb[0])) / 2, 500), brand, fill=(245, 245, 245), font=serif_b)
+
+tag = "Conversa con las grandes mentes de la historia"
+tt = d.textbbox((0, 0), tag, font=sans)
+d.text(((W - (tt[2] - tt[0])) / 2, 588), tag, fill=(168, 168, 178), font=sans)
+
+img.convert("RGB").save("public/og-image.png", optimize=True)
+print("og-image.png generado:", img.size)

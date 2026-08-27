@@ -4,6 +4,7 @@ import { PHILOSOPHERS, PHILOSOPHER_LIST, type PhilosopherId } from "@/lib/philos
 import { portraitFocus, portraitOf, profileOf } from "@/lib/portraits";
 import { CATEGORIES, IDEAS, REAL_PROBLEMS, ROUTES, centralQuestion } from "@/lib/discovery";
 import { useI18n } from "@/lib/i18n";
+import { SITE_URL, SITE_NAME } from "@/lib/site";
 import { SiteNav } from "@/components/site-nav";
 import { SiteFooter } from "@/components/site-footer";
 import { PhilosopherCard } from "@/components/philosopher-card";
@@ -13,23 +14,73 @@ export const Route = createFileRoute("/_authenticated/")({
   component: Home,
   head: () => ({
     meta: [
-      { title: "PneumAlpha — Conversa con los grandes pensadores de la historia" },
+      { title: "Pneuma Alpha — Conversa con los grandes pensadores de la historia" },
       {
         name: "description",
         content: `Escribe lo que te preocupa y habla con una conciencia filosófica reconstruida. ${PHILOSOPHER_LIST.length} mentes, grandes ideas y rutas guiadas para pensar tu vida.`,
 
       },
-      { property: "og:title", content: "PneumAlpha — Conversa con los grandes pensadores" },
+      { property: "og:title", content: "Pneuma Alpha — Conversa con los grandes pensadores" },
       {
         property: "og:description",
         content:
           "No es una enciclopedia: es una conversación. Entra por una pregunta, no por un autor.",
       },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://pneumaalpha.lovable.app/" },
+      { property: "og:url", content: `${SITE_URL}/` },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "https://pneumaalpha.lovable.app/" }],
+    links: [{ rel: "canonical", href: `${SITE_URL}/` }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "SoftwareApplication",
+          name: SITE_NAME,
+          description:
+            "Conversaciones bilingües (ES/EN) con conciencias filosóficas reconstruidas: filosofía aplicada para pensar, decidir y vivir mejor.",
+          applicationCategory: "LifestyleApplication",
+          operatingSystem: "Web",
+          inLanguage: ["es", "en"],
+          url: SITE_URL,
+          offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+        }),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: [
+            {
+              "@type": "Question",
+              name: "¿En qué idiomas puedo conversar?",
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: "En español y en inglés. Cada conciencia responde en el idioma en que le hables.",
+              },
+            },
+            {
+              "@type": "Question",
+              name: "¿Pneuma Alpha reemplaza a un terapeuta?",
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: "No. Pneuma Alpha es una herramienta de reflexión y diálogo filosófico, no un servicio de salud mental ni un sustituto de terapia profesional.",
+              },
+            },
+            {
+              "@type": "Question",
+              name: "¿Cómo funciona?",
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: "Escribe lo que te preocupa y conversa con una de las conciencias filosóficas reconstruidas. No necesitas saber filosofía: entras por una pregunta, no por un autor.",
+              },
+            },
+          ],
+        }),
+      },
+    ],
   }),
 });
 

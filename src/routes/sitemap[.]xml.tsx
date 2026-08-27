@@ -1,8 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
 import { PHILOSOPHER_LIST } from "@/lib/philosophers";
-
-const BASE_URL = "https://pneumaalpha.lovable.app";
+import { SITE_URL } from "@/lib/site";
 
 export const Route = createFileRoute("/sitemap.xml")({
   server: {
@@ -31,7 +30,7 @@ export const Route = createFileRoute("/sitemap.xml")({
         ];
         const urls = paths.map(
           (path) =>
-            `  <url>\n    <loc>${BASE_URL}${path}</loc>\n    <changefreq>weekly</changefreq>\n  </url>`,
+            `  <url>\n    <loc>${SITE_URL}${path}</loc>\n    <changefreq>weekly</changefreq>\n  </url>`,
         );
         const xml = [
           `<?xml version="1.0" encoding="UTF-8"?>`,

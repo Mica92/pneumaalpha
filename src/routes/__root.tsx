@@ -18,6 +18,7 @@ import appCss from "../styles.css?url";
 import { GreekGlyph } from "@/components/greek-glyph";
 import { NeuralBackground } from "@/components/neural-background";
 import { TintProvider } from "@/lib/tint";
+import { SITE_URL, SITE_NAME } from "@/lib/site";
 
 function NotFoundComponent() {
   return (
@@ -32,7 +33,7 @@ function NotFoundComponent() {
           to="/"
           className="mt-8 inline-flex items-center justify-center rounded-md border border-border bg-card/60 px-6 py-2.5 text-micro uppercase tracking-[0.25em] text-foreground transition-colors hover:border-primary/50 hover:bg-card"
         >
-          ← PneumAlpha
+          ← Pneuma Alpha
         </Link>
       </div>
     </div>
@@ -64,51 +65,54 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
 }
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
-  head: () => ({
+  head: ({ match }) => {
+    const path = match?.pathname ?? "/";
+    const esUrl = `${SITE_URL}${path}?lang=es`;
+    const enUrl = `${SITE_URL}${path}?lang=en`;
+    const xDefault = `${SITE_URL}${path}`;
+    return {
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "PneumAlpha — conversaciones con conciencias filosóficas reconstruidas" },
+      { title: "Pneuma Alpha — conversaciones con conciencias filosóficas reconstruidas" },
       {
         name: "description",
         content:
-          "PneumAlpha: conversa libremente, en español o en inglés, con conciencias filosóficas reconstruidas — Heidegger, Schopenhauer, James, Nietzsche, Marx.",
+          "Pneuma Alpha: conversa libremente, en español o en inglés, con conciencias filosóficas reconstruidas — Heidegger, Schopenhauer, James, Nietzsche, Marx.",
       },
       {
         property: "og:title",
-        content: "PneumAlpha — conversaciones con conciencias filosóficas reconstruidas",
+        content: "Pneuma Alpha — conversaciones con conciencias filosóficas reconstruidas",
       },
       {
         property: "og:description",
         content:
-          "PneumAlpha: conversa libremente, en español o en inglés, con conciencias filosóficas reconstruidas — Heidegger, Schopenhauer, James, Nietzsche, Marx.",
+          "Pneuma Alpha: conversa libremente, en español o en inglés, con conciencias filosóficas reconstruidas — Heidegger, Schopenhauer, James, Nietzsche, Marx.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
 
       {
         name: "twitter:title",
-        content: "PneumAlpha — conversaciones con conciencias filosóficas reconstruidas",
+        content: "Pneuma Alpha — conversaciones con conciencias filosóficas reconstruidas",
       },
       {
         name: "twitter:description",
         content:
-          "PneumAlpha: conversa libremente, en español o en inglés, con conciencias filosóficas reconstruidas — Heidegger, Schopenhauer, James, Nietzsche, Marx.",
+          "Pneuma Alpha: conversa libremente, en español o en inglés, con conciencias filosóficas reconstruidas — Heidegger, Schopenhauer, James, Nietzsche, Marx.",
       },
       {
         property: "og:image",
-        content:
-          "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/6a615d32-8995-4ede-85b3-608b382a2e18",
+        content: `${SITE_URL}/og-image.png`,
       },
       {
         name: "twitter:image",
-        content:
-          "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/6a615d32-8995-4ede-85b3-608b382a2e18",
+        content: `${SITE_URL}/og-image.png`,
       },
       { name: "theme-color", content: "#0B0B0D" },
       { name: "apple-mobile-web-app-capable", content: "yes" },
       { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
-      { name: "apple-mobile-web-app-title", content: "PneumAlpha" },
+      { name: "apple-mobile-web-app-title", content: "Pneuma Alpha" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
@@ -121,8 +125,31 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "manifest", href: "/manifest.webmanifest" },
       { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
       { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
+      { rel: "alternate", hreflang: "es", href: esUrl },
+      { rel: "alternate", hreflang: "en", href: enUrl },
+      { rel: "alternate", hreflang: "x-default", href: xDefault },
     ],
-  }),
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          name: SITE_NAME,
+          url: SITE_URL,
+          inLanguage: ["es", "en"],
+          description:
+            "Conversaciones filosóficas bilingües (ES/EN) con conciencias reconstruidas: filosofía aplicada para pensar, decidir y vivir mejor.",
+          potentialAction: {
+            "@type": "SearchAction",
+            target: `${SITE_URL}/buscar?q={search_term_string}`,
+            "query-input": "required name=search_term_string",
+          },
+        }),
+      },
+    ],
+  };
+},
 
   shellComponent: RootShell,
   component: RootComponent,

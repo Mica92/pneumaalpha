@@ -73,10 +73,10 @@ export function ShareFragmentButton({ philosopher, text, question }: Props) {
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
 
-  const author = PHILOSOPHERS[philosopher]?.name ?? "PneumAlpha";
+  const author = PHILOSOPHERS[philosopher]?.name ?? "Pneuma Alpha";
   const excerpt = text.trim().slice(0, MAX);
-  const footer = "pneumaalpha.lovable.app · PneumAlpha";
-  const shareText = `“${excerpt}”\n— ${author} · PneumAlpha`;
+  const footer = "pneumaalpha.lovable.app · Pneuma Alpha";
+  const shareText = `“${excerpt}”\n— ${author} · Pneuma Alpha`;
 
   const handleCopy = async () => {
     try {
@@ -93,7 +93,7 @@ export function ShareFragmentButton({ philosopher, text, question }: Props) {
       return;
     }
     try {
-      await navigator.share({ text: shareText, title: "PneumAlpha" });
+      await navigator.share({ text: shareText, title: "Pneuma Alpha" });
     } catch {
       /* user cancelled */
     }

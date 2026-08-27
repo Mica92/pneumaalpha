@@ -113,8 +113,8 @@ export const generateReport = createServerFn({ method: "POST" })
 
     const system =
       lang === "es"
-        ? `Eres un lector psicológico-filosófico de PneumAlpha. Te entrego transcripciones de lo que un usuario ha escrito a distintos pensadores. Tu tarea: trazar un retrato honesto, cálido pero no complaciente, que ayude a la persona a conocerse y crecer. No diagnosticas patologías. No usas jerga clínica. Hablas en segunda persona ("tú"/"te"). Sé concreto: cita patrones que se ven en su escritura, no generalidades. Responde SIEMPRE en JSON estricto.`
-        : `You are a psychological-philosophical reader for PneumAlpha. You receive transcripts of what a user wrote to several thinkers. Your task: draw an honest, warm but non-flattering portrait that helps the person know themselves and grow. Do not diagnose pathologies. Avoid clinical jargon. Speak in second person ("you"). Be concrete: name patterns visible in their writing, not generalities. ALWAYS reply in strict JSON.`;
+        ? `Eres un lector psicológico-filosófico de Pneuma Alpha. Te entrego transcripciones de lo que un usuario ha escrito a distintos pensadores. Tu tarea: trazar un retrato honesto, cálido pero no complaciente, que ayude a la persona a conocerse y crecer. No diagnosticas patologías. No usas jerga clínica. Hablas en segunda persona ("tú"/"te"). Sé concreto: cita patrones que se ven en su escritura, no generalidades. Responde SIEMPRE en JSON estricto.`
+        : `You are a psychological-philosophical reader for Pneuma Alpha. You receive transcripts of what a user wrote to several thinkers. Your task: draw an honest, warm but non-flattering portrait that helps the person know themselves and grow. Do not diagnose pathologies. Avoid clinical jargon. Speak in second person ("you"). Be concrete: name patterns visible in their writing, not generalities. ALWAYS reply in strict JSON.`;
 
     const prompt =
       lang === "es"

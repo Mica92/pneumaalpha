@@ -14,13 +14,13 @@ export const Route = createFileRoute("/_authenticated/mesa")({
   component: RoundTablePage,
   head: () => ({
     meta: [
-      { title: "PneumAlpha — Mesa redonda · tres filósofos debaten tu tema" },
+      { title: "Pneuma Alpha — Mesa redonda · tres filósofos debaten tu tema" },
       {
         name: "description",
         content:
           "Sienta hasta tres filósofos en la misma mesa y ponles un tema: debaten por turnos, se responden entre ellos y cierran con una síntesis. Filosofía e IA conversacional en español e inglés.",
       },
-      { property: "og:title", content: "PneumAlpha — Mesa redonda" },
+      { property: "og:title", content: "Pneuma Alpha — Mesa redonda" },
       {
         property: "og:description",
         content: "Tres mentes filosóficas reconstruidas debatiendo el tema que tú traigas.",
