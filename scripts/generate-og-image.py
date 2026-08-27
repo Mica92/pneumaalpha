@@ -36,11 +36,11 @@ neck = bezier((49, 47), (44, 30), (44, 16), (52, 14))[:-1] + bezier((52, 14), (5
 head = [(55, 17), (60, 20), (56, 24)]
 beak = [(56, 23), (62, 27), (55, 26)]
 
-S = 7.2
+S = 6.2
 minx, maxx = 7, 62
 miny, maxy = 6, 58
 OX = (W - (maxx - minx) * S) / 2 - minx * S
-OY = 250 - (maxy + miny) / 2 * S
+OY = 215 - (maxy + miny) / 2 * S
 
 
 def T(p):
