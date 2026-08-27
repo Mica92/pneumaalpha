@@ -5,7 +5,6 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { PHILOSOPHER_LIST } from "@/lib/philosophers";
 import { useI18n } from "@/lib/i18n";
 import { InstallAppCard } from "@/components/install-app";
-import { TelegramCard } from "@/components/telegram-card";
 import { NewsletterCard } from "@/components/newsletter-card";
 
 export const Route = createFileRoute("/_authenticated/umbral")({
@@ -334,9 +333,8 @@ function Index() {
           </h2>
         </div>
 
-        <div className="grid gap-3 lg:grid-cols-2">
+        <div className="grid gap-3">
           <InstallAppCard />
-          <TelegramCard />
         </div>
 
         <NewsletterCard className="mt-10" />
