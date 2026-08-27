@@ -1,4 +1,5 @@
 // Registro de filósofos vivos en la plataforma.
+import { toneDirective } from "@/lib/tones";
 // Cada uno tiene su prompt, su atmósfera y su voz.
 
 import { EXTRA_PHILOSOPHERS, type ExtraPhilosopherId } from "@/lib/philosophers-extra";
@@ -1051,6 +1052,7 @@ export function buildSystemPrompt(
   philosopher: PhilosopherId,
   memory: string[],
   language: Language = "es",
+  tone?: string,
 ): string {
   const p = PHILOSOPHERS[philosopher];
   const parts: string[] = [p.systemPrompt, LANG_DIRECTIVE[language]];
@@ -1066,5 +1068,7 @@ export function buildSystemPrompt(
     parts.push(`${header}\n${memBlock}\n\n${footer}`);
   }
   parts.push(STYLE_DIRECTIVE[language]);
+  const toneBlock = toneDirective(tone, language);
+  if (toneBlock) parts.push(toneBlock);
   return parts.join("\n\n");
 }
