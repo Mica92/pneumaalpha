@@ -71,7 +71,7 @@ export function PneumaMark({ className = "", withWordmark = false, size = 28 }: 
       {withWordmark && (
         <span
           aria-hidden="true"
-          className="font-serif text-subtitle font-medium tracking-[0.14em] text-foreground"
+          className="whitespace-nowrap font-serif text-subtitle font-medium tracking-[0.14em] text-foreground"
         >
           Pneuma <span style={{ color: tint }}>Alpha</span>
         </span>

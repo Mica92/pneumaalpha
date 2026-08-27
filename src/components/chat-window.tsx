@@ -14,6 +14,7 @@ import {
 } from "@/lib/chat.functions";
 import { seedAquinasCorpus, countSources } from "@/lib/rag.functions";
 import { PHILOSOPHERS, PHILOSOPHER_LIST, type PhilosopherId } from "@/lib/philosophers";
+import { loadStoredTone } from "@/lib/tones";
 
 import { useI18n, LanguageSelector } from "@/lib/i18n";
 import { useVoiceDictation } from "@/hooks/use-voice-dictation";
@@ -164,7 +165,12 @@ function ChatBody({
         fetch: async (_url, init) => {
           const body = JSON.parse(init?.body as string);
           return (await sendFn({
-            data: { philosopher, messages: body.messages, language: langRef.current },
+            data: {
+              philosopher,
+              messages: body.messages,
+              language: langRef.current,
+              tone: loadStoredTone() ?? undefined,
+            },
           })) as Response;
         },
       }),

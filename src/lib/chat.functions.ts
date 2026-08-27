@@ -13,6 +13,7 @@ const SendSchema = z.object({
   philosopher: PhilosopherSchema,
   messages: z.array(z.any()),
   language: LanguageSchema.optional(),
+  tone: z.string().optional(),
 });
 const ClearSchema = z.object({ philosopher: PhilosopherSchema });
 const MigrateSchema = z.object({
@@ -149,7 +150,7 @@ export const sendChat = createServerFn({ method: "POST" })
     const model = gateway("google/gemini-3-flash-preview");
 
     const modelMessages = await convertToModelMessages(messages);
-    const baseSystem = buildSystemPrompt(philosopher, memoryLines, data.language ?? "es");
+    const baseSystem = buildSystemPrompt(philosopher, memoryLines, data.language ?? "es", data.tone);
     const result = streamText({
       model,
       system: baseSystem + ragContext,

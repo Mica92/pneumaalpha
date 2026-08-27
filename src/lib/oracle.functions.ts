@@ -4,10 +4,12 @@ import { generateText } from "ai";
 import { z } from "zod";
 import { createLovableAiGatewayProvider } from "@/lib/ai-gateway";
 import { PHILOSOPHERS, isPhilosopherId, type PhilosopherId } from "@/lib/philosophers";
+import { getTone, isToneId } from "@/lib/tones";
 
 const InputSchema = z.object({
   inquiry: z.string().trim().min(3).max(2000),
   language: z.enum(["es", "en"]).default("es"),
+  tone: z.string().optional(),
 });
 
 type MatchResult = {
@@ -64,13 +66,19 @@ ${data.inquiry}
 Return ONLY a JSON object with this exact shape, no extra text, no markdown, no backticks:
 {"philosopher":"<one of: ${ids}>","reason":"<2 to 3 sentences in English, addressing the user directly ('you might…'), warmly explaining why this voice fits this concern. Sober, no clichés. Do not name other thinkers from the catalog.>"}`;
 
+    const toneLine = isToneId(data.tone)
+      ? lang === "es"
+        ? `\n\nRegistro preferido por la persona: ${getTone(data.tone).label.es} — ${getTone(data.tone).hint.es} Úsalo como criterio SECUNDARIO (el tema y la inquietud mandan) y escribe tu razón en ese registro.`
+        : `\n\nThe person's preferred register: ${getTone(data.tone).label.en} — ${getTone(data.tone).hint.en} Use it as a SECONDARY criterion (topic and concern come first) and write your reason in that register.`
+      : "";
+
     const gateway = createLovableAiGatewayProvider(apiKey);
     const model = gateway("google/gemini-3-flash-preview");
 
     const { text } = await generateText({
       model,
       system,
-      prompt,
+      prompt: prompt + toneLine,
       temperature: 0.4,
     });
 
