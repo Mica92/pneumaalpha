@@ -85,17 +85,16 @@ NOTO = glob.glob("/nix/store/*noto-fonts*/share/fonts/noto")
 SERIF = [f"{d}/NotoSerif[wdth,wght].ttf" for d in NOTO] + ["C:/Windows/Fonts/GARABD.TTF"]
 SANS = [f"{d}/NotoSans[wdth,wght].ttf" for d in NOTO] + ["C:/Windows/Fonts/arial.ttf"]
 
-serif_b = font(SERIF, 92, weight="Bold")
-sans = font(SANS, 28)
+serif_b = font(SERIF, 78, weight="Bold")
+sans = font(SANS, 26)
 
 
 brand = "Pneuma Alpha"
-tb = d.textbbox((0, 0), brand, font=serif_b)
-d.text(((W - (tb[2] - tb[0])) / 2, 500), brand, fill=(245, 245, 245), font=serif_b)
+d.text((W / 2, 500), brand, fill=(245, 245, 245), font=serif_b, anchor="mm")
 
 tag = "Conversa con las grandes mentes de la historia"
-tt = d.textbbox((0, 0), tag, font=sans)
-d.text(((W - (tt[2] - tt[0])) / 2, 588), tag, fill=(168, 168, 178), font=sans)
+d.text((W / 2, 570), tag, fill=(168, 168, 178), font=sans, anchor="mm")
+
 
 img.convert("RGB").save("public/og-image.png", optimize=True)
 print("og-image.png generado:", img.size)
