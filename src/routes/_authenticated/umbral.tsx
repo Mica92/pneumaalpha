@@ -12,7 +12,7 @@ export const Route = createFileRoute("/_authenticated/umbral")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "PneumAlpha — Umbral · filosofía e IA conversacional" },
+      { title: "Pneuma Alpha — Umbral · filosofía e IA conversacional" },
       {
         name: "description",
         content:
@@ -23,7 +23,7 @@ export const Route = createFileRoute("/_authenticated/umbral")({
         content:
           "filosofía, IA conversacional, pensadores, Heidegger, Nietzsche, Schopenhauer, Marx, diálogo socrático, historia de las ideas",
       },
-      { property: "og:title", content: "PneumAlpha — Umbral · filosofía e IA conversacional" },
+      { property: "og:title", content: "Pneuma Alpha — Umbral · filosofía e IA conversacional" },
       {
         property: "og:description",
         content:
@@ -40,7 +40,7 @@ export const Route = createFileRoute("/_authenticated/umbral")({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "WebSite",
-          name: "PneumAlpha",
+          name: "Pneuma Alpha",
           url: "https://pneumaalpha.lovable.app/umbral",
           inLanguage: ["es", "en"],
           description:
@@ -153,7 +153,7 @@ function Index() {
           </p>
           <h1 className="fade-up mt-5 max-w-3xl font-display text-title font-light text-foreground">
             <span className="sr-only">
-              PneumAlpha — conversaciones con múltiples mentes filosóficas reconstruidas.{" "}
+              Pneuma Alpha — conversaciones con múltiples mentes filosóficas reconstruidas.{" "}
             </span>
             {t("umbral.title")}
           </h1>

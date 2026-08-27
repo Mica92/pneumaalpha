@@ -8,7 +8,7 @@ import { useI18n } from "@/lib/i18n";
 import { createTelegramLinkCode, getTelegramLink, unlinkTelegram } from "@/lib/telegram.functions";
 
 /**
- * Tarjeta para llevar PneumAlpha a Telegram: explica el flujo y genera
+ * Tarjeta para llevar Pneuma Alpha a Telegram: explica el flujo y genera
  * un código de vinculación. El usuario puede escanear el QR o escribir
  * /vincular seguido del código.
  */

@@ -6,6 +6,7 @@ import { GreekGlyph } from "@/components/greek-glyph";
 import { PHILOSOPHERS, isPhilosopherId, type PhilosopherId } from "@/lib/philosophers";
 import { entityForChat } from "@/lib/atlas";
 import { useJourney } from "@/lib/atlas/use-journey";
+import { SITE_URL } from "@/lib/site";
 
 
 export const Route = createFileRoute("/_authenticated/$philosopher")({
@@ -15,12 +16,12 @@ export const Route = createFileRoute("/_authenticated/$philosopher")({
   head: ({ params }) => {
     const id = params.philosopher as string;
     if (!isPhilosopherId(id)) {
-      return { meta: [{ title: "PneumAlpha" }] };
+      return { meta: [{ title: "Pneuma Alpha" }] };
     }
     const p = PHILOSOPHERS[id as PhilosopherId];
-    const title = `Conversa con ${p.name} — PneumAlpha`;
+    const title = `Conversa con ${p.name} — Pneuma Alpha`;
     const description = `${p.blurb.es} Diálogo bilingüe (ES / EN) con ${p.name}, reconstruido como conciencia viva.`;
-    const url = `https://pneumaalpha.lovable.app/${id}`;
+    const url = `${SITE_URL}/${id}`;
     return {
       meta: [
         { title },

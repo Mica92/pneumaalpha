@@ -56,7 +56,7 @@ export function SiteNav({ className = "" }: { className?: string }) {
         aria-label={lang === "es" ? "Navegación principal" : "Main navigation"}
         className="mx-auto flex max-w-6xl items-center justify-between gap-6 px-5 py-4 md:px-8"
       >
-        <Link to="/" className="focus-mist" aria-label="PneumAlpha">
+        <Link to="/" className="focus-mist" aria-label="Pneuma Alpha">
           <PneumaMark size={24} withWordmark />
         </Link>
 

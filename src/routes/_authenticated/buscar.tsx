@@ -13,13 +13,13 @@ export const Route = createFileRoute("/_authenticated/buscar")({
   component: SearchPage,
   head: () => ({
     meta: [
-      { title: "Buscar — PneumAlpha" },
+      { title: "Buscar — Pneuma Alpha" },
       {
         name: "description",
         content:
           "Busca entre las 19 mentes, las grandes ideas, las rutas filosóficas y las preguntas de la vida real.",
       },
-      { property: "og:title", content: "Buscar — PneumAlpha" },
+      { property: "og:title", content: "Buscar — Pneuma Alpha" },
       {
         property: "og:description",
         content: "Un solo buscador para filósofos, ideas, rutas y preguntas.",
@@ -155,7 +155,7 @@ function SearchPage() {
         <div className="mx-auto max-w-4xl px-5 pt-14 md:px-8 md:pt-20">
           <p className="label">{es ? "Buscador" : "Search"}</p>
           <h1 className="mt-3 font-serif text-title font-light text-foreground">
-            {es ? "Busca en todo PneumAlpha" : "Search all of PneumAlpha"}
+            {es ? "Busca en todo Pneuma Alpha" : "Search all of Pneuma Alpha"}
           </h1>
 
           <div className="mt-8">

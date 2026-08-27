@@ -32,12 +32,12 @@ export const Route = createFileRoute("/_authenticated/filosofos/")({
   component: PhilosophersIndex,
   head: () => ({
     meta: [
-      { title: "Filósofos — PneumAlpha" },
+      { title: "Filósofos — Pneuma Alpha" },
       {
         name: "description",
         content: `${COUNT} conciencias filosóficas reconstruidas: quién es cada una, qué pregunta la mueve y de qué puedes hablar con ella.`,
       },
-      { property: "og:title", content: "Filósofos — PneumAlpha" },
+      { property: "og:title", content: "Filósofos — Pneuma Alpha" },
       {
         property: "og:description",
         content: "Explora las mentes por tema, época o pregunta central y empieza a conversar.",

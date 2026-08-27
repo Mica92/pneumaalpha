@@ -10,13 +10,13 @@ export const Route = createFileRoute("/_authenticated/perfil")({
   component: ProfilePage,
   head: () => ({
     meta: [
-      { title: "Tu perfil — PneumAlpha" },
+      { title: "Tu perfil — Pneuma Alpha" },
       {
         name: "description",
         content:
-          "Tu cuenta en PneumAlpha: inicia sesión con Google para conservar tus conversaciones, tu mapa filosófico y tu recorrido en cualquier dispositivo.",
+          "Tu cuenta en Pneuma Alpha: inicia sesión con Google para conservar tus conversaciones, tu mapa filosófico y tu recorrido en cualquier dispositivo.",
       },
-      { property: "og:title", content: "Tu perfil — PneumAlpha" },
+      { property: "og:title", content: "Tu perfil — Pneuma Alpha" },
       {
         property: "og:description",
         content: "Conserva tus conversaciones y tu mapa filosófico con una cuenta de Google.",
@@ -106,8 +106,8 @@ function ProfilePage() {
           <>
             <p className="mt-6 max-w-xl text-small leading-relaxed text-muted-foreground">
               {es
-                ? "Puedes seguir usando PneumAlpha sin cuenta. Si entras con Google, tus conversaciones, tu mapa y tu recorrido te acompañan en cualquier dispositivo."
-                : "You can keep using PneumAlpha without an account. Sign in with Google and your conversations, map and journey follow you on any device."}
+                ? "Puedes seguir usando Pneuma Alpha sin cuenta. Si entras con Google, tus conversaciones, tu mapa y tu recorrido te acompañan en cualquier dispositivo."
+                : "You can keep using Pneuma Alpha without an account. Sign in with Google and your conversations, map and journey follow you on any device."}
             </p>
             <button type="button" onClick={signIn} className="btn-gold mt-8">
               {es ? "Entrar con Google" : "Sign in with Google"}

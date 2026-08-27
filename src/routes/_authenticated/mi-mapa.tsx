@@ -22,13 +22,13 @@ export const Route = createFileRoute("/_authenticated/mi-mapa")({
   component: PersonalMapPage,
   head: () => ({
     meta: [
-      { title: "Tu Mapa Filosófico — PneumAlpha" },
+      { title: "Tu Mapa Filosófico — Pneuma Alpha" },
       {
         name: "description",
         content:
           "El mapa de tu propio recorrido: las mentes, ideas y preguntas que has explorado, y hacia dónde podrías seguir.",
       },
-      { property: "og:title", content: "Tu Mapa Filosófico — PneumAlpha" },
+      { property: "og:title", content: "Tu Mapa Filosófico — Pneuma Alpha" },
       {
         property: "og:description",
         content: "Tu recorrido intelectual, dibujado como una constelación que crece contigo.",
