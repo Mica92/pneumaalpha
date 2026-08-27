@@ -1,11 +1,10 @@
 import { useTint } from "@/lib/tint";
 
 /**
- * PneumAlpha mark — a luminous triangle (delta) with a central stem:
- * an amber node above, a blue node below, joined by a thin spine.
- * The triangle and lower node follow the visit tint, exactly like the
- * neural background, so logo and backdrop always share the same hue;
- * the amber node stays as a fixed warm accent.
+ * PneumAlpha mark — two overlapping serif "lambda" strokes:
+ * a small neutral-gray stroke behind, and a large stroke in front
+ * painted with the visit tint, exactly like the neural background,
+ * so logo and backdrop always share the same hue.
  */
 type Props = {
   className?: string;
@@ -16,9 +15,7 @@ type Props = {
 export function PneumaMark({ className = "", withWordmark = false, size = 28 }: Props) {
   const label = "PneumAlpha";
   const tint = useTint() ?? "var(--bronze)";
-  const soft = `color-mix(in oklab, ${tint} 60%, transparent)`;
-  const amber = "#F0A35C";
-  const amberSoft = "color-mix(in oklab, #F0A35C 55%, transparent)";
+  const gray = "color-mix(in oklab, var(--muted-foreground) 75%, transparent)";
 
   return (
     <span className={`inline-flex items-center gap-3 ${className}`} role="img" aria-label={label}>
@@ -31,24 +28,22 @@ export function PneumaMark({ className = "", withWordmark = false, size = 28 }: 
         focusable="false"
         className="shrink-0"
       >
-        {/* triangle outline */}
+        {/* small gray stroke (back-left lambda) */}
         <path
-          d="M32 6 L58 54 L6 54 Z"
-          stroke={tint}
-          strokeWidth="3"
+          d="M10 54 L24 16 L36 44"
+          stroke={gray}
+          strokeWidth="4.5"
           strokeLinejoin="round"
           strokeLinecap="round"
         />
-        {/* inner diagonal to the base node */}
-        <line x1="32" y1="38" x2="12" y2="50.5" stroke={soft} strokeWidth="2" strokeLinecap="round" />
-        {/* central spine */}
-        <line x1="32" y1="22" x2="32" y2="38" stroke={soft} strokeWidth="2" strokeLinecap="round" />
-        {/* amber node (fixed warm accent) */}
-        <circle cx="32" cy="19" r="6.5" fill={amberSoft} />
-        <circle cx="32" cy="19" r="4" fill={amber} />
-        {/* blue node (tinted, like the background) */}
-        <circle cx="32" cy="41" r="7" fill={soft} />
-        <circle cx="32" cy="41" r="4.5" fill={tint} />
+        {/* large tinted stroke (front lambda) */}
+        <path
+          d="M26 56 L40 8 L54 56"
+          stroke={tint}
+          strokeWidth="5.5"
+          strokeLinejoin="round"
+          strokeLinecap="round"
+        />
       </svg>
       {withWordmark && (
         <span
