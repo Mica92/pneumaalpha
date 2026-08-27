@@ -119,8 +119,8 @@ function Home() {
 
       <main className="route-enter relative z-10">
         {/* ── Hero ─────────────────────────────────────────────── */}
-        <section className="relative overflow-hidden border-b border-border/60">
-          <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+        <section className="relative border-b border-border/60">
+          <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
             <img
               src={landingBg}
               alt=""
