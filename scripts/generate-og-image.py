@@ -64,15 +64,30 @@ d.polygon([T(p) for p in head], fill=(150, 150, 150))
 d.polygon([T(p) for p in beak], fill=GOLD)
 
 # tipografía
-def font(path, size):
-    try:
-        return ImageFont.truetype(path, size)
-    except Exception:
-        return ImageFont.load_default()
+def font(candidates, size, weight=None):
+    for path in candidates:
+        try:
+            f = ImageFont.truetype(path, size)
+            if weight is not None:
+                try:
+                    f.set_variation_by_axes([weight])
+                except Exception:
+                    pass
+            return f
+        except Exception:
+            continue
+    return ImageFont.load_default()
 
 
-serif_b = font("C:/Windows/Fonts/GARABD.TTF", 92)
-sans = font("C:/Windows/Fonts/arial.ttf", 28)
+import glob
+
+NOTO = glob.glob("/nix/store/*noto-fonts*/share/fonts/noto")
+SERIF = [f"{d}/NotoSerif[wdth,wght].ttf" for d in NOTO] + ["C:/Windows/Fonts/GARABD.TTF"]
+SANS = [f"{d}/NotoSans[wdth,wght].ttf" for d in NOTO] + ["C:/Windows/Fonts/arial.ttf"]
+
+serif_b = font(SERIF, 92, weight=700)
+sans = font(SANS, 28)
+
 
 brand = "Pneuma Alpha"
 tb = d.textbbox((0, 0), brand, font=serif_b)
