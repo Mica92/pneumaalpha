@@ -70,7 +70,7 @@ def font(candidates, size, weight=None):
             f = ImageFont.truetype(path, size)
             if weight is not None:
                 try:
-                    f.set_variation_by_axes([weight])
+                    f.set_variation_by_name(weight)
                 except Exception:
                     pass
             return f
@@ -85,7 +85,7 @@ NOTO = glob.glob("/nix/store/*noto-fonts*/share/fonts/noto")
 SERIF = [f"{d}/NotoSerif[wdth,wght].ttf" for d in NOTO] + ["C:/Windows/Fonts/GARABD.TTF"]
 SANS = [f"{d}/NotoSans[wdth,wght].ttf" for d in NOTO] + ["C:/Windows/Fonts/arial.ttf"]
 
-serif_b = font(SERIF, 92, weight=700)
+serif_b = font(SERIF, 92, weight="Bold")
 sans = font(SANS, 28)
 
 
