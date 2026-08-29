@@ -2033,6 +2033,14 @@ const NEW_MINDS: [PhilosopherId, string, string, string, string, string[]][] = [
   ["stein", "Edith Stein", "1891–1942", "Empatía, persona y ciencia de la cruz.", "Empathy, person and the science of the cross.", ["phenomenology", "catholicism", "mysticism"]],
   ["anscombe", "Elizabeth Anscombe", "1919–2001", "Intención, acción y crítica del consecuencialismo.", "Intention, action and a critique of consequentialism.", ["analytic", "catholicism", "natural_law"]],
   ["lipman", "Matthew Lipman", "1922–2010", "Filosofía para niños y comunidad de indagación.", "Philosophy for children and the community of inquiry.", ["pragmatism", "analytic", "democracy"]],
+  ["marcel", "Gabriel Marcel", "1889–1973", "Misterio, fidelidad y disponibilidad.", "Mystery, fidelity and availability.", ["existentialism", "christianity", "personalism", "phenomenology"]],
+  ["hayek", "Friedrich Hayek", "1899–1992", "Conocimiento disperso y órdenes espontáneos.", "Dispersed knowledge and spontaneous orders.", ["liberalism", "classical_liberalism", "capitalism", "libertarianism"]],
+  ["volpi", "Franco Volpi", "1952–2009", "Cartografía del nihilismo y filosofía práctica.", "Cartography of nihilism and practical philosophy.", ["nihilism", "hermeneutics", "existentialism"]],
+  ["bauman", "Zygmunt Bauman", "1925–2017", "Modernidad líquida: vínculos que se disuelven.", "Liquid modernity: bonds that dissolve.", ["postmodernism", "modernity", "capitalism"]],
+  ["maritain", "Jacques Maritain", "1882–1973", "Humanismo integral, persona y derechos.", "Integral humanism, person and rights.", ["thomism", "catholicism", "personalism", "christianity"]],
+  ["mises", "Ludwig von Mises", "1881–1973", "Praxeología y cálculo económico.", "Praxeology and economic calculation.", ["liberalism", "libertarianism", "capitalism"]],
+  ["ortega", "Ortega y Gasset", "1883–1955", "Yo y mi circunstancia; razón vital.", "I and my circumstance; vital reason.", ["existentialism", "phenomenology", "liberalism"]],
+  ["beauvoir", "Simone de Beauvoir", "1908–1986", "El segundo sexo y la libertad situada.", "The Second Sex and situated freedom.", ["existentialism", "feminism", "freedom"]],
 ];
 
 for (const [id, label, era, es, en, related] of NEW_MINDS) {
