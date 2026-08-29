@@ -245,6 +245,38 @@ sartre: {
     es: "¿Cuál es tu pregunta, dicha tal como te sale?",
     en: "What is your question, said just as it comes?",
   },
+  marcel: {
+    es: "¿Eso que te pasa es un problema o un misterio en el que estás dentro?",
+    en: "Is what troubles you a problem, or a mystery you are inside of?",
+  },
+  hayek: {
+    es: "¿Quién podría saber realmente lo que hace falta para decidir esto?",
+    en: "Who could actually know what is needed to decide this?",
+  },
+  volpi: {
+    es: "Esa idea que repites, ¿de dónde viene realmente?",
+    en: "That idea you repeat — where does it really come from?",
+  },
+  bauman: {
+    es: "¿Qué se te está deshaciendo entre las manos?",
+    en: "What is dissolving in your hands?",
+  },
+  maritain: {
+    es: "¿Qué dignidad estás viendo pisoteada, y qué harás con eso?",
+    en: "What dignity do you see trampled, and what will you do about it?",
+  },
+  mises: {
+    es: "Al elegir esto, ¿a qué estás renunciando exactamente?",
+    en: "In choosing this, what exactly are you giving up?",
+  },
+  ortega: {
+    es: "¿Cuál es tu circunstancia, y qué proyecto de vida hay dentro de ella?",
+    en: "What is your circumstance, and what life-project lies within it?",
+  },
+  beauvoir: {
+    es: "¿Qué parte de tu situación te viene dada y cuál estás consintiendo?",
+    en: "What part of your situation is given, and what part are you consenting to?",
+  },
 };
 
 export function centralQuestion(id: PhilosopherId, lang: Lang): string {
@@ -503,6 +535,12 @@ export const POLITICS: Partial<Record<PhilosopherId, PoliticsId>> = {
   aquinas: "right",
   hildebrand: "right",
   ibnkhaldun: "right",
+  hayek: "right",
+  mises: "right",
+  maritain: "center",
+  ortega: "center",
+  bauman: "left",
+  beauvoir: "left",
 };
 
 export function politicsOf(id: PhilosopherId): PoliticsId | undefined {
@@ -778,6 +816,14 @@ export const FACETS: Record<PhilosopherId, Facet> = {
     level: "intro",
     year: 1922,
   },
+  marcel: { families: ["existence", "religion"], movements: ["existentialism", "phenomenology"], level: "mid", year: 1889 },
+  hayek: { families: ["politics", "knowledge"], movements: ["liberalism", "libertarianism"], level: "mid", year: 1899 },
+  volpi: { families: ["knowledge", "existence"], movements: ["hermeneutics", "nihilism"], level: "deep", year: 1952 },
+  bauman: { families: ["politics", "existence"], movements: ["postmodernism"], level: "intro", year: 1925 },
+  maritain: { families: ["religion", "politics"], movements: ["thomism", "catholicism", "personalism"], level: "mid", year: 1882 },
+  mises: { families: ["politics", "knowledge"], movements: ["liberalism", "libertarianism"], level: "deep", year: 1881 },
+  ortega: { families: ["existence", "politics"], movements: ["existentialism", "phenomenology"], level: "intro", year: 1883 },
+  beauvoir: { families: ["existence", "ethics"], movements: ["existentialism", "feminism"], level: "intro", year: 1908 },
 };
 
 export function facetOf(id: PhilosopherId): Facet {

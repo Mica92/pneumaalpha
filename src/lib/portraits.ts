@@ -1153,6 +1153,134 @@ export const PROFILES: Partial<Record<PhilosopherId, PhilosopherProfile>> = {
       { es: "Educación democrática", en: "Democratic education" },
     ],
   },
+
+  marcel: {
+    years: "1889 – 1973",
+    origin: { es: "París, Francia", en: "Paris, France" },
+    bio: {
+      es: "Filósofo, dramaturgo y músico francés, figura central del existencialismo cristiano. Distinguió el problema del misterio y pensó la fidelidad, la esperanza y la disponibilidad como modos de existir con otros.",
+      en: "French philosopher, playwright and musician, a central figure of Christian existentialism. He distinguished problem from mystery and thought fidelity, hope and availability as ways of existing with others.",
+    },
+    expertise: [
+      { es: "Ser y tener", en: "Being and having" },
+      { es: "Misterio y problema", en: "Mystery and problem" },
+      { es: "Esperanza", en: "Hope" },
+      { es: "Fidelidad creadora", en: "Creative fidelity" },
+      { es: "Encarnación", en: "Embodiment" },
+    ],
+  },
+
+  hayek: {
+    years: "1899 – 1992",
+    origin: { es: "Viena / Friburgo", en: "Vienna / Freiburg" },
+    bio: {
+      es: "Economista y filósofo austríaco, premio Nobel, autor de Camino de servidumbre. Mostró que el conocimiento social está disperso y es tácito, y pensó el mercado y el derecho como órdenes espontáneos.",
+      en: "Austrian economist and philosopher, Nobel laureate, author of The Road to Serfdom. He showed that social knowledge is dispersed and tacit, and thought of market and law as spontaneous orders.",
+    },
+    expertise: [
+      { es: "Conocimiento disperso", en: "Dispersed knowledge" },
+      { es: "Orden espontáneo", en: "Spontaneous order" },
+      { es: "Estado de derecho", en: "Rule of law" },
+      { es: "Crítica del constructivismo", en: "Critique of constructivism" },
+      { es: "Precios como señales", en: "Prices as signals" },
+    ],
+  },
+
+  volpi: {
+    years: "1952 – 2009",
+    origin: { es: "Vicenza / Padua, Italia", en: "Vicenza / Padua, Italy" },
+    bio: {
+      es: "Filósofo italiano e historiador de la filosofía, traductor de Heidegger y Schopenhauer. Cartografió el nihilismo europeo y defendió la rehabilitación de la filosofía práctica de raíz aristotélica.",
+      en: "Italian philosopher and historian of philosophy, translator of Heidegger and Schopenhauer. He mapped European nihilism and defended the rehabilitation of Aristotelian practical philosophy.",
+    },
+    expertise: [
+      { es: "Nihilismo", en: "Nihilism" },
+      { es: "Heidegger", en: "Heidegger" },
+      { es: "Filosofía práctica", en: "Practical philosophy" },
+      { es: "Historia de la filosofía", en: "History of philosophy" },
+      { es: "Schopenhauer y la retórica", en: "Schopenhauer and rhetoric" },
+    ],
+  },
+
+  bauman: {
+    years: "1925 – 2017",
+    origin: { es: "Poznań / Leeds", en: "Poznań / Leeds" },
+    bio: {
+      es: "Sociólogo y filósofo polaco-británico, autor de Modernidad líquida y de Modernidad y Holocausto. Describió una época en que vínculos, trabajos e identidades se disuelven antes de fraguar.",
+      en: "Polish-British sociologist and philosopher, author of Liquid Modernity and Modernity and the Holocaust. He described an age in which bonds, jobs and identities dissolve before they set.",
+    },
+    expertise: [
+      { es: "Modernidad líquida", en: "Liquid modernity" },
+      { es: "Amor líquido", en: "Liquid love" },
+      { es: "Consumo e identidad", en: "Consumption and identity" },
+      { es: "Residuos humanos", en: "Wasted lives" },
+      { es: "Burocracia y Holocausto", en: "Bureaucracy and the Holocaust" },
+    ],
+  },
+
+  maritain: {
+    years: "1882 – 1973",
+    origin: { es: "París / Princeton", en: "Paris / Princeton" },
+    bio: {
+      es: "Filósofo francés, renovador del tomismo y demócrata convencido. Su Humanismo integral y su trabajo en torno a la Declaración Universal cimentaron una defensa filosófica de la dignidad de la persona.",
+      en: "French philosopher, renewer of Thomism and a convinced democrat. His Integral Humanism and his work around the Universal Declaration grounded a philosophical defence of the dignity of the person.",
+    },
+    expertise: [
+      { es: "Persona y bien común", en: "Person and common good" },
+      { es: "Derechos humanos", en: "Human rights" },
+      { es: "Humanismo integral", en: "Integral humanism" },
+      { es: "Conocimiento por connaturalidad", en: "Knowledge by connaturality" },
+      { es: "Arte e intuición creadora", en: "Art and creative intuition" },
+    ],
+  },
+
+  mises: {
+    years: "1881 – 1973",
+    origin: { es: "Lemberg / Viena / Nueva York", en: "Lemberg / Vienna / New York" },
+    bio: {
+      es: "Economista austríaco, autor de La acción humana. Formuló el problema del cálculo económico en el socialismo y fundó la praxeología como ciencia deductiva de la acción.",
+      en: "Austrian economist, author of Human Action. He formulated the problem of economic calculation under socialism and founded praxeology as the deductive science of action.",
+    },
+    expertise: [
+      { es: "Praxeología", en: "Praxeology" },
+      { es: "Cálculo económico", en: "Economic calculation" },
+      { es: "Valor subjetivo", en: "Subjective value" },
+      { es: "Intervencionismo", en: "Interventionism" },
+      { es: "Dinero y ciclo", en: "Money and the business cycle" },
+    ],
+  },
+
+  ortega: {
+    years: "1883 – 1955",
+    origin: { es: "Madrid, España", en: "Madrid, Spain" },
+    bio: {
+      es: "Filósofo y ensayista español, autor de Meditaciones del Quijote y La rebelión de las masas. Pensó la vida como realidad radical y la razón al servicio de la vida y de su historia.",
+      en: "Spanish philosopher and essayist, author of Meditations on Quixote and The Revolt of the Masses. He thought life as the radical reality and reason as serving life and its history.",
+    },
+    expertise: [
+      { es: "Yo y mi circunstancia", en: "I and my circumstance" },
+      { es: "Perspectivismo", en: "Perspectivism" },
+      { es: "Creencias e ideas", en: "Beliefs and ideas" },
+      { es: "El hombre-masa", en: "The mass-man" },
+      { es: "Razón vital e histórica", en: "Vital and historical reason" },
+    ],
+  },
+
+  beauvoir: {
+    years: "1908 – 1986",
+    origin: { es: "París, Francia", en: "Paris, France" },
+    bio: {
+      es: "Filósofa y escritora francesa, autora de El segundo sexo y de Para una moral de la ambigüedad. Pensó la libertad como situada y mostró que lo femenino es una construcción histórica, no un destino.",
+      en: "French philosopher and writer, author of The Second Sex and The Ethics of Ambiguity. She thought freedom as situated and showed that the feminine is a historical construction, not a destiny.",
+    },
+    expertise: [
+      { es: "El segundo sexo", en: "The Second Sex" },
+      { es: "Libertad situada", en: "Situated freedom" },
+      { es: "Ética de la ambigüedad", en: "Ethics of ambiguity" },
+      { es: "Cuerpo y vejez", en: "Body and old age" },
+      { es: "Literatura y filosofía", en: "Literature and philosophy" },
+    ],
+  },
 };
 
 export function profileOf(id: string): PhilosopherProfile | undefined {
