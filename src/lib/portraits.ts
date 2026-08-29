@@ -57,6 +57,14 @@ import ziemieckaPortrait from "@/assets/portraits/ziemiecka.jpg";
 import steinPortrait from "@/assets/portraits/stein.jpg";
 import anscombePortrait from "@/assets/portraits/anscombe.jpg";
 import lipmanPortrait from "@/assets/portraits/lipman.jpg";
+import marcelPortrait from "@/assets/portraits/marcel.jpg";
+import hayekPortrait from "@/assets/portraits/hayek.jpg";
+import volpiPortrait from "@/assets/portraits/volpi.jpg";
+import baumanPortrait from "@/assets/portraits/bauman.jpg";
+import maritainPortrait from "@/assets/portraits/maritain.jpg";
+import misesPortrait from "@/assets/portraits/mises.jpg";
+import ortegaPortrait from "@/assets/portraits/ortega.jpg";
+import beauvoirPortrait from "@/assets/portraits/beauvoir.jpg";
 import type { PhilosopherId } from "@/lib/philosophers";
 import type { LocalizedString } from "@/lib/philosophers";
 
@@ -121,6 +129,14 @@ export const PORTRAITS: Partial<Record<PhilosopherId, string>> = {
   stein: steinPortrait,
   anscombe: anscombePortrait,
   lipman: lipmanPortrait,
+  marcel: marcelPortrait,
+  hayek: hayekPortrait,
+  volpi: volpiPortrait,
+  bauman: baumanPortrait,
+  maritain: maritainPortrait,
+  mises: misesPortrait,
+  ortega: ortegaPortrait,
+  beauvoir: beauvoirPortrait,
 };
 
 export function portraitOf(id: string): string | undefined {
