@@ -9,13 +9,13 @@ export const Route = createFileRoute("/_authenticated/rutas/")({
   component: RoutesIndex,
   head: () => ({
     meta: [
-      { title: "Rutas filosóficas — Pneuma Alpha" },
+      { title: "Rutas filosóficas — Pneum" },
       {
         name: "description",
         content:
           "Recorridos guiados de cuatro conversaciones: vivir bien, el sufrimiento, la libertad, el amor y la justicia.",
       },
-      { property: "og:title", content: "Rutas filosóficas — Pneuma Alpha" },
+      { property: "og:title", content: "Rutas filosóficas — Pneum" },
       {
         property: "og:description",
         content: "Una gran pregunta, cuatro mentes, un recorrido con sentido.",

@@ -16,13 +16,13 @@ export const Route = createFileRoute("/_authenticated/")({
   component: Home,
   head: () => ({
     meta: [
-      { title: "Pneuma Alpha — Conversa con los grandes pensadores de la historia" },
+      { title: "Pneum — Conversa con los grandes pensadores de la historia" },
       {
         name: "description",
         content: `Escribe lo que te preocupa y habla con una conciencia filosófica reconstruida. ${PHILOSOPHER_LIST.length} mentes, grandes ideas y rutas guiadas para pensar tu vida.`,
 
       },
-      { property: "og:title", content: "Pneuma Alpha — Conversa con los grandes pensadores" },
+      { property: "og:title", content: "Pneum — Conversa con los grandes pensadores" },
       {
         property: "og:description",
         content:
@@ -65,10 +65,10 @@ export const Route = createFileRoute("/_authenticated/")({
             },
             {
               "@type": "Question",
-              name: "¿Pneuma Alpha reemplaza a un terapeuta?",
+              name: "¿Pneum reemplaza a un terapeuta?",
               acceptedAnswer: {
                 "@type": "Answer",
-                text: "No. Pneuma Alpha es una herramienta de reflexión y diálogo filosófico, no un servicio de salud mental ni un sustituto de terapia profesional.",
+                text: "No. Pneum es una herramienta de reflexión y diálogo filosófico, no un servicio de salud mental ni un sustituto de terapia profesional.",
               },
             },
             {

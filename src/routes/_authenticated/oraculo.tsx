@@ -18,17 +18,17 @@ export const Route = createFileRoute("/_authenticated/oraculo")({
   component: OraclePage,
   head: () => ({
     meta: [
-      { title: "Pneuma Alpha — Oráculo · una inquietud, una voz" },
+      { title: "Pneum — Oráculo · una inquietud, una voz" },
       {
         name: "description",
         content:
-          "Escribe lo que sientas y Pneuma Alpha te asignará la mente filosófica mejor preparada para responder a tu inquietud.",
+          "Escribe lo que sientas y Pneum te asignará la mente filosófica mejor preparada para responder a tu inquietud.",
       },
-      { property: "og:title", content: "Pneuma Alpha — Oráculo" },
+      { property: "og:title", content: "Pneum — Oráculo" },
       {
         property: "og:description",
         content:
-          "Una pregunta, una frase, una duda. Pneuma Alpha elige por ti la voz más adecuada para conversar.",
+          "Una pregunta, una frase, una duda. Pneum elige por ti la voz más adecuada para conversar.",
       },
     ],
   }),

@@ -6,16 +6,16 @@ export const Route = createFileRoute("/privacy")({
   component: PrivacyPage,
   head: () => ({
     meta: [
-      { title: "Pneuma Alpha — Política de privacidad / Privacy policy" },
+      { title: "Pneum — Política de privacidad / Privacy policy" },
       {
         name: "description",
         content:
-          "Cómo Pneuma Alpha recopila, utiliza y protege tus datos al conversar con conciencias filosóficas reconstruidas.",
+          "Cómo Pneum recopila, utiliza y protege tus datos al conversar con conciencias filosóficas reconstruidas.",
       },
-      { property: "og:title", content: "Pneuma Alpha — Privacy" },
+      { property: "og:title", content: "Pneum — Privacy" },
       {
         property: "og:description",
-        content: "Cómo Pneuma Alpha trata tus datos, mensajes y memoria conversacional.",
+        content: "Cómo Pneum trata tus datos, mensajes y memoria conversacional.",
       },
       { property: "og:url", content: "https://pneumaalpha.lovable.app/privacy" },
     ],
@@ -29,7 +29,7 @@ const COPY = {
     title: "Política de privacidad",
     updated: "Última actualización: 10 de junio de 2026",
     intro:
-      "En Pneuma Alpha tratamos tu silencio y tu palabra con el mismo cuidado. Esta política describe, sin rodeos, qué datos recogemos, por qué, y qué control tienes sobre ellos.",
+      "En Pneum tratamos tu silencio y tu palabra con el mismo cuidado. Esta política describe, sin rodeos, qué datos recogemos, por qué, y qué control tienes sobre ellos.",
     sections: [
       {
         h: "1. Datos que recogemos",
@@ -53,7 +53,7 @@ const COPY = {
       },
       {
         h: "6. Menores",
-        p: "Pneuma Alpha no está dirigido a menores de 16 años. Si crees que un menor nos ha enviado datos, contáctanos para retirarlos.",
+        p: "Pneum no está dirigido a menores de 16 años. Si crees que un menor nos ha enviado datos, contáctanos para retirarlos.",
       },
       {
         h: "7. Cambios",
@@ -71,7 +71,7 @@ const COPY = {
     title: "Privacy policy",
     updated: "Last updated: June 10, 2026",
     intro:
-      "At Pneuma Alpha we treat your silence and your word with equal care. This policy describes, plainly, what data we collect, why, and what control you keep over it.",
+      "At Pneum we treat your silence and your word with equal care. This policy describes, plainly, what data we collect, why, and what control you keep over it.",
     sections: [
       {
         h: "1. Data we collect",
@@ -95,7 +95,7 @@ const COPY = {
       },
       {
         h: "6. Minors",
-        p: "Pneuma Alpha is not directed to children under 16. If you believe a minor has sent us data, contact us so we can remove it.",
+        p: "Pneum is not directed to children under 16. If you believe a minor has sent us data, contact us so we can remove it.",
       },
       {
         h: "7. Changes",
@@ -117,7 +117,7 @@ function PrivacyPage() {
   return (
     <main className="mx-auto min-h-screen max-w-3xl px-6 py-12 md:px-10 md:py-20">
       <header className="flex items-center justify-between border-b border-border/60 pb-6">
-        <Link to="/" aria-label="Pneuma Alpha">
+        <Link to="/" aria-label="Pneum">
           <PneumaMark withWordmark />
         </Link>
         <LanguageSelector />
@@ -153,7 +153,7 @@ function PrivacyPage() {
         <Link to="/" className="transition-colors hover:text-foreground">
           {c.back}
         </Link>
-        <span>Pneuma Alpha · {new Date().getFullYear()}</span>
+        <span>Pneum · {new Date().getFullYear()}</span>
       </footer>
     </main>
   );

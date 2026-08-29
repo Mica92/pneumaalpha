@@ -1,7 +1,7 @@
 import { useTint } from "@/lib/tint";
 
 /**
- * Pneuma Alpha mark — faceted origami swan.
+ * Pneum mark — faceted origami swan.
  * Every facet is painted from the visit tint (same hue as the neural
  * background), mixing toward white/black for the paper-fold shading,
  * so logo and backdrop always share the same colour.
@@ -13,7 +13,7 @@ type Props = {
 };
 
 export function PneumaMark({ className = "", withWordmark = false, size = 28 }: Props) {
-  const label = "Pneuma Alpha";
+  const label = "Pneum";
   const tint = useTint() ?? "var(--bronze)";
 
   const deep = `color-mix(in oklab, ${tint} 78%, #000)`;

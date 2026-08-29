@@ -12,13 +12,13 @@ export const Route = createFileRoute("/_authenticated/reporte")({
   component: ReportPage,
   head: () => ({
     meta: [
-      { title: "Pneuma Alpha — Reporte · espejo de tus conversaciones" },
+      { title: "Pneum — Reporte · espejo de tus conversaciones" },
       {
         name: "description",
         content:
           "Un retrato psicológico-filosófico construido a partir de tus propias palabras: arquetipo, fortalezas, sombras y recomendaciones de lectura.",
       },
-      { property: "og:title", content: "Pneuma Alpha — Reporte" },
+      { property: "og:title", content: "Pneum — Reporte" },
     ],
   }),
 });

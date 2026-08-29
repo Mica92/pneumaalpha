@@ -62,7 +62,7 @@ export function InstallAppCard({ className = "" }: { className?: string }) {
     close();
   };
 
-  const title = lang === "es" ? "Instalar Pneuma Alpha" : "Install Pneuma Alpha";
+  const title = lang === "es" ? "Instalar Pneum" : "Install Pneum";
   const body = deferred
     ? lang === "es"
       ? "Ábrela desde tu escritorio o pantalla de inicio, sin barra de navegador."
