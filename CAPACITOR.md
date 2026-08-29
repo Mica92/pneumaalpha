@@ -1,7 +1,7 @@
-# Pneuma Alpha — Build Android AAB con Capacitor
+# Pneum — Build Android AAB con Capacitor
 
 `applicationId`: **app.pneuma.alpha**
-`appName`: **Pneuma Alpha**
+`appName`: **Pneum**
 
 > Pneuma es una app SSR (TanStack Start sobre Cloudflare Workers). Capacitor
 > empaqueta **solo el cliente estático**; las funciones de servidor

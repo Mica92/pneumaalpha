@@ -3,4 +3,4 @@
 // basta con cambiar SITE_URL aquí: se propaga a canonical, og:url,
 // sitemap, hreflang y datos estructurados.
 export const SITE_URL = "https://pneumaalpha.lovable.app";
-export const SITE_NAME = "Pneuma Alpha";
+export const SITE_NAME = "Pneum";

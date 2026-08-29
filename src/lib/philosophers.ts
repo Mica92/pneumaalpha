@@ -5,11 +5,13 @@ import { toneDirective } from "@/lib/tones";
 import { EXTRA_PHILOSOPHERS, type ExtraPhilosopherId } from "@/lib/philosophers-extra";
 import { WAVE3_PHILOSOPHERS, type Wave3PhilosopherId } from "@/lib/philosophers-wave3";
 import { WAVE4_PHILOSOPHERS, type Wave4PhilosopherId } from "@/lib/philosophers-wave4";
+import { WAVE5_PHILOSOPHERS, type Wave5PhilosopherId } from "@/lib/philosophers-wave5";
 
 export type PhilosopherId =
   | ExtraPhilosopherId
   | Wave3PhilosopherId
   | Wave4PhilosopherId
+  | Wave5PhilosopherId
   | "heidegger"
   | "schopenhauer"
   | "james"
@@ -619,6 +621,7 @@ export const PHILOSOPHERS: Record<PhilosopherId, Philosopher> = {
   ...EXTRA_PHILOSOPHERS,
   ...WAVE3_PHILOSOPHERS,
   ...WAVE4_PHILOSOPHERS,
+  ...WAVE5_PHILOSOPHERS,
   heidegger: {
     id: "heidegger",
     name: "Heidegger",

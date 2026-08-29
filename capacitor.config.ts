@@ -2,7 +2,7 @@ import type { CapacitorConfig } from "@capacitor/cli";
 
 const config: CapacitorConfig = {
   appId: "app.pneuma.alpha",
-  appName: "Pneuma Alpha",
+  appName: "Pneum",
   webDir: "dist/client",
   server: {
     androidScheme: "https",

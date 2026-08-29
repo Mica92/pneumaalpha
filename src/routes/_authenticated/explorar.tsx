@@ -16,13 +16,13 @@ export const Route = createFileRoute("/_authenticated/explorar")({
   component: ExplorePage,
   head: () => ({
     meta: [
-      { title: "Explorar — habla y encuentra tu filósofo | Pneuma Alpha" },
+      { title: "Explorar — habla y encuentra tu filósofo | Pneum" },
       {
         name: "description",
         content:
           "Escribe lo que tengas en mente y la IA te asigna la mente filosófica adecuada para conversar. Con una guía de temas y preguntas para empezar.",
       },
-      { property: "og:title", content: "Explorar — habla y encuentra tu filósofo | Pneuma Alpha" },
+      { property: "og:title", content: "Explorar — habla y encuentra tu filósofo | Pneum" },
       {
         property: "og:description",
         content: "Un chat abierto: cuenta lo que te ocurre y conversa con la mente adecuada.",

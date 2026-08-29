@@ -13,13 +13,13 @@ export const Route = createFileRoute("/_authenticated/podcast")({
   component: PodcastPage,
   head: () => ({
     meta: [
-      { title: "Pneuma Alpha — Podcast: clásicos de la literatura en clave filosófica" },
+      { title: "Pneum — Podcast: clásicos de la literatura en clave filosófica" },
       {
         name: "description",
         content:
           "Resúmenes filosóficos de cinco minutos, narrados con voz natural, sobre diez clásicos de la literatura: El lobo estepario, Los hermanos Karamázov, El proceso y más.",
       },
-      { property: "og:title", content: "Pneuma Alpha — Podcast filosófico" },
+      { property: "og:title", content: "Pneum — Podcast filosófico" },
       {
         property: "og:description",
         content:

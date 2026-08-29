@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Genera public/og-image.png (1200x630) con el cisne de origami de Pneuma Alpha."""
+"""Genera public/og-image.png (1200x630) con el cisne de origami de Pneum."""
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 
 W, H = 1200, 630
@@ -89,7 +89,7 @@ serif_b = font(SERIF, 78, weight="Bold")
 sans = font(SANS, 26)
 
 
-brand = "Pneuma Alpha"
+brand = "Pneum"
 d.text((W / 2, 500), brand, fill=(245, 245, 245), font=serif_b, anchor="mm")
 
 tag = "Conversa con las grandes mentes de la historia"

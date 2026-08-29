@@ -1,4 +1,4 @@
-// Atlas — modelo de conocimiento escalable para los mapas de Pneuma Alpha.
+// Atlas — modelo de conocimiento escalable para los mapas de Pneum.
 // Entidades tipadas + relaciones etiquetadas. Bilingüe. Preparado para crecer
 // a cientos de pensadores y miles de aristas sin tocar la UI.
 
