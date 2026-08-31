@@ -157,7 +157,7 @@ export const CENTRAL_QUESTIONS: Record<PhilosopherId, LocalizedString> = {
     es: "¿A quién le estás dando tu tiempo, de verdad?",
     en: "Who are you actually giving your time to?",
   },
-sartre: {
+  sartre: {
     es: "¿Qué excusa llevas años repitiéndote?",
     en: "What excuse have you been repeating to yourself for years?",
   },
@@ -277,6 +277,10 @@ sartre: {
     es: "¿Qué parte de tu situación te viene dada y cuál estás consintiendo?",
     en: "What part of your situation is given, and what part are you consenting to?",
   },
+  strauss: {
+    es: "¿Qué crees saber sin haberlo leído tú mismo, y despacio?",
+    en: "What do you believe you know without having read it yourself, and slowly?",
+  },
 };
 
 export function centralQuestion(id: PhilosopherId, lang: Lang): string {
@@ -326,7 +330,10 @@ export const CATEGORIES: Category[] = [
     id: "world",
     glyph: "⚔",
     title: { es: "Cuestionar el mundo", en: "Question the world" },
-    tags: { es: "Política · poder · sociedad · justicia", en: "Politics · power · society · justice" },
+    tags: {
+      es: "Política · poder · sociedad · justicia",
+      en: "Politics · power · society · justice",
+    },
     philosophers: ["marx", "hegel", "bentham", "spengler", "junger"],
     seed: {
       es: "Quiero entender el poder, la sociedad y qué sería justo.",
@@ -337,7 +344,10 @@ export const CATEGORIES: Category[] = [
     id: "living",
     glyph: "❖",
     title: { es: "Vivir mejor", en: "Live better" },
-    tags: { es: "Felicidad · virtud · disciplina · propósito", en: "Happiness · virtue · discipline · purpose" },
+    tags: {
+      es: "Felicidad · virtud · disciplina · propósito",
+      en: "Happiness · virtue · discipline · purpose",
+    },
     philosophers: ["pohlenz", "bentham", "james", "aquinas", "eckhart"],
     seed: {
       es: "Quiero aprender a vivir mejor, con más calma y más sentido.",
@@ -348,7 +358,10 @@ export const CATEGORIES: Category[] = [
     id: "reality",
     glyph: "◈",
     title: { es: "Entender la realidad", en: "Understand reality" },
-    tags: { es: "Dios · verdad · conocimiento · conciencia", en: "God · truth · knowledge · consciousness" },
+    tags: {
+      es: "Dios · verdad · conocimiento · conciencia",
+      en: "God · truth · knowledge · consciousness",
+    },
     philosophers: ["kant", "rationalism", "aquinas", "maimonides", "hegel"],
     seed: {
       es: "Quiero entender qué es real y hasta dónde podemos conocer.",
@@ -359,7 +372,10 @@ export const CATEGORIES: Category[] = [
     id: "learn",
     glyph: "❍",
     title: { es: "Aprender filosofía", en: "Learn philosophy" },
-    tags: { es: "Autores · conceptos · escuelas · historia", en: "Authors · concepts · schools · history" },
+    tags: {
+      es: "Autores · conceptos · escuelas · historia",
+      en: "Authors · concepts · schools · history",
+    },
     philosophers: ["kant", "hegel", "rationalism", "heidegger", "nietzsche"],
     seed: {
       es: "Explícame tus ideas centrales como si nunca hubiera leído filosofía.",
@@ -541,12 +557,12 @@ export const POLITICS: Partial<Record<PhilosopherId, PoliticsId>> = {
   ortega: "center",
   bauman: "left",
   beauvoir: "left",
+  strauss: "right",
 };
 
 export function politicsOf(id: PhilosopherId): PoliticsId | undefined {
   return POLITICS[id];
 }
-
 
 export type Facet = {
   families: FamilyId[];
@@ -633,7 +649,12 @@ export const FACETS: Record<PhilosopherId, Facet> = {
   },
   eckhart: { families: ["religion"], movements: ["mysticism"], level: "mid", year: 1260 },
   kant: { families: ["knowledge", "ethics"], movements: ["idealism"], level: "deep", year: 1724 },
-  hegel: { families: ["knowledge", "politics"], movements: ["idealism"], level: "deep", year: 1770 },
+  hegel: {
+    families: ["knowledge", "politics"],
+    movements: ["idealism"],
+    level: "deep",
+    year: 1770,
+  },
   spengler: {
     families: ["society", "politics"],
     movements: ["conservatism"],
@@ -713,7 +734,12 @@ export const FACETS: Record<PhilosopherId, Facet> = {
     year: 1898,
   },
   jabri: { families: ["politics", "knowledge"], movements: ["eastern"], level: "deep", year: 1935 },
-  quoist: { families: ["religion", "ethics"], movements: ["mysticism"], level: "intro", year: 1921 },
+  quoist: {
+    families: ["religion", "ethics"],
+    movements: ["mysticism"],
+    level: "intro",
+    year: 1921,
+  },
   sartre: {
     families: ["existence", "politics"],
     movements: ["existentialism"],
@@ -816,14 +842,60 @@ export const FACETS: Record<PhilosopherId, Facet> = {
     level: "intro",
     year: 1922,
   },
-  marcel: { families: ["existence", "religion"], movements: ["existentialism", "phenomenology"], level: "mid", year: 1889 },
-  hayek: { families: ["politics", "knowledge"], movements: ["liberalism"], level: "mid", year: 1899 },
-  volpi: { families: ["knowledge", "existence"], movements: ["hermeneutics", "nihilism"], level: "deep", year: 1952 },
-  bauman: { families: ["politics", "existence"], movements: ["postmodern"], level: "intro", year: 1925 },
-  maritain: { families: ["religion", "politics"], movements: ["scholastic", "mysticism"], level: "mid", year: 1882 },
-  mises: { families: ["politics", "knowledge"], movements: ["liberalism"], level: "deep", year: 1881 },
-  ortega: { families: ["existence", "politics"], movements: ["existentialism", "phenomenology"], level: "intro", year: 1883 },
-  beauvoir: { families: ["existence", "ethics"], movements: ["existentialism", "feminism"], level: "intro", year: 1908 },
+  marcel: {
+    families: ["existence", "religion"],
+    movements: ["existentialism", "phenomenology"],
+    level: "mid",
+    year: 1889,
+  },
+  hayek: {
+    families: ["politics", "knowledge"],
+    movements: ["liberalism"],
+    level: "mid",
+    year: 1899,
+  },
+  volpi: {
+    families: ["knowledge", "existence"],
+    movements: ["hermeneutics", "nihilism"],
+    level: "deep",
+    year: 1952,
+  },
+  bauman: {
+    families: ["politics", "existence"],
+    movements: ["postmodern"],
+    level: "intro",
+    year: 1925,
+  },
+  maritain: {
+    families: ["religion", "politics"],
+    movements: ["scholastic", "mysticism"],
+    level: "mid",
+    year: 1882,
+  },
+  mises: {
+    families: ["politics", "knowledge"],
+    movements: ["liberalism"],
+    level: "deep",
+    year: 1881,
+  },
+  ortega: {
+    families: ["existence", "politics"],
+    movements: ["existentialism", "phenomenology"],
+    level: "intro",
+    year: 1883,
+  },
+  beauvoir: {
+    families: ["existence", "ethics"],
+    movements: ["existentialism", "feminism"],
+    level: "intro",
+    year: 1908,
+  },
+  strauss: {
+    families: ["politics", "ethics"],
+    movements: ["conservatism", "hermeneutics"],
+    level: "deep",
+    year: 1899,
+  },
 };
 
 export function facetOf(id: PhilosopherId): Facet {
@@ -837,7 +909,6 @@ export function eraOf(id: PhilosopherId): EraId {
   if (y < 1880) return "c19";
   return "c20";
 }
-
 
 /* ── Grandes ideas ───────────────────────────────────────────────── */
 
@@ -861,9 +932,15 @@ export const IDEAS: Idea[] = [
     },
     philosophers: ["heidegger", "kierkegaard", "pascal", "nietzsche"],
     questions: [
-      { es: "¿Qué parte de mi vida siento que no elegí?", en: "What part of my life feels unchosen?" },
+      {
+        es: "¿Qué parte de mi vida siento que no elegí?",
+        en: "What part of my life feels unchosen?",
+      },
       { es: "¿Vivo como yo o como se espera de mí?", en: "Do I live as myself or as expected?" },
-      { es: "¿Qué haría distinto si supiera que el tiempo es corto?", en: "What would I change if I knew time was short?" },
+      {
+        es: "¿Qué haría distinto si supiera que el tiempo es corto?",
+        en: "What would I change if I knew time was short?",
+      },
     ],
   },
   {
@@ -876,8 +953,14 @@ export const IDEAS: Idea[] = [
     },
     philosophers: ["schopenhauer", "nietzsche", "junger"],
     questions: [
-      { es: "¿Deseo esto o me enseñaron a desearlo?", en: "Do I want this, or was I taught to want it?" },
-      { es: "¿Qué pasa cuando por fin consigo lo que quería?", en: "What happens when I finally get what I wanted?" },
+      {
+        es: "¿Deseo esto o me enseñaron a desearlo?",
+        en: "Do I want this, or was I taught to want it?",
+      },
+      {
+        es: "¿Qué pasa cuando por fin consigo lo que quería?",
+        en: "What happens when I finally get what I wanted?",
+      },
       { es: "¿Puedo querer sin sufrir?", en: "Can I want without suffering?" },
     ],
   },
@@ -892,7 +975,10 @@ export const IDEAS: Idea[] = [
     philosophers: ["kant", "rationalism", "hegel", "kierkegaard"],
     questions: [
       { es: "¿Cuándo fue la última vez que elegí de verdad?", en: "When did I last truly choose?" },
-      { es: "¿La libertad es hacer lo que quiero o poder no hacerlo?", en: "Is freedom doing what I want, or being able not to?" },
+      {
+        es: "¿La libertad es hacer lo que quiero o poder no hacerlo?",
+        en: "Is freedom doing what I want, or being able not to?",
+      },
       { es: "¿Puedo ser libre dentro de una rutina?", en: "Can I be free inside a routine?" },
     ],
   },
@@ -906,9 +992,15 @@ export const IDEAS: Idea[] = [
     },
     philosophers: ["marx", "nietzsche", "hegel", "spengler"],
     questions: [
-      { es: "¿Quién se beneficia de que yo piense así?", en: "Who benefits from me thinking this way?" },
+      {
+        es: "¿Quién se beneficia de que yo piense así?",
+        en: "Who benefits from me thinking this way?",
+      },
       { es: "¿Cuánto de mi tiempo me pertenece?", en: "How much of my time belongs to me?" },
-      { es: "¿Qué es hoy inevitable y hace un siglo no existía?", en: "What is inevitable today and did not exist a century ago?" },
+      {
+        es: "¿Qué es hoy inevitable y hace un siglo no existía?",
+        en: "What is inevitable today and did not exist a century ago?",
+      },
     ],
   },
   {
@@ -921,9 +1013,18 @@ export const IDEAS: Idea[] = [
     },
     philosophers: ["pohlenz", "aquinas", "bentham", "kant"],
     questions: [
-      { es: "¿Qué hábito me está formando sin que lo note?", en: "Which habit is shaping me without my noticing?" },
-      { es: "¿Qué depende de mí en esto que me angustia?", en: "What depends on me in what worries me?" },
-      { es: "¿Cómo distingo lo correcto de lo cómodo?", en: "How do I tell right from comfortable?" },
+      {
+        es: "¿Qué hábito me está formando sin que lo note?",
+        en: "Which habit is shaping me without my noticing?",
+      },
+      {
+        es: "¿Qué depende de mí en esto que me angustia?",
+        en: "What depends on me in what worries me?",
+      },
+      {
+        es: "¿Cómo distingo lo correcto de lo cómodo?",
+        en: "How do I tell right from comfortable?",
+      },
     ],
   },
   {
@@ -936,9 +1037,15 @@ export const IDEAS: Idea[] = [
     },
     philosophers: ["heidegger", "nietzsche", "pascal", "eckhart"],
     questions: [
-      { es: "¿Qué me sostiene cuando todo se vuelve gris?", en: "What holds me up when everything turns grey?" },
+      {
+        es: "¿Qué me sostiene cuando todo se vuelve gris?",
+        en: "What holds me up when everything turns grey?",
+      },
       { es: "¿Necesito una razón última para vivir?", en: "Do I need an ultimate reason to live?" },
-      { es: "¿Dónde siento que el tiempo no se pierde?", en: "Where do I feel time is not wasted?" },
+      {
+        es: "¿Dónde siento que el tiempo no se pierde?",
+        en: "Where do I feel time is not wasted?",
+      },
     ],
   },
   {
@@ -951,7 +1058,10 @@ export const IDEAS: Idea[] = [
     },
     philosophers: ["aquinas", "maimonides", "eckhart", "pascal", "yannaras"],
     questions: [
-      { es: "¿Puedo pensar lo absoluto sin reducirlo?", en: "Can I think the absolute without reducing it?" },
+      {
+        es: "¿Puedo pensar lo absoluto sin reducirlo?",
+        en: "Can I think the absolute without reducing it?",
+      },
       { es: "¿Qué haría con una certeza así?", en: "What would I do with such a certainty?" },
       { es: "¿La fe es un salto o una conclusión?", en: "Is faith a leap or a conclusion?" },
     ],
@@ -966,7 +1076,10 @@ export const IDEAS: Idea[] = [
     },
     philosophers: ["levinas", "yannaras", "hegel", "schopenhauer"],
     questions: [
-      { es: "¿Escucho o espero mi turno para hablar?", en: "Do I listen, or wait for my turn to speak?" },
+      {
+        es: "¿Escucho o espero mi turno para hablar?",
+        en: "Do I listen, or wait for my turn to speak?",
+      },
       { es: "¿Qué debo a quien no elegí?", en: "What do I owe someone I did not choose?" },
       { es: "¿Puedo amar sin querer poseer?", en: "Can I love without wanting to possess?" },
     ],
@@ -1003,22 +1116,43 @@ export const ROUTES: PhilosophyRoute[] = [
     steps: [
       {
         philosopher: "pohlenz",
-        note: { es: "El estoicismo: distinguir lo que depende de ti.", en: "Stoicism: telling apart what depends on you." },
-        prompt: { es: "¿Cómo distingo lo que depende de mí de lo que no?", en: "How do I tell what depends on me from what doesn't?" },
+        note: {
+          es: "El estoicismo: distinguir lo que depende de ti.",
+          en: "Stoicism: telling apart what depends on you.",
+        },
+        prompt: {
+          es: "¿Cómo distingo lo que depende de mí de lo que no?",
+          en: "How do I tell what depends on me from what doesn't?",
+        },
       },
       {
         philosopher: "bentham",
-        note: { es: "El cálculo: menos sufrimiento, más bienestar.", en: "The calculus: less suffering, more well-being." },
-        prompt: { es: "¿Se puede medir si una vida va bien?", en: "Can we measure whether a life is going well?" },
+        note: {
+          es: "El cálculo: menos sufrimiento, más bienestar.",
+          en: "The calculus: less suffering, more well-being.",
+        },
+        prompt: {
+          es: "¿Se puede medir si una vida va bien?",
+          en: "Can we measure whether a life is going well?",
+        },
       },
       {
         philosopher: "james",
-        note: { es: "El pragmatismo: una idea vale por lo que hace.", en: "Pragmatism: an idea is worth what it does." },
-        prompt: { es: "¿Cómo sé si una creencia mía me sirve?", en: "How do I know if one of my beliefs works?" },
+        note: {
+          es: "El pragmatismo: una idea vale por lo que hace.",
+          en: "Pragmatism: an idea is worth what it does.",
+        },
+        prompt: {
+          es: "¿Cómo sé si una creencia mía me sirve?",
+          en: "How do I know if one of my beliefs works?",
+        },
       },
       {
         philosopher: "nietzsche",
-        note: { es: "La ruptura: crear tus propios valores.", en: "The rupture: creating your own values." },
+        note: {
+          es: "La ruptura: crear tus propios valores.",
+          en: "The rupture: creating your own values.",
+        },
         prompt: { es: "¿Y si mis valores no fueran míos?", en: "What if my values weren't mine?" },
       },
     ],
@@ -1034,22 +1168,37 @@ export const ROUTES: PhilosophyRoute[] = [
       {
         philosopher: "schopenhauer",
         note: { es: "El deseo como raíz.", en: "Desire as the root." },
-        prompt: { es: "¿Por qué nunca me basta lo que consigo?", en: "Why is what I get never enough?" },
+        prompt: {
+          es: "¿Por qué nunca me basta lo que consigo?",
+          en: "Why is what I get never enough?",
+        },
       },
       {
         philosopher: "pohlenz",
         note: { es: "El juicio que añadimos al golpe.", en: "The judgement we add to the blow." },
-        prompt: { es: "¿Cuánto de mi dolor es lo que pienso sobre él?", en: "How much of my pain is what I think about it?" },
+        prompt: {
+          es: "¿Cuánto de mi dolor es lo que pienso sobre él?",
+          en: "How much of my pain is what I think about it?",
+        },
       },
       {
         philosopher: "kierkegaard",
-        note: { es: "La angustia como vértigo de la libertad.", en: "Anxiety as the vertigo of freedom." },
-        prompt: { es: "¿Por qué me angustia poder elegir?", en: "Why does being able to choose make me anxious?" },
+        note: {
+          es: "La angustia como vértigo de la libertad.",
+          en: "Anxiety as the vertigo of freedom.",
+        },
+        prompt: {
+          es: "¿Por qué me angustia poder elegir?",
+          en: "Why does being able to choose make me anxious?",
+        },
       },
       {
         philosopher: "nietzsche",
         note: { es: "El dolor como material de una vida.", en: "Pain as material for a life." },
-        prompt: { es: "¿Puede el sufrimiento hacerme más fuerte sin idealizarlo?", en: "Can suffering make me stronger without romanticising it?" },
+        prompt: {
+          es: "¿Puede el sufrimiento hacerme más fuerte sin idealizarlo?",
+          en: "Can suffering make me stronger without romanticising it?",
+        },
       },
     ],
   },
@@ -1063,22 +1212,40 @@ export const ROUTES: PhilosophyRoute[] = [
     steps: [
       {
         philosopher: "rationalism",
-        note: { es: "Libertad como comprensión de la necesidad.", en: "Freedom as understanding necessity." },
-        prompt: { es: "¿Soy libre si entiendo por qué actúo así?", en: "Am I free if I understand why I act this way?" },
+        note: {
+          es: "Libertad como comprensión de la necesidad.",
+          en: "Freedom as understanding necessity.",
+        },
+        prompt: {
+          es: "¿Soy libre si entiendo por qué actúo así?",
+          en: "Am I free if I understand why I act this way?",
+        },
       },
       {
         philosopher: "kant",
-        note: { es: "Autonomía: darse a sí mismo la ley.", en: "Autonomy: giving yourself the law." },
-        prompt: { es: "¿Qué diferencia hay entre querer y deber?", en: "What's the difference between wanting and ought?" },
+        note: {
+          es: "Autonomía: darse a sí mismo la ley.",
+          en: "Autonomy: giving yourself the law.",
+        },
+        prompt: {
+          es: "¿Qué diferencia hay entre querer y deber?",
+          en: "What's the difference between wanting and ought?",
+        },
       },
       {
         philosopher: "hegel",
         note: { es: "Libertad conquistada en la historia.", en: "Freedom won within history." },
-        prompt: { es: "¿Se puede ser libre solo, sin los demás?", en: "Can one be free alone, without others?" },
+        prompt: {
+          es: "¿Se puede ser libre solo, sin los demás?",
+          en: "Can one be free alone, without others?",
+        },
       },
       {
         philosopher: "kierkegaard",
-        note: { es: "Elegirse a sí mismo sin garantías.", en: "Choosing yourself without guarantees." },
+        note: {
+          es: "Elegirse a sí mismo sin garantías.",
+          en: "Choosing yourself without guarantees.",
+        },
         prompt: { es: "¿Qué decisión estoy evitando tomar?", en: "Which decision am I avoiding?" },
       },
     ],
@@ -1094,7 +1261,10 @@ export const ROUTES: PhilosophyRoute[] = [
       {
         philosopher: "schopenhauer",
         note: { es: "El amor como astucia del deseo.", en: "Love as the cunning of desire." },
-        prompt: { es: "¿Amo a esta persona o a lo que me provoca?", en: "Do I love this person or what they stir in me?" },
+        prompt: {
+          es: "¿Amo a esta persona o a lo que me provoca?",
+          en: "Do I love this person or what they stir in me?",
+        },
       },
       {
         philosopher: "kierkegaard",
@@ -1104,12 +1274,18 @@ export const ROUTES: PhilosophyRoute[] = [
       {
         philosopher: "levinas",
         note: { es: "El otro como responsabilidad.", en: "The other as responsibility." },
-        prompt: { es: "¿Qué me exige alguien solo por estar ahí?", en: "What does someone demand of me just by being there?" },
+        prompt: {
+          es: "¿Qué me exige alguien solo por estar ahí?",
+          en: "What does someone demand of me just by being there?",
+        },
       },
       {
         philosopher: "eckhart",
         note: { es: "Amar sin querer poseer.", en: "Loving without wanting to possess." },
-        prompt: { es: "¿Puedo soltar sin dejar de querer?", en: "Can I let go without ceasing to love?" },
+        prompt: {
+          es: "¿Puedo soltar sin dejar de querer?",
+          en: "Can I let go without ceasing to love?",
+        },
       },
     ],
   },
@@ -1123,23 +1299,38 @@ export const ROUTES: PhilosophyRoute[] = [
     steps: [
       {
         philosopher: "bentham",
-        note: { es: "La mayor felicidad para el mayor número.", en: "The greatest happiness for the greatest number." },
+        note: {
+          es: "La mayor felicidad para el mayor número.",
+          en: "The greatest happiness for the greatest number.",
+        },
         prompt: { es: "¿Se puede legislar el bienestar?", en: "Can well-being be legislated?" },
       },
       {
         philosopher: "kant",
         note: { es: "La dignidad como límite.", en: "Dignity as a limit." },
-        prompt: { es: "¿Hay cosas que nunca deberían negociarse?", en: "Are there things that should never be negotiable?" },
+        prompt: {
+          es: "¿Hay cosas que nunca deberían negociarse?",
+          en: "Are there things that should never be negotiable?",
+        },
       },
       {
         philosopher: "hegel",
-        note: { es: "Las instituciones como libertad realizada.", en: "Institutions as realised freedom." },
-        prompt: { es: "¿Necesito al Estado para ser libre?", en: "Do I need the State to be free?" },
+        note: {
+          es: "Las instituciones como libertad realizada.",
+          en: "Institutions as realised freedom.",
+        },
+        prompt: {
+          es: "¿Necesito al Estado para ser libre?",
+          en: "Do I need the State to be free?",
+        },
       },
       {
         philosopher: "marx",
         note: { es: "Quién produce y quién decide.", en: "Who produces and who decides." },
-        prompt: { es: "¿Por qué mi trabajo se siente ajeno?", en: "Why does my work feel alien to me?" },
+        prompt: {
+          es: "¿Por qué mi trabajo se siente ajeno?",
+          en: "Why does my work feel alien to me?",
+        },
       },
     ],
   },
@@ -1169,7 +1360,10 @@ export const MODES: {
     id: "teacher",
     glyph: "❍",
     title: { es: "Profesor", en: "Teacher" },
-    hint: { es: "Aprende sus ideas de forma sencilla.", en: "Learn their ideas in plain language." },
+    hint: {
+      es: "Aprende sus ideas de forma sencilla.",
+      en: "Learn their ideas in plain language.",
+    },
   },
   {
     id: "debate",
@@ -1181,7 +1375,10 @@ export const MODES: {
     id: "mirror",
     glyph: "◎",
     title: { es: "Reflexión", en: "Reflection" },
-    hint: { es: "Usa sus ideas para mirar tu propia vida.", en: "Use their ideas to look at your own life." },
+    hint: {
+      es: "Usa sus ideas para mirar tu propia vida.",
+      en: "Use their ideas to look at your own life.",
+    },
   },
   {
     id: "provoke",
