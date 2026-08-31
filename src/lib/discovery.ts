@@ -277,6 +277,10 @@ sartre: {
     es: "¿Qué parte de tu situación te viene dada y cuál estás consintiendo?",
     en: "What part of your situation is given, and what part are you consenting to?",
   },
+  strauss: {
+    es: "¿Qué crees saber sin haberlo leído tú mismo, y despacio?",
+    en: "What do you believe you know without having read it yourself, and slowly?",
+  },
 };
 
 export function centralQuestion(id: PhilosopherId, lang: Lang): string {
@@ -541,6 +545,7 @@ export const POLITICS: Partial<Record<PhilosopherId, PoliticsId>> = {
   ortega: "center",
   bauman: "left",
   beauvoir: "left",
+  strauss: "right",
 };
 
 export function politicsOf(id: PhilosopherId): PoliticsId | undefined {
@@ -824,6 +829,7 @@ export const FACETS: Record<PhilosopherId, Facet> = {
   mises: { families: ["politics", "knowledge"], movements: ["liberalism"], level: "deep", year: 1881 },
   ortega: { families: ["existence", "politics"], movements: ["existentialism", "phenomenology"], level: "intro", year: 1883 },
   beauvoir: { families: ["existence", "ethics"], movements: ["existentialism", "feminism"], level: "intro", year: 1908 },
+  strauss: { families: ["politics", "ethics"], movements: ["classicism", "hermeneutics"], level: "advanced", year: 1899 },
 };
 
 export function facetOf(id: PhilosopherId): Facet {

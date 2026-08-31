@@ -2041,6 +2041,7 @@ const NEW_MINDS: [PhilosopherId, string, string, string, string, string[]][] = [
   ["mises", "Ludwig von Mises", "1881–1973", "Praxeología y cálculo económico.", "Praxeology and economic calculation.", ["liberalism", "libertarianism", "capitalism"]],
   ["ortega", "Ortega y Gasset", "1883–1955", "Yo y mi circunstancia; razón vital.", "I and my circumstance; vital reason.", ["existentialism", "phenomenology", "liberalism"]],
   ["beauvoir", "Simone de Beauvoir", "1908–1986", "El segundo sexo y la libertad situada.", "The Second Sex and situated freedom.", ["existentialism", "feminism", "freedom"]],
+  ["strauss", "Leo Strauss", "1899–1973", "Jerusalén y Atenas; derecho natural y lectura esotérica.", "Jerusalem and Athens; natural right and esoteric reading.", ["natural_law", "hermeneutics", "judaism", "conservatism"]],
 ];
 
 for (const [id, label, era, es, en, related] of NEW_MINDS) {

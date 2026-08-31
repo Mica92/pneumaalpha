@@ -65,6 +65,7 @@ import maritainPortrait from "@/assets/portraits/maritain.jpg";
 import misesPortrait from "@/assets/portraits/mises.jpg";
 import ortegaPortrait from "@/assets/portraits/ortega.jpg";
 import beauvoirPortrait from "@/assets/portraits/beauvoir.jpg";
+import straussPortrait from "@/assets/portraits/strauss.jpg";
 import type { PhilosopherId } from "@/lib/philosophers";
 import type { LocalizedString } from "@/lib/philosophers";
 
@@ -137,6 +138,7 @@ export const PORTRAITS: Partial<Record<PhilosopherId, string>> = {
   mises: misesPortrait,
   ortega: ortegaPortrait,
   beauvoir: beauvoirPortrait,
+  strauss: straussPortrait,
 };
 
 export function portraitOf(id: string): string | undefined {
@@ -1279,6 +1281,22 @@ export const PROFILES: Partial<Record<PhilosopherId, PhilosopherProfile>> = {
       { es: "Ética de la ambigüedad", en: "Ethics of ambiguity" },
       { es: "Cuerpo y vejez", en: "Body and old age" },
       { es: "Literatura y filosofía", en: "Literature and philosophy" },
+    ],
+  },
+
+  strauss: {
+    years: "1899 – 1973",
+    origin: { es: "Kirchhain, Alemania", en: "Kirchhain, Germany" },
+    bio: {
+      es: "Filósofo político judío alemán exiliado en Estados Unidos y profesor en Chicago. Autor de Derecho natural e historia y Persecución y el arte de escribir; volvió a los clásicos para pensar la crisis de la modernidad.",
+      en: "German-Jewish political philosopher exiled to the United States and professor at Chicago. Author of Natural Right and History and Persecution and the Art of Writing; he returned to the classics to think the crisis of modernity.",
+    },
+    expertise: [
+      { es: "Jerusalén y Atenas", en: "Jerusalem and Athens" },
+      { es: "Derecho natural e historia", en: "Natural right and history" },
+      { es: "Escribir entre líneas", en: "Writing between the lines" },
+      { es: "Las tres olas de la modernidad", en: "The three waves of modernity" },
+      { es: "Antiguos y modernos", en: "Ancients and moderns" },
     ],
   },
 };
