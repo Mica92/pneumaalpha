@@ -220,6 +220,7 @@ export type Database = {
       }
       subscriptions: {
         Row: {
+          confirmation_email_sent_at: string | null
           created_at: string
           current_period_end: string | null
           id: string
@@ -233,6 +234,7 @@ export type Database = {
           whop_receipt_id: string | null
         }
         Insert: {
+          confirmation_email_sent_at?: string | null
           created_at?: string
           current_period_end?: string | null
           id?: string
@@ -246,6 +248,7 @@ export type Database = {
           whop_receipt_id?: string | null
         }
         Update: {
+          confirmation_email_sent_at?: string | null
           created_at?: string
           current_period_end?: string | null
           id?: string

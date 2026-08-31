@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { createHmac, timingSafeEqual } from "crypto";
 import { LIFETIME_SEATS, type PlanId } from "@/lib/billing.shared";
+import { sendPurchaseConfirmationEmail } from "@/lib/purchase-email.server";
 
 type PaddleEvent = {
   event_type?: string;
@@ -41,6 +42,52 @@ function verifySignature(body: string, header: string | null, secret: string): b
   const a = Buffer.from(h1);
   const b = Buffer.from(expected);
   return a.length === b.length && timingSafeEqual(a, b);
+}
+
+/**
+ * Purchase confirmation email, sent once per subscription row.
+ * `match` identifies the row just written (transaction or subscription id).
+ */
+async function notifyPurchase(
+  supabaseAdmin: any,
+  args: {
+    userId: string;
+    plan: PlanId;
+    periodEnd: string | null;
+    matchColumn: "paddle_transaction_id" | "paddle_subscription_id";
+    matchValue: string | null;
+  },
+) {
+  if (!args.matchValue) return;
+  try {
+    const { data: row } = await supabaseAdmin
+      .from("subscriptions")
+      .select("id, confirmation_email_sent_at")
+      .eq(args.matchColumn, args.matchValue)
+      .maybeSingle();
+    if (!row || row.confirmation_email_sent_at) return;
+
+    const { data: userRes } = await supabaseAdmin.auth.admin.getUserById(args.userId);
+    const email: string | undefined = userRes?.user?.email;
+    if (!email) return;
+    const metaLang = userRes?.user?.user_metadata?.lang;
+    const lang: "es" | "en" = metaLang === "en" ? "en" : "es";
+
+    const sent = await sendPurchaseConfirmationEmail({
+      to: email,
+      lang,
+      plan: args.plan,
+      periodEnd: args.periodEnd,
+    });
+    if (sent) {
+      await supabaseAdmin
+        .from("subscriptions")
+        .update({ confirmation_email_sent_at: new Date().toISOString() })
+        .eq("id", row.id);
+    }
+  } catch (e) {
+    console.error("[paddle webhook] confirmation email failed", e);
+  }
 }
 
 export const Route = createFileRoute("/api/public/payments/webhook")({
@@ -105,6 +152,13 @@ export const Route = createFileRoute("/api/public/payments/webhook")({
           await supabaseAdmin
             .from("analytics_events")
             .insert({ user_id: userId, event: "purchase_completed", props: { plan } });
+          await notifyPurchase(supabaseAdmin, {
+            userId,
+            plan: "lifetime",
+            periodEnd: null,
+            matchColumn: "paddle_transaction_id",
+            matchValue: transactionId,
+          });
           return new Response("ok");
         }
 
@@ -151,6 +205,13 @@ export const Route = createFileRoute("/api/public/payments/webhook")({
                 .from("analytics_events")
                 .insert({ user_id: userId, event: "purchase_completed", props: { plan } });
             }
+            await notifyPurchase(supabaseAdmin, {
+              userId,
+              plan,
+              periodEnd: endsAt ?? null,
+              matchColumn: "paddle_subscription_id",
+              matchValue: subscriptionId,
+            });
           }
         }
 

@@ -59,8 +59,23 @@ export function SiteFooter() {
               </Link>
             </li>
             <li>
+              <Link to="/planes" className="focus-mist transition-colors hover:text-foreground">
+                {es ? "Planes" : "Plans"}
+              </Link>
+            </li>
+            <li>
               <Link to="/privacy" className="focus-mist transition-colors hover:text-foreground">
                 {es ? "Privacidad" : "Privacy"}
+              </Link>
+            </li>
+            <li>
+              <Link to="/terminos" className="focus-mist transition-colors hover:text-foreground">
+                {es ? "Términos y condiciones" : "Terms and conditions"}
+              </Link>
+            </li>
+            <li>
+              <Link to="/reembolsos" className="focus-mist transition-colors hover:text-foreground">
+                {es ? "Reembolsos" : "Refunds"}
               </Link>
             </li>
           </ul>

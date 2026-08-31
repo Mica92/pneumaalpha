@@ -1,21 +1,17 @@
-import { useEffect, useState } from "react";
-import { createFileRoute } from "@tanstack/react-router";
-import { useServerFn } from "@tanstack/react-start";
+import { useEffect } from "react";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteNav } from "@/components/site-nav";
 import { SiteFooter } from "@/components/site-footer";
 import { PaymentTestModeBanner } from "@/components/payment-test-mode-banner";
 import { useI18n } from "@/lib/i18n";
 import { useEntitlement } from "@/hooks/use-entitlement";
-import { useAuth } from "@/hooks/use-auth";
-import { prepareCheckout } from "@/lib/billing.functions";
-import { getPaddlePriceId, initializePaddle } from "@/lib/paddle";
+import { usePaddleCheckout } from "@/hooks/use-paddle-checkout";
 import {
   FREE_MESSAGE_LIMIT,
   LIFETIME_SEATS,
   PLANS,
   formatClp,
   formatUsd,
-  type PlanId,
 } from "@/lib/billing.shared";
 import { track } from "@/lib/analytics";
 import { SITE_URL } from "@/lib/site";
@@ -44,62 +40,12 @@ export const Route = createFileRoute("/_authenticated/planes")({
 function PlansPage() {
   const { lang } = useI18n();
   const es = lang === "es";
-  const { user } = useAuth();
   const { entitlement, isLoading } = useEntitlement();
-  const prepare = useServerFn(prepareCheckout);
-  const [pending, setPending] = useState<PlanId | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const { start, pending, error } = usePaddleCheckout({ successPath: "/planes?pago=ok" });
 
   useEffect(() => {
     track("pricing_viewed");
   }, []);
-
-  async function start(plan: PlanId) {
-    setError(null);
-    setPending(plan);
-    track("checkout_started", { plan });
-    try {
-      const res = await prepare({ data: { plan } });
-      if ("error" in res) {
-        setError(
-          res.error === "not_configured"
-            ? es
-              ? "La pasarela de pago aún no está conectada. Vuelve pronto."
-              : "The payment gateway is not connected yet. Come back soon."
-            : res.error === "sold_out"
-              ? es
-                ? "Los cupos vitalicios se agotaron."
-                : "Lifetime seats are sold out."
-              : res.error === "already_subscribed"
-                ? es
-                  ? "Ya tienes una suscripción activa."
-                  : "You already have an active subscription."
-                : es
-                  ? "No pudimos abrir el pago. Inténtalo de nuevo."
-                  : "We couldn't open checkout. Please try again.",
-        );
-        return;
-      }
-
-      await initializePaddle();
-      const paddlePriceId = await getPaddlePriceId(res.priceId);
-      window.Paddle.Checkout.open({
-        items: [{ priceId: paddlePriceId, quantity: 1 }],
-        customer: user?.email ? { email: user.email } : undefined,
-        customData: { user_id: user?.id ?? "", plan },
-        settings: {
-          displayMode: "overlay",
-          variant: "one-page",
-          successUrl: `${window.location.origin}/planes?pago=ok`,
-          allowLogout: false,
-        },
-      });
-    } catch {
-      setError(es ? "No pudimos abrir el pago." : "We couldn't open checkout.");
-    } finally {
-      setPending(null);
-    }
-  }
 
   return (
     <>
@@ -213,10 +159,21 @@ function PlansPage() {
           })}
         </div>
 
-        <p className="mt-10 text-micro text-muted-foreground">
+        <p className="mt-10 text-micro leading-relaxed text-muted-foreground">
           {es
-            ? "Pagos procesados por Paddle. En Chile pagas en pesos; en el resto del mundo, en dólares."
-            : "Payments processed by Paddle. In Chile you pay in pesos; elsewhere, in US dollars."}
+            ? "Vendido por Kionas IA. Pagos procesados por Paddle.com, comerciante registrado (Merchant of Record). En Chile pagas en pesos; en el resto del mundo, en dólares. 30 días de garantía de devolución."
+            : "Sold by Kionas IA. Payments processed by Paddle.com, Merchant of Record. In Chile you pay in pesos; elsewhere, in US dollars. 30-day money-back guarantee."}
+        </p>
+        <p className="mt-3 flex flex-wrap gap-4 text-micro uppercase tracking-[0.25em] text-muted-foreground">
+          <Link to="/terminos" className="hover:text-foreground">
+            {es ? "Términos" : "Terms"}
+          </Link>
+          <Link to="/reembolsos" className="hover:text-foreground">
+            {es ? "Reembolsos" : "Refunds"}
+          </Link>
+          <Link to="/privacy" className="hover:text-foreground">
+            {es ? "Privacidad" : "Privacy"}
+          </Link>
         </p>
       </main>
       <SiteFooter />
