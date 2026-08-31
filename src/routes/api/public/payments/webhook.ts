@@ -47,7 +47,11 @@ export const Route = createFileRoute("/api/public/payments/webhook")({
   server: {
     handlers: {
       POST: async ({ request }) => {
-        const secret = process.env.PADDLE_WEBHOOK_SECRET;
+        const env = new URL(request.url).searchParams.get("env") === "live" ? "live" : "sandbox";
+        const secret =
+          env === "live"
+            ? process.env.PAYMENTS_LIVE_WEBHOOK_SECRET
+            : process.env.PAYMENTS_SANDBOX_WEBHOOK_SECRET;
         if (!secret) return new Response("Not configured", { status: 503 });
 
         const body = await request.text();
