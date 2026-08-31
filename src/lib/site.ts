@@ -1,6 +1,6 @@
 // URL canónica del sitio y nombre de marca, centralizados.
-// Cuando se compre el dominio propio (p. ej. https://pneumaalpha.com),
-// basta con cambiar SITE_URL aquí: se propaga a canonical, og:url,
-// sitemap, hreflang y datos estructurados.
-export const SITE_URL = "https://pneumaalpha.lovable.app";
+// El dominio primario es https://pneum.app: canonical, og:url, sitemap,
+// hreflang y datos estructurados apuntan aquí. La marca mantiene una redirección
+// desde el dominio lovable.app, así que toda la autoridad se consolida en pneum.app.
+export const SITE_URL = "https://pneum.app";
 export const SITE_NAME = "Pneum";

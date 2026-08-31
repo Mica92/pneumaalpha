@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://pneumaalpha.lovable.app/sitemap.xml
+Sitemap: https://pneum.app/sitemap.xml

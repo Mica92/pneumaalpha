@@ -75,7 +75,7 @@ export function ShareFragmentButton({ philosopher, text, question }: Props) {
 
   const author = PHILOSOPHERS[philosopher]?.name ?? "Pneum";
   const excerpt = text.trim().slice(0, MAX);
-  const footer = "pneumaalpha.lovable.app · Pneum";
+  const footer = "pneum.app · Pneum";
   const shareText = `“${excerpt}”\n— ${author} · Pneum`;
 
   const handleCopy = async () => {

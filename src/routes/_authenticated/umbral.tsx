@@ -6,6 +6,7 @@ import { PHILOSOPHER_LIST } from "@/lib/philosophers";
 import { useI18n } from "@/lib/i18n";
 import { InstallAppCard } from "@/components/install-app";
 import { NewsletterCard } from "@/components/newsletter-card";
+import { SITE_URL } from "@/lib/site";
 
 export const Route = createFileRoute("/_authenticated/umbral")({
   component: Index,
@@ -29,10 +30,10 @@ export const Route = createFileRoute("/_authenticated/umbral")({
           "Múltiples conciencias filosóficas reconstruidas. Una lámpara distante. Una conversación que no se apaga.",
       },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://pneumaalpha.lovable.app/umbral" },
+      { property: "og:url", content: `${SITE_URL}/umbral` },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "https://pneumaalpha.lovable.app/umbral" }],
+    links: [{ rel: "canonical", href: `${SITE_URL}/umbral` }],
     scripts: [
       {
         type: "application/ld+json",
@@ -40,7 +41,7 @@ export const Route = createFileRoute("/_authenticated/umbral")({
           "@context": "https://schema.org",
           "@type": "WebSite",
           name: "Pneum",
-          url: "https://pneumaalpha.lovable.app/umbral",
+          url: `${SITE_URL}/umbral`,
           inLanguage: ["es", "en"],
           description:
             "Conversaciones filosóficas con mentes reconstruidas mediante IA, mesa redonda, modo Sócrates y un mapa interactivo de ideas.",

@@ -2,36 +2,37 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteNav } from "@/components/site-nav";
 import { SiteFooter } from "@/components/site-footer";
 import { useI18n } from "@/lib/i18n";
+import { SITE_NAME, SITE_URL } from "@/lib/site";
 
 export const Route = createFileRoute("/_authenticated/nosotros")({
   component: NosotrosPage,
   head: () => ({
     meta: [
-      { title: "Pneum — Nosotros" },
+      { title: `${SITE_NAME} — Nosotros` },
       {
         name: "description",
         content:
           "Somos un grupo de ciudadanos convencidos de que la tecnología debe estar al servicio de la conciencia humana. Entrenamos inteligencias artificiales con el pensamiento de grandes filósofos para que cualquiera pueda pensar, decidir y vivir mejor.",
       },
-      { property: "og:title", content: "Pneum — Nosotros" },
+      { property: "og:title", content: `${SITE_NAME} — Nosotros` },
       {
         property: "og:description",
         content:
           "Somos un grupo de ciudadanos convencidos de que la tecnología debe estar al servicio de la conciencia humana. Entrenamos inteligencias artificiales con el pensamiento de grandes filósofos para que cualquiera pueda pensar, decidir y vivir mejor.",
       },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://pneumaalpha.lovable.app/nosotros" },
+      { property: "og:url", content: `${SITE_URL}/nosotros` },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "https://pneumaalpha.lovable.app/nosotros" }],
+    links: [{ rel: "canonical", href: `${SITE_URL}/nosotros` }],
     scripts: [
       {
         type: "application/ld+json",
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Organization",
-          name: "Pneum",
-          url: "https://pneumaalpha.lovable.app",
+          name: SITE_NAME,
+          url: SITE_URL,
           description:
             "Conocimiento al servicio de la conciencia: inteligencia artificial entrenada con grandes filósofos para ayudar a cada persona a pensar, decidir y vivir mejor.",
         }),
