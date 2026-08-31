@@ -35,23 +35,14 @@ export const prepareCheckout = createServerFn({ method: "POST" })
     },
   );
 
-/** Public counter for the landing/pricing page (no session required). */
+/**
+ * Public counter for the landing/pricing page (no session required).
+ * The seat function is SECURITY DEFINER and only executable by the service
+ * role, so it is called server-side and only the aggregate count is returned.
+ */
 export const getLifetimeSeats = createServerFn({ method: "GET" }).handler(async () => {
-  const { createClient } = await import("@supabase/supabase-js");
-  const key = process.env.SUPABASE_PUBLISHABLE_KEY!;
-  const client = createClient(process.env.SUPABASE_URL!, key, {
-    auth: { persistSession: false },
-    global: {
-      fetch: (input, init) => {
-        const h = new Headers(init?.headers);
-        if (key.startsWith("sb_") && h.get("Authorization") === `Bearer ${key}`)
-          h.delete("Authorization");
-        h.set("apikey", key);
-        return fetch(input, { ...init, headers: h });
-      },
-    },
-  });
-  const { data } = await client.rpc("lifetime_seats_taken");
+  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+  const { data } = await supabaseAdmin.rpc("lifetime_seats_taken");
   const taken = (data as number | null) ?? 0;
   return { taken, left: Math.max(0, LIFETIME_SEATS - taken) };
 });
