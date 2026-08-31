@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteNav } from "@/components/site-nav";
 import { SiteFooter } from "@/components/site-footer";
 import { PaymentTestModeBanner } from "@/components/payment-test-mode-banner";
@@ -41,7 +41,6 @@ export const Route = createFileRoute("/_authenticated/planes")({
 function PlansPage() {
   const { lang } = useI18n();
   const es = lang === "es";
-  const { user } = useAuth();
   const { entitlement, isLoading } = useEntitlement();
   const { start, pending, error } = usePaddleCheckout({ successPath: "/planes?pago=ok" });
 
@@ -161,10 +160,21 @@ function PlansPage() {
           })}
         </div>
 
-        <p className="mt-10 text-micro text-muted-foreground">
+        <p className="mt-10 text-micro leading-relaxed text-muted-foreground">
           {es
-            ? "Pagos procesados por Paddle. En Chile pagas en pesos; en el resto del mundo, en dólares."
-            : "Payments processed by Paddle. In Chile you pay in pesos; elsewhere, in US dollars."}
+            ? "Vendido por Kionas IA. Pagos procesados por Paddle.com, comerciante registrado (Merchant of Record). En Chile pagas en pesos; en el resto del mundo, en dólares. 30 días de garantía de devolución."
+            : "Sold by Kionas IA. Payments processed by Paddle.com, Merchant of Record. In Chile you pay in pesos; elsewhere, in US dollars. 30-day money-back guarantee."}
+        </p>
+        <p className="mt-3 flex flex-wrap gap-4 text-micro uppercase tracking-[0.25em] text-muted-foreground">
+          <Link to="/terminos" className="hover:text-foreground">
+            {es ? "Términos" : "Terms"}
+          </Link>
+          <Link to="/reembolsos" className="hover:text-foreground">
+            {es ? "Reembolsos" : "Refunds"}
+          </Link>
+          <Link to="/privacy" className="hover:text-foreground">
+            {es ? "Privacidad" : "Privacy"}
+          </Link>
         </p>
       </main>
       <SiteFooter />
