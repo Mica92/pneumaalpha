@@ -19,6 +19,7 @@ const LINKS = [
   { to: "/mi-mapa", es: "Mi mapa", en: "My map" },
   { to: "/buscar", es: "Buscar", en: "Search" },
   { to: "/nosotros", es: "Nosotros", en: "About" },
+  { to: "/planes", es: "Planes", en: "Plans" },
 ] as const;
 
 function isGoogleUser(user: ReturnType<typeof useAuth>["user"]) {

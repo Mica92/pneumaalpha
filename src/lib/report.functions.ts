@@ -51,6 +51,8 @@ export const generateReport = createServerFn({ method: "POST" })
     if (!apiKey) throw new Error("LOVABLE_API_KEY no está configurada.");
 
     const { supabase, userId } = context;
+    const { requireActivePlan } = await import("@/lib/entitlement.server");
+    await requireActivePlan(supabase, userId);
     const lang = data.language;
 
     // Pull the user's own utterances across all philosophers — these reveal voice, themes and depth.
