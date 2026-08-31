@@ -3,8 +3,8 @@ import { FREE_MESSAGE_LIMIT, LIFETIME_SEATS, PAYWALL_ERROR, type Entitlement, ty
 
 type Client = SupabaseClient<any, "public", any>;
 
-export function whopConfigured() {
-  return Boolean(process.env.WHOP_API_KEY);
+export function paymentsConfigured() {
+  return Boolean(process.env.PADDLE_SANDBOX_API_KEY || process.env.PADDLE_LIVE_API_KEY);
 }
 
 /** Active plan for a user, honouring expiry of period-based plans. */
@@ -54,7 +54,7 @@ export async function readEntitlement(supabase: Client, userId: string): Promise
     freeMessagesLeft: Math.max(0, FREE_MESSAGE_LIMIT - used),
     lifetimeSeatsTaken: taken,
     lifetimeSeatsLeft: Math.max(0, LIFETIME_SEATS - taken),
-    checkoutConfigured: whopConfigured(),
+    checkoutConfigured: paymentsConfigured(),
   };
 }
 

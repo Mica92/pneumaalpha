@@ -7,6 +7,13 @@ export const LIFETIME_SEATS = 51;
 
 export type PlanId = "monthly" | "semiannual" | "lifetime";
 
+/** Human-readable Paddle price ids (external_id), consistent across test/live. */
+export const PLAN_PRICE_IDS: Record<PlanId, string> = {
+  monthly: "pneum_beta_mensual",
+  semiannual: "pneum_delta_semestral",
+  lifetime: "pneum_alpha_vitalicio",
+};
+
 export type PlanDef = {
   id: PlanId;
   usd: number;
