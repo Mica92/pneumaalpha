@@ -34,7 +34,7 @@ import { Route as AuthenticatedPhilosopherRouteImport } from './routes/_authenti
 import { Route as AuthenticatedRutasIndexRouteImport } from './routes/_authenticated/rutas.index'
 import { Route as AuthenticatedIdeasIndexRouteImport } from './routes/_authenticated/ideas.index'
 import { Route as AuthenticatedFilosofosIndexRouteImport } from './routes/_authenticated/filosofos.index'
-import { Route as ApiPublicWhopWebhookRouteImport } from './routes/api/public/whop-webhook'
+import { Route as ApiPublicPaddleWebhookRouteImport } from './routes/api/public/paddle-webhook'
 import { Route as ApiPodcastSpeechRouteImport } from './routes/api/podcast/speech'
 import { Route as AuthenticatedRutasIdRouteImport } from './routes/_authenticated/rutas.$id'
 import { Route as AuthenticatedIdeasIdRouteImport } from './routes/_authenticated/ideas.$id'
@@ -168,9 +168,9 @@ const AuthenticatedFilosofosIndexRoute =
     path: '/filosofos/',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
-const ApiPublicWhopWebhookRoute = ApiPublicWhopWebhookRouteImport.update({
-  id: '/api/public/whop-webhook',
-  path: '/api/public/whop-webhook',
+const ApiPublicPaddleWebhookRoute = ApiPublicPaddleWebhookRouteImport.update({
+  id: '/api/public/paddle-webhook',
+  path: '/api/public/paddle-webhook',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiPodcastSpeechRoute = ApiPodcastSpeechRouteImport.update({
@@ -228,7 +228,7 @@ export interface FileRoutesByFullPath {
   '/ideas/$id': typeof AuthenticatedIdeasIdRoute
   '/rutas/$id': typeof AuthenticatedRutasIdRoute
   '/api/podcast/speech': typeof ApiPodcastSpeechRoute
-  '/api/public/whop-webhook': typeof ApiPublicWhopWebhookRoute
+  '/api/public/paddle-webhook': typeof ApiPublicPaddleWebhookRoute
   '/filosofos/': typeof AuthenticatedFilosofosIndexRoute
   '/ideas/': typeof AuthenticatedIdeasIndexRoute
   '/rutas/': typeof AuthenticatedRutasIndexRoute
@@ -260,7 +260,7 @@ export interface FileRoutesByTo {
   '/ideas/$id': typeof AuthenticatedIdeasIdRoute
   '/rutas/$id': typeof AuthenticatedRutasIdRoute
   '/api/podcast/speech': typeof ApiPodcastSpeechRoute
-  '/api/public/whop-webhook': typeof ApiPublicWhopWebhookRoute
+  '/api/public/paddle-webhook': typeof ApiPublicPaddleWebhookRoute
   '/filosofos': typeof AuthenticatedFilosofosIndexRoute
   '/ideas': typeof AuthenticatedIdeasIndexRoute
   '/rutas': typeof AuthenticatedRutasIndexRoute
@@ -294,7 +294,7 @@ export interface FileRoutesById {
   '/_authenticated/ideas/$id': typeof AuthenticatedIdeasIdRoute
   '/_authenticated/rutas/$id': typeof AuthenticatedRutasIdRoute
   '/api/podcast/speech': typeof ApiPodcastSpeechRoute
-  '/api/public/whop-webhook': typeof ApiPublicWhopWebhookRoute
+  '/api/public/paddle-webhook': typeof ApiPublicPaddleWebhookRoute
   '/_authenticated/filosofos/': typeof AuthenticatedFilosofosIndexRoute
   '/_authenticated/ideas/': typeof AuthenticatedIdeasIndexRoute
   '/_authenticated/rutas/': typeof AuthenticatedRutasIndexRoute
@@ -328,7 +328,7 @@ export interface FileRouteTypes {
     | '/ideas/$id'
     | '/rutas/$id'
     | '/api/podcast/speech'
-    | '/api/public/whop-webhook'
+    | '/api/public/paddle-webhook'
     | '/filosofos/'
     | '/ideas/'
     | '/rutas/'
@@ -360,7 +360,7 @@ export interface FileRouteTypes {
     | '/ideas/$id'
     | '/rutas/$id'
     | '/api/podcast/speech'
-    | '/api/public/whop-webhook'
+    | '/api/public/paddle-webhook'
     | '/filosofos'
     | '/ideas'
     | '/rutas'
@@ -393,7 +393,7 @@ export interface FileRouteTypes {
     | '/_authenticated/ideas/$id'
     | '/_authenticated/rutas/$id'
     | '/api/podcast/speech'
-    | '/api/public/whop-webhook'
+    | '/api/public/paddle-webhook'
     | '/_authenticated/filosofos/'
     | '/_authenticated/ideas/'
     | '/_authenticated/rutas/'
@@ -404,7 +404,7 @@ export interface RootRouteChildren {
   PrivacyRoute: typeof PrivacyRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ApiPodcastSpeechRoute: typeof ApiPodcastSpeechRoute
-  ApiPublicWhopWebhookRoute: typeof ApiPublicWhopWebhookRoute
+  ApiPublicPaddleWebhookRoute: typeof ApiPublicPaddleWebhookRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -584,11 +584,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedFilosofosIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/api/public/whop-webhook': {
-      id: '/api/public/whop-webhook'
-      path: '/api/public/whop-webhook'
-      fullPath: '/api/public/whop-webhook'
-      preLoaderRoute: typeof ApiPublicWhopWebhookRouteImport
+    '/api/public/paddle-webhook': {
+      id: '/api/public/paddle-webhook'
+      path: '/api/public/paddle-webhook'
+      fullPath: '/api/public/paddle-webhook'
+      preLoaderRoute: typeof ApiPublicPaddleWebhookRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/podcast/speech': {
@@ -695,7 +695,7 @@ const rootRouteChildren: RootRouteChildren = {
   PrivacyRoute: PrivacyRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   ApiPodcastSpeechRoute: ApiPodcastSpeechRoute,
-  ApiPublicWhopWebhookRoute: ApiPublicWhopWebhookRoute,
+  ApiPublicPaddleWebhookRoute: ApiPublicPaddleWebhookRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

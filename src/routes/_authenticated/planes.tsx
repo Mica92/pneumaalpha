@@ -3,9 +3,12 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { SiteNav } from "@/components/site-nav";
 import { SiteFooter } from "@/components/site-footer";
+import { PaymentTestModeBanner } from "@/components/payment-test-mode-banner";
 import { useI18n } from "@/lib/i18n";
 import { useEntitlement } from "@/hooks/use-entitlement";
-import { createCheckout } from "@/lib/billing.functions";
+import { useAuth } from "@/hooks/use-auth";
+import { prepareCheckout } from "@/lib/billing.functions";
+import { getPaddlePriceId, initializePaddle } from "@/lib/paddle";
 import {
   FREE_MESSAGE_LIMIT,
   LIFETIME_SEATS,
