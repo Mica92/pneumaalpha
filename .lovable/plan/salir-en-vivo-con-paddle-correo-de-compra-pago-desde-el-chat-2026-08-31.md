@@ -39,4 +39,8 @@ Enlaces a las tres páginas en el pie de página y en `/planes`.
 - Extraer la lógica de checkout de `src/routes/_authenticated/planes.tsx` a un hook reutilizable (`usePaddleCheckout` + datos de planes compartidos) para que el chat y `/planes` usen el mismo camino.
 - Nuevo `src/components/plan-picker-dialog.tsx` montado en `src/components/chat-window.tsx`.
 - Correo: función de servidor de envío + llamada desde `src/routes/api/public/payments/webhook.ts`, con marca en la tabla de suscripciones para no duplicar envíos.
-- Registro del webhook live vía la herramienta de pagos una vez publicado.
+- Registro del webhook live vía la herramienta de pagos una vez publicado.  
+  
+  
+  
+Incorpora la politicas standard de privacidad, de pago y devoluciones
