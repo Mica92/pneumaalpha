@@ -116,9 +116,7 @@ function ReportPage() {
                 {report.archetype}
               </h2>
               {report.summary && (
-                <p className="mt-5 text-body text-foreground/85">
-                  {report.summary}
-                </p>
+                <p className="mt-5 text-body text-foreground/85">{report.summary}</p>
               )}
               <p className="mt-5 font-mono text-micro uppercase tracking-[0.25em] text-muted-foreground/70">
                 {t("report.basedOn", { n: String(report.messagesAnalyzed) })}
@@ -170,9 +168,7 @@ function ReportPage() {
                 <h3 className="font-display text-micro uppercase tracking-[0.3em] text-muted-foreground">
                   {t("report.writingStyle")}
                 </h3>
-                <p className="mt-4 text-body text-foreground/85">
-                  {report.writingStyle}
-                </p>
+                <p className="mt-4 text-body text-foreground/85">{report.writingStyle}</p>
               </section>
             )}
 
@@ -213,7 +209,9 @@ function ReportPage() {
                       <li key={i} className="rounded-lg border border-border/60 bg-card/30 p-4">
                         <p className="font-display text-base text-foreground">
                           {b.title}
-                          <span className="ml-2 text-micro text-muted-foreground">— {b.author}</span>
+                          <span className="ml-2 text-micro text-muted-foreground">
+                            — {b.author}
+                          </span>
                         </p>
                         {b.why && (
                           <p className="mt-2 text-micro leading-relaxed text-muted-foreground md:text-small">

@@ -128,7 +128,6 @@ function ChatBody({
   const { entitlement, refetch: refetchEntitlement } = useEntitlement();
   const locked = !entitlement.active && entitlement.freeMessagesLeft <= 0;
 
-
   const {
     data: history,
     isFetching: historyLoading,
@@ -139,7 +138,6 @@ function ChatBody({
     enabled: (archiveOpen || migrateOpen) && entitlement.active,
     staleTime: 0,
   });
-
 
   const dictation = useVoiceDictation({
     lang,
@@ -240,7 +238,6 @@ function ChatBody({
     },
     [isLoading, locked, philosopher, sendMessage, refetchEntitlement],
   );
-
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
