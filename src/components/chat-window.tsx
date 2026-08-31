@@ -127,6 +127,7 @@ function ChatBody({
   const [composerText, setComposerText] = useState(initialPrompt ?? "");
   const [atBottom, setAtBottom] = useState(true);
   const { entitlement, refetch: refetchEntitlement } = useEntitlement();
+  const [plansOpen, setPlansOpen] = useState(false);
   const locked = !entitlement.active && entitlement.freeMessagesLeft <= 0;
 
   const {
@@ -608,9 +609,13 @@ function ChatBody({
                       ? `Has usado tus ${FREE_MESSAGE_LIMIT} mensajes gratuitos. Suscríbete para seguir conversando, con historial completo, reporte y podcast.`
                       : `You've used your ${FREE_MESSAGE_LIMIT} free messages. Subscribe to keep talking, with full history, report and podcast.`}
                   </p>
-                  <Link to="/planes" className="btn-gold whitespace-nowrap">
-                    {lang === "es" ? "Ver planes" : "See plans"}
-                  </Link>
+                  <button
+                    type="button"
+                    onClick={() => setPlansOpen(true)}
+                    className="btn-gold whitespace-nowrap"
+                  >
+                    {lang === "es" ? "Desbloquear acceso" : "Unlock access"}
+                  </button>
                 </div>
               ) : (
                 <p className="text-center text-micro uppercase tracking-[0.25em] text-muted-foreground">
@@ -618,13 +623,24 @@ function ChatBody({
                     ? `Te quedan ${entitlement.freeMessagesLeft} de ${FREE_MESSAGE_LIMIT} mensajes gratuitos`
                     : `${entitlement.freeMessagesLeft} of ${FREE_MESSAGE_LIMIT} free messages left`}
                   {" · "}
-                  <Link to="/planes" className="underline underline-offset-4 hover:text-foreground">
-                    {lang === "es" ? "planes" : "plans"}
-                  </Link>
+                  <button
+                    type="button"
+                    onClick={() => setPlansOpen(true)}
+                    className="underline underline-offset-4 transition-colors hover:text-foreground"
+                  >
+                    {lang === "es" ? "desbloquear acceso" : "unlock access"}
+                  </button>
                 </p>
               )}
             </div>
           )}
+          <PlanPickerDialog
+            open={plansOpen}
+            onClose={() => setPlansOpen(false)}
+            onPurchased={() => {
+              void refetchEntitlement();
+            }}
+          />
           <form onSubmit={handleSubmit} className="mx-auto flex max-w-3xl items-end gap-2">
             <textarea
               ref={inputRef}
