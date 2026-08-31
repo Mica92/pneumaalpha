@@ -6,6 +6,7 @@ import { PHILOSOPHER_LIST } from "@/lib/philosophers";
 import { useI18n } from "@/lib/i18n";
 import { InstallAppCard } from "@/components/install-app";
 import { NewsletterCard } from "@/components/newsletter-card";
+import { SITE_URL } from "@/lib/site";
 
 export const Route = createFileRoute("/_authenticated/umbral")({
   component: Index,
