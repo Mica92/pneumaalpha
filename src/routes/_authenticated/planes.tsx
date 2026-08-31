@@ -44,8 +44,9 @@ export const Route = createFileRoute("/_authenticated/planes")({
 function PlansPage() {
   const { lang } = useI18n();
   const es = lang === "es";
+  const { user } = useAuth();
   const { entitlement, isLoading } = useEntitlement();
-  const checkout = useServerFn(createCheckout);
+  const prepare = useServerFn(prepareCheckout);
   const [pending, setPending] = useState<PlanId | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -58,30 +59,41 @@ function PlansPage() {
     setPending(plan);
     track("checkout_started", { plan });
     try {
-      const res = await checkout({
-        data: { plan, returnUrl: `${window.location.origin}/planes` },
-      });
-      if ("url" in res) {
-        window.location.href = res.url;
+      const res = await prepare({ data: { plan } });
+      if ("error" in res) {
+        setError(
+          res.error === "not_configured"
+            ? es
+              ? "La pasarela de pago aún no está conectada. Vuelve pronto."
+              : "The payment gateway is not connected yet. Come back soon."
+            : res.error === "sold_out"
+              ? es
+                ? "Los cupos vitalicios se agotaron."
+                : "Lifetime seats are sold out."
+              : res.error === "already_subscribed"
+                ? es
+                  ? "Ya tienes una suscripción activa."
+                  : "You already have an active subscription."
+                : es
+                  ? "No pudimos abrir el pago. Inténtalo de nuevo."
+                  : "We couldn't open checkout. Please try again.",
+        );
         return;
       }
-      setError(
-        res.error === "not_configured"
-          ? es
-            ? "La pasarela de pago aún no está conectada. Vuelve pronto."
-            : "The payment gateway is not connected yet. Come back soon."
-          : res.error === "sold_out"
-            ? es
-              ? "Los cupos vitalicios se agotaron."
-              : "Lifetime seats are sold out."
-            : res.error === "already_subscribed"
-              ? es
-                ? "Ya tienes una suscripción activa."
-                : "You already have an active subscription."
-              : es
-                ? "No pudimos abrir el pago. Inténtalo de nuevo."
-                : "We couldn't open checkout. Please try again.",
-      );
+
+      await initializePaddle();
+      const paddlePriceId = await getPaddlePriceId(res.priceId);
+      window.Paddle.Checkout.open({
+        items: [{ priceId: paddlePriceId, quantity: 1 }],
+        customer: user?.email ? { email: user.email } : undefined,
+        customData: { user_id: user?.id ?? "", plan },
+        settings: {
+          displayMode: "overlay",
+          variant: "one-page",
+          successUrl: `${window.location.origin}/planes?pago=ok`,
+          allowLogout: false,
+        },
+      });
     } catch {
       setError(es ? "No pudimos abrir el pago." : "We couldn't open checkout.");
     } finally {
@@ -91,6 +103,7 @@ function PlansPage() {
 
   return (
     <>
+      <PaymentTestModeBanner />
       <SiteNav />
       <main className="route-enter relative z-10 mx-auto max-w-5xl px-5 py-16 md:px-8 md:py-24">
         <p className="label">{es ? "Acceso" : "Access"}</p>
@@ -202,8 +215,8 @@ function PlansPage() {
 
         <p className="mt-10 text-micro text-muted-foreground">
           {es
-            ? "Los pagos se procesan en dólares a través de Whop. El valor en pesos es referencial."
-            : "Payments are processed in US dollars through Whop. The Chilean peso amount is indicative."}
+            ? "Pagos procesados por Paddle. En Chile pagas en pesos; en el resto del mundo, en dólares."
+            : "Payments processed by Paddle. In Chile you pay in pesos; elsewhere, in US dollars."}
         </p>
       </main>
       <SiteFooter />
