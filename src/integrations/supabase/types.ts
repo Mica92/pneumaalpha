@@ -14,6 +14,33 @@ export type Database = {
   }
   public: {
     Tables: {
+      analytics_events: {
+        Row: {
+          created_at: string
+          event: string
+          id: string
+          props: Json
+          session_id: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          event: string
+          id?: string
+          props?: Json
+          session_id?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          event?: string
+          id?: string
+          props?: Json
+          session_id?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       journey_nodes: {
         Row: {
           count: number
@@ -191,6 +218,42 @@ export type Database = {
         }
         Relationships: []
       }
+      subscriptions: {
+        Row: {
+          created_at: string
+          current_period_end: string | null
+          id: string
+          plan: string
+          status: string
+          updated_at: string
+          user_id: string
+          whop_membership_id: string | null
+          whop_receipt_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          current_period_end?: string | null
+          id?: string
+          plan: string
+          status?: string
+          updated_at?: string
+          user_id: string
+          whop_membership_id?: string | null
+          whop_receipt_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          current_period_end?: string | null
+          id?: string
+          plan?: string
+          status?: string
+          updated_at?: string
+          user_id?: string
+          whop_membership_id?: string | null
+          whop_receipt_id?: string | null
+        }
+        Relationships: []
+      }
       telegram_link_codes: {
         Row: {
           code: string
@@ -260,6 +323,27 @@ export type Database = {
         }
         Relationships: []
       }
+      usage_counters: {
+        Row: {
+          created_at: string
+          free_messages_used: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          free_messages_used?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          free_messages_used?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       user_memory: {
         Row: {
           content: string
@@ -313,6 +397,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      lifetime_seats_taken: { Args: never; Returns: number }
       match_philosopher_sources: {
         Args: {
           match_count?: number

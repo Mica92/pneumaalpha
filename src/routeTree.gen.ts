@@ -18,6 +18,7 @@ import { Route as AuthenticatedSocratesRouteImport } from './routes/_authenticat
 import { Route as AuthenticatedReporteRouteImport } from './routes/_authenticated/reporte'
 import { Route as AuthenticatedRecorridoRouteImport } from './routes/_authenticated/recorrido'
 import { Route as AuthenticatedPodcastRouteImport } from './routes/_authenticated/podcast'
+import { Route as AuthenticatedPlanesRouteImport } from './routes/_authenticated/planes'
 import { Route as AuthenticatedPerfilRouteImport } from './routes/_authenticated/perfil'
 import { Route as AuthenticatedOraculoRouteImport } from './routes/_authenticated/oraculo'
 import { Route as AuthenticatedNosotrosRouteImport } from './routes/_authenticated/nosotros'
@@ -33,10 +34,12 @@ import { Route as AuthenticatedPhilosopherRouteImport } from './routes/_authenti
 import { Route as AuthenticatedRutasIndexRouteImport } from './routes/_authenticated/rutas.index'
 import { Route as AuthenticatedIdeasIndexRouteImport } from './routes/_authenticated/ideas.index'
 import { Route as AuthenticatedFilosofosIndexRouteImport } from './routes/_authenticated/filosofos.index'
+import { Route as ApiPublicWhopWebhookRouteImport } from './routes/api/public/whop-webhook'
 import { Route as ApiPodcastSpeechRouteImport } from './routes/api/podcast/speech'
 import { Route as AuthenticatedRutasIdRouteImport } from './routes/_authenticated/rutas.$id'
 import { Route as AuthenticatedIdeasIdRouteImport } from './routes/_authenticated/ideas.$id'
 import { Route as AuthenticatedFilosofosIdRouteImport } from './routes/_authenticated/filosofos.$id'
+import { Route as AuthenticatedAdminAnaliticaRouteImport } from './routes/_authenticated/admin.analitica'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
@@ -80,6 +83,11 @@ const AuthenticatedRecorridoRoute = AuthenticatedRecorridoRouteImport.update({
 const AuthenticatedPodcastRoute = AuthenticatedPodcastRouteImport.update({
   id: '/podcast',
   path: '/podcast',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedPlanesRoute = AuthenticatedPlanesRouteImport.update({
+  id: '/planes',
+  path: '/planes',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedPerfilRoute = AuthenticatedPerfilRouteImport.update({
@@ -160,6 +168,11 @@ const AuthenticatedFilosofosIndexRoute =
     path: '/filosofos/',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const ApiPublicWhopWebhookRoute = ApiPublicWhopWebhookRouteImport.update({
+  id: '/api/public/whop-webhook',
+  path: '/api/public/whop-webhook',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPodcastSpeechRoute = ApiPodcastSpeechRouteImport.update({
   id: '/api/podcast/speech',
   path: '/api/podcast/speech',
@@ -181,6 +194,12 @@ const AuthenticatedFilosofosIdRoute =
     path: '/filosofos/$id',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedAdminAnaliticaRoute =
+  AuthenticatedAdminAnaliticaRouteImport.update({
+    id: '/admin/analitica',
+    path: '/admin/analitica',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof AuthenticatedIndexRoute
@@ -198,15 +217,18 @@ export interface FileRoutesByFullPath {
   '/nosotros': typeof AuthenticatedNosotrosRoute
   '/oraculo': typeof AuthenticatedOraculoRoute
   '/perfil': typeof AuthenticatedPerfilRoute
+  '/planes': typeof AuthenticatedPlanesRoute
   '/podcast': typeof AuthenticatedPodcastRoute
   '/recorrido': typeof AuthenticatedRecorridoRoute
   '/reporte': typeof AuthenticatedReporteRoute
   '/socrates': typeof AuthenticatedSocratesRoute
   '/umbral': typeof AuthenticatedUmbralRoute
+  '/admin/analitica': typeof AuthenticatedAdminAnaliticaRoute
   '/filosofos/$id': typeof AuthenticatedFilosofosIdRoute
   '/ideas/$id': typeof AuthenticatedIdeasIdRoute
   '/rutas/$id': typeof AuthenticatedRutasIdRoute
   '/api/podcast/speech': typeof ApiPodcastSpeechRoute
+  '/api/public/whop-webhook': typeof ApiPublicWhopWebhookRoute
   '/filosofos/': typeof AuthenticatedFilosofosIndexRoute
   '/ideas/': typeof AuthenticatedIdeasIndexRoute
   '/rutas/': typeof AuthenticatedRutasIndexRoute
@@ -226,16 +248,19 @@ export interface FileRoutesByTo {
   '/nosotros': typeof AuthenticatedNosotrosRoute
   '/oraculo': typeof AuthenticatedOraculoRoute
   '/perfil': typeof AuthenticatedPerfilRoute
+  '/planes': typeof AuthenticatedPlanesRoute
   '/podcast': typeof AuthenticatedPodcastRoute
   '/recorrido': typeof AuthenticatedRecorridoRoute
   '/reporte': typeof AuthenticatedReporteRoute
   '/socrates': typeof AuthenticatedSocratesRoute
   '/umbral': typeof AuthenticatedUmbralRoute
   '/': typeof AuthenticatedIndexRoute
+  '/admin/analitica': typeof AuthenticatedAdminAnaliticaRoute
   '/filosofos/$id': typeof AuthenticatedFilosofosIdRoute
   '/ideas/$id': typeof AuthenticatedIdeasIdRoute
   '/rutas/$id': typeof AuthenticatedRutasIdRoute
   '/api/podcast/speech': typeof ApiPodcastSpeechRoute
+  '/api/public/whop-webhook': typeof ApiPublicWhopWebhookRoute
   '/filosofos': typeof AuthenticatedFilosofosIndexRoute
   '/ideas': typeof AuthenticatedIdeasIndexRoute
   '/rutas': typeof AuthenticatedRutasIndexRoute
@@ -257,16 +282,19 @@ export interface FileRoutesById {
   '/_authenticated/nosotros': typeof AuthenticatedNosotrosRoute
   '/_authenticated/oraculo': typeof AuthenticatedOraculoRoute
   '/_authenticated/perfil': typeof AuthenticatedPerfilRoute
+  '/_authenticated/planes': typeof AuthenticatedPlanesRoute
   '/_authenticated/podcast': typeof AuthenticatedPodcastRoute
   '/_authenticated/recorrido': typeof AuthenticatedRecorridoRoute
   '/_authenticated/reporte': typeof AuthenticatedReporteRoute
   '/_authenticated/socrates': typeof AuthenticatedSocratesRoute
   '/_authenticated/umbral': typeof AuthenticatedUmbralRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
+  '/_authenticated/admin/analitica': typeof AuthenticatedAdminAnaliticaRoute
   '/_authenticated/filosofos/$id': typeof AuthenticatedFilosofosIdRoute
   '/_authenticated/ideas/$id': typeof AuthenticatedIdeasIdRoute
   '/_authenticated/rutas/$id': typeof AuthenticatedRutasIdRoute
   '/api/podcast/speech': typeof ApiPodcastSpeechRoute
+  '/api/public/whop-webhook': typeof ApiPublicWhopWebhookRoute
   '/_authenticated/filosofos/': typeof AuthenticatedFilosofosIndexRoute
   '/_authenticated/ideas/': typeof AuthenticatedIdeasIndexRoute
   '/_authenticated/rutas/': typeof AuthenticatedRutasIndexRoute
@@ -289,15 +317,18 @@ export interface FileRouteTypes {
     | '/nosotros'
     | '/oraculo'
     | '/perfil'
+    | '/planes'
     | '/podcast'
     | '/recorrido'
     | '/reporte'
     | '/socrates'
     | '/umbral'
+    | '/admin/analitica'
     | '/filosofos/$id'
     | '/ideas/$id'
     | '/rutas/$id'
     | '/api/podcast/speech'
+    | '/api/public/whop-webhook'
     | '/filosofos/'
     | '/ideas/'
     | '/rutas/'
@@ -317,16 +348,19 @@ export interface FileRouteTypes {
     | '/nosotros'
     | '/oraculo'
     | '/perfil'
+    | '/planes'
     | '/podcast'
     | '/recorrido'
     | '/reporte'
     | '/socrates'
     | '/umbral'
     | '/'
+    | '/admin/analitica'
     | '/filosofos/$id'
     | '/ideas/$id'
     | '/rutas/$id'
     | '/api/podcast/speech'
+    | '/api/public/whop-webhook'
     | '/filosofos'
     | '/ideas'
     | '/rutas'
@@ -347,16 +381,19 @@ export interface FileRouteTypes {
     | '/_authenticated/nosotros'
     | '/_authenticated/oraculo'
     | '/_authenticated/perfil'
+    | '/_authenticated/planes'
     | '/_authenticated/podcast'
     | '/_authenticated/recorrido'
     | '/_authenticated/reporte'
     | '/_authenticated/socrates'
     | '/_authenticated/umbral'
     | '/_authenticated/'
+    | '/_authenticated/admin/analitica'
     | '/_authenticated/filosofos/$id'
     | '/_authenticated/ideas/$id'
     | '/_authenticated/rutas/$id'
     | '/api/podcast/speech'
+    | '/api/public/whop-webhook'
     | '/_authenticated/filosofos/'
     | '/_authenticated/ideas/'
     | '/_authenticated/rutas/'
@@ -367,6 +404,7 @@ export interface RootRouteChildren {
   PrivacyRoute: typeof PrivacyRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ApiPodcastSpeechRoute: typeof ApiPodcastSpeechRoute
+  ApiPublicWhopWebhookRoute: typeof ApiPublicWhopWebhookRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -432,6 +470,13 @@ declare module '@tanstack/react-router' {
       path: '/podcast'
       fullPath: '/podcast'
       preLoaderRoute: typeof AuthenticatedPodcastRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/planes': {
+      id: '/_authenticated/planes'
+      path: '/planes'
+      fullPath: '/planes'
+      preLoaderRoute: typeof AuthenticatedPlanesRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/perfil': {
@@ -539,6 +584,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedFilosofosIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/api/public/whop-webhook': {
+      id: '/api/public/whop-webhook'
+      path: '/api/public/whop-webhook'
+      fullPath: '/api/public/whop-webhook'
+      preLoaderRoute: typeof ApiPublicWhopWebhookRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/podcast/speech': {
       id: '/api/podcast/speech'
       path: '/api/podcast/speech'
@@ -567,6 +619,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedFilosofosIdRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/admin/analitica': {
+      id: '/_authenticated/admin/analitica'
+      path: '/admin/analitica'
+      fullPath: '/admin/analitica'
+      preLoaderRoute: typeof AuthenticatedAdminAnaliticaRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
@@ -583,12 +642,14 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedNosotrosRoute: typeof AuthenticatedNosotrosRoute
   AuthenticatedOraculoRoute: typeof AuthenticatedOraculoRoute
   AuthenticatedPerfilRoute: typeof AuthenticatedPerfilRoute
+  AuthenticatedPlanesRoute: typeof AuthenticatedPlanesRoute
   AuthenticatedPodcastRoute: typeof AuthenticatedPodcastRoute
   AuthenticatedRecorridoRoute: typeof AuthenticatedRecorridoRoute
   AuthenticatedReporteRoute: typeof AuthenticatedReporteRoute
   AuthenticatedSocratesRoute: typeof AuthenticatedSocratesRoute
   AuthenticatedUmbralRoute: typeof AuthenticatedUmbralRoute
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
+  AuthenticatedAdminAnaliticaRoute: typeof AuthenticatedAdminAnaliticaRoute
   AuthenticatedFilosofosIdRoute: typeof AuthenticatedFilosofosIdRoute
   AuthenticatedIdeasIdRoute: typeof AuthenticatedIdeasIdRoute
   AuthenticatedRutasIdRoute: typeof AuthenticatedRutasIdRoute
@@ -610,12 +671,14 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedNosotrosRoute: AuthenticatedNosotrosRoute,
   AuthenticatedOraculoRoute: AuthenticatedOraculoRoute,
   AuthenticatedPerfilRoute: AuthenticatedPerfilRoute,
+  AuthenticatedPlanesRoute: AuthenticatedPlanesRoute,
   AuthenticatedPodcastRoute: AuthenticatedPodcastRoute,
   AuthenticatedRecorridoRoute: AuthenticatedRecorridoRoute,
   AuthenticatedReporteRoute: AuthenticatedReporteRoute,
   AuthenticatedSocratesRoute: AuthenticatedSocratesRoute,
   AuthenticatedUmbralRoute: AuthenticatedUmbralRoute,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
+  AuthenticatedAdminAnaliticaRoute: AuthenticatedAdminAnaliticaRoute,
   AuthenticatedFilosofosIdRoute: AuthenticatedFilosofosIdRoute,
   AuthenticatedIdeasIdRoute: AuthenticatedIdeasIdRoute,
   AuthenticatedRutasIdRoute: AuthenticatedRutasIdRoute,
@@ -632,6 +695,7 @@ const rootRouteChildren: RootRouteChildren = {
   PrivacyRoute: PrivacyRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   ApiPodcastSpeechRoute: ApiPodcastSpeechRoute,
+  ApiPublicWhopWebhookRoute: ApiPublicWhopWebhookRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

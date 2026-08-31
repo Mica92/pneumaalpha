@@ -51,6 +51,9 @@ export const loadFullHistory = createServerFn({ method: "POST" })
   .inputValidator((input) => LoadSchema.parse(input))
   .handler(async ({ data, context }) => {
     const { supabase, userId } = context;
+    // Full history is a subscriber feature.
+    const { requireActivePlan } = await import("@/lib/entitlement.server");
+    await requireActivePlan(supabase, userId);
     const { data: rows } = await supabase
       .from("messages")
       .select("id, role, content, created_at")
@@ -75,6 +78,10 @@ export const sendChat = createServerFn({ method: "POST" })
       ? data.philosopher
       : "heidegger";
     const messages = data.messages as UIMessage[];
+
+    // Paywall: subscribers are unlimited; free users spend one of 12 messages.
+    const { consumeFreeMessage } = await import("@/lib/entitlement.server");
+    await consumeFreeMessage(supabase, userId);
 
     const apiKey = process.env.LOVABLE_API_KEY;
     if (!apiKey) throw new Error("LOVABLE_API_KEY no está configurada.");

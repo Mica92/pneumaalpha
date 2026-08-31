@@ -4,6 +4,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { generateEpisode, type PodcastEpisode } from "@/lib/podcast.functions";
+import { PAYWALL_ERROR } from "@/lib/billing.shared";
+import { track } from "@/lib/analytics";
 import { PODCAST_BOOKS, type PodcastBook } from "@/lib/podcast-books";
 import { PHILOSOPHERS } from "@/lib/philosophers";
 import { useI18n } from "@/lib/i18n";
@@ -178,6 +180,7 @@ function PodcastPage() {
     setChunkIndex(0);
     setChunkTotal(0);
     setLoading(true);
+    track("podcast_viewed", { book: book.id });
     try {
       const ep = await generateFn({ data: { bookId: book.id, language: lang } });
       chunksRef.current = chunkScript(ep.script);
@@ -186,7 +189,14 @@ function PodcastPage() {
       setEpisode(ep);
     } catch (err) {
       console.error("[podcast] episode failed", err);
-      setError(t("podcast.error"));
+      const msg = err instanceof Error ? err.message : "";
+      setError(
+        msg.includes(PAYWALL_ERROR)
+          ? lang === "es"
+            ? "El podcast es parte de la suscripción. Elige un plan para escucharlo."
+            : "The podcast is part of the subscription. Choose a plan to listen."
+          : t("podcast.error"),
+      );
     } finally {
       setLoading(false);
     }

@@ -4,6 +4,8 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { generateReport, type PsychReport } from "@/lib/report.functions";
+import { PAYWALL_ERROR } from "@/lib/billing.shared";
+import { track } from "@/lib/analytics";
 import { PHILOSOPHERS } from "@/lib/philosophers";
 import { useI18n } from "@/lib/i18n";
 import { GreekGlyph } from "@/components/greek-glyph";
@@ -36,12 +38,20 @@ function ReportPage() {
     if (running) return;
     setRunning(true);
     setError(null);
+    track("report_viewed");
     try {
       const r = await runFn({ data: { language: lang } });
       setReport(r);
     } catch (e) {
       console.error("[report] failed", e);
-      setError(t("report.error"));
+      const msg = e instanceof Error ? e.message : "";
+      setError(
+        msg.includes(PAYWALL_ERROR)
+          ? lang === "es"
+            ? "El reporte es parte de la suscripción. Elige un plan para desbloquearlo."
+            : "The report is part of the subscription. Choose a plan to unlock it."
+          : t("report.error"),
+      );
     } finally {
       setRunning(false);
     }

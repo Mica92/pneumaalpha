@@ -34,6 +34,9 @@ import {
   TopicBar,
 } from "@/components/chat-engagement";
 import { TOPICS, getDailyDilemmaPrompt, type TopicId } from "@/lib/engagement";
+import { useEntitlement } from "@/hooks/use-entitlement";
+import { FREE_MESSAGE_LIMIT } from "@/lib/billing.shared";
+import { track } from "@/lib/analytics";
 
 type Props = {
   userId: string;
@@ -122,6 +125,9 @@ function ChatBody({
   const [actionsOpen, setActionsOpen] = useState(false);
   const [composerText, setComposerText] = useState(initialPrompt ?? "");
   const [atBottom, setAtBottom] = useState(true);
+  const { entitlement, refetch: refetchEntitlement } = useEntitlement();
+  const locked = !entitlement.active && entitlement.freeMessagesLeft <= 0;
+
 
   const {
     data: history,
@@ -130,9 +136,10 @@ function ChatBody({
   } = useQuery({
     queryKey: ["history", philosopher],
     queryFn: () => historyFn({ data: { philosopher } }),
-    enabled: archiveOpen || migrateOpen,
+    enabled: (archiveOpen || migrateOpen) && entitlement.active,
     staleTime: 0,
   });
+
 
   const dictation = useVoiceDictation({
     lang,
@@ -214,27 +221,40 @@ function ChatBody({
 
   const isLoading = status === "submitted" || status === "streaming";
 
+  useEffect(() => {
+    track("chat_opened", { philosopher });
+  }, [philosopher]);
+
+  useEffect(() => {
+    if (locked) track("paywall_hit", { philosopher });
+  }, [locked, philosopher]);
+
   const sendText = useCallback(
     async (text: string) => {
       const trimmed = text.trim();
-      if (!trimmed || isLoading) return;
+      if (!trimmed || isLoading || locked) return;
       setAtBottom(true);
+      track("message_sent", { philosopher });
       await sendMessage({ text: trimmed });
+      void refetchEntitlement();
     },
-    [isLoading, sendMessage],
+    [isLoading, locked, philosopher, sendMessage, refetchEntitlement],
   );
+
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const text = composerText.trim();
-    if (!text || isLoading) return;
+    if (!text || isLoading || locked) return;
     setComposerText("");
     if (inputRef.current) {
       inputRef.current.value = "";
       inputRef.current.style.height = "auto";
     }
     setAtBottom(true);
+    track("message_sent", { philosopher });
     await sendMessage({ text });
+    void refetchEntitlement();
   };
 
   const handleTopicPick = async (topicId: TopicId) => {
@@ -581,6 +601,32 @@ function ChatBody({
         </div>
 
         <footer className="sticky bottom-0 z-20 border-t border-border/60 bg-background/85 px-3 pt-3 pb-safe backdrop-blur-xl md:px-4">
+          {!entitlement.active && (
+            <div className="mx-auto mb-3 max-w-3xl">
+              {locked ? (
+                <div className="card-editorial flex flex-col gap-3 p-4 sm:flex-row sm:items-center sm:justify-between">
+                  <p className="text-small text-foreground/85">
+                    {lang === "es"
+                      ? `Has usado tus ${FREE_MESSAGE_LIMIT} mensajes gratuitos. Suscríbete para seguir conversando, con historial completo, reporte y podcast.`
+                      : `You've used your ${FREE_MESSAGE_LIMIT} free messages. Subscribe to keep talking, with full history, report and podcast.`}
+                  </p>
+                  <Link to="/planes" className="btn-gold whitespace-nowrap">
+                    {lang === "es" ? "Ver planes" : "See plans"}
+                  </Link>
+                </div>
+              ) : (
+                <p className="text-center text-micro uppercase tracking-[0.25em] text-muted-foreground">
+                  {lang === "es"
+                    ? `Te quedan ${entitlement.freeMessagesLeft} de ${FREE_MESSAGE_LIMIT} mensajes gratuitos`
+                    : `${entitlement.freeMessagesLeft} of ${FREE_MESSAGE_LIMIT} free messages left`}
+                  {" · "}
+                  <Link to="/planes" className="underline underline-offset-4 hover:text-foreground">
+                    {lang === "es" ? "planes" : "plans"}
+                  </Link>
+                </p>
+              )}
+            </div>
+          )}
           <form onSubmit={handleSubmit} className="mx-auto flex max-w-3xl items-end gap-2">
             <textarea
               ref={inputRef}
@@ -593,7 +639,7 @@ function ChatBody({
                   ? dictation.interim || t("chat.mic.stop")
                   : t("chat.placeholder")
               }
-              disabled={isLoading}
+              disabled={isLoading || locked}
               onChange={(e) => setComposerText(e.currentTarget.value)}
               onKeyDown={(e) => {
                 if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing) {
@@ -622,7 +668,7 @@ function ChatBody({
                 if (dictation.listening) dictation.stop();
                 else dictation.start();
               }}
-              disabled={isLoading}
+              disabled={isLoading || locked}
               aria-label={dictation.listening ? t("chat.mic.stop") : t("chat.mic.start")}
               title={dictation.listening ? t("chat.mic.stop") : t("chat.mic.start")}
               aria-pressed={dictation.listening}
@@ -649,7 +695,7 @@ function ChatBody({
             </button>
             <button
               type="submit"
-              disabled={isLoading || !composerText.trim()}
+              disabled={isLoading || locked || !composerText.trim()}
               aria-label={t("chat.send")}
               className="focus-mist inline-flex h-11 shrink-0 items-center justify-center self-end rounded-xl border border-mist/40 bg-mist/95 px-5 font-display text-small text-primary-foreground transition-all hover:bg-mist disabled:cursor-not-allowed disabled:opacity-30"
             >
@@ -704,7 +750,18 @@ function ChatBody({
                 </button>
               </header>
               <div className="flex-1 overflow-y-auto px-6 py-6">
-                {historyLoading && (!history || history.length === 0) ? (
+                {!entitlement.active ? (
+                  <div className="card-editorial p-5 text-center">
+                    <p className="text-small leading-relaxed text-foreground/85">
+                      {lang === "es"
+                        ? "El historial completo es parte de la suscripción. En el plan libre solo ves los intercambios recientes."
+                        : "Full history is part of the subscription. On the free plan you only see recent exchanges."}
+                    </p>
+                    <Link to="/planes" className="btn-gold mt-5 inline-block">
+                      {lang === "es" ? "Ver planes" : "See plans"}
+                    </Link>
+                  </div>
+                ) : historyLoading && (!history || history.length === 0) ? (
                   <p className="text-center text-micro uppercase tracking-[0.3em] text-muted-foreground pneuma-breathe">
                     {t("chat.archive.loading")}
                   </p>
