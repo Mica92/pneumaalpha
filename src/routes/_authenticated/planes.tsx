@@ -1,14 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { useServerFn } from "@tanstack/react-start";
 import { SiteNav } from "@/components/site-nav";
 import { SiteFooter } from "@/components/site-footer";
 import { PaymentTestModeBanner } from "@/components/payment-test-mode-banner";
 import { useI18n } from "@/lib/i18n";
 import { useEntitlement } from "@/hooks/use-entitlement";
-import { useAuth } from "@/hooks/use-auth";
-import { prepareCheckout } from "@/lib/billing.functions";
-import { getPaddlePriceId, initializePaddle } from "@/lib/paddle";
+import { usePaddleCheckout } from "@/hooks/use-paddle-checkout";
 import {
   FREE_MESSAGE_LIMIT,
   LIFETIME_SEATS,
@@ -46,60 +43,11 @@ function PlansPage() {
   const es = lang === "es";
   const { user } = useAuth();
   const { entitlement, isLoading } = useEntitlement();
-  const prepare = useServerFn(prepareCheckout);
-  const [pending, setPending] = useState<PlanId | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const { start, pending, error } = usePaddleCheckout({ successPath: "/planes?pago=ok" });
 
   useEffect(() => {
     track("pricing_viewed");
   }, []);
-
-  async function start(plan: PlanId) {
-    setError(null);
-    setPending(plan);
-    track("checkout_started", { plan });
-    try {
-      const res = await prepare({ data: { plan } });
-      if ("error" in res) {
-        setError(
-          res.error === "not_configured"
-            ? es
-              ? "La pasarela de pago aún no está conectada. Vuelve pronto."
-              : "The payment gateway is not connected yet. Come back soon."
-            : res.error === "sold_out"
-              ? es
-                ? "Los cupos vitalicios se agotaron."
-                : "Lifetime seats are sold out."
-              : res.error === "already_subscribed"
-                ? es
-                  ? "Ya tienes una suscripción activa."
-                  : "You already have an active subscription."
-                : es
-                  ? "No pudimos abrir el pago. Inténtalo de nuevo."
-                  : "We couldn't open checkout. Please try again.",
-        );
-        return;
-      }
-
-      await initializePaddle();
-      const paddlePriceId = await getPaddlePriceId(res.priceId);
-      window.Paddle.Checkout.open({
-        items: [{ priceId: paddlePriceId, quantity: 1 }],
-        customer: user?.email ? { email: user.email } : undefined,
-        customData: { user_id: user?.id ?? "", plan },
-        settings: {
-          displayMode: "overlay",
-          variant: "one-page",
-          successUrl: `${window.location.origin}/planes?pago=ok`,
-          allowLogout: false,
-        },
-      });
-    } catch {
-      setError(es ? "No pudimos abrir el pago." : "We couldn't open checkout.");
-    } finally {
-      setPending(null);
-    }
-  }
 
   return (
     <>
