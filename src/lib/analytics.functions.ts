@@ -142,7 +142,10 @@ export const getAnalyticsOverview = createServerFn({ method: "POST" })
     const totalMsgUsers = messagesPerUser.size;
     const totalMsgs = [...messagesPerUser.values()].reduce((a, b) => a + b, 0);
 
-    const { data: seats } = await supabase.rpc("lifetime_seats_taken");
+    // SECURITY DEFINER function restricted to the service role; the caller was
+    // already verified as an admin above.
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data: seats } = await supabaseAdmin.rpc("lifetime_seats_taken");
 
     return {
       funnel,
