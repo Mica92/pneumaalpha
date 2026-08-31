@@ -223,6 +223,8 @@ export type Database = {
           created_at: string
           current_period_end: string | null
           id: string
+          paddle_subscription_id: string | null
+          paddle_transaction_id: string | null
           plan: string
           status: string
           updated_at: string
@@ -234,6 +236,8 @@ export type Database = {
           created_at?: string
           current_period_end?: string | null
           id?: string
+          paddle_subscription_id?: string | null
+          paddle_transaction_id?: string | null
           plan: string
           status?: string
           updated_at?: string
@@ -245,6 +249,8 @@ export type Database = {
           created_at?: string
           current_period_end?: string | null
           id?: string
+          paddle_subscription_id?: string | null
+          paddle_transaction_id?: string | null
           plan?: string
           status?: string
           updated_at?: string
