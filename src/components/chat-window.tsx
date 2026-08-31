@@ -36,6 +36,7 @@ import {
 import { TOPICS, getDailyDilemmaPrompt, type TopicId } from "@/lib/engagement";
 import { useEntitlement } from "@/hooks/use-entitlement";
 import { FREE_MESSAGE_LIMIT } from "@/lib/billing.shared";
+import { PlanPickerDialog } from "@/components/plan-picker-dialog";
 import { track } from "@/lib/analytics";
 
 type Props = {
