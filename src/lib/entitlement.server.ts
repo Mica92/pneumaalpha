@@ -40,10 +40,13 @@ export async function freeMessagesUsed(supabase: Client, userId: string): Promis
 }
 
 export async function readEntitlement(supabase: Client, userId: string): Promise<Entitlement> {
+  // lifetime_seats_taken is SECURITY DEFINER and no longer executable by
+  // anon/authenticated; call it server-side with the service role only.
+  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
   const [plan, used, seatsRes] = await Promise.all([
     activePlan(supabase, userId),
     freeMessagesUsed(supabase, userId),
-    supabase.rpc("lifetime_seats_taken"),
+    supabaseAdmin.rpc("lifetime_seats_taken"),
   ]);
   const taken = (seatsRes.data as number | null) ?? 0;
   return {
