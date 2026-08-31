@@ -12,7 +12,6 @@ import {
   PLANS,
   formatClp,
   formatUsd,
-  type PlanId,
 } from "@/lib/billing.shared";
 import { track } from "@/lib/analytics";
 import { SITE_URL } from "@/lib/site";
