@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/lib/site";
 import { SiteNav } from "@/components/site-nav";
 import { SiteFooter } from "@/components/site-footer";
 import { createFileRoute, Link } from "@tanstack/react-router";

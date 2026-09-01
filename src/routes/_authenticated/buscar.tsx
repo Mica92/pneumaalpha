@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/lib/site";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { PHILOSOPHER_LIST, PHILOSOPHERS } from "@/lib/philosophers";
