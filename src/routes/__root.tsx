@@ -75,13 +75,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { name: "google-site-verification", content: "aLY6HPxqnRO8gSSwhvgijFO32npagWxoIrpwHcE6YEU" },
-      { title: "Pneum — conversaciones con conciencias filosóficas reconstruidas" },
-      {
-        name: "description",
-        content:
-          "Pneum: conversa libremente, en español o en inglés, con conciencias filosóficas reconstruidas — Heidegger, Schopenhauer, James, Nietzsche, Marx.",
-      },
-      // og:title / og:description viven en cada ruta hoja para evitar duplicados.
+      // title / description / og:title / og:description viven en cada ruta hoja para evitar duplicados.
       { property: "og:site_name", content: SITE_NAME },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
