@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/lib/site";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { PHILOSOPHER_LIST, PHILOSOPHERS } from "@/lib/philosophers";
@@ -25,8 +26,10 @@ export const Route = createFileRoute("/_authenticated/buscar")({
         content: "Un solo buscador para filósofos, ideas, rutas y preguntas.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: `${SITE_URL}/buscar` },
       { name: "twitter:card", content: "summary" },
     ],
+    links: [{ rel: "canonical", href: `${SITE_URL}/buscar` }],
   }),
 });
 

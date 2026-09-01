@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/lib/site";
 import { SiteNav } from "@/components/site-nav";
 import { SiteFooter } from "@/components/site-footer";
 import { createFileRoute, Link } from "@tanstack/react-router";
@@ -37,8 +38,12 @@ export const Route = createFileRoute("/_authenticated/biblioteca")({
         content: "Lo que otros preguntaron: pasajes escogidos de conversaciones filosóficas.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: `${SITE_URL}/biblioteca` },
+      { property: "og:image", content: `${SITE_URL}/og-image.png` },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: `${SITE_URL}/og-image.png` },
     ],
+    links: [{ rel: "canonical", href: `${SITE_URL}/biblioteca` }],
   }),
 });
 

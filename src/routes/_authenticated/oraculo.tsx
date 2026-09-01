@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/lib/site";
 import { SiteNav } from "@/components/site-nav";
 import { SiteFooter } from "@/components/site-footer";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
@@ -30,7 +31,11 @@ export const Route = createFileRoute("/_authenticated/oraculo")({
         content:
           "Una pregunta, una frase, una duda. Pneum elige por ti la voz más adecuada para conversar.",
       },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: `${SITE_URL}/oraculo` },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
+    links: [{ rel: "canonical", href: `${SITE_URL}/oraculo` }],
   }),
 });
 
