@@ -138,7 +138,7 @@ export const Route = createFileRoute("/api/public/payments/webhook")({
             });
             return new Response("ok");
           }
-          await supabaseAdmin.from("subscriptions").upsert(
+          const { error: upsertError } = await supabaseAdmin.from("subscriptions").upsert(
             {
               user_id: userId,
               plan: "lifetime",
@@ -149,6 +149,11 @@ export const Route = createFileRoute("/api/public/payments/webhook")({
             },
             { onConflict: "paddle_transaction_id" },
           );
+          if (upsertError) {
+            // Surface a 500 so Paddle retries instead of silently losing the grant.
+            console.error("[paddle webhook] lifetime upsert failed", upsertError);
+            return new Response("Upsert failed", { status: 500 });
+          }
           await supabaseAdmin
             .from("analytics_events")
             .insert({ user_id: userId, event: "purchase_completed", props: { plan } });
