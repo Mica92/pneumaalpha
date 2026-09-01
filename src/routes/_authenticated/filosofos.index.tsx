@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { SITE_URL } from "@/lib/site";
 import { createFileRoute } from "@tanstack/react-router";
 import { PHILOSOPHER_LIST, type PhilosopherId } from "@/lib/philosophers";
 import { profileOf } from "@/lib/portraits";
@@ -45,6 +46,7 @@ export const Route = createFileRoute("/_authenticated/filosofos/")({
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
+    links: [{ rel: "canonical", href: `${SITE_URL}/filosofos` }],
   }),
 });
 

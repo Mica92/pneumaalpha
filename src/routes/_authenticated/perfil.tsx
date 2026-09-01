@@ -1,4 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { SITE_URL } from "@/lib/site";
 import { SiteNav } from "@/components/site-nav";
 import { SiteFooter } from "@/components/site-footer";
 import { useI18n } from "@/lib/i18n";
@@ -26,6 +27,7 @@ export const Route = createFileRoute("/_authenticated/perfil")({
       { name: "twitter:card", content: "summary_large_image" },
       { name: "robots", content: "noindex" },
     ],
+    links: [{ rel: "canonical", href: `${SITE_URL}/perfil` }],
   }),
 });
 

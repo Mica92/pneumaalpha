@@ -1,4 +1,5 @@
 import { SiteNav } from "@/components/site-nav";
+import { SITE_URL } from "@/lib/site";
 import { SiteFooter } from "@/components/site-footer";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
@@ -22,6 +23,7 @@ export const Route = createFileRoute("/_authenticated/reporte")({
       },
       { property: "og:title", content: "Pneum — Reporte" },
     ],
+    links: [{ rel: "canonical", href: `${SITE_URL}/reporte` }],
   }),
 });
 

@@ -1,4 +1,5 @@
 import { SiteNav } from "@/components/site-nav";
+import { SITE_URL } from "@/lib/site";
 import { SiteFooter } from "@/components/site-footer";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
@@ -32,6 +33,7 @@ export const Route = createFileRoute("/_authenticated/conocimiento")({
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
+    links: [{ rel: "canonical", href: `${SITE_URL}/conocimiento` }],
   }),
 });
 

@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { SITE_URL } from "@/lib/site";
 import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { runRoundtableRound } from "@/lib/roundtable.functions";
@@ -28,6 +29,7 @@ export const Route = createFileRoute("/_authenticated/mesa")({
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
+    links: [{ rel: "canonical", href: `${SITE_URL}/mesa` }],
   }),
 });
 
