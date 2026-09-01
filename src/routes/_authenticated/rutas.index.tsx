@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { SITE_URL } from "@/lib/site";
 import { ROUTES } from "@/lib/discovery";
 import { PHILOSOPHERS } from "@/lib/philosophers";
 import { SiteNav } from "@/components/site-nav";
@@ -23,6 +24,7 @@ export const Route = createFileRoute("/_authenticated/rutas/")({
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
+    links: [{ rel: "canonical", href: `${SITE_URL}/rutas` }],
   }),
 });
 
