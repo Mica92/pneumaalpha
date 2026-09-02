@@ -62,6 +62,12 @@ export function LegalPage({ copy }: { copy: { es: LegalCopy; en: LegalCopy } }) 
           <Link to="/privacy" className="transition-colors hover:text-foreground">
             {lang === "es" ? "Privacidad" : "Privacy"}
           </Link>
+          <Link to="/uso-de-ia" className="transition-colors hover:text-foreground">
+            {lang === "es" ? "Uso de IA" : "AI use"}
+          </Link>
+          <Link to="/contacto" className="transition-colors hover:text-foreground">
+            {lang === "es" ? "Contacto" : "Contact"}
+          </Link>
         </nav>
       </footer>
     </main>

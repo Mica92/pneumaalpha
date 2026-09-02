@@ -9,10 +9,12 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as UsoDeIaRouteImport } from './routes/uso-de-ia'
 import { Route as TerminosRouteImport } from './routes/terminos'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ReembolsosRouteImport } from './routes/reembolsos'
 import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as ContactoRouteImport } from './routes/contacto'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
 import { Route as AuthenticatedUmbralRouteImport } from './routes/_authenticated/umbral'
@@ -45,6 +47,11 @@ import { Route as LovableEmailAuthWebhookRouteImport } from './routes/lovable/em
 import { Route as LovableEmailAuthPreviewRouteImport } from './routes/lovable/email/auth/preview'
 import { Route as ApiPublicPaymentsWebhookRouteImport } from './routes/api/public/payments/webhook'
 
+const UsoDeIaRoute = UsoDeIaRouteImport.update({
+  id: '/uso-de-ia',
+  path: '/uso-de-ia',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TerminosRoute = TerminosRouteImport.update({
   id: '/terminos',
   path: '/terminos',
@@ -63,6 +70,11 @@ const ReembolsosRoute = ReembolsosRouteImport.update({
 const PrivacyRoute = PrivacyRouteImport.update({
   id: '/privacy',
   path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactoRoute = ContactoRouteImport.update({
+  id: '/contacto',
+  path: '/contacto',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
@@ -228,10 +240,12 @@ const ApiPublicPaymentsWebhookRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof AuthenticatedIndexRoute
+  '/contacto': typeof ContactoRoute
   '/privacy': typeof PrivacyRoute
   '/reembolsos': typeof ReembolsosRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terminos': typeof TerminosRoute
+  '/uso-de-ia': typeof UsoDeIaRoute
   '/$philosopher': typeof AuthenticatedPhilosopherRoute
   '/analisis': typeof AuthenticatedAnalisisRoute
   '/biblioteca': typeof AuthenticatedBibliotecaRoute
@@ -263,10 +277,12 @@ export interface FileRoutesByFullPath {
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
 }
 export interface FileRoutesByTo {
+  '/contacto': typeof ContactoRoute
   '/privacy': typeof PrivacyRoute
   '/reembolsos': typeof ReembolsosRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terminos': typeof TerminosRoute
+  '/uso-de-ia': typeof UsoDeIaRoute
   '/$philosopher': typeof AuthenticatedPhilosopherRoute
   '/analisis': typeof AuthenticatedAnalisisRoute
   '/biblioteca': typeof AuthenticatedBibliotecaRoute
@@ -301,10 +317,12 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/contacto': typeof ContactoRoute
   '/privacy': typeof PrivacyRoute
   '/reembolsos': typeof ReembolsosRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terminos': typeof TerminosRoute
+  '/uso-de-ia': typeof UsoDeIaRoute
   '/_authenticated/$philosopher': typeof AuthenticatedPhilosopherRoute
   '/_authenticated/analisis': typeof AuthenticatedAnalisisRoute
   '/_authenticated/biblioteca': typeof AuthenticatedBibliotecaRoute
@@ -340,10 +358,12 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/contacto'
     | '/privacy'
     | '/reembolsos'
     | '/sitemap.xml'
     | '/terminos'
+    | '/uso-de-ia'
     | '/$philosopher'
     | '/analisis'
     | '/biblioteca'
@@ -375,10 +395,12 @@ export interface FileRouteTypes {
     | '/lovable/email/auth/webhook'
   fileRoutesByTo: FileRoutesByTo
   to:
+    | '/contacto'
     | '/privacy'
     | '/reembolsos'
     | '/sitemap.xml'
     | '/terminos'
+    | '/uso-de-ia'
     | '/$philosopher'
     | '/analisis'
     | '/biblioteca'
@@ -412,10 +434,12 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/_authenticated'
+    | '/contacto'
     | '/privacy'
     | '/reembolsos'
     | '/sitemap.xml'
     | '/terminos'
+    | '/uso-de-ia'
     | '/_authenticated/$philosopher'
     | '/_authenticated/analisis'
     | '/_authenticated/biblioteca'
@@ -450,10 +474,12 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  ContactoRoute: typeof ContactoRoute
   PrivacyRoute: typeof PrivacyRoute
   ReembolsosRoute: typeof ReembolsosRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TerminosRoute: typeof TerminosRoute
+  UsoDeIaRoute: typeof UsoDeIaRoute
   ApiPodcastSpeechRoute: typeof ApiPodcastSpeechRoute
   ApiPublicPaymentsWebhookRoute: typeof ApiPublicPaymentsWebhookRoute
   LovableEmailAuthPreviewRoute: typeof LovableEmailAuthPreviewRoute
@@ -462,6 +488,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/uso-de-ia': {
+      id: '/uso-de-ia'
+      path: '/uso-de-ia'
+      fullPath: '/uso-de-ia'
+      preLoaderRoute: typeof UsoDeIaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/terminos': {
       id: '/terminos'
       path: '/terminos'
@@ -488,6 +521,13 @@ declare module '@tanstack/react-router' {
       path: '/privacy'
       fullPath: '/privacy'
       preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contacto': {
+      id: '/contacto'
+      path: '/contacto'
+      fullPath: '/contacto'
+      preLoaderRoute: typeof ContactoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated': {
@@ -773,10 +813,12 @@ const AuthenticatedRouteRouteWithChildren =
 
 const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  ContactoRoute: ContactoRoute,
   PrivacyRoute: PrivacyRoute,
   ReembolsosRoute: ReembolsosRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TerminosRoute: TerminosRoute,
+  UsoDeIaRoute: UsoDeIaRoute,
   ApiPodcastSpeechRoute: ApiPodcastSpeechRoute,
   ApiPublicPaymentsWebhookRoute: ApiPublicPaymentsWebhookRoute,
   LovableEmailAuthPreviewRoute: LovableEmailAuthPreviewRoute,
