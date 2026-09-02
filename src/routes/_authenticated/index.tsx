@@ -4,6 +4,7 @@ import { PHILOSOPHERS, PHILOSOPHER_LIST, type PhilosopherId } from "@/lib/philos
 import { portraitFocus, portraitOf, profileOf } from "@/lib/portraits";
 import { CATEGORIES, IDEAS, REAL_PROBLEMS, ROUTES, centralQuestion } from "@/lib/discovery";
 import { useI18n } from "@/lib/i18n";
+import { FREE_MESSAGE_LIMIT } from "@/lib/billing.shared";
 import { SITE_URL, SITE_NAME } from "@/lib/site";
 import { SiteNav } from "@/components/site-nav";
 import { ToneSelect } from "@/components/tone-select";
