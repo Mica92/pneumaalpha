@@ -35,7 +35,7 @@ const ES: LegalCopy = {
     },
     {
       h: "2. Aceptación",
-      p: "El uso continuado del servicio implica la aceptación de estos términos y de la Política de Privacidad y la Política de Reembolsos. Declaras ser mayor de edad en tu jurisdicción o contar con autorización para vincular a la organización que representas.",
+      p: "El uso continuado del servicio implica la aceptación de estos términos y de la Política de Privacidad y la Política de Reembolsos. Declaras tener al menos 18 años y ser mayor de edad en tu jurisdicción, o contar con autorización para vincular a la organización que representas. El servicio no está dirigido a menores de edad.",
     },
     {
       h: "3. Qué ofrecemos",
@@ -51,7 +51,7 @@ const ES: LegalCopy = {
     },
     {
       h: "6. Uso responsable de la inteligencia artificial",
-      p: "Queda prohibido generar contenido ilegal, sexual con menores, de odio, violento, difamatorio, engañoso (incluidas suplantaciones o deepfakes de personas reales), instrucciones para dañar a otros, malware o intentos de eludir los filtros del sistema (jailbreaking).\n\nEres responsable de los textos que envías, de contar con los derechos sobre el contenido que introduces, del uso que das a los resultados y de verificar su exactitud. Las respuestas son generadas automáticamente y pueden contener errores, omisiones o afirmaciones inexactas; no deben usarse como sustituto de asesoría profesional ni en decisiones reguladas sin supervisión humana.\n\nEn la medida permitida por la ley, no reclamamos propiedad sobre los textos que introduces; conservas tus derechos y nos concedes una licencia limitada para procesarlos y prestarte el servicio. Si consideras que un resultado infringe tus derechos, escríbenos a soporte@pneumaalpha.app y atenderemos el reclamo; las infracciones reiteradas conllevan la terminación de la cuenta.\n\nNos reservamos el derecho a moderar: filtrar o rechazar respuestas, retirar contenido y restringir cuentas cuando exista riesgo o incumplimiento.",
+      p: "Queda prohibido generar contenido ilegal, sexual con menores, de odio, violento, difamatorio, engañoso (incluidas suplantaciones o deepfakes de personas reales), instrucciones para dañar a otros, malware o intentos de eludir los filtros del sistema (jailbreaking).\n\nEres responsable de los textos que envías, de contar con los derechos sobre el contenido que introduces, del uso que das a los resultados y de verificar su exactitud. Las respuestas son generadas automáticamente y pueden contener errores, omisiones o afirmaciones inexactas; no deben usarse como sustituto de asesoría profesional ni en decisiones reguladas sin supervisión humana.\n\nEn la medida permitida por la ley, no reclamamos propiedad sobre los textos que introduces; conservas tus derechos y nos concedes una licencia limitada para procesarlos y prestarte el servicio. Si consideras que un resultado infringe tus derechos, escríbenos a soporte@pneumaalpha.app y atenderemos el reclamo; las infracciones reiteradas conllevan la terminación de la cuenta.\n\nNos reservamos el derecho a moderar: filtrar o rechazar respuestas, retirar contenido y restringir cuentas cuando exista riesgo o incumplimiento.\n\nPneum no reconstruye personas vivas ni figuras públicas contemporáneas: solo autores históricos de dominio público. No es un compañero virtual ni un servicio de acompañamiento emocional o romántico, y no ofrece contenido adulto. El detalle completo —incluidas las reglas de seguridad ante señales de crisis y el procedimiento de moderación— está en la Política de uso aceptable de IA, disponible en https://pneum.app/uso-de-ia, que forma parte integrante de estos términos.",
     },
     {
       h: "7. Propiedad intelectual",
@@ -98,7 +98,7 @@ const EN: LegalCopy = {
     },
     {
       h: "2. Acceptance",
-      p: "Continued use of the service means you accept these terms, the Privacy Notice and the Refund Policy. You confirm you are of legal age in your jurisdiction or authorised to bind the organisation you represent.",
+      p: "Continued use of the service means you accept these terms, the Privacy Notice and the Refund Policy. You confirm you are at least 18 years old and of legal age in your jurisdiction, or authorised to bind the organisation you represent. The service is not directed to minors.",
     },
     {
       h: "3. What we offer",
@@ -114,7 +114,7 @@ const EN: LegalCopy = {
     },
     {
       h: "6. Responsible use of AI",
-      p: "You may not generate unlawful content, child sexual content, hateful, violent, defamatory or deceptive material (including impersonation or deepfakes of real people), instructions to harm others, malware, or attempts to bypass system safeguards (jailbreaking).\n\nYou are responsible for the prompts you submit, for holding the rights to the content you input, for how you use the outputs and for verifying their accuracy. Outputs are generated automatically and may be inaccurate or incomplete; they are not a substitute for professional advice and must not be used in regulated decisions without human oversight.\n\nTo the extent permitted by law we claim no ownership of your inputs; you keep your rights and grant us a limited licence to process them in order to provide the service. If you believe an output infringes your rights, write to soporte@pneumaalpha.app and we will review the complaint; repeated infringement leads to account termination.\n\nWe reserve moderation rights: filtering or refusing outputs, removing content and restricting accounts where there is risk or breach.",
+      p: "You may not generate unlawful content, child sexual content, hateful, violent, defamatory or deceptive material (including impersonation or deepfakes of real people), instructions to harm others, malware, or attempts to bypass system safeguards (jailbreaking).\n\nYou are responsible for the prompts you submit, for holding the rights to the content you input, for how you use the outputs and for verifying their accuracy. Outputs are generated automatically and may be inaccurate or incomplete; they are not a substitute for professional advice and must not be used in regulated decisions without human oversight.\n\nTo the extent permitted by law we claim no ownership of your inputs; you keep your rights and grant us a limited licence to process them in order to provide the service. If you believe an output infringes your rights, write to soporte@pneumaalpha.app and we will review the complaint; repeated infringement leads to account termination.\n\nWe reserve moderation rights: filtering or refusing outputs, removing content and restricting accounts where there is risk or breach.\n\nPneum does not reconstruct living people or contemporary public figures: historical, public-domain authors only. It is not a virtual companion or an emotional/romantic support service, and it offers no adult content. The full detail — including safety rules for crisis signals and the moderation procedure — is in the AI Acceptable Use Policy at https://pneum.app/uso-de-ia, which forms part of these terms.",
     },
     {
       h: "7. Intellectual property",
