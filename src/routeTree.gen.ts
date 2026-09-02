@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as UsoDeIaRouteImport } from './routes/uso-de-ia'
 import { Route as TerminosRouteImport } from './routes/terminos'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ReembolsosRouteImport } from './routes/reembolsos'
@@ -45,6 +46,11 @@ import { Route as LovableEmailAuthWebhookRouteImport } from './routes/lovable/em
 import { Route as LovableEmailAuthPreviewRouteImport } from './routes/lovable/email/auth/preview'
 import { Route as ApiPublicPaymentsWebhookRouteImport } from './routes/api/public/payments/webhook'
 
+const UsoDeIaRoute = UsoDeIaRouteImport.update({
+  id: '/uso-de-ia',
+  path: '/uso-de-ia',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TerminosRoute = TerminosRouteImport.update({
   id: '/terminos',
   path: '/terminos',
@@ -232,6 +238,7 @@ export interface FileRoutesByFullPath {
   '/reembolsos': typeof ReembolsosRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terminos': typeof TerminosRoute
+  '/uso-de-ia': typeof UsoDeIaRoute
   '/$philosopher': typeof AuthenticatedPhilosopherRoute
   '/analisis': typeof AuthenticatedAnalisisRoute
   '/biblioteca': typeof AuthenticatedBibliotecaRoute
@@ -267,6 +274,7 @@ export interface FileRoutesByTo {
   '/reembolsos': typeof ReembolsosRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terminos': typeof TerminosRoute
+  '/uso-de-ia': typeof UsoDeIaRoute
   '/$philosopher': typeof AuthenticatedPhilosopherRoute
   '/analisis': typeof AuthenticatedAnalisisRoute
   '/biblioteca': typeof AuthenticatedBibliotecaRoute
@@ -305,6 +313,7 @@ export interface FileRoutesById {
   '/reembolsos': typeof ReembolsosRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terminos': typeof TerminosRoute
+  '/uso-de-ia': typeof UsoDeIaRoute
   '/_authenticated/$philosopher': typeof AuthenticatedPhilosopherRoute
   '/_authenticated/analisis': typeof AuthenticatedAnalisisRoute
   '/_authenticated/biblioteca': typeof AuthenticatedBibliotecaRoute
@@ -344,6 +353,7 @@ export interface FileRouteTypes {
     | '/reembolsos'
     | '/sitemap.xml'
     | '/terminos'
+    | '/uso-de-ia'
     | '/$philosopher'
     | '/analisis'
     | '/biblioteca'
@@ -379,6 +389,7 @@ export interface FileRouteTypes {
     | '/reembolsos'
     | '/sitemap.xml'
     | '/terminos'
+    | '/uso-de-ia'
     | '/$philosopher'
     | '/analisis'
     | '/biblioteca'
@@ -416,6 +427,7 @@ export interface FileRouteTypes {
     | '/reembolsos'
     | '/sitemap.xml'
     | '/terminos'
+    | '/uso-de-ia'
     | '/_authenticated/$philosopher'
     | '/_authenticated/analisis'
     | '/_authenticated/biblioteca'
@@ -454,6 +466,7 @@ export interface RootRouteChildren {
   ReembolsosRoute: typeof ReembolsosRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TerminosRoute: typeof TerminosRoute
+  UsoDeIaRoute: typeof UsoDeIaRoute
   ApiPodcastSpeechRoute: typeof ApiPodcastSpeechRoute
   ApiPublicPaymentsWebhookRoute: typeof ApiPublicPaymentsWebhookRoute
   LovableEmailAuthPreviewRoute: typeof LovableEmailAuthPreviewRoute
@@ -462,6 +475,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/uso-de-ia': {
+      id: '/uso-de-ia'
+      path: '/uso-de-ia'
+      fullPath: '/uso-de-ia'
+      preLoaderRoute: typeof UsoDeIaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/terminos': {
       id: '/terminos'
       path: '/terminos'
@@ -777,6 +797,7 @@ const rootRouteChildren: RootRouteChildren = {
   ReembolsosRoute: ReembolsosRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TerminosRoute: TerminosRoute,
+  UsoDeIaRoute: UsoDeIaRoute,
   ApiPodcastSpeechRoute: ApiPodcastSpeechRoute,
   ApiPublicPaymentsWebhookRoute: ApiPublicPaymentsWebhookRoute,
   LovableEmailAuthPreviewRoute: LovableEmailAuthPreviewRoute,
