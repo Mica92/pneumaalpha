@@ -14,6 +14,7 @@ import { Route as TerminosRouteImport } from './routes/terminos'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ReembolsosRouteImport } from './routes/reembolsos'
 import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as ContactoRouteImport } from './routes/contacto'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
 import { Route as AuthenticatedUmbralRouteImport } from './routes/_authenticated/umbral'
@@ -69,6 +70,11 @@ const ReembolsosRoute = ReembolsosRouteImport.update({
 const PrivacyRoute = PrivacyRouteImport.update({
   id: '/privacy',
   path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactoRoute = ContactoRouteImport.update({
+  id: '/contacto',
+  path: '/contacto',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
@@ -234,6 +240,7 @@ const ApiPublicPaymentsWebhookRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof AuthenticatedIndexRoute
+  '/contacto': typeof ContactoRoute
   '/privacy': typeof PrivacyRoute
   '/reembolsos': typeof ReembolsosRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -270,6 +277,7 @@ export interface FileRoutesByFullPath {
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
 }
 export interface FileRoutesByTo {
+  '/contacto': typeof ContactoRoute
   '/privacy': typeof PrivacyRoute
   '/reembolsos': typeof ReembolsosRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -309,6 +317,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/contacto': typeof ContactoRoute
   '/privacy': typeof PrivacyRoute
   '/reembolsos': typeof ReembolsosRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -349,6 +358,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/contacto'
     | '/privacy'
     | '/reembolsos'
     | '/sitemap.xml'
@@ -385,6 +395,7 @@ export interface FileRouteTypes {
     | '/lovable/email/auth/webhook'
   fileRoutesByTo: FileRoutesByTo
   to:
+    | '/contacto'
     | '/privacy'
     | '/reembolsos'
     | '/sitemap.xml'
@@ -423,6 +434,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/_authenticated'
+    | '/contacto'
     | '/privacy'
     | '/reembolsos'
     | '/sitemap.xml'
@@ -462,6 +474,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  ContactoRoute: typeof ContactoRoute
   PrivacyRoute: typeof PrivacyRoute
   ReembolsosRoute: typeof ReembolsosRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
@@ -508,6 +521,13 @@ declare module '@tanstack/react-router' {
       path: '/privacy'
       fullPath: '/privacy'
       preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contacto': {
+      id: '/contacto'
+      path: '/contacto'
+      fullPath: '/contacto'
+      preLoaderRoute: typeof ContactoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated': {
@@ -793,6 +813,7 @@ const AuthenticatedRouteRouteWithChildren =
 
 const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  ContactoRoute: ContactoRoute,
   PrivacyRoute: PrivacyRoute,
   ReembolsosRoute: ReembolsosRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
