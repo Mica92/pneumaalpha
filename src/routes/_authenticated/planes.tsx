@@ -167,6 +167,11 @@ function PlansPage() {
                           ? "Suscribirme"
                           : "Subscribe"}
                 </button>
+                <p className="mt-3 text-center text-micro leading-relaxed text-muted-foreground">
+                  {es
+                    ? "Paddle.com es el Comerciante Registrado. 30 días de garantía de devolución. Cancela cuando quieras."
+                    : "Paddle.com is the Merchant of Record. 30-day money-back guarantee. Cancel anytime."}
+                </p>
               </article>
             );
           })}
