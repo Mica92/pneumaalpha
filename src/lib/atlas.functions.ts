@@ -63,7 +63,24 @@ export const recordJourneyNode = createServerFn({ method: "POST" })
       reason: data.reason ?? null,
       count: 1,
     });
-    if (error) throw new Error(error.message);
+
+    // A concurrent call may have inserted the same row between the select and
+    // the insert; treat the unique-constraint violation as an increment.
+    if (error) {
+      if (error.code !== "23505") throw new Error(error.message);
+      const { data: row } = await supabase
+        .from("journey_nodes")
+        .select("id, count")
+        .eq("user_id", userId)
+        .eq("entity_id", data.entityId)
+        .maybeSingle();
+      if (row) {
+        await supabase
+          .from("journey_nodes")
+          .update({ count: row.count + 1, ...(data.reason ? { reason: data.reason } : {}) })
+          .eq("id", row.id);
+      }
+    }
     return { ok: true };
   });
 
