@@ -104,6 +104,19 @@ function PlansPage() {
                   {formatUsd(plan.usd, lang)}
                 </p>
                 <p className="mt-1 text-micro text-muted-foreground">≈ {formatClp(plan.clp)}</p>
+                <p className="mt-2 text-micro leading-relaxed text-muted-foreground">
+                  {plan.id === "monthly"
+                    ? es
+                      ? "Cobro mensual en USD. Se renueva automáticamente cada mes hasta que lo canceles."
+                      : "Billed monthly in USD. Renews automatically every month until you cancel."
+                    : plan.id === "semiannual"
+                      ? es
+                        ? "Cobro único de 6 meses en USD. Se renueva automáticamente cada 6 meses hasta que lo canceles."
+                        : "Billed once for 6 months in USD. Renews automatically every 6 months until you cancel."
+                      : es
+                        ? "Pago único en USD. No se renueva ni se cobra de nuevo."
+                        : "One-time payment in USD. No renewal, no further charges."}
+                </p>
                 <p className="mt-4 text-small leading-relaxed text-muted-foreground">
                   {plan.tagline[lang]}
                 </p>
