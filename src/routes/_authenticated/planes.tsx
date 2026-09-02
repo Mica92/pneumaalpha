@@ -182,6 +182,11 @@ function PlansPage() {
             ? "Vendido por Kionas IA. Pagos procesados por Paddle.com, comerciante registrado (Merchant of Record). En Chile pagas en pesos; en el resto del mundo, en dólares. 30 días de garantía de devolución."
             : "Sold by Kionas IA. Payments processed by Paddle.com, Merchant of Record. In Chile you pay in pesos; elsewhere, in US dollars. 30-day money-back guarantee."}
         </p>
+        <p className="mt-3 text-micro leading-relaxed text-muted-foreground">
+          {es
+            ? "¿Dudas antes de comprar? Escríbenos a soporte@pneumaalpha.app y te respondemos en un máximo de 2 días hábiles."
+            : "Questions before buying? Write to soporte@pneumaalpha.app and we reply within 2 business days."}
+        </p>
         <p className="mt-3 flex flex-wrap gap-4 text-micro uppercase tracking-[0.25em] text-muted-foreground">
           <Link to="/terminos" className="hover:text-foreground">
             {es ? "Términos" : "Terms"}
@@ -191,6 +196,12 @@ function PlansPage() {
           </Link>
           <Link to="/privacy" className="hover:text-foreground">
             {es ? "Privacidad" : "Privacy"}
+          </Link>
+          <Link to="/uso-de-ia" className="hover:text-foreground">
+            {es ? "Uso de IA" : "AI use"}
+          </Link>
+          <Link to="/contacto" className="hover:text-foreground">
+            {es ? "Contacto" : "Contact"}
           </Link>
         </p>
       </main>
