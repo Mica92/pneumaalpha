@@ -43,7 +43,7 @@ const ES: LegalCopy = {
     },
     {
       h: "4. Con quién compartimos",
-      p: "· Proveedores de infraestructura: alojamiento, base de datos, autenticación y proveedores de modelos de lenguaje, que tratan los datos por cuenta nuestra.\n· Paddle.com, nuestro Comerciante Registrado (Merchant of Record), para la venta, la gestión de suscripciones, los pagos, el cumplimiento tributario y la facturación.\n· Asesores profesionales (legales, contables) cuando sea necesario.\n· Autoridades, cuando la ley lo exija.\nNo vendemos tus datos, no los usamos para publicidad de terceros y no entrenamos modelos con tus conversaciones.",
+      p: "· Proveedores de infraestructura: alojamiento, base de datos, autenticación y proveedores de modelos de lenguaje, que tratan los datos por cuenta nuestra.\n· Paddle.com, nuestro Comerciante Registrado (Merchant of Record), para la venta, la gestión de suscripciones, los pagos, el cumplimiento tributario y la facturación.\n· Asesores profesionales (legales, contables) cuando sea necesario.\n· Autoridades, cuando la ley lo exija.\nNo vendemos tus datos, no los usamos para publicidad de terceros y no entrenamos modelos con tus conversaciones.\n\nQué se envía a los proveedores de modelos de lenguaje: el texto de tu mensaje, el contexto reciente de esa conversación y la instrucción editorial del filósofo. No enviamos tu nombre, tu correo, tu identificador de cuenta ni tus datos de pago. Trabajamos con proveedores que operan bajo acuerdos de encargo de tratamiento, con retención cero o limitada y sin uso de los datos para entrenar sus modelos. Puedes borrar cualquier conversación desde la interfaz o pedir la eliminación completa en privacy@pneumaalpha.app.",
     },
     {
       h: "5. Transferencias internacionales",
@@ -98,7 +98,7 @@ const EN: LegalCopy = {
     },
     {
       h: "4. Who we share it with",
-      p: "· Infrastructure providers: hosting, database, authentication and language-model providers, processing data on our behalf.\n· Paddle.com, our Merchant of Record, for the sale, subscription management, payments, tax compliance and invoicing.\n· Professional advisers (legal, accounting) where necessary.\n· Authorities, where required by law.\nWe do not sell your data, we do not use it for third-party advertising, and we do not train models on your conversations.",
+      p: "· Infrastructure providers: hosting, database, authentication and language-model providers, processing data on our behalf.\n· Paddle.com, our Merchant of Record, for the sale, subscription management, payments, tax compliance and invoicing.\n· Professional advisers (legal, accounting) where necessary.\n· Authorities, where required by law.\nWe do not sell your data, we do not use it for third-party advertising, and we do not train models on your conversations.\n\nWhat is sent to language-model providers: the text of your message, the recent context of that conversation and the philosopher's editorial instruction. We do not send your name, email, account identifier or payment data. We work with providers under data-processing agreements, with zero or limited retention and no use of the data to train their models. You can delete any conversation from the interface or request full deletion at privacy@pneumaalpha.app.",
     },
     {
       h: "5. International transfers",
