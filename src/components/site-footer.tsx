@@ -94,7 +94,16 @@ export function SiteFooter() {
 
       <div className="border-t border-border/50">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-5 py-6 text-micro text-muted-foreground md:px-8">
-          <span>Pneum · {new Date().getFullYear()}</span>
+          <span>
+            Pneum · {new Date().getFullYear()} · {es ? "Vendido por" : "Sold by"} Kionas IA,
+            Santiago, Chile ·{" "}
+            <a
+              href="mailto:soporte@pneumaalpha.app"
+              className="focus-mist underline underline-offset-4 transition-colors hover:text-foreground"
+            >
+              soporte@pneumaalpha.app
+            </a>
+          </span>
           <span className="text-muted-foreground/60">
             {es ? "Pensar despacio, otra vez." : "Thinking slowly, again."}
           </span>
