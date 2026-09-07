@@ -7,7 +7,7 @@ export const Route = createFileRoute("/terminos")({
   head: () => {
     const title = "Términos y condiciones — Pneum";
     const description =
-      "Condiciones de uso de Pneum: quién vende el servicio, uso aceptable de la IA, pagos gestionados por Paddle, suspensión y responsabilidad.";
+      "Condiciones de uso de Pneum: quién vende el servicio, uso aceptable de la IA, pagos gestionados por Lemon Squeezy, suspensión y responsabilidad.";
     return {
       meta: [
         { title },
@@ -59,7 +59,7 @@ const ES: LegalCopy = {
     },
     {
       h: "8. Planes, pagos e impuestos",
-      p: "Ofrecemos un nivel gratuito limitado y planes de pago (mensual, semestral y vitalicio). Nuestro proceso de pedidos es realizado por nuestro revendedor en línea Paddle.com. Paddle.com es el Comerciante Registrado (Merchant of Record) de todos nuestros pedidos. Paddle atiende todas las consultas de servicio al cliente y gestiona las devoluciones.\n\nLa facturación, los impuestos, las renovaciones automáticas, la cancelación y los reembolsos se rigen además por los Términos del Comprador de Paddle: https://www.paddle.com/legal/checkout-buyer-terms. Las suscripciones se renuevan automáticamente al final de cada periodo hasta que las canceles; el plan vitalicio es un pago único y limitado en cupos.",
+      p: "Ofrecemos un nivel gratuito limitado y planes de pago (mensual, semestral y vitalicio). Nuestro proceso de pedidos es realizado por nuestro revendedor en línea Lemon Squeezy. Lemon Squeezy es el Comerciante Registrado (Merchant of Record) de todos nuestros pedidos. Lemon Squeezy atiende todas las consultas de servicio al cliente y gestiona las devoluciones.\n\nLa facturación, los impuestos, las renovaciones automáticas, la cancelación y los reembolsos se rigen además por los Términos del Comprador de Lemon Squeezy: https://www.lemonsqueezy.com/buyer-terms. Las suscripciones se renuevan automáticamente al final de cada periodo hasta que las canceles; el plan vitalicio es un pago único y limitado en cupos.",
     },
     {
       h: "9. Disponibilidad del servicio",
@@ -122,7 +122,7 @@ const EN: LegalCopy = {
     },
     {
       h: "8. Plans, payments and taxes",
-      p: "We offer a limited free tier and paid plans (monthly, six-month and lifetime). Our order process is conducted by our online reseller Paddle.com. Paddle.com is the Merchant of Record for all our orders. Paddle provides all customer service inquiries and handles returns.\n\nBilling, taxes, automatic renewals, cancellation and refunds are additionally governed by Paddle's Buyer Terms: https://www.paddle.com/legal/checkout-buyer-terms. Subscriptions renew automatically at the end of each period until cancelled; the lifetime plan is a one-time payment with limited seats.",
+      p: "We offer a limited free tier and paid plans (monthly, six-month and lifetime). Our order process is conducted by our online reseller Lemon Squeezy. Lemon Squeezy is the Merchant of Record for all our orders. Lemon Squeezy provides all customer service inquiries and handles returns.\n\nBilling, taxes, automatic renewals, cancellation and refunds are additionally governed by Lemon Squeezy's Buyer Terms: https://www.lemonsqueezy.com/buyer-terms. Subscriptions renew automatically at the end of each period until cancelled; the lifetime plan is a one-time payment with limited seats.",
     },
     {
       h: "9. Service availability",

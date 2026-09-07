@@ -64,7 +64,7 @@ const ES: LegalCopy = {
     },
     {
       h: "9. Contacto",
-      p: "Kionas IA · soporte@pneumaalpha.app · Santiago, Chile. Los pedidos y pagos son procesados por Paddle.com como Comerciante Registrado.",
+      p: "Kionas IA · soporte@pneumaalpha.app · Santiago, Chile. Los pedidos y pagos son procesados por Lemon Squeezy como Comerciante Registrado.",
     },
   ],
   back: "← Volver al inicio",
@@ -111,7 +111,7 @@ const EN: LegalCopy = {
     },
     {
       h: "9. Contact",
-      p: "Kionas IA · soporte@pneumaalpha.app · Santiago, Chile. Orders and payments are processed by Paddle.com as Merchant of Record.",
+      p: "Kionas IA · soporte@pneumaalpha.app · Santiago, Chile. Orders and payments are processed by Lemon Squeezy as Merchant of Record.",
     },
   ],
   back: "← Back to home",

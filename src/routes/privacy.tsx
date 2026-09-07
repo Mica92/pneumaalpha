@@ -35,7 +35,7 @@ const ES: LegalCopy = {
     },
     {
       h: "2. Datos que recogemos",
-      p: "· Identidad y cuenta: correo electrónico y, si entras con Google, nombre y foto de perfil.\n· Contenido: los mensajes que escribes, las respuestas generadas, tus notas, rutas y preferencias (idioma, tono, filósofo).\n· Suscripción: plan contratado, estado, fechas de periodo e identificadores de la transacción entregados por Paddle. No recibimos ni almacenamos los datos de tu tarjeta.\n· Uso y técnica: eventos de uso, dispositivo, navegador, dirección IP y registros de errores.\n· Comunicaciones: mensajes de soporte y, si te suscribes, tu número de WhatsApp para el boletín.",
+      p: "· Identidad y cuenta: correo electrónico y, si entras con Google, nombre y foto de perfil.\n· Contenido: los mensajes que escribes, las respuestas generadas, tus notas, rutas y preferencias (idioma, tono, filósofo).\n· Suscripción: plan contratado, estado, fechas de periodo e identificadores de la transacción entregados por Lemon Squeezy. No recibimos ni almacenamos los datos de tu tarjeta.\n· Uso y técnica: eventos de uso, dispositivo, navegador, dirección IP y registros de errores.\n· Comunicaciones: mensajes de soporte y, si te suscribes, tu número de WhatsApp para el boletín.",
     },
     {
       h: "3. Finalidades y bases legales",
@@ -43,7 +43,7 @@ const ES: LegalCopy = {
     },
     {
       h: "4. Con quién compartimos",
-      p: "· Proveedores de infraestructura: alojamiento, base de datos, autenticación y proveedores de modelos de lenguaje, que tratan los datos por cuenta nuestra.\n· Paddle.com, nuestro Comerciante Registrado (Merchant of Record), para la venta, la gestión de suscripciones, los pagos, el cumplimiento tributario y la facturación.\n· Asesores profesionales (legales, contables) cuando sea necesario.\n· Autoridades, cuando la ley lo exija.\nNo vendemos tus datos, no los usamos para publicidad de terceros y no entrenamos modelos con tus conversaciones.\n\nQué se envía a los proveedores de modelos de lenguaje: el texto de tu mensaje, el contexto reciente de esa conversación y la instrucción editorial del filósofo. No enviamos tu nombre, tu correo, tu identificador de cuenta ni tus datos de pago. Trabajamos con proveedores que operan bajo acuerdos de encargo de tratamiento, con retención cero o limitada y sin uso de los datos para entrenar sus modelos. Puedes borrar cualquier conversación desde la interfaz o pedir la eliminación completa en privacy@pneumaalpha.app.",
+      p: "· Proveedores de infraestructura: alojamiento, base de datos, autenticación y proveedores de modelos de lenguaje, que tratan los datos por cuenta nuestra.\n· Lemon Squeezy, nuestro Comerciante Registrado (Merchant of Record), para la venta, la gestión de suscripciones, los pagos, el cumplimiento tributario y la facturación.\n· Asesores profesionales (legales, contables) cuando sea necesario.\n· Autoridades, cuando la ley lo exija.\nNo vendemos tus datos, no los usamos para publicidad de terceros y no entrenamos modelos con tus conversaciones.\n\nQué se envía a los proveedores de modelos de lenguaje: el texto de tu mensaje, el contexto reciente de esa conversación y la instrucción editorial del filósofo. No enviamos tu nombre, tu correo, tu identificador de cuenta ni tus datos de pago. Trabajamos con proveedores que operan bajo acuerdos de encargo de tratamiento, con retención cero o limitada y sin uso de los datos para entrenar sus modelos. Puedes borrar cualquier conversación desde la interfaz o pedir la eliminación completa en privacy@pneumaalpha.app.",
     },
     {
       h: "5. Transferencias internacionales",
@@ -90,7 +90,7 @@ const EN: LegalCopy = {
     },
     {
       h: "2. Data we collect",
-      p: "· Identity and account: email address and, if you sign in with Google, name and profile picture.\n· Content: the messages you write, the generated replies, your notes, paths and preferences (language, tone, philosopher).\n· Subscription: plan, status, period dates and transaction identifiers provided by Paddle. We never receive or store your card details.\n· Usage and technical data: usage events, device, browser, IP address and error logs.\n· Communications: support messages and, if you subscribe, your WhatsApp number for the newsletter.",
+      p: "· Identity and account: email address and, if you sign in with Google, name and profile picture.\n· Content: the messages you write, the generated replies, your notes, paths and preferences (language, tone, philosopher).\n· Subscription: plan, status, period dates and transaction identifiers provided by Lemon Squeezy. We never receive or store your card details.\n· Usage and technical data: usage events, device, browser, IP address and error logs.\n· Communications: support messages and, if you subscribe, your WhatsApp number for the newsletter.",
     },
     {
       h: "3. Purposes and legal bases",
@@ -98,7 +98,7 @@ const EN: LegalCopy = {
     },
     {
       h: "4. Who we share it with",
-      p: "· Infrastructure providers: hosting, database, authentication and language-model providers, processing data on our behalf.\n· Paddle.com, our Merchant of Record, for the sale, subscription management, payments, tax compliance and invoicing.\n· Professional advisers (legal, accounting) where necessary.\n· Authorities, where required by law.\nWe do not sell your data, we do not use it for third-party advertising, and we do not train models on your conversations.\n\nWhat is sent to language-model providers: the text of your message, the recent context of that conversation and the philosopher's editorial instruction. We do not send your name, email, account identifier or payment data. We work with providers under data-processing agreements, with zero or limited retention and no use of the data to train their models. You can delete any conversation from the interface or request full deletion at privacy@pneumaalpha.app.",
+      p: "· Infrastructure providers: hosting, database, authentication and language-model providers, processing data on our behalf.\n· Lemon Squeezy, our Merchant of Record, for the sale, subscription management, payments, tax compliance and invoicing.\n· Professional advisers (legal, accounting) where necessary.\n· Authorities, where required by law.\nWe do not sell your data, we do not use it for third-party advertising, and we do not train models on your conversations.\n\nWhat is sent to language-model providers: the text of your message, the recent context of that conversation and the philosopher's editorial instruction. We do not send your name, email, account identifier or payment data. We work with providers under data-processing agreements, with zero or limited retention and no use of the data to train their models. You can delete any conversation from the interface or request full deletion at privacy@pneumaalpha.app.",
     },
     {
       h: "5. International transfers",

@@ -169,8 +169,8 @@ function PlansPage() {
                 </button>
                 <p className="mt-3 text-center text-micro leading-relaxed text-muted-foreground">
                   {es
-                    ? "Paddle.com es el Comerciante Registrado. 30 días de garantía de devolución. Cancela cuando quieras."
-                    : "Paddle.com is the Merchant of Record. 30-day money-back guarantee. Cancel anytime."}
+                    ? "Lemon Squeezy es el Comerciante Registrado. 30 días de garantía de devolución. Cancela cuando quieras."
+                    : "Lemon Squeezy is the Merchant of Record. 30-day money-back guarantee. Cancel anytime."}
                 </p>
               </article>
             );
@@ -179,8 +179,8 @@ function PlansPage() {
 
         <p className="mt-10 text-micro leading-relaxed text-muted-foreground">
           {es
-            ? "Vendido por Kionas IA. Pagos procesados por Paddle.com, comerciante registrado (Merchant of Record). En Chile pagas en pesos; en el resto del mundo, en dólares. 30 días de garantía de devolución."
-            : "Sold by Kionas IA. Payments processed by Paddle.com, Merchant of Record. In Chile you pay in pesos; elsewhere, in US dollars. 30-day money-back guarantee."}
+            ? "Vendido por Kionas IA. Pagos procesados por Lemon Squeezy, comerciante registrado (Merchant of Record). En Chile pagas en pesos; en el resto del mundo, en dólares. 30 días de garantía de devolución."
+            : "Sold by Kionas IA. Payments processed by Lemon Squeezy, Merchant of Record. In Chile you pay in pesos; elsewhere, in US dollars. 30-day money-back guarantee."}
         </p>
         <p className="mt-3 text-micro leading-relaxed text-muted-foreground">
           {es

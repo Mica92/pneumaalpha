@@ -8,7 +8,7 @@ import { track } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
 
 /**
- * Mini plan selector shown inside the chat: pick a plan and pay in the Paddle
+ * Mini plan selector shown inside the chat: pick a plan and pay in the Lemon Squeezy
  * overlay without leaving the conversation.
  */
 export function PlanPickerDialog({
@@ -138,8 +138,8 @@ export function PlanPickerDialog({
 
         <p className="mt-6 text-micro text-muted-foreground">
           {es
-            ? "Pagos procesados por Paddle, comerciante registrado. 30 días de garantía."
-            : "Payments processed by Paddle, Merchant of Record. 30-day money-back guarantee."}{" "}
+            ? "Pagos procesados por Lemon Squeezy, comerciante registrado. 30 días de garantía."
+            : "Payments processed by Lemon Squeezy, Merchant of Record. 30-day money-back guarantee."}{" "}
           <Link to="/planes" className="underline underline-offset-4 hover:text-foreground">
             {es ? "Ver detalle de planes" : "See full plan details"}
           </Link>
