@@ -59,7 +59,7 @@ export async function createCheckoutUrl(args: {
         product_options: {
           redirect_url: args.redirectUrl,
           enabled_variants: [Number(args.variantId)],
-ատ        },
+},
         checkout_options: { embed: true },
       },
       relationships: {
