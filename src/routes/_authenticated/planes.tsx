@@ -5,7 +5,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { PaymentTestModeBanner } from "@/components/payment-test-mode-banner";
 import { useI18n } from "@/lib/i18n";
 import { useEntitlement } from "@/hooks/use-entitlement";
-import { usePaddleCheckout } from "@/hooks/use-paddle-checkout";
+import { useLemonCheckout } from "@/hooks/use-lemon-checkout";
 import {
   FREE_MESSAGE_LIMIT,
   LIFETIME_SEATS,
@@ -41,7 +41,7 @@ function PlansPage() {
   const { lang } = useI18n();
   const es = lang === "es";
   const { entitlement, isLoading } = useEntitlement();
-  const { start, pending, error } = usePaddleCheckout({ successPath: "/planes?pago=ok" });
+  const { start, pending, error } = useLemonCheckout({ successPath: "/planes?pago=ok" });
 
   useEffect(() => {
     track("pricing_viewed");

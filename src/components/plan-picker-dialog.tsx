@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Link } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
 import { useEntitlement } from "@/hooks/use-entitlement";
-import { usePaddleCheckout } from "@/hooks/use-paddle-checkout";
+import { useLemonCheckout } from "@/hooks/use-lemon-checkout";
 import { LIFETIME_SEATS, PLANS, formatClp, formatUsd } from "@/lib/billing.shared";
 import { track } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
@@ -23,7 +23,7 @@ export function PlanPickerDialog({
   const { lang } = useI18n();
   const es = lang === "es";
   const { entitlement, refetch } = useEntitlement();
-  const { start, pending, error } = usePaddleCheckout({
+  const { start, pending, error } = useLemonCheckout({
     successPath: "/planes?pago=ok",
     onCompleted: () => {
       void refetch();
