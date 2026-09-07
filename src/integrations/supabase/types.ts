@@ -224,6 +224,11 @@ export type Database = {
           created_at: string
           current_period_end: string | null
           id: string
+          ls_customer_id: string | null
+          ls_order_id: string | null
+          ls_status: string | null
+          ls_subscription_id: string | null
+          ls_variant_id: string | null
           paddle_subscription_id: string | null
           paddle_transaction_id: string | null
           plan: string
@@ -238,6 +243,11 @@ export type Database = {
           created_at?: string
           current_period_end?: string | null
           id?: string
+          ls_customer_id?: string | null
+          ls_order_id?: string | null
+          ls_status?: string | null
+          ls_subscription_id?: string | null
+          ls_variant_id?: string | null
           paddle_subscription_id?: string | null
           paddle_transaction_id?: string | null
           plan: string
@@ -252,6 +262,11 @@ export type Database = {
           created_at?: string
           current_period_end?: string | null
           id?: string
+          ls_customer_id?: string | null
+          ls_order_id?: string | null
+          ls_status?: string | null
+          ls_subscription_id?: string | null
+          ls_variant_id?: string | null
           paddle_subscription_id?: string | null
           paddle_transaction_id?: string | null
           plan?: string
