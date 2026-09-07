@@ -1,10 +1,11 @@
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { z } from "zod";
-import { LIFETIME_SEATS, PLAN_PRICE_IDS, type Entitlement } from "@/lib/billing.shared";
+import { LIFETIME_SEATS, type Entitlement } from "@/lib/billing.shared";
 
 const CheckoutSchema = z.object({
   plan: z.enum(["monthly", "semiannual", "lifetime"]),
+  redirectUrl: z.string().url(),
 });
 
 export const getEntitlement = createServerFn({ method: "POST" })
@@ -15,25 +16,39 @@ export const getEntitlement = createServerFn({ method: "POST" })
   });
 
 /**
- * Validates that the user can buy the plan and returns the Paddle price
- * external_id. The actual checkout opens client-side with Paddle.js.
+ * Validates that the user can buy the plan and creates a Lemon Squeezy
+ * checkout bound to their account. The overlay opens the returned URL.
  */
 export const prepareCheckout = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((input) => CheckoutSchema.parse(input))
-  .handler(
-    async ({ data, context }): Promise<{ priceId: string } | { error: string }> => {
-      const { paddleConfigured } = await import("@/lib/paddle.server");
-      if (!paddleConfigured()) return { error: "not_configured" };
+  .handler(async ({ data, context }): Promise<{ url: string } | { error: string }> => {
+    const { lemonConfigured, variantIdFor, createCheckoutUrl } = await import(
+      "@/lib/lemon.server"
+    );
+    if (!lemonConfigured()) return { error: "not_configured" };
 
-      const { readEntitlement } = await import("@/lib/entitlement.server");
-      const ent = await readEntitlement(context.supabase, context.userId);
-      if (ent.active) return { error: "already_subscribed" };
-      if (data.plan === "lifetime" && ent.lifetimeSeatsLeft <= 0) return { error: "sold_out" };
+    const variantId = variantIdFor(data.plan);
+    if (!variantId) return { error: "not_configured" };
 
-      return { priceId: PLAN_PRICE_IDS[data.plan] };
-    },
-  );
+    const { readEntitlement } = await import("@/lib/entitlement.server");
+    const ent = await readEntitlement(context.supabase, context.userId);
+    if (ent.active) return { error: "already_subscribed" };
+    if (data.plan === "lifetime" && ent.lifetimeSeatsLeft <= 0) return { error: "sold_out" };
+
+    try {
+      const url = await createCheckoutUrl({
+        plan: data.plan,
+        variantId,
+        userId: context.userId,
+        email: (context.claims as { email?: string } | undefined)?.email ?? null,
+        redirectUrl: data.redirectUrl,
+      });
+      return { url };
+    } catch {
+      return { error: "checkout_failed" };
+    }
+  });
 
 /**
  * Public counter for the landing/pricing page (no session required).
