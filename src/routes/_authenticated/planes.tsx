@@ -179,8 +179,8 @@ function PlansPage() {
 
         <p className="mt-10 text-micro leading-relaxed text-muted-foreground">
           {es
-            ? "Vendido por Kionas IA. Pagos procesados por Lemon Squeezy, comerciante registrado (Merchant of Record). En Chile pagas en pesos; en el resto del mundo, en dólares. 30 días de garantía de devolución."
-            : "Sold by Kionas IA. Payments processed by Lemon Squeezy, Merchant of Record. In Chile you pay in pesos; elsewhere, in US dollars. 30-day money-back guarantee."}
+            ? "Vendido por Kionas IA. Pagos procesados por Lemon Squeezy, comerciante registrado (Merchant of Record). El cobro se realiza en dólares estadounidenses. 30 días de garantía de devolución."
+            : "Sold by Kionas IA. Payments processed by Lemon Squeezy, Merchant of Record. You are charged in US dollars. 30-day money-back guarantee."}
         </p>
         <p className="mt-3 text-micro leading-relaxed text-muted-foreground">
           {es
