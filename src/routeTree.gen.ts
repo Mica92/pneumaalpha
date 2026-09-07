@@ -46,6 +46,7 @@ import { Route as AuthenticatedAdminAnaliticaRouteImport } from './routes/_authe
 import { Route as LovableEmailAuthWebhookRouteImport } from './routes/lovable/email/auth/webhook'
 import { Route as LovableEmailAuthPreviewRouteImport } from './routes/lovable/email/auth/preview'
 import { Route as ApiPublicPaymentsWebhookRouteImport } from './routes/api/public/payments/webhook'
+import { Route as ApiPublicPaymentsLemonRouteImport } from './routes/api/public/payments/lemon'
 
 const UsoDeIaRoute = UsoDeIaRouteImport.update({
   id: '/uso-de-ia',
@@ -237,6 +238,11 @@ const ApiPublicPaymentsWebhookRoute =
     path: '/api/public/payments/webhook',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiPublicPaymentsLemonRoute = ApiPublicPaymentsLemonRouteImport.update({
+  id: '/api/public/payments/lemon',
+  path: '/api/public/payments/lemon',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof AuthenticatedIndexRoute
@@ -272,6 +278,7 @@ export interface FileRoutesByFullPath {
   '/filosofos/': typeof AuthenticatedFilosofosIndexRoute
   '/ideas/': typeof AuthenticatedIdeasIndexRoute
   '/rutas/': typeof AuthenticatedRutasIndexRoute
+  '/api/public/payments/lemon': typeof ApiPublicPaymentsLemonRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
@@ -310,6 +317,7 @@ export interface FileRoutesByTo {
   '/filosofos': typeof AuthenticatedFilosofosIndexRoute
   '/ideas': typeof AuthenticatedIdeasIndexRoute
   '/rutas': typeof AuthenticatedRutasIndexRoute
+  '/api/public/payments/lemon': typeof ApiPublicPaymentsLemonRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
@@ -350,6 +358,7 @@ export interface FileRoutesById {
   '/_authenticated/filosofos/': typeof AuthenticatedFilosofosIndexRoute
   '/_authenticated/ideas/': typeof AuthenticatedIdeasIndexRoute
   '/_authenticated/rutas/': typeof AuthenticatedRutasIndexRoute
+  '/api/public/payments/lemon': typeof ApiPublicPaymentsLemonRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
@@ -390,6 +399,7 @@ export interface FileRouteTypes {
     | '/filosofos/'
     | '/ideas/'
     | '/rutas/'
+    | '/api/public/payments/lemon'
     | '/api/public/payments/webhook'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
@@ -428,6 +438,7 @@ export interface FileRouteTypes {
     | '/filosofos'
     | '/ideas'
     | '/rutas'
+    | '/api/public/payments/lemon'
     | '/api/public/payments/webhook'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
@@ -467,6 +478,7 @@ export interface FileRouteTypes {
     | '/_authenticated/filosofos/'
     | '/_authenticated/ideas/'
     | '/_authenticated/rutas/'
+    | '/api/public/payments/lemon'
     | '/api/public/payments/webhook'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
@@ -481,6 +493,7 @@ export interface RootRouteChildren {
   TerminosRoute: typeof TerminosRoute
   UsoDeIaRoute: typeof UsoDeIaRoute
   ApiPodcastSpeechRoute: typeof ApiPodcastSpeechRoute
+  ApiPublicPaymentsLemonRoute: typeof ApiPublicPaymentsLemonRoute
   ApiPublicPaymentsWebhookRoute: typeof ApiPublicPaymentsWebhookRoute
   LovableEmailAuthPreviewRoute: typeof LovableEmailAuthPreviewRoute
   LovableEmailAuthWebhookRoute: typeof LovableEmailAuthWebhookRoute
@@ -747,6 +760,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicPaymentsWebhookRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/payments/lemon': {
+      id: '/api/public/payments/lemon'
+      path: '/api/public/payments/lemon'
+      fullPath: '/api/public/payments/lemon'
+      preLoaderRoute: typeof ApiPublicPaymentsLemonRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -820,6 +840,7 @@ const rootRouteChildren: RootRouteChildren = {
   TerminosRoute: TerminosRoute,
   UsoDeIaRoute: UsoDeIaRoute,
   ApiPodcastSpeechRoute: ApiPodcastSpeechRoute,
+  ApiPublicPaymentsLemonRoute: ApiPublicPaymentsLemonRoute,
   ApiPublicPaymentsWebhookRoute: ApiPublicPaymentsWebhookRoute,
   LovableEmailAuthPreviewRoute: LovableEmailAuthPreviewRoute,
   LovableEmailAuthWebhookRoute: LovableEmailAuthWebhookRoute,
