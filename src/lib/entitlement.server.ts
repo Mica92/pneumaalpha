@@ -4,7 +4,7 @@ import { FREE_MESSAGE_LIMIT, LIFETIME_SEATS, PAYWALL_ERROR, type Entitlement, ty
 type Client = SupabaseClient<any, "public", any>;
 
 export function paymentsConfigured() {
-  return Boolean(process.env.PADDLE_SANDBOX_API_KEY || process.env.PADDLE_LIVE_API_KEY);
+  return Boolean(process.env.LEMON_SQUEEZY_API_KEY && process.env.LEMON_SQUEEZY_STORE_ID);
 }
 
 /** Active plan for a user, honouring expiry of period-based plans. */

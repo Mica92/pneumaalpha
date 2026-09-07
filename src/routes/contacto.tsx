@@ -40,11 +40,11 @@ const ES: LegalCopy = {
     },
     {
       h: "3. Compras, facturación e impuestos",
-      p: "Nuestro proceso de pedidos es realizado por Paddle.com, que actúa como Comerciante Registrado (Merchant of Record) de todos los pedidos. Paddle atiende las consultas de facturación, emite las facturas y gestiona los impuestos. Puedes consultar tus pedidos en https://paddle.net con el correo que usaste al comprar, o escribirnos a soporte@pneumaalpha.app y lo gestionamos contigo.",
+      p: "Nuestro proceso de pedidos es realizado por Lemon Squeezy, que actúa como Comerciante Registrado (Merchant of Record) de todos los pedidos. Lemon Squeezy atiende las consultas de facturación, emite las facturas y gestiona los impuestos. Puedes consultar tus pedidos en https://app.lemonsqueezy.com/my-orders con el correo que usaste al comprar, o escribirnos a soporte@pneumaalpha.app y lo gestionamos contigo.",
     },
     {
       h: "4. Cancelación y reembolsos",
-      p: "Puedes cancelar la renovación en cualquier momento desde https://paddle.net o pidiéndolo por correo. Ofrecemos 30 días de garantía de devolución en todos los planes; el detalle está en la Política de reembolsos.",
+      p: "Puedes cancelar la renovación en cualquier momento desde https://app.lemonsqueezy.com/my-orders o pidiéndolo por correo. Ofrecemos 30 días de garantía de devolución en todos los planes; el detalle está en la Política de reembolsos.",
     },
     {
       h: "5. Privacidad y datos",
@@ -75,11 +75,11 @@ const EN: LegalCopy = {
     },
     {
       h: "3. Purchases, billing and taxes",
-      p: "Our order process is conducted by Paddle.com, the Merchant of Record for all orders. Paddle handles billing enquiries, issues invoices and manages taxes. You can review your orders at https://paddle.net using the email you purchased with, or write to soporte@pneumaalpha.app and we will handle it with you.",
+      p: "Our order process is conducted by Lemon Squeezy, the Merchant of Record for all orders. Lemon Squeezy handles billing enquiries, issues invoices and manages taxes. You can review your orders at https://app.lemonsqueezy.com/my-orders using the email you purchased with, or write to soporte@pneumaalpha.app and we will handle it with you.",
     },
     {
       h: "4. Cancellation and refunds",
-      p: "You can cancel renewal at any time at https://paddle.net or by email. We offer a 30-day money-back guarantee on every plan; details are in the Refund Policy.",
+      p: "You can cancel renewal at any time at https://app.lemonsqueezy.com/my-orders or by email. We offer a 30-day money-back guarantee on every plan; details are in the Refund Policy.",
     },
     {
       h: "5. Privacy and data",

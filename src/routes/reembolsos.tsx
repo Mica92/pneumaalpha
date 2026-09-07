@@ -7,7 +7,7 @@ export const Route = createFileRoute("/reembolsos")({
   head: () => {
     const title = "Política de reembolsos — Pneum";
     const description =
-      "Garantía de devolución de 30 días en todos los planes de Pneum. Los reembolsos se gestionan a través de Paddle, nuestro comerciante registrado.";
+      "Garantía de devolución de 30 días en todos los planes de Pneum. Los reembolsos se gestionan a través de Lemon Squeezy, nuestro comerciante registrado.";
     return {
       meta: [
         { title },
@@ -35,7 +35,7 @@ const ES: LegalCopy = {
     },
     {
       h: "2. Cómo solicitarlo",
-      p: "Los pagos y las devoluciones son procesados por Paddle.com, nuestro revendedor y Comerciante Registrado. Puedes pedir el reembolso en https://paddle.net con el correo que usaste al comprar, o escribirnos a soporte@pneumaalpha.app y lo gestionamos contigo.",
+      p: "Los pagos y las devoluciones son procesados por Lemon Squeezy, nuestro revendedor y Comerciante Registrado. Puedes pedir el reembolso en https://app.lemonsqueezy.com/my-orders con el correo que usaste al comprar, o escribirnos a soporte@pneumaalpha.app y lo gestionamos contigo.",
     },
     {
       h: "3. Renovaciones y cancelación",
@@ -43,7 +43,7 @@ const ES: LegalCopy = {
     },
     {
       h: "4. Plazos de devolución",
-      p: "Una vez aprobado, Paddle emite el reembolso al medio de pago original. El abono suele aparecer en un plazo de 3 a 10 días hábiles, según tu banco o emisor.",
+      p: "Una vez aprobado, Lemon Squeezy emite el reembolso al medio de pago original. El abono suele aparecer en un plazo de 3 a 10 días hábiles, según tu banco o emisor.",
     },
     {
       h: "5. Excepciones razonables",
@@ -70,7 +70,7 @@ const EN: LegalCopy = {
     },
     {
       h: "2. How to request it",
-      p: "Payments and refunds are processed by Paddle.com, our reseller and Merchant of Record. Request a refund at https://paddle.net using the email address you purchased with, or write to soporte@pneumaalpha.app and we will handle it with you.",
+      p: "Payments and refunds are processed by Lemon Squeezy, our reseller and Merchant of Record. Request a refund at https://app.lemonsqueezy.com/my-orders using the email address you purchased with, or write to soporte@pneumaalpha.app and we will handle it with you.",
     },
     {
       h: "3. Renewals and cancellation",
@@ -78,7 +78,7 @@ const EN: LegalCopy = {
     },
     {
       h: "4. Processing time",
-      p: "Once approved, Paddle issues the refund to the original payment method. It usually appears within 3 to 10 business days, depending on your bank or card issuer.",
+      p: "Once approved, Lemon Squeezy issues the refund to the original payment method. It usually appears within 3 to 10 business days, depending on your bank or card issuer.",
     },
     {
       h: "5. Reasonable exceptions",

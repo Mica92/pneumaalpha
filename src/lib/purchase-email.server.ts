@@ -2,7 +2,7 @@ import type { PlanId } from "@/lib/billing.shared";
 
 /**
  * Purchase confirmation email ("aprobación de pago").
- * Sent from the Paddle webhook once a payment is confirmed.
+ * Sent from the Lemon Squeezy webhook once a payment is confirmed.
  * No-ops (and logs) while the sender domain / API key is not configured yet,
  * so a missing email setup never breaks webhook processing.
  */
@@ -56,8 +56,8 @@ function renderHtml(opts: {
       <p style="font-size:12px;line-height:1.7;color:#8B867E;margin:36px 0 0;">
         ${
           es
-            ? "El recibo y la factura los emite Paddle.com, comerciante registrado de Kionas IA. Tienes 30 días de garantía de devolución."
-            : "Your receipt and invoice are issued by Paddle.com, Merchant of Record for Kionas IA. You have a 30-day money-back guarantee."
+            ? "El recibo y la factura los emite Lemon Squeezy, comerciante registrado de Kionas IA. Tienes 30 días de garantía de devolución."
+            : "Your receipt and invoice are issued by Lemon Squeezy, Merchant of Record for Kionas IA. You have a 30-day money-back guarantee."
         }
         <br /><a href="${opts.appUrl}/reembolsos" style="color:#B89A62;">${es ? "Política de reembolsos" : "Refund policy"}</a>
       </p>

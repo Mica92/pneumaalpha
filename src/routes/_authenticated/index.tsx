@@ -286,8 +286,8 @@ function Home() {
 
             <p className="mt-8 text-micro leading-relaxed text-muted-foreground">
               {es
-                ? "Servicio vendido por Kionas IA, Santiago de Chile. Soporte: soporte@pneumaalpha.app. Pagos procesados por Paddle.com, Comerciante Registrado. 30 días de garantía de devolución."
-                : "Service sold by Kionas IA, Santiago, Chile. Support: soporte@pneumaalpha.app. Payments processed by Paddle.com, Merchant of Record. 30-day money-back guarantee."}
+                ? "Servicio vendido por Kionas IA, Santiago de Chile. Soporte: soporte@pneumaalpha.app. Pagos procesados por Lemon Squeezy, Comerciante Registrado. 30 días de garantía de devolución."
+                : "Service sold by Kionas IA, Santiago, Chile. Support: soporte@pneumaalpha.app. Payments processed by Lemon Squeezy, Merchant of Record. 30-day money-back guarantee."}
             </p>
             <p className="mt-3 flex flex-wrap gap-4 text-micro uppercase tracking-[0.25em] text-muted-foreground">
               <Link to="/planes" className="focus-mist hover:text-foreground">

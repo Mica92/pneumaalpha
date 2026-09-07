@@ -1,20 +1,19 @@
 import { useCallback, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { prepareCheckout } from "@/lib/billing.functions";
-import { getPaddlePriceId, initializePaddle } from "@/lib/paddle";
+import { loadLemon, openLemonOverlay } from "@/lib/lemon";
 import type { PlanId } from "@/lib/billing.shared";
-import { useAuth } from "@/hooks/use-auth";
 import { useI18n } from "@/lib/i18n";
 import { track } from "@/lib/analytics";
 
 /**
- * Shared Paddle overlay checkout, used by /planes and by the in-chat plan picker.
- * Keeps server-side validation (active subscription, lifetime seats) as the single gate.
+ * Shared Lemon Squeezy overlay checkout, used by /planes and by the in-chat
+ * plan picker. Server-side validation (session, active plan, lifetime seats)
+ * stays the single gate; the browser never grants access.
  */
-export function usePaddleCheckout(options?: { successPath?: string; onCompleted?: () => void }) {
+export function useLemonCheckout(options?: { successPath?: string; onCompleted?: () => void }) {
   const { lang } = useI18n();
   const es = lang === "es";
-  const { user } = useAuth();
   const prepare = useServerFn(prepareCheckout);
   const [pending, setPending] = useState<PlanId | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -25,7 +24,8 @@ export function usePaddleCheckout(options?: { successPath?: string; onCompleted?
       setPending(plan);
       track("checkout_started", { plan });
       try {
-        const res = await prepare({ data: { plan } });
+        const redirectUrl = `${window.location.origin}${options?.successPath ?? "/planes?pago=ok"}`;
+        const res = await prepare({ data: { plan, redirectUrl } });
         if ("error" in res) {
           setError(
             res.error === "not_configured"
@@ -47,29 +47,17 @@ export function usePaddleCheckout(options?: { successPath?: string; onCompleted?
           return;
         }
 
-        await initializePaddle();
-        const paddlePriceId = await getPaddlePriceId(res.priceId);
-        window.Paddle.Checkout.open({
-          items: [{ priceId: paddlePriceId, quantity: 1 }],
-          customer: user?.email ? { email: user.email } : undefined,
-          customData: { user_id: user?.id ?? "", plan },
-          settings: {
-            displayMode: "overlay",
-            variant: "one-page",
-            successUrl: `${window.location.origin}${options?.successPath ?? "/planes?pago=ok"}`,
-            allowLogout: false,
-          },
-          eventCallback: (event: { name?: string }) => {
-            if (event?.name === "checkout.completed") options?.onCompleted?.();
-          },
+        await loadLemon((event) => {
+          if (event === "Checkout.Success") options?.onCompleted?.();
         });
+        openLemonOverlay(res.url);
       } catch {
         setError(es ? "No pudimos abrir el pago." : "We couldn't open checkout.");
       } finally {
         setPending(null);
       }
     },
-    [es, options, prepare, user?.email, user?.id],
+    [es, options, prepare],
   );
 
   return { start, pending, error, setError };
