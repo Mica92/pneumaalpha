@@ -45,8 +45,9 @@ export const prepareCheckout = createServerFn({ method: "POST" })
         redirectUrl: data.redirectUrl,
       });
       return { url };
-    } catch {
-      return { error: "checkout_failed" };
+    } catch (e) {
+      const code = e instanceof Error ? e.message : "checkout_failed";
+      return { error: code === "plan_unavailable" ? "plan_unavailable" : "checkout_failed" };
     }
   });
 
