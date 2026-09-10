@@ -62,3 +62,4 @@ export const getLifetimeSeats = createServerFn({ method: "GET" }).handler(async 
   const taken = (data as number | null) ?? 0;
   return { taken, left: Math.max(0, LIFETIME_SEATS - taken) };
 });
+
