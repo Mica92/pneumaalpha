@@ -62,3 +62,12 @@ export const getLifetimeSeats = createServerFn({ method: "GET" }).handler(async 
   const taken = (data as number | null) ?? 0;
   return { taken, left: Math.max(0, LIFETIME_SEATS - taken) };
 });
+
+/** Temporary diagnostic: confirms the preview environment loaded the new webhook secret. */
+export const checkWebhookSecret = createServerFn({ method: "GET" }).handler(async () => {
+  const secret = process.env["LEMON_SQUEEZY_WEBHOOK_SECRET"];
+  return {
+    configured: Boolean(secret),
+    length: secret?.length ?? 0,
+  };
+});
