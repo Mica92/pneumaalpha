@@ -45,7 +45,6 @@ import { Route as AuthenticatedFilosofosIdRouteImport } from './routes/_authenti
 import { Route as AuthenticatedAdminAnaliticaRouteImport } from './routes/_authenticated/admin.analitica'
 import { Route as LovableEmailAuthWebhookRouteImport } from './routes/lovable/email/auth/webhook'
 import { Route as LovableEmailAuthPreviewRouteImport } from './routes/lovable/email/auth/preview'
-import { Route as ApiPublicPaymentsLemonSecretCheckRouteImport } from './routes/api/public/payments/lemon-secret-check'
 import { Route as ApiPublicPaymentsLemonRouteImport } from './routes/api/public/payments/lemon'
 
 const UsoDeIaRoute = UsoDeIaRouteImport.update({
@@ -232,12 +231,6 @@ const LovableEmailAuthPreviewRoute = LovableEmailAuthPreviewRouteImport.update({
   path: '/lovable/email/auth/preview',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiPublicPaymentsLemonSecretCheckRoute =
-  ApiPublicPaymentsLemonSecretCheckRouteImport.update({
-    id: '/api/public/payments/lemon-secret-check',
-    path: '/api/public/payments/lemon-secret-check',
-    getParentRoute: () => rootRouteImport,
-  } as any)
 const ApiPublicPaymentsLemonRoute = ApiPublicPaymentsLemonRouteImport.update({
   id: '/api/public/payments/lemon',
   path: '/api/public/payments/lemon',
@@ -279,7 +272,6 @@ export interface FileRoutesByFullPath {
   '/ideas/': typeof AuthenticatedIdeasIndexRoute
   '/rutas/': typeof AuthenticatedRutasIndexRoute
   '/api/public/payments/lemon': typeof ApiPublicPaymentsLemonRoute
-  '/api/public/payments/lemon-secret-check': typeof ApiPublicPaymentsLemonSecretCheckRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
 }
@@ -318,7 +310,6 @@ export interface FileRoutesByTo {
   '/ideas': typeof AuthenticatedIdeasIndexRoute
   '/rutas': typeof AuthenticatedRutasIndexRoute
   '/api/public/payments/lemon': typeof ApiPublicPaymentsLemonRoute
-  '/api/public/payments/lemon-secret-check': typeof ApiPublicPaymentsLemonSecretCheckRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
 }
@@ -359,7 +350,6 @@ export interface FileRoutesById {
   '/_authenticated/ideas/': typeof AuthenticatedIdeasIndexRoute
   '/_authenticated/rutas/': typeof AuthenticatedRutasIndexRoute
   '/api/public/payments/lemon': typeof ApiPublicPaymentsLemonRoute
-  '/api/public/payments/lemon-secret-check': typeof ApiPublicPaymentsLemonSecretCheckRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
 }
@@ -400,7 +390,6 @@ export interface FileRouteTypes {
     | '/ideas/'
     | '/rutas/'
     | '/api/public/payments/lemon'
-    | '/api/public/payments/lemon-secret-check'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
   fileRoutesByTo: FileRoutesByTo
@@ -439,7 +428,6 @@ export interface FileRouteTypes {
     | '/ideas'
     | '/rutas'
     | '/api/public/payments/lemon'
-    | '/api/public/payments/lemon-secret-check'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
   id:
@@ -479,7 +467,6 @@ export interface FileRouteTypes {
     | '/_authenticated/ideas/'
     | '/_authenticated/rutas/'
     | '/api/public/payments/lemon'
-    | '/api/public/payments/lemon-secret-check'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
   fileRoutesById: FileRoutesById
@@ -494,7 +481,6 @@ export interface RootRouteChildren {
   UsoDeIaRoute: typeof UsoDeIaRoute
   ApiPodcastSpeechRoute: typeof ApiPodcastSpeechRoute
   ApiPublicPaymentsLemonRoute: typeof ApiPublicPaymentsLemonRoute
-  ApiPublicPaymentsLemonSecretCheckRoute: typeof ApiPublicPaymentsLemonSecretCheckRoute
   LovableEmailAuthPreviewRoute: typeof LovableEmailAuthPreviewRoute
   LovableEmailAuthWebhookRoute: typeof LovableEmailAuthWebhookRoute
 }
@@ -753,13 +739,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LovableEmailAuthPreviewRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/public/payments/lemon-secret-check': {
-      id: '/api/public/payments/lemon-secret-check'
-      path: '/api/public/payments/lemon-secret-check'
-      fullPath: '/api/public/payments/lemon-secret-check'
-      preLoaderRoute: typeof ApiPublicPaymentsLemonSecretCheckRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/api/public/payments/lemon': {
       id: '/api/public/payments/lemon'
       path: '/api/public/payments/lemon'
@@ -841,8 +820,6 @@ const rootRouteChildren: RootRouteChildren = {
   UsoDeIaRoute: UsoDeIaRoute,
   ApiPodcastSpeechRoute: ApiPodcastSpeechRoute,
   ApiPublicPaymentsLemonRoute: ApiPublicPaymentsLemonRoute,
-  ApiPublicPaymentsLemonSecretCheckRoute:
-    ApiPublicPaymentsLemonSecretCheckRoute,
   LovableEmailAuthPreviewRoute: LovableEmailAuthPreviewRoute,
   LovableEmailAuthWebhookRoute: LovableEmailAuthWebhookRoute,
 }
