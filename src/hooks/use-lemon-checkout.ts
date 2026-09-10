@@ -36,7 +36,11 @@ export function useLemonCheckout(options?: { successPath?: string; onCompleted?:
                 ? es
                   ? "Los cupos vitalicios se agotaron."
                   : "Lifetime seats are sold out."
-                : res.error === "already_subscribed"
+                : res.error === "plan_unavailable"
+                  ? es
+                    ? "Este plan aún no está disponible en la tienda. Estamos configurándolo."
+                    : "This plan is not available in the store yet."
+                  : res.error === "already_subscribed"
                   ? es
                     ? "Ya tienes una suscripción activa."
                     : "You already have an active subscription."

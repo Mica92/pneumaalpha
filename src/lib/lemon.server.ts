@@ -73,6 +73,8 @@ export async function createCheckoutUrl(args: {
   if (!res.ok) {
     const text = await res.text();
     console.error("[lemon] checkout creation failed", res.status, text);
+    // The configured variant does not exist in this store (wrong/stale id).
+    if (res.status === 404 || /variant/i.test(text)) throw new Error("plan_unavailable");
     throw new Error("checkout_failed");
   }
   const json = (await res.json()) as { data?: { attributes?: { url?: string } } };
