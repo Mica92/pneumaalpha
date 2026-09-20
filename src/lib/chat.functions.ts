@@ -4,6 +4,7 @@ import { convertToModelMessages, streamText, type UIMessage } from "ai";
 import { createLovableAiGatewayProvider } from "@/lib/ai-gateway";
 import { buildSystemPrompt, isPhilosopherId, type PhilosopherId } from "@/lib/philosophers";
 import { z } from "zod";
+import { crisisDirective, detectSafety, offDomainDirective } from "@/lib/safety";
 
 const PhilosopherSchema = z.string().refine(isPhilosopherId, { message: "Filósofo desconocido" });
 const LanguageSchema = z.enum(["es", "en"]).default("es");

@@ -231,5 +231,6 @@ ${shape}`;
       aha: (raw.aha ?? "").trim(),
       philosopher: primary,
       reason: why,
+      safety: null,
     };
   });
