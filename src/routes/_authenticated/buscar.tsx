@@ -1,12 +1,13 @@
 import { SITE_URL } from "@/lib/site";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { PHILOSOPHER_LIST, PHILOSOPHERS } from "@/lib/philosophers";
 import { profileOf } from "@/lib/portraits";
 import { CATEGORIES, IDEAS, ROUTES, REAL_PROBLEMS, centralQuestion } from "@/lib/discovery";
 import { SiteNav } from "@/components/site-nav";
 import { SiteFooter } from "@/components/site-footer";
 import { useI18n } from "@/lib/i18n";
+import { track } from "@/lib/analytics";
 
 export const Route = createFileRoute("/_authenticated/buscar")({
   validateSearch: (search: Record<string, unknown>): { q?: string } =>
@@ -18,7 +19,7 @@ export const Route = createFileRoute("/_authenticated/buscar")({
       {
         name: "description",
         content:
-          "Busca entre las 19 mentes, las grandes ideas, las rutas filosóficas y las preguntas de la vida real.",
+          "Busca entre las perspectivas filosóficas, las grandes ideas, las rutas y las preguntas de la vida real.",
       },
       { property: "og:title", content: "Buscar — Pneum" },
       {
@@ -150,6 +151,27 @@ function SearchPage() {
 
     return out.slice(0, 40);
   }, [query, lang, es]);
+
+  const suggestions = useMemo(
+    () =>
+      REAL_PROBLEMS.slice(0, 4).map((rp) => ({
+        key: rp.id,
+        q: rp.text[lang],
+        label: rp.text[lang],
+      })),
+    [lang],
+  );
+
+  const reported = useRef<string>("");
+  useEffect(() => {
+    const term = query.trim();
+    if (term.length < 2 || hits.length > 0 || reported.current === term) return;
+    const id = setTimeout(() => {
+      reported.current = term;
+      track("search_no_results", { term: term.slice(0, 80) });
+    }, 900);
+    return () => clearTimeout(id);
+  }, [query, hits.length]);
 
   return (
     <>
