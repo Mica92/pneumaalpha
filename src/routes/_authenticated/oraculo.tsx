@@ -304,7 +304,7 @@ function OraclePage() {
                       <Link
                         to="/$philosopher"
                         params={{ philosopher: p.philosopher }}
-                        search={asked ? { q: asked } : undefined}
+                        search={askedQid ? { qid: askedQid } : {}}
                         onClick={() =>
                           track("first_interaction", {
                             philosopher: p.philosopher,
@@ -366,7 +366,7 @@ function OraclePage() {
                 <Link
                   to="/$philosopher"
                   params={{ philosopher: primary.id }}
-                  search={asked ? { q: asked } : undefined}
+                  search={askedQid ? { qid: askedQid } : {}}
                   onClick={() =>
                     track("first_interaction", { philosopher: primary.id, from: "oracle" })
                   }
@@ -376,7 +376,12 @@ function OraclePage() {
                 </Link>
                 <Link
                   to="/comparar"
-                  search={asked ? { q: asked } : {}}
+                  search={{
+                    ...(askedQid ? { qid: askedQid } : {}),
+                    ...(result.perspectives.length
+                      ? { seats: result.perspectives.map((p) => p.philosopher).join(",") }
+                      : {}),
+                  }}
                   onClick={() => track("next_action", { action: "compare" })}
                   className="btn-ghost-gold focus-mist px-5 py-3 text-small"
                 >
