@@ -42,7 +42,7 @@ export const Route = createFileRoute("/_authenticated/")({
           "@type": "SoftwareApplication",
           name: SITE_NAME,
           description:
-            "Conversaciones bilingües (ES/EN) con conciencias filosóficas reconstruidas: filosofía aplicada para pensar, decidir y vivir mejor.",
+            "Claridad de pensamiento para preguntas, problemas y decisiones complejas. Pneum usa filosofía aplicada como motor intelectual, en español e inglés.",
           applicationCategory: "LifestyleApplication",
           operatingSystem: "Web",
           inLanguage: ["es", "en"],
@@ -58,10 +58,10 @@ export const Route = createFileRoute("/_authenticated/")({
           mainEntity: [
             {
               "@type": "Question",
-              name: "¿En qué idiomas puedo conversar?",
+              name: "¿En qué idiomas funciona Pneum?",
               acceptedAnswer: {
                 "@type": "Answer",
-                text: "En español y en inglés. Cada conciencia responde en el idioma en que le hables.",
+                text: "En español y en inglés. Pneum responde en el idioma en que escribas tu pregunta.",
               },
             },
             {
@@ -69,7 +69,7 @@ export const Route = createFileRoute("/_authenticated/")({
               name: "¿Pneum reemplaza a un terapeuta?",
               acceptedAnswer: {
                 "@type": "Answer",
-                text: "No. Pneum es una herramienta de reflexión y diálogo filosófico, no un servicio de salud mental ni un sustituto de terapia profesional.",
+                text: "No. Pneum es una herramienta de claridad de pensamiento y análisis, no un servicio de salud mental ni un sustituto de terapia profesional.",
               },
             },
             {
@@ -77,7 +77,7 @@ export const Route = createFileRoute("/_authenticated/")({
               name: "¿Cómo funciona?",
               acceptedAnswer: {
                 "@type": "Answer",
-                text: "Escribe lo que te preocupa y conversa con una de las conciencias filosóficas reconstruidas. No necesitas saber filosofía: entras por una pregunta, no por un autor.",
+                text: "Escribes lo que estás intentando comprender. Pneum interpreta tu pregunta, muestra lo que parece haber detrás y te ofrece perspectivas relevantes para pensarla mejor. No necesitas saber filosofía.",
               },
             },
           ],
