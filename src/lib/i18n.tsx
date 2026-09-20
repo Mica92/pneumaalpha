@@ -126,6 +126,17 @@ export const T: Dict = {
     en: "Detailed reading with key concepts, philosophical, political, literary, religious and scientific influences, tensions and lineage.",
   },
   "analysis.card.cta": { es: "Analizar →", en: "Analyze →" },
+
+  "compare.kicker": { es: "Comparar", en: "Compare" },
+  "compare.card.title": {
+    es: "Dos perspectivas frente a la misma pregunta",
+    en: "Two perspectives on the same question",
+  },
+  "compare.card.sub": {
+    es: "Elige dos pensadores y mira en qué coinciden, dónde chocan y qué cambia según a quién le preguntes.",
+    en: "Pick two thinkers and see where they agree, where they clash and what changes depending on whom you ask.",
+  },
+  "compare.card.cta": { es: "Comparar dos →", en: "Compare two →" },
   "analysis.page.title": {
     es: "Análisis de textos, frases y conceptos",
     en: "Analysis of texts, phrases and concepts",
