@@ -353,8 +353,8 @@ export const T: Dict = {
     en: "Write what you are trying to understand.",
   },
   "oracle.card.sub": {
-    es: "Una pregunta, un problema, una decisión. Pneum encuentra la perspectiva que mejor lo ilumina.",
-    en: "A question, a problem, a decision. Pneum finds the perspective that best illuminates it.",
+    es: "Una pregunta, un problema, una decisión. Pneum te muestra lo que hay detrás y las perspectivas que ayudan a verlo.",
+    en: "A question, a problem, a decision. Pneum shows what lies beneath it and the perspectives that help you see it.",
   },
   "oracle.card.cta": { es: "Empezar por una pregunta →", en: "Start with a question →" },
   "oracle.page.title": {
