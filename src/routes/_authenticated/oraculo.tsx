@@ -11,10 +11,12 @@ import { ToneSelect } from "@/components/tone-select";
 import { isToneId, loadStoredTone, storeTone, type ToneId } from "@/lib/tones";
 import { track, trackOnce } from "@/lib/analytics";
 import { PageAtmosphere } from "@/components/page-atmosphere";
+import { readQuestion, useQuestionHandoff, validateQid } from "@/lib/question-handoff";
+import { CRISIS_RESOURCES } from "@/lib/safety";
 
 export const Route = createFileRoute("/_authenticated/oraculo")({
-  validateSearch: (search: Record<string, unknown>): { q?: string; tone?: string } => ({
-    ...(typeof search.q === "string" && search.q ? { q: search.q } : {}),
+  validateSearch: (search: Record<string, unknown>): { qid?: string; tone?: string } => ({
+    ...validateQid(search),
     ...(isToneId(search.tone) ? { tone: search.tone } : {}),
   }),
   component: OraclePage,
