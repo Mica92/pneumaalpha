@@ -11,32 +11,25 @@ import { cn } from "@/lib/utils";
 type NavItem = { to: string; es: string; en: string; note?: { es: string; en: string } };
 type NavGroup = { id: string; es: string; en: string; items: readonly NavItem[] };
 
-/** Four areas. Every existing page still lives at its own address. */
+/** Two short menus. Every existing page still lives at its own address. */
 const GROUPS: readonly NavGroup[] = [
   {
-    id: "minds",
-    es: "Mentes",
-    en: "Minds",
+    id: "explore",
+    es: "Explorar",
+    en: "Explore",
     items: [
-      {
-        to: "/filosofos",
-        es: "Filósofos",
-        en: "Philosophers",
-        note: { es: "El catálogo completo", en: "The full catalogue" },
-      },
       {
         to: "/explorar",
         es: "Explorar",
         en: "Explore",
         note: { es: "Entra por un tema, no por un nombre", en: "Enter by topic, not by name" },
       },
-    ],
-  },
-  {
-    id: "ideas",
-    es: "Ideas",
-    en: "Ideas",
-    items: [
+      {
+        to: "/filosofos",
+        es: "Perspectivas",
+        en: "Perspectives",
+        note: { es: "El catálogo completo", en: "The full catalogue" },
+      },
       {
         to: "/ideas",
         es: "Ideas",
@@ -58,9 +51,9 @@ const GROUPS: readonly NavGroup[] = [
     ],
   },
   {
-    id: "instruments",
-    es: "Instrumentos",
-    en: "Instruments",
+    id: "product",
+    es: "Producto",
+    en: "Product",
     items: [
       {
         to: "/oraculo",
@@ -75,7 +68,10 @@ const GROUPS: readonly NavGroup[] = [
         to: "/analisis",
         es: "Análisis",
         en: "Analysis",
-        note: { es: "Analiza cómo estás pensando algo", en: "Analyse how you are thinking something" },
+        note: {
+          es: "Analiza cómo estás pensando algo",
+          en: "Analyse how you are thinking something",
+        },
       },
       {
         to: "/mesa",
@@ -87,7 +83,10 @@ const GROUPS: readonly NavGroup[] = [
         to: "/comparar",
         es: "Comparar",
         en: "Compare",
-        note: { es: "Mira el problema desde perspectivas diferentes", en: "See the problem from different perspectives" },
+        note: {
+          es: "Mira el problema desde perspectivas diferentes",
+          en: "See the problem from different perspectives",
+        },
       },
       {
         to: "/modo-socrates",
@@ -107,13 +106,6 @@ const GROUPS: readonly NavGroup[] = [
         en: "Library",
         note: { es: "Obras y fuentes", en: "Works and sources" },
       },
-    ],
-  },
-  {
-    id: "space",
-    es: "Mi espacio",
-    en: "My space",
-    items: [
       {
         to: "/mi-mapa",
         es: "Mi mapa",
