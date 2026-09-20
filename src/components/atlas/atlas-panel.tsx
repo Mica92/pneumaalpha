@@ -120,14 +120,14 @@ export function AtlasPanel({ entity, relation, onSelect, onClose, onAdd, reason,
 
       <div className="mt-6 flex flex-wrap gap-2">
         {chat && (
-          <Link
+          <AskLink
             to="/$philosopher"
             params={{ philosopher: chat }}
-            search={{ q: prompt }}
+            text={prompt}
             className="btn-gold"
           >
             {entity.chat ? COPY.talk[lang] : `${COPY.talkAbout[lang]} ${philosopherName(chat)}`}
-          </Link>
+          </AskLink>
         )}
         {onAdd && (
           <button type="button" className="btn-ghost-gold" onClick={() => onAdd(entity.id)}>

@@ -95,14 +95,14 @@ function RoutePage() {
                   <p className="mt-3 font-serif text-lg italic text-bronze-bright">
                     {step.prompt[lang]}
                   </p>
-                  <Link
+                  <AskLink
                     to="/$philosopher"
                     params={{ philosopher: step.philosopher }}
-                    search={{ q: step.prompt[lang] }}
+                    text={step.prompt[lang]}
                     className="btn-gold focus-mist mt-4 px-4 py-2 text-micro"
                   >
                     {es ? "Empezar este paso" : "Start this step"}
-                  </Link>
+                  </AskLink>
                 </div>
               </li>
             );
