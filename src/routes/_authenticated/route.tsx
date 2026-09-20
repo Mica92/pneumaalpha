@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { useAuth } from "@/hooks/use-auth";
 import { GreekGlyph } from "@/components/greek-glyph";
-import { track } from "@/lib/analytics";
+import { trackVisit } from "@/lib/analytics";
 
 export const Route = createFileRoute("/_authenticated")({
   // SSR activo: el contenido debe existir en el HTML inicial para que los
@@ -18,7 +18,7 @@ function AppLayout() {
   useEffect(() => setHydrated(true), []);
 
   useEffect(() => {
-    if (user) track("visit");
+    if (user) trackVisit();
   }, [user?.id]);
 
   // En el servidor y mientras se establece la sesión, renderizamos el contenido
