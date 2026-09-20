@@ -111,15 +111,15 @@ export function DilemmaBanner({
 
   if (minimized) {
     return (
-      <div className="border-b border-border/40 bg-background/60 backdrop-blur-xl">
+      <div className="border-b border-border/30 bg-background/60 backdrop-blur-xl">
         <div className="mx-auto flex max-w-3xl items-center justify-end px-4 py-1.5">
           <button
             onClick={() => setMin(false)}
             aria-label={t("chat.dilemma.restore")}
             title={t("chat.dilemma.restore")}
-            className="rounded-full border border-border/60 bg-card/40 px-2 py-1 text-micro text-mist/80 transition-all hover:border-mist/40 hover:text-foreground"
+            className="rounded-full border border-foreground/10 px-2.5 py-1 text-muted-foreground transition-colors duration-300 hover:border-foreground/25 hover:text-foreground"
           >
-            <span aria-hidden="true">◈</span>
+            <Diamond aria-hidden="true" size={12} strokeWidth={1.5} />
           </button>
         </div>
       </div>
@@ -127,51 +127,42 @@ export function DilemmaBanner({
   }
 
   return (
-    <div className="border-b border-border/40 bg-background/60 backdrop-blur-xl">
-      <div className="mx-auto max-w-3xl px-4 py-2.5">
-        <div
-          className="relative flex items-center gap-3 overflow-hidden rounded-xl border border-border/70 px-4 py-2.5"
-          style={{
-            backgroundImage:
-              "linear-gradient(135deg, color-mix(in oklab, var(--mist) 8%, transparent), color-mix(in oklab, var(--glacier) 10%, transparent))",
-          }}
-        >
-          <span aria-hidden="true" className="text-base leading-none">
-            ◈
-          </span>
-          <div className="min-w-0 flex-1">
-            <p className="font-display text-micro uppercase tracking-[0.32em] text-muted-foreground">
-              {t("chat.dilemma.kicker")}
-            </p>
-            <p className="mt-0.5 truncate text-small leading-snug text-foreground/90">{dilemma}</p>
+    <div className="border-b border-border/30 bg-background/60 backdrop-blur-xl">
+      <div className="mx-auto max-w-3xl px-4 py-3">
+        <div className="relative flex items-center justify-between gap-4 overflow-hidden rounded-xl border border-foreground/5 bg-card/70 p-4">
+          <div className="flex min-w-0 items-center gap-4">
+            <Diamond
+              aria-hidden="true"
+              size={16}
+              strokeWidth={1.25}
+              className="shrink-0 text-muted-foreground"
+            />
+            <div className="min-w-0">
+              <p className="text-micro uppercase tracking-[0.32em] text-muted-foreground">
+                {t("chat.dilemma.kicker")}
+              </p>
+              <p className="mt-1 truncate font-display text-subtitle font-light leading-snug text-foreground/90">
+                {dilemma}
+              </p>
+            </div>
           </div>
-          <button
-            onClick={onConverse}
-            disabled={disabled}
-            className="shrink-0 rounded-full border border-mist/40 bg-mist/15 px-3 py-1.5 font-display text-micro uppercase tracking-[0.25em] text-foreground transition-all hover:bg-mist/25 disabled:opacity-40"
-          >
-            {t("chat.dilemma.converse")}
-          </button>
-          <button
-            onClick={() => setMin(true)}
-            aria-label={t("chat.dilemma.close")}
-            title={t("chat.dilemma.close")}
-            className="shrink-0 rounded-full p-1 text-muted-foreground transition-colors hover:text-foreground"
-          >
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
+          <div className="flex shrink-0 items-center gap-2">
+            <button
+              onClick={onConverse}
+              disabled={disabled}
+              className="rounded-full border border-foreground/20 px-6 py-2 text-micro uppercase tracking-[0.25em] text-foreground/90 transition-all duration-300 hover:bg-foreground/5 hover:text-foreground disabled:opacity-40"
             >
-              <line x1="6" y1="6" x2="18" y2="18" />
-              <line x1="18" y1="6" x2="6" y2="18" />
-            </svg>
-          </button>
+              {t("chat.dilemma.converse")}
+            </button>
+            <button
+              onClick={() => setMin(true)}
+              aria-label={t("chat.dilemma.close")}
+              title={t("chat.dilemma.close")}
+              className="rounded-full p-1.5 text-muted-foreground transition-colors duration-300 hover:text-foreground"
+            >
+              <X aria-hidden="true" size={14} strokeWidth={1.5} />
+            </button>
+          </div>
         </div>
       </div>
     </div>
