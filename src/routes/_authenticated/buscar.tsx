@@ -218,25 +218,25 @@ function SearchPage() {
                   ? "Pneum puede leer lo que escribiste y proponerte la perspectiva que mejor lo ilumina."
                   : "Pneum can read what you wrote and propose the perspective that best illuminates it."}
               </p>
-              <Link
+              <AskLink
                 to="/oraculo"
-                search={{ q: query.trim() }}
+                text={query.trim()}
                 className="mt-6 inline-block rounded-md border border-mist/50 bg-mist/15 px-5 py-2.5 font-display text-micro uppercase tracking-[0.3em] text-foreground transition-all hover:border-mist/80 hover:bg-mist/25"
               >
                 {es ? "Pensarlo con Pneum →" : "Think it with Pneum →"}
-              </Link>
+              </AskLink>
 
               <p className="label mt-8">{es ? "O empieza por aquí" : "Or start here"}</p>
               <ul className="mt-3 space-y-2">
                 {suggestions.map((s) => (
                   <li key={s.key}>
-                    <Link
+                    <AskLink
                       to="/oraculo"
-                      search={{ q: s.q }}
-                      className="focus-mist block text-small text-foreground/85 transition-colors hover:text-bronze-bright"
+                      text={s.q}
+                      className="focus-mist block text-left text-small text-foreground/85 transition-colors hover:text-bronze-bright"
                     >
                       {s.label}
-                    </Link>
+                    </AskLink>
                   </li>
                 ))}
               </ul>
