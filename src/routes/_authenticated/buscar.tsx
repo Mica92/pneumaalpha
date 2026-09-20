@@ -181,9 +181,41 @@ function SearchPage() {
 
         <section className="mx-auto max-w-4xl px-5 py-10 md:px-8 md:py-14" aria-live="polite">
           {query.trim().length >= 2 && hits.length === 0 && (
-            <p className="text-small text-muted-foreground">
-              {es ? "Nada por aquí. Prueba con otra palabra." : "Nothing here. Try another word."}
-            </p>
+            <div className="card-editorial p-6 md:p-8">
+              <p className="label">{es ? "Sin coincidencias exactas" : "No exact matches"}</p>
+              <h2 className="mt-3 font-serif text-subtitle font-light text-foreground">
+                {es
+                  ? "Ninguna ficha coincide, pero tu pregunta sí se puede pensar."
+                  : "No entry matches, but your question can still be thought through."}
+              </h2>
+              <p className="mt-2 text-small text-muted-foreground">
+                {es
+                  ? "Pneum puede leer lo que escribiste y proponerte la perspectiva que mejor lo ilumina."
+                  : "Pneum can read what you wrote and propose the perspective that best illuminates it."}
+              </p>
+              <Link
+                to="/oraculo"
+                search={{ q: query.trim() }}
+                className="mt-6 inline-block rounded-md border border-mist/50 bg-mist/15 px-5 py-2.5 font-display text-micro uppercase tracking-[0.3em] text-foreground transition-all hover:border-mist/80 hover:bg-mist/25"
+              >
+                {es ? "Pensarlo con Pneum →" : "Think it with Pneum →"}
+              </Link>
+
+              <p className="label mt-8">{es ? "O empieza por aquí" : "Or start here"}</p>
+              <ul className="mt-3 space-y-2">
+                {suggestions.map((s) => (
+                  <li key={s.key}>
+                    <Link
+                      to="/oraculo"
+                      search={{ q: s.q }}
+                      className="focus-mist block text-small text-foreground/85 transition-colors hover:text-bronze-bright"
+                    >
+                      {s.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
           )}
 
           <ul className="divide-y divide-border/60">
