@@ -484,27 +484,27 @@ function Home() {
           </div>
         </section>
 
-        {/* ── Tres capacidades ─────────────────────────────────── */}
-        <section className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-28">
-          <p className="label">{es ? "Qué puedes hacer" : "What you can do"}</p>
-          <h2 className="mt-3 max-w-2xl font-serif text-title font-light text-foreground">
-            {es ? "Comprender, analizar, decidir" : "Understand, analyse, decide"}
-          </h2>
-
-          <ul className="mt-10 grid gap-4 md:grid-cols-3">
-            {CAPABILITIES.map((c) => (
-              <li key={c.id}>
-                <Link to={c.to} className="card-editorial focus-mist flex h-full flex-col p-7">
-                  <h3 className="font-serif text-subtitle font-light text-foreground">
-                    {c.title[lang]}
-                  </h3>
-                  <p className="mt-3 text-small leading-relaxed text-muted-foreground">
-                    {c.text[lang]}
-                  </p>
-                </Link>
-              </li>
-            ))}
-          </ul>
+        {/* ── Capacidades ──────────────────────────────────────── */}
+        <section className="band-paper border-y border-border">
+          <div className="mx-auto max-w-6xl px-5 py-16 md:px-8 md:py-20">
+            <ul className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-0">
+              {CAPABILITIES.map((c, i) => (
+                <li
+                  key={c.id}
+                  className={i > 0 ? "lg:border-l lg:border-border lg:pl-10" : "lg:pr-10"}
+                >
+                  <Link to={c.to} className="focus-mist group block">
+                    <h3 className="font-serif text-subtitle font-light text-foreground">
+                      {c.title[lang]}
+                    </h3>
+                    <p className="mt-3 text-small leading-relaxed text-muted-foreground transition-colors group-hover:text-foreground">
+                      {c.text[lang]}
+                    </p>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
         </section>
 
         {/* ── Cómo funciona ────────────────────────────────────── */}
@@ -561,38 +561,133 @@ function Home() {
           </Link>
         </section>
 
-        {/* ── La inteligencia detrás de Pneum ──────────────────── */}
+        {/* ── La inteligencia detrás de tu pensamiento ─────────── */}
         <section className="border-y border-border/60 bg-card/25">
-          <div className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-28">
-            <p className="label">{es ? "Infraestructura" : "Infrastructure"}</p>
-            <h2 className="mt-3 max-w-2xl font-serif text-title font-light text-foreground">
-              {es ? "La inteligencia detrás de Pneum" : "The intelligence behind Pneum"}
+          <div className="mx-auto grid max-w-6xl gap-14 px-5 py-20 md:px-8 md:py-28 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:items-center">
+            <div>
+              <p className="label">{es ? "Una sola plataforma" : "One single platform"}</p>
+              <h2 className="balance mt-3 font-serif text-title font-light text-foreground">
+                {es ? "La inteligencia detrás de tu pensamiento." : "The intelligence behind your thinking."}
+              </h2>
+              <p className="measure mt-5 text-body leading-relaxed text-muted-foreground">
+                {es
+                  ? "Pneum integra múltiples capas de inteligencia para ofrecerte una experiencia única y profunda."
+                  : "Pneum integrates multiple layers of intelligence to give you a single, deep experience."}
+              </p>
+              <blockquote className="mt-10 border-l border-bronze/40 pl-5">
+                <p className="font-serif text-subtitle font-light italic leading-snug text-bronze-bright">
+                  {es
+                    ? "“El pensamiento no es un lujo, es una herramienta de supervivencia.”"
+                    : "“Thought is not a luxury, it is a survival tool.”"}
+                </p>
+                <footer className="mt-3 text-micro uppercase tracking-[0.25em] text-muted-foreground">
+                  — {SITE_NAME}
+                </footer>
+              </blockquote>
+            </div>
+
+            <div>
+              <div className="grid items-center gap-5 md:grid-cols-[1fr_auto_1fr]">
+                <ul className="flex flex-col gap-3">
+                  {INFRASTRUCTURE.slice(0, 3).map((item) => (
+                    <li
+                      key={item.title.en}
+                      className="rounded-md border border-border/70 bg-background/60 px-4 py-3"
+                    >
+                      <p className="text-small text-foreground">{item.title[lang]}</p>
+                      <p className="mt-1 text-micro leading-relaxed text-muted-foreground">
+                        {item.text[lang]}
+                      </p>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="mx-auto flex size-32 items-center justify-center rounded-full border border-bronze/45 bg-background/70 text-center md:size-36">
+                  <span className="font-serif text-subtitle font-light tracking-[0.3em] text-bronze-bright">
+                    {SITE_NAME.toUpperCase()}
+                  </span>
+                </div>
+
+                <ul className="flex flex-col gap-3">
+                  {INFRASTRUCTURE.slice(3).map((item) => (
+                    <li
+                      key={item.title.en}
+                      className="rounded-md border border-border/70 bg-background/60 px-4 py-3"
+                    >
+                      <p className="text-small text-foreground">{item.title[lang]}</p>
+                      <p className="mt-1 text-micro leading-relaxed text-muted-foreground">
+                        {item.text[lang]}
+                      </p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <ol className="mt-8 flex flex-wrap items-center justify-center gap-3">
+                {(es
+                  ? ["Claridad", "Juicio", "Acción"]
+                  : ["Clarity", "Judgement", "Action"]
+                ).map((step, i) => (
+                  <li key={step} className="flex items-center gap-3">
+                    {i > 0 && (
+                      <span aria-hidden="true" className="text-bronze/60">
+                        →
+                      </span>
+                    )}
+                    <span className="rounded-full border border-bronze/35 px-4 py-1.5 text-micro uppercase tracking-[0.25em] text-bronze-bright">
+                      {step}
+                    </span>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </div>
+        </section>
+
+        {/* ── Diseñado para cada tipo de pensador ──────────────── */}
+        <section className="band-paper border-y border-border">
+          <div className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-24">
+            <h2 className="font-serif text-title font-light text-foreground">
+              {es ? "Diseñado para cada tipo de pensador" : "Designed for every kind of thinker"}
             </h2>
-            <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {INFRASTRUCTURE.map((item) => (
-                <li key={item.title.en} className="card-editorial p-6">
-                  <h3 className="text-small uppercase tracking-[0.18em] text-bronze-bright">
-                    {item.title[lang]}
-                  </h3>
-                  <p className="mt-3 text-small leading-relaxed text-muted-foreground">
-                    {item.text[lang]}
-                  </p>
+            <p className="mt-2 text-small text-muted-foreground">
+              {es
+                ? "Una misma infraestructura. Diferentes caminos."
+                : "One infrastructure. Different paths."}
+            </p>
+
+            <ul className="mt-10 grid gap-6 md:grid-cols-3">
+              {AUDIENCES.map((a) => (
+                <li key={a.id}>
+                  <Link
+                    to={a.to}
+                    className="focus-mist group flex h-full flex-col overflow-hidden rounded-md border border-border transition-colors hover:border-bronze/60"
+                  >
+                    <img
+                      src={a.img}
+                      alt=""
+                      aria-hidden="true"
+                      loading="lazy"
+                      width={992}
+                      height={672}
+                      className="aspect-[3/2] w-full object-cover"
+                    />
+                    <div className="flex flex-1 flex-col p-6">
+                      <h3 className="font-serif text-subtitle font-light text-foreground">
+                        {a.title[lang]}
+                      </h3>
+                      <p className="mt-3 text-small leading-relaxed text-muted-foreground">
+                        {a.text[lang]}
+                      </p>
+                      <span className="mt-6 text-micro uppercase tracking-[0.25em] text-bronze-bright">
+                        {a.cta[lang]} →
+                      </span>
+                    </div>
+                  </Link>
                 </li>
               ))}
             </ul>
           </div>
-        </section>
-
-        {/* ── Usos ─────────────────────────────────────────────── */}
-        <section className="mx-auto max-w-6xl px-5 py-16 md:px-8 md:py-20">
-          <p className="font-serif text-subtitle font-light text-foreground">
-            {es ? "Una misma infraestructura. Diferentes caminos." : "One infrastructure. Different paths."}
-          </p>
-          <p className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-micro uppercase tracking-[0.25em] text-muted-foreground">
-            {USES.map((u) => (
-              <span key={u.en}>{u[lang]}</span>
-            ))}
-          </p>
         </section>
 
         {/* ── Grandes ideas ────────────────────────────────────── */}
