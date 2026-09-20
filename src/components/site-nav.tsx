@@ -11,32 +11,25 @@ import { cn } from "@/lib/utils";
 type NavItem = { to: string; es: string; en: string; note?: { es: string; en: string } };
 type NavGroup = { id: string; es: string; en: string; items: readonly NavItem[] };
 
-/** Four areas. Every existing page still lives at its own address. */
+/** Two short menus. Every existing page still lives at its own address. */
 const GROUPS: readonly NavGroup[] = [
   {
-    id: "minds",
-    es: "Mentes",
-    en: "Minds",
+    id: "explore",
+    es: "Explorar",
+    en: "Explore",
     items: [
-      {
-        to: "/filosofos",
-        es: "Filósofos",
-        en: "Philosophers",
-        note: { es: "El catálogo completo", en: "The full catalogue" },
-      },
       {
         to: "/explorar",
         es: "Explorar",
         en: "Explore",
         note: { es: "Entra por un tema, no por un nombre", en: "Enter by topic, not by name" },
       },
-    ],
-  },
-  {
-    id: "ideas",
-    es: "Ideas",
-    en: "Ideas",
-    items: [
+      {
+        to: "/filosofos",
+        es: "Perspectivas",
+        en: "Perspectives",
+        note: { es: "El catálogo completo", en: "The full catalogue" },
+      },
       {
         to: "/ideas",
         es: "Ideas",
@@ -58,9 +51,9 @@ const GROUPS: readonly NavGroup[] = [
     ],
   },
   {
-    id: "instruments",
-    es: "Instrumentos",
-    en: "Instruments",
+    id: "product",
+    es: "Producto",
+    en: "Product",
     items: [
       {
         to: "/oraculo",
@@ -75,7 +68,10 @@ const GROUPS: readonly NavGroup[] = [
         to: "/analisis",
         es: "Análisis",
         en: "Analysis",
-        note: { es: "Analiza cómo estás pensando algo", en: "Analyse how you are thinking something" },
+        note: {
+          es: "Analiza cómo estás pensando algo",
+          en: "Analyse how you are thinking something",
+        },
       },
       {
         to: "/mesa",
@@ -87,7 +83,10 @@ const GROUPS: readonly NavGroup[] = [
         to: "/comparar",
         es: "Comparar",
         en: "Compare",
-        note: { es: "Mira el problema desde perspectivas diferentes", en: "See the problem from different perspectives" },
+        note: {
+          es: "Mira el problema desde perspectivas diferentes",
+          en: "See the problem from different perspectives",
+        },
       },
       {
         to: "/modo-socrates",
@@ -107,13 +106,6 @@ const GROUPS: readonly NavGroup[] = [
         en: "Library",
         note: { es: "Obras y fuentes", en: "Works and sources" },
       },
-    ],
-  },
-  {
-    id: "space",
-    es: "Mi espacio",
-    en: "My space",
-    items: [
       {
         to: "/mi-mapa",
         es: "Mi mapa",
@@ -280,6 +272,22 @@ export function SiteNav({ className = "" }: { className?: string }) {
           ))}
 
           <Link
+            to="/nosotros"
+            className="focus-mist whitespace-nowrap text-small text-muted-foreground transition-colors hover:text-foreground"
+            activeProps={{ className: "text-foreground" }}
+          >
+            {lang === "es" ? "Nosotros" : "About"}
+          </Link>
+
+          <Link
+            to="/"
+            hash="home-inquiry"
+            className="btn-ghost-gold focus-mist whitespace-nowrap rounded-full px-4 py-1.5 text-micro"
+          >
+            {lang === "es" ? "Comenzar" : "Start"}
+          </Link>
+
+          <Link
             to="/buscar"
             aria-label={lang === "es" ? "Buscar" : "Search"}
             className="focus-mist text-muted-foreground transition-colors hover:text-foreground"
@@ -358,6 +366,14 @@ export function SiteNav({ className = "" }: { className?: string }) {
       {open && (
         <div className="max-h-[75dvh] overflow-y-auto border-t border-border/60 bg-background/98 md:hidden">
           <div className="mx-auto flex max-w-6xl flex-col px-5 py-3">
+            <Link
+              to="/"
+              hash="home-inquiry"
+              onClick={() => setOpen(false)}
+              className="btn-gold focus-mist my-3 rounded-full px-4 py-2 text-center text-micro"
+            >
+              {lang === "es" ? "Comenzar" : "Start"}
+            </Link>
             {GROUPS.map((g) => (
               <section key={g.id} className="border-b border-border/40 py-3 last:border-b-0">
                 <p className="label">{g[lang]}</p>
@@ -378,6 +394,15 @@ export function SiteNav({ className = "" }: { className?: string }) {
                 </ul>
               </section>
             ))}
+
+            <Link
+              to="/nosotros"
+              onClick={() => setOpen(false)}
+              className="focus-mist border-t border-border/40 py-4 text-small text-muted-foreground transition-colors hover:text-foreground"
+              activeProps={{ className: "text-foreground" }}
+            >
+              {lang === "es" ? "Nosotros" : "About"}
+            </Link>
 
             {signedIn ? (
               <button
