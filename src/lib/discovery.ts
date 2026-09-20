@@ -9,6 +9,14 @@ export type Lang = "es" | "en";
 /* ── Pregunta central de cada mente ─────────────────────────────── */
 
 export const CENTRAL_QUESTIONS: Record<PhilosopherId, LocalizedString> = {
+  plato: { es: "¿Qué parte de lo que ves es apariencia?", en: "What part of what you see is appearance?" },
+  confucius: { es: "¿Qué relación de tu vida necesita más cuidado?", en: "Which relationship in your life needs more care?" },
+  buddha: { es: "¿A qué te aferras cuando sufres?", en: "What do you cling to when you suffer?" },
+  suntzu: { es: "¿Qué terreno estás ignorando antes de actuar?", en: "What terrain are you ignoring before you act?" },
+  aristotle: { es: "¿Qué hábito está formando la persona que serás?", en: "Which habit is shaping the person you will become?" },
+  marcusaurelius: { es: "¿Qué depende realmente de ti en este momento?", en: "What truly depends on you at this moment?" },
+  seneca: { es: "¿En qué estás gastando el tiempo de tu vida?", en: "What are you spending your life's time on?" },
+  socrates: { es: "¿Qué crees saber sin haberlo examinado?", en: "What do you think you know without having examined it?" },
   heidegger: {
     es: "¿Qué significa realmente vivir una vida propia?",
     en: "What does it really mean to live a life of your own?",
@@ -116,10 +124,6 @@ export const CENTRAL_QUESTIONS: Record<PhilosopherId, LocalizedString> = {
   arendt: {
     es: "¿Qué haces tú para sostener el mundo que compartes?",
     en: "What do you do to hold up the world you share?",
-  },
-  negrihardt: {
-    es: "¿Quién se queda con lo que produces cuando trabajas?",
-    en: "Who keeps what you produce when you work?",
   },
   rand: {
     es: "¿Estás viviendo tu vida o pidiendo permiso para vivirla?",
@@ -525,7 +529,6 @@ export const POLITICS: Partial<Record<PhilosopherId, PoliticsId>> = {
   marx: "left",
   bakunin: "left",
   stirner: "left",
-  negrihardt: "left",
   weil: "left",
   rousseau: "left",
   kusch: "left",
@@ -573,6 +576,14 @@ export type Facet = {
 };
 
 export const FACETS: Record<PhilosopherId, Facet> = {
+  plato: { families: ["knowledge", "ethics"], movements: ["idealism"], level: "intro", year: -427 },
+  confucius: { families: ["ethics", "society"], movements: ["eastern"], level: "intro", year: -551 },
+  buddha: { families: ["existence", "religion"], movements: ["eastern"], level: "intro", year: -480 },
+  suntzu: { families: ["politics", "society"], movements: ["eastern"], level: "intro", year: -500 },
+  aristotle: { families: ["ethics", "knowledge"], movements: [], level: "intro", year: -384 },
+  marcusaurelius: { families: ["ethics", "existence"], movements: ["stoicism"], level: "intro", year: 121 },
+  seneca: { families: ["ethics", "existence"], movements: ["stoicism"], level: "intro", year: -4 },
+  socrates: { families: ["ethics", "knowledge"], movements: [], level: "intro", year: -470 },
   heidegger: {
     families: ["existence", "knowledge"],
     movements: ["existentialism", "phenomenology"],
@@ -700,12 +711,6 @@ export const FACETS: Record<PhilosopherId, Facet> = {
     year: 1814,
   },
   arendt: { families: ["politics", "society"], movements: [], level: "mid", year: 1906 },
-  negrihardt: {
-    families: ["politics", "society"],
-    movements: ["marxism"],
-    level: "deep",
-    year: 1933,
-  },
   rand: { families: ["politics", "ethics"], movements: ["liberalism"], level: "intro", year: 1905 },
   gadamer: { families: ["knowledge"], movements: ["hermeneutics"], level: "deep", year: 1900 },
   ibnkhaldun: { families: ["society", "politics"], movements: [], level: "mid", year: 1332 },

@@ -218,26 +218,21 @@ function ChatBody({
     track("chat_opened", { philosopher });
   }, [philosopher]);
 
-  useEffect(() => {
-    if (locked) track("paywall_hit", { philosopher });
-  }, [locked, philosopher]);
-
   const sendText = useCallback(
     async (text: string) => {
       const trimmed = text.trim();
-      if (!trimmed || isLoading || locked) return;
+      if (!trimmed || isLoading) return;
       setAtBottom(true);
       track("message_sent", { philosopher });
       await sendMessage({ text: trimmed });
-      void refetchEntitlement();
     },
-    [isLoading, locked, philosopher, sendMessage, refetchEntitlement],
+    [isLoading, philosopher, sendMessage],
   );
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const text = composerText.trim();
-    if (!text || isLoading || locked) return;
+    if (!text || isLoading) return;
     setComposerText("");
     if (inputRef.current) {
       inputRef.current.value = "";
@@ -246,7 +241,6 @@ function ChatBody({
     setAtBottom(true);
     track("message_sent", { philosopher });
     await sendMessage({ text });
-    void refetchEntitlement();
   };
 
   const handleTopicPick = async (topicId: TopicId) => {
@@ -605,7 +599,7 @@ function ChatBody({
                   ? dictation.interim || t("chat.mic.stop")
                   : t("chat.placeholder")
               }
-              disabled={isLoading || locked}
+              disabled={isLoading}
               onChange={(e) => setComposerText(e.currentTarget.value)}
               onKeyDown={(e) => {
                 if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing) {
@@ -634,7 +628,7 @@ function ChatBody({
                 if (dictation.listening) dictation.stop();
                 else dictation.start();
               }}
-              disabled={isLoading || locked}
+              disabled={isLoading}
               aria-label={dictation.listening ? t("chat.mic.stop") : t("chat.mic.start")}
               title={dictation.listening ? t("chat.mic.stop") : t("chat.mic.start")}
               aria-pressed={dictation.listening}
@@ -661,7 +655,7 @@ function ChatBody({
             </button>
             <button
               type="submit"
-              disabled={isLoading || locked || !composerText.trim()}
+              disabled={isLoading || !composerText.trim()}
               aria-label={t("chat.send")}
               className="focus-mist inline-flex h-11 shrink-0 items-center justify-center self-end rounded-xl border border-mist/40 bg-mist/95 px-5 font-display text-small text-primary-foreground transition-all hover:bg-mist disabled:cursor-not-allowed disabled:opacity-30"
             >
