@@ -16,8 +16,7 @@ import { supabase } from "@/integrations/supabase/client";
 
 import appCss from "../styles.css?url";
 import { GreekGlyph } from "@/components/greek-glyph";
-import { NeuralBackground } from "@/components/neural-background";
-import { TintProvider } from "@/lib/tint";
+import { ArchitecturalBackground } from "@/components/neural-background";
 import { SITE_URL, SITE_NAME } from "@/lib/site";
 
 function NotFoundComponent() {
@@ -163,13 +162,11 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <I18nProvider>
         <AuthProvider>
-          <TintProvider>
-            <NeuralBackground />
-            <div className="relative z-10">
-              <Outlet />
-            </div>
-            <Toaster theme="dark" position="top-center" />
-          </TintProvider>
+          <ArchitecturalBackground />
+          <div className="relative z-10">
+            <Outlet />
+          </div>
+          <Toaster theme="dark" position="top-center" />
         </AuthProvider>
       </I18nProvider>
     </QueryClientProvider>

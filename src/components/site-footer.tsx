@@ -8,9 +8,9 @@ export function SiteFooter() {
   const es = lang === "es";
 
   return (
-    <footer className="mt-24 border-t border-border/60 bg-card/30">
+    <footer className="mt-24 border-t border-border/60 bg-background/90 backdrop-blur-sm">
       <div className="mx-auto grid max-w-6xl gap-10 px-5 py-14 md:grid-cols-[1.4fr_1fr_1fr_1fr] md:px-8">
-        <div>
+        <div className="border-l border-bronze/40 pl-5">
           <PneumaMark size={24} withWordmark />
           <p className="mt-4 max-w-xs text-small leading-relaxed text-muted-foreground">
             {es

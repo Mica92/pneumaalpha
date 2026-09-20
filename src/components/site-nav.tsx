@@ -198,14 +198,14 @@ function DesktopGroup({
 
       {open && (
         <div className="absolute left-1/2 top-full z-50 w-72 -translate-x-1/2 pt-2">
-          <ul className="overflow-hidden rounded-xl border border-border/70 bg-background/98 p-1.5 shadow-xl backdrop-blur-xl">
+          <ul className="overflow-hidden rounded-md border border-border/70 bg-background/98 p-1.5 shadow-editorial backdrop-blur-xl">
             {group.items.map((item) => (
               <li key={item.to}>
                 <Link
                   // eslint-disable-next-line @typescript-eslint/no-explicit-any
                   to={item.to as any}
                   onClick={onClose}
-                  className="focus-mist block rounded-lg px-3 py-2.5 transition-colors hover:bg-card/80"
+                   className="focus-mist block rounded-sm border-l border-transparent px-3 py-2.5 transition-colors hover:border-bronze/50 hover:bg-card/80"
                   activeProps={{ className: "bg-card/70" }}
                 >
                   <span className="block text-small text-foreground">{item[lang]}</span>
@@ -248,7 +248,7 @@ export function SiteNav({ className = "" }: { className?: string }) {
   return (
     <header
       className={cn(
-        "sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur-xl",
+        "sticky top-0 z-40 border-b border-border/60 bg-background/88 backdrop-blur-xl",
         className,
       )}
     >
@@ -282,7 +282,7 @@ export function SiteNav({ className = "" }: { className?: string }) {
           <Link
             to="/"
             hash="home-inquiry"
-            className="btn-ghost-gold focus-mist whitespace-nowrap rounded-full px-4 py-1.5 text-micro"
+            className="btn-ghost-gold focus-mist whitespace-nowrap px-4 py-1.5 text-micro"
           >
             {lang === "es" ? "Comenzar" : "Start"}
           </Link>
@@ -303,7 +303,7 @@ export function SiteNav({ className = "" }: { className?: string }) {
               <Link
                 to="/perfil"
                 aria-label={lang === "es" ? "Tu perfil" : "Your profile"}
-                className="focus-mist inline-flex items-center gap-2 rounded-full border border-border/70 py-1 pr-3 pl-1 text-small text-muted-foreground transition-colors hover:text-foreground"
+                className="focus-mist inline-flex items-center gap-2 rounded-md border border-border/70 py-1 pr-3 pl-1 text-small text-muted-foreground transition-colors hover:text-foreground"
                 activeProps={{ className: "text-foreground" }}
               >
                 {avatar ? (
@@ -333,7 +333,7 @@ export function SiteNav({ className = "" }: { className?: string }) {
             <button
               type="button"
               onClick={signIn}
-              className="btn-gold whitespace-nowrap rounded-full px-4 py-1.5 text-micro"
+                className="btn-gold whitespace-nowrap px-4 py-1.5 text-micro"
             >
               {lang === "es" ? "Entrar con Google" : "Sign in with Google"}
             </button>
@@ -370,7 +370,7 @@ export function SiteNav({ className = "" }: { className?: string }) {
               to="/"
               hash="home-inquiry"
               onClick={() => setOpen(false)}
-              className="btn-gold focus-mist my-3 rounded-full px-4 py-2 text-center text-micro"
+              className="btn-gold focus-mist my-3 px-4 py-2 text-center text-micro"
             >
               {lang === "es" ? "Comenzar" : "Start"}
             </Link>
