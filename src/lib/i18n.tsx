@@ -396,12 +396,12 @@ export const T: Dict = {
   "report.again": { es: "Volver a generar", en: "Generate again" },
   "report.back": { es: "Volver al umbral", en: "Back to threshold" },
   "report.error": {
-    es: "No se pudo generar el reporte ahora. Intenta de nuevo en un momento.",
-    en: "Could not generate the report right now. Try again in a moment.",
+    es: "No se pudo generar el retrato ahora. Intenta de nuevo en un momento.",
+    en: "Could not generate the portrait right now. Try again in a moment.",
   },
   "report.hint": {
-    es: "Necesitas haber conversado al menos un poco con alguna voz para que el reporte tenga material que leer.",
-    en: "You need at least a few exchanges with any voice so the report has material to read.",
+    es: "Necesitas haber conversado al menos un poco con alguna perspectiva para que el retrato tenga material que leer.",
+    en: "You need at least a few exchanges with any perspective so the portrait has material to read.",
   },
   "report.archetype": { es: "Arquetipo", en: "Archetype" },
   "report.basedOn": {
