@@ -108,11 +108,14 @@ function OraclePage() {
   const autoRan = useRef(false);
   useEffect(() => {
     if (autoRan.current) return;
-    if (!q || q.trim().length < 3) return;
+    const handed = readQuestion(qid);
+    if (!handed || handed.trim().length < 3) return;
     autoRan.current = true;
-    void run(q, "prefilled");
-  }, [q, run]);
+    setInquiry(handed);
+    void run(handed, "prefilled");
+  }, [qid, run]);
 
+  const askedQid = useQuestionHandoff(asked);
   const primary = result ? PHILOSOPHERS[result.philosopher] : null;
 
   function reset() {
