@@ -65,6 +65,29 @@ export const matchPhilosopher = createServerFn({ method: "POST" })
     if (!apiKey) throw new Error("LOVABLE_API_KEY no está configurada.");
 
     const lang = data.language;
+
+    // Safety layer runs before any philosophical routing.
+    const flagged = detectSafety(data.inquiry);
+    if (flagged) {
+      const es = lang === "es";
+      return {
+        reading: flagged === "crisis"
+          ? es
+            ? "Lo que escribiste suena a que estás pasando por algo grave ahora mismo."
+            : "What you wrote sounds like you are going through something serious right now."
+          : es
+            ? "Esto parece una tarea práctica más que una pregunta para pensar."
+            : "This looks like a practical task rather than a question to think through.",
+        reframe: null,
+        perspectives: [],
+        why: "",
+        aha: "",
+        philosopher: "james",
+        reason: "",
+        safety: flagged,
+      };
+    }
+
     const catalog = buildCatalog(lang);
     const ids = Object.keys(PHILOSOPHERS).join(", ");
 
