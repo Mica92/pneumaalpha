@@ -1,5 +1,16 @@
 import { useEffect, useState } from "react";
 import {
+  Briefcase,
+  Circle,
+  Compass,
+  Diamond,
+  Minus,
+  Target,
+  Triangle,
+  X,
+  type LucideIcon,
+} from "lucide-react";
+import {
   ROOT_QUESTIONS,
   TOPICS,
   getContinuations,
@@ -7,6 +18,15 @@ import {
   type TopicId,
 } from "@/lib/engagement";
 import { useI18n } from "@/lib/i18n";
+
+const TOPIC_ICONS: Record<TopicId, LucideIcon> = {
+  work: Briefcase,
+  love: Circle,
+  fear: Triangle,
+  purpose: Target,
+  adventure: Compass,
+  growth: Minus,
+};
 
 type SendFn = (text: string) => void | Promise<void>;
 
