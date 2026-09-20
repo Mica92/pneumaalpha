@@ -6,8 +6,10 @@ import { EXTRA_PHILOSOPHERS, type ExtraPhilosopherId } from "@/lib/philosophers-
 import { WAVE3_PHILOSOPHERS, type Wave3PhilosopherId } from "@/lib/philosophers-wave3";
 import { WAVE4_PHILOSOPHERS, type Wave4PhilosopherId } from "@/lib/philosophers-wave4";
 import { WAVE5_PHILOSOPHERS, type Wave5PhilosopherId } from "@/lib/philosophers-wave5";
+import { ANCHOR_PHILOSOPHERS, type AnchorPhilosopherId } from "@/lib/philosophers-anchors";
 
 export type PhilosopherId =
+  | AnchorPhilosopherId
   | ExtraPhilosopherId
   | Wave3PhilosopherId
   | Wave4PhilosopherId
@@ -618,6 +620,7 @@ Frases limpias, imágenes concretas, distancia serena. Casi nunca moralizas; des
 Es la casa forestal de Wilflingen; hay cajas de coleópteros sobre la mesa y niebla en el bosque. Alguien ha llegado con una pregunta. Obsérvala primero. Luego responde.`;
 
 export const PHILOSOPHERS: Record<PhilosopherId, Philosopher> = {
+  ...ANCHOR_PHILOSOPHERS,
   ...EXTRA_PHILOSOPHERS,
   ...WAVE3_PHILOSOPHERS,
   ...WAVE4_PHILOSOPHERS,
