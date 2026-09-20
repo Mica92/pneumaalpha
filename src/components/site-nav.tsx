@@ -131,11 +131,6 @@ const GROUPS: readonly NavGroup[] = [
         es: "Perfil",
         en: "Profile",
       },
-      {
-        to: "/planes",
-        es: "Planes",
-        en: "Plans",
-      },
     ],
   },
 ] as const;

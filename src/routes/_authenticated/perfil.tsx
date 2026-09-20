@@ -6,7 +6,6 @@ import { useI18n } from "@/lib/i18n";
 import { useAuth } from "@/hooks/use-auth";
 import { lovable } from "@/integrations/lovable";
 import { supabase } from "@/integrations/supabase/client";
-import { useEntitlement } from "@/hooks/use-entitlement";
 
 export const Route = createFileRoute("/_authenticated/perfil")({
   component: ProfilePage,
@@ -36,7 +35,6 @@ function ProfilePage() {
   const es = lang === "es";
   const { user } = useAuth();
   const navigate = useNavigate();
-  const { entitlement } = useEntitlement();
 
   const signedIn = Boolean(user && !user.is_anonymous);
   const meta = (user?.user_metadata ?? {}) as Record<string, string | undefined>;
@@ -84,28 +82,13 @@ function ProfilePage() {
               </div>
             </div>
 
-            <div className="card-editorial mt-6 flex flex-col gap-3 p-6 sm:flex-row sm:items-center sm:justify-between">
+            <div className="card-editorial mt-6 p-6">
               <div>
-                <p className="label">{es ? "Suscripción" : "Subscription"}</p>
+                <p className="label">{es ? "Acceso" : "Access"}</p>
                 <p className="mt-2 font-serif text-subtitle text-foreground">
-                  {entitlement.active
-                    ? entitlement.plan === "lifetime"
-                      ? es
-                        ? "Acceso vitalicio"
-                        : "Lifetime access"
-                      : es
-                        ? "Plan activo"
-                        : "Active plan"
-                    : es
-                      ? `Plan libre · ${entitlement.freeMessagesLeft} mensajes restantes`
-                      : `Free plan · ${entitlement.freeMessagesLeft} messages left`}
+                  {es ? "Todo Pneum está disponible sin límites" : "All of Pneum is available without limits"}
                 </p>
               </div>
-              {!entitlement.active && (
-                <Link to="/planes" className="btn-gold whitespace-nowrap">
-                  {es ? "Ver planes" : "See plans"}
-                </Link>
-              )}
             </div>
 
             <div className="mt-8 grid gap-4 sm:grid-cols-2">

@@ -27,10 +27,8 @@ export const Route = createFileRoute("/sitemap.xml")({
           "/nosotros",
           "/privacy",
           "/terminos",
-          "/reembolsos",
           "/uso-de-ia",
           "/contacto",
-          "/planes",
           ...PHILOSOPHER_LIST.map((p) => `/${p.id}`),
         ];
         const urls = paths.map(

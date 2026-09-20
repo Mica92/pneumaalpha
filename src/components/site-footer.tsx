@@ -68,11 +68,6 @@ export function SiteFooter() {
                 {es ? "Biblioteca de ideas" : "Library of ideas"}
               </Link>
             </li>
-            <li>
-              <Link to="/planes" className="focus-mist transition-colors hover:text-foreground">
-                {es ? "Planes" : "Plans"}
-              </Link>
-            </li>
           </ul>
         </nav>
 

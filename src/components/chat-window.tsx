@@ -34,9 +34,6 @@ import {
   TopicBar,
 } from "@/components/chat-engagement";
 import { TOPICS, getDailyDilemmaPrompt, type TopicId } from "@/lib/engagement";
-import { useEntitlement } from "@/hooks/use-entitlement";
-import { FREE_MESSAGE_LIMIT } from "@/lib/billing.shared";
-import { PlanPickerDialog } from "@/components/plan-picker-dialog";
 import { track } from "@/lib/analytics";
 
 type Props = {
@@ -126,10 +123,6 @@ function ChatBody({
   const [actionsOpen, setActionsOpen] = useState(false);
   const [composerText, setComposerText] = useState(initialPrompt ?? "");
   const [atBottom, setAtBottom] = useState(true);
-  const { entitlement, refetch: refetchEntitlement } = useEntitlement();
-  const [plansOpen, setPlansOpen] = useState(false);
-  const locked = !entitlement.active && entitlement.freeMessagesLeft <= 0;
-
   const {
     data: history,
     isFetching: historyLoading,
@@ -137,7 +130,7 @@ function ChatBody({
   } = useQuery({
     queryKey: ["history", philosopher],
     queryFn: () => historyFn({ data: { philosopher } }),
-    enabled: (archiveOpen || migrateOpen) && entitlement.active,
+    enabled: archiveOpen || migrateOpen,
     staleTime: 0,
   });
 
@@ -600,47 +593,6 @@ function ChatBody({
         </div>
 
         <footer className="sticky bottom-0 z-20 border-t border-border/60 bg-background/85 px-3 pt-3 pb-safe backdrop-blur-xl md:px-4">
-          {!entitlement.active && (
-            <div className="mx-auto mb-3 max-w-3xl">
-              {locked ? (
-                <div className="card-editorial flex flex-col gap-3 p-4 sm:flex-row sm:items-center sm:justify-between">
-                  <p className="text-small text-foreground/85">
-                    {lang === "es"
-                      ? `Has usado tus ${FREE_MESSAGE_LIMIT} mensajes gratuitos. Suscríbete para seguir conversando, con historial completo, reporte y podcast.`
-                      : `You've used your ${FREE_MESSAGE_LIMIT} free messages. Subscribe to keep talking, with full history, report and podcast.`}
-                  </p>
-                  <button
-                    type="button"
-                    onClick={() => setPlansOpen(true)}
-                    className="btn-gold whitespace-nowrap"
-                  >
-                    {lang === "es" ? "Desbloquear acceso" : "Unlock access"}
-                  </button>
-                </div>
-              ) : (
-                <p className="text-center text-micro uppercase tracking-[0.25em] text-muted-foreground">
-                  {lang === "es"
-                    ? `Te quedan ${entitlement.freeMessagesLeft} de ${FREE_MESSAGE_LIMIT} mensajes gratuitos`
-                    : `${entitlement.freeMessagesLeft} of ${FREE_MESSAGE_LIMIT} free messages left`}
-                  {" · "}
-                  <button
-                    type="button"
-                    onClick={() => setPlansOpen(true)}
-                    className="underline underline-offset-4 transition-colors hover:text-foreground"
-                  >
-                    {lang === "es" ? "desbloquear acceso" : "unlock access"}
-                  </button>
-                </p>
-              )}
-            </div>
-          )}
-          <PlanPickerDialog
-            open={plansOpen}
-            onClose={() => setPlansOpen(false)}
-            onPurchased={() => {
-              void refetchEntitlement();
-            }}
-          />
           <form onSubmit={handleSubmit} className="mx-auto flex max-w-3xl items-end gap-2">
             <textarea
               ref={inputRef}
@@ -764,18 +716,7 @@ function ChatBody({
                 </button>
               </header>
               <div className="flex-1 overflow-y-auto px-6 py-6">
-                {!entitlement.active ? (
-                  <div className="card-editorial p-5 text-center">
-                    <p className="text-small leading-relaxed text-foreground/85">
-                      {lang === "es"
-                        ? "El historial completo es parte de la suscripción. En el plan libre solo ves los intercambios recientes."
-                        : "Full history is part of the subscription. On the free plan you only see recent exchanges."}
-                    </p>
-                    <Link to="/planes" className="btn-gold mt-5 inline-block">
-                      {lang === "es" ? "Ver planes" : "See plans"}
-                    </Link>
-                  </div>
-                ) : historyLoading && (!history || history.length === 0) ? (
+                {historyLoading && (!history || history.length === 0) ? (
                   <p className="text-center text-micro uppercase tracking-[0.3em] text-muted-foreground pneuma-breathe">
                     {t("chat.archive.loading")}
                   </p>
