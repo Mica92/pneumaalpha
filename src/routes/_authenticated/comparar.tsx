@@ -123,6 +123,34 @@ function ComparePage() {
     }
   };
 
+  const synthesize = async () => {
+    if (turns.length < 2 || synthBusy) return;
+    setSynthBusy(true);
+    setError(null);
+    try {
+      const res = await runFn({
+        data: {
+          topic: question.trim(),
+          seats,
+          language: lang,
+          previous: turns,
+          synthesize: true,
+        },
+      });
+      setSynthesis(res.synthesis);
+      track("synthesis_generated", { seats: seats.length });
+    } catch (e) {
+      console.error("[comparar] synthesis failed", e);
+      setError(
+        es
+          ? "No pudimos escribir la síntesis. Inténtalo otra vez."
+          : "We couldn't write the synthesis. Please try again.",
+      );
+    } finally {
+      setSynthBusy(false);
+    }
+  };
+
   return (
     <>
       <SiteNav />
