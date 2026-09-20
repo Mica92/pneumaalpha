@@ -9,13 +9,13 @@ export function SiteFooter() {
 
   return (
     <footer className="mt-24 border-t border-border/60 bg-card/30">
-      <div className="mx-auto grid max-w-6xl gap-10 px-5 py-14 md:grid-cols-[1.4fr_1fr_1fr] md:px-8">
+      <div className="mx-auto grid max-w-6xl gap-10 px-5 py-14 md:grid-cols-[1.4fr_1fr_1fr_1fr] md:px-8">
         <div>
           <PneumaMark size={24} withWordmark />
           <p className="mt-4 max-w-xs text-small leading-relaxed text-muted-foreground">
             {es
-              ? `${PHILOSOPHER_LIST.length} conciencias filosóficas reconstruidas para pensar tu vida, no para recitar historia.`
-              : `${PHILOSOPHER_LIST.length} reconstructed philosophical minds, here to think your life through — not to recite history.`}
+              ? `Pneum ayuda a pensar preguntas, problemas y decisiones complejas, con ${PHILOSOPHER_LIST.length} perspectivas de la historia de la filosofía.`
+              : `Pneum helps you think through questions, problems and hard decisions, with ${PHILOSOPHER_LIST.length} perspectives from the history of philosophy.`}
           </p>
         </div>
 
@@ -42,12 +42,22 @@ export function SiteFooter() {
                 {es ? "Instrumentos" : "Instruments"}
               </Link>
             </li>
+            <li>
+              <Link to="/buscar" className="focus-mist transition-colors hover:text-foreground">
+                {es ? "Buscar" : "Search"}
+              </Link>
+            </li>
           </ul>
         </nav>
 
         <nav aria-label={es ? "Tu espacio" : "Your space"} className="text-small">
           <p className="label mb-4">{es ? "Tu espacio" : "Your space"}</p>
           <ul className="space-y-2.5 text-muted-foreground">
+            <li>
+              <Link to="/mi-mapa" className="focus-mist transition-colors hover:text-foreground">
+                {es ? "Mi mapa" : "My map"}
+              </Link>
+            </li>
             <li>
               <Link to="/recorrido" className="focus-mist transition-colors hover:text-foreground">
                 {es ? "Mi recorrido" : "My journey"}
@@ -61,6 +71,22 @@ export function SiteFooter() {
             <li>
               <Link to="/planes" className="focus-mist transition-colors hover:text-foreground">
                 {es ? "Planes" : "Plans"}
+              </Link>
+            </li>
+          </ul>
+        </nav>
+
+        <nav aria-label="Pneum" className="text-small">
+          <p className="label mb-4">Pneum</p>
+          <ul className="space-y-2.5 text-muted-foreground">
+            <li>
+              <Link to="/nosotros" className="focus-mist transition-colors hover:text-foreground">
+                {es ? "Nosotros" : "About"}
+              </Link>
+            </li>
+            <li>
+              <Link to="/contacto" className="focus-mist transition-colors hover:text-foreground">
+                {es ? "Contacto y soporte" : "Contact and support"}
               </Link>
             </li>
             <li>
@@ -81,11 +107,6 @@ export function SiteFooter() {
             <li>
               <Link to="/uso-de-ia" className="focus-mist transition-colors hover:text-foreground">
                 {es ? "Uso aceptable de IA" : "AI acceptable use"}
-              </Link>
-            </li>
-            <li>
-              <Link to="/contacto" className="focus-mist transition-colors hover:text-foreground">
-                {es ? "Contacto y soporte" : "Contact and support"}
               </Link>
             </li>
           </ul>
