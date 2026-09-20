@@ -5,4 +5,4 @@
 - [x] Integrar ocho voces nuevas completas
 - [x] Mostrar las doce voces ancla en la portada
 - [x] Actualizar textos, índices y metadatos
-- [ ] Verificar compilación y experiencia
+- [x] Verificar compilación y experiencia

@@ -313,7 +313,7 @@ export const CATEGORIES: Category[] = [
       es: "Identidad · sentido · existencia · libertad",
       en: "Identity · meaning · existence · freedom",
     },
-    philosophers: ["heidegger", "kierkegaard", "nietzsche", "pascal", "james"],
+    philosophers: ["heidegger", "kierkegaard", "nietzsche", "buddha", "socrates"],
     seed: {
       es: "Quiero entender quién soy y qué estoy haciendo con mi vida.",
       en: "I want to understand who I am and what I'm doing with my life.",
@@ -324,7 +324,7 @@ export const CATEGORIES: Category[] = [
     glyph: "❥",
     title: { es: "Relaciones", en: "Relationships" },
     tags: { es: "Amor · deseo · amistad · soledad", en: "Love · desire · friendship · solitude" },
-    philosophers: ["levinas", "schopenhauer", "yannaras", "kierkegaard", "eckhart"],
+    philosophers: ["levinas", "confucius", "schopenhauer", "yannaras", "kierkegaard"],
     seed: {
       es: "Quiero pensar mis vínculos: el amor, el deseo y la soledad.",
       en: "I want to think through my bonds: love, desire and solitude.",
@@ -338,7 +338,7 @@ export const CATEGORIES: Category[] = [
       es: "Política · poder · sociedad · justicia",
       en: "Politics · power · society · justice",
     },
-    philosophers: ["marx", "hegel", "bentham", "spengler", "junger"],
+    philosophers: ["marx", "suntzu", "plato", "hegel", "bentham"],
     seed: {
       es: "Quiero entender el poder, la sociedad y qué sería justo.",
       en: "I want to understand power, society and what would be just.",
@@ -352,7 +352,7 @@ export const CATEGORIES: Category[] = [
       es: "Felicidad · virtud · disciplina · propósito",
       en: "Happiness · virtue · discipline · purpose",
     },
-    philosophers: ["pohlenz", "bentham", "james", "aquinas", "eckhart"],
+    philosophers: ["marcusaurelius", "seneca", "aristotle", "confucius", "buddha"],
     seed: {
       es: "Quiero aprender a vivir mejor, con más calma y más sentido.",
       en: "I want to learn to live better, with more calm and more meaning.",
@@ -366,7 +366,7 @@ export const CATEGORIES: Category[] = [
       es: "Dios · verdad · conocimiento · conciencia",
       en: "God · truth · knowledge · consciousness",
     },
-    philosophers: ["kant", "rationalism", "aquinas", "maimonides", "hegel"],
+    philosophers: ["plato", "aristotle", "kant", "rationalism", "aquinas"],
     seed: {
       es: "Quiero entender qué es real y hasta dónde podemos conocer.",
       en: "I want to understand what is real and how far we can know.",
@@ -380,7 +380,7 @@ export const CATEGORIES: Category[] = [
       es: "Autores · conceptos · escuelas · historia",
       en: "Authors · concepts · schools · history",
     },
-    philosophers: ["kant", "hegel", "rationalism", "heidegger", "nietzsche"],
+    philosophers: ["socrates", "plato", "aristotle", "confucius", "kant"],
     seed: {
       es: "Explícame tus ideas centrales como si nunca hubiera leído filosofía.",
       en: "Explain your central ideas as if I had never read philosophy.",

@@ -27,7 +27,7 @@ export const Route = createFileRoute("/_authenticated/modo-socrates")({
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: `${SITE_URL}/socrates` }],
+    links: [{ rel: "canonical", href: `${SITE_URL}/modo-socrates` }],
   }),
 });
 

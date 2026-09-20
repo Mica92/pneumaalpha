@@ -103,7 +103,7 @@ const FEATURES = [
     glow: "bg-glacier/25",
   },
   {
-    to: "/socrates",
+    to: "/modo-socrates",
     kicker: "socrates.kicker",
     title: "socrates.card.title",
     sub: "socrates.card.sub",

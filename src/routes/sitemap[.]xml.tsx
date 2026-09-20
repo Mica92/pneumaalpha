@@ -22,7 +22,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           "/analisis",
           "/podcast",
           "/mesa",
-          "/socrates",
+          "/modo-socrates",
           "/biblioteca",
           "/nosotros",
           "/privacy",
