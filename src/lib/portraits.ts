@@ -66,11 +66,27 @@ import misesPortrait from "@/assets/portraits/mises.jpg";
 import ortegaPortrait from "@/assets/portraits/ortega.jpg";
 import beauvoirPortrait from "@/assets/portraits/beauvoir.jpg";
 import straussPortrait from "@/assets/portraits/strauss.jpg";
+import platoPortrait from "@/assets/portraits/plato.jpg";
+import confuciusPortrait from "@/assets/portraits/confucius.jpg";
+import buddhaPortrait from "@/assets/portraits/buddha.jpg";
+import suntzuPortrait from "@/assets/portraits/suntzu.jpg";
+import aristotlePortrait from "@/assets/portraits/aristotle.jpg";
+import marcusaureliusPortrait from "@/assets/portraits/marcusaurelius.jpg";
+import senecaPortrait from "@/assets/portraits/seneca.jpg";
+import socratesPortrait from "@/assets/portraits/socrates.jpg";
 import type { PhilosopherId } from "@/lib/philosophers";
 import type { LocalizedString } from "@/lib/philosophers";
 
 /** Cinematic archival portraits, keyed by philosopher id. */
 export const PORTRAITS: Partial<Record<PhilosopherId, string>> = {
+  plato: platoPortrait,
+  confucius: confuciusPortrait,
+  buddha: buddhaPortrait,
+  suntzu: suntzuPortrait,
+  aristotle: aristotlePortrait,
+  marcusaurelius: marcusaureliusPortrait,
+  seneca: senecaPortrait,
+  socrates: socratesPortrait,
   heidegger: heideggerPortrait.url,
   schopenhauer: schopenhauerPortrait.url,
   james: jamesPortrait.url,
@@ -98,7 +114,6 @@ export const PORTRAITS: Partial<Record<PhilosopherId, string>> = {
   stirner: stirnerPortrait,
   bakunin: bakuninPortrait,
   arendt: arendtPortrait,
-  negrihardt: negrihardtPortrait,
   rand: randPortrait,
   gadamer: gadamerPortrait,
   ibnkhaldun: ibnkhaldunPortrait,
@@ -165,6 +180,14 @@ export type PhilosopherProfile = {
 
 /** Ficha del filósofo: datos biográficos y temas de experticia. */
 export const PROFILES: Partial<Record<PhilosopherId, PhilosopherProfile>> = {
+  plato: { years: "427 – 347 a. C.", origin: { es: "Atenas, Grecia", en: "Athens, Greece" }, bio: { es: "Discípulo de Sócrates y fundador de la Academia. Sus diálogos exploran la justicia, el conocimiento, el amor y la educación mediante personajes que piensan juntos.", en: "A student of Socrates and founder of the Academy. His dialogues explore justice, knowledge, love and education through characters thinking together." }, expertise: [{ es: "Teoría de las Formas", en: "Theory of Forms" }, { es: "Justicia y ciudad", en: "Justice and the city" }, { es: "Eros y educación", en: "Eros and education" }] },
+  confucius: { years: "551 – 479 a. C.", origin: { es: "Estado de Lu, China", en: "State of Lu, China" }, bio: { es: "Maestro y funcionario cuya enseñanza, preservada en las Analectas, vinculó el cultivo personal con el cuidado de las relaciones y el buen gobierno.", en: "A teacher and official whose teaching, preserved in the Analects, joined self-cultivation to care for relationships and good government." }, expertise: [{ es: "Humanidad (ren)", en: "Humaneness (ren)" }, { es: "Ritual (li)", en: "Ritual (li)" }, { es: "Educación y gobierno", en: "Education and government" }] },
+  buddha: { years: "c. 480 – 400 a. C.", origin: { es: "Norte de India", en: "Northern India" }, bio: { es: "Maestro itinerante conocido como el Despierto. Enseñó una vía práctica para comprender el sufrimiento, su origen y su cesación mediante ética, atención y sabiduría.", en: "The wandering teacher known as the Awakened One taught a practical path for understanding suffering, its origin and its ending through ethics, attention and wisdom." }, expertise: [{ es: "Cuatro nobles verdades", en: "Four noble truths" }, { es: "Impermanencia y no-yo", en: "Impermanence and non-self" }, { es: "Atención y compasión", en: "Mindfulness and compassion" }] },
+  suntzu: { years: "c. siglo V a. C.", origin: { es: "China antigua", en: "Ancient China" }, bio: { es: "Nombre asociado a El arte de la guerra, tratado clásico sobre cálculo, información, terreno y adaptación. Su historicidad exacta permanece discutida.", en: "The name associated with The Art of War, a classic treatise on calculation, intelligence, terrain and adaptation. His precise historicity remains debated." }, expertise: [{ es: "Estrategia y terreno", en: "Strategy and terrain" }, { es: "Información y engaño", en: "Intelligence and deception" }, { es: "Victoria sin combate", en: "Victory without battle" }] },
+  aristotle: { years: "384 – 322 a. C.", origin: { es: "Estagira, Macedonia", en: "Stagira, Macedonia" }, bio: { es: "Fundador del Liceo e investigador de lógica, naturaleza, ética, política y poesía. Entendió la excelencia como un hábito formado en la práctica.", en: "Founder of the Lyceum and investigator of logic, nature, ethics, politics and poetry. He understood excellence as a habit formed in practice." }, expertise: [{ es: "Acto, potencia y causas", en: "Act, potency and causes" }, { es: "Virtud y justo medio", en: "Virtue and the mean" }, { es: "Lógica y vida política", en: "Logic and political life" }] },
+  marcusaurelius: { years: "121 – 180", origin: { es: "Roma, Imperio romano", en: "Rome, Roman Empire" }, bio: { es: "Emperador romano y practicante estoico. Sus Meditaciones son ejercicios privados para sostener el deber, la perspectiva y la disciplina interior.", en: "Roman emperor and Stoic practitioner. His Meditations are private exercises for sustaining duty, perspective and inner discipline." }, expertise: [{ es: "Disciplina del juicio", en: "Discipline of judgement" }, { es: "Deber y comunidad", en: "Duty and community" }, { es: "Mortalidad y perspectiva", en: "Mortality and perspective" }] },
+  seneca: { years: "c. 4 a. C. – 65", origin: { es: "Corduba, Hispania romana", en: "Corduba, Roman Hispania" }, bio: { es: "Filósofo, dramaturgo y político romano. Sus cartas y ensayos convierten el estoicismo en ejercicios concretos sobre tiempo, ira, fortuna y muerte.", en: "Roman philosopher, dramatist and statesman. His letters and essays turn Stoicism into concrete exercises on time, anger, fortune and death." }, expertise: [{ es: "Brevedad de la vida", en: "Shortness of life" }, { es: "Ira y adversidad", en: "Anger and adversity" }, { es: "Filosofía cotidiana", en: "Daily philosophy" }] },
+  socrates: { years: "470 – 399 a. C.", origin: { es: "Atenas, Grecia", en: "Athens, Greece" }, bio: { es: "Filósofo ateniense que no dejó escritos. Lo conocemos por Platón, Jenofonte y otros testigos: hizo del diálogo, la refutación y el cuidado del alma una forma de vida.", en: "An Athenian philosopher who left no writings. Known through Plato, Xenophon and other witnesses, he made dialogue, refutation and care of the soul a way of life." }, expertise: [{ es: "Método socrático", en: "Socratic method" }, { es: "Virtud e ignorancia", en: "Virtue and ignorance" }, { es: "Cuidado del alma", en: "Care of the soul" }] },
   heidegger: {
     years: "1889 – 1976",
     origin: { es: "Messkirch, Alemania", en: "Messkirch, Germany" },
@@ -644,21 +667,6 @@ export const PROFILES: Partial<Record<PhilosopherId, PhilosopherProfile>> = {
     ],
   },
 
-  negrihardt: {
-    years: "1933 – 2023 · 1960 –",
-    origin: { es: "Padua, Italia · Washington, EE. UU.", en: "Padua, Italy · Washington, USA" },
-    bio: {
-      es: "Antonio Negri, del obrerismo italiano y la cárcel, y Michael Hardt, teórico literario norteamericano, escribieron juntos Imperio, Multitud, Commonwealth y Asamblea: el poder global ya no tiene centro, y frente a él aparece la multitud que produce lo común.",
-      en: "Antonio Negri, from Italian operaismo and prison, and Michael Hardt, an American literary theorist, wrote Empire, Multitude, Commonwealth and Assembly together: global power no longer has a centre, and facing it stands the multitude that produces the common.",
-    },
-    expertise: [
-      { es: "Imperio: poder global sin centro", en: "Empire: global power without a centre" },
-      { es: "Multitud y singularidades", en: "Multitude and singularities" },
-      { es: "Trabajo inmaterial y afectivo", en: "Immaterial and affective labour" },
-      { es: "Lo común frente a público y privado", en: "The common beyond public and private" },
-      { es: "Biopolítica desde abajo", en: "Biopolitics from below" },
-    ],
-  },
 
   rand: {
     years: "1905 – 1982",
