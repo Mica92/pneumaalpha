@@ -304,96 +304,117 @@ function Home() {
 
       <main className="route-enter relative z-10">
         {/* ── Hero ─────────────────────────────────────────────── */}
-        <section className="relative border-b border-border/60">
-          <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
-            <img
-              src={landingBg}
-              alt=""
-              className="h-full w-full scale-105 object-cover opacity-20 grayscale"
-            />
-            <div className="absolute inset-0 bg-gradient-to-b from-background/75 via-background/90 to-background" />
-          </div>
+        <section className="relative isolate flex min-h-[92svh] items-center overflow-hidden border-b border-border/60">
+          <img
+            src={heroColumns}
+            alt=""
+            aria-hidden="true"
+            width={1920}
+            height={1088}
+            className="absolute inset-0 -z-10 h-full w-full object-cover"
+          />
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 -z-10 bg-gradient-to-r from-background via-background/85 to-background/20"
+          />
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 -z-10 bg-gradient-to-t from-background via-background/30 to-background/60"
+          />
 
-          <div className="relative mx-auto max-w-4xl px-5 py-24 text-center md:px-8 md:py-36">
-            <h1 className="fade-up balance mx-auto max-w-3xl font-serif text-display font-light text-foreground">
-              {es ? (
-                <>
-                  Claridad para preguntas <em className="text-bronze not-italic">difíciles</em>.
-                </>
-              ) : (
-                <>
-                  Clarity for <em className="text-bronze not-italic">hard</em> questions.
-                </>
-              )}
-            </h1>
-            <p className="lead measure mx-auto mt-6">
-              {es
-                ? "Pneum te ayuda a comprender preguntas, problemas y decisiones complejas con mayor claridad."
-                : "Pneum helps you understand complex questions, problems and decisions with greater clarity."}
-            </p>
-            <p className="mt-3 text-micro uppercase tracking-[0.25em] text-bronze-bright">
-              {es
-                ? "Filosofía aplicada + inteligencia artificial + análisis intelectual"
-                : "Applied philosophy + artificial intelligence + intellectual analysis"}
-            </p>
+          <div className="relative mx-auto w-full max-w-6xl px-5 py-28 md:px-8 md:py-36">
+            <div className="max-w-2xl">
+              <h1 className="fade-up balance font-serif text-display font-light text-foreground">
+                {es ? (
+                  <>
+                    Claridad para preguntas <em className="text-bronze not-italic">difíciles</em>.
+                  </>
+                ) : (
+                  <>
+                    Clarity for <em className="text-bronze not-italic">hard</em> questions.
+                  </>
+                )}
+              </h1>
+              <p className="lead measure mt-6">
+                {es
+                  ? "Pneum te ayuda a comprender preguntas, problemas y decisiones complejas con mayor claridad."
+                  : "Pneum helps you understand complex questions, problems and decisions with greater clarity."}
+              </p>
+              <p className="mt-3 text-micro uppercase tracking-[0.25em] text-bronze-bright">
+                {es
+                  ? "Filosofía aplicada + inteligencia artificial + análisis intelectual"
+                  : "Applied philosophy + artificial intelligence + intellectual analysis"}
+              </p>
 
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                ask(inquiry);
-              }}
-              className="mx-auto mt-12 max-w-2xl"
-            >
-              <label
-                className="block text-left font-serif text-subtitle font-light text-foreground"
-                htmlFor="home-inquiry"
-              >
-                {es ? "¿Qué estás intentando comprender?" : "What are you trying to understand?"}
-              </label>
-              <div className="mt-4 flex flex-col gap-3 sm:flex-row">
-                <input
-                  id="home-inquiry"
-                  value={inquiry}
-                  onChange={(e) => setInquiry(e.target.value)}
-                  placeholder={
-                    es
-                      ? "Escribe una pregunta, problema, decisión o idea…"
-                      : "Write a question, problem, decision or idea…"
-                  }
-                  className="focus-mist min-w-0 flex-1 rounded-md border border-bronze/40 bg-background/90 px-4 py-4 text-body text-foreground shadow-lg shadow-black/20 transition-colors placeholder:text-muted-foreground/70 hover:border-bronze/60"
-                />
-                <button
-                  type="submit"
-                  className="btn-gold focus-mist whitespace-nowrap px-7 py-4 text-small"
-                >
-                  {es ? "Pensarlo con Pneum" : "Think it with Pneum"}
-                </button>
-              </div>
-            </form>
-
-            <div className="mx-auto mt-4 flex max-w-2xl justify-start">
-              <ToneSelect
-                value={tone}
-                onChange={(v) => {
-                  setTone(v);
-                  storeTone(v);
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  ask(inquiry);
                 }}
-              />
+                className="mt-12"
+              >
+                <label
+                  className="block font-serif text-subtitle font-light text-foreground"
+                  htmlFor="home-inquiry"
+                >
+                  {es ? "¿Qué estás intentando comprender?" : "What are you trying to understand?"}
+                </label>
+                <div className="mt-4 flex flex-col gap-3 sm:flex-row">
+                  <input
+                    id="home-inquiry"
+                    value={inquiry}
+                    onChange={(e) => setInquiry(e.target.value)}
+                    placeholder={
+                      es
+                        ? "Escribe una pregunta, problema, decisión o idea…"
+                        : "Write a question, problem, decision or idea…"
+                    }
+                    className="focus-mist min-w-0 flex-1 rounded-md border border-bronze/45 bg-background/80 px-4 py-4 text-body text-foreground backdrop-blur-sm transition-colors placeholder:text-muted-foreground/70 hover:border-bronze/70"
+                  />
+                  <button
+                    type="submit"
+                    className="btn-gold focus-mist whitespace-nowrap px-7 py-4 text-small"
+                  >
+                    {es ? "Pensarlo con Pneum" : "Think it with Pneum"}
+                  </button>
+                </div>
+              </form>
+
+              <div className="mt-4">
+                <ToneSelect
+                  value={tone}
+                  onChange={(v) => {
+                    setTone(v);
+                    storeTone(v);
+                  }}
+                />
+              </div>
+
+              <ul className="mt-8 flex flex-wrap gap-2">
+                {REAL_PROBLEMS.slice(0, 4).map((p) => (
+                  <li key={p.id}>
+                    <button
+                      type="button"
+                      onClick={() => ask(p.text[lang], "suggestion")}
+                      className="focus-mist rounded-full border border-border/60 bg-background/40 px-3.5 py-1.5 text-micro text-muted-foreground backdrop-blur-sm transition-colors hover:border-bronze/50 hover:text-foreground"
+                    >
+                      {p.text[lang]}
+                    </button>
+                  </li>
+                ))}
+              </ul>
             </div>
 
-            <ul className="mx-auto mt-8 flex max-w-2xl flex-wrap justify-center gap-2">
-              {REAL_PROBLEMS.slice(0, 4).map((p) => (
-                <li key={p.id}>
-                  <button
-                    type="button"
-                    onClick={() => ask(p.text[lang], "suggestion")}
-                    className="focus-mist rounded-full border border-border/60 px-3.5 py-1.5 text-micro text-muted-foreground transition-colors hover:border-bronze/50 hover:text-foreground"
-                  >
-                    {p.text[lang]}
-                  </button>
-                </li>
-              ))}
-            </ul>
+            <p
+              aria-hidden="true"
+              className="pointer-events-none absolute right-8 top-1/2 hidden -translate-y-1/2 border-l border-bronze/40 pl-4 text-micro leading-loose tracking-[0.18em] text-foreground/70 xl:block"
+            >
+              {es ? "Más perspectiva." : "More perspective."}
+              <br />
+              {es ? "Mejores preguntas." : "Better questions."}
+              <br />
+              {es ? "Mejores decisiones." : "Better decisions."}
+            </p>
           </div>
         </section>
 
