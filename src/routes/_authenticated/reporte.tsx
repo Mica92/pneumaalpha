@@ -15,13 +15,21 @@ export const Route = createFileRoute("/_authenticated/reporte")({
   component: ReportPage,
   head: () => ({
     meta: [
-      { title: "Pneum — Reporte · espejo de tus conversaciones" },
+      { title: "Retrato de tu pensamiento — Pneum" },
       {
         name: "description",
         content:
-          "Un retrato psicológico-filosófico construido a partir de tus propias palabras: arquetipo, fortalezas, sombras y recomendaciones de lectura.",
+          "Patrones observables en tus propias palabras: temas que reaparecen, cómo argumentas, tensiones abiertas y qué leer después. No es un diagnóstico.",
       },
-      { property: "og:title", content: "Pneum — Reporte" },
+      { property: "og:title", content: "Retrato de tu pensamiento — Pneum" },
+      {
+        property: "og:description",
+        content:
+          "Una lectura de tus textos: temas recurrentes, forma de argumentar y lecturas sugeridas.",
+      },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: `${SITE_URL}/reporte` },
+      { name: "twitter:card", content: "summary" },
     ],
     links: [{ rel: "canonical", href: `${SITE_URL}/reporte` }],
   }),
