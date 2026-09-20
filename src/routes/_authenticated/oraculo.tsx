@@ -10,6 +10,7 @@ import { useI18n } from "@/lib/i18n";
 import { ToneSelect } from "@/components/tone-select";
 import { isToneId, loadStoredTone, storeTone, type ToneId } from "@/lib/tones";
 import { track, trackOnce } from "@/lib/analytics";
+import { PageAtmosphere } from "@/components/page-atmosphere";
 
 export const Route = createFileRoute("/_authenticated/oraculo")({
   validateSearch: (search: Record<string, unknown>): { q?: string; tone?: string } => ({
@@ -122,8 +123,9 @@ function OraclePage() {
   return (
     <>
       <SiteNav />
-      <main className="route-enter relative z-10 mx-auto flex min-h-screen max-w-3xl flex-col px-6 py-10 md:px-10 md:py-14">
-        <header className="mt-16 mb-10 md:mt-24 md:mb-14">
+      <main className="route-enter relative z-10 mx-auto flex min-h-screen max-w-3xl flex-col overflow-hidden px-6 py-10 md:px-10 md:py-14">
+        <PageAtmosphere variant="study" />
+        <header className="relative mt-16 mb-10 md:mt-24 md:mb-14">
           <p className="label">{es ? "Claridad antes de decidir" : "Clarity before deciding"}</p>
           <h1 className="fade-up mt-5 max-w-2xl font-serif text-title font-light text-foreground">
             {es ? "¿Qué estás intentando comprender?" : "What are you trying to understand?"}
@@ -148,7 +150,7 @@ function OraclePage() {
             rows={5}
             maxLength={2000}
             disabled={submitting}
-            className="focus-mist w-full resize-none rounded-xl border border-border bg-input px-5 py-4 text-body text-foreground placeholder:text-muted-foreground disabled:opacity-50"
+            className="page-form focus-mist w-full resize-none px-5 py-4 text-body text-foreground placeholder:text-muted-foreground disabled:opacity-50"
             onKeyDown={(e) => {
               if ((e.metaKey || e.ctrlKey) && e.key === "Enter") {
                 (e.currentTarget.form as HTMLFormElement | null)?.requestSubmit();

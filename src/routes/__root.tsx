@@ -16,7 +16,7 @@ import { supabase } from "@/integrations/supabase/client";
 
 import appCss from "../styles.css?url";
 import { GreekGlyph } from "@/components/greek-glyph";
-import { ArchitecturalBackground } from "@/components/neural-background";
+import { ArchitecturalBackground } from "@/components/architectural-background";
 import { SITE_URL, SITE_NAME } from "@/lib/site";
 
 function NotFoundComponent() {

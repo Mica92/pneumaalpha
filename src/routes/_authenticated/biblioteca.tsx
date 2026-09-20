@@ -21,6 +21,7 @@ import {
 import { useI18n } from "@/lib/i18n";
 import { NewsletterCard } from "@/components/newsletter-card";
 import { toast } from "sonner";
+import { PageAtmosphere } from "@/components/page-atmosphere";
 
 export const Route = createFileRoute("/_authenticated/biblioteca")({
   component: LibraryPage,
@@ -66,8 +67,9 @@ function LibraryPage() {
   return (
     <>
       <SiteNav />
-      <main className="route-enter relative z-10 mx-auto flex min-h-dvh max-w-4xl flex-col px-6 py-10 md:px-10 md:py-14">
-        <header className="mt-16 mb-10 md:mt-20 md:mb-12">
+      <main className="route-enter relative z-10 mx-auto flex min-h-dvh max-w-4xl flex-col overflow-hidden px-6 py-10 md:px-10 md:py-14">
+        <PageAtmosphere variant="archive" />
+        <header className="relative mt-16 mb-10 min-h-64 md:mt-20 md:mb-12">
           <p className="tracking-in font-display text-micro uppercase text-muted-foreground">
             {t("library.kicker")}
           </p>
@@ -99,7 +101,7 @@ function LibraryPage() {
             </>
           )}
           {!isLoading && (fragments ?? []).length === 0 && (
-            <p className="rounded-xl border border-border/60 bg-card/40 p-6 text-small text-muted-foreground">
+            <p className="card-editorial p-6 text-small text-muted-foreground">
               {t("library.empty")}
             </p>
           )}
@@ -159,7 +161,7 @@ function FragmentCard({ fragment }: { fragment: LibraryFragment }) {
   const meta = isPhilosopherId(id) ? PHILOSOPHERS[id] : null;
 
   return (
-    <article className="fade-up group rounded-xl border border-border/60 bg-card/50 p-6 backdrop-blur-sm transition-colors hover:border-mist/40">
+    <article className="card-editorial fade-up group p-6">
       <p className="font-display text-micro uppercase tracking-[0.3em] text-muted-foreground">
         <span aria-hidden="true" className="mr-2">
           {meta?.glyph ?? "·"}

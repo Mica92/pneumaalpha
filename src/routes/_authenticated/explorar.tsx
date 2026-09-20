@@ -12,6 +12,7 @@ import { matchPhilosopher } from "@/lib/oracle.functions";
 import { PHILOSOPHERS, type PhilosopherId } from "@/lib/philosophers";
 import { CATEGORIES, IDEAS, REAL_PROBLEMS, centralQuestion } from "@/lib/discovery";
 import { supabase } from "@/integrations/supabase/client";
+import { PageAtmosphere } from "@/components/page-atmosphere";
 
 export const Route = createFileRoute("/_authenticated/explorar")({
   component: ExplorePage,
@@ -112,8 +113,9 @@ function ExplorePage() {
   return (
     <>
       <SiteNav />
-      <main className="route-enter relative z-10 mx-auto max-w-4xl px-5 py-14 md:px-8 md:py-20">
-        <header>
+      <main className="route-enter relative z-10 mx-auto max-w-4xl overflow-hidden px-5 py-14 md:px-8 md:py-20">
+        <PageAtmosphere variant="archive" />
+        <header className="relative min-h-64 pt-8">
           <p className="label">{COPY.kicker[lang]}</p>
           <h1 className="fade-up mt-4 max-w-3xl font-serif text-title font-light text-foreground">
             {COPY.title[lang]}
@@ -139,7 +141,7 @@ function ExplorePage() {
             maxLength={2000}
             disabled={submitting}
             aria-label={COPY.placeholder[lang]}
-            className="w-full resize-none rounded-xl border border-border bg-input px-5 py-4 text-body text-foreground placeholder:text-muted-foreground focus:border-bronze/50 focus:ring-1 focus:ring-bronze/20 focus:outline-none disabled:opacity-50"
+            className="page-form w-full resize-none px-5 py-4 text-body text-foreground placeholder:text-muted-foreground focus:outline-none disabled:opacity-50"
             onKeyDown={(e) => {
               if ((e.metaKey || e.ctrlKey) && e.key === "Enter")
                 (e.currentTarget.form as HTMLFormElement | null)?.requestSubmit();

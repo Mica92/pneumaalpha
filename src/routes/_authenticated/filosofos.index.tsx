@@ -26,6 +26,7 @@ import { PhilosopherCard } from "@/components/philosopher-card";
 import { SiteNav } from "@/components/site-nav";
 import { SiteFooter } from "@/components/site-footer";
 import { useI18n } from "@/lib/i18n";
+import { PageAtmosphere } from "@/components/page-atmosphere";
 
 const COUNT = PHILOSOPHER_LIST.length;
 
@@ -187,8 +188,9 @@ function PhilosophersIndex() {
   return (
     <>
       <SiteNav />
-      <main className="route-enter relative z-10">
-        <div className="mx-auto max-w-6xl px-5 pt-14 md:px-8 md:pt-20">
+      <main className="route-enter relative z-10 overflow-hidden">
+        <PageAtmosphere variant="archive" />
+        <div className="relative mx-auto min-h-80 max-w-6xl px-5 pt-20 md:px-8 md:pt-28">
           <p className="label">{es ? "Las mentes" : "The minds"}</p>
           <h1 className="mt-3 max-w-3xl font-serif text-title font-light text-foreground">
             {es
@@ -213,7 +215,7 @@ function PhilosophersIndex() {
                 placeholder={
                   es ? "Buscar: libertad, muerte, poder…" : "Search: freedom, death, power…"
                 }
-                className="focus-mist w-full max-w-md rounded-md border border-border/70 bg-input px-4 py-3 text-small text-foreground placeholder:text-muted-foreground/70"
+                 className="page-form focus-mist w-full max-w-md px-4 py-3 text-small text-foreground placeholder:text-muted-foreground/70"
               />
 
               <button

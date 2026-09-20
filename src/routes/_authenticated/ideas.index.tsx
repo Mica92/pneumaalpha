@@ -5,6 +5,7 @@ import { SiteNav } from "@/components/site-nav";
 import { SiteFooter } from "@/components/site-footer";
 import { PHILOSOPHERS } from "@/lib/philosophers";
 import { useI18n } from "@/lib/i18n";
+import { PageAtmosphere } from "@/components/page-atmosphere";
 
 export const Route = createFileRoute("/_authenticated/ideas/")({
   component: IdeasIndex,
@@ -36,8 +37,9 @@ function IdeasIndex() {
   return (
     <>
       <SiteNav />
-      <main className="route-enter relative z-10">
-        <div className="mx-auto max-w-6xl px-5 pt-14 md:px-8 md:pt-20">
+      <main className="route-enter relative z-10 overflow-hidden">
+        <PageAtmosphere variant="archive" />
+        <div className="relative mx-auto min-h-80 max-w-6xl px-5 pt-20 md:px-8 md:pt-28">
           <p className="label">{es ? "Grandes ideas" : "Great ideas"}</p>
           <h1 className="mt-3 max-w-3xl font-serif text-title font-light text-foreground">
             {es ? "Entra por la idea, no por el autor" : "Enter through the idea, not the author"}

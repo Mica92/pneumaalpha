@@ -13,6 +13,7 @@ import {
   neighborsOf,
   type NodeKind,
 } from "@/lib/knowledge-graph";
+import { PageAtmosphere } from "@/components/page-atmosphere";
 
 export const Route = createFileRoute("/_authenticated/conocimiento")({
   component: KnowledgePage,
@@ -60,8 +61,9 @@ function KnowledgePage() {
   return (
     <>
       <SiteNav />
-      <main className="route-enter relative z-10 mx-auto flex min-h-dvh max-w-6xl flex-col px-6 py-10 md:px-10 md:py-14">
-        <header className="mt-14 mb-8">
+      <main className="route-enter relative z-10 mx-auto flex min-h-dvh max-w-6xl flex-col overflow-hidden px-6 py-10 md:px-10 md:py-14">
+        <PageAtmosphere variant="dome" />
+        <header className="relative mt-14 mb-8 min-h-64">
           <p className="tracking-in font-display text-micro uppercase tracking-[0.35em] text-glacier-bright">
             {t("knowledge.kicker")}
           </p>
@@ -80,7 +82,7 @@ function KnowledgePage() {
             onChange={(e) => setQuery(e.target.value)}
             placeholder={t("knowledge.search")}
             aria-label={t("knowledge.search")}
-            className="h-9 w-full max-w-xs rounded-md border border-border bg-card/40 px-3 text-small text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-glacier md:w-64"
+             className="page-form h-9 w-full max-w-xs px-3 text-small text-foreground outline-none placeholder:text-muted-foreground md:w-64"
           />
           <div className="flex flex-wrap gap-1.5">
             {KINDS.map((k) => {

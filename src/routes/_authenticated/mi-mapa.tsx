@@ -18,6 +18,7 @@ import {
   suggestionsFrom,
   type EntityKind,
 } from "@/lib/atlas";
+import { PageAtmosphere } from "@/components/page-atmosphere";
 
 export const Route = createFileRoute("/_authenticated/mi-mapa")({
   component: PersonalMapPage,
@@ -152,8 +153,9 @@ function PersonalMapPage() {
   return (
     <>
       <SiteNav />
-      <main className="route-enter relative z-10 mx-auto flex min-h-dvh max-w-6xl flex-col px-6 py-10 md:px-10 md:py-14">
-        <header className="mb-8 mt-14">
+      <main className="route-enter relative z-10 mx-auto flex min-h-dvh max-w-6xl flex-col overflow-hidden px-6 py-10 md:px-10 md:py-14">
+        <PageAtmosphere variant="dome" />
+        <header className="relative mb-8 mt-14 min-h-64">
           <p className="label text-primary">{COPY.kicker[lang]}</p>
           <h1 className="mt-4 max-w-3xl font-serif text-title font-light text-foreground">
             {COPY.title[lang]}

@@ -10,6 +10,7 @@ import { useI18n } from "@/lib/i18n";
 import { SiteNav } from "@/components/site-nav";
 import { SiteFooter } from "@/components/site-footer";
 import { GreekGlyph } from "@/components/greek-glyph";
+import { PageAtmosphere } from "@/components/page-atmosphere";
 
 export const Route = createFileRoute("/_authenticated/mesa")({
   component: RoundTablePage,
@@ -102,8 +103,9 @@ function RoundTablePage() {
   return (
     <>
       <SiteNav />
-      <main className="route-enter relative z-10 mx-auto flex max-w-3xl flex-col px-6 py-10 md:px-10 md:py-14">
-        <header className="mt-10 mb-10 md:mt-14 md:mb-12">
+      <main className="route-enter relative z-10 mx-auto flex max-w-3xl flex-col overflow-hidden px-6 py-10 md:px-10 md:py-14">
+        <PageAtmosphere variant="study" />
+        <header className="relative mt-10 mb-10 md:mt-14 md:mb-12">
           <p className="label">{t("mesa.kicker")}</p>
           <h1 className="fade-up mt-5 font-serif text-title font-light text-foreground">
             {t("mesa.page.title")}
@@ -128,7 +130,7 @@ function RoundTablePage() {
               maxLength={1200}
               onChange={(e) => setTopic(e.target.value)}
               placeholder={t("mesa.topic.placeholder")}
-              className="focus-mist mt-2 w-full resize-none rounded-xl border border-border bg-input px-5 py-4 text-body text-foreground placeholder:text-muted-foreground focus:border-glacier/50 focus:outline-none"
+              className="page-form focus-mist mt-2 w-full resize-none px-5 py-4 text-body text-foreground placeholder:text-muted-foreground focus:outline-none"
             />
           </div>
 

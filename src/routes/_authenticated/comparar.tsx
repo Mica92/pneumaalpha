@@ -10,6 +10,7 @@ import { SiteNav } from "@/components/site-nav";
 import { SiteFooter } from "@/components/site-footer";
 import { GreekGlyph } from "@/components/greek-glyph";
 import { useI18n } from "@/lib/i18n";
+import { PageAtmosphere } from "@/components/page-atmosphere";
 
 const MAX_COMPARE = 3;
 
@@ -91,8 +92,9 @@ function ComparePage() {
   return (
     <>
       <SiteNav />
-      <main className="route-enter relative z-10">
-        <div className="mx-auto max-w-5xl px-5 pt-14 md:px-8 md:pt-20">
+      <main className="route-enter relative z-10 overflow-hidden">
+        <PageAtmosphere variant="study" />
+        <div className="relative mx-auto min-h-72 max-w-5xl px-5 pt-20 md:px-8 md:pt-28">
           <p className="label">{es ? "Comparar perspectivas" : "Compare perspectives"}</p>
           <h1 className="mt-3 max-w-3xl font-serif text-title font-light text-foreground">
             {es ? "Una pregunta, varias respuestas" : "One question, several answers"}
@@ -120,7 +122,7 @@ function ComparePage() {
                   ? "¿Qué hago con el miedo a equivocarme?"
                   : "What do I do with the fear of error?"
               }
-              className="focus-mist mt-2 w-full resize-none rounded-xl border border-border bg-input px-5 py-4 text-body text-foreground placeholder:text-muted-foreground focus:outline-none"
+              className="page-form focus-mist mt-2 w-full resize-none px-5 py-4 text-body text-foreground placeholder:text-muted-foreground focus:outline-none"
             />
           </div>
 
