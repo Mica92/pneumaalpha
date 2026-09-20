@@ -12,20 +12,18 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as UsoDeIaRouteImport } from './routes/uso-de-ia'
 import { Route as TerminosRouteImport } from './routes/terminos'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
-import { Route as ReembolsosRouteImport } from './routes/reembolsos'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ContactoRouteImport } from './routes/contacto'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
 import { Route as AuthenticatedUmbralRouteImport } from './routes/_authenticated/umbral'
-import { Route as AuthenticatedSocratesRouteImport } from './routes/_authenticated/socrates'
 import { Route as AuthenticatedReporteRouteImport } from './routes/_authenticated/reporte'
 import { Route as AuthenticatedRecorridoRouteImport } from './routes/_authenticated/recorrido'
 import { Route as AuthenticatedPodcastRouteImport } from './routes/_authenticated/podcast'
-import { Route as AuthenticatedPlanesRouteImport } from './routes/_authenticated/planes'
 import { Route as AuthenticatedPerfilRouteImport } from './routes/_authenticated/perfil'
 import { Route as AuthenticatedOraculoRouteImport } from './routes/_authenticated/oraculo'
 import { Route as AuthenticatedNosotrosRouteImport } from './routes/_authenticated/nosotros'
+import { Route as AuthenticatedModoSocratesRouteImport } from './routes/_authenticated/modo-socrates'
 import { Route as AuthenticatedMiMapaRouteImport } from './routes/_authenticated/mi-mapa'
 import { Route as AuthenticatedMesaRouteImport } from './routes/_authenticated/mesa'
 import { Route as AuthenticatedExplorarRouteImport } from './routes/_authenticated/explorar'
@@ -45,7 +43,6 @@ import { Route as AuthenticatedFilosofosIdRouteImport } from './routes/_authenti
 import { Route as AuthenticatedAdminAnaliticaRouteImport } from './routes/_authenticated/admin.analitica'
 import { Route as LovableEmailAuthWebhookRouteImport } from './routes/lovable/email/auth/webhook'
 import { Route as LovableEmailAuthPreviewRouteImport } from './routes/lovable/email/auth/preview'
-import { Route as ApiPublicPaymentsLemonRouteImport } from './routes/api/public/payments/lemon'
 
 const UsoDeIaRoute = UsoDeIaRouteImport.update({
   id: '/uso-de-ia',
@@ -60,11 +57,6 @@ const TerminosRoute = TerminosRouteImport.update({
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ReembolsosRoute = ReembolsosRouteImport.update({
-  id: '/reembolsos',
-  path: '/reembolsos',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PrivacyRoute = PrivacyRouteImport.update({
@@ -91,11 +83,6 @@ const AuthenticatedUmbralRoute = AuthenticatedUmbralRouteImport.update({
   path: '/umbral',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const AuthenticatedSocratesRoute = AuthenticatedSocratesRouteImport.update({
-  id: '/socrates',
-  path: '/socrates',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
 const AuthenticatedReporteRoute = AuthenticatedReporteRouteImport.update({
   id: '/reporte',
   path: '/reporte',
@@ -109,11 +96,6 @@ const AuthenticatedRecorridoRoute = AuthenticatedRecorridoRouteImport.update({
 const AuthenticatedPodcastRoute = AuthenticatedPodcastRouteImport.update({
   id: '/podcast',
   path: '/podcast',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const AuthenticatedPlanesRoute = AuthenticatedPlanesRouteImport.update({
-  id: '/planes',
-  path: '/planes',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedPerfilRoute = AuthenticatedPerfilRouteImport.update({
@@ -131,6 +113,12 @@ const AuthenticatedNosotrosRoute = AuthenticatedNosotrosRouteImport.update({
   path: '/nosotros',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedModoSocratesRoute =
+  AuthenticatedModoSocratesRouteImport.update({
+    id: '/modo-socrates',
+    path: '/modo-socrates',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedMiMapaRoute = AuthenticatedMiMapaRouteImport.update({
   id: '/mi-mapa',
   path: '/mi-mapa',
@@ -231,17 +219,11 @@ const LovableEmailAuthPreviewRoute = LovableEmailAuthPreviewRouteImport.update({
   path: '/lovable/email/auth/preview',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiPublicPaymentsLemonRoute = ApiPublicPaymentsLemonRouteImport.update({
-  id: '/api/public/payments/lemon',
-  path: '/api/public/payments/lemon',
-  getParentRoute: () => rootRouteImport,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof AuthenticatedIndexRoute
   '/contacto': typeof ContactoRoute
   '/privacy': typeof PrivacyRoute
-  '/reembolsos': typeof ReembolsosRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terminos': typeof TerminosRoute
   '/uso-de-ia': typeof UsoDeIaRoute
@@ -254,14 +236,13 @@ export interface FileRoutesByFullPath {
   '/explorar': typeof AuthenticatedExplorarRoute
   '/mesa': typeof AuthenticatedMesaRoute
   '/mi-mapa': typeof AuthenticatedMiMapaRoute
+  '/modo-socrates': typeof AuthenticatedModoSocratesRoute
   '/nosotros': typeof AuthenticatedNosotrosRoute
   '/oraculo': typeof AuthenticatedOraculoRoute
   '/perfil': typeof AuthenticatedPerfilRoute
-  '/planes': typeof AuthenticatedPlanesRoute
   '/podcast': typeof AuthenticatedPodcastRoute
   '/recorrido': typeof AuthenticatedRecorridoRoute
   '/reporte': typeof AuthenticatedReporteRoute
-  '/socrates': typeof AuthenticatedSocratesRoute
   '/umbral': typeof AuthenticatedUmbralRoute
   '/admin/analitica': typeof AuthenticatedAdminAnaliticaRoute
   '/filosofos/$id': typeof AuthenticatedFilosofosIdRoute
@@ -271,14 +252,12 @@ export interface FileRoutesByFullPath {
   '/filosofos/': typeof AuthenticatedFilosofosIndexRoute
   '/ideas/': typeof AuthenticatedIdeasIndexRoute
   '/rutas/': typeof AuthenticatedRutasIndexRoute
-  '/api/public/payments/lemon': typeof ApiPublicPaymentsLemonRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
 }
 export interface FileRoutesByTo {
   '/contacto': typeof ContactoRoute
   '/privacy': typeof PrivacyRoute
-  '/reembolsos': typeof ReembolsosRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terminos': typeof TerminosRoute
   '/uso-de-ia': typeof UsoDeIaRoute
@@ -291,14 +270,13 @@ export interface FileRoutesByTo {
   '/explorar': typeof AuthenticatedExplorarRoute
   '/mesa': typeof AuthenticatedMesaRoute
   '/mi-mapa': typeof AuthenticatedMiMapaRoute
+  '/modo-socrates': typeof AuthenticatedModoSocratesRoute
   '/nosotros': typeof AuthenticatedNosotrosRoute
   '/oraculo': typeof AuthenticatedOraculoRoute
   '/perfil': typeof AuthenticatedPerfilRoute
-  '/planes': typeof AuthenticatedPlanesRoute
   '/podcast': typeof AuthenticatedPodcastRoute
   '/recorrido': typeof AuthenticatedRecorridoRoute
   '/reporte': typeof AuthenticatedReporteRoute
-  '/socrates': typeof AuthenticatedSocratesRoute
   '/umbral': typeof AuthenticatedUmbralRoute
   '/': typeof AuthenticatedIndexRoute
   '/admin/analitica': typeof AuthenticatedAdminAnaliticaRoute
@@ -309,7 +287,6 @@ export interface FileRoutesByTo {
   '/filosofos': typeof AuthenticatedFilosofosIndexRoute
   '/ideas': typeof AuthenticatedIdeasIndexRoute
   '/rutas': typeof AuthenticatedRutasIndexRoute
-  '/api/public/payments/lemon': typeof ApiPublicPaymentsLemonRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
 }
@@ -318,7 +295,6 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/contacto': typeof ContactoRoute
   '/privacy': typeof PrivacyRoute
-  '/reembolsos': typeof ReembolsosRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terminos': typeof TerminosRoute
   '/uso-de-ia': typeof UsoDeIaRoute
@@ -331,14 +307,13 @@ export interface FileRoutesById {
   '/_authenticated/explorar': typeof AuthenticatedExplorarRoute
   '/_authenticated/mesa': typeof AuthenticatedMesaRoute
   '/_authenticated/mi-mapa': typeof AuthenticatedMiMapaRoute
+  '/_authenticated/modo-socrates': typeof AuthenticatedModoSocratesRoute
   '/_authenticated/nosotros': typeof AuthenticatedNosotrosRoute
   '/_authenticated/oraculo': typeof AuthenticatedOraculoRoute
   '/_authenticated/perfil': typeof AuthenticatedPerfilRoute
-  '/_authenticated/planes': typeof AuthenticatedPlanesRoute
   '/_authenticated/podcast': typeof AuthenticatedPodcastRoute
   '/_authenticated/recorrido': typeof AuthenticatedRecorridoRoute
   '/_authenticated/reporte': typeof AuthenticatedReporteRoute
-  '/_authenticated/socrates': typeof AuthenticatedSocratesRoute
   '/_authenticated/umbral': typeof AuthenticatedUmbralRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
   '/_authenticated/admin/analitica': typeof AuthenticatedAdminAnaliticaRoute
@@ -349,7 +324,6 @@ export interface FileRoutesById {
   '/_authenticated/filosofos/': typeof AuthenticatedFilosofosIndexRoute
   '/_authenticated/ideas/': typeof AuthenticatedIdeasIndexRoute
   '/_authenticated/rutas/': typeof AuthenticatedRutasIndexRoute
-  '/api/public/payments/lemon': typeof ApiPublicPaymentsLemonRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
 }
@@ -359,7 +333,6 @@ export interface FileRouteTypes {
     | '/'
     | '/contacto'
     | '/privacy'
-    | '/reembolsos'
     | '/sitemap.xml'
     | '/terminos'
     | '/uso-de-ia'
@@ -372,14 +345,13 @@ export interface FileRouteTypes {
     | '/explorar'
     | '/mesa'
     | '/mi-mapa'
+    | '/modo-socrates'
     | '/nosotros'
     | '/oraculo'
     | '/perfil'
-    | '/planes'
     | '/podcast'
     | '/recorrido'
     | '/reporte'
-    | '/socrates'
     | '/umbral'
     | '/admin/analitica'
     | '/filosofos/$id'
@@ -389,14 +361,12 @@ export interface FileRouteTypes {
     | '/filosofos/'
     | '/ideas/'
     | '/rutas/'
-    | '/api/public/payments/lemon'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/contacto'
     | '/privacy'
-    | '/reembolsos'
     | '/sitemap.xml'
     | '/terminos'
     | '/uso-de-ia'
@@ -409,14 +379,13 @@ export interface FileRouteTypes {
     | '/explorar'
     | '/mesa'
     | '/mi-mapa'
+    | '/modo-socrates'
     | '/nosotros'
     | '/oraculo'
     | '/perfil'
-    | '/planes'
     | '/podcast'
     | '/recorrido'
     | '/reporte'
-    | '/socrates'
     | '/umbral'
     | '/'
     | '/admin/analitica'
@@ -427,7 +396,6 @@ export interface FileRouteTypes {
     | '/filosofos'
     | '/ideas'
     | '/rutas'
-    | '/api/public/payments/lemon'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
   id:
@@ -435,7 +403,6 @@ export interface FileRouteTypes {
     | '/_authenticated'
     | '/contacto'
     | '/privacy'
-    | '/reembolsos'
     | '/sitemap.xml'
     | '/terminos'
     | '/uso-de-ia'
@@ -448,14 +415,13 @@ export interface FileRouteTypes {
     | '/_authenticated/explorar'
     | '/_authenticated/mesa'
     | '/_authenticated/mi-mapa'
+    | '/_authenticated/modo-socrates'
     | '/_authenticated/nosotros'
     | '/_authenticated/oraculo'
     | '/_authenticated/perfil'
-    | '/_authenticated/planes'
     | '/_authenticated/podcast'
     | '/_authenticated/recorrido'
     | '/_authenticated/reporte'
-    | '/_authenticated/socrates'
     | '/_authenticated/umbral'
     | '/_authenticated/'
     | '/_authenticated/admin/analitica'
@@ -466,7 +432,6 @@ export interface FileRouteTypes {
     | '/_authenticated/filosofos/'
     | '/_authenticated/ideas/'
     | '/_authenticated/rutas/'
-    | '/api/public/payments/lemon'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
   fileRoutesById: FileRoutesById
@@ -475,12 +440,10 @@ export interface RootRouteChildren {
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   ContactoRoute: typeof ContactoRoute
   PrivacyRoute: typeof PrivacyRoute
-  ReembolsosRoute: typeof ReembolsosRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TerminosRoute: typeof TerminosRoute
   UsoDeIaRoute: typeof UsoDeIaRoute
   ApiPodcastSpeechRoute: typeof ApiPodcastSpeechRoute
-  ApiPublicPaymentsLemonRoute: typeof ApiPublicPaymentsLemonRoute
   LovableEmailAuthPreviewRoute: typeof LovableEmailAuthPreviewRoute
   LovableEmailAuthWebhookRoute: typeof LovableEmailAuthWebhookRoute
 }
@@ -506,13 +469,6 @@ declare module '@tanstack/react-router' {
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/reembolsos': {
-      id: '/reembolsos'
-      path: '/reembolsos'
-      fullPath: '/reembolsos'
-      preLoaderRoute: typeof ReembolsosRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/privacy': {
@@ -550,13 +506,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedUmbralRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/socrates': {
-      id: '/_authenticated/socrates'
-      path: '/socrates'
-      fullPath: '/socrates'
-      preLoaderRoute: typeof AuthenticatedSocratesRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
     '/_authenticated/reporte': {
       id: '/_authenticated/reporte'
       path: '/reporte'
@@ -578,13 +527,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedPodcastRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/planes': {
-      id: '/_authenticated/planes'
-      path: '/planes'
-      fullPath: '/planes'
-      preLoaderRoute: typeof AuthenticatedPlanesRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
     '/_authenticated/perfil': {
       id: '/_authenticated/perfil'
       path: '/perfil'
@@ -604,6 +546,13 @@ declare module '@tanstack/react-router' {
       path: '/nosotros'
       fullPath: '/nosotros'
       preLoaderRoute: typeof AuthenticatedNosotrosRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/modo-socrates': {
+      id: '/_authenticated/modo-socrates'
+      path: '/modo-socrates'
+      fullPath: '/modo-socrates'
+      preLoaderRoute: typeof AuthenticatedModoSocratesRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/mi-mapa': {
@@ -739,13 +688,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LovableEmailAuthPreviewRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/public/payments/lemon': {
-      id: '/api/public/payments/lemon'
-      path: '/api/public/payments/lemon'
-      fullPath: '/api/public/payments/lemon'
-      preLoaderRoute: typeof ApiPublicPaymentsLemonRouteImport
-      parentRoute: typeof rootRouteImport
-    }
   }
 }
 
@@ -759,14 +701,13 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedExplorarRoute: typeof AuthenticatedExplorarRoute
   AuthenticatedMesaRoute: typeof AuthenticatedMesaRoute
   AuthenticatedMiMapaRoute: typeof AuthenticatedMiMapaRoute
+  AuthenticatedModoSocratesRoute: typeof AuthenticatedModoSocratesRoute
   AuthenticatedNosotrosRoute: typeof AuthenticatedNosotrosRoute
   AuthenticatedOraculoRoute: typeof AuthenticatedOraculoRoute
   AuthenticatedPerfilRoute: typeof AuthenticatedPerfilRoute
-  AuthenticatedPlanesRoute: typeof AuthenticatedPlanesRoute
   AuthenticatedPodcastRoute: typeof AuthenticatedPodcastRoute
   AuthenticatedRecorridoRoute: typeof AuthenticatedRecorridoRoute
   AuthenticatedReporteRoute: typeof AuthenticatedReporteRoute
-  AuthenticatedSocratesRoute: typeof AuthenticatedSocratesRoute
   AuthenticatedUmbralRoute: typeof AuthenticatedUmbralRoute
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
   AuthenticatedAdminAnaliticaRoute: typeof AuthenticatedAdminAnaliticaRoute
@@ -788,14 +729,13 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedExplorarRoute: AuthenticatedExplorarRoute,
   AuthenticatedMesaRoute: AuthenticatedMesaRoute,
   AuthenticatedMiMapaRoute: AuthenticatedMiMapaRoute,
+  AuthenticatedModoSocratesRoute: AuthenticatedModoSocratesRoute,
   AuthenticatedNosotrosRoute: AuthenticatedNosotrosRoute,
   AuthenticatedOraculoRoute: AuthenticatedOraculoRoute,
   AuthenticatedPerfilRoute: AuthenticatedPerfilRoute,
-  AuthenticatedPlanesRoute: AuthenticatedPlanesRoute,
   AuthenticatedPodcastRoute: AuthenticatedPodcastRoute,
   AuthenticatedRecorridoRoute: AuthenticatedRecorridoRoute,
   AuthenticatedReporteRoute: AuthenticatedReporteRoute,
-  AuthenticatedSocratesRoute: AuthenticatedSocratesRoute,
   AuthenticatedUmbralRoute: AuthenticatedUmbralRoute,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
   AuthenticatedAdminAnaliticaRoute: AuthenticatedAdminAnaliticaRoute,
@@ -814,12 +754,10 @@ const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   ContactoRoute: ContactoRoute,
   PrivacyRoute: PrivacyRoute,
-  ReembolsosRoute: ReembolsosRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TerminosRoute: TerminosRoute,
   UsoDeIaRoute: UsoDeIaRoute,
   ApiPodcastSpeechRoute: ApiPodcastSpeechRoute,
-  ApiPublicPaymentsLemonRoute: ApiPublicPaymentsLemonRoute,
   LovableEmailAuthPreviewRoute: LovableEmailAuthPreviewRoute,
   LovableEmailAuthWebhookRoute: LovableEmailAuthWebhookRoute,
 }

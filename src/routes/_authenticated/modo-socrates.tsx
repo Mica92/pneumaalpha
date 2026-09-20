@@ -9,7 +9,7 @@ import { SiteNav } from "@/components/site-nav";
 import { SiteFooter } from "@/components/site-footer";
 import { GreekGlyph } from "@/components/greek-glyph";
 
-export const Route = createFileRoute("/_authenticated/socrates")({
+export const Route = createFileRoute("/_authenticated/modo-socrates")({
   component: SocratesPage,
   head: () => ({
     meta: [
