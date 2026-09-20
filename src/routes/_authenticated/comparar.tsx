@@ -1,22 +1,33 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SITE_URL } from "@/lib/site";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { runRoundtableRound } from "@/lib/roundtable.functions";
-import { type RoundtableTurn } from "@/lib/roundtable.shared";
-import { PHILOSOPHERS, PHILOSOPHER_LIST, type PhilosopherId } from "@/lib/philosophers";
+import { MAX_SEATS, type RoundtableTurn } from "@/lib/roundtable.shared";
+import {
+  PHILOSOPHERS,
+  PHILOSOPHER_LIST,
+  isPhilosopherId,
+  type PhilosopherId,
+} from "@/lib/philosophers";
 import { portraitFocus, portraitOf } from "@/lib/portraits";
 import { SiteNav } from "@/components/site-nav";
 import { SiteFooter } from "@/components/site-footer";
 import { GreekGlyph } from "@/components/greek-glyph";
 import { useI18n } from "@/lib/i18n";
 import { PageAtmosphere } from "@/components/page-atmosphere";
+import { readQuestion, useQuestionHandoff, validateQid } from "@/lib/question-handoff";
+import { track } from "@/lib/analytics";
 
-const MAX_COMPARE = 3;
+const MAX_COMPARE = MAX_SEATS;
 
 export const Route = createFileRoute("/_authenticated/comparar")({
-  validateSearch: (search: Record<string, unknown>): { q?: string } =>
-    typeof search.q === "string" && search.q ? { q: search.q } : {},
+  validateSearch: (search: Record<string, unknown>): { qid?: string; seats?: string } => ({
+    ...validateQid(search),
+    ...(typeof search.seats === "string" && search.seats
+      ? { seats: search.seats.slice(0, 120) }
+      : {}),
+  }),
   component: ComparePage,
   head: () => ({
     meta: [
