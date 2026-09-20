@@ -58,8 +58,8 @@ function ReportPage() {
       setError(
         msg.includes(PAYWALL_ERROR)
           ? lang === "es"
-            ? "El reporte es parte de la suscripción. Elige un plan para desbloquearlo."
-            : "The report is part of the subscription. Choose a plan to unlock it."
+            ? "El retrato es parte de la suscripción. Elige un plan para desbloquearlo."
+            : "The portrait is part of the subscription. Choose a plan to unlock it."
           : t("report.error"),
       );
     } finally {
