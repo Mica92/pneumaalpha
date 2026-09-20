@@ -2,7 +2,7 @@ import { SITE_URL } from "@/lib/site";
 import { SiteNav } from "@/components/site-nav";
 import { SiteFooter } from "@/components/site-footer";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { matchPhilosopher } from "@/lib/oracle.functions";
 import { PHILOSOPHERS, type PhilosopherId } from "@/lib/philosophers";
@@ -10,6 +10,7 @@ import { useI18n } from "@/lib/i18n";
 import { GreekGlyph } from "@/components/greek-glyph";
 import { ToneSelect } from "@/components/tone-select";
 import { isToneId, loadStoredTone, storeTone, type ToneId } from "@/lib/tones";
+import { track, trackOnce } from "@/lib/analytics";
 
 export const Route = createFileRoute("/_authenticated/oraculo")({
   validateSearch: (search: Record<string, unknown>): { q?: string; tone?: string } => ({
