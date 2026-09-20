@@ -272,6 +272,22 @@ export function SiteNav({ className = "" }: { className?: string }) {
           ))}
 
           <Link
+            to="/nosotros"
+            className="focus-mist whitespace-nowrap text-small text-muted-foreground transition-colors hover:text-foreground"
+            activeProps={{ className: "text-foreground" }}
+          >
+            {lang === "es" ? "Nosotros" : "About"}
+          </Link>
+
+          <Link
+            to="/"
+            hash="home-inquiry"
+            className="btn-ghost-gold focus-mist whitespace-nowrap rounded-full px-4 py-1.5 text-micro"
+          >
+            {lang === "es" ? "Comenzar" : "Start"}
+          </Link>
+
+          <Link
             to="/buscar"
             aria-label={lang === "es" ? "Buscar" : "Search"}
             className="focus-mist text-muted-foreground transition-colors hover:text-foreground"
