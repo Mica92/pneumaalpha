@@ -12,20 +12,47 @@ const InputSchema = z.object({
   tone: z.string().optional(),
 });
 
-type MatchResult = {
+export type OraclePerspective = {
   philosopher: PhilosopherId;
+  angle: string;
+};
+
+export type MatchResult = {
+  /** Interpretive reading of what the question seems to be about. */
+  reading: string;
+  /** Optional reframing: what is asked vs. what also seems at stake. */
+  reframe: { asked: string; beneath: string } | null;
+  /** 2-4 relevant perspectives, each with a one-line angle. */
+  perspectives: OraclePerspective[];
+  /** Why these perspectives were chosen. */
+  why: string;
+  /** A possible new understanding — not "the answer". */
+  aha: string;
+  /** Primary voice to continue with. */
+  philosopher: PhilosopherId;
+  /** Legacy field kept for compatibility: same as `why`. */
   reason: string;
 };
 
 function buildCatalog(lang: "es" | "en"): string {
   return Object.values(PHILOSOPHERS)
-    .map((p) => {
-      const sub = p.subtitle[lang];
-      const blurb = p.blurb[lang];
-      return `- id: ${p.id} | ${p.name} — ${sub}. ${blurb}`;
-    })
+    .map((p) => `- id: ${p.id} | ${p.name} — ${p.subtitle[lang]}. ${p.blurb[lang]}`)
     .join("\n");
 }
+
+const RawSchema = z.object({
+  reading: z.string().optional(),
+  reframe: z
+    .object({ asked: z.string().optional(), beneath: z.string().optional() })
+    .nullable()
+    .optional(),
+  perspectives: z
+    .array(z.object({ philosopher: z.string(), angle: z.string().optional() }))
+    .optional(),
+  why: z.string().optional(),
+  aha: z.string().optional(),
+  philosopher: z.string().optional(),
+});
 
 export const matchPhilosopher = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
@@ -40,36 +67,69 @@ export const matchPhilosopher = createServerFn({ method: "POST" })
 
     const system =
       lang === "es"
-        ? `Eres un curador silencioso de Pneum. Tu tarea: leer la inquietud, pregunta o frase del usuario y elegir, de un catálogo cerrado de mentes filosóficas y científicas, la ÚNICA voz mejor preparada para responderle con profundidad. Considera el tema, el tono emocional, la naturaleza de la pregunta (existencial, ética, racional, política, científica, estética, espiritual) y el temperamento de cada pensador. No expliques la app. No saludes. Responde SIEMPRE en JSON estricto.`
-        : `You are a silent curator at Pneum. Your task: read the user's concern, question, or phrase and choose, from a closed catalog of philosophical and scientific minds, the SINGLE voice best prepared to answer with depth. Consider topic, emotional tone, nature of the question (existential, ethical, rational, political, scientific, aesthetic, spiritual) and each thinker's temperament. Do not explain the app. Do not greet. ALWAYS reply in strict JSON.`;
+        ? `Eres el Oráculo de Pneum. Pneum no vende filosofía: ayuda a ganar claridad de pensamiento frente a preguntas, problemas y decisiones complejas. La filosofía aplicada es el motor, no el producto.
+Tu tarea: leer lo que escribe la persona y devolverle comprensión, no consejos.
+Reglas:
+- Lenguaje interpretativo ("parece", "podría", "tu pregunta contiene"). Nunca diagnósticos psicológicos ni lenguaje clínico, terapéutico, de coaching o de bienestar.
+- No saludes, no expliques la aplicación, no uses clichés ni markdown.
+- Las perspectivas son miradas intelectuales, no "interlocutores".
+- Responde SIEMPRE en JSON estricto.`
+        : `You are Pneum's Oracle. Pneum does not sell philosophy: it helps people gain clarity of thought about hard questions, complex problems and decisions. Applied philosophy is the engine, not the product.
+Your task: read what the person writes and give them understanding, not advice.
+Rules:
+- Interpretive language ("seems", "might", "your question contains"). Never psychological diagnoses, nor clinical, therapeutic, coaching or wellness language.
+- No greetings, no explaining the app, no clichés, no markdown.
+- Perspectives are intellectual angles, not "chat partners".
+- ALWAYS reply in strict JSON.`;
+
+    const shape =
+      lang === "es"
+        ? `{
+  "reading": "<1 o 2 frases: qué parece estar realmente en juego en lo que escribió. Empieza con algo como 'Esto parece ser sobre…' o 'Tu pregunta parece ser menos sobre… y más sobre…'>",
+  "reframe": <null si la pregunta es simple; si no: {"asked":"<la pregunta tal como la trae, entre comillas o reformulada en una línea>","beneath":"<la pregunta que también parece estar en juego, en una línea>"}>,
+  "perspectives": [ { "philosopher": "<id del catálogo>", "angle": "<una línea: sobre qué ayuda a pensar esta mirada, sin biografía>" } ],
+  "why": "<1 o 2 frases explicando el criterio: qué tensión contiene su pregunta y por eso estas miradas>",
+  "aha": "<1 o 2 frases: una forma distinta de ver el asunto. No es la respuesta correcta, es una comprensión posible. Concreta, no aforística.>",
+  "philosopher": "<id del catálogo: la mirada principal para seguir profundizando; debe ser una de las de perspectives>"
+}`
+        : `{
+  "reading": "<1 or 2 sentences: what seems to really be at stake. Start with something like 'This seems to be about…' or 'Your question seems less about… and more about…'>",
+  "reframe": <null if the question is simple; otherwise: {"asked":"<the question as brought, in one line>","beneath":"<the question that also seems at stake, in one line>"}>,
+  "perspectives": [ { "philosopher": "<catalog id>", "angle": "<one line: what this angle helps think about, no biography>" } ],
+  "why": "<1 or 2 sentences on the criterion: what tension the question contains and why these angles>",
+  "aha": "<1 or 2 sentences: a different way of seeing it. Not the right answer, a possible understanding. Concrete, not aphoristic.>",
+  "philosopher": "<catalog id: the main angle to go deeper with; must be one of perspectives>"
+}`;
 
     const prompt =
       lang === "es"
-        ? `Catálogo de voces disponibles (id | nombre — descripción):
+        ? `Catálogo de perspectivas disponibles (id | nombre — descripción):
 ${catalog}
 
-Inquietud del usuario:
+Lo que escribió la persona:
 """
 ${data.inquiry}
 """
 
+Elige entre 2 y 4 perspectivas del catálogo (ids válidos: ${ids}), distintas entre sí y realmente pertinentes.
 Devuelve EXCLUSIVAMENTE un JSON con esta forma exacta, sin texto adicional, sin markdown, sin backticks:
-{"philosopher":"<uno de: ${ids}>","reason":"<2 a 3 frases en español, en segunda persona ('te conviene…'), explicando con calidez por qué esta voz es la indicada para esta inquietud. Sobrio, sin clichés. Sin nombrar a otros pensadores del catálogo.>"}`
-        : `Catalog of available voices (id | name — description):
+${shape}`
+        : `Catalog of available perspectives (id | name — description):
 ${catalog}
 
-User's concern:
+What the person wrote:
 """
 ${data.inquiry}
 """
 
+Choose between 2 and 4 perspectives from the catalog (valid ids: ${ids}), distinct and genuinely pertinent.
 Return ONLY a JSON object with this exact shape, no extra text, no markdown, no backticks:
-{"philosopher":"<one of: ${ids}>","reason":"<2 to 3 sentences in English, addressing the user directly ('you might…'), warmly explaining why this voice fits this concern. Sober, no clichés. Do not name other thinkers from the catalog.>"}`;
+${shape}`;
 
     const toneLine = isToneId(data.tone)
       ? lang === "es"
-        ? `\n\nRegistro preferido por la persona: ${getTone(data.tone).label.es} — ${getTone(data.tone).hint.es} Úsalo como criterio SECUNDARIO (el tema y la inquietud mandan) y escribe tu razón en ese registro.`
-        : `\n\nThe person's preferred register: ${getTone(data.tone).label.en} — ${getTone(data.tone).hint.en} Use it as a SECONDARY criterion (topic and concern come first) and write your reason in that register.`
+        ? `\n\nRegistro preferido por la persona: ${getTone(data.tone).label.es} — ${getTone(data.tone).hint.es} Úsalo como criterio SECUNDARIO (el tema manda) y escribe los textos en ese registro.`
+        : `\n\nThe person's preferred register: ${getTone(data.tone).label.en} — ${getTone(data.tone).hint.en} Use it as a SECONDARY criterion (topic comes first) and write the texts in that register.`
       : "";
 
     const gateway = createLovableAiGatewayProvider(apiKey);
@@ -79,32 +139,71 @@ Return ONLY a JSON object with this exact shape, no extra text, no markdown, no 
       model,
       system,
       prompt: prompt + toneLine,
-      temperature: 0.4,
+      temperature: 0.5,
     });
 
-    // Robust JSON extraction (handles accidental code fences or surrounding text).
-    let parsed: { philosopher?: string; reason?: string } | null = null;
-    try {
-      parsed = JSON.parse(text);
-    } catch {
-      const match = text.match(/\{[\s\S]*\}/);
-      if (match) {
-        try {
-          parsed = JSON.parse(match[0]);
-        } catch {
-          /* ignore */
-        }
+    let parsed: z.infer<typeof RawSchema> | null = null;
+    const attempt = (raw: string) => {
+      try {
+        const result = RawSchema.safeParse(JSON.parse(raw));
+        if (result.success) parsed = result.data;
+      } catch {
+        /* ignore */
       }
+    };
+    attempt(text);
+    if (!parsed) {
+      const match = text.match(/\{[\s\S]*\}/);
+      if (match) attempt(match[0]);
     }
 
-    const id =
-      parsed?.philosopher && isPhilosopherId(parsed.philosopher) ? parsed.philosopher : "james"; // James as gentle fallback for general inquiries
+    const raw: z.infer<typeof RawSchema> = parsed ?? {};
 
-    const reason =
-      (parsed?.reason ?? "").toString().trim() ||
-      (lang === "es"
-        ? "Esta voz, por su temperamento y sus obsesiones, es la que mejor puede acompañarte ahora mismo."
-        : "This voice, by temperament and lifelong concerns, is the one best suited to sit with you right now.");
+    const perspectives: OraclePerspective[] = [];
+    for (const p of raw.perspectives ?? []) {
+      if (!isPhilosopherId(p.philosopher)) continue;
+      if (perspectives.some((x) => x.philosopher === p.philosopher)) continue;
+      perspectives.push({
+        philosopher: p.philosopher,
+        angle: (p.angle ?? "").trim() || PHILOSOPHERS[p.philosopher].subtitle[lang],
+      });
+      if (perspectives.length === 4) break;
+    }
 
-    return { philosopher: id, reason };
+    const primary: PhilosopherId =
+      raw.philosopher && isPhilosopherId(raw.philosopher)
+        ? raw.philosopher
+        : (perspectives[0]?.philosopher ?? "james");
+
+    if (!perspectives.some((p) => p.philosopher === primary)) {
+      perspectives.unshift({
+        philosopher: primary,
+        angle: PHILOSOPHERS[primary].subtitle[lang],
+      });
+    }
+
+    const fallbackWhy =
+      lang === "es"
+        ? "Estas miradas trabajan las tensiones que aparecen en lo que escribiste."
+        : "These angles work on the tensions that appear in what you wrote.";
+    const fallbackReading =
+      lang === "es"
+        ? "Tu pregunta parece contener más de lo que dice a primera vista."
+        : "Your question seems to contain more than it says at first glance.";
+
+    const reframeAsked = raw.reframe?.asked?.trim();
+    const reframeBeneath = raw.reframe?.beneath?.trim();
+
+    const why = (raw.why ?? "").trim() || fallbackWhy;
+
+    return {
+      reading: (raw.reading ?? "").trim() || fallbackReading,
+      reframe:
+        reframeAsked && reframeBeneath ? { asked: reframeAsked, beneath: reframeBeneath } : null,
+      perspectives: perspectives.slice(0, 4),
+      why,
+      aha: (raw.aha ?? "").trim(),
+      philosopher: primary,
+      reason: why,
+    };
   });
