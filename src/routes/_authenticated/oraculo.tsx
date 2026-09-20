@@ -47,9 +47,9 @@ function OraclePage() {
   const es = lang === "es";
   const matchFn = useServerFn(matchPhilosopher);
 
-  const { q, tone: toneParam } = Route.useSearch();
-  const [inquiry, setInquiry] = useState(q ?? "");
-  const [asked, setAsked] = useState(q ?? "");
+  const { qid, tone: toneParam } = Route.useSearch();
+  const [inquiry, setInquiry] = useState("");
+  const [asked, setAsked] = useState("");
   const [tone, setTone] = useState<ToneId | null>(isToneId(toneParam) ? toneParam : null);
 
   useEffect(() => {
