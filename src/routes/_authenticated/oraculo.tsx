@@ -207,7 +207,62 @@ function OraclePage() {
           </p>
         )}
 
-        {result && primary && (
+        {result?.safety === "crisis" && (
+          <section aria-live="polite" className="fade-up mt-12">
+            <div className="rounded-xl border border-bronze/50 bg-card/70 p-7 md:p-9">
+              <p className="label text-bronze-bright">{es ? "Antes de seguir" : "Before we go on"}</p>
+              <p className="mt-4 font-serif text-subtitle font-light leading-snug text-foreground">
+                {result.reading}
+              </p>
+              <p className="mt-4 text-small leading-relaxed text-muted-foreground">
+                {es
+                  ? "Pneum no puede acompañarte en esto y no es el lugar adecuado ahora. Hay personas disponibles en este momento, gratis y sin juicio."
+                  : "Pneum cannot accompany you in this and is not the right place right now. There are people available at this moment, free and without judgement."}
+              </p>
+              <ul className="mt-6 space-y-4">
+                {CRISIS_RESOURCES.map((r) => (
+                  <li key={r.country} className="border-t border-border/50 pt-4">
+                    <p className="text-body text-foreground">{r.name[lang]}</p>
+                    <p className="mt-1 font-serif text-subtitle font-light text-bronze-bright">
+                      {r.contact}
+                    </p>
+                    <p className="mt-1 text-micro text-muted-foreground">{r.note[lang]}</p>
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-6 text-small text-muted-foreground">
+                {es
+                  ? "Si puedes, habla ahora con alguien de confianza."
+                  : "If you can, talk to someone you trust right now."}
+              </p>
+            </div>
+          </section>
+        )}
+
+        {result?.safety === "off_domain" && (
+          <section aria-live="polite" className="fade-up mt-12">
+            <div className="card-editorial p-7 md:p-9">
+              <p className="label">{es ? "Fuera de lo que hacemos" : "Outside what we do"}</p>
+              <p className="mt-4 font-serif text-subtitle font-light leading-snug text-foreground">
+                {result.reading}
+              </p>
+              <p className="mt-4 text-small leading-relaxed text-muted-foreground">
+                {es
+                  ? "Pneum no resuelve tareas técnicas, cálculos ni información general. Sí puede ayudarte a pensar el problema o la decisión que hay detrás. Reescríbelo como pregunta y lo trabajamos."
+                  : "Pneum does not solve technical tasks, calculations or general information. It can help you think through the problem or decision behind it. Rewrite it as a question and we will work on it."}
+              </p>
+              <button
+                type="button"
+                onClick={reset}
+                className="btn-ghost-gold focus-mist mt-6 px-5 py-3 text-small"
+              >
+                {es ? "Reescribir mi pregunta" : "Rewrite my question"}
+              </button>
+            </div>
+          </section>
+        )}
+
+        {result && !result.safety && primary && (
           <section aria-live="polite" className="fade-up mt-12 flex flex-col gap-8">
             {/* Lectura */}
             <div className="card-editorial p-7 md:p-9">
