@@ -11,7 +11,10 @@ import { loadStoredTone, storeTone, type ToneId } from "@/lib/tones";
 import { SiteFooter } from "@/components/site-footer";
 import { PhilosopherCard } from "@/components/philosopher-card";
 import { track } from "@/lib/analytics";
-import landingBg from "@/assets/landing-bg.jpg";
+import heroColumns from "@/assets/hero-columns.jpg";
+import audiencePersonal from "@/assets/audience-personal.jpg";
+import audienceAcademic from "@/assets/audience-academic.jpg";
+import audienceExecutive from "@/assets/audience-executive.jpg";
 
 export const Route = createFileRoute("/_authenticated/")({
   component: Home,
@@ -127,17 +130,17 @@ const DEMO_PERSPECTIVES: PhilosopherId[] = ["camus", "aristotle", "marx"];
 
 const CAPABILITIES: {
   id: string;
-  to: "/oraculo" | "/analisis" | "/comparar";
+  to: "/explorar" | "/analisis" | "/comparar" | "/conocimiento";
   title: { es: string; en: string };
   text: { es: string; en: string };
 }[] = [
   {
-    id: "understand",
-    to: "/oraculo",
-    title: { es: "Comprende", en: "Understand" },
+    id: "explore",
+    to: "/explorar",
+    title: { es: "Explora", en: "Explore" },
     text: {
-      es: "Descubre qué hay realmente detrás de una pregunta.",
-      en: "Discover what is really behind a question.",
+      es: "Accede a ideas, autores y conceptos clave para ampliar tu horizonte de pensamiento.",
+      en: "Reach ideas, authors and key concepts that widen your horizon of thought.",
     },
   },
   {
@@ -145,8 +148,8 @@ const CAPABILITIES: {
     to: "/analisis",
     title: { es: "Analiza", en: "Analyse" },
     text: {
-      es: "Identifica argumentos, conceptos, supuestos y contradicciones.",
-      en: "Identify arguments, concepts, assumptions and contradictions.",
+      es: "Comprende tus textos, identifica patrones de pensamiento y detecta áreas de mejora.",
+      en: "Understand your texts, identify patterns of thought and spot what to improve.",
     },
   },
   {
@@ -154,8 +157,17 @@ const CAPABILITIES: {
     to: "/comparar",
     title: { es: "Decide", en: "Decide" },
     text: {
-      es: "Explora perspectivas antes de tomar decisiones importantes.",
-      en: "Explore perspectives before making important decisions.",
+      es: "Enfrenta decisiones complejas con análisis estructurado, múltiples perspectivas y escenarios.",
+      en: "Face complex decisions with structured analysis, multiple perspectives and scenarios.",
+    },
+  },
+  {
+    id: "learn",
+    to: "/conocimiento",
+    title: { es: "Aprende", en: "Learn" },
+    text: {
+      es: "Desarrolla tu pensamiento crítico y profundiza en los temas que realmente importan.",
+      en: "Develop critical thinking and go deeper into the questions that matter.",
     },
   },
 ];
@@ -212,11 +224,47 @@ const INFRASTRUCTURE: { title: { es: string; en: string }; text: { es: string; e
   },
 ];
 
-const USES: { es: string; en: string }[] = [
-  { es: "Personal", en: "Personal" },
-  { es: "Académico", en: "Academic" },
-  { es: "Ejecutivo", en: "Executive" },
-  { es: "Empresarial", en: "Organisational" },
+const AUDIENCES: {
+  id: string;
+  img: string;
+  to: "/oraculo" | "/explorar" | "/comparar";
+  title: { es: string; en: string };
+  text: { es: string; en: string };
+  cta: { es: string; en: string };
+}[] = [
+  {
+    id: "personal",
+    img: audiencePersonal,
+    to: "/oraculo",
+    title: { es: "Personal", en: "Personal" },
+    text: {
+      es: "Para quienes quieren pensar mejor, vivir con más claridad y descubrir nuevas perspectivas.",
+      en: "For those who want to think better, live with more clarity and find new perspectives.",
+    },
+    cta: { es: "Comenzar", en: "Start" },
+  },
+  {
+    id: "academic",
+    img: audienceAcademic,
+    to: "/explorar",
+    title: { es: "Académico", en: "Academic" },
+    text: {
+      es: "Para estudiantes, docentes e instituciones que creen en el poder del pensamiento crítico.",
+      en: "For students, teachers and institutions that believe in critical thinking.",
+    },
+    cta: { es: "Explorar", en: "Explore" },
+  },
+  {
+    id: "executive",
+    img: audienceExecutive,
+    to: "/comparar",
+    title: { es: "Ejecutivo", en: "Executive" },
+    text: {
+      es: "Para líderes y tomadores de decisiones que enfrentan desafíos complejos y de alto impacto.",
+      en: "For leaders and decision makers facing complex, high-impact challenges.",
+    },
+    cta: { es: "Explorar", en: "Explore" },
+  },
 ];
 
 function Home() {
