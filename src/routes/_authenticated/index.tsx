@@ -108,9 +108,10 @@ function Home() {
     return PHILOSOPHER_LIST[day % PHILOSOPHER_LIST.length];
   }, []);
 
-  function ask(text: string) {
+  function ask(text: string, source: string = "hero") {
     const q = text.trim();
     if (!q) return;
+    track("question_submitted", { surface: "home", source, length: q.length });
     navigate({ to: "/oraculo", search: tone ? { q, tone } : { q } });
   }
 
@@ -131,24 +132,21 @@ function Home() {
           </div>
 
           <div className="relative mx-auto max-w-4xl px-5 py-24 text-center md:px-8 md:py-36">
-            <p className="label">
-              {PHILOSOPHER_LIST.length} {es ? "conciencias reconstruidas" : "reconstructed minds"}
-            </p>
-            <h1 className="fade-up balance mx-auto mt-6 max-w-3xl font-serif text-display font-light text-foreground">
+            <h1 className="fade-up balance mx-auto max-w-3xl font-serif text-display font-light text-foreground">
               {es ? (
                 <>
-                  ¿Qué pregunta llevas <em className="text-bronze not-italic">contigo</em> hoy?
+                  ¿Qué estás intentando <em className="text-bronze not-italic">comprender</em>?
                 </>
               ) : (
                 <>
-                  What question are you <em className="text-bronze not-italic">carrying</em> today?
+                  What are you trying to <em className="text-bronze not-italic">understand</em>?
                 </>
               )}
             </h1>
             <p className="lead measure mx-auto mt-6">
               {es
-                ? "Escríbela como te salga. Te pondremos frente a la mente que lleva siglos pensándola."
-                : "Write it however it comes. We'll put you in front of the mind that has spent centuries on it."}
+                ? "Escríbelo como te salga. Pneum te ayuda a pensarlo desde la perspectiva que mejor lo ilumina."
+                : "Write it however it comes. Pneum helps you think it through from the perspective that best illuminates it."}
             </p>
 
             <form
@@ -166,12 +164,17 @@ function Home() {
                 value={inquiry}
                 onChange={(e) => setInquiry(e.target.value)}
                 placeholder={
-                  es ? "Quiero encontrar mi vocación…" : "I want to find my vocation…"
+                  es
+                    ? "No sé si dejar mi trabajo…"
+                    : "I don't know whether to leave my job…"
                 }
-                className="focus-mist flex-1 rounded-md border border-border/70 bg-input px-4 py-3.5 text-body text-foreground placeholder:text-muted-foreground/70"
+                className="focus-mist min-w-0 flex-1 rounded-md border border-border/70 bg-input px-4 py-3.5 text-body text-foreground placeholder:text-muted-foreground/70"
               />
-              <button type="submit" className="btn-gold focus-mist px-6 py-3.5 text-small">
-                {es ? "Empezar" : "Begin"}
+              <button
+                type="submit"
+                className="btn-gold focus-mist whitespace-nowrap px-6 py-3.5 text-small"
+              >
+                {es ? "Pensarlo con Pneum" : "Think it with Pneum"}
               </button>
             </form>
 
@@ -185,12 +188,12 @@ function Home() {
               />
             </div>
 
-            <ul className="mx-auto mt-6 flex max-w-2xl flex-wrap justify-center gap-2">
+            <ul className="mx-auto mt-8 flex max-w-2xl flex-wrap justify-center gap-2">
               {REAL_PROBLEMS.slice(0, 4).map((p) => (
                 <li key={p.id}>
                   <button
                     type="button"
-                    onClick={() => ask(p.text[lang])}
+                    onClick={() => ask(p.text[lang], "suggestion")}
                     className="focus-mist rounded-full border border-border/60 px-3.5 py-1.5 text-micro text-muted-foreground transition-colors hover:border-bronze/50 hover:text-foreground"
                   >
                     {p.text[lang]}
