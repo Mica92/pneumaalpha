@@ -43,7 +43,7 @@ type Hit = {
   sub: string;
   to: string;
   params?: Record<string, string>;
-  search?: Record<string, string>;
+  ask?: string;
 };
 
 function norm(s: string) {
@@ -133,7 +133,7 @@ function SearchPage() {
           title: c.title[lang],
           sub: c.tags[lang],
           to: "/oraculo",
-          search: { q: c.seed[lang] },
+          ask: c.seed[lang],
         });
       }
     }
@@ -146,7 +146,7 @@ function SearchPage() {
           title: rp.text[lang],
           sub: rp.philosophers.map((p) => PHILOSOPHERS[p]?.name).join(" · "),
           to: "/oraculo",
-          search: { q: rp.text[lang] },
+          ask: rp.text[lang],
         });
       }
     }
