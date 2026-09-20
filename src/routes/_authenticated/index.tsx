@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { PHILOSOPHERS, PHILOSOPHER_LIST, type PhilosopherId } from "@/lib/philosophers";
 import { portraitFocus, portraitOf, profileOf } from "@/lib/portraits";
-import { CATEGORIES, IDEAS, REAL_PROBLEMS, ROUTES, centralQuestion } from "@/lib/discovery";
+import { IDEAS, REAL_PROBLEMS, ROUTES, centralQuestion } from "@/lib/discovery";
 import { useI18n } from "@/lib/i18n";
 import { SITE_URL, SITE_NAME } from "@/lib/site";
 import { SiteNav } from "@/components/site-nav";
@@ -17,17 +17,17 @@ export const Route = createFileRoute("/_authenticated/")({
   component: Home,
   head: () => ({
     meta: [
-      { title: "Pneum — Pensamiento más claro para preguntas difíciles" },
+      { title: "Pneum — Claridad para preguntas difíciles" },
       {
         name: "description",
         content:
-          "Escribe lo que estás intentando comprender. Pneum te ayuda a ver lo que hay detrás de tu pregunta, contrastar perspectivas y ganar claridad antes de decidir.",
+          "Pneum te ayuda a comprender preguntas, problemas y decisiones complejas con mayor claridad. Filosofía aplicada, inteligencia artificial y análisis intelectual.",
       },
-      { property: "og:title", content: "Pneum — Claridad para pensar mejor" },
+      { property: "og:title", content: "Pneum — Claridad para preguntas difíciles" },
       {
         property: "og:description",
         content:
-          "Pneum te ayuda a comprender mejor lo que estás pensando, ver distintas perspectivas y ganar claridad antes de decidir.",
+          "Escribe lo que estás intentando comprender. Pneum interpreta tu pregunta, confronta perspectivas y te devuelve claridad antes de decidir.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: `${SITE_URL}/` },
@@ -77,7 +77,7 @@ export const Route = createFileRoute("/_authenticated/")({
               name: "¿Cómo funciona?",
               acceptedAnswer: {
                 "@type": "Answer",
-                text: "Escribes lo que estás intentando comprender. Pneum interpreta tu pregunta, muestra lo que parece haber detrás y te ofrece perspectivas relevantes para pensarla mejor. No necesitas saber filosofía.",
+                text: "Escribes lo que estás intentando comprender. Pneum interpreta tu pregunta, muestra lo que parece haber detrás y confronta perspectivas relevantes para pensarla mejor. No necesitas saber filosofía.",
               },
             },
           ],
@@ -86,6 +86,138 @@ export const Route = createFileRoute("/_authenticated/")({
     ],
   }),
 });
+
+const DEMO_QUESTION = {
+  es: "Quiero renunciar, pero necesito el sueldo.",
+  en: "I want to quit, but I need the salary.",
+};
+
+const DEMO_STEPS: {
+  id: string;
+  label: { es: string; en: string };
+  text: { es: string; en: string };
+}[] = [
+  {
+    id: "reading",
+    label: { es: "Interpretación", en: "Interpretation" },
+    text: {
+      es: "Tu pregunta parece contener una tensión entre seguridad, sentido y autonomía.",
+      en: "Your question seems to contain a tension between security, meaning and autonomy.",
+    },
+  },
+  {
+    id: "reframe",
+    label: { es: "Reencuadre", en: "Reframing" },
+    text: {
+      es: "Quizás el problema no es solamente si renunciar, sino qué estás dispuesto a sacrificar para conservar seguridad.",
+      en: "Perhaps the problem is not only whether to quit, but what you are willing to sacrifice to keep security.",
+    },
+  },
+  {
+    id: "aha",
+    label: { es: "Una forma distinta de verlo", en: "A different way of seeing it" },
+    text: {
+      es: "Si la seguridad es lo que estás comprando, conviene saber exactamente con qué la estás pagando.",
+      en: "If security is what you are buying, it helps to know exactly what you are paying with.",
+    },
+  },
+];
+
+const DEMO_PERSPECTIVES: PhilosopherId[] = ["camus", "aristotle", "marx"];
+
+const CAPABILITIES: {
+  id: string;
+  to: "/oraculo" | "/analisis" | "/comparar";
+  title: { es: string; en: string };
+  text: { es: string; en: string };
+}[] = [
+  {
+    id: "understand",
+    to: "/oraculo",
+    title: { es: "Comprende", en: "Understand" },
+    text: {
+      es: "Descubre qué hay realmente detrás de una pregunta.",
+      en: "Discover what is really behind a question.",
+    },
+  },
+  {
+    id: "analyse",
+    to: "/analisis",
+    title: { es: "Analiza", en: "Analyse" },
+    text: {
+      es: "Identifica argumentos, conceptos, supuestos y contradicciones.",
+      en: "Identify arguments, concepts, assumptions and contradictions.",
+    },
+  },
+  {
+    id: "decide",
+    to: "/comparar",
+    title: { es: "Decide", en: "Decide" },
+    text: {
+      es: "Explora perspectivas antes de tomar decisiones importantes.",
+      en: "Explore perspectives before making important decisions.",
+    },
+  },
+];
+
+const HOW_IT_WORKS: { es: string; en: string }[] = [
+  { es: "Escribes", en: "You write" },
+  { es: "Comprendemos", en: "We interpret" },
+  { es: "Confrontamos perspectivas", en: "We confront perspectives" },
+  { es: "Ves el problema de otra manera", en: "You see the problem differently" },
+];
+
+const INFRASTRUCTURE: { title: { es: string; en: string }; text: { es: string; en: string } }[] = [
+  {
+    title: { es: "Oráculo", en: "Oracle" },
+    text: {
+      es: "Lee tu pregunta y expone la tensión que contiene.",
+      en: "Reads your question and surfaces the tension it holds.",
+    },
+  },
+  {
+    title: { es: "Inteligencia de texto", en: "Text intelligence" },
+    text: {
+      es: "Reconoce conceptos, supuestos y saltos en un texto.",
+      en: "Recognises concepts, assumptions and gaps in a text.",
+    },
+  },
+  {
+    title: { es: "Motor de análisis", en: "Analysis engine" },
+    text: {
+      es: "Contrasta argumentos y los pone a prueba entre sí.",
+      en: "Contrasts arguments and tests them against each other.",
+    },
+  },
+  {
+    title: { es: "Motor filosófico", en: "Philosophical engine" },
+    text: {
+      es: "Siglos de pensamiento convertidos en perspectivas operativas.",
+      en: "Centuries of thought turned into working perspectives.",
+    },
+  },
+  {
+    title: { es: "Grafo intelectual", en: "Intellectual graph" },
+    text: {
+      es: "Un mapa de cómo se relacionan ideas, escuelas y tradiciones.",
+      en: "A map of how ideas, schools and traditions relate.",
+    },
+  },
+  {
+    title: { es: "Inteligencia de decisión", en: "Decision intelligence" },
+    text: {
+      es: "Perspectivas confrontadas antes de que decidas.",
+      en: "Perspectives confronted before you decide.",
+    },
+  },
+];
+
+const USES: { es: string; en: string }[] = [
+  { es: "Personal", en: "Personal" },
+  { es: "Académico", en: "Academic" },
+  { es: "Ejecutivo", en: "Executive" },
+  { es: "Empresarial", en: "Organisational" },
+];
 
 function Home() {
   const { lang } = useI18n();
@@ -131,25 +263,30 @@ function Home() {
               alt=""
               className="h-full w-full scale-105 object-cover opacity-20 grayscale"
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/85 to-background" />
+            <div className="absolute inset-0 bg-gradient-to-b from-background/75 via-background/90 to-background" />
           </div>
 
           <div className="relative mx-auto max-w-4xl px-5 py-24 text-center md:px-8 md:py-36">
             <h1 className="fade-up balance mx-auto max-w-3xl font-serif text-display font-light text-foreground">
               {es ? (
                 <>
-                  ¿Qué estás intentando <em className="text-bronze not-italic">comprender</em>?
+                  Claridad para preguntas <em className="text-bronze not-italic">difíciles</em>.
                 </>
               ) : (
                 <>
-                  What are you trying to <em className="text-bronze not-italic">understand</em>?
+                  Clarity for <em className="text-bronze not-italic">hard</em> questions.
                 </>
               )}
             </h1>
             <p className="lead measure mx-auto mt-6">
               {es
-                ? "Escríbelo como te salga. Pneum te ayuda a pensarlo desde la perspectiva que mejor lo ilumina."
-                : "Write it however it comes. Pneum helps you think it through from the perspective that best illuminates it."}
+                ? "Pneum te ayuda a comprender preguntas, problemas y decisiones complejas con mayor claridad."
+                : "Pneum helps you understand complex questions, problems and decisions with greater clarity."}
+            </p>
+            <p className="mt-3 text-micro uppercase tracking-[0.25em] text-bronze-bright">
+              {es
+                ? "Filosofía aplicada + inteligencia artificial + análisis intelectual"
+                : "Applied philosophy + artificial intelligence + intellectual analysis"}
             </p>
 
             <form
@@ -157,31 +294,36 @@ function Home() {
                 e.preventDefault();
                 ask(inquiry);
               }}
-              className="mx-auto mt-10 flex max-w-xl flex-col gap-3 sm:flex-row"
+              className="mx-auto mt-12 max-w-2xl"
             >
-              <label className="sr-only" htmlFor="home-inquiry">
-                {es ? "Tu pregunta" : "Your question"}
-              </label>
-              <input
-                id="home-inquiry"
-                value={inquiry}
-                onChange={(e) => setInquiry(e.target.value)}
-                placeholder={
-                  es
-                    ? "No sé si dejar mi trabajo…"
-                    : "I don't know whether to leave my job…"
-                }
-                className="focus-mist min-w-0 flex-1 rounded-md border border-border/70 bg-input px-4 py-3.5 text-body text-foreground placeholder:text-muted-foreground/70"
-              />
-              <button
-                type="submit"
-                className="btn-gold focus-mist whitespace-nowrap px-6 py-3.5 text-small"
+              <label
+                className="block text-left font-serif text-subtitle font-light text-foreground"
+                htmlFor="home-inquiry"
               >
-                {es ? "Pensarlo con Pneum" : "Think it with Pneum"}
-              </button>
+                {es ? "¿Qué estás intentando comprender?" : "What are you trying to understand?"}
+              </label>
+              <div className="mt-4 flex flex-col gap-3 sm:flex-row">
+                <input
+                  id="home-inquiry"
+                  value={inquiry}
+                  onChange={(e) => setInquiry(e.target.value)}
+                  placeholder={
+                    es
+                      ? "Escribe una pregunta, problema, decisión o idea…"
+                      : "Write a question, problem, decision or idea…"
+                  }
+                  className="focus-mist min-w-0 flex-1 rounded-md border border-bronze/40 bg-background/90 px-4 py-4 text-body text-foreground shadow-lg shadow-black/20 transition-colors placeholder:text-muted-foreground/70 hover:border-bronze/60"
+                />
+                <button
+                  type="submit"
+                  className="btn-gold focus-mist whitespace-nowrap px-7 py-4 text-small"
+                >
+                  {es ? "Pensarlo con Pneum" : "Think it with Pneum"}
+                </button>
+              </div>
             </form>
 
-            <div className="mx-auto mt-4 flex max-w-xl justify-center">
+            <div className="mx-auto mt-4 flex max-w-2xl justify-start">
               <ToneSelect
                 value={tone}
                 onChange={(v) => {
@@ -190,19 +332,6 @@ function Home() {
                 }}
               />
             </div>
-
-            <p className="measure mx-auto mt-8 text-small leading-relaxed text-muted-foreground">
-              {es
-                ? "Pneum interpreta tu pregunta, identifica las ideas y tensiones que hay detrás y te muestra perspectivas relevantes para pensarla mejor."
-                : "Pneum interprets your question, identifies the ideas and tensions behind it and shows you relevant perspectives to think it through."}
-            </p>
-            <p className="mt-3 text-micro uppercase tracking-[0.25em] text-bronze-bright">
-              {es
-                ? "La filosofía aplicada es el motor. La claridad es el resultado."
-                : "Applied philosophy is the engine. Clarity is the result."}
-            </p>
-
-
 
             <ul className="mx-auto mt-8 flex max-w-2xl flex-wrap justify-center gap-2">
               {REAL_PROBLEMS.slice(0, 4).map((p) => (
@@ -220,45 +349,88 @@ function Home() {
           </div>
         </section>
 
-        {/* ── ¿Qué estás buscando? ─────────────────────────────── */}
-        <section className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-28">
-          <div className="flex flex-wrap items-end justify-between gap-4">
-            <div>
-              <p className="label">{es ? "Por dónde entrar" : "Where to start"}</p>
-              <h2 className="balance mt-3 font-serif text-title font-light text-foreground">
-                {es ? "¿Qué estás buscando?" : "What are you looking for?"}
-              </h2>
-            </div>
-            <Link
-              to="/filosofos"
-              className="focus-mist text-small text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline"
-            >
-              {es ? "Ver todas las mentes →" : "See all minds →"}
-            </Link>
-          </div>
+        {/* ── Demostración ─────────────────────────────────────── */}
+        <section className="border-b border-border/60 bg-card/25">
+          <div className="mx-auto max-w-5xl px-5 py-20 md:px-8 md:py-28">
+            <p className="label">{es ? "Así se ve" : "What it looks like"}</p>
+            <h2 className="balance mt-3 max-w-2xl font-serif text-title font-light text-foreground">
+              {es
+                ? "Una pregunta cualquiera, pensada de otra manera"
+                : "An ordinary question, thought through differently"}
+            </h2>
 
-          <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {CATEGORIES.map((c) => (
-              <li key={c.id}>
-                <Link
-                  to="/oraculo"
-                  search={{ q: c.seed[lang] }}
-                  className="card-editorial focus-mist flex h-full flex-col p-6"
+            <div className="mt-10 grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)]">
+              <div className="card-editorial flex flex-col justify-between p-7">
+                <div>
+                  <p className="label">{es ? "Escribes" : "You write"}</p>
+                  <p className="mt-4 font-serif text-subtitle font-light leading-snug text-foreground">
+                    “{DEMO_QUESTION[lang]}”
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => ask(DEMO_QUESTION[lang], "demo")}
+                  className="btn-gold focus-mist mt-8 self-start px-6 py-3 text-small"
                 >
-                  <span aria-hidden="true" className="font-serif text-subtitle text-bronze">
-                    {c.glyph}
-                  </span>
-                  <h3 className="mt-4 font-serif text-subtitle font-light text-foreground">
+                  {es ? "Explorar esta pregunta" : "Explore this question"}
+                </button>
+              </div>
+
+              <ol className="flex flex-col gap-4">
+                {DEMO_STEPS.slice(0, 2).map((step) => (
+                  <li key={step.id} className="card-editorial p-6">
+                    <p className="label">{step.label[lang]}</p>
+                    <p className="mt-3 text-body leading-relaxed text-muted-foreground">
+                      {step.text[lang]}
+                    </p>
+                  </li>
+                ))}
+
+                <li className="card-editorial p-6">
+                  <p className="label">{es ? "Perspectivas" : "Perspectives"}</p>
+                  <ul className="mt-3 flex flex-wrap gap-2">
+                    {DEMO_PERSPECTIVES.filter((id) => id in PHILOSOPHERS).map((id) => (
+                      <li key={id}>
+                        <Link
+                          to="/$philosopher"
+                          params={{ philosopher: id }}
+                          search={{ q: DEMO_QUESTION[lang] }}
+                          className="btn-ghost-gold focus-mist px-3.5 py-1.5 text-micro"
+                        >
+                          {PHILOSOPHERS[id].name}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </li>
+
+                <li className="card-editorial border-bronze/45 bg-bronze/5 p-6">
+                  <p className="label">{DEMO_STEPS[2].label[lang]}</p>
+                  <p className="mt-3 font-serif text-subtitle font-light leading-snug text-bronze-bright">
+                    {DEMO_STEPS[2].text[lang]}
+                  </p>
+                </li>
+              </ol>
+            </div>
+          </div>
+        </section>
+
+        {/* ── Tres capacidades ─────────────────────────────────── */}
+        <section className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-28">
+          <p className="label">{es ? "Qué puedes hacer" : "What you can do"}</p>
+          <h2 className="mt-3 max-w-2xl font-serif text-title font-light text-foreground">
+            {es ? "Comprender, analizar, decidir" : "Understand, analyse, decide"}
+          </h2>
+
+          <ul className="mt-10 grid gap-4 md:grid-cols-3">
+            {CAPABILITIES.map((c) => (
+              <li key={c.id}>
+                <Link to={c.to} className="card-editorial focus-mist flex h-full flex-col p-7">
+                  <h3 className="font-serif text-subtitle font-light text-foreground">
                     {c.title[lang]}
                   </h3>
-                  <p className="mt-2 text-small text-muted-foreground">
-                    {c.tags[lang]}
-                  </p>
-                  <p className="mt-5 text-micro text-bronze-bright">
-                    {c.philosophers
-                      .slice(0, 3)
-                      .map((p) => PHILOSOPHERS[p]?.name)
-                      .join(" · ")}
+                  <p className="mt-3 text-small leading-relaxed text-muted-foreground">
+                    {c.text[lang]}
                   </p>
                 </Link>
               </li>
@@ -266,62 +438,92 @@ function Home() {
           </ul>
         </section>
 
-        {/* ── Mentes destacadas ────────────────────────────────── */}
+        {/* ── Cómo funciona ────────────────────────────────────── */}
         <section className="border-y border-border/60 bg-card/25">
           <div className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-28">
-            <p className="label">{es ? "Perspectivas de entrada" : "Starting perspectives"}</p>
+            <p className="label">{es ? "Cómo funciona" : "How it works"}</p>
+            <ol className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              {HOW_IT_WORKS.map((step, i) => (
+                <li key={step.en} className="border-t border-bronze/30 pt-5">
+                  <p className="text-micro uppercase tracking-[0.25em] text-bronze">
+                    {String(i + 1).padStart(2, "0")}
+                  </p>
+                  <p className="mt-3 font-serif text-subtitle font-light leading-snug text-foreground">
+                    {step[lang]}
+                  </p>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+
+        {/* ── La filosofía aplicada es el motor ────────────────── */}
+        <section className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-28">
+          <p className="label">{es ? "El motor" : "The engine"}</p>
+          <h2 className="balance mt-3 max-w-3xl font-serif text-title font-light text-foreground">
+            {es
+              ? "La filosofía aplicada es el motor de Pneum."
+              : "Applied philosophy is the engine of Pneum."}
+          </h2>
+          <p className="measure mt-5 text-body leading-relaxed text-muted-foreground">
+            {es
+              ? "Pneum utiliza siglos de pensamiento filosófico para ampliar perspectivas, cuestionar supuestos y profundizar preguntas reales."
+              : "Pneum draws on centuries of philosophical thought to widen perspectives, question assumptions and deepen real questions."}
+          </p>
+          <p className="measure mt-4 font-serif text-subtitle font-light leading-snug text-bronze-bright">
+            {es
+              ? "No buscamos darte una respuesta única. Ponemos distintas formas de pensar a trabajar sobre tu problema."
+              : "We do not aim to give you a single answer. We put different ways of thinking to work on your problem."}
+          </p>
+
+          <p className="label mt-14">{es ? "Perspectivas de entrada" : "Starting perspectives"}</p>
+          <ul className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {featured.map((id) => (
+              <li key={id}>
+                <PhilosopherCard id={id} />
+              </li>
+            ))}
+          </ul>
+          <Link
+            to="/filosofos"
+            className="focus-mist mt-8 inline-block text-small text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline"
+          >
+            {es ? "Ver todas las perspectivas →" : "See all perspectives →"}
+          </Link>
+        </section>
+
+        {/* ── La inteligencia detrás de Pneum ──────────────────── */}
+        <section className="border-y border-border/60 bg-card/25">
+          <div className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-28">
+            <p className="label">{es ? "Infraestructura" : "Infrastructure"}</p>
             <h2 className="mt-3 max-w-2xl font-serif text-title font-light text-foreground">
-              {es
-                ? "Doce perspectivas para empezar a pensar"
-                : "Twelve perspectives to start thinking with"}
+              {es ? "La inteligencia detrás de Pneum" : "The intelligence behind Pneum"}
             </h2>
-            <p className="measure mt-4 text-small leading-relaxed text-muted-foreground">
-              {es
-                ? "Cada una es una mirada sobre ciertos problemas: valores, poder, deseo, deber, incertidumbre. No hace falta elegir bien: escribe tu pregunta y Pneum propone la pertinente."
-                : "Each one is an angle on certain problems: values, power, desire, duty, uncertainty. You don't have to choose well: write your question and Pneum proposes the relevant one."}
-            </p>
-            <ul className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {featured.map((id) => (
-                <li key={id}>
-                  <PhilosopherCard id={id} />
+            <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {INFRASTRUCTURE.map((item) => (
+                <li key={item.title.en} className="card-editorial p-6">
+                  <h3 className="text-small uppercase tracking-[0.18em] text-bronze-bright">
+                    {item.title[lang]}
+                  </h3>
+                  <p className="mt-3 text-small leading-relaxed text-muted-foreground">
+                    {item.text[lang]}
+                  </p>
                 </li>
               ))}
             </ul>
           </div>
         </section>
 
-        {/* ── Filosofía para problemas reales ──────────────────── */}
-        <section className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-28">
-          <p className="label">{es ? "Filosofía aplicada" : "Applied philosophy"}</p>
-          <h2 className="mt-3 max-w-2xl font-serif text-title font-light text-foreground">
-            {es ? "Para lo que te está pasando ahora" : "For what is happening to you now"}
-          </h2>
-
-          <ul className="mt-10 grid gap-4 md:grid-cols-2">
-            {REAL_PROBLEMS.map((p) => (
-              <li
-                key={p.id}
-                className="card-editorial flex flex-col gap-4 p-6 sm:flex-row sm:items-center"
-              >
-                <p className="flex-1 font-serif text-subtitle font-light leading-snug text-foreground">
-                  “{p.text[lang]}”
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {p.philosophers.map((pid) => (
-                    <Link
-                      key={pid}
-                      to="/$philosopher"
-                      params={{ philosopher: pid }}
-                      search={{ q: p.text[lang] }}
-                      className="btn-ghost-gold focus-mist px-3 py-1.5 text-micro"
-                    >
-                      {PHILOSOPHERS[pid]?.name}
-                    </Link>
-                  ))}
-                </div>
-              </li>
+        {/* ── Usos ─────────────────────────────────────────────── */}
+        <section className="mx-auto max-w-6xl px-5 py-16 md:px-8 md:py-20">
+          <p className="font-serif text-subtitle font-light text-foreground">
+            {es ? "Una misma infraestructura. Diferentes caminos." : "One infrastructure. Different paths."}
+          </p>
+          <p className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-micro uppercase tracking-[0.25em] text-muted-foreground">
+            {USES.map((u) => (
+              <span key={u.en}>{u[lang]}</span>
             ))}
-          </ul>
+          </p>
         </section>
 
         {/* ── Grandes ideas ────────────────────────────────────── */}
@@ -365,9 +567,9 @@ function Home() {
         <section className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-28">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
-              <p className="label">{es ? "Rutas filosóficas" : "Philosophical paths"}</p>
+              <p className="label">{es ? "Rutas" : "Paths"}</p>
               <h2 className="mt-3 max-w-xl font-serif text-title font-light text-foreground">
-                {es ? "Una pregunta, cuatro mentes" : "One question, four minds"}
+                {es ? "Una pregunta, cuatro perspectivas" : "One question, four perspectives"}
               </h2>
             </div>
             <Link
@@ -402,18 +604,18 @@ function Home() {
         </section>
 
         {/* ── Qué es Pneum ─────────────────────────────────────── */}
-        <section className="border-b border-border/60">
+        <section className="border-y border-border/60">
           <div className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-28">
             <p className="label">{es ? "Qué es Pneum" : "What Pneum is"}</p>
             <h2 className="balance mt-3 max-w-3xl font-serif text-title font-light text-foreground">
               {es
-                ? "Una plataforma editorial y educativa de filosofía"
-                : "An editorial and educational philosophy platform"}
+                ? "Una infraestructura intelectual para pensar mejor lo que tienes delante"
+                : "An intellectual infrastructure for thinking better about what is in front of you"}
             </h2>
             <p className="measure mt-5 text-small leading-relaxed text-muted-foreground">
               {es
-                ? `Pneum reúne una biblioteca de ${PHILOSOPHER_LIST.length} pensadores históricos, un mapa navegable de ideas, rutas de lectura guiadas, análisis de textos y un podcast sobre los clásicos. El diálogo es una de las funciones: cada “conciencia” es un personaje editorial escrito por nuestro equipo a partir de la obra publicada de un autor de dominio público.`
-                : `Pneum brings together a library of ${PHILOSOPHER_LIST.length} historical thinkers, a navigable map of ideas, guided reading paths, text analysis and a podcast on the classics. Dialogue is one feature among several: each “mind” is an editorial persona written by our team from the published work of a public-domain author.`}
+                ? `Pneum reúne un motor de interpretación de preguntas, análisis de textos, confrontación de perspectivas, un mapa navegable de ideas y una biblioteca de ${PHILOSOPHER_LIST.length} perspectivas históricas. Cada perspectiva es un personaje editorial escrito por nuestro equipo a partir de la obra publicada de un autor de dominio público.`
+                : `Pneum brings together an engine for interpreting questions, text analysis, confrontation of perspectives, a navigable map of ideas and a library of ${PHILOSOPHER_LIST.length} historical perspectives. Each perspective is an editorial persona written by our team from the published work of a public-domain author.`}
             </p>
 
             <div className="mt-12 grid gap-6 md:grid-cols-2">
@@ -422,18 +624,18 @@ function Home() {
                 <ul className="mt-4 space-y-2.5 text-small leading-relaxed text-muted-foreground">
                   {(es
                     ? [
-                        `Acceso libre a las ${PHILOSOPHER_LIST.length} mentes del catálogo, sin límite de mensajes.`,
-                        "Historial completo y exportable de tus conversaciones.",
-                        "Reporte de tu pensamiento: patrones, tensiones y lecturas sugeridas.",
-                        "Podcast de los clásicos de la literatura y la filosofía.",
-                        "Mapa de ideas, rutas guiadas y análisis de textos.",
+                        "Lectura e interpretación de tus preguntas, sin límite de uso.",
+                        "Análisis de textos: conceptos, supuestos y contradicciones.",
+                        "Confrontación de perspectivas antes de decidir.",
+                        "Mapa de ideas, rutas guiadas y podcast de los clásicos.",
+                        "Historial completo y exportable de tu trabajo.",
                       ]
                     : [
-                        `Free access to all ${PHILOSOPHER_LIST.length} minds in the catalogue, with no message limit.`,
-                        "Full, exportable conversation history.",
-                        "A report on your thinking: patterns, tensions and suggested readings.",
-                        "A podcast on the classics of literature and philosophy.",
-                        "Map of ideas, guided paths and text analysis.",
+                        "Reading and interpretation of your questions, with no usage limit.",
+                        "Text analysis: concepts, assumptions and contradictions.",
+                        "Confrontation of perspectives before you decide.",
+                        "Map of ideas, guided paths and a podcast on the classics.",
+                        "Full, exportable history of your work.",
                       ]
                   ).map((item) => (
                     <li key={item} className="flex gap-2">
@@ -483,7 +685,9 @@ function Home() {
             </div>
 
             <p className="mt-8 text-micro leading-relaxed text-muted-foreground">
-              {es ? "Acceso completo y gratuito. Soporte: soporte@pneumaalpha.app." : "Complete, free access. Support: soporte@pneumaalpha.app."}
+              {es
+                ? "Acceso completo y gratuito. Soporte: soporte@pneumaalpha.app."
+                : "Complete, free access. Support: soporte@pneumaalpha.app."}
             </p>
             <p className="mt-3 flex flex-wrap gap-4 text-micro uppercase tracking-[0.25em] text-muted-foreground">
               <Link to="/contacto" className="focus-mist hover:text-foreground">
@@ -496,8 +700,8 @@ function Home() {
           </div>
         </section>
 
-        {/* ── Mente del día ────────────────────────────────────── */}
-        <section className="border-t border-border/60 bg-card/25">
+        {/* ── Perspectiva del día ──────────────────────────────── */}
+        <section className="bg-card/25">
           <div className="mx-auto grid max-w-6xl gap-10 px-5 py-20 md:grid-cols-[280px_1fr] md:items-center md:px-8 md:py-28">
             <div className="overflow-hidden rounded-md border border-border/70 bg-secondary">
               {portraitOf(spotlight.id) ? (
@@ -514,7 +718,7 @@ function Home() {
               )}
             </div>
             <div>
-              <p className="label">{es ? "Mente del día" : "Mind of the day"}</p>
+              <p className="label">{es ? "Perspectiva del día" : "Perspective of the day"}</p>
               <h2 className="mt-3 font-serif text-title font-light text-foreground">
                 {spotlight.name}
               </h2>
@@ -528,7 +732,7 @@ function Home() {
                   params={{ philosopher: spotlight.id }}
                   className="btn-gold focus-mist px-6 py-3 text-small"
                 >
-                  {es ? "Conversar ahora" : "Talk now"}
+                  {es ? "Pensar desde aquí" : "Think from here"}
                 </Link>
                 <Link
                   to="/filosofos/$id"
