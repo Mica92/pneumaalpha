@@ -210,6 +210,11 @@ function OraclePage() {
               <Link
                 to="/$philosopher"
                 params={{ philosopher: chosen.id }}
+                search={inquiry.trim() ? { q: inquiry.trim() } : undefined}
+                onClick={() => {
+                  track("first_interaction", { philosopher: chosen.id, from: "oracle" });
+                  trackOnce("aha_first_perspective", { philosopher: chosen.id });
+                }}
                 className="rounded-md border border-mist/50 bg-mist/15 px-5 py-2.5 font-display text-micro uppercase tracking-[0.3em] text-foreground transition-all hover:border-mist/80 hover:bg-mist/25"
               >
                 {t("oracle.result.enter")}
