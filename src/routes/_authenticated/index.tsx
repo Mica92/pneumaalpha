@@ -11,7 +11,10 @@ import { loadStoredTone, storeTone, type ToneId } from "@/lib/tones";
 import { SiteFooter } from "@/components/site-footer";
 import { PhilosopherCard } from "@/components/philosopher-card";
 import { track } from "@/lib/analytics";
-import landingBg from "@/assets/landing-bg.jpg";
+import heroColumns from "@/assets/hero-columns.jpg";
+import audiencePersonal from "@/assets/audience-personal.jpg";
+import audienceAcademic from "@/assets/audience-academic.jpg";
+import audienceExecutive from "@/assets/audience-executive.jpg";
 
 export const Route = createFileRoute("/_authenticated/")({
   component: Home,
@@ -127,17 +130,17 @@ const DEMO_PERSPECTIVES: PhilosopherId[] = ["camus", "aristotle", "marx"];
 
 const CAPABILITIES: {
   id: string;
-  to: "/oraculo" | "/analisis" | "/comparar";
+  to: "/explorar" | "/analisis" | "/comparar" | "/conocimiento";
   title: { es: string; en: string };
   text: { es: string; en: string };
 }[] = [
   {
-    id: "understand",
-    to: "/oraculo",
-    title: { es: "Comprende", en: "Understand" },
+    id: "explore",
+    to: "/explorar",
+    title: { es: "Explora", en: "Explore" },
     text: {
-      es: "Descubre qué hay realmente detrás de una pregunta.",
-      en: "Discover what is really behind a question.",
+      es: "Accede a ideas, autores y conceptos clave para ampliar tu horizonte de pensamiento.",
+      en: "Reach ideas, authors and key concepts that widen your horizon of thought.",
     },
   },
   {
@@ -145,8 +148,8 @@ const CAPABILITIES: {
     to: "/analisis",
     title: { es: "Analiza", en: "Analyse" },
     text: {
-      es: "Identifica argumentos, conceptos, supuestos y contradicciones.",
-      en: "Identify arguments, concepts, assumptions and contradictions.",
+      es: "Comprende tus textos, identifica patrones de pensamiento y detecta áreas de mejora.",
+      en: "Understand your texts, identify patterns of thought and spot what to improve.",
     },
   },
   {
@@ -154,8 +157,17 @@ const CAPABILITIES: {
     to: "/comparar",
     title: { es: "Decide", en: "Decide" },
     text: {
-      es: "Explora perspectivas antes de tomar decisiones importantes.",
-      en: "Explore perspectives before making important decisions.",
+      es: "Enfrenta decisiones complejas con análisis estructurado, múltiples perspectivas y escenarios.",
+      en: "Face complex decisions with structured analysis, multiple perspectives and scenarios.",
+    },
+  },
+  {
+    id: "learn",
+    to: "/conocimiento",
+    title: { es: "Aprende", en: "Learn" },
+    text: {
+      es: "Desarrolla tu pensamiento crítico y profundiza en los temas que realmente importan.",
+      en: "Develop critical thinking and go deeper into the questions that matter.",
     },
   },
 ];
@@ -212,11 +224,47 @@ const INFRASTRUCTURE: { title: { es: string; en: string }; text: { es: string; e
   },
 ];
 
-const USES: { es: string; en: string }[] = [
-  { es: "Personal", en: "Personal" },
-  { es: "Académico", en: "Academic" },
-  { es: "Ejecutivo", en: "Executive" },
-  { es: "Empresarial", en: "Organisational" },
+const AUDIENCES: {
+  id: string;
+  img: string;
+  to: "/oraculo" | "/explorar" | "/comparar";
+  title: { es: string; en: string };
+  text: { es: string; en: string };
+  cta: { es: string; en: string };
+}[] = [
+  {
+    id: "personal",
+    img: audiencePersonal,
+    to: "/oraculo",
+    title: { es: "Personal", en: "Personal" },
+    text: {
+      es: "Para quienes quieren pensar mejor, vivir con más claridad y descubrir nuevas perspectivas.",
+      en: "For those who want to think better, live with more clarity and find new perspectives.",
+    },
+    cta: { es: "Comenzar", en: "Start" },
+  },
+  {
+    id: "academic",
+    img: audienceAcademic,
+    to: "/explorar",
+    title: { es: "Académico", en: "Academic" },
+    text: {
+      es: "Para estudiantes, docentes e instituciones que creen en el poder del pensamiento crítico.",
+      en: "For students, teachers and institutions that believe in critical thinking.",
+    },
+    cta: { es: "Explorar", en: "Explore" },
+  },
+  {
+    id: "executive",
+    img: audienceExecutive,
+    to: "/comparar",
+    title: { es: "Ejecutivo", en: "Executive" },
+    text: {
+      es: "Para líderes y tomadores de decisiones que enfrentan desafíos complejos y de alto impacto.",
+      en: "For leaders and decision makers facing complex, high-impact challenges.",
+    },
+    cta: { es: "Explorar", en: "Explore" },
+  },
 ];
 
 function Home() {
@@ -256,96 +304,117 @@ function Home() {
 
       <main className="route-enter relative z-10">
         {/* ── Hero ─────────────────────────────────────────────── */}
-        <section className="relative border-b border-border/60">
-          <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
-            <img
-              src={landingBg}
-              alt=""
-              className="h-full w-full scale-105 object-cover opacity-20 grayscale"
-            />
-            <div className="absolute inset-0 bg-gradient-to-b from-background/75 via-background/90 to-background" />
-          </div>
+        <section className="relative isolate flex min-h-[92svh] items-center overflow-hidden border-b border-border/60">
+          <img
+            src={heroColumns}
+            alt=""
+            aria-hidden="true"
+            width={1920}
+            height={1088}
+            className="absolute inset-0 -z-10 h-full w-full object-cover"
+          />
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 -z-10 bg-gradient-to-r from-background/92 via-background/55 to-transparent"
+          />
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 -z-10 bg-gradient-to-t from-background via-transparent to-background/45"
+          />
 
-          <div className="relative mx-auto max-w-4xl px-5 py-24 text-center md:px-8 md:py-36">
-            <h1 className="fade-up balance mx-auto max-w-3xl font-serif text-display font-light text-foreground">
-              {es ? (
-                <>
-                  Claridad para preguntas <em className="text-bronze not-italic">difíciles</em>.
-                </>
-              ) : (
-                <>
-                  Clarity for <em className="text-bronze not-italic">hard</em> questions.
-                </>
-              )}
-            </h1>
-            <p className="lead measure mx-auto mt-6">
-              {es
-                ? "Pneum te ayuda a comprender preguntas, problemas y decisiones complejas con mayor claridad."
-                : "Pneum helps you understand complex questions, problems and decisions with greater clarity."}
-            </p>
-            <p className="mt-3 text-micro uppercase tracking-[0.25em] text-bronze-bright">
-              {es
-                ? "Filosofía aplicada + inteligencia artificial + análisis intelectual"
-                : "Applied philosophy + artificial intelligence + intellectual analysis"}
-            </p>
+          <div className="relative mx-auto w-full max-w-6xl px-5 py-28 md:px-8 md:py-36">
+            <div className="max-w-2xl">
+              <h1 className="fade-up balance font-serif text-display font-light text-foreground">
+                {es ? (
+                  <>
+                    Claridad para preguntas <em className="text-bronze not-italic">difíciles</em>.
+                  </>
+                ) : (
+                  <>
+                    Clarity for <em className="text-bronze not-italic">hard</em> questions.
+                  </>
+                )}
+              </h1>
+              <p className="lead measure mt-6">
+                {es
+                  ? "Pneum te ayuda a comprender preguntas, problemas y decisiones complejas con mayor claridad."
+                  : "Pneum helps you understand complex questions, problems and decisions with greater clarity."}
+              </p>
+              <p className="mt-3 text-micro uppercase tracking-[0.25em] text-bronze-bright">
+                {es
+                  ? "Filosofía aplicada + inteligencia artificial + análisis intelectual"
+                  : "Applied philosophy + artificial intelligence + intellectual analysis"}
+              </p>
 
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                ask(inquiry);
-              }}
-              className="mx-auto mt-12 max-w-2xl"
-            >
-              <label
-                className="block text-left font-serif text-subtitle font-light text-foreground"
-                htmlFor="home-inquiry"
-              >
-                {es ? "¿Qué estás intentando comprender?" : "What are you trying to understand?"}
-              </label>
-              <div className="mt-4 flex flex-col gap-3 sm:flex-row">
-                <input
-                  id="home-inquiry"
-                  value={inquiry}
-                  onChange={(e) => setInquiry(e.target.value)}
-                  placeholder={
-                    es
-                      ? "Escribe una pregunta, problema, decisión o idea…"
-                      : "Write a question, problem, decision or idea…"
-                  }
-                  className="focus-mist min-w-0 flex-1 rounded-md border border-bronze/40 bg-background/90 px-4 py-4 text-body text-foreground shadow-lg shadow-black/20 transition-colors placeholder:text-muted-foreground/70 hover:border-bronze/60"
-                />
-                <button
-                  type="submit"
-                  className="btn-gold focus-mist whitespace-nowrap px-7 py-4 text-small"
-                >
-                  {es ? "Pensarlo con Pneum" : "Think it with Pneum"}
-                </button>
-              </div>
-            </form>
-
-            <div className="mx-auto mt-4 flex max-w-2xl justify-start">
-              <ToneSelect
-                value={tone}
-                onChange={(v) => {
-                  setTone(v);
-                  storeTone(v);
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  ask(inquiry);
                 }}
-              />
+                className="mt-12"
+              >
+                <label
+                  className="block font-serif text-subtitle font-light text-foreground"
+                  htmlFor="home-inquiry"
+                >
+                  {es ? "¿Qué estás intentando comprender?" : "What are you trying to understand?"}
+                </label>
+                <div className="mt-4 flex flex-col gap-3 sm:flex-row">
+                  <input
+                    id="home-inquiry"
+                    value={inquiry}
+                    onChange={(e) => setInquiry(e.target.value)}
+                    placeholder={
+                      es
+                        ? "Escribe una pregunta, problema, decisión o idea…"
+                        : "Write a question, problem, decision or idea…"
+                    }
+                    className="focus-mist min-w-0 flex-1 rounded-md border border-bronze/45 bg-background/80 px-4 py-4 text-body text-foreground backdrop-blur-sm transition-colors placeholder:text-muted-foreground/70 hover:border-bronze/70"
+                  />
+                  <button
+                    type="submit"
+                    className="btn-gold focus-mist whitespace-nowrap px-7 py-4 text-small"
+                  >
+                    {es ? "Pensarlo con Pneum" : "Think it with Pneum"}
+                  </button>
+                </div>
+              </form>
+
+              <div className="mt-4">
+                <ToneSelect
+                  value={tone}
+                  onChange={(v) => {
+                    setTone(v);
+                    storeTone(v);
+                  }}
+                />
+              </div>
+
+              <ul className="mt-8 flex flex-wrap gap-2">
+                {REAL_PROBLEMS.slice(0, 4).map((p) => (
+                  <li key={p.id}>
+                    <button
+                      type="button"
+                      onClick={() => ask(p.text[lang], "suggestion")}
+                      className="focus-mist rounded-full border border-border/60 bg-background/40 px-3.5 py-1.5 text-micro text-muted-foreground backdrop-blur-sm transition-colors hover:border-bronze/50 hover:text-foreground"
+                    >
+                      {p.text[lang]}
+                    </button>
+                  </li>
+                ))}
+              </ul>
             </div>
 
-            <ul className="mx-auto mt-8 flex max-w-2xl flex-wrap justify-center gap-2">
-              {REAL_PROBLEMS.slice(0, 4).map((p) => (
-                <li key={p.id}>
-                  <button
-                    type="button"
-                    onClick={() => ask(p.text[lang], "suggestion")}
-                    className="focus-mist rounded-full border border-border/60 px-3.5 py-1.5 text-micro text-muted-foreground transition-colors hover:border-bronze/50 hover:text-foreground"
-                  >
-                    {p.text[lang]}
-                  </button>
-                </li>
-              ))}
-            </ul>
+            <p
+              aria-hidden="true"
+              className="pointer-events-none absolute right-8 top-1/2 hidden -translate-y-1/2 border-l border-bronze/40 pl-4 text-micro leading-loose tracking-[0.18em] text-foreground/70 xl:block"
+            >
+              {es ? "Más perspectiva." : "More perspective."}
+              <br />
+              {es ? "Mejores preguntas." : "Better questions."}
+              <br />
+              {es ? "Mejores decisiones." : "Better decisions."}
+            </p>
           </div>
         </section>
 
@@ -415,27 +484,27 @@ function Home() {
           </div>
         </section>
 
-        {/* ── Tres capacidades ─────────────────────────────────── */}
-        <section className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-28">
-          <p className="label">{es ? "Qué puedes hacer" : "What you can do"}</p>
-          <h2 className="mt-3 max-w-2xl font-serif text-title font-light text-foreground">
-            {es ? "Comprender, analizar, decidir" : "Understand, analyse, decide"}
-          </h2>
-
-          <ul className="mt-10 grid gap-4 md:grid-cols-3">
-            {CAPABILITIES.map((c) => (
-              <li key={c.id}>
-                <Link to={c.to} className="card-editorial focus-mist flex h-full flex-col p-7">
-                  <h3 className="font-serif text-subtitle font-light text-foreground">
-                    {c.title[lang]}
-                  </h3>
-                  <p className="mt-3 text-small leading-relaxed text-muted-foreground">
-                    {c.text[lang]}
-                  </p>
-                </Link>
-              </li>
-            ))}
-          </ul>
+        {/* ── Capacidades ──────────────────────────────────────── */}
+        <section className="band-paper border-y border-border">
+          <div className="mx-auto max-w-6xl px-5 py-16 md:px-8 md:py-20">
+            <ul className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-0">
+              {CAPABILITIES.map((c, i) => (
+                <li
+                  key={c.id}
+                  className={i > 0 ? "lg:border-l lg:border-border lg:pl-10" : "lg:pr-10"}
+                >
+                  <Link to={c.to} className="focus-mist group block">
+                    <h3 className="font-serif text-subtitle font-light text-foreground">
+                      {c.title[lang]}
+                    </h3>
+                    <p className="mt-3 text-small leading-relaxed text-muted-foreground transition-colors group-hover:text-foreground">
+                      {c.text[lang]}
+                    </p>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
         </section>
 
         {/* ── Cómo funciona ────────────────────────────────────── */}
@@ -492,38 +561,133 @@ function Home() {
           </Link>
         </section>
 
-        {/* ── La inteligencia detrás de Pneum ──────────────────── */}
+        {/* ── La inteligencia detrás de tu pensamiento ─────────── */}
         <section className="border-y border-border/60 bg-card/25">
-          <div className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-28">
-            <p className="label">{es ? "Infraestructura" : "Infrastructure"}</p>
-            <h2 className="mt-3 max-w-2xl font-serif text-title font-light text-foreground">
-              {es ? "La inteligencia detrás de Pneum" : "The intelligence behind Pneum"}
+          <div className="mx-auto grid max-w-6xl gap-14 px-5 py-20 md:px-8 md:py-28 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:items-center">
+            <div>
+              <p className="label">{es ? "Una sola plataforma" : "One single platform"}</p>
+              <h2 className="balance mt-3 font-serif text-title font-light text-foreground">
+                {es ? "La inteligencia detrás de tu pensamiento." : "The intelligence behind your thinking."}
+              </h2>
+              <p className="measure mt-5 text-body leading-relaxed text-muted-foreground">
+                {es
+                  ? "Pneum integra múltiples capas de inteligencia para ofrecerte una experiencia única y profunda."
+                  : "Pneum integrates multiple layers of intelligence to give you a single, deep experience."}
+              </p>
+              <blockquote className="mt-10 border-l border-bronze/40 pl-5">
+                <p className="font-serif text-subtitle font-light italic leading-snug text-bronze-bright">
+                  {es
+                    ? "“El pensamiento no es un lujo, es una herramienta de supervivencia.”"
+                    : "“Thought is not a luxury, it is a survival tool.”"}
+                </p>
+                <footer className="mt-3 text-micro uppercase tracking-[0.25em] text-muted-foreground">
+                  — {SITE_NAME}
+                </footer>
+              </blockquote>
+            </div>
+
+            <div>
+              <div className="grid items-center gap-5 md:grid-cols-[1fr_auto_1fr]">
+                <ul className="flex flex-col gap-3">
+                  {INFRASTRUCTURE.slice(0, 3).map((item) => (
+                    <li
+                      key={item.title.en}
+                      className="rounded-md border border-border/70 bg-background/60 px-4 py-3"
+                    >
+                      <p className="text-small text-foreground">{item.title[lang]}</p>
+                      <p className="mt-1 text-micro leading-relaxed text-muted-foreground">
+                        {item.text[lang]}
+                      </p>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="mx-auto flex size-32 items-center justify-center rounded-full border border-bronze/45 bg-background/70 text-center md:size-36">
+                  <span className="font-serif text-subtitle font-light tracking-[0.3em] text-bronze-bright">
+                    {SITE_NAME.toUpperCase()}
+                  </span>
+                </div>
+
+                <ul className="flex flex-col gap-3">
+                  {INFRASTRUCTURE.slice(3).map((item) => (
+                    <li
+                      key={item.title.en}
+                      className="rounded-md border border-border/70 bg-background/60 px-4 py-3"
+                    >
+                      <p className="text-small text-foreground">{item.title[lang]}</p>
+                      <p className="mt-1 text-micro leading-relaxed text-muted-foreground">
+                        {item.text[lang]}
+                      </p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <ol className="mt-8 flex flex-wrap items-center justify-center gap-3">
+                {(es
+                  ? ["Claridad", "Juicio", "Acción"]
+                  : ["Clarity", "Judgement", "Action"]
+                ).map((step, i) => (
+                  <li key={step} className="flex items-center gap-3">
+                    {i > 0 && (
+                      <span aria-hidden="true" className="text-bronze/60">
+                        →
+                      </span>
+                    )}
+                    <span className="rounded-full border border-bronze/35 px-4 py-1.5 text-micro uppercase tracking-[0.25em] text-bronze-bright">
+                      {step}
+                    </span>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </div>
+        </section>
+
+        {/* ── Diseñado para cada tipo de pensador ──────────────── */}
+        <section className="band-paper border-y border-border">
+          <div className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-24">
+            <h2 className="font-serif text-title font-light text-foreground">
+              {es ? "Diseñado para cada tipo de pensador" : "Designed for every kind of thinker"}
             </h2>
-            <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {INFRASTRUCTURE.map((item) => (
-                <li key={item.title.en} className="card-editorial p-6">
-                  <h3 className="text-small uppercase tracking-[0.18em] text-bronze-bright">
-                    {item.title[lang]}
-                  </h3>
-                  <p className="mt-3 text-small leading-relaxed text-muted-foreground">
-                    {item.text[lang]}
-                  </p>
+            <p className="mt-2 text-small text-muted-foreground">
+              {es
+                ? "Una misma infraestructura. Diferentes caminos."
+                : "One infrastructure. Different paths."}
+            </p>
+
+            <ul className="mt-10 grid gap-6 md:grid-cols-3">
+              {AUDIENCES.map((a) => (
+                <li key={a.id}>
+                  <Link
+                    to={a.to}
+                    className="focus-mist group flex h-full flex-col overflow-hidden rounded-md border border-border transition-colors hover:border-bronze/60"
+                  >
+                    <img
+                      src={a.img}
+                      alt=""
+                      aria-hidden="true"
+                      loading="lazy"
+                      width={992}
+                      height={672}
+                      className="aspect-[3/2] w-full object-cover"
+                    />
+                    <div className="flex flex-1 flex-col p-6">
+                      <h3 className="font-serif text-subtitle font-light text-foreground">
+                        {a.title[lang]}
+                      </h3>
+                      <p className="mt-3 text-small leading-relaxed text-muted-foreground">
+                        {a.text[lang]}
+                      </p>
+                      <span className="mt-6 text-micro uppercase tracking-[0.25em] text-bronze-bright">
+                        {a.cta[lang]} →
+                      </span>
+                    </div>
+                  </Link>
                 </li>
               ))}
             </ul>
           </div>
-        </section>
-
-        {/* ── Usos ─────────────────────────────────────────────── */}
-        <section className="mx-auto max-w-6xl px-5 py-16 md:px-8 md:py-20">
-          <p className="font-serif text-subtitle font-light text-foreground">
-            {es ? "Una misma infraestructura. Diferentes caminos." : "One infrastructure. Different paths."}
-          </p>
-          <p className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-micro uppercase tracking-[0.25em] text-muted-foreground">
-            {USES.map((u) => (
-              <span key={u.en}>{u[lang]}</span>
-            ))}
-          </p>
         </section>
 
         {/* ── Grandes ideas ────────────────────────────────────── */}
