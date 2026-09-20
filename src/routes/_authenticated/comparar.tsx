@@ -280,7 +280,7 @@ function ComparePage() {
                     <Link
                       to="/$philosopher"
                       params={{ philosopher: turn.philosopher }}
-                      search={{ q: question.trim() }}
+                      search={questionQid ? { qid: questionQid } : {}}
                       className="btn-ghost-gold mt-6 self-start"
                     >
                       {es ? `Seguir con ${meta.name}` : `Continue with ${meta.name}`}
@@ -289,6 +289,53 @@ function ComparePage() {
                 );
               })}
             </ul>
+          )}
+
+          {turns.length >= 2 && (
+            <div className="mt-10 rounded-xl border border-bronze/45 bg-bronze/5 p-7 md:p-9">
+              <p className="label text-bronze-bright">
+                {es
+                  ? "¿Qué cambia cuando las ponemos juntas?"
+                  : "What changes when we put them together?"}
+              </p>
+              {synthesis ? (
+                <>
+                  <p className="mt-4 whitespace-pre-wrap text-body leading-relaxed text-foreground/90">
+                    {synthesis}
+                  </p>
+                  <Link
+                    to="/$philosopher"
+                    params={{ philosopher: turns[0].philosopher }}
+                    search={questionQid ? { qid: questionQid } : {}}
+                    className="btn-gold mt-6 inline-block"
+                  >
+                    {es ? "Seguir pensando esto" : "Keep thinking this"}
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <p className="mt-3 text-small leading-relaxed text-muted-foreground">
+                    {es
+                      ? "Acuerdos, contradicciones, el supuesto que hay debajo y la pregunta que queda abierta."
+                      : "Agreements, contradictions, the assumption underneath and the question left open."}
+                  </p>
+                  <button
+                    type="button"
+                    onClick={synthesize}
+                    disabled={synthBusy}
+                    className="btn-gold mt-6 disabled:opacity-40"
+                  >
+                    {synthBusy
+                      ? es
+                        ? "Reuniendo las perspectivas…"
+                        : "Bringing the perspectives together…"
+                      : es
+                        ? "Ver la síntesis"
+                        : "See the synthesis"}
+                  </button>
+                </>
+              )}
+            </div>
           )}
         </section>
       </main>
