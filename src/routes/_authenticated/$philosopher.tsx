@@ -50,7 +50,8 @@ export const Route = createFileRoute("/_authenticated/$philosopher")({
 
 function PhilosopherChat() {
   const { philosopher } = useParams({ from: "/_authenticated/$philosopher" });
-  const { q } = Route.useSearch();
+  const { qid } = Route.useSearch();
+  const q = readQuestion(qid);
   const { user, loading } = useAuth();
   const navigate = useNavigate();
   const { add } = useJourney();
