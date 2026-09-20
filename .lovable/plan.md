@@ -7,7 +7,7 @@ Rediseño visual de la portada siguiendo la maqueta que enviaste, manteniendo el
 - El titular sigue siendo **"Claridad para preguntas difíciles."**
 - El campo **"¿Qué estás intentando comprender?"** se queda en el hero, como acción principal.
 - No se crea sección ni página "Para empresas".
-- La foto del hero la envías tú; hasta entonces el hero usa la imagen de fondo actual con el nuevo tratamiento (degradado oscuro, viñeta lateral).
+- La imagen que enviaste es de nuevo la maqueta completa, no la fotografía suelta. Como el recorte del hero queda a baja resolución, creo una fotografía nueva en alta calidad con exactamente la misma escena y luz: columnas clásicas al atardecer sobre montañas, tonos cálidos y dorados. Si luego me envías la original, la reemplazo sin tocar nada más.
 
 ## Hero
 
