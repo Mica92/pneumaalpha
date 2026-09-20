@@ -25,7 +25,6 @@ import thoreauPortrait from "@/assets/portraits/thoreau.jpg";
 import stirnerPortrait from "@/assets/portraits/stirner.jpg";
 import bakuninPortrait from "@/assets/portraits/bakunin.jpg";
 import arendtPortrait from "@/assets/portraits/arendt.jpg";
-import negrihardtPortrait from "@/assets/portraits/negrihardt.jpg";
 import randPortrait from "@/assets/portraits/rand.jpg";
 import gadamerPortrait from "@/assets/portraits/gadamer.jpg";
 import ibnkhaldunPortrait from "@/assets/portraits/ibnkhaldun.jpg";

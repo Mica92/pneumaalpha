@@ -95,11 +95,6 @@ export function SiteFooter() {
               </Link>
             </li>
             <li>
-              <Link to="/reembolsos" className="focus-mist transition-colors hover:text-foreground">
-                {es ? "Reembolsos" : "Refunds"}
-              </Link>
-            </li>
-            <li>
               <Link to="/uso-de-ia" className="focus-mist transition-colors hover:text-foreground">
                 {es ? "Uso aceptable de IA" : "AI acceptable use"}
               </Link>

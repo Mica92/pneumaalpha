@@ -25,7 +25,6 @@ import thoreauScene from "@/assets/scenes/thoreau.jpg";
 import stirnerScene from "@/assets/scenes/stirner.jpg";
 import bakuninScene from "@/assets/scenes/bakunin.jpg";
 import arendtScene from "@/assets/scenes/arendt.jpg";
-import negrihardtScene from "@/assets/scenes/negrihardt.jpg";
 import randScene from "@/assets/scenes/rand.jpg";
 import gadamerScene from "@/assets/scenes/gadamer.jpg";
 import ibnkhaldunScene from "@/assets/scenes/ibnkhaldun.jpg";
