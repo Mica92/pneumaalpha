@@ -92,7 +92,7 @@ function SocratesPage() {
   return (
     <>
       <SiteNav />
-      <main className="route-enter relative z-10 mx-auto flex max-w-2xl flex-col overflow-hidden px-6 py-10 md:px-10 md:py-14">
+      <main className="route-enter relative z-10 mx-auto flex max-w-2xl flex-col px-6 py-10 md:px-10 md:py-14">
         <PageAtmosphere variant="study" />
         <header className="relative mt-10 mb-8 md:mt-14 md:mb-10">
           <p className="label">{t("socrates.kicker")}</p>
