@@ -601,14 +601,13 @@ function ChatBody({
               disabled={isLoading}
               onChange={(e) => setComposerText(e.currentTarget.value)}
               onKeyDown={(e) => {
-                if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing) {
-                  e.preventDefault();
-                  (e.currentTarget.form as HTMLFormElement).requestSubmit();
-                }
-                if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) {
-                  e.preventDefault();
-                  (e.currentTarget.form as HTMLFormElement).requestSubmit();
-                }
+                if (e.key !== "Enter" || e.nativeEvent.isComposing) return;
+                // A single send path: Enter, or Ctrl/Cmd+Enter. Shift+Enter = newline.
+                const isSend = !e.shiftKey || e.metaKey || e.ctrlKey;
+                if (!isSend) return;
+                e.preventDefault();
+                if (isLoading || !composerText.trim()) return;
+                (e.currentTarget.form as HTMLFormElement).requestSubmit();
               }}
               onInput={(e) => {
                 const ta = e.currentTarget;

@@ -25,6 +25,11 @@ export const ANALYTICS_EVENTS = [
   "report_viewed",
   "podcast_viewed",
   "history_viewed",
+  "compare_run",
+  "comparison_completed",
+  "synthesis_generated",
+  "crisis_shown",
+  "off_domain_shown",
 ] as const;
 
 export type AnalyticsEvent = (typeof ANALYTICS_EVENTS)[number];

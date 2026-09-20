@@ -11,6 +11,8 @@ import { loadStoredTone, storeTone, type ToneId } from "@/lib/tones";
 import { SiteFooter } from "@/components/site-footer";
 import { PhilosopherCard } from "@/components/philosopher-card";
 import { track } from "@/lib/analytics";
+import { AskLink } from "@/components/ask-link";
+import { stashQuestion } from "@/lib/question-handoff";
 import heroColumns from "@/assets/hero-columns.jpg";
 import audiencePersonal from "@/assets/audience-personal.jpg";
 import audienceAcademic from "@/assets/audience-academic.jpg";
@@ -295,7 +297,11 @@ function Home() {
     const q = text.trim();
     if (!q) return;
     track("question_submitted", { surface: "home", source, length: q.length });
-    navigate({ to: "/oraculo", search: tone ? { q, tone } : { q } });
+    const qid = stashQuestion(q);
+    navigate({
+      to: "/oraculo",
+      search: { ...(qid ? { qid } : {}), ...(tone ? { tone } : {}) },
+    });
   }
 
   return (
@@ -460,14 +466,14 @@ function Home() {
                   <ul className="mt-3 flex flex-wrap gap-2">
                     {DEMO_PERSPECTIVES.filter((id) => id in PHILOSOPHERS).map((id) => (
                       <li key={id}>
-                        <Link
+                        <AskLink
                           to="/$philosopher"
                           params={{ philosopher: id }}
-                          search={{ q: DEMO_QUESTION[lang] }}
+                          text={DEMO_QUESTION[lang]}
                           className="btn-ghost-gold focus-mist px-3.5 py-1.5 text-micro"
                         >
                           {PHILOSOPHERS[id].name}
-                        </Link>
+                        </AskLink>
                       </li>
                     ))}
                   </ul>

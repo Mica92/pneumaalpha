@@ -11,10 +11,12 @@ import { ToneSelect } from "@/components/tone-select";
 import { isToneId, loadStoredTone, storeTone, type ToneId } from "@/lib/tones";
 import { track, trackOnce } from "@/lib/analytics";
 import { PageAtmosphere } from "@/components/page-atmosphere";
+import { readQuestion, useQuestionHandoff, validateQid } from "@/lib/question-handoff";
+import { CRISIS_RESOURCES } from "@/lib/safety";
 
 export const Route = createFileRoute("/_authenticated/oraculo")({
-  validateSearch: (search: Record<string, unknown>): { q?: string; tone?: string } => ({
-    ...(typeof search.q === "string" && search.q ? { q: search.q } : {}),
+  validateSearch: (search: Record<string, unknown>): { qid?: string; tone?: string } => ({
+    ...validateQid(search),
     ...(isToneId(search.tone) ? { tone: search.tone } : {}),
   }),
   component: OraclePage,
@@ -45,9 +47,9 @@ function OraclePage() {
   const es = lang === "es";
   const matchFn = useServerFn(matchPhilosopher);
 
-  const { q, tone: toneParam } = Route.useSearch();
-  const [inquiry, setInquiry] = useState(q ?? "");
-  const [asked, setAsked] = useState(q ?? "");
+  const { qid, tone: toneParam } = Route.useSearch();
+  const [inquiry, setInquiry] = useState("");
+  const [asked, setAsked] = useState("");
   const [tone, setTone] = useState<ToneId | null>(isToneId(toneParam) ? toneParam : null);
 
   useEffect(() => {
@@ -106,11 +108,14 @@ function OraclePage() {
   const autoRan = useRef(false);
   useEffect(() => {
     if (autoRan.current) return;
-    if (!q || q.trim().length < 3) return;
+    const handed = readQuestion(qid);
+    if (!handed || handed.trim().length < 3) return;
     autoRan.current = true;
-    void run(q, "prefilled");
-  }, [q, run]);
+    setInquiry(handed);
+    void run(handed, "prefilled");
+  }, [qid, run]);
 
+  const askedQid = useQuestionHandoff(asked);
   const primary = result ? PHILOSOPHERS[result.philosopher] : null;
 
   function reset() {
@@ -202,7 +207,62 @@ function OraclePage() {
           </p>
         )}
 
-        {result && primary && (
+        {result?.safety === "crisis" && (
+          <section aria-live="polite" className="fade-up mt-12">
+            <div className="rounded-xl border border-bronze/50 bg-card/70 p-7 md:p-9">
+              <p className="label text-bronze-bright">{es ? "Antes de seguir" : "Before we go on"}</p>
+              <p className="mt-4 font-serif text-subtitle font-light leading-snug text-foreground">
+                {result.reading}
+              </p>
+              <p className="mt-4 text-small leading-relaxed text-muted-foreground">
+                {es
+                  ? "Pneum no puede acompañarte en esto y no es el lugar adecuado ahora. Hay personas disponibles en este momento, gratis y sin juicio."
+                  : "Pneum cannot accompany you in this and is not the right place right now. There are people available at this moment, free and without judgement."}
+              </p>
+              <ul className="mt-6 space-y-4">
+                {CRISIS_RESOURCES.map((r) => (
+                  <li key={r.country} className="border-t border-border/50 pt-4">
+                    <p className="text-body text-foreground">{r.name[lang]}</p>
+                    <p className="mt-1 font-serif text-subtitle font-light text-bronze-bright">
+                      {r.contact}
+                    </p>
+                    <p className="mt-1 text-micro text-muted-foreground">{r.note[lang]}</p>
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-6 text-small text-muted-foreground">
+                {es
+                  ? "Si puedes, habla ahora con alguien de confianza."
+                  : "If you can, talk to someone you trust right now."}
+              </p>
+            </div>
+          </section>
+        )}
+
+        {result?.safety === "off_domain" && (
+          <section aria-live="polite" className="fade-up mt-12">
+            <div className="card-editorial p-7 md:p-9">
+              <p className="label">{es ? "Fuera de lo que hacemos" : "Outside what we do"}</p>
+              <p className="mt-4 font-serif text-subtitle font-light leading-snug text-foreground">
+                {result.reading}
+              </p>
+              <p className="mt-4 text-small leading-relaxed text-muted-foreground">
+                {es
+                  ? "Pneum no resuelve tareas técnicas, cálculos ni información general. Sí puede ayudarte a pensar el problema o la decisión que hay detrás. Reescríbelo como pregunta y lo trabajamos."
+                  : "Pneum does not solve technical tasks, calculations or general information. It can help you think through the problem or decision behind it. Rewrite it as a question and we will work on it."}
+              </p>
+              <button
+                type="button"
+                onClick={reset}
+                className="btn-ghost-gold focus-mist mt-6 px-5 py-3 text-small"
+              >
+                {es ? "Reescribir mi pregunta" : "Rewrite my question"}
+              </button>
+            </div>
+          </section>
+        )}
+
+        {result && !result.safety && primary && (
           <section aria-live="polite" className="fade-up mt-12 flex flex-col gap-8">
             {/* Lectura */}
             <div className="card-editorial p-7 md:p-9">
@@ -244,7 +304,7 @@ function OraclePage() {
                       <Link
                         to="/$philosopher"
                         params={{ philosopher: p.philosopher }}
-                        search={asked ? { q: asked } : undefined}
+                        search={askedQid ? { qid: askedQid } : {}}
                         onClick={() =>
                           track("first_interaction", {
                             philosopher: p.philosopher,
@@ -306,7 +366,7 @@ function OraclePage() {
                 <Link
                   to="/$philosopher"
                   params={{ philosopher: primary.id }}
-                  search={asked ? { q: asked } : undefined}
+                  search={askedQid ? { qid: askedQid } : {}}
                   onClick={() =>
                     track("first_interaction", { philosopher: primary.id, from: "oracle" })
                   }
@@ -316,7 +376,12 @@ function OraclePage() {
                 </Link>
                 <Link
                   to="/comparar"
-                  search={asked ? { q: asked } : {}}
+                  search={{
+                    ...(askedQid ? { qid: askedQid } : {}),
+                    ...(result.perspectives.length
+                      ? { seats: result.perspectives.map((p) => p.philosopher).join(",") }
+                      : {}),
+                  }}
                   onClick={() => track("next_action", { action: "compare" })}
                   className="btn-ghost-gold focus-mist px-5 py-3 text-small"
                 >

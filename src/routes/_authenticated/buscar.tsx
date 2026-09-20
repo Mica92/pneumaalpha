@@ -9,6 +9,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { useI18n } from "@/lib/i18n";
 import { track } from "@/lib/analytics";
 import { PageAtmosphere } from "@/components/page-atmosphere";
+import { AskLink } from "@/components/ask-link";
 
 export const Route = createFileRoute("/_authenticated/buscar")({
   validateSearch: (search: Record<string, unknown>): { q?: string } =>
@@ -42,7 +43,7 @@ type Hit = {
   sub: string;
   to: string;
   params?: Record<string, string>;
-  search?: Record<string, string>;
+  ask?: string;
 };
 
 function norm(s: string) {
@@ -132,7 +133,7 @@ function SearchPage() {
           title: c.title[lang],
           sub: c.tags[lang],
           to: "/oraculo",
-          search: { q: c.seed[lang] },
+          ask: c.seed[lang],
         });
       }
     }
@@ -145,7 +146,7 @@ function SearchPage() {
           title: rp.text[lang],
           sub: rp.philosophers.map((p) => PHILOSOPHERS[p]?.name).join(" · "),
           to: "/oraculo",
-          search: { q: rp.text[lang] },
+          ask: rp.text[lang],
         });
       }
     }
@@ -217,25 +218,25 @@ function SearchPage() {
                   ? "Pneum puede leer lo que escribiste y proponerte la perspectiva que mejor lo ilumina."
                   : "Pneum can read what you wrote and propose the perspective that best illuminates it."}
               </p>
-              <Link
+              <AskLink
                 to="/oraculo"
-                search={{ q: query.trim() }}
+                text={query.trim()}
                 className="mt-6 inline-block rounded-md border border-mist/50 bg-mist/15 px-5 py-2.5 font-display text-micro uppercase tracking-[0.3em] text-foreground transition-all hover:border-mist/80 hover:bg-mist/25"
               >
                 {es ? "Pensarlo con Pneum →" : "Think it with Pneum →"}
-              </Link>
+              </AskLink>
 
               <p className="label mt-8">{es ? "O empieza por aquí" : "Or start here"}</p>
               <ul className="mt-3 space-y-2">
                 {suggestions.map((s) => (
                   <li key={s.key}>
-                    <Link
+                    <AskLink
                       to="/oraculo"
-                      search={{ q: s.q }}
-                      className="focus-mist block text-small text-foreground/85 transition-colors hover:text-bronze-bright"
+                      text={s.q}
+                      className="focus-mist block text-left text-small text-foreground/85 transition-colors hover:text-bronze-bright"
                     >
                       {s.label}
-                    </Link>
+                    </AskLink>
                   </li>
                 ))}
               </ul>
@@ -243,17 +244,9 @@ function SearchPage() {
           )}
 
           <ul className="divide-y divide-border/60">
-            {hits.map((h) => (
-              <li key={h.key}>
-                <Link
-                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                  to={h.to as any}
-                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                  params={h.params as any}
-                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                  search={h.search as any}
-                  className="focus-mist group flex items-baseline justify-between gap-6 py-5 transition-colors hover:bg-card/40"
-                >
+            {hits.map((h) => {
+              const inner = (
+                <>
                   <span className="min-w-0">
                     <span className="label">{h.kind}</span>
                     <span className="mt-1 block truncate font-serif text-subtitle font-light text-foreground">
@@ -269,9 +262,30 @@ function SearchPage() {
                   >
                     →
                   </span>
-                </Link>
-              </li>
-            ))}
+                </>
+              );
+              const cls =
+                "focus-mist group flex w-full items-baseline justify-between gap-6 py-5 text-left transition-colors hover:bg-card/40";
+              return (
+                <li key={h.key}>
+                  {h.ask ? (
+                    <AskLink to={h.to} text={h.ask} className={cls}>
+                      {inner}
+                    </AskLink>
+                  ) : (
+                    <Link
+                      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                      to={h.to as any}
+                      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                      params={h.params as any}
+                      className={cls}
+                    >
+                      {inner}
+                    </Link>
+                  )}
+                </li>
+              );
+            })}
           </ul>
         </section>
       </main>

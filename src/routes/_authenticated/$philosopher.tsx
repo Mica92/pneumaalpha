@@ -1,5 +1,5 @@
 import { createFileRoute, useNavigate, useParams } from "@tanstack/react-router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "@/hooks/use-auth";
 import { ChatWindow } from "@/components/chat-window";
 import { GreekGlyph } from "@/components/greek-glyph";
@@ -7,12 +7,12 @@ import { PHILOSOPHERS, isPhilosopherId, type PhilosopherId } from "@/lib/philoso
 import { entityForChat } from "@/lib/atlas";
 import { useJourney } from "@/lib/atlas/use-journey";
 import { SITE_URL } from "@/lib/site";
+import { readQuestion, validateQid } from "@/lib/question-handoff";
 
 
 export const Route = createFileRoute("/_authenticated/$philosopher")({
   component: PhilosopherChat,
-  validateSearch: (search: Record<string, unknown>): { q?: string } =>
-    typeof search.q === "string" && search.q ? { q: search.q } : {},
+  validateSearch: validateQid,
   head: ({ params }) => {
     const id = params.philosopher as string;
     if (!isPhilosopherId(id)) {
@@ -50,7 +50,11 @@ export const Route = createFileRoute("/_authenticated/$philosopher")({
 
 function PhilosopherChat() {
   const { philosopher } = useParams({ from: "/_authenticated/$philosopher" });
-  const { q } = Route.useSearch();
+  const { qid } = Route.useSearch();
+  const [q, setQ] = useState<string | undefined>(undefined);
+  useEffect(() => {
+    setQ(readQuestion(qid));
+  }, [qid]);
   const { user, loading } = useAuth();
   const navigate = useNavigate();
   const { add } = useJourney();

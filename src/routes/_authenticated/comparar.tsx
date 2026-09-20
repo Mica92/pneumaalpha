@@ -1,22 +1,33 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SITE_URL } from "@/lib/site";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { runRoundtableRound } from "@/lib/roundtable.functions";
-import { type RoundtableTurn } from "@/lib/roundtable.shared";
-import { PHILOSOPHERS, PHILOSOPHER_LIST, type PhilosopherId } from "@/lib/philosophers";
+import { MAX_SEATS, type RoundtableTurn } from "@/lib/roundtable.shared";
+import {
+  PHILOSOPHERS,
+  PHILOSOPHER_LIST,
+  isPhilosopherId,
+  type PhilosopherId,
+} from "@/lib/philosophers";
 import { portraitFocus, portraitOf } from "@/lib/portraits";
 import { SiteNav } from "@/components/site-nav";
 import { SiteFooter } from "@/components/site-footer";
 import { GreekGlyph } from "@/components/greek-glyph";
 import { useI18n } from "@/lib/i18n";
 import { PageAtmosphere } from "@/components/page-atmosphere";
+import { readQuestion, useQuestionHandoff, validateQid } from "@/lib/question-handoff";
+import { track } from "@/lib/analytics";
 
-const MAX_COMPARE = 3;
+const MAX_COMPARE = MAX_SEATS;
 
 export const Route = createFileRoute("/_authenticated/comparar")({
-  validateSearch: (search: Record<string, unknown>): { q?: string } =>
-    typeof search.q === "string" && search.q ? { q: search.q } : {},
+  validateSearch: (search: Record<string, unknown>): { qid?: string; seats?: string } => ({
+    ...validateQid(search),
+    ...(typeof search.seats === "string" && search.seats
+      ? { seats: search.seats.slice(0, 120) }
+      : {}),
+  }),
   component: ComparePage,
   head: () => ({
     meta: [
@@ -39,17 +50,37 @@ export const Route = createFileRoute("/_authenticated/comparar")({
 });
 
 function ComparePage() {
-  const { q } = Route.useSearch();
+  const { qid, seats: seatsParam } = Route.useSearch();
   const { lang } = useI18n();
   const es = lang === "es";
   const runFn = useServerFn(runRoundtableRound);
 
-  const [question, setQuestion] = useState(q ?? "");
+  const [question, setQuestion] = useState("");
   const [seats, setSeats] = useState<PhilosopherId[]>([]);
   const [turns, setTurns] = useState<RoundtableTurn[]>([]);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [synthesis, setSynthesis] = useState<string | null>(null);
+  const [synthBusy, setSynthBusy] = useState(false);
 
+  // Arriving from the Oracle: the question and the recommended perspectives
+  // come along, already chosen but fully editable.
+  useEffect(() => {
+    const handed = readQuestion(qid);
+    if (handed) setQuestion(handed);
+  }, [qid]);
+
+  useEffect(() => {
+    if (!seatsParam) return;
+    const picked = seatsParam
+      .split(",")
+      .map((s) => s.trim())
+      .filter(isPhilosopherId)
+      .slice(0, MAX_COMPARE) as PhilosopherId[];
+    if (picked.length) setSeats(picked);
+  }, [seatsParam]);
+
+  const questionQid = useQuestionHandoff(question);
   const canRun = question.trim().length >= 3 && seats.length >= 2 && !busy;
 
   const toggle = (id: PhilosopherId) =>
@@ -66,6 +97,8 @@ function ComparePage() {
     setBusy(true);
     setError(null);
     setTurns([]);
+    setSynthesis(null);
+    track("compare_run", { seats: seats.length });
     try {
       const res = await runFn({
         data: {
@@ -77,6 +110,7 @@ function ComparePage() {
         },
       });
       setTurns(res.turns);
+      track("comparison_completed", { seats: seats.length });
     } catch (e) {
       console.error("[comparar] failed", e);
       setError(
@@ -86,6 +120,34 @@ function ComparePage() {
       );
     } finally {
       setBusy(false);
+    }
+  };
+
+  const synthesize = async () => {
+    if (turns.length < 2 || synthBusy) return;
+    setSynthBusy(true);
+    setError(null);
+    try {
+      const res = await runFn({
+        data: {
+          topic: question.trim(),
+          seats,
+          language: lang,
+          previous: turns,
+          synthesize: true,
+        },
+      });
+      setSynthesis(res.synthesis);
+      track("synthesis_generated", { seats: seats.length });
+    } catch (e) {
+      console.error("[comparar] synthesis failed", e);
+      setError(
+        es
+          ? "No pudimos escribir la síntesis. Inténtalo otra vez."
+          : "We couldn't write the synthesis. Please try again.",
+      );
+    } finally {
+      setSynthBusy(false);
     }
   };
 
@@ -132,7 +194,7 @@ function ComparePage() {
                 {es ? "Mentes elegidas" : "Chosen minds"} · {seats.length}/{MAX_COMPARE}
               </p>
               <span className="text-micro text-muted-foreground/70">
-                {es ? "Elige entre 2 y 3" : "Pick 2 to 3"}
+                {es ? "Elige entre 2 y 4" : "Pick 2 to 4"}
               </span>
             </div>
             <ul className="mt-3 flex flex-wrap gap-2">
@@ -178,7 +240,11 @@ function ComparePage() {
           {busy && (
             <div className="flex items-center gap-3">
               <GreekGlyph className="pneuma-breathe font-serif text-lg text-bronze-bright" />
-              <span className="label">{es ? "Pensando" : "Thinking"}</span>
+              <span className="label">
+                {es
+                  ? "Cada perspectiva está respondiendo tu pregunta…"
+                  : "Each perspective is answering your question…"}
+              </span>
             </div>
           )}
 
@@ -214,7 +280,7 @@ function ComparePage() {
                     <Link
                       to="/$philosopher"
                       params={{ philosopher: turn.philosopher }}
-                      search={{ q: question.trim() }}
+                      search={questionQid ? { qid: questionQid } : {}}
                       className="btn-ghost-gold mt-6 self-start"
                     >
                       {es ? `Seguir con ${meta.name}` : `Continue with ${meta.name}`}
@@ -223,6 +289,53 @@ function ComparePage() {
                 );
               })}
             </ul>
+          )}
+
+          {turns.length >= 2 && (
+            <div className="mt-10 rounded-xl border border-bronze/45 bg-bronze/5 p-7 md:p-9">
+              <p className="label text-bronze-bright">
+                {es
+                  ? "¿Qué cambia cuando las ponemos juntas?"
+                  : "What changes when we put them together?"}
+              </p>
+              {synthesis ? (
+                <>
+                  <p className="mt-4 whitespace-pre-wrap text-body leading-relaxed text-foreground/90">
+                    {synthesis}
+                  </p>
+                  <Link
+                    to="/$philosopher"
+                    params={{ philosopher: turns[0].philosopher }}
+                    search={questionQid ? { qid: questionQid } : {}}
+                    className="btn-gold mt-6 inline-block"
+                  >
+                    {es ? "Seguir pensando esto" : "Keep thinking this"}
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <p className="mt-3 text-small leading-relaxed text-muted-foreground">
+                    {es
+                      ? "Acuerdos, contradicciones, el supuesto que hay debajo y la pregunta que queda abierta."
+                      : "Agreements, contradictions, the assumption underneath and the question left open."}
+                  </p>
+                  <button
+                    type="button"
+                    onClick={synthesize}
+                    disabled={synthBusy}
+                    className="btn-gold mt-6 disabled:opacity-40"
+                  >
+                    {synthBusy
+                      ? es
+                        ? "Reuniendo las perspectivas…"
+                        : "Bringing the perspectives together…"
+                      : es
+                        ? "Ver la síntesis"
+                        : "See the synthesis"}
+                  </button>
+                </>
+              )}
+            </div>
           )}
         </section>
       </main>
