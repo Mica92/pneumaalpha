@@ -191,6 +191,19 @@ function Home() {
               />
             </div>
 
+            <p className="measure mx-auto mt-8 text-small leading-relaxed text-muted-foreground">
+              {es
+                ? "Pneum interpreta tu pregunta, identifica las ideas y tensiones que hay detrás y te muestra perspectivas relevantes para pensarla mejor."
+                : "Pneum interprets your question, identifies the ideas and tensions behind it and shows you relevant perspectives to think it through."}
+            </p>
+            <p className="mt-3 text-micro uppercase tracking-[0.25em] text-bronze-bright">
+              {es
+                ? "La filosofía aplicada es el motor. La claridad es el resultado."
+                : "Applied philosophy is the engine. Clarity is the result."}
+            </p>
+
+
+
             <ul className="mx-auto mt-8 flex max-w-2xl flex-wrap justify-center gap-2">
               {REAL_PROBLEMS.slice(0, 4).map((p) => (
                 <li key={p.id}>
@@ -256,12 +269,17 @@ function Home() {
         {/* ── Mentes destacadas ────────────────────────────────── */}
         <section className="border-y border-border/60 bg-card/25">
           <div className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-28">
-            <p className="label">{es ? "Empieza por aquí" : "Start here"}</p>
+            <p className="label">{es ? "Perspectivas de entrada" : "Starting perspectives"}</p>
             <h2 className="mt-3 max-w-2xl font-serif text-title font-light text-foreground">
               {es
-                ? "Seis mentes para una primera conversación"
-                : "Six minds for a first conversation"}
+                ? "Doce perspectivas para empezar a pensar"
+                : "Twelve perspectives to start thinking with"}
             </h2>
+            <p className="measure mt-4 text-small leading-relaxed text-muted-foreground">
+              {es
+                ? "Cada una es una mirada sobre ciertos problemas: valores, poder, deseo, deber, incertidumbre. No hace falta elegir bien: escribe tu pregunta y Pneum propone la pertinente."
+                : "Each one is an angle on certain problems: values, power, desire, duty, uncertainty. You don't have to choose well: write your question and Pneum proposes the relevant one."}
+            </p>
             <ul className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {featured.map((id) => (
                 <li key={id}>
