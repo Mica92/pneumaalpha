@@ -152,9 +152,20 @@ export const sendChat = createServerFn({ method: "POST" })
 
     const modelMessages = await convertToModelMessages(messages);
     const baseSystem = buildSystemPrompt(philosopher, memoryLines, data.language ?? "es", data.tone);
+
+    // Safety layer: evaluated before the philosophical persona speaks.
+    const lang = data.language ?? "es";
+    const flagged = detectSafety(lastUserText);
+    const safetyDirective =
+      flagged === "crisis"
+        ? crisisDirective(lang)
+        : flagged === "off_domain"
+          ? offDomainDirective(lang)
+          : "";
+
     const result = streamText({
       model,
-      system: baseSystem + ragContext,
+      system: baseSystem + ragContext + safetyDirective,
       messages: modelMessages,
       temperature: 0.95,
     });
