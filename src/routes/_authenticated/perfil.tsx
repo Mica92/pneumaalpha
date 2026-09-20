@@ -6,6 +6,7 @@ import { useI18n } from "@/lib/i18n";
 import { useAuth } from "@/hooks/use-auth";
 import { lovable } from "@/integrations/lovable";
 import { supabase } from "@/integrations/supabase/client";
+import { PageAtmosphere } from "@/components/page-atmosphere";
 
 export const Route = createFileRoute("/_authenticated/perfil")({
   component: ProfilePage,
@@ -54,11 +55,14 @@ function ProfilePage() {
   return (
     <>
       <SiteNav />
-      <main className="route-enter relative z-10 mx-auto max-w-3xl px-5 py-16 md:px-8 md:py-24">
-        <p className="label">{es ? "Tu cuenta" : "Your account"}</p>
-        <h1 className="mt-4 font-serif text-title font-light text-foreground">
-          {es ? "Perfil" : "Profile"}
-        </h1>
+      <main className="route-enter relative z-10 mx-auto min-h-dvh max-w-3xl overflow-hidden px-5 py-16 md:px-8 md:py-24">
+        <PageAtmosphere variant="study" />
+        <header className="relative min-h-60 pt-6">
+          <p className="label">{es ? "Tu cuenta" : "Your account"}</p>
+          <h1 className="mt-4 font-serif text-title font-light text-foreground">
+            {es ? "Perfil" : "Profile"}
+          </h1>
+        </header>
 
         {signedIn ? (
           <>

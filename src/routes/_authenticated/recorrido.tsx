@@ -8,6 +8,7 @@ import { getJourney, journeyPhilosophers, type JourneyEntry } from "@/lib/journe
 import { SiteNav } from "@/components/site-nav";
 import { SiteFooter } from "@/components/site-footer";
 import { useI18n } from "@/lib/i18n";
+import { PageAtmosphere } from "@/components/page-atmosphere";
 
 export const Route = createFileRoute("/_authenticated/recorrido")({
   component: JourneyPage,
@@ -50,8 +51,9 @@ function JourneyPage() {
   return (
     <>
       <SiteNav />
-      <main className="route-enter relative z-10">
-        <div className="mx-auto max-w-6xl px-5 pt-14 md:px-8 md:pt-20">
+      <main className="route-enter relative z-10 overflow-hidden">
+        <PageAtmosphere variant="archive" />
+        <div className="relative mx-auto min-h-80 max-w-6xl px-5 pt-20 md:px-8 md:pt-28">
           <p className="label">{es ? "Mi recorrido" : "My journey"}</p>
           <h1 className="mt-3 max-w-3xl font-serif text-title font-light text-foreground">
             {es ? "Lo que has estado pensando" : "What you have been thinking"}

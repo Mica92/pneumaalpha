@@ -7,6 +7,7 @@ import { useI18n } from "@/lib/i18n";
 import { InstallAppCard } from "@/components/install-app";
 import { NewsletterCard } from "@/components/newsletter-card";
 import { SITE_URL } from "@/lib/site";
+import { PageAtmosphere } from "@/components/page-atmosphere";
 
 export const Route = createFileRoute("/_authenticated/umbral")({
   component: Index,
@@ -166,10 +167,11 @@ function Index() {
   return (
     <>
       <SiteNav />
-      <main className="route-enter relative z-10 mx-auto flex min-h-dvh max-w-6xl flex-col px-6 py-10 md:px-10 md:py-14">
+      <main className="route-enter relative z-10 mx-auto flex min-h-dvh max-w-6xl flex-col overflow-hidden px-6 py-10 md:px-10 md:py-14">
+        <PageAtmosphere variant="archive" />
         {/* Top nav — clinical, almost invisible */}
         {/* Hero header */}
-        <header className="mt-16 mb-12 md:mt-24 md:mb-16">
+        <header className="relative mt-16 mb-12 min-h-64 md:mt-24 md:mb-16">
           <p className="tracking-in font-display text-micro uppercase text-muted-foreground">
             {t("umbral.kicker")}
           </p>

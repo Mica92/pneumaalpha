@@ -8,6 +8,7 @@ import { useI18n } from "@/lib/i18n";
 import { SiteNav } from "@/components/site-nav";
 import { SiteFooter } from "@/components/site-footer";
 import { GreekGlyph } from "@/components/greek-glyph";
+import { PageAtmosphere } from "@/components/page-atmosphere";
 
 export const Route = createFileRoute("/_authenticated/modo-socrates")({
   component: SocratesPage,
@@ -91,8 +92,9 @@ function SocratesPage() {
   return (
     <>
       <SiteNav />
-      <main className="route-enter relative z-10 mx-auto flex max-w-2xl flex-col px-6 py-10 md:px-10 md:py-14">
-        <header className="mt-10 mb-8 md:mt-14 md:mb-10">
+      <main className="route-enter relative z-10 mx-auto flex max-w-2xl flex-col overflow-hidden px-6 py-10 md:px-10 md:py-14">
+        <PageAtmosphere variant="study" />
+        <header className="relative mt-10 mb-8 md:mt-14 md:mb-10">
           <p className="label">{t("socrates.kicker")}</p>
           <h1 className="fade-up mt-5 font-serif text-title font-light text-foreground">
             {t("socrates.page.title")}
@@ -103,7 +105,7 @@ function SocratesPage() {
         </header>
 
         <section className="flex-1 space-y-6" aria-live="polite">
-          <p className="fade-up rounded-xl border border-mist/25 bg-card/50 p-5 text-body text-foreground/90">
+          <p className="card-editorial fade-up p-5 text-body text-foreground/90">
             {SOCRATIC_OPENING[lang]}
           </p>
 
@@ -157,7 +159,7 @@ function SocratesPage() {
         </section>
 
         <form onSubmit={send} className="sticky bottom-4 mt-8">
-          <div className="flex items-end gap-2 rounded-xl border border-border bg-card/90 p-2 backdrop-blur-xl">
+           <div className="page-form flex items-end gap-2 p-2">
             <label className="sr-only" htmlFor="socrates-input">
               {t("socrates.placeholder")}
             </label>
