@@ -40,7 +40,6 @@ export const Route = createFileRoute("/_authenticated/oraculo")({
 });
 
 function OraclePage() {
-  const navigate = useNavigate();
   const { lang, t } = useI18n();
   const es = lang === "es";
   const matchFn = useServerFn(matchPhilosopher);
