@@ -10,7 +10,7 @@ export type RoundtableTurn = {
   text: string;
 };
 
-export const MAX_SEATS = 3;
+export const MAX_SEATS = 4;
 
 const TABLE_RULES: Record<Language, string> = {
   es: `═══ MESA REDONDA ═══
@@ -67,8 +67,16 @@ export function synthesisPrompt(
 
   const system =
     lang === "en"
-      ? "You are a sober moderator. You do not add your own doctrine. You name where the thinkers agreed, where they truly clashed, and what question remains open for the person who convened the table. Max 120 words, plain language, no lists."
-      : "Eres un moderador sobrio. No añades doctrina propia. Nombras dónde coincidieron los pensadores, dónde chocaron de verdad y qué pregunta queda abierta para quien convocó la mesa. Máximo 120 palabras, lenguaje llano, sin listas.";
+      ? `You are a sober moderator. You add no doctrine of your own. In four short paragraphs, plain language, no lists, no markdown, max 200 words in total, you write:
+1) where these perspectives agree;
+2) where they genuinely contradict each other;
+3) the different assumption underneath that disagreement, and the central tension it leaves;
+4) the question that stays open for the person who brought the topic.`
+      : `Eres un moderador sobrio. No añades doctrina propia. En cuatro párrafos breves, lenguaje llano, sin listas, sin markdown, máximo 200 palabras en total, escribes:
+1) en qué coinciden estas perspectivas;
+2) en qué se contradicen de verdad;
+3) qué supuesto distinto hay debajo de ese desacuerdo y qué tensión central deja;
+4) la pregunta que queda abierta para quien trajo el tema.`;
 
   const prompt =
     lang === "en"
