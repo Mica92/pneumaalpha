@@ -98,9 +98,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "icon", href: "/favicon.ico", sizes: "any" },
       { rel: "apple-touch-icon", sizes: "180x180", href: "/apple-touch-icon.png" },
       { rel: "mask-icon", href: "/favicon.svg", color: "#0B0B0D" },
-      { rel: "alternate", hreflang: "es", href: esUrl },
-      { rel: "alternate", hreflang: "en", href: enUrl },
-      { rel: "alternate", hreflang: "x-default", href: xDefault },
+      { rel: "alternate", hrefLang: "es", href: esUrl },
+      { rel: "alternate", hrefLang: "en", href: enUrl },
+      { rel: "alternate", hrefLang: "x-default", href: xDefault },
     ],
     scripts: [
       {
