@@ -244,17 +244,9 @@ function SearchPage() {
           )}
 
           <ul className="divide-y divide-border/60">
-            {hits.map((h) => (
-              <li key={h.key}>
-                <Link
-                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                  to={h.to as any}
-                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                  params={h.params as any}
-                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                  search={h.search as any}
-                  className="focus-mist group flex items-baseline justify-between gap-6 py-5 transition-colors hover:bg-card/40"
-                >
+            {hits.map((h) => {
+              const inner = (
+                <>
                   <span className="min-w-0">
                     <span className="label">{h.kind}</span>
                     <span className="mt-1 block truncate font-serif text-subtitle font-light text-foreground">
@@ -270,9 +262,30 @@ function SearchPage() {
                   >
                     →
                   </span>
-                </Link>
-              </li>
-            ))}
+                </>
+              );
+              const cls =
+                "focus-mist group flex w-full items-baseline justify-between gap-6 py-5 text-left transition-colors hover:bg-card/40";
+              return (
+                <li key={h.key}>
+                  {h.ask ? (
+                    <AskLink to={h.to} text={h.ask} className={cls}>
+                      {inner}
+                    </AskLink>
+                  ) : (
+                    <Link
+                      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                      to={h.to as any}
+                      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                      params={h.params as any}
+                      className={cls}
+                    >
+                      {inner}
+                    </Link>
+                  )}
+                </li>
+              );
+            })}
           </ul>
         </section>
       </main>
