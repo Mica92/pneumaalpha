@@ -10,6 +10,7 @@ export const ANALYTICS_EVENTS = [
   "oracle_run",
   "perspective_assigned",
   "first_interaction",
+  "aha_first_perspective",
   "return_session",
   "search_no_results",
   "chat_opened",
