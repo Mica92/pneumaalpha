@@ -7,17 +7,20 @@ import {
   removeJourneyNode,
   type JourneyNode,
 } from "@/lib/atlas.functions";
+import { useAuth } from "@/hooks/use-auth";
 
 /** Mapa filosófico personal, sincronizado con la cuenta. */
 export function useJourney() {
   const qc = useQueryClient();
+  const { user } = useAuth();
   const list = useServerFn(listJourneyNodes);
   const record = useServerFn(recordJourneyNode);
   const remove = useServerFn(removeJourneyNode);
 
   const query = useQuery<JourneyNode[]>({
-    queryKey: ["journey-nodes"],
+    queryKey: ["journey-nodes", user?.id ?? null],
     queryFn: () => list(),
+    enabled: Boolean(user),
     staleTime: 30_000,
   });
 
