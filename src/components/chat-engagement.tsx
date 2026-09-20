@@ -46,12 +46,13 @@ export function TopicBar({
     <div
       role="tablist"
       aria-label={t("chat.topics.aria")}
-      className="border-b border-border/60 bg-background/70 backdrop-blur-xl"
+      className="border-b border-border/40 bg-background/70 backdrop-blur-xl"
     >
       <div className="mx-auto max-w-3xl overflow-x-auto px-4">
-        <div className="flex min-h-[56px] items-center gap-2 py-2">
+        <div className="flex min-h-[52px] items-center gap-2 py-2">
           {TOPICS.map((topic) => {
             const active = topic.id === activeTopic;
+            const Icon = TOPIC_ICONS[topic.id];
             return (
               <button
                 key={topic.id}
@@ -59,16 +60,14 @@ export function TopicBar({
                 aria-selected={active}
                 disabled={disabled}
                 onClick={() => onPick(topic.id)}
-                className={`group flex shrink-0 items-center gap-2 rounded-full border px-3.5 py-1.5 text-micro uppercase tracking-[0.22em] transition-all disabled:opacity-40 ${
+                className={`group flex shrink-0 items-center gap-2 rounded-full border px-4 py-1.5 text-micro uppercase tracking-[0.25em] transition-all duration-300 disabled:opacity-40 ${
                   active
-                    ? "border-mist/50 bg-mist/10 text-foreground"
-                    : "border-border/70 bg-card/40 text-muted-foreground hover:border-mist/40 hover:text-foreground"
+                    ? "border-foreground/25 text-foreground"
+                    : "border-foreground/10 text-muted-foreground hover:border-foreground/25 hover:text-foreground"
                 }`}
               >
-                <span aria-hidden="true" className="text-small leading-none opacity-90">
-                  {topic.emoji}
-                </span>
-                <span className="font-display">{topic.label[lang]}</span>
+                <Icon aria-hidden="true" size={12} strokeWidth={1.5} className="shrink-0" />
+                <span>{topic.label[lang]}</span>
               </button>
             );
           })}
