@@ -627,16 +627,16 @@ export const T: Dict = {
 
   "about.what.title": { es: "Qué hacemos", en: "What we do" },
   "about.what.p1": {
-    es: "Entrenamos inteligencias artificiales con el pensamiento de grandes filósofos.",
-    en: "We train artificial intelligences with the thought of great philosophers.",
+    es: "Construimos perspectivas intelectuales a partir de obra publicada y de guiones documentados que desarrolla nuestro equipo.",
+    en: "We build intellectual perspectives from published work and documented scripts developed by our team.",
   },
   "about.what.p2": {
-    es: "Creamos mentes digitalizadas: modelos de IA capaces de conversar, explicar y reflexionar como lo harían esos pensadores.",
-    en: "We create digitized minds: AI models capable of conversing, explaining and reflecting as those thinkers would.",
+    es: "No entrenamos modelos propios ni reproducimos personas: cada perspectiva es una construcción editorial, apoyada en tecnología de lenguaje existente, que sostiene un modo de pensar reconocible.",
+    en: "We do not train our own models nor reproduce people: each perspective is an editorial construction, supported by existing language technology, that sustains a recognisable way of thinking.",
   },
   "about.what.p3": {
-    es: "Así, cualquier persona puede dialogar con las ideas de los grandes maestros, aprender de ellas y aplicarlas a su vida cotidiana.",
-    en: "Thus, anyone can dialogue with the ideas of the great masters, learn from them and apply them to daily life.",
+    es: "Así, cualquier persona puede poner su pregunta frente a esas formas de pensar, confrontarlas entre sí y llegar con más claridad a su propia decisión.",
+    en: "This way anyone can put their question in front of those ways of thinking, set them against each other and reach their own decision with more clarity.",
   },
 
   "about.mission.title": { es: "Misión", en: "Mission" },
