@@ -14,6 +14,7 @@ import {
   type AtlasEntity,
 } from "@/lib/atlas";
 import { PORTRAITS } from "@/lib/portraits";
+import { AskLink } from "@/components/ask-link";
 
 const COPY = {
   close: { es: "Cerrar", en: "Close" },

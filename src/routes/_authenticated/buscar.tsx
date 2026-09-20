@@ -9,6 +9,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { useI18n } from "@/lib/i18n";
 import { track } from "@/lib/analytics";
 import { PageAtmosphere } from "@/components/page-atmosphere";
+import { AskLink } from "@/components/ask-link";
 
 export const Route = createFileRoute("/_authenticated/buscar")({
   validateSearch: (search: Record<string, unknown>): { q?: string } =>

@@ -7,6 +7,7 @@ import { SiteNav } from "@/components/site-nav";
 import { SiteFooter } from "@/components/site-footer";
 import { useI18n } from "@/lib/i18n";
 import { recordRoute } from "@/lib/journey";
+import { AskLink } from "@/components/ask-link";
 
 export const Route = createFileRoute("/_authenticated/rutas/$id")({
   loader: ({ params }) => {

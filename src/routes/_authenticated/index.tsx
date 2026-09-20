@@ -11,6 +11,8 @@ import { loadStoredTone, storeTone, type ToneId } from "@/lib/tones";
 import { SiteFooter } from "@/components/site-footer";
 import { PhilosopherCard } from "@/components/philosopher-card";
 import { track } from "@/lib/analytics";
+import { AskLink } from "@/components/ask-link";
+import { stashQuestion } from "@/lib/question-handoff";
 import heroColumns from "@/assets/hero-columns.jpg";
 import audiencePersonal from "@/assets/audience-personal.jpg";
 import audienceAcademic from "@/assets/audience-academic.jpg";
