@@ -9,6 +9,8 @@ export const ANALYTICS_EVENTS = [
   "question_submitted",
   "oracle_run",
   "perspective_assigned",
+  "oracle_reading_shown",
+  "next_action",
   "first_interaction",
   "aha_first_perspective",
   "return_session",

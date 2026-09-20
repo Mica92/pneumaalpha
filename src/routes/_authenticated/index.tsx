@@ -17,17 +17,17 @@ export const Route = createFileRoute("/_authenticated/")({
   component: Home,
   head: () => ({
     meta: [
-      { title: "Pneum — Conversa con los grandes pensadores de la historia" },
+      { title: "Pneum — Pensamiento más claro para preguntas difíciles" },
       {
         name: "description",
-        content: `Escribe lo que te preocupa y habla con una conciencia filosófica reconstruida. ${PHILOSOPHER_LIST.length} mentes, grandes ideas y rutas guiadas para pensar tu vida.`,
-
+        content:
+          "Escribe lo que estás intentando comprender. Pneum te ayuda a ver lo que hay detrás de tu pregunta, contrastar perspectivas y ganar claridad antes de decidir.",
       },
-      { property: "og:title", content: "Pneum — Conversa con los grandes pensadores" },
+      { property: "og:title", content: "Pneum — Claridad para pensar mejor" },
       {
         property: "og:description",
         content:
-          "No es una enciclopedia: es una conversación. Entra por una pregunta, no por un autor.",
+          "Pneum te ayuda a comprender mejor lo que estás pensando, ver distintas perspectivas y ganar claridad antes de decidir.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: `${SITE_URL}/` },
@@ -42,7 +42,7 @@ export const Route = createFileRoute("/_authenticated/")({
           "@type": "SoftwareApplication",
           name: SITE_NAME,
           description:
-            "Conversaciones bilingües (ES/EN) con conciencias filosóficas reconstruidas: filosofía aplicada para pensar, decidir y vivir mejor.",
+            "Claridad de pensamiento para preguntas, problemas y decisiones complejas. Pneum usa filosofía aplicada como motor intelectual, en español e inglés.",
           applicationCategory: "LifestyleApplication",
           operatingSystem: "Web",
           inLanguage: ["es", "en"],
@@ -58,10 +58,10 @@ export const Route = createFileRoute("/_authenticated/")({
           mainEntity: [
             {
               "@type": "Question",
-              name: "¿En qué idiomas puedo conversar?",
+              name: "¿En qué idiomas funciona Pneum?",
               acceptedAnswer: {
                 "@type": "Answer",
-                text: "En español y en inglés. Cada conciencia responde en el idioma en que le hables.",
+                text: "En español y en inglés. Pneum responde en el idioma en que escribas tu pregunta.",
               },
             },
             {
@@ -69,7 +69,7 @@ export const Route = createFileRoute("/_authenticated/")({
               name: "¿Pneum reemplaza a un terapeuta?",
               acceptedAnswer: {
                 "@type": "Answer",
-                text: "No. Pneum es una herramienta de reflexión y diálogo filosófico, no un servicio de salud mental ni un sustituto de terapia profesional.",
+                text: "No. Pneum es una herramienta de claridad de pensamiento y análisis, no un servicio de salud mental ni un sustituto de terapia profesional.",
               },
             },
             {
@@ -77,7 +77,7 @@ export const Route = createFileRoute("/_authenticated/")({
               name: "¿Cómo funciona?",
               acceptedAnswer: {
                 "@type": "Answer",
-                text: "Escribe lo que te preocupa y conversa con una de las conciencias filosóficas reconstruidas. No necesitas saber filosofía: entras por una pregunta, no por un autor.",
+                text: "Escribes lo que estás intentando comprender. Pneum interpreta tu pregunta, muestra lo que parece haber detrás y te ofrece perspectivas relevantes para pensarla mejor. No necesitas saber filosofía.",
               },
             },
           ],
@@ -191,6 +191,19 @@ function Home() {
               />
             </div>
 
+            <p className="measure mx-auto mt-8 text-small leading-relaxed text-muted-foreground">
+              {es
+                ? "Pneum interpreta tu pregunta, identifica las ideas y tensiones que hay detrás y te muestra perspectivas relevantes para pensarla mejor."
+                : "Pneum interprets your question, identifies the ideas and tensions behind it and shows you relevant perspectives to think it through."}
+            </p>
+            <p className="mt-3 text-micro uppercase tracking-[0.25em] text-bronze-bright">
+              {es
+                ? "La filosofía aplicada es el motor. La claridad es el resultado."
+                : "Applied philosophy is the engine. Clarity is the result."}
+            </p>
+
+
+
             <ul className="mx-auto mt-8 flex max-w-2xl flex-wrap justify-center gap-2">
               {REAL_PROBLEMS.slice(0, 4).map((p) => (
                 <li key={p.id}>
@@ -256,12 +269,17 @@ function Home() {
         {/* ── Mentes destacadas ────────────────────────────────── */}
         <section className="border-y border-border/60 bg-card/25">
           <div className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-28">
-            <p className="label">{es ? "Empieza por aquí" : "Start here"}</p>
+            <p className="label">{es ? "Perspectivas de entrada" : "Starting perspectives"}</p>
             <h2 className="mt-3 max-w-2xl font-serif text-title font-light text-foreground">
               {es
-                ? "Seis mentes para una primera conversación"
-                : "Six minds for a first conversation"}
+                ? "Doce perspectivas para empezar a pensar"
+                : "Twelve perspectives to start thinking with"}
             </h2>
+            <p className="measure mt-4 text-small leading-relaxed text-muted-foreground">
+              {es
+                ? "Cada una es una mirada sobre ciertos problemas: valores, poder, deseo, deber, incertidumbre. No hace falta elegir bien: escribe tu pregunta y Pneum propone la pertinente."
+                : "Each one is an angle on certain problems: values, power, desire, duty, uncertainty. You don't have to choose well: write your question and Pneum proposes the relevant one."}
+            </p>
             <ul className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {featured.map((id) => (
                 <li key={id}>
