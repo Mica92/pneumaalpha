@@ -459,3 +459,15 @@
     box-shadow: var(--shadow-editorial);
   }
 }
+
+/* Franja clara tipo papel: invierte los tokens dentro de la sección. */
+@utility band-paper {
+  --foreground: oklch(0.20 0.008 60);
+  --muted-foreground: oklch(0.46 0.012 70);
+  --border: oklch(0.86 0.010 80);
+  --card: oklch(0.975 0.006 85);
+  --bronze: oklch(0.56 0.062 76);
+  --bronze-bright: oklch(0.48 0.060 70);
+  background: var(--paper);
+  color: var(--foreground);
+}
