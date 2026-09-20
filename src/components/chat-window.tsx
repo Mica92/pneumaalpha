@@ -353,7 +353,7 @@ function ChatBody({
                 <h1 className="truncate font-display text-subtitle font-light tracking-wide text-foreground">
                   {meta.name}
                 </h1>
-                <span className="text-micro uppercase tracking-[0.3em] text-muted-foreground/80">
+                <span className="block truncate whitespace-nowrap text-micro uppercase tracking-[0.3em] text-muted-foreground/80">
                   {lang === "es" ? "Ver ficha" : "View profile"}
                 </span>
               </div>
