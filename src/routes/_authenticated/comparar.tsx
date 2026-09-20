@@ -97,6 +97,8 @@ function ComparePage() {
     setBusy(true);
     setError(null);
     setTurns([]);
+    setSynthesis(null);
+    track("compare_run", { seats: seats.length });
     try {
       const res = await runFn({
         data: {
@@ -108,6 +110,7 @@ function ComparePage() {
         },
       });
       setTurns(res.turns);
+      track("comparison_completed", { seats: seats.length });
     } catch (e) {
       console.error("[comparar] failed", e);
       setError(
