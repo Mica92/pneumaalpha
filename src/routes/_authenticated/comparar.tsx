@@ -50,17 +50,37 @@ export const Route = createFileRoute("/_authenticated/comparar")({
 });
 
 function ComparePage() {
-  const { q } = Route.useSearch();
+  const { qid, seats: seatsParam } = Route.useSearch();
   const { lang } = useI18n();
   const es = lang === "es";
   const runFn = useServerFn(runRoundtableRound);
 
-  const [question, setQuestion] = useState(q ?? "");
+  const [question, setQuestion] = useState("");
   const [seats, setSeats] = useState<PhilosopherId[]>([]);
   const [turns, setTurns] = useState<RoundtableTurn[]>([]);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [synthesis, setSynthesis] = useState<string | null>(null);
+  const [synthBusy, setSynthBusy] = useState(false);
 
+  // Arriving from the Oracle: the question and the recommended perspectives
+  // come along, already chosen but fully editable.
+  useEffect(() => {
+    const handed = readQuestion(qid);
+    if (handed) setQuestion(handed);
+  }, [qid]);
+
+  useEffect(() => {
+    if (!seatsParam) return;
+    const picked = seatsParam
+      .split(",")
+      .map((s) => s.trim())
+      .filter(isPhilosopherId)
+      .slice(0, MAX_COMPARE) as PhilosopherId[];
+    if (picked.length) setSeats(picked);
+  }, [seatsParam]);
+
+  const questionQid = useQuestionHandoff(question);
   const canRun = question.trim().length >= 3 && seats.length >= 2 && !busy;
 
   const toggle = (id: PhilosopherId) =>
