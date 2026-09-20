@@ -7,7 +7,7 @@ export const Route = createFileRoute("/terminos")({
   head: () => {
     const title = "Términos y condiciones — Pneum";
     const description =
-      "Condiciones de uso de Pneum: quién vende el servicio, uso aceptable de la IA, pagos gestionados por Lemon Squeezy, suspensión y responsabilidad.";
+      "Condiciones de uso de Pneum: acceso gratuito, uso aceptable de la IA, suspensión y responsabilidad.";
     return {
       meta: [
         { title },
@@ -27,7 +27,7 @@ const ES: LegalCopy = {
   title: "Términos y condiciones",
   updated: "Última actualización: 31 de agosto de 2026",
   intro:
-    "Pneum es un servicio operado por Kionas IA. Al crear una cuenta, conversar con las conciencias filosóficas reconstruidas o contratar un plan, aceptas estos términos y celebras un contrato con Kionas IA.",
+    "Pneum es un servicio gratuito operado por Kionas IA. Al usarlo o crear una cuenta, aceptas estos términos.",
   sections: [
     {
       h: "1. Quiénes somos",
@@ -35,7 +35,7 @@ const ES: LegalCopy = {
     },
     {
       h: "2. Aceptación",
-      p: "El uso continuado del servicio implica la aceptación de estos términos y de la Política de Privacidad y la Política de Reembolsos. Declaras tener al menos 18 años y ser mayor de edad en tu jurisdicción, o contar con autorización para vincular a la organización que representas. El servicio no está dirigido a menores de edad.",
+      p: "El uso continuado del servicio implica la aceptación de estos términos y de la Política de Privacidad. Declaras tener al menos 18 años y ser mayor de edad en tu jurisdicción, o contar con autorización para vincular a la organización que representas. El servicio no está dirigido a menores de edad.",
     },
     {
       h: "3. Qué ofrecemos",
@@ -55,11 +55,11 @@ const ES: LegalCopy = {
     },
     {
       h: "7. Propiedad intelectual",
-      p: "El software, el diseño, los textos editoriales, las ilustraciones, la marca y demás elementos del servicio pertenecen a Kionas IA o a sus licenciantes. Te concedemos un derecho limitado, no exclusivo e intransferible de uso dentro del plan contratado.",
+      p: "El software, el diseño, los textos editoriales, las ilustraciones, la marca y demás elementos del servicio pertenecen a Kionas IA o a sus licenciantes. Te concedemos un derecho limitado, no exclusivo e intransferible para usar el servicio.",
     },
     {
-      h: "8. Planes, pagos e impuestos",
-      p: "Ofrecemos un nivel gratuito limitado y planes de pago (mensual, semestral y vitalicio). Nuestro proceso de pedidos es realizado por nuestro revendedor en línea Lemon Squeezy. Lemon Squeezy es el Comerciante Registrado (Merchant of Record) de todos nuestros pedidos. Lemon Squeezy atiende todas las consultas de servicio al cliente y gestiona las devoluciones.\n\nLa facturación, los impuestos, las renovaciones automáticas, la cancelación y los reembolsos se rigen además por los Términos del Comprador de Lemon Squeezy: https://www.lemonsqueezy.com/buyer-terms. Las suscripciones se renuevan automáticamente al final de cada periodo hasta que las canceles; el plan vitalicio es un pago único y limitado en cupos.",
+      h: "8. Acceso gratuito",
+      p: "Pneum ofrece actualmente acceso gratuito a sus conversaciones, herramientas, retrato, historial y podcast. No solicitamos información de pago para usar estas funciones.",
     },
     {
       h: "9. Disponibilidad del servicio",
@@ -67,7 +67,7 @@ const ES: LegalCopy = {
     },
     {
       h: "10. Suspensión y terminación",
-      p: "Podemos suspender o terminar tu acceso ante incumplimientos materiales de estos términos, falta de pago, riesgo de fraude o seguridad, o violaciones reiteradas o graves de las reglas de uso. Puedes cancelar cuando quieras; al terminar el acceso podrás exportar o solicitar la eliminación de tus datos.",
+      p: "Podemos suspender o terminar tu acceso ante incumplimientos materiales de estos términos, riesgo de fraude o seguridad, o violaciones reiteradas o graves de las reglas de uso. Puedes exportar o solicitar la eliminación de tus datos.",
     },
     {
       h: "11. Garantías y responsabilidad",
@@ -90,7 +90,7 @@ const EN: LegalCopy = {
   title: "Terms and conditions",
   updated: "Last updated: August 31, 2026",
   intro:
-    "Pneum is a service operated by Kionas IA. By creating an account, talking to the reconstructed philosophical minds or purchasing a plan, you accept these terms and enter into an agreement with Kionas IA.",
+    "Pneum is a free service operated by Kionas IA. By using it or creating an account, you accept these terms.",
   sections: [
     {
       h: "1. Who we are",
@@ -98,7 +98,7 @@ const EN: LegalCopy = {
     },
     {
       h: "2. Acceptance",
-      p: "Continued use of the service means you accept these terms, the Privacy Notice and the Refund Policy. You confirm you are at least 18 years old and of legal age in your jurisdiction, or authorised to bind the organisation you represent. The service is not directed to minors.",
+      p: "Continued use of the service means you accept these terms and the Privacy Notice. You confirm you are at least 18 years old and of legal age in your jurisdiction, or authorised to bind the organisation you represent. The service is not directed to minors.",
     },
     {
       h: "3. What we offer",
@@ -118,11 +118,11 @@ const EN: LegalCopy = {
     },
     {
       h: "7. Intellectual property",
-      p: "The software, design, editorial texts, illustrations, branding and other elements of the service belong to Kionas IA or its licensors. We grant you a limited, non-exclusive, non-transferable right to use the service within your plan.",
+      p: "The software, design, editorial texts, illustrations, branding and other elements of the service belong to Kionas IA or its licensors. We grant you a limited, non-exclusive, non-transferable right to use the service.",
     },
     {
-      h: "8. Plans, payments and taxes",
-      p: "We offer a limited free tier and paid plans (monthly, six-month and lifetime). Our order process is conducted by our online reseller Lemon Squeezy. Lemon Squeezy is the Merchant of Record for all our orders. Lemon Squeezy provides all customer service inquiries and handles returns.\n\nBilling, taxes, automatic renewals, cancellation and refunds are additionally governed by Lemon Squeezy's Buyer Terms: https://www.lemonsqueezy.com/buyer-terms. Subscriptions renew automatically at the end of each period until cancelled; the lifetime plan is a one-time payment with limited seats.",
+      h: "8. Free access",
+      p: "Pneum currently provides free access to conversations, tools, your portrait, full history and podcast. We do not request payment information to use these features.",
     },
     {
       h: "9. Service availability",
@@ -130,7 +130,7 @@ const EN: LegalCopy = {
     },
     {
       h: "10. Suspension and termination",
-      p: "We may suspend or terminate access for material breach of these terms, non-payment, fraud or security risk, or repeated or serious violations of the usage rules. You may cancel at any time; when access ends you can export or request deletion of your data.",
+      p: "We may suspend or terminate access for material breach of these terms, fraud or security risk, or repeated or serious violations of the usage rules. You can export or request deletion of your data.",
     },
     {
       h: "11. Warranties and liability",

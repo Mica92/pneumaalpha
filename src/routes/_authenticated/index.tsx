@@ -4,7 +4,6 @@ import { PHILOSOPHERS, PHILOSOPHER_LIST, type PhilosopherId } from "@/lib/philos
 import { portraitFocus, portraitOf, profileOf } from "@/lib/portraits";
 import { CATEGORIES, IDEAS, REAL_PROBLEMS, ROUTES, centralQuestion } from "@/lib/discovery";
 import { useI18n } from "@/lib/i18n";
-import { FREE_MESSAGE_LIMIT } from "@/lib/billing.shared";
 import { SITE_URL, SITE_NAME } from "@/lib/site";
 import { SiteNav } from "@/components/site-nav";
 import { ToneSelect } from "@/components/tone-select";
@@ -100,7 +99,10 @@ function Home() {
   }, []);
 
   const featured = useMemo(() => {
-    const ids: PhilosopherId[] = ["heidegger", "nietzsche", "pohlenz", "levinas", "marx", "kant"];
+    const ids: PhilosopherId[] = [
+      "nietzsche", "marx", "plato", "confucius", "buddha", "suntzu",
+      "aristotle", "marcusaurelius", "seneca", "socrates", "kant", "heidegger",
+    ];
     return ids.filter((id) => id in PHILOSOPHERS);
   }, []);
 
@@ -402,16 +404,14 @@ function Home() {
                 <ul className="mt-4 space-y-2.5 text-small leading-relaxed text-muted-foreground">
                   {(es
                     ? [
-                        `Prueba gratuita de ${FREE_MESSAGE_LIMIT} mensajes, sin tarjeta.`,
-                        `Acceso a las ${PHILOSOPHER_LIST.length} mentes del catálogo, sin límite de mensajes.`,
+                        `Acceso libre a las ${PHILOSOPHER_LIST.length} mentes del catálogo, sin límite de mensajes.`,
                         "Historial completo y exportable de tus conversaciones.",
                         "Reporte de tu pensamiento: patrones, tensiones y lecturas sugeridas.",
                         "Podcast de los clásicos de la literatura y la filosofía.",
                         "Mapa de ideas, rutas guiadas y análisis de textos.",
                       ]
                     : [
-                        `A free trial of ${FREE_MESSAGE_LIMIT} messages, no card required.`,
-                        `Access to all ${PHILOSOPHER_LIST.length} minds in the catalogue, with no message limit.`,
+                        `Free access to all ${PHILOSOPHER_LIST.length} minds in the catalogue, with no message limit.`,
                         "Full, exportable conversation history.",
                         "A report on your thinking: patterns, tensions and suggested readings.",
                         "A podcast on the classics of literature and philosophy.",
@@ -465,22 +465,14 @@ function Home() {
             </div>
 
             <p className="mt-8 text-micro leading-relaxed text-muted-foreground">
-              {es
-                ? "Servicio vendido por Kionas IA, Santiago de Chile. Soporte: soporte@pneumaalpha.app. Pagos procesados por Lemon Squeezy, Comerciante Registrado. 30 días de garantía de devolución."
-                : "Service sold by Kionas IA, Santiago, Chile. Support: soporte@pneumaalpha.app. Payments processed by Lemon Squeezy, Merchant of Record. 30-day money-back guarantee."}
+              {es ? "Acceso completo y gratuito. Soporte: soporte@pneumaalpha.app." : "Complete, free access. Support: soporte@pneumaalpha.app."}
             </p>
             <p className="mt-3 flex flex-wrap gap-4 text-micro uppercase tracking-[0.25em] text-muted-foreground">
-              <Link to="/planes" className="focus-mist hover:text-foreground">
-                {es ? "Planes y precios" : "Plans and pricing"}
-              </Link>
               <Link to="/contacto" className="focus-mist hover:text-foreground">
                 {es ? "Contacto" : "Contact"}
               </Link>
               <Link to="/terminos" className="focus-mist hover:text-foreground">
                 {es ? "Términos" : "Terms"}
-              </Link>
-              <Link to="/reembolsos" className="focus-mist hover:text-foreground">
-                {es ? "Reembolsos" : "Refunds"}
               </Link>
             </p>
           </div>

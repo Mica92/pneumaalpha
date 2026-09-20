@@ -177,6 +177,7 @@ export const GRAPH_NODES: GraphNode[] = [
     "470–399 a.C.",
     "La pregunta como método; saber que no se sabe.",
     "The question as method; knowing that one does not know.",
+    "socrates",
   ),
   P(
     "plato",
@@ -184,6 +185,7 @@ export const GRAPH_NODES: GraphNode[] = [
     "427–347 a.C.",
     "Las Ideas como realidad verdadera; el alma y la ciudad justa.",
     "Ideas as true reality; the soul and the just city.",
+    "plato",
   ),
   P(
     "aristotle",
@@ -191,6 +193,7 @@ export const GRAPH_NODES: GraphNode[] = [
     "384–322 a.C.",
     "Sustancia, potencia y acto, virtud como término medio.",
     "Substance, potency and act, virtue as the mean.",
+    "aristotle",
   ),
   P(
     "epictetus",
@@ -2047,14 +2050,6 @@ const NEW_MINDS: [PhilosopherId, string, string, string, string, string[]][] = [
     ["anarchism", "socialism", "authority"],
   ],
   [
-    "negrihardt",
-    "Negri & Hardt",
-    "s. XX–XXI",
-    "Imperio, multitud y trabajo inmaterial.",
-    "Empire, multitude and immaterial labour.",
-    ["marxism_leninism", "capitalism", "postmodernism", "power_knowledge"],
-  ],
-  [
     "rand",
     "Ayn Rand",
     "1905–1982",
@@ -2350,6 +2345,11 @@ const NEW_MINDS: [PhilosopherId, string, string, string, string, string[]][] = [
     "Jerusalem and Athens; natural right and esoteric reading.",
     ["natural_law", "hermeneutics", "judaism", "conservatism"],
   ],
+  ["confucius", "Confucio", "551–479 a.C.", "Humanidad, ritual y educación del carácter.", "Humaneness, ritual and education of character.", ["confucianism", "virtue_ethics", "tradition"]],
+  ["buddha", "Buda", "c. 480–400 a.C.", "Sufrimiento, impermanencia y liberación.", "Suffering, impermanence and liberation.", ["buddhism", "suffering", "compassion"]],
+  ["suntzu", "Sun Tzu", "s. V a.C.", "Estrategia, terreno y victoria sin desgaste.", "Strategy, terrain and victory without waste.", ["authority", "prudence", "war_peace"]],
+  ["marcusaurelius", "Marco Aurelio", "121–180", "Deber, perspectiva y disciplina interior.", "Duty, perspective and inner discipline.", ["stoicism", "apatheia", "virtue_ethics"]],
+  ["seneca", "Séneca", "c. 4 a.C.–65", "Tiempo, adversidad y filosofía cotidiana.", "Time, adversity and daily philosophy.", ["stoicism", "apatheia", "suffering"]],
 ];
 
 for (const [id, label, era, es, en, related] of NEW_MINDS) {

@@ -25,7 +25,6 @@ import thoreauScene from "@/assets/scenes/thoreau.jpg";
 import stirnerScene from "@/assets/scenes/stirner.jpg";
 import bakuninScene from "@/assets/scenes/bakunin.jpg";
 import arendtScene from "@/assets/scenes/arendt.jpg";
-import negrihardtScene from "@/assets/scenes/negrihardt.jpg";
 import randScene from "@/assets/scenes/rand.jpg";
 import gadamerScene from "@/assets/scenes/gadamer.jpg";
 import ibnkhaldunScene from "@/assets/scenes/ibnkhaldun.jpg";
@@ -66,6 +65,14 @@ import misesScene from "@/assets/scenes/mises.jpg";
 import ortegaScene from "@/assets/scenes/ortega.jpg";
 import beauvoirScene from "@/assets/scenes/beauvoir.jpg";
 import straussScene from "@/assets/scenes/strauss.jpg";
+import platoScene from "@/assets/scenes/plato.jpg";
+import confuciusScene from "@/assets/scenes/confucius.jpg";
+import buddhaScene from "@/assets/scenes/buddha.jpg";
+import suntzuScene from "@/assets/scenes/suntzu.jpg";
+import aristotleScene from "@/assets/scenes/aristotle.jpg";
+import marcusaureliusScene from "@/assets/scenes/marcusaurelius.jpg";
+import senecaScene from "@/assets/scenes/seneca.jpg";
+import socratesScene from "@/assets/scenes/socrates.jpg";
 import type { PhilosopherId } from "@/lib/philosophers";
 
 /**
@@ -73,6 +80,14 @@ import type { PhilosopherId } from "@/lib/philosophers";
  * Mismo lenguaje visual que los retratos (archivo B/N, grano analógico).
  */
 export const SCENES: Partial<Record<PhilosopherId, string>> = {
+  plato: platoScene,
+  confucius: confuciusScene,
+  buddha: buddhaScene,
+  suntzu: suntzuScene,
+  aristotle: aristotleScene,
+  marcusaurelius: marcusaureliusScene,
+  seneca: senecaScene,
+  socrates: socratesScene,
   heidegger: heideggerScene,
   schopenhauer: schopenhauerScene,
   james: jamesScene,
@@ -100,7 +115,6 @@ export const SCENES: Partial<Record<PhilosopherId, string>> = {
   stirner: stirnerScene,
   bakunin: bakuninScene,
   arendt: arendtScene,
-  negrihardt: negrihardtScene,
   rand: randScene,
   gadamer: gadamerScene,
   ibnkhaldun: ibnkhaldunScene,

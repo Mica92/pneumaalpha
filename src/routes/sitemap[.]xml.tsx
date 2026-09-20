@@ -22,15 +22,13 @@ export const Route = createFileRoute("/sitemap.xml")({
           "/analisis",
           "/podcast",
           "/mesa",
-          "/socrates",
+          "/modo-socrates",
           "/biblioteca",
           "/nosotros",
           "/privacy",
           "/terminos",
-          "/reembolsos",
           "/uso-de-ia",
           "/contacto",
-          "/planes",
           ...PHILOSOPHER_LIST.map((p) => `/${p.id}`),
         ];
         const urls = paths.map(

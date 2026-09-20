@@ -68,11 +68,6 @@ export function SiteFooter() {
                 {es ? "Biblioteca de ideas" : "Library of ideas"}
               </Link>
             </li>
-            <li>
-              <Link to="/planes" className="focus-mist transition-colors hover:text-foreground">
-                {es ? "Planes" : "Plans"}
-              </Link>
-            </li>
           </ul>
         </nav>
 
@@ -97,11 +92,6 @@ export function SiteFooter() {
             <li>
               <Link to="/terminos" className="focus-mist transition-colors hover:text-foreground">
                 {es ? "Términos y condiciones" : "Terms and conditions"}
-              </Link>
-            </li>
-            <li>
-              <Link to="/reembolsos" className="focus-mist transition-colors hover:text-foreground">
-                {es ? "Reembolsos" : "Refunds"}
               </Link>
             </li>
             <li>

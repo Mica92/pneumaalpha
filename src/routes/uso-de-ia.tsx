@@ -52,7 +52,7 @@ const ES: LegalCopy = {
     },
     {
       h: "6. Moderación y cumplimiento",
-      p: "Aplicamos filtros sobre las entradas y las salidas del modelo, además de los filtros de seguridad del proveedor del modelo. Podemos rechazar una respuesta, retirar contenido, limitar funciones, suspender o cerrar cuentas cuando exista incumplimiento o riesgo. Las infracciones graves o reiteradas conllevan la terminación definitiva del acceso, sin reembolso de periodos ya consumidos más allá de lo previsto en la Política de Reembolsos.\n\nPuedes reportar una respuesta problemática escribiendo a soporte@pneumaalpha.app; revisamos cada reporte.",
+      p: "Aplicamos filtros sobre las entradas y las salidas del modelo, además de los filtros de seguridad del proveedor del modelo. Podemos rechazar una respuesta, retirar contenido, limitar funciones, suspender o cerrar cuentas cuando exista incumplimiento o riesgo. Las infracciones graves o reiteradas conllevan la terminación definitiva del acceso.\n\nPuedes reportar una respuesta problemática escribiendo a soporte@pneumaalpha.app; revisamos cada reporte.",
     },
     {
       h: "7. Edad mínima",
@@ -64,7 +64,7 @@ const ES: LegalCopy = {
     },
     {
       h: "9. Contacto",
-      p: "Kionas IA · soporte@pneumaalpha.app · Santiago, Chile. Los pedidos y pagos son procesados por Lemon Squeezy como Comerciante Registrado.",
+      p: "Kionas IA · soporte@pneumaalpha.app · Santiago, Chile.",
     },
   ],
   back: "← Volver al inicio",
@@ -99,7 +99,7 @@ const EN: LegalCopy = {
     },
     {
       h: "6. Moderation and enforcement",
-      p: "We apply filters to model inputs and outputs, in addition to the model provider's own safety filters. We may refuse an answer, remove content, limit features, suspend or close accounts where there is breach or risk. Serious or repeated violations lead to permanent termination, without refund of consumed periods beyond what the Refund Policy provides.\n\nYou can report a problematic output at soporte@pneumaalpha.app; we review every report.",
+      p: "We apply filters to model inputs and outputs, in addition to the model provider's own safety filters. We may refuse an answer, remove content, limit features, suspend or close accounts where there is breach or risk. Serious or repeated violations lead to permanent termination.\n\nYou can report a problematic output at soporte@pneumaalpha.app; we review every report.",
     },
     {
       h: "7. Minimum age",
@@ -111,7 +111,7 @@ const EN: LegalCopy = {
     },
     {
       h: "9. Contact",
-      p: "Kionas IA · soporte@pneumaalpha.app · Santiago, Chile. Orders and payments are processed by Lemon Squeezy as Merchant of Record.",
+      p: "Kionas IA · soporte@pneumaalpha.app · Santiago, Chile.",
     },
   ],
   back: "← Back to home",

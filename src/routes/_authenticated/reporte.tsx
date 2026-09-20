@@ -1,11 +1,10 @@
 import { SiteNav } from "@/components/site-nav";
 import { SITE_URL } from "@/lib/site";
 import { SiteFooter } from "@/components/site-footer";
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { generateReport, type PsychReport } from "@/lib/report.functions";
-import { PAYWALL_ERROR } from "@/lib/billing.shared";
 import { track } from "@/lib/analytics";
 import { PHILOSOPHERS } from "@/lib/philosophers";
 import { useI18n } from "@/lib/i18n";
@@ -36,7 +35,6 @@ export const Route = createFileRoute("/_authenticated/reporte")({
 });
 
 function ReportPage() {
-  const navigate = useNavigate();
   const { lang, t } = useI18n();
   const runFn = useServerFn(generateReport);
 
@@ -54,14 +52,7 @@ function ReportPage() {
       setReport(r);
     } catch (e) {
       console.error("[report] failed", e);
-      const msg = e instanceof Error ? e.message : "";
-      setError(
-        msg.includes(PAYWALL_ERROR)
-          ? lang === "es"
-            ? "El retrato es parte de la suscripción. Elige un plan para desbloquearlo."
-            : "The portrait is part of the subscription. Choose a plan to unlock it."
-          : t("report.error"),
-      );
+      setError(t("report.error"));
     } finally {
       setRunning(false);
     }

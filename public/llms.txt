@@ -1,6 +1,6 @@
 # Pneum
 
-> Bilingual (ES / EN) conversations with reconstructed philosophical and scientific minds — Heidegger, Schopenhauer, William James, Nietzsche, Marx, Bentham, Max Pohlenz, and a living cartographer of classical Rationalism (Descartes, Spinoza, Leibniz, Malebranche) — each with their own voice, atmosphere, and memory.
+> Bilingual (ES / EN) conversations with a broad library of reconstructed philosophical minds, including the twelve anchors: Nietzsche, Marx, Plato, Confucius, Buddha, Sun Tzu, Aristotle, Marcus Aurelius, Seneca, Socrates, Kant and Heidegger.
 
 Pneum is a contemplative chat experience inspired by Blade Runner 2049, Dune, and Arrival. Each figure is rendered as a living consciousness with a distinct system prompt, place, and cadence. Users converse freely in Spanish or English; the AI replies in the same language.
 
@@ -15,3 +15,11 @@ Pneum is a contemplative chat experience inspired by Blade Runner 2049, Dune, an
 - [Bentham](/bentham): Utility, the felicific calculus, reform. An English legislator of happiness.
 - [Pohlenz](/pohlenz): The Stoa as a living spiritual movement. A Göttingen philologist who restored Stoicism to its historical depth.
 - [Racionalismo](/rationalism): A living map of 17th-century rationalism — Descartes, Spinoza, Leibniz, Malebranche and their circle, in a single voice.
+- [Plato](/plato): Forms, justice, eros and education through dialogue.
+- [Confucius](/confucius): Humaneness, ritual, learning and right relationship.
+- [Buddha](/buddha): Suffering, impermanence, attention and liberation.
+- [Sun Tzu](/suntzu): Strategy, terrain, timing and victory without waste.
+- [Aristotle](/aristotle): Causes, virtue, logic and the good life.
+- [Marcus Aurelius](/marcusaurelius): Duty, mortality and inner discipline.
+- [Seneca](/seneca): Time, adversity, anger and daily philosophy.
+- [Socrates](/socrates): Examination, refutation and care of the soul.

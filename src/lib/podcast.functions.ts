@@ -20,8 +20,7 @@ export const generateEpisode = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((input) => InputSchema.parse(input))
   .handler(async ({ data, context }): Promise<PodcastEpisode> => {
-    const { requireActivePlan } = await import("@/lib/entitlement.server");
-    await requireActivePlan(context.supabase, context.userId);
+    void context;
     const apiKey = process.env.LOVABLE_API_KEY;
     if (!apiKey) throw new Error("LOVABLE_API_KEY no está configurada.");
 

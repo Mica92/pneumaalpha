@@ -90,7 +90,7 @@ const GROUPS: readonly NavGroup[] = [
         note: { es: "Dos posiciones, lado a lado", en: "Two positions, side by side" },
       },
       {
-        to: "/socrates",
+        to: "/modo-socrates",
         es: "Modo Sócrates",
         en: "Socratic mode",
         note: { es: "Que te pregunten a ti", en: "Be the one questioned" },
@@ -130,11 +130,6 @@ const GROUPS: readonly NavGroup[] = [
         to: "/perfil",
         es: "Perfil",
         en: "Profile",
-      },
-      {
-        to: "/planes",
-        es: "Planes",
-        en: "Plans",
       },
     ],
   },

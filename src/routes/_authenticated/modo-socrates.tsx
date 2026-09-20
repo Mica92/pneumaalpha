@@ -9,7 +9,7 @@ import { SiteNav } from "@/components/site-nav";
 import { SiteFooter } from "@/components/site-footer";
 import { GreekGlyph } from "@/components/greek-glyph";
 
-export const Route = createFileRoute("/_authenticated/socrates")({
+export const Route = createFileRoute("/_authenticated/modo-socrates")({
   component: SocratesPage,
   head: () => ({
     meta: [
@@ -27,7 +27,7 @@ export const Route = createFileRoute("/_authenticated/socrates")({
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: `${SITE_URL}/socrates` }],
+    links: [{ rel: "canonical", href: `${SITE_URL}/modo-socrates` }],
   }),
 });
 
