@@ -194,7 +194,7 @@ function ComparePage() {
                 {es ? "Mentes elegidas" : "Chosen minds"} · {seats.length}/{MAX_COMPARE}
               </p>
               <span className="text-micro text-muted-foreground/70">
-                {es ? "Elige entre 2 y 3" : "Pick 2 to 3"}
+                {es ? "Elige entre 2 y 4" : "Pick 2 to 4"}
               </span>
             </div>
             <ul className="mt-3 flex flex-wrap gap-2">
@@ -240,7 +240,11 @@ function ComparePage() {
           {busy && (
             <div className="flex items-center gap-3">
               <GreekGlyph className="pneuma-breathe font-serif text-lg text-bronze-bright" />
-              <span className="label">{es ? "Pensando" : "Thinking"}</span>
+              <span className="label">
+                {es
+                  ? "Cada perspectiva está respondiendo tu pregunta…"
+                  : "Each perspective is answering your question…"}
+              </span>
             </div>
           )}
 
