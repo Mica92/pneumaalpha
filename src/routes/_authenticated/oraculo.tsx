@@ -4,10 +4,9 @@ import { SiteFooter } from "@/components/site-footer";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
-import { matchPhilosopher } from "@/lib/oracle.functions";
-import { PHILOSOPHERS, type PhilosopherId } from "@/lib/philosophers";
+import { matchPhilosopher, type MatchResult } from "@/lib/oracle.functions";
+import { PHILOSOPHERS } from "@/lib/philosophers";
 import { useI18n } from "@/lib/i18n";
-import { GreekGlyph } from "@/components/greek-glyph";
 import { ToneSelect } from "@/components/tone-select";
 import { isToneId, loadStoredTone, storeTone, type ToneId } from "@/lib/tones";
 import { track, trackOnce } from "@/lib/analytics";
@@ -20,17 +19,17 @@ export const Route = createFileRoute("/_authenticated/oraculo")({
   component: OraclePage,
   head: () => ({
     meta: [
-      { title: "Pneum — Oráculo · una inquietud, una voz" },
+      { title: "Pneum — Escribe tu pregunta y gana claridad" },
       {
         name: "description",
         content:
-          "Escribe lo que sientas y Pneum te asignará la mente filosófica mejor preparada para responder a tu inquietud.",
+          "Escribe lo que estás intentando comprender. Pneum lee tu pregunta, muestra lo que hay detrás y te ofrece perspectivas para pensarla mejor.",
       },
-      { property: "og:title", content: "Pneum — Oráculo" },
+      { property: "og:title", content: "Pneum — Claridad para preguntas difíciles" },
       {
         property: "og:description",
         content:
-          "Una pregunta, una frase, una duda. Pneum elige por ti la voz más adecuada para conversar.",
+          "Pneum interpreta tu pregunta, identifica las tensiones que contiene y te muestra perspectivas relevantes para pensarla mejor.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: `${SITE_URL}/oraculo` },
@@ -40,22 +39,23 @@ export const Route = createFileRoute("/_authenticated/oraculo")({
   }),
 });
 
-type Result = { philosopher: PhilosopherId; reason: string };
-
 function OraclePage() {
   const navigate = useNavigate();
   const { lang, t } = useI18n();
+  const es = lang === "es";
   const matchFn = useServerFn(matchPhilosopher);
 
   const { q, tone: toneParam } = Route.useSearch();
   const [inquiry, setInquiry] = useState(q ?? "");
+  const [asked, setAsked] = useState(q ?? "");
   const [tone, setTone] = useState<ToneId | null>(isToneId(toneParam) ? toneParam : null);
 
   useEffect(() => {
     if (isToneId(toneParam)) storeTone(toneParam);
     else setTone(loadStoredTone());
   }, [toneParam]);
-  const [result, setResult] = useState<Result | null>(null);
+
+  const [result, setResult] = useState<MatchResult | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
@@ -71,6 +71,7 @@ function OraclePage() {
       setSubmitting(true);
       setError(null);
       setResult(null);
+      setAsked(text);
       track("oracle_run", { source, length: text.length });
       try {
         const r = await matchFn({
@@ -78,6 +79,11 @@ function OraclePage() {
         });
         setResult(r);
         track("perspective_assigned", { philosopher: r.philosopher, source });
+        track("oracle_reading_shown", {
+          perspectives: r.perspectives.length,
+          reframed: r.reframe ? 1 : 0,
+        });
+        if (r.aha) trackOnce("aha_first_perspective", { philosopher: r.philosopher });
       } catch (err) {
         console.error("[oracle] match failed", err);
         setError(t("oracle.error"));
@@ -96,7 +102,7 @@ function OraclePage() {
   }
 
   // Arriving with a question already written (from the homepage or search):
-  // run it straight away so the flow stays question -> perspective.
+  // run it straight away so the flow stays question -> understanding.
   const autoRan = useRef(false);
   useEffect(() => {
     if (autoRan.current) return;
@@ -105,21 +111,28 @@ function OraclePage() {
     void run(q, "prefilled");
   }, [q, run]);
 
-  const chosen = result ? PHILOSOPHERS[result.philosopher] : null;
+  const primary = result ? PHILOSOPHERS[result.philosopher] : null;
+
+  function reset() {
+    setResult(null);
+    setError(null);
+    setInquiry("");
+    requestAnimationFrame(() => inputRef.current?.focus());
+  }
 
   return (
     <>
       <SiteNav />
-      <main className="relative z-10 mx-auto flex min-h-screen max-w-3xl flex-col px-6 py-10 md:px-10 md:py-14">
+      <main className="route-enter relative z-10 mx-auto flex min-h-screen max-w-3xl flex-col px-6 py-10 md:px-10 md:py-14">
         <header className="mt-16 mb-10 md:mt-24 md:mb-14">
-          <p className="tracking-in font-display text-micro uppercase text-muted-foreground">
-            {t("oracle.kicker")}
-          </p>
-          <h1 className="fade-up mt-5 max-w-2xl font-display text-title font-light text-foreground">
-            {t("oracle.page.title")}
+          <p className="label">{es ? "Claridad antes de decidir" : "Clarity before deciding"}</p>
+          <h1 className="fade-up mt-5 max-w-2xl font-serif text-title font-light text-foreground">
+            {es ? "¿Qué estás intentando comprender?" : "What are you trying to understand?"}
           </h1>
           <p className="fade-up mt-5 max-w-xl text-small leading-relaxed text-muted-foreground md:text-base">
-            {t("oracle.page.sub")}
+            {es
+              ? "Puede ser una pregunta, una situación, una decisión o una idea. Pneum lee lo que traes, muestra lo que parece haber detrás y te ofrece perspectivas para pensarlo mejor."
+              : "It can be a question, a situation, a decision or an idea. Pneum reads what you bring, shows what seems to lie beneath it and offers perspectives to think it through."}
           </p>
         </header>
 
@@ -128,11 +141,15 @@ function OraclePage() {
             ref={inputRef}
             value={inquiry}
             onChange={(e) => setInquiry(e.target.value)}
-            placeholder={t("oracle.placeholder")}
+            placeholder={
+              es
+                ? "Escribe lo que estás intentando comprender…"
+                : "Write what you are trying to understand…"
+            }
             rows={5}
             maxLength={2000}
             disabled={submitting}
-            className="w-full resize-none rounded-xl border border-border bg-input px-5 py-4 text-body text-foreground placeholder:text-muted-foreground focus:border-mist/50 focus:outline-none focus:ring-1 focus:ring-mist/15 disabled:opacity-50"
+            className="focus-mist w-full resize-none rounded-xl border border-border bg-input px-5 py-4 text-body text-foreground placeholder:text-muted-foreground disabled:opacity-50"
             onKeyDown={(e) => {
               if ((e.metaKey || e.ctrlKey) && e.key === "Enter") {
                 (e.currentTarget.form as HTMLFormElement | null)?.requestSubmit();
@@ -154,12 +171,29 @@ function OraclePage() {
             <button
               type="submit"
               disabled={submitting || inquiry.trim().length < 3}
-              className="rounded-md border border-mist/40 bg-mist/10 px-5 py-2.5 font-display text-micro uppercase tracking-[0.3em] text-foreground transition-all hover:border-mist/70 hover:bg-mist/15 disabled:cursor-not-allowed disabled:opacity-40"
+              className="btn-gold focus-mist px-6 py-3 text-small disabled:cursor-not-allowed disabled:opacity-40"
             >
-              {submitting ? t("oracle.submitting") : t("oracle.submit")}
+              {submitting
+                ? es
+                  ? "Estamos leyendo tu pregunta…"
+                  : "We are reading your question…"
+                : es
+                  ? "Pensarlo con Pneum"
+                  : "Think it with Pneum"}
             </button>
           </div>
         </form>
+
+        {submitting && (
+          <p
+            aria-live="polite"
+            className="pneuma-breathe mt-10 text-small text-muted-foreground"
+          >
+            {es
+              ? "Estamos leyendo tu pregunta y buscando lo que hay detrás…"
+              : "We are reading your question and looking for what lies beneath…"}
+          </p>
+        )}
 
         {error && (
           <p className="mt-6 rounded-md border border-destructive/30 bg-destructive/5 px-4 py-3 text-small text-destructive">
@@ -167,60 +201,154 @@ function OraclePage() {
           </p>
         )}
 
-        {chosen && result && (
-          <section
-            aria-live="polite"
-            className="fade-up mt-12 overflow-hidden rounded-xl border border-mist/30 bg-card/60 p-7 backdrop-blur-sm md:p-9"
-            style={{ animationDelay: "60ms" }}
-          >
-            <p className="font-display text-micro uppercase tracking-[0.3em] text-mist">
-              {t("oracle.result.kicker")}
-            </p>
-            <div className="mt-5 flex items-start gap-5">
-              <span className="pneuma-breathe font-display text-5xl text-foreground/90 md:text-6xl">
-                {chosen.glyph}
-              </span>
-              <div className="flex-1">
-                <h2 className="font-display text-heading font-light tracking-tight text-foreground">
-                  {chosen.name}
-                </h2>
-                <p className="mt-1 text-micro leading-relaxed text-muted-foreground md:text-small">
-                  {chosen.subtitle[lang]}
+        {result && primary && (
+          <section aria-live="polite" className="fade-up mt-12 flex flex-col gap-8">
+            {/* Lectura */}
+            <div className="card-editorial p-7 md:p-9">
+              <p className="label">{es ? "Lo que leemos" : "What we read"}</p>
+              <p className="mt-4 font-serif text-subtitle font-light leading-snug text-foreground">
+                {result.reading}
+              </p>
+            </div>
+
+            {/* Reencuadre */}
+            {result.reframe && (
+              <div className="grid gap-4 md:grid-cols-2">
+                <div className="card-editorial p-6">
+                  <p className="label">{es ? "Lo que preguntas" : "What you ask"}</p>
+                  <p className="mt-3 text-body text-muted-foreground">{result.reframe.asked}</p>
+                </div>
+                <div className="card-editorial border-bronze/40 p-6">
+                  <p className="label text-bronze-bright">
+                    {es ? "Lo que también parece estar en juego" : "What also seems at stake"}
+                  </p>
+                  <p className="mt-3 text-body text-foreground">{result.reframe.beneath}</p>
+                </div>
+              </div>
+            )}
+
+            {/* Perspectivas */}
+            <div>
+              <p className="label">
+                {es
+                  ? `${result.perspectives.length === 2 ? "Dos" : result.perspectives.length === 3 ? "Tres" : "Cuatro"} perspectivas que pueden ayudarte a pensar esto`
+                  : "Perspectives that can help you think this"}
+              </p>
+              <ul className="mt-5 grid gap-4 sm:grid-cols-2">
+                {result.perspectives.map((p) => {
+                  const mind = PHILOSOPHERS[p.philosopher];
+                  if (!mind) return null;
+                  return (
+                    <li key={p.philosopher}>
+                      <Link
+                        to="/$philosopher"
+                        params={{ philosopher: p.philosopher }}
+                        search={asked ? { q: asked } : undefined}
+                        onClick={() =>
+                          track("first_interaction", {
+                            philosopher: p.philosopher,
+                            from: "oracle_perspective",
+                          })
+                        }
+                        className="card-editorial focus-mist flex h-full gap-4 p-5"
+                      >
+                        <span aria-hidden="true" className="font-serif text-3xl text-bronze">
+                          {mind.glyph}
+                        </span>
+                        <span className="flex-1">
+                          <span className="block font-serif text-subtitle font-light text-foreground">
+                            {mind.name}
+                          </span>
+                          <span className="mt-1 block text-small leading-relaxed text-muted-foreground">
+                            {p.angle}
+                          </span>
+                        </span>
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+
+              <div className="mt-5 rounded-md border border-border/60 bg-card/30 px-5 py-4">
+                <p className="label">
+                  {es ? "¿Por qué estas perspectivas?" : "Why these perspectives?"}
+                </p>
+                <p className="mt-2 text-small leading-relaxed text-muted-foreground">
+                  {result.why}
                 </p>
               </div>
             </div>
 
-            <p className="mt-6 text-body text-foreground/85">
-              {result.reason}
-            </p>
+            {/* Aha */}
+            {result.aha && (
+              <div className="rounded-xl border border-bronze/45 bg-bronze/5 p-7 md:p-9">
+                <p className="label text-bronze-bright">
+                  {es ? "Una forma distinta de verlo" : "A different way of seeing it"}
+                </p>
+                <p className="mt-4 font-serif text-title font-light leading-snug text-foreground">
+                  {result.aha}
+                </p>
+                <p className="mt-4 text-micro text-muted-foreground">
+                  {es
+                    ? "No es la respuesta correcta: es una comprensión posible."
+                    : "Not the right answer: a possible understanding."}
+                </p>
+              </div>
+            )}
 
-            <div className="mt-7 flex flex-wrap items-center justify-between gap-4 border-t border-border/60 pt-5">
-              <button
-                type="button"
-                onClick={() => {
-                  setResult(null);
-                  setError(null);
-                  setInquiry("");
-                  requestAnimationFrame(() => inputRef.current?.focus());
-                }}
-                className="text-micro uppercase tracking-[0.3em] text-muted-foreground transition-colors hover:text-foreground"
-              >
-                {t("oracle.result.again")}
-              </button>
-              <Link
-                to="/$philosopher"
-                params={{ philosopher: chosen.id }}
-                search={inquiry.trim() ? { q: inquiry.trim() } : undefined}
-                onClick={() => {
-                  track("first_interaction", { philosopher: chosen.id, from: "oracle" });
-                  trackOnce("aha_first_perspective", { philosopher: chosen.id });
-                }}
-                className="rounded-md border border-mist/50 bg-mist/15 px-5 py-2.5 font-display text-micro uppercase tracking-[0.3em] text-foreground transition-all hover:border-mist/80 hover:bg-mist/25"
-              >
-                {t("oracle.result.enter")}
-              </Link>
+            {/* Siguiente acción */}
+            <div className="border-t border-border/60 pt-7">
+              <p className="label">
+                {es ? "¿Qué quieres hacer con esta idea?" : "What do you want to do with this?"}
+              </p>
+              <div className="mt-5 flex flex-wrap gap-3">
+                <Link
+                  to="/$philosopher"
+                  params={{ philosopher: primary.id }}
+                  search={asked ? { q: asked } : undefined}
+                  onClick={() =>
+                    track("first_interaction", { philosopher: primary.id, from: "oracle" })
+                  }
+                  className="btn-gold focus-mist px-5 py-3 text-small"
+                >
+                  {es ? "Profundizar" : "Go deeper"}
+                </Link>
+                <Link
+                  to="/comparar"
+                  search={asked ? { q: asked } : {}}
+                  onClick={() => track("next_action", { action: "compare" })}
+                  className="btn-ghost-gold focus-mist px-5 py-3 text-small"
+                >
+                  {es ? "Comparar perspectivas" : "Compare perspectives"}
+                </Link>
+                <Link
+                  to="/analisis"
+                  onClick={() => track("next_action", { action: "analyse" })}
+                  className="btn-ghost-gold focus-mist px-5 py-3 text-small"
+                >
+                  {es ? "Analizar mi situación" : "Analyse my situation"}
+                </Link>
+                <button
+                  type="button"
+                  onClick={() => {
+                    track("next_action", { action: "ask_again" });
+                    reset();
+                  }}
+                  className="btn-ghost-gold focus-mist px-5 py-3 text-small"
+                >
+                  {es ? "Seguir preguntando" : "Keep asking"}
+                </button>
+              </div>
             </div>
           </section>
+        )}
+
+        {!result && !submitting && (
+          <p className="mt-10 text-micro text-muted-foreground/80">
+            {es
+              ? "La filosofía aplicada es el motor. La claridad es el resultado."
+              : "Applied philosophy is the engine. Clarity is the result."}
+          </p>
         )}
       </main>
       <SiteFooter />
