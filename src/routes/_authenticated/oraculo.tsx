@@ -63,25 +63,46 @@ function OraclePage() {
     inputRef.current?.focus();
   }, []);
 
+  const run = useCallback(
+    async (raw: string, source: string) => {
+      const text = raw.trim();
+      if (text.length < 3) return;
+      setSubmitting(true);
+      setError(null);
+      setResult(null);
+      track("oracle_run", { source, length: text.length });
+      try {
+        const r = await matchFn({
+          data: { inquiry: text, language: lang, tone: tone ?? undefined },
+        });
+        setResult(r);
+        track("perspective_assigned", { philosopher: r.philosopher, source });
+      } catch (err) {
+        console.error("[oracle] match failed", err);
+        setError(t("oracle.error"));
+      } finally {
+        setSubmitting(false);
+      }
+    },
+    [matchFn, lang, tone, t],
+  );
+
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
-    const text = inquiry.trim();
-    if (text.length < 3 || submitting) return;
-    setSubmitting(true);
-    setError(null);
-    setResult(null);
-    try {
-      const r = await matchFn({
-        data: { inquiry: text, language: lang, tone: tone ?? undefined },
-      });
-      setResult(r);
-    } catch (err) {
-      console.error("[oracle] match failed", err);
-      setError(t("oracle.error"));
-    } finally {
-      setSubmitting(false);
-    }
+    if (submitting) return;
+    track("question_submitted", { surface: "oracle", length: inquiry.trim().length });
+    await run(inquiry, "form");
   }
+
+  // Arriving with a question already written (from the homepage or search):
+  // run it straight away so the flow stays question -> perspective.
+  const autoRan = useRef(false);
+  useEffect(() => {
+    if (autoRan.current) return;
+    if (!q || q.trim().length < 3) return;
+    autoRan.current = true;
+    void run(q, "prefilled");
+  }, [q, run]);
 
   const chosen = result ? PHILOSOPHERS[result.philosopher] : null;
 
