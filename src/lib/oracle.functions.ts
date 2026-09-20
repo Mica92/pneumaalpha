@@ -5,6 +5,7 @@ import { z } from "zod";
 import { createLovableAiGatewayProvider } from "@/lib/ai-gateway";
 import { PHILOSOPHERS, isPhilosopherId, type PhilosopherId } from "@/lib/philosophers";
 import { getTone, isToneId } from "@/lib/tones";
+import { detectSafety, type SafetyKind } from "@/lib/safety";
 
 const InputSchema = z.object({
   inquiry: z.string().trim().min(3).max(2000),
@@ -32,6 +33,8 @@ export type MatchResult = {
   philosopher: PhilosopherId;
   /** Legacy field kept for compatibility: same as `why`. */
   reason: string;
+  /** Set when the safety layer answers instead of the philosophical routing. */
+  safety: SafetyKind | null;
 };
 
 function buildCatalog(lang: "es" | "en"): string {
