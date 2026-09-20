@@ -395,6 +395,15 @@ export function SiteNav({ className = "" }: { className?: string }) {
               </section>
             ))}
 
+            <Link
+              to="/nosotros"
+              onClick={() => setOpen(false)}
+              className="focus-mist border-t border-border/40 py-4 text-small text-muted-foreground transition-colors hover:text-foreground"
+              activeProps={{ className: "text-foreground" }}
+            >
+              {lang === "es" ? "Nosotros" : "About"}
+            </Link>
+
             {signedIn ? (
               <button
                 type="button"
