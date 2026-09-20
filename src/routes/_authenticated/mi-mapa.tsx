@@ -55,12 +55,16 @@ const COPY = {
     es: "El centro de tu recorrido. Todo lo que exploras se conecta aquí.",
     en: "The center of your journey. Everything you explore connects here.",
   },
-  emptyTitle: { es: "Tu mapa está vacío", en: "Your map is empty" },
-  emptyBody: {
-    es: "Empieza una conversación o añade un nodo desde el mapa universal, y tu constelación comenzará a formarse.",
-    en: "Start a conversation or add a node from the universal map, and your constellation will begin to form.",
+  emptyTitle: {
+    es: "Tu mapa todavía está comenzando",
+    en: "Your map is just beginning",
   },
-  goExplore: { es: "Ir al mapa universal", en: "Go to the universal map" },
+  emptyBody: {
+    es: "Se dibuja solo, con lo que vayas pensando aquí. Plantea una pregunta y la primera perspectiva aparecerá en tu mapa.",
+    en: "It draws itself from what you think about here. Ask a question and the first perspective will appear on your map.",
+  },
+  emptyPrimary: { es: "Plantear una pregunta", en: "Ask a question" },
+  goExplore: { es: "O mirar el mapa universal", en: "Or browse the universal map" },
   next: { es: "Siguientes pasos", en: "Next steps" },
   loading: { es: "Cargando tu mapa…", en: "Loading your map…" },
   remove: { es: "Quitar del mapa", en: "Remove from map" },
@@ -169,9 +173,17 @@ function PersonalMapPage() {
             <p className="mt-3 text-small leading-relaxed text-muted-foreground">
               {COPY.emptyBody[lang]}
             </p>
-            <Link to="/explorar" className="btn-gold mt-6 inline-flex">
-              {COPY.goExplore[lang]}
-            </Link>
+            <div className="mt-6 flex flex-wrap items-center gap-4">
+              <Link to="/oraculo" className="btn-gold inline-flex">
+                {COPY.emptyPrimary[lang]}
+              </Link>
+              <Link
+                to="/explorar"
+                className="text-micro uppercase tracking-[0.3em] text-muted-foreground transition-colors hover:text-foreground"
+              >
+                {COPY.goExplore[lang]}
+              </Link>
+            </div>
           </div>
         ) : (
           <>

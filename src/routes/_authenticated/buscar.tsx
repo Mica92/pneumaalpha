@@ -1,12 +1,13 @@
 import { SITE_URL } from "@/lib/site";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { PHILOSOPHER_LIST, PHILOSOPHERS } from "@/lib/philosophers";
 import { profileOf } from "@/lib/portraits";
 import { CATEGORIES, IDEAS, ROUTES, REAL_PROBLEMS, centralQuestion } from "@/lib/discovery";
 import { SiteNav } from "@/components/site-nav";
 import { SiteFooter } from "@/components/site-footer";
 import { useI18n } from "@/lib/i18n";
+import { track } from "@/lib/analytics";
 
 export const Route = createFileRoute("/_authenticated/buscar")({
   validateSearch: (search: Record<string, unknown>): { q?: string } =>
@@ -18,7 +19,7 @@ export const Route = createFileRoute("/_authenticated/buscar")({
       {
         name: "description",
         content:
-          "Busca entre las 19 mentes, las grandes ideas, las rutas filosóficas y las preguntas de la vida real.",
+          "Busca entre las perspectivas filosóficas, las grandes ideas, las rutas y las preguntas de la vida real.",
       },
       { property: "og:title", content: "Buscar — Pneum" },
       {
@@ -151,6 +152,27 @@ function SearchPage() {
     return out.slice(0, 40);
   }, [query, lang, es]);
 
+  const suggestions = useMemo(
+    () =>
+      REAL_PROBLEMS.slice(0, 4).map((rp) => ({
+        key: rp.id,
+        q: rp.text[lang],
+        label: rp.text[lang],
+      })),
+    [lang],
+  );
+
+  const reported = useRef<string>("");
+  useEffect(() => {
+    const term = query.trim();
+    if (term.length < 2 || hits.length > 0 || reported.current === term) return;
+    const id = setTimeout(() => {
+      reported.current = term;
+      track("search_no_results", { term: term.slice(0, 80) });
+    }, 900);
+    return () => clearTimeout(id);
+  }, [query, hits.length]);
+
   return (
     <>
       <SiteNav />
@@ -181,9 +203,41 @@ function SearchPage() {
 
         <section className="mx-auto max-w-4xl px-5 py-10 md:px-8 md:py-14" aria-live="polite">
           {query.trim().length >= 2 && hits.length === 0 && (
-            <p className="text-small text-muted-foreground">
-              {es ? "Nada por aquí. Prueba con otra palabra." : "Nothing here. Try another word."}
-            </p>
+            <div className="card-editorial p-6 md:p-8">
+              <p className="label">{es ? "Sin coincidencias exactas" : "No exact matches"}</p>
+              <h2 className="mt-3 font-serif text-subtitle font-light text-foreground">
+                {es
+                  ? "Ninguna ficha coincide, pero tu pregunta sí se puede pensar."
+                  : "No entry matches, but your question can still be thought through."}
+              </h2>
+              <p className="mt-2 text-small text-muted-foreground">
+                {es
+                  ? "Pneum puede leer lo que escribiste y proponerte la perspectiva que mejor lo ilumina."
+                  : "Pneum can read what you wrote and propose the perspective that best illuminates it."}
+              </p>
+              <Link
+                to="/oraculo"
+                search={{ q: query.trim() }}
+                className="mt-6 inline-block rounded-md border border-mist/50 bg-mist/15 px-5 py-2.5 font-display text-micro uppercase tracking-[0.3em] text-foreground transition-all hover:border-mist/80 hover:bg-mist/25"
+              >
+                {es ? "Pensarlo con Pneum →" : "Think it with Pneum →"}
+              </Link>
+
+              <p className="label mt-8">{es ? "O empieza por aquí" : "Or start here"}</p>
+              <ul className="mt-3 space-y-2">
+                {suggestions.map((s) => (
+                  <li key={s.key}>
+                    <Link
+                      to="/oraculo"
+                      search={{ q: s.q }}
+                      className="focus-mist block text-small text-foreground/85 transition-colors hover:text-bronze-bright"
+                    >
+                      {s.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
           )}
 
           <ul className="divide-y divide-border/60">

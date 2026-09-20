@@ -4,6 +4,15 @@ import { z } from "zod";
 
 export const ANALYTICS_EVENTS = [
   "visit",
+  // Funnel: visit -> question_submitted -> oracle_run -> perspective_assigned
+  //         -> first_interaction -> return_session -> paywall/pricing -> purchase
+  "question_submitted",
+  "oracle_run",
+  "perspective_assigned",
+  "first_interaction",
+  "aha_first_perspective",
+  "return_session",
+  "search_no_results",
   "chat_opened",
   "message_sent",
   "paywall_hit",

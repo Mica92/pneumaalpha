@@ -2,7 +2,7 @@ import { SITE_URL } from "@/lib/site";
 import { SiteNav } from "@/components/site-nav";
 import { SiteFooter } from "@/components/site-footer";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { matchPhilosopher } from "@/lib/oracle.functions";
 import { PHILOSOPHERS, type PhilosopherId } from "@/lib/philosophers";
@@ -10,6 +10,7 @@ import { useI18n } from "@/lib/i18n";
 import { GreekGlyph } from "@/components/greek-glyph";
 import { ToneSelect } from "@/components/tone-select";
 import { isToneId, loadStoredTone, storeTone, type ToneId } from "@/lib/tones";
+import { track, trackOnce } from "@/lib/analytics";
 
 export const Route = createFileRoute("/_authenticated/oraculo")({
   validateSearch: (search: Record<string, unknown>): { q?: string; tone?: string } => ({
@@ -63,25 +64,46 @@ function OraclePage() {
     inputRef.current?.focus();
   }, []);
 
+  const run = useCallback(
+    async (raw: string, source: string) => {
+      const text = raw.trim();
+      if (text.length < 3) return;
+      setSubmitting(true);
+      setError(null);
+      setResult(null);
+      track("oracle_run", { source, length: text.length });
+      try {
+        const r = await matchFn({
+          data: { inquiry: text, language: lang, tone: tone ?? undefined },
+        });
+        setResult(r);
+        track("perspective_assigned", { philosopher: r.philosopher, source });
+      } catch (err) {
+        console.error("[oracle] match failed", err);
+        setError(t("oracle.error"));
+      } finally {
+        setSubmitting(false);
+      }
+    },
+    [matchFn, lang, tone, t],
+  );
+
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
-    const text = inquiry.trim();
-    if (text.length < 3 || submitting) return;
-    setSubmitting(true);
-    setError(null);
-    setResult(null);
-    try {
-      const r = await matchFn({
-        data: { inquiry: text, language: lang, tone: tone ?? undefined },
-      });
-      setResult(r);
-    } catch (err) {
-      console.error("[oracle] match failed", err);
-      setError(t("oracle.error"));
-    } finally {
-      setSubmitting(false);
-    }
+    if (submitting) return;
+    track("question_submitted", { surface: "oracle", length: inquiry.trim().length });
+    await run(inquiry, "form");
   }
+
+  // Arriving with a question already written (from the homepage or search):
+  // run it straight away so the flow stays question -> perspective.
+  const autoRan = useRef(false);
+  useEffect(() => {
+    if (autoRan.current) return;
+    if (!q || q.trim().length < 3) return;
+    autoRan.current = true;
+    void run(q, "prefilled");
+  }, [q, run]);
 
   const chosen = result ? PHILOSOPHERS[result.philosopher] : null;
 
@@ -188,6 +210,11 @@ function OraclePage() {
               <Link
                 to="/$philosopher"
                 params={{ philosopher: chosen.id }}
+                search={inquiry.trim() ? { q: inquiry.trim() } : undefined}
+                onClick={() => {
+                  track("first_interaction", { philosopher: chosen.id, from: "oracle" });
+                  trackOnce("aha_first_perspective", { philosopher: chosen.id });
+                }}
                 className="rounded-md border border-mist/50 bg-mist/15 px-5 py-2.5 font-display text-micro uppercase tracking-[0.3em] text-foreground transition-all hover:border-mist/80 hover:bg-mist/25"
               >
                 {t("oracle.result.enter")}
