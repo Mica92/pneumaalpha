@@ -315,11 +315,11 @@ function Home() {
           />
           <div
             aria-hidden="true"
-            className="absolute inset-0 -z-10 bg-gradient-to-r from-background via-background/85 to-background/20"
+            className="absolute inset-0 -z-10 bg-gradient-to-r from-background/92 via-background/55 to-transparent"
           />
           <div
             aria-hidden="true"
-            className="absolute inset-0 -z-10 bg-gradient-to-t from-background via-background/30 to-background/60"
+            className="absolute inset-0 -z-10 bg-gradient-to-t from-background via-transparent to-background/45"
           />
 
           <div className="relative mx-auto w-full max-w-6xl px-5 py-28 md:px-8 md:py-36">
