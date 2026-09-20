@@ -138,10 +138,10 @@ export function DilemmaBanner({
               className="shrink-0 text-muted-foreground"
             />
             <div className="min-w-0">
-              <p className="text-micro uppercase tracking-[0.32em] text-muted-foreground">
+              <p className="truncate whitespace-nowrap text-micro uppercase tracking-[0.32em] text-muted-foreground">
                 {t("chat.dilemma.kicker")}
               </p>
-              <p className="mt-1 truncate font-display text-subtitle font-light leading-snug text-foreground/90">
+              <p className="mt-1 line-clamp-2 font-display text-subtitle font-light leading-snug text-foreground/90 md:line-clamp-1">
                 {dilemma}
               </p>
             </div>
