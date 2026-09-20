@@ -56,9 +56,6 @@ export function LegalPage({ copy }: { copy: { es: LegalCopy; en: LegalCopy } }) 
           <Link to="/terminos" className="transition-colors hover:text-foreground">
             {lang === "es" ? "Términos" : "Terms"}
           </Link>
-          <Link to="/reembolsos" className="transition-colors hover:text-foreground">
-            {lang === "es" ? "Reembolsos" : "Refunds"}
-          </Link>
           <Link to="/privacy" className="transition-colors hover:text-foreground">
             {lang === "es" ? "Privacidad" : "Privacy"}
           </Link>

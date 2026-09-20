@@ -5,7 +5,8 @@ import { SiteNav } from "@/components/site-nav";
 import { SiteFooter } from "@/components/site-footer";
 import { useI18n } from "@/lib/i18n";
 import { getAnalyticsOverview, type AnalyticsOverview } from "@/lib/analytics.functions";
-import { LIFETIME_SEATS } from "@/lib/billing.shared";
+
+const HISTORICAL_LIFETIME_SEATS = 51;
 
 export const Route = createFileRoute("/_authenticated/admin/analitica")({
   component: AnalyticsPage,
@@ -83,7 +84,7 @@ function AnalyticsPage() {
               <div className="card-editorial p-5">
                 <p className="label">{es ? "Cupos vitalicios" : "Lifetime seats"}</p>
                 <p className="mt-2 font-serif text-title font-light text-foreground">
-                  {data.lifetimeSeatsTaken}/{LIFETIME_SEATS}
+                  {data.lifetimeSeatsTaken}/{HISTORICAL_LIFETIME_SEATS}
                 </p>
               </div>
             </div>
