@@ -19,6 +19,7 @@ import { loadStoredTone } from "@/lib/tones";
 import { useI18n, LanguageSelector } from "@/lib/i18n";
 import { useVoiceDictation } from "@/hooks/use-voice-dictation";
 import { toast } from "sonner";
+import { ArrowLeft } from "lucide-react";
 import { GreekGlyph } from "@/components/greek-glyph";
 import { portraitOf, portraitFocus } from "@/lib/portraits";
 import { sceneOf } from "@/lib/scenes";
@@ -313,17 +314,15 @@ function ChatBody({
           onClose={() => setProfileOpen(false)}
         />
 
-        <header className="sticky top-0 z-20 border-b border-border/60 bg-background/80 px-4 py-3 backdrop-blur-xl md:px-6 md:py-4">
-          <div className="mx-auto grid max-w-3xl grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3">
+        <header className="sticky top-0 z-20 border-b border-border/40 bg-background/80 px-4 py-3 backdrop-blur-xl md:px-6 md:py-4">
+          <div className="mx-auto grid max-w-3xl grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-4">
             <Link
               to="/"
               aria-label={t("chat.back")}
               title={t("chat.back")}
-              className="focus-mist inline-flex h-9 w-9 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-card hover:text-foreground"
+              className="focus-mist inline-flex h-9 w-9 items-center justify-center rounded-md text-muted-foreground transition-colors duration-300 hover:text-foreground"
             >
-              <span aria-hidden="true" className="text-lg leading-none">
-                ←
-              </span>
+              <ArrowLeft aria-hidden="true" size={18} strokeWidth={1.5} />
             </Link>
 
             <button
@@ -333,7 +332,7 @@ function ChatBody({
               className="focus-mist flex min-w-0 items-center gap-3 rounded-md text-left transition-opacity hover:opacity-80"
             >
               {portraitOf(philosopher) ? (
-                <span className="relative h-9 w-9 shrink-0 overflow-hidden rounded-full border border-border/70 ring-1 ring-mist/15">
+                <span className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full border border-foreground/10">
                   <img
                     src={portraitOf(philosopher)}
                     alt={`Retrato de ${meta.name}`}
@@ -351,17 +350,17 @@ function ChatBody({
                 </span>
               )}
               <div className="min-w-0 leading-tight">
-                <h1 className="truncate font-display text-small font-light tracking-wide text-foreground">
+                <h1 className="truncate font-display text-subtitle font-light tracking-wide text-foreground">
                   {meta.name}
                 </h1>
-                <span className="text-micro uppercase tracking-[0.25em] text-muted-foreground">
+                <span className="block truncate whitespace-nowrap text-micro uppercase tracking-[0.3em] text-muted-foreground/80">
                   {lang === "es" ? "Ver ficha" : "View profile"}
                 </span>
               </div>
             </button>
 
             {/* Desktop actions */}
-            <div className="hidden items-center gap-1 md:flex">
+            <div className="hidden items-center gap-3 md:flex">
               <LanguageSelector />
               <HeaderAction
                 onClick={() => {
@@ -935,7 +934,7 @@ function HeaderAction({
   return (
     <button
       onClick={onClick}
-      className="focus-mist rounded-md px-3 py-1.5 text-micro uppercase tracking-[0.25em] text-muted-foreground transition-colors hover:bg-card hover:text-foreground"
+      className="focus-mist rounded-md px-2.5 py-1.5 text-micro uppercase tracking-[0.25em] text-muted-foreground transition-colors duration-300 hover:text-foreground"
     >
       {children}
     </button>
