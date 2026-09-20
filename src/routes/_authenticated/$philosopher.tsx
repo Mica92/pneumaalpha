@@ -7,12 +7,12 @@ import { PHILOSOPHERS, isPhilosopherId, type PhilosopherId } from "@/lib/philoso
 import { entityForChat } from "@/lib/atlas";
 import { useJourney } from "@/lib/atlas/use-journey";
 import { SITE_URL } from "@/lib/site";
+import { readQuestion, validateQid } from "@/lib/question-handoff";
 
 
 export const Route = createFileRoute("/_authenticated/$philosopher")({
   component: PhilosopherChat,
-  validateSearch: (search: Record<string, unknown>): { q?: string } =>
-    typeof search.q === "string" && search.q ? { q: search.q } : {},
+  validateSearch: validateQid,
   head: ({ params }) => {
     const id = params.philosopher as string;
     if (!isPhilosopherId(id)) {
