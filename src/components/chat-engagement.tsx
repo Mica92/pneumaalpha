@@ -129,8 +129,8 @@ export function DilemmaBanner({
   return (
     <div className="border-b border-border/30 bg-background/60 backdrop-blur-xl">
       <div className="mx-auto max-w-3xl px-4 py-3">
-        <div className="relative flex items-center justify-between gap-4 overflow-hidden rounded-xl border border-foreground/5 bg-card/70 p-4">
-          <div className="flex min-w-0 items-center gap-4">
+        <div className="relative flex flex-col gap-3 overflow-hidden rounded-xl border border-foreground/5 bg-card/70 p-4 md:flex-row md:items-center md:justify-between md:gap-4">
+          <div className="flex min-w-0 items-start gap-3 md:items-center md:gap-4">
             <Diamond
               aria-hidden="true"
               size={16}
@@ -146,7 +146,7 @@ export function DilemmaBanner({
               </p>
             </div>
           </div>
-          <div className="flex shrink-0 items-center gap-2">
+          <div className="flex shrink-0 items-center justify-end gap-2">
             <button
               onClick={onConverse}
               disabled={disabled}
