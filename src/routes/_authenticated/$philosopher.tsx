@@ -1,5 +1,5 @@
 import { createFileRoute, useNavigate, useParams } from "@tanstack/react-router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "@/hooks/use-auth";
 import { ChatWindow } from "@/components/chat-window";
 import { GreekGlyph } from "@/components/greek-glyph";
@@ -51,7 +51,10 @@ export const Route = createFileRoute("/_authenticated/$philosopher")({
 function PhilosopherChat() {
   const { philosopher } = useParams({ from: "/_authenticated/$philosopher" });
   const { qid } = Route.useSearch();
-  const q = readQuestion(qid);
+  const [q, setQ] = useState<string | undefined>(undefined);
+  useEffect(() => {
+    setQ(readQuestion(qid));
+  }, [qid]);
   const { user, loading } = useAuth();
   const navigate = useNavigate();
   const { add } = useJourney();
