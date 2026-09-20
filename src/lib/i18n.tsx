@@ -118,38 +118,38 @@ export const T: Dict = {
 
   "analysis.kicker": { es: "Análisis", en: "Analysis" },
   "analysis.card.title": {
-    es: "Analiza un texto, una frase o un concepto",
-    en: "Analyze a text, a phrase or a concept",
+    es: "Analiza cómo estás pensando",
+    en: "Analyse how you are thinking",
   },
   "analysis.card.sub": {
-    es: "Lectura detallada con conceptos clave, influencias filosóficas, políticas, literarias, religiosas y científicas, tensiones y linaje.",
-    en: "Detailed reading with key concepts, philosophical, political, literary, religious and scientific influences, tensions and lineage.",
+    es: "Identifica argumentos, conceptos, supuestos, contradicciones y perspectivas que aparecen en tu texto.",
+    en: "Identify arguments, concepts, assumptions, contradictions and perspectives present in your text.",
   },
-  "analysis.card.cta": { es: "Analizar →", en: "Analyze →" },
+  "analysis.card.cta": { es: "Analizar mi texto →", en: "Analyse my text →" },
 
   "compare.kicker": { es: "Comparar", en: "Compare" },
   "compare.card.title": {
-    es: "Dos perspectivas frente a la misma pregunta",
-    en: "Two perspectives on the same question",
+    es: "Mira el problema desde perspectivas diferentes",
+    en: "See the problem from different perspectives",
   },
   "compare.card.sub": {
-    es: "Elige dos pensadores y mira en qué coinciden, dónde chocan y qué cambia según a quién le preguntes.",
-    en: "Pick two thinkers and see where they agree, where they clash and what changes depending on whom you ask.",
+    es: "¿Qué cambia cuando la misma pregunta se observa desde dos miradas distintas? Dónde coinciden, dónde chocan.",
+    en: "What changes when the same question is seen from two different angles? Where they agree, where they clash.",
   },
-  "compare.card.cta": { es: "Comparar dos →", en: "Compare two →" },
+  "compare.card.cta": { es: "Ver las diferencias →", en: "See the differences →" },
   "analysis.page.title": {
-    es: "Análisis de textos, frases y conceptos",
-    en: "Analysis of texts, phrases and concepts",
+    es: "Analiza cómo estás pensando",
+    en: "Analyse how you are thinking",
   },
   "analysis.page.sub": {
-    es: "Pega una cita, un párrafo o escribe un concepto. Recibirás una lectura densa: qué afirma, de dónde viene y con qué corrientes dialoga.",
-    en: "Paste a quotation, a paragraph or write a concept. You'll get a dense reading: what it claims, where it comes from and which currents it converses with.",
+    es: "Pega tu texto, una cita o escribe una idea. Verás qué afirma, qué supone, qué tensiones contiene y desde qué perspectivas puede examinarse.",
+    en: "Paste your text, a quotation or write an idea. You will see what it claims, what it assumes, what tensions it contains and from which perspectives it can be examined.",
   },
   "analysis.placeholder": {
     es: "«El hombre está condenado a ser libre» — o un concepto: nihilismo, alienación, epojé…",
     en: "\u201cMan is condemned to be free\u201d — or a concept: nihilism, alienation, epoché…",
   },
-  "analysis.submit": { es: "Analizar", en: "Analyze" },
+  "analysis.submit": { es: "Analizar mi texto", en: "Analyse my text" },
   "analysis.submitting": { es: "Leyendo el texto…", en: "Reading the text…" },
   "analysis.again": { es: "Analizar otro material", en: "Analyze other material" },
   "analysis.back": { es: "Volver al umbral", en: "Back to threshold" },
@@ -480,17 +480,17 @@ export const T: Dict = {
   "share.close": { es: "Cerrar", en: "Close" },
 
   // ── Mesa redonda ─────────────────────────────────────────────────
-  "mesa.kicker": { es: "Mesa redonda", en: "Round table" },
-  "mesa.card.title": { es: "Convoca una mesa", en: "Convene a table" },
+  "mesa.kicker": { es: "Pon tu idea a prueba", en: "Put your idea to the test" },
+  "mesa.card.title": { es: "Pon tu idea a prueba", en: "Put your idea to the test" },
   "mesa.card.sub": {
-    es: "Sienta hasta tres pensadores en la misma mesa y ponles un tema. Hablan por turnos y se responden entre ellos.",
-    en: "Seat up to three thinkers at one table and give them a topic. They speak in turns and answer each other.",
+    es: "Mira cómo distintas perspectivas pueden interpretar, cuestionar o desafiar la misma idea.",
+    en: "See how different perspectives can interpret, question or challenge the same idea.",
   },
-  "mesa.card.cta": { es: "Abrir la mesa →", en: "Open the table →" },
-  "mesa.page.title": { es: "Tres mentes, un tema", en: "Three minds, one topic" },
+  "mesa.card.cta": { es: "Ponerla a prueba →", en: "Put it to the test →" },
+  "mesa.page.title": { es: "Pon tu idea a prueba", en: "Put your idea to the test" },
   "mesa.page.sub": {
-    es: "Elige el tema, elige a los invitados y escucha cómo discuten. Puedes pedir otra ronda o una síntesis final.",
-    en: "Choose the topic, choose the guests, and listen to them argue. You can ask for another round or a closing synthesis.",
+    es: "Escribe la idea o la tensión que quieres examinar y elige las perspectivas que la van a confrontar. Puedes pedir otra ronda o una síntesis final.",
+    en: "Write the idea or tension you want to examine and choose the perspectives that will confront it. You can ask for another round or a closing synthesis.",
   },
   "mesa.topic.label": { es: "Tema de la mesa", en: "Topic of the table" },
   "mesa.topic.placeholder": {
@@ -514,14 +514,14 @@ export const T: Dict = {
   "mesa.back": { es: "Volver", en: "Back" },
 
   // ── Modo Sócrates ────────────────────────────────────────────────
-  "socrates.kicker": { es: "Modo Sócrates", en: "Socrates mode" },
-  "socrates.card.title": { es: "Piensa en voz alta", en: "Think out loud" },
+  "socrates.kicker": { es: "Hazte mejores preguntas", en: "Ask yourself better questions" },
+  "socrates.card.title": { es: "Hazte mejores preguntas", en: "Ask yourself better questions" },
   "socrates.card.sub": {
-    es: "Un guía que casi no afirma: te devuelve preguntas hasta que tu propia idea queda clara.",
-    en: "A guide who barely asserts: he hands questions back until your own idea becomes clear.",
+    es: "Un modo de exploración basado en preguntas en lugar de respuestas prefabricadas.",
+    en: "A mode of exploration built on questions instead of ready-made answers.",
   },
   "socrates.card.cta": { es: "Empezar →", en: "Begin →" },
-  "socrates.page.title": { es: "Solo preguntas", en: "Only questions" },
+  "socrates.page.title": { es: "Hazte mejores preguntas", en: "Ask yourself better questions" },
   "socrates.page.sub": {
     es: "Trae una idea que sostengas. No recibirás doctrina: recibirás preguntas hasta que veas de qué está hecha.",
     en: "Bring an idea you hold. You won't receive doctrine: you'll receive questions until you see what it's made of.",
