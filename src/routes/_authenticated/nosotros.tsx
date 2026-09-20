@@ -3,6 +3,7 @@ import { SiteNav } from "@/components/site-nav";
 import { SiteFooter } from "@/components/site-footer";
 import { useI18n } from "@/lib/i18n";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
+import { PageAtmosphere } from "@/components/page-atmosphere";
 
 export const Route = createFileRoute("/_authenticated/nosotros")({
   component: NosotrosPage,
@@ -49,8 +50,9 @@ function NosotrosPage() {
   return (
     <>
       <SiteNav />
-      <main className="route-enter relative z-10 mx-auto flex min-h-dvh max-w-3xl flex-col px-6 py-10 md:px-10 md:py-14">
-        <header className="mt-10 mb-12 md:mt-16 md:mb-16">
+      <main className="route-enter relative z-10 mx-auto flex min-h-dvh max-w-3xl flex-col overflow-hidden px-6 py-10 md:px-10 md:py-14">
+        <PageAtmosphere variant="archive" />
+        <header className="relative mt-10 mb-12 min-h-64 md:mt-16 md:mb-16">
           <p className="label text-bronze">{t("about.kicker")}</p>
           <h1 className="mt-5 font-serif text-title font-light text-foreground">
             {t("about.title")}
@@ -148,7 +150,7 @@ function NosotrosPage() {
           <section className="flex justify-center pt-6">
             <Link
               to="/umbral"
-              className="btn-gold rounded-full px-6 py-2.5 text-small"
+              className="btn-gold px-6 py-2.5 text-small"
               aria-label={lang === "es" ? "Volver al inicio" : "Back to home"}
             >
               {lang === "es" ? "Volver al umbral" : "Back to threshold"}

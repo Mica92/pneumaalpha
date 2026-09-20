@@ -9,6 +9,7 @@ import { track } from "@/lib/analytics";
 import { PHILOSOPHERS } from "@/lib/philosophers";
 import { useI18n } from "@/lib/i18n";
 import { GreekGlyph } from "@/components/greek-glyph";
+import { PageAtmosphere } from "@/components/page-atmosphere";
 
 export const Route = createFileRoute("/_authenticated/reporte")({
   component: ReportPage,
@@ -65,8 +66,9 @@ function ReportPage() {
   return (
     <>
       <SiteNav />
-      <main className="relative z-10 mx-auto flex min-h-screen max-w-3xl flex-col px-6 py-10 md:px-10 md:py-14">
-        <header className="mt-16 mb-10 md:mt-24 md:mb-14">
+      <main className="route-enter relative z-10 mx-auto flex min-h-screen max-w-3xl flex-col overflow-hidden px-6 py-10 md:px-10 md:py-14">
+        <PageAtmosphere variant="study" />
+        <header className="relative mt-16 mb-10 md:mt-24 md:mb-14">
           <p className="tracking-in font-display text-micro uppercase text-muted-foreground">
             {t("report.kicker")}
           </p>
@@ -109,7 +111,7 @@ function ReportPage() {
         {report && (
           <article className="fade-up mt-2 space-y-10">
             {/* Archetype + summary */}
-            <section className="overflow-hidden rounded-xl border border-mist/30 bg-card/60 p-7 backdrop-blur-sm md:p-9">
+            <section className="card-editorial overflow-hidden p-7 md:p-9">
               <p className="font-display text-micro uppercase tracking-[0.3em] text-mist">
                 {t("report.archetype")}
               </p>

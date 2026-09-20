@@ -10,6 +10,7 @@ import { PODCAST_BOOKS, type PodcastBook } from "@/lib/podcast-books";
 import { PHILOSOPHERS } from "@/lib/philosophers";
 import { useI18n } from "@/lib/i18n";
 import { GreekGlyph } from "@/components/greek-glyph";
+import { PageAtmosphere } from "@/components/page-atmosphere";
 
 export const Route = createFileRoute("/_authenticated/podcast")({
   component: PodcastPage,
@@ -221,8 +222,9 @@ function PodcastPage() {
   return (
     <>
       <SiteNav />
-      <main className="route-enter relative z-10 mx-auto flex min-h-dvh max-w-5xl flex-col px-6 py-10 md:px-10 md:py-14">
-        <header className="mt-16 mb-10 md:mt-20 md:mb-12">
+      <main className="route-enter relative z-10 mx-auto flex min-h-dvh max-w-5xl flex-col overflow-hidden px-6 py-10 md:px-10 md:py-14">
+        <PageAtmosphere variant="archive" />
+        <header className="relative mt-16 mb-10 min-h-64 md:mt-20 md:mb-12">
           <p className="tracking-in font-display text-micro uppercase tracking-[0.35em] text-sage">
             {t("podcast.kicker")}
           </p>
@@ -236,7 +238,7 @@ function PodcastPage() {
 
         {/* Player */}
         {active && (
-          <section className="fade-up mb-10 rounded-xl border border-sage/40 bg-card/60 p-6 backdrop-blur-sm">
+          <section className="card-editorial fade-up mb-10 p-6">
             <div className="flex flex-wrap items-baseline justify-between gap-3">
               <div>
                 <p className="font-display text-micro uppercase tracking-[0.3em] text-sage">

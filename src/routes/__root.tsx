@@ -16,8 +16,7 @@ import { supabase } from "@/integrations/supabase/client";
 
 import appCss from "../styles.css?url";
 import { GreekGlyph } from "@/components/greek-glyph";
-import { NeuralBackground } from "@/components/neural-background";
-import { TintProvider } from "@/lib/tint";
+import { ArchitecturalBackground } from "@/components/architectural-background";
 import { SITE_URL, SITE_NAME } from "@/lib/site";
 
 function NotFoundComponent() {
@@ -99,9 +98,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "icon", href: "/favicon.ico", sizes: "any" },
       { rel: "apple-touch-icon", sizes: "180x180", href: "/apple-touch-icon.png" },
       { rel: "mask-icon", href: "/favicon.svg", color: "#0B0B0D" },
-      { rel: "alternate", hreflang: "es", href: esUrl },
-      { rel: "alternate", hreflang: "en", href: enUrl },
-      { rel: "alternate", hreflang: "x-default", href: xDefault },
+      { rel: "alternate", hrefLang: "es", href: esUrl },
+      { rel: "alternate", hrefLang: "en", href: enUrl },
+      { rel: "alternate", hrefLang: "x-default", href: xDefault },
     ],
     scripts: [
       {
@@ -163,13 +162,11 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <I18nProvider>
         <AuthProvider>
-          <TintProvider>
-            <NeuralBackground />
-            <div className="relative z-10">
-              <Outlet />
-            </div>
-            <Toaster theme="dark" position="top-center" />
-          </TintProvider>
+          <ArchitecturalBackground />
+          <div className="relative z-10">
+            <Outlet />
+          </div>
+          <Toaster theme="dark" position="top-center" />
         </AuthProvider>
       </I18nProvider>
     </QueryClientProvider>

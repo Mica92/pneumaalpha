@@ -8,6 +8,7 @@ import { analyzeText, type AnalysisResult, type InfluenceItem } from "@/lib/anal
 import { PHILOSOPHERS } from "@/lib/philosophers";
 import { useI18n } from "@/lib/i18n";
 import { GreekGlyph } from "@/components/greek-glyph";
+import { PageAtmosphere } from "@/components/page-atmosphere";
 
 export const Route = createFileRoute("/_authenticated/analisis")({
   component: AnalysisPage,
@@ -112,8 +113,9 @@ function AnalysisPage() {
   return (
     <>
       <SiteNav />
-      <main className="route-enter relative z-10 mx-auto flex min-h-dvh max-w-3xl flex-col px-6 py-10 md:px-10 md:py-14">
-        <header className="mt-16 mb-10 md:mt-20 md:mb-12">
+      <main className="route-enter relative z-10 mx-auto flex min-h-dvh max-w-3xl flex-col overflow-hidden px-6 py-10 md:px-10 md:py-14">
+        <PageAtmosphere variant="study" />
+        <header className="relative mt-16 mb-10 md:mt-20 md:mb-12">
           <p className="tracking-in font-display text-micro uppercase tracking-[0.35em] text-glacier-bright">
             {t("analysis.kicker")}
           </p>
@@ -134,7 +136,7 @@ function AnalysisPage() {
             rows={7}
             maxLength={6000}
             disabled={submitting}
-            className="w-full resize-none rounded-xl border border-border bg-input px-5 py-4 text-body text-foreground placeholder:text-muted-foreground focus:border-glacier/60 focus:outline-none focus:ring-1 focus:ring-glacier/20 disabled:opacity-50"
+            className="page-form w-full resize-none px-5 py-4 text-body text-foreground placeholder:text-muted-foreground focus:outline-none disabled:opacity-50"
             onKeyDown={(e) => {
               if ((e.metaKey || e.ctrlKey) && e.key === "Enter") {
                 (e.currentTarget.form as HTMLFormElement | null)?.requestSubmit();

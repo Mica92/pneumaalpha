@@ -8,6 +8,7 @@ import { SiteNav } from "@/components/site-nav";
 import { SiteFooter } from "@/components/site-footer";
 import { useI18n } from "@/lib/i18n";
 import { track } from "@/lib/analytics";
+import { PageAtmosphere } from "@/components/page-atmosphere";
 
 export const Route = createFileRoute("/_authenticated/buscar")({
   validateSearch: (search: Record<string, unknown>): { q?: string } =>
@@ -176,8 +177,9 @@ function SearchPage() {
   return (
     <>
       <SiteNav />
-      <main className="route-enter relative z-10">
-        <div className="mx-auto max-w-4xl px-5 pt-14 md:px-8 md:pt-20">
+      <main className="route-enter relative z-10 overflow-hidden">
+        <PageAtmosphere variant="archive" />
+        <div className="relative mx-auto min-h-72 max-w-4xl px-5 pt-20 md:px-8 md:pt-28">
           <p className="label">{es ? "Buscador" : "Search"}</p>
           <h1 className="mt-3 font-serif text-title font-light text-foreground">
             {es ? "Busca en todo Pneum" : "Search all of Pneum"}
@@ -196,7 +198,7 @@ function SearchPage() {
               placeholder={
                 es ? "Libertad, Nietzsche, el amor, la muerte…" : "Freedom, Nietzsche, love, death…"
               }
-              className="focus-mist w-full rounded-xl border border-border bg-input px-5 py-4 text-lg text-foreground placeholder:text-muted-foreground focus:outline-none"
+              className="page-form focus-mist w-full px-5 py-4 text-lg text-foreground placeholder:text-muted-foreground focus:outline-none"
             />
           </div>
         </div>

@@ -130,7 +130,6 @@
   --surface: oklch(0.215 0.005 286);
   --paper: oklch(0.945 0.008 85);
   --bronze: oklch(0.70 0.062 78);               /* #B89A62 */
-  --tint: oklch(0.70 0.062 78);                 /* visit tint, set at runtime */
   --bronze-bright: oklch(0.80 0.068 80);
   --bronze-soft: oklch(0.55 0.048 78);
 
@@ -196,7 +195,7 @@
     text-rendering: optimizeLegibility;
   }
 
-  /* Cinematic backdrop — slow fog, single distant light */
+  /* Stable architectural backdrop — restrained bronze daylight */
   body::before {
     content: "";
     position: fixed;
@@ -205,14 +204,14 @@
     z-index: 0;
     background:
       radial-gradient(ellipse 90% 60% at 50% -10%,
-        color-mix(in oklab, var(--glacier) 18%, transparent) 0%,
+        color-mix(in oklab, var(--bronze) 12%, transparent) 0%,
         transparent 55%),
       radial-gradient(ellipse 70% 50% at 110% 110%,
-        color-mix(in oklab, var(--glacier) 10%, transparent) 0%,
+        color-mix(in oklab, var(--bronze) 7%, transparent) 0%,
         transparent 65%),
       linear-gradient(180deg,
         color-mix(in oklab, var(--background) 100%, transparent) 0%,
-        color-mix(in oklab, oklch(0.10 0.006 235) 100%, transparent) 100%);
+        color-mix(in oklab, oklch(0.11 0.004 70) 100%, transparent) 100%);
   }
   body::after {
     content: "";
@@ -449,7 +448,7 @@
 }
 
 @utility card-editorial {
-  background: color-mix(in oklab, var(--card) 92%, transparent);
+  background: color-mix(in oklab, var(--card) 96%, transparent);
   border: 1px solid color-mix(in oklab, var(--border) 100%, transparent);
   border-radius: var(--radius);
   transition: border-color 0.35s ease, transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 0.35s ease;
@@ -458,6 +457,27 @@
     transform: translateY(-2px);
     box-shadow: var(--shadow-editorial);
   }
+}
+
+@utility page-form {
+  background: color-mix(in oklab, var(--input) 96%, transparent);
+  border: 1px solid color-mix(in oklab, var(--border) 100%, transparent);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-inset-line);
+  backdrop-filter: blur(14px);
+  transition: border-color 0.25s ease, background 0.25s ease;
+  &:hover {
+    border-color: color-mix(in oklab, var(--bronze) 40%, transparent);
+  }
+  &:focus, &:focus-within {
+    border-color: color-mix(in oklab, var(--bronze) 65%, transparent);
+  }
+}
+
+@utility reading-surface {
+  background: color-mix(in oklab, var(--background) 94%, transparent);
+  border-inline: 1px solid color-mix(in oklab, var(--border) 55%, transparent);
+  backdrop-filter: blur(18px);
 }
 
 /* Franja clara tipo papel: invierte los tokens dentro de la sección. */
