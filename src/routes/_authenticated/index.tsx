@@ -17,17 +17,17 @@ export const Route = createFileRoute("/_authenticated/")({
   component: Home,
   head: () => ({
     meta: [
-      { title: "Pneum — Conversa con los grandes pensadores de la historia" },
+      { title: "Pneum — Pensamiento más claro para preguntas difíciles" },
       {
         name: "description",
-        content: `Escribe lo que te preocupa y habla con una conciencia filosófica reconstruida. ${PHILOSOPHER_LIST.length} mentes, grandes ideas y rutas guiadas para pensar tu vida.`,
-
+        content:
+          "Escribe lo que estás intentando comprender. Pneum te ayuda a ver lo que hay detrás de tu pregunta, contrastar perspectivas y ganar claridad antes de decidir.",
       },
-      { property: "og:title", content: "Pneum — Conversa con los grandes pensadores" },
+      { property: "og:title", content: "Pneum — Claridad para pensar mejor" },
       {
         property: "og:description",
         content:
-          "No es una enciclopedia: es una conversación. Entra por una pregunta, no por un autor.",
+          "Pneum te ayuda a comprender mejor lo que estás pensando, ver distintas perspectivas y ganar claridad antes de decidir.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: `${SITE_URL}/` },
