@@ -1078,3 +1078,38 @@ function MenuItem({
     </button>
   );
 }
+
+/** Small, contextual moves offered after a relevant answer. */
+function ContextActions({
+  lang,
+  onDeepen,
+  onContrast,
+  onSave,
+}: {
+  lang: "es" | "en";
+  onDeepen: () => void;
+  onContrast?: () => void;
+  onSave: () => void;
+}) {
+  const label = {
+    es: { deepen: "Profundizar", contrast: "Contrastar", save: "Guardar insight" },
+    en: { deepen: "Go deeper", contrast: "Contrast", save: "Save insight" },
+  }[lang];
+  const base =
+    "focus-mist rounded-full border border-foreground/10 px-3.5 py-1.5 text-micro uppercase tracking-[0.25em] text-muted-foreground transition-colors duration-300 hover:border-foreground/25 hover:text-foreground";
+  return (
+    <div className="mt-5 flex flex-wrap gap-2">
+      <button type="button" onClick={onDeepen} className={base}>
+        {label.deepen}
+      </button>
+      {onContrast && (
+        <button type="button" onClick={onContrast} className={base}>
+          {label.contrast}
+        </button>
+      )}
+      <button type="button" onClick={onSave} className={base}>
+        {label.save}
+      </button>
+    </div>
+  );
+}
