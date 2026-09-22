@@ -75,7 +75,7 @@ export function KnowledgeMap({
   const hoverRef = useRef<string | null>(null);
   const kindsRef = useRef(activeKinds);
   const queryRef = useRef(query);
-  const politicsRef = useRef(politics);
+  const politicsRef = useRef(politicsOnly);
 
   selectedRef.current = selected;
   hoverRef.current = hover;
