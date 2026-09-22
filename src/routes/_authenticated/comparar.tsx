@@ -18,6 +18,7 @@ import { useI18n } from "@/lib/i18n";
 import { PageAtmosphere } from "@/components/page-atmosphere";
 import { readQuestion, useQuestionHandoff, validateQid } from "@/lib/question-handoff";
 import { track } from "@/lib/analytics";
+import { PerspectivePicker } from "@/components/perspective-picker";
 
 const MAX_COMPARE = MAX_SEATS;
 
@@ -197,32 +198,15 @@ function ComparePage() {
                 {es ? "Elige entre 2 y 4" : "Pick 2 to 4"}
               </span>
             </div>
-            <ul className="mt-3 flex flex-wrap gap-2">
-              {PHILOSOPHER_LIST.map((p) => {
-                const active = seats.includes(p.id);
-                const disabled = !active && seats.length >= MAX_COMPARE;
-                return (
-                  <li key={p.id}>
-                    <button
-                      type="button"
-                      onClick={() => toggle(p.id)}
-                      disabled={disabled || busy}
-                      aria-pressed={active}
-                      className={`focus-mist rounded-full border px-3 py-1.5 text-micro transition-colors disabled:opacity-30 ${
-                        active
-                          ? "border-bronze bg-bronze/15 text-foreground"
-                          : "border-border/70 text-muted-foreground hover:border-bronze/50 hover:text-foreground"
-                      }`}
-                    >
-                      <span aria-hidden="true" className="mr-1.5">
-                        {p.glyph}
-                      </span>
-                      {p.name}
-                    </button>
-                  </li>
-                );
-              })}
-            </ul>
+            <div className="mt-4">
+              <PerspectivePicker
+                selected={seats}
+                max={MAX_COMPARE}
+                onToggle={toggle}
+                disabled={busy}
+                idPrefix="compare"
+              />
+            </div>
           </div>
 
           <button type="button" onClick={run} disabled={!canRun} className="btn-gold">
