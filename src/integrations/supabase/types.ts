@@ -182,6 +182,39 @@ export type Database = {
         }
         Relationships: []
       }
+      saved_insights: {
+        Row: {
+          context: string | null
+          created_at: string
+          id: string
+          philosopher: string | null
+          source_question: string | null
+          text: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          context?: string | null
+          created_at?: string
+          id?: string
+          philosopher?: string | null
+          source_question?: string | null
+          text: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          context?: string | null
+          created_at?: string
+          id?: string
+          philosopher?: string | null
+          source_question?: string | null
+          text?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       shared_fragments: {
         Row: {
           created_at: string
