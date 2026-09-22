@@ -12,7 +12,7 @@ type NavItem = { to: string; es: string; en: string };
 
 /** Navegación mínima: cuatro entradas. Todo lo demás vive dentro del recorrido. */
 const PRIMARY: readonly NavItem[] = [
-  { to: "/oraculo", es: "Decidir", en: "Decide" },
+  { to: "/oraculo", es: "Pensar", en: "Think" },
   { to: "/explorar", es: "Explorar", en: "Explore" },
   { to: "/mi-mapa", es: "Mapa", en: "Map" },
   { to: "/conocimiento", es: "Red", en: "Network" },
@@ -234,7 +234,7 @@ export function MobileTabBar() {
   const { lang } = useI18n();
   const tabs: readonly NavItem[] = [
     { to: "/", es: "Inicio", en: "Home" },
-    { to: "/oraculo", es: "Decidir", en: "Decide" },
+    { to: "/oraculo", es: "Pensar", en: "Think" },
     { to: "/mi-mapa", es: "Mapa", en: "Map" },
     { to: "/explorar", es: "Explorar", en: "Explore" },
   ];
