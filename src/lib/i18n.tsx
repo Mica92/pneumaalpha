@@ -608,82 +608,82 @@ export const T: Dict = {
 
   "about.kicker": { es: "Nosotros", en: "About us" },
   "about.title": {
-    es: "Conocimiento al servicio de la conciencia",
-    en: "Knowledge at the service of consciousness",
+    es: "Creemos que muchos problemas difíciles están mal formulados",
+    en: "We believe many hard problems are badly formulated",
   },
 
   "about.intro.p1": {
-    es: "Somos un grupo de ciudadanos convencidos de que la tecnología debe estar al servicio de la conciencia humana.",
-    en: "We are a group of citizens convinced that technology must be at the service of human consciousness.",
+    es: "Una decisión puede parecer binaria cuando esconde varias preguntas distintas.",
+    en: "A decision can look binary when it hides several different questions.",
   },
   "about.intro.p2": {
-    es: "Creemos que el conocimiento no debe ser un privilegio, sino una herramienta accesible para todos.",
-    en: "We believe knowledge should not be a privilege, but an accessible tool for everyone.",
+    es: "Un conflicto puede parecer externo cuando parte de nuestra propia interpretación.",
+    en: "A conflict can look external when it starts in our own interpretation.",
   },
   "about.intro.p3": {
-    es: "Por eso reunimos mentes brillantes y las conectamos con personas que quieren pensar mejor, decidir mejor y vivir mejor.",
-    en: "That is why we bring together brilliant minds and connect them with people who want to think better, decide better and live better.",
+    es: "Y una opinión puede parecer evidente sólo porque nunca examinamos sus supuestos. Pneum nació para explorar ese espacio.",
+    en: "And an opinion can look obvious only because we never examined its assumptions. Pneum was born to explore that space.",
   },
 
-  "about.what.title": { es: "Qué hacemos", en: "What we do" },
+  "about.what.title": { es: "Cómo trabajamos", en: "How we work" },
   "about.what.p1": {
-    es: "Construimos perspectivas intelectuales a partir de obra publicada y de guiones documentados que desarrolla nuestro equipo.",
-    en: "We build intellectual perspectives from published work and documented scripts developed by our team.",
+    es: "Construimos perspectivas a partir de obra publicada y de guiones documentados que desarrolla nuestro equipo: qué conceptos son centrales, qué distingue ese pensamiento y qué no le corresponde decir.",
+    en: "We build perspectives from published work and documented scripts developed by our team: which concepts are central, what distinguishes that thinking and what it should not say.",
   },
   "about.what.p2": {
-    es: "No entrenamos modelos propios ni reproducimos personas: cada perspectiva es una construcción editorial, apoyada en tecnología de lenguaje existente, que sostiene un modo de pensar reconocible.",
-    en: "We do not train our own models nor reproduce people: each perspective is an editorial construction, supported by existing language technology, that sustains a recognisable way of thinking.",
+    es: "No entrenamos modelos propios ni reproducimos personas. Cada perspectiva es una construcción editorial apoyada en tecnología de lenguaje existente; no pretende ser la persona histórica.",
+    en: "We do not train our own models nor reproduce people. Each perspective is an editorial construction supported by existing language technology; it does not claim to be the historical person.",
   },
   "about.what.p3": {
-    es: "Así, cualquier persona puede poner su pregunta frente a esas formas de pensar, confrontarlas entre sí y llegar con más claridad a su propia decisión.",
+    es: "Así cualquier persona puede poner su pregunta frente a esas formas de pensar, confrontarlas entre sí y llegar con más claridad a su propia decisión.",
     en: "This way anyone can put their question in front of those ways of thinking, set them against each other and reach their own decision with more clarity.",
   },
 
   "about.mission.title": { es: "Misión", en: "Mission" },
   "about.mission.p1": {
-    es: "Poner la inteligencia artificial y el conocimiento filosófico al alcance de todos.",
-    en: "To put artificial intelligence and philosophical knowledge within everyone's reach.",
+    es: "Ayudar a pensar mejor decisiones, problemas e ideas reales, sin entregar una respuesta única.",
+    en: "To help people think real decisions, problems and ideas through better, without handing over a single answer.",
   },
   "about.mission.p2": {
-    es: "Hoy la información ya no es el valor principal; el valor está en la capacidad de reflexión, pensamiento crítico y conciencia. Nuestra misión es ayudar a cada persona a desarrollar ese potencial.",
-    en: "Today information is no longer the main value; value lies in the capacity for reflection, critical thinking and consciousness. Our mission is to help every person develop that potential.",
+    es: "El valor ya no está en acceder a información, sino en la capacidad de examinar supuestos, sostener contradicciones y decidir con criterio propio.",
+    en: "Value no longer lies in access to information, but in the capacity to examine assumptions, hold contradictions and decide with your own judgement.",
   },
 
   "about.vision.title": { es: "Visión", en: "Vision" },
   "about.vision.p1": {
-    es: "Un mundo donde la tecnología libere el potencial humano y no lo esclavice.",
-    en: "A world where technology frees human potential rather than enslaving it.",
+    es: "Un lugar donde una pregunta puede volverse más inteligente.",
+    en: "A place where a question can become more intelligent.",
   },
   "about.vision.p2": {
-    es: "Imaginamos una sociedad centrada en la conciencia, donde cualquier persona pueda acceder al pensamiento de las mentes más brillantes para vivir con más claridad, ética y bienestar.",
-    en: "We imagine a society centered on consciousness, where anyone can access the thought of the brightest minds to live with greater clarity, ethics and wellbeing.",
+    es: "Queremos que la filosofía aplicada sea un instrumento cotidiano de claridad, accesible en español e inglés, y no un privilegio académico.",
+    en: "We want applied philosophy to be an everyday instrument of clarity, available in Spanish and English, and not an academic privilege.",
   },
 
-  "about.values.title": { es: "Valores", en: "Values" },
-  "about.values.1.h": { es: "Conciencia", en: "Consciousness" },
+  "about.values.title": { es: "Criterio editorial", en: "Editorial criteria" },
+  "about.values.1.h": { es: "Fuentes", en: "Sources" },
   "about.values.1.p": {
-    es: "Pensar antes de actuar.",
-    en: "Think before acting.",
+    es: "Obra publicada y de dominio público, con literatura secundaria de referencia.",
+    en: "Published, public-domain work, with reference secondary literature.",
   },
-  "about.values.2.h": { es: "Pensamiento crítico", en: "Critical thinking" },
+  "about.values.2.h": { es: "Precisión", en: "Precision" },
   "about.values.2.p": {
-    es: "Cuestionar, no repetir.",
-    en: "Question, don't repeat.",
+    es: "Preferimos una posición clara a una respuesta complaciente.",
+    en: "We prefer a clear position to an agreeable answer.",
   },
-  "about.values.3.h": { es: "Accesibilidad", en: "Accessibility" },
+  "about.values.3.h": { es: "Transparencia", en: "Transparency" },
   "about.values.3.p": {
-    es: "El conocimiento es para todos.",
-    en: "Knowledge is for everyone.",
+    es: "Decimos qué es una perspectiva y qué no es. Nada de conciencias digitalizadas.",
+    en: "We say what a perspective is and what it is not. No digitised consciousnesses.",
   },
-  "about.values.4.h": { es: "Ética", en: "Ethics" },
+  "about.values.4.h": { es: "Cuidado", en: "Care" },
   "about.values.4.p": {
-    es: "La tecnología al servicio de la vida.",
-    en: "Technology at the service of life.",
+    es: "Ante una señal de riesgo dejamos la filosofía de lado y ofrecemos ayuda concreta.",
+    en: "Faced with a risk signal we set philosophy aside and offer concrete help.",
   },
-  "about.values.5.h": { es: "Integración", en: "Integration" },
+  "about.values.5.h": { es: "Límites", en: "Limits" },
   "about.values.5.p": {
-    es: "Unir filosofía, ciencia y humanidad.",
-    en: "Unite philosophy, science and humanity.",
+    es: "No es terapia, no es asesoría y no es un asistente general.",
+    en: "It is not therapy, not advice and not a general assistant.",
   },
 };
 
