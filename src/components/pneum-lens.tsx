@@ -167,6 +167,7 @@ export function PneumLensBody({ reading, loading, lang, onContrast, onAsk, onSav
 /** Right rail on wide screens. */
 export function PneumLensRail(props: Props) {
   const c = COPY[props.lang];
+  if (!hasContent(props.reading) && !props.loading) return null;
   return (
     <aside
       aria-label={c.title}
