@@ -640,7 +640,29 @@ function ChatBody({
                     />
                   )}
                   {showChips && (
-                    <ContinuationChips topic={activeTopic} onPick={sendText} disabled={isLoading} />
+                    <>
+                      <ContextActions
+                        lang={lang}
+                        onDeepen={() =>
+                          sendText(
+                            lang === "es"
+                              ? "Profundiza en eso: ¿qué hay debajo?"
+                              : "Go deeper into that: what lies beneath?",
+                          )
+                        }
+                        onContrast={
+                          lens?.perspectives[0]
+                            ? () => handleContrast(lens.perspectives[0].philosopher)
+                            : undefined
+                        }
+                        onSave={() => handleSaveInsight(text)}
+                      />
+                      <ContinuationChips
+                        topic={activeTopic}
+                        onPick={sendText}
+                        disabled={isLoading}
+                      />
+                    </>
                   )}
                 </article>
               );
