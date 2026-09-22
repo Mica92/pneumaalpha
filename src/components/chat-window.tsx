@@ -376,22 +376,6 @@ function ChatBody({
     staleTime: Infinity,
   });
 
-  const handleSaveInsight = async (text: string) => {
-    try {
-      await saveInsightFn({
-        data: {
-          text: text.slice(0, 1200),
-          philosopher,
-          sourceQuestion: lastQuestion ? lastQuestion.slice(0, 1200) : undefined,
-        },
-      });
-      track("insight_saved", { philosopher });
-      toast.success(lang === "es" ? "Guardado en tu biblioteca." : "Saved to your library.");
-    } catch (e) {
-      console.error(e);
-      toast.error(lang === "es" ? "No se pudo guardar." : "Could not save.");
-    }
-  };
 
   const handleContrast = (other: PhilosopherId) => {
     const qid = lastQuestion ? stashQuestion(lastQuestion) : undefined;
