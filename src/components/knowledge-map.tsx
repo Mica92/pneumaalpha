@@ -334,11 +334,7 @@ export function KnowledgeMap({
       let bestD = Infinity;
       for (const n of GRAPH_NODES) {
         if (!kindsRef.current.has(n.kind)) continue;
-        const pol = politicsRef.current;
-        if (pol && pol.size > 0) {
-          const np = nodePolitics(n);
-          if (np && !pol.has(np)) continue;
-        }
+        if (politicsRef.current && !nodePolitics(n)) continue;
         const p = nodes.get(n.id);
         if (!p) continue;
         const d = Math.hypot(p.x - x, p.y - y);
