@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
 import { PHILOSOPHER_LIST } from "@/lib/philosophers";
+import { SITUATIONS } from "@/lib/situations";
 import { SITE_URL } from "@/lib/site";
 
 export const Route = createFileRoute("/sitemap.xml")({
@@ -29,6 +30,8 @@ export const Route = createFileRoute("/sitemap.xml")({
           "/terminos",
           "/uso-de-ia",
           "/contacto",
+          "/situaciones",
+          ...SITUATIONS.map((s) => `/situaciones/${s.id}`),
           ...PHILOSOPHER_LIST.map((p) => `/${p.id}`),
         ];
         const urls = paths.map(

@@ -7,39 +7,34 @@ import { PageAtmosphere } from "@/components/page-atmosphere";
 
 export const Route = createFileRoute("/_authenticated/nosotros")({
   component: NosotrosPage,
-  head: () => ({
-    meta: [
-      { title: `${SITE_NAME} — Nosotros` },
-      {
-        name: "description",
-        content:
-          "Somos un grupo de ciudadanos convencidos de que la tecnología debe estar al servicio de la conciencia humana. Entrenamos inteligencias artificiales con el pensamiento de grandes filósofos para que cualquiera pueda pensar, decidir y vivir mejor.",
-      },
-      { property: "og:title", content: `${SITE_NAME} — Nosotros` },
-      {
-        property: "og:description",
-        content:
-          "Somos un grupo de ciudadanos convencidos de que la tecnología debe estar al servicio de la conciencia humana. Entrenamos inteligencias artificiales con el pensamiento de grandes filósofos para que cualquiera pueda pensar, decidir y vivir mejor.",
-      },
-      { property: "og:type", content: "website" },
-      { property: "og:url", content: `${SITE_URL}/nosotros` },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-    links: [{ rel: "canonical", href: `${SITE_URL}/nosotros` }],
-    scripts: [
-      {
-        type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Organization",
-          name: SITE_NAME,
-          url: SITE_URL,
-          description:
-            "Conocimiento al servicio de la conciencia: inteligencia artificial entrenada con grandes filósofos para ayudar a cada persona a pensar, decidir y vivir mejor.",
-        }),
-      },
-    ],
-  }),
+  head: () => {
+    const description =
+      "Creemos que muchos problemas difíciles están mal formulados. Pneum construye perspectivas filosóficas editoriales, a partir de obra publicada, para ayudar a examinar supuestos y decidir con criterio propio.";
+    return {
+      meta: [
+        { title: `${SITE_NAME} — Nosotros` },
+        { name: "description", content: description },
+        { property: "og:title", content: `${SITE_NAME} — Nosotros` },
+        { property: "og:description", content: description },
+        { property: "og:type", content: "website" },
+        { property: "og:url", content: `${SITE_URL}/nosotros` },
+        { name: "twitter:card", content: "summary_large_image" },
+      ],
+      links: [{ rel: "canonical", href: `${SITE_URL}/nosotros` }],
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            name: SITE_NAME,
+            url: SITE_URL,
+            description,
+          }),
+        },
+      ],
+    };
+  },
 });
 
 const VALUES = [1, 2, 3, 4, 5] as const;

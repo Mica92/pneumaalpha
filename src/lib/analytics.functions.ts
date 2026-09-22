@@ -30,6 +30,15 @@ export const ANALYTICS_EVENTS = [
   "synthesis_generated",
   "crisis_shown",
   "off_domain_shown",
+  "question_started",
+  "first_insight",
+  "perspective_viewed",
+  "roundtable_started",
+  "roundtable_completed",
+  "analysis_started",
+  "route_started",
+  "route_completed",
+  "situation_opened",
 ] as const;
 
 export type AnalyticsEvent = (typeof ANALYTICS_EVENTS)[number];

@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 type NavItem = { to: string; es: string; en: string; note?: { es: string; en: string } };
 type NavGroup = { id: string; es: string; en: string; items: readonly NavItem[] };
 
-/** Two short menus. Every existing page still lives at its own address. */
+/** Una sola arquitectura: Explorar, Pensar, Mi espacio. Nosotros va aparte. */
 const GROUPS: readonly NavGroup[] = [
   {
     id: "explore",
@@ -19,10 +19,10 @@ const GROUPS: readonly NavGroup[] = [
     en: "Explore",
     items: [
       {
-        to: "/explorar",
-        es: "Explorar",
-        en: "Explore",
-        note: { es: "Entra por un tema, no por un nombre", en: "Enter by topic, not by name" },
+        to: "/ideas",
+        es: "Ideas",
+        en: "Ideas",
+        note: { es: "Entra por la idea, no por el autor", en: "Enter by idea, not by author" },
       },
       {
         to: "/filosofos",
@@ -31,62 +31,53 @@ const GROUPS: readonly NavGroup[] = [
         note: { es: "El catálogo completo", en: "The full catalogue" },
       },
       {
-        to: "/ideas",
-        es: "Ideas",
-        en: "Ideas",
-        note: { es: "Las grandes preguntas", en: "The great questions" },
-      },
-      {
         to: "/rutas",
         es: "Rutas",
         en: "Paths",
-        note: { es: "Recorridos guiados de lectura", en: "Guided reading paths" },
+        note: { es: "Una pregunta, cuatro perspectivas", en: "One question, four perspectives" },
       },
       {
         to: "/conocimiento",
-        es: "Red neuronal",
-        en: "Neural map",
-        note: { es: "El mapa de relaciones entre ideas", en: "The map of how ideas relate" },
+        es: "Mapa",
+        en: "Map",
+        note: { es: "Cómo se relacionan las ideas", en: "How ideas relate" },
+      },
+      {
+        to: "/explorar",
+        es: "Por tema",
+        en: "By topic",
+        note: { es: "Descubrimiento abierto", en: "Open discovery" },
       },
     ],
   },
   {
-    id: "product",
-    es: "Producto",
-    en: "Product",
+    id: "think",
+    es: "Pensar",
+    en: "Think",
     items: [
       {
         to: "/oraculo",
-        es: "Oráculo",
-        en: "Oracle",
-        note: {
-          es: "Escribe tu pregunta y gana claridad",
-          en: "Write your question and gain clarity",
-        },
+        es: "Nueva pregunta",
+        en: "New question",
+        note: { es: "Escribe lo que intentas comprender", en: "Write what you are trying to understand" },
       },
       {
-        to: "/analisis",
-        es: "Análisis",
-        en: "Analysis",
-        note: {
-          es: "Analiza cómo estás pensando algo",
-          en: "Analyse how you are thinking something",
-        },
+        to: "/comparar",
+        es: "Comparar perspectivas",
+        en: "Compare perspectives",
+        note: { es: "Contraste y síntesis", en: "Contrast and synthesis" },
       },
       {
         to: "/mesa",
         es: "Mesa Redonda",
         en: "Round Table",
-        note: { es: "Pon tu idea a prueba", en: "Put your idea to the test" },
+        note: { es: "Pon tu pregunta en conflicto", en: "Put your question in conflict" },
       },
       {
-        to: "/comparar",
-        es: "Comparar",
-        en: "Compare",
-        note: {
-          es: "Mira el problema desde perspectivas diferentes",
-          en: "See the problem from different perspectives",
-        },
+        to: "/analisis",
+        es: "Análisis",
+        en: "Analysis",
+        note: { es: "Descubre qué estás dando por supuesto", en: "Find what you are assuming" },
       },
       {
         to: "/modo-socrates",
@@ -95,10 +86,35 @@ const GROUPS: readonly NavGroup[] = [
         note: { es: "Hazte mejores preguntas", en: "Ask yourself better questions" },
       },
       {
-        to: "/podcast",
-        es: "Podcast",
-        en: "Podcast",
-        note: { es: "Los clásicos, en voz alta", en: "The classics, read aloud" },
+        to: "/situaciones",
+        es: "Situaciones",
+        en: "Situations",
+        note: { es: "Empieza por lo que estás viviendo", en: "Start from what you are living" },
+      },
+    ],
+  },
+  {
+    id: "space",
+    es: "Mi espacio",
+    en: "My space",
+    items: [
+      {
+        to: "/recorrido",
+        es: "Historial",
+        en: "History",
+        note: { es: "Tus conversaciones y preguntas", en: "Your conversations and questions" },
+      },
+      {
+        to: "/mi-mapa",
+        es: "Mi mapa",
+        en: "My map",
+        note: { es: "Qué has estado pensando", en: "What you have been thinking" },
+      },
+      {
+        to: "/reporte",
+        es: "Retrato de pensamiento",
+        en: "Portrait of thinking",
+        note: { es: "Patrones en tus propias palabras", en: "Patterns in your own words" },
       },
       {
         to: "/biblioteca",
@@ -107,16 +123,10 @@ const GROUPS: readonly NavGroup[] = [
         note: { es: "Obras y fuentes", en: "Works and sources" },
       },
       {
-        to: "/mi-mapa",
-        es: "Mi mapa",
-        en: "My map",
-        note: { es: "Lo que has recorrido", en: "What you have explored" },
-      },
-      {
-        to: "/reporte",
-        es: "Retrato de tu pensamiento",
-        en: "Portrait of your thinking",
-        note: { es: "Patrones en tus propias palabras", en: "Patterns in your own words" },
+        to: "/podcast",
+        es: "Podcast",
+        en: "Podcast",
+        note: { es: "Los clásicos, en voz alta", en: "The classics, read aloud" },
       },
       {
         to: "/perfil",
@@ -280,11 +290,10 @@ export function SiteNav({ className = "" }: { className?: string }) {
           </Link>
 
           <Link
-            to="/"
-            hash="home-inquiry"
-            className="btn-ghost-gold focus-mist whitespace-nowrap px-4 py-1.5 text-micro"
+            to="/oraculo"
+            className="btn-gold focus-mist whitespace-nowrap px-4 py-1.5 text-micro"
           >
-            {lang === "es" ? "Comenzar" : "Start"}
+            {lang === "es" ? "Pensar una pregunta" : "Think a question"}
           </Link>
 
           <Link
@@ -333,9 +342,9 @@ export function SiteNav({ className = "" }: { className?: string }) {
             <button
               type="button"
               onClick={signIn}
-                className="btn-gold whitespace-nowrap px-4 py-1.5 text-micro"
+              className="focus-mist whitespace-nowrap text-small text-muted-foreground transition-colors hover:text-foreground"
             >
-              {lang === "es" ? "Entrar con Google" : "Sign in with Google"}
+              {lang === "es" ? "Entrar" : "Sign in"}
             </button>
           )}
         </div>
@@ -367,12 +376,11 @@ export function SiteNav({ className = "" }: { className?: string }) {
         <div className="max-h-[75dvh] overflow-y-auto border-t border-border/60 bg-background/98 md:hidden">
           <div className="mx-auto flex max-w-6xl flex-col px-5 py-3">
             <Link
-              to="/"
-              hash="home-inquiry"
+              to="/oraculo"
               onClick={() => setOpen(false)}
               className="btn-gold focus-mist my-3 px-4 py-2 text-center text-micro"
             >
-              {lang === "es" ? "Comenzar" : "Start"}
+              {lang === "es" ? "Pensar una pregunta" : "Think a question"}
             </Link>
             {GROUPS.map((g) => (
               <section key={g.id} className="border-b border-border/40 py-3 last:border-b-0">
@@ -422,7 +430,7 @@ export function SiteNav({ className = "" }: { className?: string }) {
                   setOpen(false);
                   void signIn();
                 }}
-                className="btn-gold my-4 rounded-full px-4 py-2 text-micro"
+                className="focus-mist py-4 text-left text-small text-muted-foreground transition-colors hover:text-foreground"
               >
                 {lang === "es" ? "Entrar con Google" : "Sign in with Google"}
               </button>
