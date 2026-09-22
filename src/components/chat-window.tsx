@@ -929,98 +929,72 @@ function ChatBody({
         </div>
 
         <footer className="sticky bottom-0 z-20 border-t border-border/60 bg-background/85 px-3 pt-3 pb-safe backdrop-blur-xl md:px-4">
-          <form onSubmit={handleSubmit} className="mx-auto flex max-w-3xl items-end gap-2">
-            <textarea
-              ref={inputRef}
-              name="msg"
-              rows={1}
-              value={composerText}
-              aria-label={t("chat.placeholder")}
-              placeholder={
-                dictation.listening
-                  ? dictation.interim || t("chat.mic.stop")
-                  : t("chat.placeholder")
+          <ThinkingComposer
+            ref={inputRef}
+            lang={lang}
+            value={composerText}
+            onChange={setComposerText}
+            onSubmit={() => {
+              const text = composerText.trim();
+              if (!text || isLoading) return;
+              setComposerText("");
+              if (inputRef.current) {
+                inputRef.current.value = "";
+                inputRef.current.style.height = "auto";
               }
-              disabled={isLoading}
-              onChange={(e) => setComposerText(e.currentTarget.value)}
-              onKeyDown={(e) => {
-                if (e.key !== "Enter" || e.nativeEvent.isComposing) return;
-                // A single send path: Enter, or Ctrl/Cmd+Enter. Shift+Enter = newline.
-                const isSend = !e.shiftKey || e.metaKey || e.ctrlKey;
-                if (!isSend) return;
-                e.preventDefault();
-                if (isLoading || !composerText.trim()) return;
-                (e.currentTarget.form as HTMLFormElement).requestSubmit();
-              }}
-              onInput={(e) => {
-                const ta = e.currentTarget;
-                ta.style.height = "auto";
-                ta.style.height = Math.min(ta.scrollHeight, 200) + "px";
-              }}
-              className="focus-mist flex-1 resize-none rounded-xl border border-border bg-input px-4 py-3 text-body text-foreground placeholder:text-muted-foreground transition-colors focus:border-mist/50 disabled:opacity-50"
-            />
-            <button
-              type="button"
-              onClick={() => {
+              setAtBottom(true);
+              track("message_sent", { philosopher });
+              void sendMessage({ text });
+            }}
+            disabled={isLoading}
+            showTitle={messages.length === 0}
+            suggestions={composerSuggestions}
+            onSuggestion={(s) => sendText(s)}
+            onCommand={(cmd) => sendText(COMMAND_PROMPTS[cmd][lang])}
+            mic={{
+              supported: dictation.supported,
+              listening: dictation.listening,
+              interim: dictation.interim,
+              toggle: () => {
                 if (!dictation.supported) {
                   toast.error(t("chat.mic.unsupported"));
                   return;
                 }
                 if (dictation.listening) dictation.stop();
                 else dictation.start();
-              }}
-              disabled={isLoading}
-              aria-label={dictation.listening ? t("chat.mic.stop") : t("chat.mic.start")}
-              title={dictation.listening ? t("chat.mic.stop") : t("chat.mic.start")}
-              aria-pressed={dictation.listening}
-              className={`focus-mist inline-flex h-11 w-11 shrink-0 items-center justify-center self-end rounded-xl border transition-all disabled:opacity-30 ${
-                dictation.listening
-                  ? "border-mist/70 bg-mist/15 text-mist pneuma-breathe"
-                  : "border-border bg-card/40 text-muted-foreground hover:border-mist/50 hover:text-mist"
-              }`}
-            >
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <rect x="9" y="3" width="6" height="12" rx="3" />
-                <path d="M5 11a7 7 0 0 0 14 0" />
-                <line x1="12" y1="18" x2="12" y2="22" />
-              </svg>
-            </button>
-            <button
-              type="submit"
-              disabled={isLoading || !composerText.trim()}
-              aria-label={t("chat.send")}
-              className="focus-mist inline-flex h-11 shrink-0 items-center justify-center self-end rounded-xl border border-mist/40 bg-mist/95 px-5 font-display text-small text-primary-foreground transition-all hover:bg-mist disabled:cursor-not-allowed disabled:opacity-30"
-            >
-              <span className="hidden sm:inline">{t("chat.send")}</span>
-              <svg
-                className="sm:hidden"
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.8"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <line x1="22" y1="2" x2="11" y2="13" />
-                <polygon points="22 2 15 22 11 13 2 9 22 2" />
-              </svg>
-            </button>
-          </form>
-          <p className="mx-auto mt-2 hidden max-w-3xl text-center text-micro uppercase tracking-[0.3em] text-muted-foreground md:block">
-            {t("chat.newline")} · {t("chat.send.hint")}
-          </p>
+              },
+            }}
+          />
         </footer>
+
+        <MemoryInspector
+          lang={lang}
+          open={memoryOpen}
+          objects={objects}
+          onClose={() => setMemoryOpen(false)}
+          onToggleMap={async (o) => {
+            await updateObjectFn({ data: { id: o.id, inMap: !o.in_map } });
+            await refetchObjects();
+          }}
+          onToggleMute={async (o) => {
+            await updateObjectFn({ data: { id: o.id, muted: !o.muted } });
+            await refetchObjects();
+          }}
+          onDelete={async (o) => {
+            await deleteObjectFn({ data: { id: o.id } });
+            await refetchObjects();
+          }}
+        />
+
+        <DecisionRecordPanel
+          lang={lang}
+          open={decisionOpen}
+          saving={savingDecision}
+          initialSituation={reflection?.opening_question ?? firstQuestion}
+          onClose={() => setDecisionOpen(false)}
+          onSave={handleSaveDecision}
+        />
+
 
         {archiveOpen && (
           <div
