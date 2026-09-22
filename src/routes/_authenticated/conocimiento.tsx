@@ -50,10 +50,6 @@ function KnowledgePage() {
   const [kinds, setKinds] = useState<Set<NodeKind>>(new Set(KINDS));
   const [politicsOnly, setPoliticsOnly] = useState(false);
 
-  const politics = useMemo<Set<PoliticsId>>(
-    () => (politicsOnly ? new Set(POLITICS_ORDER) : new Set()),
-    [politicsOnly],
-  );
 
   const node = selected ? (NODE_BY_ID.get(selected) ?? null) : null;
   const links = useMemo(() => (selected ? neighborsOf(selected) : []), [selected]);
