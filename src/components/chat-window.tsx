@@ -37,7 +37,6 @@ import {
 import { TOPICS, getDailyDilemmaPrompt, type TopicId } from "@/lib/engagement";
 import { track } from "@/lib/analytics";
 import { readLens, type LensReading } from "@/lib/lens.functions";
-import { saveInsight } from "@/lib/insights.functions";
 import { PneumLensRail, PneumLensSheet } from "@/components/pneum-lens";
 import { stashQuestion } from "@/lib/question-handoff";
 import {
@@ -342,7 +341,6 @@ function ChatBody({
 
   // ——— Pneum Lens: the structure emerging from the last exchange ———
   const lensFn = useServerFn(readLens);
-  const saveInsightFn = useServerFn(saveInsight);
 
   const textOf = (m: UIMessage | undefined) =>
     m
