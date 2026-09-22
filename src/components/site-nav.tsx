@@ -376,12 +376,11 @@ export function SiteNav({ className = "" }: { className?: string }) {
         <div className="max-h-[75dvh] overflow-y-auto border-t border-border/60 bg-background/98 md:hidden">
           <div className="mx-auto flex max-w-6xl flex-col px-5 py-3">
             <Link
-              to="/"
-              hash="home-inquiry"
+              to="/oraculo"
               onClick={() => setOpen(false)}
               className="btn-gold focus-mist my-3 px-4 py-2 text-center text-micro"
             >
-              {lang === "es" ? "Comenzar" : "Start"}
+              {lang === "es" ? "Pensar una pregunta" : "Think a question"}
             </Link>
             {GROUPS.map((g) => (
               <section key={g.id} className="border-b border-border/40 py-3 last:border-b-0">
@@ -431,7 +430,7 @@ export function SiteNav({ className = "" }: { className?: string }) {
                   setOpen(false);
                   void signIn();
                 }}
-                className="btn-gold my-4 rounded-full px-4 py-2 text-micro"
+                className="focus-mist py-4 text-left text-small text-muted-foreground transition-colors hover:text-foreground"
               >
                 {lang === "es" ? "Entrar con Google" : "Sign in with Google"}
               </button>
