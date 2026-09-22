@@ -747,19 +747,57 @@ function ChatBody({
               )}
             </div>
           </div>
+
+          {!embedded && reflection && (
+            <div className="mx-auto mt-2 flex max-w-3xl flex-wrap items-center gap-x-3 gap-y-1">
+              <p className="min-w-0 flex-1 truncate font-display text-small font-light text-foreground/80">
+                {reflection.title ||
+                  (lang === "es" ? "Reflexión sin título" : "Untitled reflection")}
+              </p>
+              <span className="rounded-full border border-bronze/40 px-2.5 py-0.5 text-micro uppercase tracking-[0.2em] text-bronze">
+                {STATE_LABEL[reflection.state][lang]}
+              </span>
+              <button
+                type="button"
+                onClick={() => setFocusMode((v) => !v)}
+                aria-pressed={focusMode}
+                className="focus-mist text-micro uppercase tracking-[0.2em] text-muted-foreground transition-colors hover:text-foreground"
+              >
+                {focusMode
+                  ? lang === "es"
+                    ? "Salir de foco"
+                    : "Leave focus"
+                  : lang === "es"
+                    ? "Foco"
+                    : "Focus"}
+              </button>
+            </div>
+          )}
         </header>
 
-        {!embedded && (
+        {!embedded && !focusMode && (
           <div className="sticky top-[57px] z-10 md:top-[73px]">
             <TopicBar activeTopic={activeTopic} onPick={handleTopicPick} disabled={isLoading} />
             <DilemmaBanner onConverse={handleDilemma} disabled={isLoading} />
           </div>
         )}
 
-        {!embedded && <PneumLensSheet {...lensProps} />}
+        {!embedded && !focusMode && <PneumLensSheet {...lensProps} />}
 
         <div className="flex min-h-0 flex-1">
+          {!embedded && !focusMode && (
+            <ContextRail
+              lang={lang}
+              reflection={reflection ?? null}
+              objects={objects}
+              patterns={patterns}
+              onState={setReflectionState}
+              onOpenMemory={() => setMemoryOpen(true)}
+              onOpenDecision={() => setDecisionOpen(true)}
+            />
+          )}
           <div ref={scrollRef} className="relative flex-1 overflow-y-auto px-4 py-8 md:py-12">
+
             <div className="mx-auto max-w-3xl space-y-10">
               {messages.length === 0 && (
                 <div className="fade-up space-y-6 py-8">
