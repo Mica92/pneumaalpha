@@ -13,9 +13,8 @@ import {
   neighborsOf,
   nodePolitics,
   type NodeKind,
-  type PoliticsId,
 } from "@/lib/knowledge-graph";
-import { POLITICS_LABELS, POLITICS_ORDER } from "@/lib/discovery";
+import { POLITICS_LABELS } from "@/lib/discovery";
 import { PageAtmosphere } from "@/components/page-atmosphere";
 
 export const Route = createFileRoute("/_authenticated/conocimiento")({
@@ -136,7 +135,7 @@ function KnowledgePage() {
             onSelect={setSelected}
             activeKinds={kinds}
             query={query}
-            politics={politics}
+            politicsOnly={politicsOnly}
           />
 
           {/* Detail panel */}
