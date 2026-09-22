@@ -266,3 +266,58 @@ function ModerationPanel() {
     </section>
   );
 }
+
+/** Los momentos que la persona decidió conservar. */
+function SavedInsights() {
+  const { lang } = useI18n();
+  const es = lang === "es";
+  const listFn = useServerFn(listInsights);
+  const removeFn = useServerFn(deleteInsight);
+  const qc = useQueryClient();
+
+  const { data: insights } = useQuery({
+    queryKey: ["saved-insights"],
+    queryFn: () => listFn(),
+  });
+
+  const remove = useMutation({
+    mutationFn: (id: string) => removeFn({ data: { id } }),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["saved-insights"] }),
+  });
+
+  if (!insights || insights.length === 0) return null;
+
+  return (
+    <section className="mb-12">
+      <h2 className="font-display text-micro uppercase tracking-[0.3em] text-muted-foreground">
+        {es ? "Lo que guardaste" : "What you saved"}
+      </h2>
+      <ul className="mt-5 space-y-4">
+        {insights.map((it) => (
+          <li key={it.id} className="card-editorial p-6">
+            {it.source_question && (
+              <p className="mb-3 text-micro uppercase tracking-[0.25em] text-muted-foreground">
+                {it.source_question.slice(0, 140)}
+              </p>
+            )}
+            <p className="font-display text-body leading-relaxed text-foreground/90">{it.text}</p>
+            <div className="mt-4 flex items-center justify-between gap-4">
+              <span className="text-micro uppercase tracking-[0.25em] text-muted-foreground">
+                {it.philosopher && isPhilosopherId(it.philosopher)
+                  ? PHILOSOPHERS[it.philosopher].name
+                  : ""}
+              </span>
+              <button
+                type="button"
+                onClick={() => remove.mutate(it.id)}
+                className="focus-mist text-micro uppercase tracking-[0.25em] text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline"
+              >
+                {es ? "Quitar" : "Remove"}
+              </button>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
