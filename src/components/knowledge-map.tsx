@@ -81,7 +81,7 @@ export function KnowledgeMap({
   hoverRef.current = hover;
   kindsRef.current = activeKinds;
   queryRef.current = query;
-  politicsRef.current = politics;
+  politicsRef.current = politicsOnly;
 
   // adjacency for highlight
   const adjacency = useMemo(() => {
