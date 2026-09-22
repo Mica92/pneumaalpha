@@ -75,11 +75,13 @@ export function KnowledgeMap({
   const hoverRef = useRef<string | null>(null);
   const kindsRef = useRef(activeKinds);
   const queryRef = useRef(query);
+  const politicsRef = useRef(politics);
 
   selectedRef.current = selected;
   hoverRef.current = hover;
   kindsRef.current = activeKinds;
   queryRef.current = query;
+  politicsRef.current = politics;
 
   // adjacency for highlight
   const adjacency = useMemo(() => {
@@ -235,11 +237,18 @@ export function KnowledgeMap({
       const kinds = kindsRef.current;
       const q = queryRef.current.trim().toLowerCase();
 
+      const pol = politicsRef.current;
       const visible = (id: string) => {
         const n = NODE_BY_ID.get(id);
         if (!n) return false;
         if (!kinds.has(n.kind)) return false;
         if (q && !n.label.toLowerCase().includes(q)) return false;
+        if (pol && pol.size > 0) {
+          const p = nodePolitics(n);
+          // Los nodos con facción política fuera del filtro se ocultan;
+          // los que no tienen facción quedan como tejido conectivo.
+          if (p && !pol.has(p)) return false;
+        }
         return true;
       };
 
