@@ -44,6 +44,8 @@ export const ANALYTICS_EVENTS = [
   "contrast_completed",
   "new_question_generated",
   "perspective_suggested",
+  "intent_selected",
+  "tension_explored",
 ] as const;
 
 export type AnalyticsEvent = (typeof ANALYTICS_EVENTS)[number];

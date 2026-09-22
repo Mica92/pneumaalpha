@@ -1,29 +1,23 @@
-import archiveImage from "@/assets/architecture-archive.jpg";
-import domeImage from "@/assets/architecture-dome.jpg";
-import studyImage from "@/assets/architecture-study.jpg";
+/**
+ * Section atmosphere. A hairline-lit band at the top of a page: no imagery,
+ * only a faint wash so the header feels grounded without competing with text.
+ */
+type Variant = "archive" | "dome" | "study";
 
-const IMAGES = {
-  archive: archiveImage,
-  dome: domeImage,
-  study: studyImage,
-} as const;
+const TINT: Record<Variant, string> = {
+  archive: "var(--bronze)",
+  dome: "var(--tension)",
+  study: "var(--keep)",
+};
 
-export function PageAtmosphere({ variant }: { variant: keyof typeof IMAGES }) {
+export function PageAtmosphere({ variant }: { variant: Variant }) {
   return (
     <div
       aria-hidden="true"
-      className="pointer-events-none absolute left-1/2 top-0 -z-10 h-[32rem] w-screen -translate-x-1/2 overflow-hidden border-b border-border/30"
-    >
-      <img
-        src={IMAGES[variant]}
-        alt=""
-        width={1920}
-        height={1088}
-        loading="lazy"
-        className="h-full w-full object-cover grayscale-0 opacity-70 brightness-125 contrast-105 saturate-[1.2]"
-      />
-      <div className="absolute inset-0 bg-gradient-to-b from-background/5 via-background/40 to-background/90" />
-      <div className="absolute inset-0 bg-gradient-to-r from-background/30 via-transparent to-background/30" />
-    </div>
+      className="pointer-events-none absolute left-1/2 top-0 -z-10 h-80 w-screen -translate-x-1/2 overflow-hidden"
+      style={{
+        background: `radial-gradient(70% 100% at 50% 0%, color-mix(in oklab, ${TINT[variant]} 13%, transparent) 0%, transparent 72%)`,
+      }}
+    />
   );
 }
