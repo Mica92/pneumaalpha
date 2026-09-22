@@ -163,6 +163,14 @@ function PersonalMapPage() {
           <p className="mt-5 max-w-2xl text-small leading-relaxed text-muted-foreground md:text-base">
             {COPY.sub[lang]}
           </p>
+          <Link
+            to="/conocimiento"
+            className="mt-6 inline-flex text-micro uppercase tracking-[0.3em] text-muted-foreground transition-colors hover:text-foreground"
+          >
+            {lang === "es"
+              ? "Ver la red universal de ideas →"
+              : "See the universal network of ideas →"}
+          </Link>
         </header>
 
         {isLoading ? (
