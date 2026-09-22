@@ -5,7 +5,7 @@ import { IDEAS, ROUTES } from "@/lib/discovery";
 import { SITUATIONS } from "@/lib/situations";
 import { useI18n } from "@/lib/i18n";
 import { SITE_URL, SITE_NAME } from "@/lib/site";
-import { SiteNav, MobileTabBar } from "@/components/site-nav";
+import { SiteNav } from "@/components/site-nav";
 import { SiteFooter } from "@/components/site-footer";
 import { track } from "@/lib/analytics";
 import { stashQuestion } from "@/lib/question-handoff";
@@ -643,7 +643,6 @@ function Home() {
       </main>
 
       <SiteFooter />
-      <MobileTabBar />
     </>
   );
 }

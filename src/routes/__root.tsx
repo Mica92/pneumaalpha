@@ -17,6 +17,7 @@ import { supabase } from "@/integrations/supabase/client";
 import appCss from "../styles.css?url";
 import { GreekGlyph } from "@/components/greek-glyph";
 import { ArchitecturalBackground } from "@/components/architectural-background";
+import { MobileTabBar } from "@/components/site-nav";
 import { SITE_URL, SITE_NAME } from "@/lib/site";
 
 function NotFoundComponent() {
@@ -166,6 +167,7 @@ function RootComponent() {
           <div className="relative z-10">
             <Outlet />
           </div>
+          <MobileTabBar />
           <Toaster theme="dark" position="top-center" />
         </AuthProvider>
       </I18nProvider>
