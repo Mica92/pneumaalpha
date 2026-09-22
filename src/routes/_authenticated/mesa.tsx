@@ -4,13 +4,14 @@ import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { runRoundtableRound } from "@/lib/roundtable.functions";
 import { MAX_SEATS, type RoundtableTurn } from "@/lib/roundtable.shared";
-import { PHILOSOPHERS, PHILOSOPHER_LIST, type PhilosopherId } from "@/lib/philosophers";
+import { PHILOSOPHERS, type PhilosopherId } from "@/lib/philosophers";
 import { portraitOf, portraitFocus } from "@/lib/portraits";
 import { useI18n } from "@/lib/i18n";
 import { SiteNav } from "@/components/site-nav";
 import { SiteFooter } from "@/components/site-footer";
 import { GreekGlyph } from "@/components/greek-glyph";
 import { PageAtmosphere } from "@/components/page-atmosphere";
+import { PerspectivePicker } from "@/components/perspective-picker";
 
 export const Route = createFileRoute("/_authenticated/mesa")({
   component: RoundTablePage,
@@ -143,32 +144,15 @@ function RoundTablePage() {
                 {seats.length >= MAX_SEATS ? t("mesa.seats.full") : t("mesa.seats.hint")}
               </span>
             </div>
-            <ul className="mt-3 flex flex-wrap gap-2">
-              {PHILOSOPHER_LIST.map((p) => {
-                const active = seats.includes(p.id);
-                const disabled = !active && seats.length >= MAX_SEATS;
-                return (
-                  <li key={p.id}>
-                    <button
-                      type="button"
-                      onClick={() => toggleSeat(p.id)}
-                      disabled={disabled || busy}
-                      aria-pressed={active}
-                      className={`focus-mist rounded-full border px-3 py-1.5 text-micro tracking-wide transition-colors disabled:opacity-30 ${
-                        active
-                          ? "border-glacier/70 bg-glacier/15 text-foreground"
-                          : "border-border/70 text-muted-foreground hover:border-glacier/40 hover:text-foreground"
-                      }`}
-                    >
-                      <span aria-hidden="true" className="mr-1.5">
-                        {p.glyph}
-                      </span>
-                      {p.name}
-                    </button>
-                  </li>
-                );
-              })}
-            </ul>
+            <div className="mt-4">
+              <PerspectivePicker
+                selected={seats}
+                max={MAX_SEATS}
+                onToggle={toggleSeat}
+                disabled={busy}
+                idPrefix="mesa"
+              />
+            </div>
           </div>
 
           <div className="flex flex-wrap gap-2">
