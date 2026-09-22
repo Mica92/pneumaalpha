@@ -572,7 +572,11 @@ function ChatBody({
           </div>
         )}
 
+        {!embedded && <PneumLensSheet {...lensProps} />}
+
+        <div className="flex min-h-0 flex-1">
         <div ref={scrollRef} className="relative flex-1 overflow-y-auto px-4 py-8 md:py-12">
+
           <div className="mx-auto max-w-3xl space-y-10">
             {messages.length === 0 && (
               <div className="fade-up space-y-6 py-8">
