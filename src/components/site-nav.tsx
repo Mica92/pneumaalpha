@@ -178,7 +178,7 @@ export function SiteNav({ className = "" }: { className?: string }) {
               </Link>
             ))}
             <Link
-              to="/instrumentos"
+              to="/umbral"
               onClick={() => setOpen(false)}
               className="focus-mist border-b border-border/30 py-3 text-small text-muted-foreground transition-colors hover:text-foreground"
             >
