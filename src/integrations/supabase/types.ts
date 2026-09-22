@@ -41,6 +41,62 @@ export type Database = {
         }
         Relationships: []
       }
+      decision_records: {
+        Row: {
+          created_at: string
+          decision: string
+          id: string
+          learned: string | null
+          outcome: string | null
+          reason: string | null
+          reflection_id: string | null
+          review_at: string | null
+          risk: string | null
+          situation: string
+          updated_at: string
+          user_id: string
+          watch_for: string | null
+        }
+        Insert: {
+          created_at?: string
+          decision: string
+          id?: string
+          learned?: string | null
+          outcome?: string | null
+          reason?: string | null
+          reflection_id?: string | null
+          review_at?: string | null
+          risk?: string | null
+          situation: string
+          updated_at?: string
+          user_id: string
+          watch_for?: string | null
+        }
+        Update: {
+          created_at?: string
+          decision?: string
+          id?: string
+          learned?: string | null
+          outcome?: string | null
+          reason?: string | null
+          reflection_id?: string | null
+          review_at?: string | null
+          risk?: string | null
+          situation?: string
+          updated_at?: string
+          user_id?: string
+          watch_for?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "decision_records_reflection_id_fkey"
+            columns: ["reflection_id"]
+            isOneToOne: false
+            referencedRelation: "reflections"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       journey_nodes: {
         Row: {
           count: number
@@ -80,6 +136,7 @@ export type Database = {
           created_at: string
           id: string
           philosopher: string
+          reflection_id: string | null
           role: string
           user_id: string
         }
@@ -88,6 +145,7 @@ export type Database = {
           created_at?: string
           id?: string
           philosopher?: string
+          reflection_id?: string | null
           role: string
           user_id: string
         }
@@ -96,10 +154,19 @@ export type Database = {
           created_at?: string
           id?: string
           philosopher?: string
+          reflection_id?: string | null
           role?: string
           user_id?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "messages_reflection_id_fkey"
+            columns: ["reflection_id"]
+            isOneToOne: false
+            referencedRelation: "reflections"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       newsletter_subscribers: {
         Row: {
@@ -179,6 +246,39 @@ export type Database = {
           created_at?: string
           display_name?: string | null
           id?: string
+        }
+        Relationships: []
+      }
+      reflections: {
+        Row: {
+          created_at: string
+          id: string
+          opening_question: string | null
+          philosopher: string | null
+          state: string
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          opening_question?: string | null
+          philosopher?: string | null
+          state?: string
+          title?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          opening_question?: string | null
+          philosopher?: string | null
+          state?: string
+          title?: string
+          updated_at?: string
+          user_id?: string
         }
         Relationships: []
       }
@@ -379,6 +479,59 @@ export type Database = {
           update_id?: number
         }
         Relationships: []
+      }
+      thought_objects: {
+        Row: {
+          context: string | null
+          created_at: string
+          id: string
+          in_map: boolean
+          kind: string
+          muted: boolean
+          philosopher: string | null
+          rationale: string | null
+          reflection_id: string | null
+          text: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          context?: string | null
+          created_at?: string
+          id?: string
+          in_map?: boolean
+          kind: string
+          muted?: boolean
+          philosopher?: string | null
+          rationale?: string | null
+          reflection_id?: string | null
+          text: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          context?: string | null
+          created_at?: string
+          id?: string
+          in_map?: boolean
+          kind?: string
+          muted?: boolean
+          philosopher?: string | null
+          rationale?: string | null
+          reflection_id?: string | null
+          text?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "thought_objects_reflection_id_fkey"
+            columns: ["reflection_id"]
+            isOneToOne: false
+            referencedRelation: "reflections"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       usage_counters: {
         Row: {
