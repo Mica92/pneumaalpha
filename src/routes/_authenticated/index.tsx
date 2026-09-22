@@ -534,12 +534,13 @@ function Home() {
           </div>
         </section>
 
-        {/* ── Perspectivas ─────────────────────────────────────── */}
-
-        {/* ── Ideas y rutas ────────────────────────────────────── */}
+        {/* ── Y cuando quieras ir más lejos ────────────────────── */}
         <section className="border-y border-border/60 bg-card/25">
           <div className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-28">
-            <div className="grid gap-14 lg:grid-cols-2">
+            <h2 className="balance max-w-2xl font-serif text-title font-light text-foreground">
+              {es ? "Y cuando quieras ir más lejos." : "And when you want to go further."}
+            </h2>
+            <div className="mt-12 grid gap-14 lg:grid-cols-2">
               <div>
                 <div className="flex flex-wrap items-end justify-between gap-4">
                   <h2 className="font-serif text-title font-light text-foreground">
