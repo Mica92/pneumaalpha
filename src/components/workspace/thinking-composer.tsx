@@ -130,8 +130,8 @@ export const ThinkingComposer = forwardRef<HTMLTextAreaElement, Props>(function 
           className="focus-mist w-full resize-none bg-transparent px-2 py-2 text-body leading-relaxed text-foreground outline-none placeholder:text-muted-foreground/80 disabled:opacity-50"
         />
 
-        <div className="mt-2 flex flex-wrap items-center justify-between gap-2 border-t border-border/40 pt-2">
-          <ul className="flex flex-wrap gap-1.5">
+        <div className="mt-2 flex items-center justify-between gap-2 border-t border-border/40 pt-2">
+          <ul className="flex min-w-0 flex-1 gap-1.5 overflow-x-auto md:flex-wrap md:overflow-visible">
             {COMMANDS.map((cmd) => (
               <li key={cmd}>
                 <button
