@@ -314,6 +314,72 @@ function ChatBody({
     return -1;
   })();
 
+  // ——— Pneum Lens: the structure emerging from the last exchange ———
+  const lensFn = useServerFn(readLens);
+  const saveInsightFn = useServerFn(saveInsight);
+
+  const textOf = (m: UIMessage | undefined) =>
+    m ? m.parts.map((p) => (p.type === "text" ? p.text : "")).join("").trim() : "";
+
+  const lastAnswer = lastAssistantIdx >= 0 ? textOf(messages[lastAssistantIdx]) : "";
+  const lastQuestion = (() => {
+    for (let i = lastAssistantIdx - 1; i >= 0; i--) {
+      if (messages[i].role === "user") return textOf(messages[i]);
+    }
+    return "";
+  })();
+  const lensKey = lastAssistantIdx >= 0 ? messages[lastAssistantIdx].id : null;
+
+  const { data: lens, isFetching: lensLoading } = useQuery<LensReading>({
+    queryKey: ["lens", philosopher, lensKey, lang],
+    queryFn: () =>
+      lensFn({
+        data: {
+          question: lastQuestion || lastAnswer.slice(0, 500),
+          answer: lastAnswer.slice(0, 6000),
+          philosopher,
+          language: lang,
+        },
+      }),
+    enabled: Boolean(lensKey) && !isLoading && lastAnswer.length > 60,
+    staleTime: Infinity,
+  });
+
+  const handleSaveInsight = async (text: string) => {
+    try {
+      await saveInsightFn({
+        data: {
+          text: text.slice(0, 1200),
+          philosopher,
+          sourceQuestion: lastQuestion ? lastQuestion.slice(0, 1200) : undefined,
+        },
+      });
+      track("insight_saved", { philosopher });
+      toast.success(lang === "es" ? "Guardado en tu biblioteca." : "Saved to your library.");
+    } catch (e) {
+      console.error(e);
+      toast.error(lang === "es" ? "No se pudo guardar." : "Could not save.");
+    }
+  };
+
+  const handleContrast = (other: PhilosopherId) => {
+    const qid = lastQuestion ? stashQuestion(lastQuestion) : undefined;
+    track("contrast_started", { philosopher, other });
+    navigate({
+      to: "/comparar",
+      search: { ...(qid ? { qid } : {}), seats: [philosopher, other].join(",") },
+    });
+  };
+
+  const lensProps = {
+    reading: lens ?? null,
+    loading: lensLoading,
+    lang,
+    onContrast: handleContrast,
+    onAsk: (text: string) => sendText(text),
+    onSave: handleSaveInsight,
+  };
+
   const shell = embedded ? "h-[78vh] max-h-[860px] overflow-hidden" : "min-h-dvh";
 
   return (
