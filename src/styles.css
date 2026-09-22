@@ -80,6 +80,10 @@
   --color-bronze-bright: var(--bronze-bright);
   --color-bronze-soft: var(--bronze-soft);
 
+  /* Acentos semánticos */
+  --color-tension: var(--tension);
+  --color-keep: var(--keep);
+
   /* Legacy aliases — old markup keeps working, remapped to the editorial palette */
   --color-mist: var(--mist);
   --color-glacier: var(--glacier);
