@@ -12,6 +12,8 @@ import { matchPhilosopher } from "@/lib/oracle.functions";
 import { PHILOSOPHERS, type PhilosopherId } from "@/lib/philosophers";
 import { CATEGORIES, IDEAS, REAL_PROBLEMS, centralQuestion } from "@/lib/discovery";
 import { supabase } from "@/integrations/supabase/client";
+import { CRISIS_RESOURCES } from "@/lib/safety";
+import type { MatchResult } from "@/lib/oracle.functions";
 import { PageAtmosphere } from "@/components/page-atmosphere";
 
 export const Route = createFileRoute("/_authenticated/explorar")({
@@ -63,9 +65,26 @@ const COPY = {
   questions: { es: "Grandes preguntas", en: "Great questions" },
   chosen: { es: "Tu voz para esta conversación", en: "Your voice for this conversation" },
   again: { es: "Elegir otra mente", en: "Choose another mind" },
+  safetyOffTitle: {
+    es: "Esto no parece una pregunta para pensar",
+    en: "This doesn't look like a question to think through",
+  },
+  safetyOffBody: {
+    es: "Pneum está hecho para preguntas, problemas y decisiones complejas. Si quieres, reformula lo que traes como una pregunta abierta y lo pensamos juntos.",
+    en: "Pneum is built for hard questions, complex problems and decisions. If you like, reframe what you bring as an open question and we'll think it through together.",
+  },
+  safetyCrisisTitle: {
+    es: "Tu vida importa más que esta conversación",
+    en: "Your life matters more than this conversation",
+  },
+  safetyCrisisBody: {
+    es: "Lo que escribiste suena a un momento muy difícil. Antes de seguir, considera hablar con alguien que pueda acompañarte de verdad:",
+    en: "What you wrote sounds like a very hard moment. Before going on, consider talking to someone who can truly be there for you:",
+  },
+  tryAgain: { es: "Escribir otra cosa", en: "Write something else" },
 } as const;
 
-type Result = { philosopher: PhilosopherId; reason: string };
+type Result = MatchResult;
 
 function ExplorePage() {
   const { lang } = useI18n();
@@ -172,7 +191,46 @@ function ExplorePage() {
           </p>
         )}
 
-        {chosen && result && (
+        {result?.safety && (
+          <section aria-live="polite" className="fade-up mt-12">
+            <div className="card-editorial p-6 md:p-8">
+              <h2 className="font-serif text-heading font-light text-foreground">
+                {result.safety === "crisis"
+                  ? COPY.safetyCrisisTitle[lang]
+                  : COPY.safetyOffTitle[lang]}
+              </h2>
+              <p className="mt-3 text-small leading-relaxed text-foreground/85">
+                {result.safety === "crisis"
+                  ? COPY.safetyCrisisBody[lang]
+                  : COPY.safetyOffBody[lang]}
+              </p>
+              {result.safety === "crisis" && (
+                <ul className="mt-4 space-y-3 text-small text-foreground/85">
+                  {CRISIS_RESOURCES.map((r) => (
+                    <li key={r.contact}>
+                      <p className="font-medium text-foreground">
+                        {r.name[lang]} — <span className="text-bronze">{r.contact}</span>
+                      </p>
+                      <p className="text-micro text-muted-foreground">{r.note[lang]}</p>
+                    </li>
+                  ))}
+                </ul>
+              )}
+              <button
+                type="button"
+                onClick={() => {
+                  setResult(null);
+                  requestAnimationFrame(() => inputRef.current?.focus());
+                }}
+                className="btn-ghost-gold mt-6"
+              >
+                {COPY.tryAgain[lang]}
+              </button>
+            </div>
+          </section>
+        )}
+
+        {result && !result.safety && chosen && (
           <section aria-live="polite" className="fade-up mt-12">
             <div className="card-editorial p-6 md:p-8">
               <p className="label text-bronze">{COPY.chosen[lang]}</p>
