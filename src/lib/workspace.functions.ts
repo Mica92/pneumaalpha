@@ -61,10 +61,10 @@ export const updateReflection = createServerFn({ method: "POST" })
   .inputValidator((input) => UpdateSchema.parse(input))
   .handler(async ({ data, context }) => {
     const { supabase, userId } = context;
-    const patch: Record<string, unknown> = {};
-    if (data.title !== undefined) patch["title"] = data.title;
-    if (data.state !== undefined) patch["state"] = data.state;
-    if (data.openingQuestion !== undefined) patch["opening_question"] = data.openingQuestion;
+    const patch: { title?: string; state?: string; opening_question?: string } = {};
+    if (data.title !== undefined) patch.title = data.title;
+    if (data.state !== undefined) patch.state = data.state;
+    if (data.openingQuestion !== undefined) patch.opening_question = data.openingQuestion;
     if (Object.keys(patch).length === 0) return { ok: true };
     const { error } = await supabase
       .from("reflections")
@@ -169,10 +169,10 @@ export const updateThoughtObject = createServerFn({ method: "POST" })
   .inputValidator((input) => ObjectPatchSchema.parse(input))
   .handler(async ({ data, context }) => {
     const { supabase, userId } = context;
-    const patch: Record<string, unknown> = {};
-    if (data.text !== undefined) patch["text"] = data.text;
-    if (data.inMap !== undefined) patch["in_map"] = data.inMap;
-    if (data.muted !== undefined) patch["muted"] = data.muted;
+    const patch: { text?: string; in_map?: boolean; muted?: boolean } = {};
+    if (data.text !== undefined) patch.text = data.text;
+    if (data.inMap !== undefined) patch.in_map = data.inMap;
+    if (data.muted !== undefined) patch.muted = data.muted;
     if (Object.keys(patch).length === 0) return { ok: true };
     const { error } = await supabase
       .from("thought_objects")
