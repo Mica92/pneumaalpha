@@ -40,6 +40,33 @@ import { readLens, type LensReading } from "@/lib/lens.functions";
 import { saveInsight } from "@/lib/insights.functions";
 import { PneumLensRail, PneumLensSheet } from "@/components/pneum-lens";
 import { stashQuestion } from "@/lib/question-handoff";
+import {
+  openReflection,
+  updateReflection,
+  listThoughtObjects,
+  saveThoughtObject,
+  updateThoughtObject,
+  deleteThoughtObject,
+  saveDecisionRecord,
+  findPatterns,
+} from "@/lib/workspace.functions";
+import {
+  STATE_LABEL,
+  KIND_LABEL,
+  suggestState,
+  titleFromQuestion,
+  type ReflectionState,
+  type ThoughtKind,
+  type ThoughtObject,
+} from "@/lib/workspace.shared";
+import { ContextRail } from "@/components/workspace/context-rail";
+import { SelectionCapture } from "@/components/workspace/selection-capture";
+import {
+  ThinkingComposer,
+  type ThinkingCommand,
+} from "@/components/workspace/thinking-composer";
+import { DecisionRecordPanel, type DecisionDraft } from "@/components/workspace/decision-record";
+import { MemoryInspector } from "@/components/workspace/memory-inspector";
 
 const WAITING_PHASES: { es: string; en: string }[] = [
   { es: "Leyendo tu pregunta", en: "Reading your question" },
