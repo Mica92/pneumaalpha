@@ -701,6 +701,10 @@ function ChatBody({
             </button>
           )}
         </div>
+        {!embedded && <PneumLensRail {...lensProps} />}
+        </div>
+
+
 
         <footer className="sticky bottom-0 z-20 border-t border-border/60 bg-background/85 px-3 pt-3 pb-safe backdrop-blur-xl md:px-4">
           <form onSubmit={handleSubmit} className="mx-auto flex max-w-3xl items-end gap-2">
