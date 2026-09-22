@@ -164,6 +164,7 @@ function KnowledgePage() {
             onSelect={setSelected}
             activeKinds={kinds}
             query={query}
+            politics={politics}
           />
 
           {/* Detail panel */}
