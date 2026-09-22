@@ -6,7 +6,6 @@ import { runRoundtableRound } from "@/lib/roundtable.functions";
 import { MAX_SEATS, type RoundtableTurn } from "@/lib/roundtable.shared";
 import {
   PHILOSOPHERS,
-  PHILOSOPHER_LIST,
   isPhilosopherId,
   type PhilosopherId,
 } from "@/lib/philosophers";
