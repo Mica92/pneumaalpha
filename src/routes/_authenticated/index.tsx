@@ -604,6 +604,39 @@ function Home() {
                   ))}
                 </ul>
               </div>
+
+              <div className="lg:col-span-2">
+                <div className="flex flex-wrap items-end justify-between gap-4">
+                  <h2 className="font-serif text-title font-light text-foreground">
+                    {es ? "Descubre una perspectiva" : "Discover a perspective"}
+                  </h2>
+                  <Link
+                    to="/filosofos"
+                    className="focus-mist text-small text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline"
+                  >
+                    {es
+                      ? `Las ${PHILOSOPHER_LIST.length} perspectivas →`
+                      : `All ${PHILOSOPHER_LIST.length} perspectives →`}
+                  </Link>
+                </div>
+                <p className="mt-6 flex flex-wrap gap-x-4 gap-y-2 font-serif text-subtitle font-light text-foreground/85">
+                  {featured.map((id) => (
+                    <Link
+                      key={id}
+                      to="/filosofos/$id"
+                      params={{ id }}
+                      className="focus-mist underline-offset-4 transition-colors hover:text-foreground hover:underline"
+                    >
+                      {PHILOSOPHERS[id].name}
+                    </Link>
+                  ))}
+                </p>
+                <p className="measure mt-6 text-small leading-relaxed text-muted-foreground">
+                  {es
+                    ? "Cada perspectiva es una construcción editorial basada en obra publicada; no pretende ser la persona histórica."
+                    : "Each perspective is an editorial construction based on published work; it does not claim to be the historical person."}
+                </p>
+              </div>
             </div>
           </div>
         </section>
