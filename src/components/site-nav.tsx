@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
 import { PneumaMark } from "@/components/pneuma-mark";
@@ -8,133 +8,14 @@ import { lovable } from "@/integrations/lovable";
 import { supabase } from "@/integrations/supabase/client";
 import { cn } from "@/lib/utils";
 
-type NavItem = { to: string; es: string; en: string; note?: { es: string; en: string } };
-type NavGroup = { id: string; es: string; en: string; items: readonly NavItem[] };
+type NavItem = { to: string; es: string; en: string };
 
-/** Una sola arquitectura: Explorar, Pensar, Mi espacio. Nosotros va aparte. */
-const GROUPS: readonly NavGroup[] = [
-  {
-    id: "explore",
-    es: "Explorar",
-    en: "Explore",
-    items: [
-      {
-        to: "/ideas",
-        es: "Ideas",
-        en: "Ideas",
-        note: { es: "Entra por la idea, no por el autor", en: "Enter by idea, not by author" },
-      },
-      {
-        to: "/filosofos",
-        es: "Perspectivas",
-        en: "Perspectives",
-        note: { es: "El catálogo completo", en: "The full catalogue" },
-      },
-      {
-        to: "/rutas",
-        es: "Rutas",
-        en: "Paths",
-        note: { es: "Una pregunta, cuatro perspectivas", en: "One question, four perspectives" },
-      },
-      {
-        to: "/conocimiento",
-        es: "Mapa",
-        en: "Map",
-        note: { es: "Cómo se relacionan las ideas", en: "How ideas relate" },
-      },
-      {
-        to: "/explorar",
-        es: "Por tema",
-        en: "By topic",
-        note: { es: "Descubrimiento abierto", en: "Open discovery" },
-      },
-    ],
-  },
-  {
-    id: "think",
-    es: "Pensar",
-    en: "Think",
-    items: [
-      {
-        to: "/oraculo",
-        es: "Nueva pregunta",
-        en: "New question",
-        note: { es: "Escribe lo que intentas comprender", en: "Write what you are trying to understand" },
-      },
-      {
-        to: "/comparar",
-        es: "Comparar perspectivas",
-        en: "Compare perspectives",
-        note: { es: "Contraste y síntesis", en: "Contrast and synthesis" },
-      },
-      {
-        to: "/mesa",
-        es: "Mesa Redonda",
-        en: "Round Table",
-        note: { es: "Pon tu pregunta en conflicto", en: "Put your question in conflict" },
-      },
-      {
-        to: "/analisis",
-        es: "Análisis",
-        en: "Analysis",
-        note: { es: "Descubre qué estás dando por supuesto", en: "Find what you are assuming" },
-      },
-      {
-        to: "/modo-socrates",
-        es: "Modo Sócrates",
-        en: "Socratic mode",
-        note: { es: "Hazte mejores preguntas", en: "Ask yourself better questions" },
-      },
-      {
-        to: "/situaciones",
-        es: "Situaciones",
-        en: "Situations",
-        note: { es: "Empieza por lo que estás viviendo", en: "Start from what you are living" },
-      },
-    ],
-  },
-  {
-    id: "space",
-    es: "Mi espacio",
-    en: "My space",
-    items: [
-      {
-        to: "/recorrido",
-        es: "Historial",
-        en: "History",
-        note: { es: "Tus conversaciones y preguntas", en: "Your conversations and questions" },
-      },
-      {
-        to: "/mi-mapa",
-        es: "Mi mapa",
-        en: "My map",
-        note: { es: "Qué has estado pensando", en: "What you have been thinking" },
-      },
-      {
-        to: "/reporte",
-        es: "Retrato de pensamiento",
-        en: "Portrait of thinking",
-        note: { es: "Patrones en tus propias palabras", en: "Patterns in your own words" },
-      },
-      {
-        to: "/biblioteca",
-        es: "Biblioteca",
-        en: "Library",
-        note: { es: "Obras y fuentes", en: "Works and sources" },
-      },
-      {
-        to: "/podcast",
-        es: "Podcast",
-        en: "Podcast",
-        note: { es: "Los clásicos, en voz alta", en: "The classics, read aloud" },
-      },
-      {
-        to: "/perfil",
-        es: "Perfil",
-        en: "Profile",
-      },
-    ],
-  },
+/** Navegación mínima: cuatro entradas. Todo lo demás vive dentro del recorrido. */
+const PRIMARY: readonly NavItem[] = [
+  { to: "/oraculo", es: "Decidir", en: "Decide" },
+  { to: "/explorar", es: "Explorar", en: "Explore" },
+  { to: "/mi-mapa", es: "Mapa", en: "Map" },
+  { to: "/filosofos", es: "Perspectivas", en: "Perspectives" },
 ] as const;
 
 function isGoogleUser(user: ReturnType<typeof useAuth>["user"]) {
@@ -157,90 +38,12 @@ function SearchIcon() {
   );
 }
 
-function DesktopGroup({
-  group,
-  open,
-  onToggle,
-  onClose,
-}: {
-  group: NavGroup;
-  open: boolean;
-  onToggle: () => void;
-  onClose: () => void;
-}) {
-  const { lang } = useI18n();
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!open) return;
-    function onDocPointer(e: MouseEvent) {
-      if (ref.current && !ref.current.contains(e.target as Node)) onClose();
-    }
-    function onKey(e: KeyboardEvent) {
-      if (e.key === "Escape") onClose();
-    }
-    document.addEventListener("mousedown", onDocPointer);
-    document.addEventListener("keydown", onKey);
-    return () => {
-      document.removeEventListener("mousedown", onDocPointer);
-      document.removeEventListener("keydown", onKey);
-    };
-  }, [open, onClose]);
-
-  return (
-    <div ref={ref} className="relative" onMouseLeave={onClose}>
-      <button
-        type="button"
-        onClick={onToggle}
-        onMouseEnter={onToggle}
-        aria-expanded={open}
-        aria-haspopup="true"
-        className={cn(
-          "focus-mist inline-flex items-center gap-1.5 whitespace-nowrap py-2 text-small transition-colors",
-          open ? "text-foreground" : "text-muted-foreground hover:text-foreground",
-        )}
-      >
-        {group[lang]}
-        <span aria-hidden="true" className="text-[0.6em] opacity-70">
-          ▾
-        </span>
-      </button>
-
-      {open && (
-        <div className="absolute left-1/2 top-full z-50 w-72 -translate-x-1/2 pt-2">
-          <ul className="overflow-hidden rounded-md border border-border/70 bg-background/98 p-1.5 shadow-editorial backdrop-blur-xl">
-            {group.items.map((item) => (
-              <li key={item.to}>
-                <Link
-                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                  to={item.to as any}
-                  onClick={onClose}
-                   className="focus-mist block rounded-sm border-l border-transparent px-3 py-2.5 transition-colors hover:border-bronze/50 hover:bg-card/80"
-                  activeProps={{ className: "bg-card/70" }}
-                >
-                  <span className="block text-small text-foreground">{item[lang]}</span>
-                  {item.note && (
-                    <span className="mt-0.5 block text-micro leading-snug text-muted-foreground">
-                      {item.note[lang]}
-                    </span>
-                  )}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-    </div>
-  );
-}
-
 export function SiteNav({ className = "" }: { className?: string }) {
   const { lang } = useI18n();
   const { user } = useAuth();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [open, setOpen] = useState(false);
-  const [openGroup, setOpenGroup] = useState<string | null>(null);
   const signedIn = isGoogleUser(user);
   const avatar = (user?.user_metadata?.avatar_url as string | undefined) ?? null;
 
@@ -258,7 +61,7 @@ export function SiteNav({ className = "" }: { className?: string }) {
   return (
     <header
       className={cn(
-        "sticky top-0 z-40 border-b border-border/60 bg-background/88 backdrop-blur-xl",
+        "sticky top-0 z-40 border-b border-border/50 bg-background/88 backdrop-blur-xl",
         className,
       )}
     >
@@ -270,31 +73,18 @@ export function SiteNav({ className = "" }: { className?: string }) {
           <PneumaMark size={24} withWordmark />
         </Link>
 
-        <div className="hidden items-center gap-5 md:flex lg:gap-7">
-          {GROUPS.map((g) => (
-            <DesktopGroup
-              key={g.id}
-              group={g}
-              open={openGroup === g.id}
-              onToggle={() => setOpenGroup((c) => (c === g.id ? null : g.id))}
-              onClose={() => setOpenGroup((c) => (c === g.id ? null : c))}
-            />
+        <div className="hidden items-center gap-7 md:flex">
+          {PRIMARY.map((item) => (
+            <Link
+              key={item.to}
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              to={item.to as any}
+              className="focus-mist whitespace-nowrap text-small text-muted-foreground transition-colors hover:text-foreground"
+              activeProps={{ className: "text-foreground" }}
+            >
+              {item[lang]}
+            </Link>
           ))}
-
-          <Link
-            to="/nosotros"
-            className="focus-mist whitespace-nowrap text-small text-muted-foreground transition-colors hover:text-foreground"
-            activeProps={{ className: "text-foreground" }}
-          >
-            {lang === "es" ? "Nosotros" : "About"}
-          </Link>
-
-          <Link
-            to="/oraculo"
-            className="btn-gold focus-mist whitespace-nowrap px-4 py-1.5 text-micro"
-          >
-            {lang === "es" ? "Pensar una pregunta" : "Think a question"}
-          </Link>
 
           <Link
             to="/buscar"
@@ -311,7 +101,7 @@ export function SiteNav({ className = "" }: { className?: string }) {
             <>
               <Link
                 to="/perfil"
-                aria-label={lang === "es" ? "Tu perfil" : "Your profile"}
+                aria-label={lang === "es" ? "Tu cuenta" : "Your account"}
                 className="focus-mist inline-flex items-center gap-2 rounded-md border border-border/70 py-1 pr-3 pl-1 text-small text-muted-foreground transition-colors hover:text-foreground"
                 activeProps={{ className: "text-foreground" }}
               >
@@ -328,7 +118,7 @@ export function SiteNav({ className = "" }: { className?: string }) {
                     ●
                   </span>
                 )}
-                {lang === "es" ? "Perfil" : "Profile"}
+                {lang === "es" ? "Cuenta" : "Account"}
               </Link>
               <button
                 type="button"
@@ -342,9 +132,9 @@ export function SiteNav({ className = "" }: { className?: string }) {
             <button
               type="button"
               onClick={signIn}
-              className="focus-mist whitespace-nowrap text-small text-muted-foreground transition-colors hover:text-foreground"
+              className="btn-gold focus-mist whitespace-nowrap px-4 py-1.5 text-micro"
             >
-              {lang === "es" ? "Entrar" : "Sign in"}
+              {lang === "es" ? "Iniciar" : "Start"}
             </button>
           )}
         </div>
@@ -373,45 +163,41 @@ export function SiteNav({ className = "" }: { className?: string }) {
       </nav>
 
       {open && (
-        <div className="max-h-[75dvh] overflow-y-auto border-t border-border/60 bg-background/98 md:hidden">
+        <div className="max-h-[75dvh] overflow-y-auto border-t border-border/50 bg-background/98 md:hidden">
           <div className="mx-auto flex max-w-6xl flex-col px-5 py-3">
-            <Link
-              to="/oraculo"
-              onClick={() => setOpen(false)}
-              className="btn-gold focus-mist my-3 px-4 py-2 text-center text-micro"
-            >
-              {lang === "es" ? "Pensar una pregunta" : "Think a question"}
-            </Link>
-            {GROUPS.map((g) => (
-              <section key={g.id} className="border-b border-border/40 py-3 last:border-b-0">
-                <p className="label">{g[lang]}</p>
-                <ul className="mt-2 flex flex-col">
-                  {g.items.map((item) => (
-                    <li key={item.to}>
-                      <Link
-                        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                        to={item.to as any}
-                        onClick={() => setOpen(false)}
-                        className="focus-mist block py-2 text-small text-muted-foreground transition-colors hover:text-foreground"
-                        activeProps={{ className: "text-foreground" }}
-                      >
-                        {item[lang]}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </section>
+            {PRIMARY.map((item) => (
+              <Link
+                key={item.to}
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                to={item.to as any}
+                onClick={() => setOpen(false)}
+                className="focus-mist border-b border-border/30 py-3 text-small text-muted-foreground transition-colors hover:text-foreground"
+                activeProps={{ className: "text-foreground" }}
+              >
+                {item[lang]}
+              </Link>
             ))}
-
+            <Link
+              to="/instrumentos"
+              onClick={() => setOpen(false)}
+              className="focus-mist border-b border-border/30 py-3 text-small text-muted-foreground transition-colors hover:text-foreground"
+            >
+              {lang === "es" ? "Instrumentos" : "Instruments"}
+            </Link>
+            <Link
+              to="/recorrido"
+              onClick={() => setOpen(false)}
+              className="focus-mist border-b border-border/30 py-3 text-small text-muted-foreground transition-colors hover:text-foreground"
+            >
+              {lang === "es" ? "Historial" : "History"}
+            </Link>
             <Link
               to="/nosotros"
               onClick={() => setOpen(false)}
-              className="focus-mist border-t border-border/40 py-4 text-small text-muted-foreground transition-colors hover:text-foreground"
-              activeProps={{ className: "text-foreground" }}
+              className="focus-mist border-b border-border/30 py-3 text-small text-muted-foreground transition-colors hover:text-foreground"
             >
               {lang === "es" ? "Nosotros" : "About"}
             </Link>
-
             {signedIn ? (
               <button
                 type="button"
@@ -439,5 +225,35 @@ export function SiteNav({ className = "" }: { className?: string }) {
         </div>
       )}
     </header>
+  );
+}
+
+/** Barra inferior en móvil: Inicio · Decidir · Mapa · Explorar. */
+export function MobileTabBar() {
+  const { lang } = useI18n();
+  const tabs: readonly NavItem[] = [
+    { to: "/", es: "Inicio", en: "Home" },
+    { to: "/oraculo", es: "Decidir", en: "Decide" },
+    { to: "/mi-mapa", es: "Mapa", en: "Map" },
+    { to: "/explorar", es: "Explorar", en: "Explore" },
+  ];
+  return (
+    <nav
+      aria-label={lang === "es" ? "Navegación rápida" : "Quick navigation"}
+      className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-4 border-t border-border/50 bg-background/95 backdrop-blur-xl md:hidden"
+    >
+      {tabs.map((t) => (
+        <Link
+          key={t.to}
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          to={t.to as any}
+          className="focus-mist py-3 text-center text-micro text-muted-foreground transition-colors hover:text-foreground"
+          activeProps={{ className: "text-foreground" }}
+          activeOptions={{ exact: t.to === "/" }}
+        >
+          {t[lang]}
+        </Link>
+      ))}
+    </nav>
   );
 }
