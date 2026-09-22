@@ -67,14 +67,6 @@ function KnowledgePage() {
     });
   };
 
-  const togglePolitics = (p: PoliticsId) => {
-    setPolitics((prev) => {
-      const next = new Set(prev);
-      if (next.has(p)) next.delete(p);
-      else next.add(p);
-      return next;
-    });
-  };
 
   return (
     <>
