@@ -243,12 +243,8 @@ export function KnowledgeMap({
         if (!n) return false;
         if (!kinds.has(n.kind)) return false;
         if (q && !n.label.toLowerCase().includes(q)) return false;
-        if (pol && pol.size > 0) {
-          const p = nodePolitics(n);
-          // Los nodos con facción política fuera del filtro se ocultan;
-          // los que no tienen facción quedan como tejido conectivo.
-          if (p && !pol.has(p)) return false;
-        }
+        // Con el filtro activo solo quedan los nodos con facción política.
+        if (pol && !nodePolitics(n)) return false;
         return true;
       };
 
