@@ -146,7 +146,7 @@ export const ThinkingComposer = forwardRef<HTMLTextAreaElement, Props>(function 
             ))}
           </ul>
 
-          <div className="flex items-center gap-2">
+          <div className="flex shrink-0 items-center gap-2">
             {mic && (
               <button
                 type="button"
