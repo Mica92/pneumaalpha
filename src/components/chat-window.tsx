@@ -37,9 +37,35 @@ import {
 import { TOPICS, getDailyDilemmaPrompt, type TopicId } from "@/lib/engagement";
 import { track } from "@/lib/analytics";
 import { readLens, type LensReading } from "@/lib/lens.functions";
-import { saveInsight } from "@/lib/insights.functions";
 import { PneumLensRail, PneumLensSheet } from "@/components/pneum-lens";
 import { stashQuestion } from "@/lib/question-handoff";
+import {
+  openReflection,
+  updateReflection,
+  listThoughtObjects,
+  saveThoughtObject,
+  updateThoughtObject,
+  deleteThoughtObject,
+  saveDecisionRecord,
+  findPatterns,
+} from "@/lib/workspace.functions";
+import {
+  STATE_LABEL,
+  KIND_LABEL,
+  suggestState,
+  titleFromQuestion,
+  type ReflectionState,
+  type ThoughtKind,
+  type ThoughtObject,
+} from "@/lib/workspace.shared";
+import { ContextRail } from "@/components/workspace/context-rail";
+import { SelectionCapture } from "@/components/workspace/selection-capture";
+import {
+  ThinkingComposer,
+  type ThinkingCommand,
+} from "@/components/workspace/thinking-composer";
+import { DecisionRecordPanel, type DecisionDraft } from "@/components/workspace/decision-record";
+import { MemoryInspector } from "@/components/workspace/memory-inspector";
 
 const WAITING_PHASES: { es: string; en: string }[] = [
   { es: "Leyendo tu pregunta", en: "Reading your question" },
@@ -315,7 +341,6 @@ function ChatBody({
 
   // ——— Pneum Lens: the structure emerging from the last exchange ———
   const lensFn = useServerFn(readLens);
-  const saveInsightFn = useServerFn(saveInsight);
 
   const textOf = (m: UIMessage | undefined) =>
     m
@@ -349,22 +374,6 @@ function ChatBody({
     staleTime: Infinity,
   });
 
-  const handleSaveInsight = async (text: string) => {
-    try {
-      await saveInsightFn({
-        data: {
-          text: text.slice(0, 1200),
-          philosopher,
-          sourceQuestion: lastQuestion ? lastQuestion.slice(0, 1200) : undefined,
-        },
-      });
-      track("insight_saved", { philosopher });
-      toast.success(lang === "es" ? "Guardado en tu biblioteca." : "Saved to your library.");
-    } catch (e) {
-      console.error(e);
-      toast.error(lang === "es" ? "No se pudo guardar." : "Could not save.");
-    }
-  };
 
   const handleContrast = (other: PhilosopherId) => {
     const qid = lastQuestion ? stashQuestion(lastQuestion) : undefined;
@@ -375,13 +384,166 @@ function ChatBody({
     });
   };
 
+  // ——— Thinking Workspace: the reflection and its thought objects ———
+  const openReflectionFn = useServerFn(openReflection);
+  const updateReflectionFn = useServerFn(updateReflection);
+  const listObjectsFn = useServerFn(listThoughtObjects);
+  const saveObjectFn = useServerFn(saveThoughtObject);
+  const updateObjectFn = useServerFn(updateThoughtObject);
+  const deleteObjectFn = useServerFn(deleteThoughtObject);
+  const saveDecisionFn = useServerFn(saveDecisionRecord);
+  const patternsFn = useServerFn(findPatterns);
+
+  const [memoryOpen, setMemoryOpen] = useState(false);
+  const [decisionOpen, setDecisionOpen] = useState(false);
+  const [savingDecision, setSavingDecision] = useState(false);
+  const [focusMode, setFocusMode] = useState(false);
+
+  const { data: reflection, refetch: refetchReflection } = useQuery({
+    queryKey: ["reflection", philosopher],
+    queryFn: () => openReflectionFn({ data: { philosopher } }),
+    enabled: !embedded,
+    staleTime: 60_000,
+  });
+
+  const reflectionId = reflection?.id ?? null;
+
+  const { data: objects = [], refetch: refetchObjects } = useQuery<ThoughtObject[]>({
+    queryKey: ["thought-objects", reflectionId],
+    queryFn: () => listObjectsFn({ data: { reflectionId } }),
+    enabled: Boolean(reflectionId),
+  });
+
+  const { data: patterns = [] } = useQuery({
+    queryKey: ["thought-patterns"],
+    queryFn: () => patternsFn(),
+    enabled: !embedded,
+    staleTime: 300_000,
+  });
+
+  // Title and state follow the reflection without ever taking it over.
+  const firstQuestion = (() => {
+    for (const m of messages) if (m.role === "user") return textOf(m);
+    return "";
+  })();
+
+  useEffect(() => {
+    if (!reflection || !firstQuestion) return;
+    if (reflection.title) return;
+    const title = titleFromQuestion(firstQuestion);
+    updateReflectionFn({
+      data: { id: reflection.id, title, openingQuestion: firstQuestion.slice(0, 2000) },
+    })
+      .then(() => refetchReflection())
+      .catch(() => undefined);
+  }, [reflection, firstQuestion, updateReflectionFn, refetchReflection]);
+
+  const exchanges = messages.filter((m) => m.role === "user").length;
+  useEffect(() => {
+    if (!reflection) return;
+    const next = suggestState(objects, exchanges);
+    if (next === reflection.state) return;
+    updateReflectionFn({ data: { id: reflection.id, state: next } })
+      .then(() => refetchReflection())
+      .catch(() => undefined);
+  }, [reflection, objects, exchanges, updateReflectionFn, refetchReflection]);
+
+  const setReflectionState = async (state: ReflectionState) => {
+    if (!reflection) return;
+    await updateReflectionFn({ data: { id: reflection.id, state } });
+    await refetchReflection();
+  };
+
+  const captureObject = async (kind: ThoughtKind, text: string, rationale?: string) => {
+    try {
+      await saveObjectFn({
+        data: {
+          reflectionId,
+          kind,
+          text: text.slice(0, 2000),
+          context: lastQuestion ? lastQuestion.slice(0, 2000) : undefined,
+          rationale,
+          philosopher,
+        },
+      });
+      if (kind === "insight") track("insight_saved", { philosopher });
+      await refetchObjects();
+      toast.success(
+        lang === "es"
+          ? `${KIND_LABEL[kind].es} añadido a tu mapa.`
+          : `${KIND_LABEL[kind].en} added to your map.`,
+      );
+    } catch (e) {
+      console.error(e);
+      toast.error(lang === "es" ? "No se pudo guardar." : "Could not save.");
+    }
+  };
+
+  const handleSaveDecision = async (draft: DecisionDraft) => {
+    setSavingDecision(true);
+    try {
+      await saveDecisionFn({
+        data: {
+          reflectionId,
+          situation: draft.situation,
+          decision: draft.decision,
+          reason: draft.reason || undefined,
+          risk: draft.risk || undefined,
+          learned: draft.learned || undefined,
+          watchFor: draft.watchFor || undefined,
+          reviewInDays: draft.reviewInDays,
+        },
+      });
+      await refetchObjects();
+      await refetchReflection();
+      setDecisionOpen(false);
+      toast.success(lang === "es" ? "Decisión guardada." : "Decision saved.");
+    } catch (e) {
+      console.error(e);
+      toast.error(lang === "es" ? "No se pudo guardar." : "Could not save.");
+    } finally {
+      setSavingDecision(false);
+    }
+  };
+
+  const COMMAND_PROMPTS: Record<ThinkingCommand, { es: string; en: string }> = {
+    clarify: {
+      es: "Clarifica lo que acabo de decir: separa los hechos de mis interpretaciones.",
+      en: "Clarify what I just said: separate the facts from my interpretations.",
+    },
+    question: {
+      es: "Cuestiona lo que estoy dando por supuesto aquí.",
+      en: "Question what I am taking for granted here.",
+    },
+    shift: {
+      es: "Mira esto mismo desde otra lente: ética, existencial, pragmática o material.",
+      en: "Look at this from another lens: ethical, existential, pragmatic or material.",
+    },
+    deepen: {
+      es: "Profundiza en eso: ¿qué hay debajo?",
+      en: "Go deeper into that: what lies beneath?",
+    },
+    summarize: {
+      es: "Resume lo que ahora veo: la tensión, el supuesto y la pregunta que queda abierta.",
+      en: "Summarise what I now see: the tension, the assumption and the question still open.",
+    },
+  };
+
+  const composerSuggestions = useMemo(() => {
+    if (messages.length === 0) return suggestionsFor(philosopher, lang).slice(0, 3);
+    if (lang === "es") {
+      return ["¿Qué está realmente en juego?", "¿Qué estoy suponiendo?", "¿Qué no estoy viendo?"];
+    }
+    return ["What is really at stake?", "What am I assuming?", "What am I not seeing?"];
+  }, [messages.length, philosopher, lang]);
+
   const lensProps = {
     reading: lens ?? null,
     loading: lensLoading,
     lang,
     onContrast: handleContrast,
     onAsk: (text: string) => sendText(text),
-    onSave: handleSaveInsight,
+    onSave: (text: string) => captureObject("insight", text),
   };
 
   const shell = embedded ? "h-[78vh] max-h-[860px] overflow-hidden" : "min-h-dvh";
@@ -567,20 +729,61 @@ function ChatBody({
               )}
             </div>
           </div>
+
+          {!embedded && reflection && (
+            <div className="mx-auto mt-2 flex max-w-3xl flex-wrap items-center gap-x-3 gap-y-1">
+              <p className="min-w-0 flex-1 truncate font-display text-small font-light text-foreground/80">
+                {reflection.title ||
+                  (lang === "es" ? "Reflexión sin título" : "Untitled reflection")}
+              </p>
+              <span className="rounded-full border border-bronze/40 px-2.5 py-0.5 text-micro uppercase tracking-[0.2em] text-bronze">
+                {STATE_LABEL[reflection.state][lang]}
+              </span>
+              <button
+                type="button"
+                onClick={() => setFocusMode((v) => !v)}
+                aria-pressed={focusMode}
+                className="focus-mist text-micro uppercase tracking-[0.2em] text-muted-foreground transition-colors hover:text-foreground"
+              >
+                {focusMode
+                  ? lang === "es"
+                    ? "Salir de foco"
+                    : "Leave focus"
+                  : lang === "es"
+                    ? "Foco"
+                    : "Focus"}
+              </button>
+            </div>
+          )}
         </header>
 
-        {!embedded && (
+        {!embedded && !focusMode && (
           <div className="sticky top-[57px] z-10 md:top-[73px]">
             <TopicBar activeTopic={activeTopic} onPick={handleTopicPick} disabled={isLoading} />
             <DilemmaBanner onConverse={handleDilemma} disabled={isLoading} />
           </div>
         )}
 
-        {!embedded && <PneumLensSheet {...lensProps} />}
+        {!embedded && !focusMode && <PneumLensSheet {...lensProps} />}
 
         <div className="flex min-h-0 flex-1">
+          {!embedded && !focusMode && (
+            <ContextRail
+              lang={lang}
+              reflection={reflection ?? null}
+              objects={objects}
+              patterns={patterns}
+              onState={setReflectionState}
+              onOpenMemory={() => setMemoryOpen(true)}
+              onOpenDecision={() => setDecisionOpen(true)}
+            />
+          )}
           <div ref={scrollRef} className="relative flex-1 overflow-y-auto px-4 py-8 md:py-12">
-            <div className="mx-auto max-w-3xl space-y-10">
+            <SelectionCapture
+              lang={lang}
+              onCapture={(kind, text) => captureObject(kind, text)}
+              className="mx-auto max-w-3xl space-y-10"
+            >
               {messages.length === 0 && (
                 <div className="fade-up space-y-6 py-8">
                   <p className="font-display text-micro uppercase tracking-[0.4em] text-muted-foreground">
@@ -590,7 +793,7 @@ function ChatBody({
                     {meta.opening[lang]}
                   </p>
 
-                  {!embedded && (
+                  {embedded && (
                     <div className="pt-2">
                       <p className="font-display text-micro uppercase tracking-[0.3em] text-muted-foreground">
                         {t("chat.suggestions")}
@@ -658,7 +861,7 @@ function ChatBody({
                               ? () => handleContrast(lens.perspectives[0].philosopher)
                               : undefined
                           }
-                          onSave={() => handleSaveInsight(text)}
+                          onSave={() => captureObject("insight", text)}
                         />
                         <ContinuationChips
                           topic={activeTopic}
@@ -687,7 +890,7 @@ function ChatBody({
               )}
 
               {error && <p className="text-center text-micro text-destructive">{error.message}</p>}
-            </div>
+            </SelectionCapture>
 
             {!atBottom && messages.length > 2 && (
               <button
@@ -704,102 +907,76 @@ function ChatBody({
               </button>
             )}
           </div>
-          {!embedded && <PneumLensRail {...lensProps} />}
+          {!embedded && !focusMode && <PneumLensRail {...lensProps} />}
         </div>
 
-        <footer className="sticky bottom-0 z-20 border-t border-border/60 bg-background/85 px-3 pt-3 pb-safe backdrop-blur-xl md:px-4">
-          <form onSubmit={handleSubmit} className="mx-auto flex max-w-3xl items-end gap-2">
-            <textarea
-              ref={inputRef}
-              name="msg"
-              rows={1}
-              value={composerText}
-              aria-label={t("chat.placeholder")}
-              placeholder={
-                dictation.listening
-                  ? dictation.interim || t("chat.mic.stop")
-                  : t("chat.placeholder")
+        <footer className="sticky bottom-0 z-20 border-t border-border/60 bg-background/85 px-3 pt-3 pb-20 backdrop-blur-xl md:px-4 md:pb-safe">
+          <ThinkingComposer
+            ref={inputRef}
+            lang={lang}
+            value={composerText}
+            onChange={setComposerText}
+            onSubmit={() => {
+              const text = composerText.trim();
+              if (!text || isLoading) return;
+              setComposerText("");
+              if (inputRef.current) {
+                inputRef.current.value = "";
+                inputRef.current.style.height = "auto";
               }
-              disabled={isLoading}
-              onChange={(e) => setComposerText(e.currentTarget.value)}
-              onKeyDown={(e) => {
-                if (e.key !== "Enter" || e.nativeEvent.isComposing) return;
-                // A single send path: Enter, or Ctrl/Cmd+Enter. Shift+Enter = newline.
-                const isSend = !e.shiftKey || e.metaKey || e.ctrlKey;
-                if (!isSend) return;
-                e.preventDefault();
-                if (isLoading || !composerText.trim()) return;
-                (e.currentTarget.form as HTMLFormElement).requestSubmit();
-              }}
-              onInput={(e) => {
-                const ta = e.currentTarget;
-                ta.style.height = "auto";
-                ta.style.height = Math.min(ta.scrollHeight, 200) + "px";
-              }}
-              className="focus-mist flex-1 resize-none rounded-xl border border-border bg-input px-4 py-3 text-body text-foreground placeholder:text-muted-foreground transition-colors focus:border-mist/50 disabled:opacity-50"
-            />
-            <button
-              type="button"
-              onClick={() => {
+              setAtBottom(true);
+              track("message_sent", { philosopher });
+              void sendMessage({ text });
+            }}
+            disabled={isLoading}
+            showTitle={messages.length === 0}
+            suggestions={composerSuggestions}
+            onSuggestion={(s) => sendText(s)}
+            onCommand={(cmd) => sendText(COMMAND_PROMPTS[cmd][lang])}
+            mic={{
+              supported: dictation.supported,
+              listening: dictation.listening,
+              interim: dictation.interim,
+              toggle: () => {
                 if (!dictation.supported) {
                   toast.error(t("chat.mic.unsupported"));
                   return;
                 }
                 if (dictation.listening) dictation.stop();
                 else dictation.start();
-              }}
-              disabled={isLoading}
-              aria-label={dictation.listening ? t("chat.mic.stop") : t("chat.mic.start")}
-              title={dictation.listening ? t("chat.mic.stop") : t("chat.mic.start")}
-              aria-pressed={dictation.listening}
-              className={`focus-mist inline-flex h-11 w-11 shrink-0 items-center justify-center self-end rounded-xl border transition-all disabled:opacity-30 ${
-                dictation.listening
-                  ? "border-mist/70 bg-mist/15 text-mist pneuma-breathe"
-                  : "border-border bg-card/40 text-muted-foreground hover:border-mist/50 hover:text-mist"
-              }`}
-            >
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <rect x="9" y="3" width="6" height="12" rx="3" />
-                <path d="M5 11a7 7 0 0 0 14 0" />
-                <line x1="12" y1="18" x2="12" y2="22" />
-              </svg>
-            </button>
-            <button
-              type="submit"
-              disabled={isLoading || !composerText.trim()}
-              aria-label={t("chat.send")}
-              className="focus-mist inline-flex h-11 shrink-0 items-center justify-center self-end rounded-xl border border-mist/40 bg-mist/95 px-5 font-display text-small text-primary-foreground transition-all hover:bg-mist disabled:cursor-not-allowed disabled:opacity-30"
-            >
-              <span className="hidden sm:inline">{t("chat.send")}</span>
-              <svg
-                className="sm:hidden"
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.8"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <line x1="22" y1="2" x2="11" y2="13" />
-                <polygon points="22 2 15 22 11 13 2 9 22 2" />
-              </svg>
-            </button>
-          </form>
-          <p className="mx-auto mt-2 hidden max-w-3xl text-center text-micro uppercase tracking-[0.3em] text-muted-foreground md:block">
-            {t("chat.newline")} · {t("chat.send.hint")}
-          </p>
+              },
+            }}
+          />
         </footer>
+
+        <MemoryInspector
+          lang={lang}
+          open={memoryOpen}
+          objects={objects}
+          onClose={() => setMemoryOpen(false)}
+          onToggleMap={async (o) => {
+            await updateObjectFn({ data: { id: o.id, inMap: !o.in_map } });
+            await refetchObjects();
+          }}
+          onToggleMute={async (o) => {
+            await updateObjectFn({ data: { id: o.id, muted: !o.muted } });
+            await refetchObjects();
+          }}
+          onDelete={async (o) => {
+            await deleteObjectFn({ data: { id: o.id } });
+            await refetchObjects();
+          }}
+        />
+
+        <DecisionRecordPanel
+          lang={lang}
+          open={decisionOpen}
+          saving={savingDecision}
+          initialSituation={reflection?.opening_question ?? firstQuestion}
+          onClose={() => setDecisionOpen(false)}
+          onSave={handleSaveDecision}
+        />
+
 
         {archiveOpen && (
           <div
