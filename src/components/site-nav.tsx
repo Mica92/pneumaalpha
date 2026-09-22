@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 type NavItem = { to: string; es: string; en: string; note?: { es: string; en: string } };
 type NavGroup = { id: string; es: string; en: string; items: readonly NavItem[] };
 
-/** Two short menus. Every existing page still lives at its own address. */
+/** Una sola arquitectura: Explorar, Pensar, Mi espacio. Nosotros va aparte. */
 const GROUPS: readonly NavGroup[] = [
   {
     id: "explore",
@@ -19,10 +19,10 @@ const GROUPS: readonly NavGroup[] = [
     en: "Explore",
     items: [
       {
-        to: "/explorar",
-        es: "Explorar",
-        en: "Explore",
-        note: { es: "Entra por un tema, no por un nombre", en: "Enter by topic, not by name" },
+        to: "/ideas",
+        es: "Ideas",
+        en: "Ideas",
+        note: { es: "Entra por la idea, no por el autor", en: "Enter by idea, not by author" },
       },
       {
         to: "/filosofos",
@@ -31,62 +31,53 @@ const GROUPS: readonly NavGroup[] = [
         note: { es: "El catálogo completo", en: "The full catalogue" },
       },
       {
-        to: "/ideas",
-        es: "Ideas",
-        en: "Ideas",
-        note: { es: "Las grandes preguntas", en: "The great questions" },
-      },
-      {
         to: "/rutas",
         es: "Rutas",
         en: "Paths",
-        note: { es: "Recorridos guiados de lectura", en: "Guided reading paths" },
+        note: { es: "Una pregunta, cuatro perspectivas", en: "One question, four perspectives" },
       },
       {
         to: "/conocimiento",
-        es: "Red neuronal",
-        en: "Neural map",
-        note: { es: "El mapa de relaciones entre ideas", en: "The map of how ideas relate" },
+        es: "Mapa",
+        en: "Map",
+        note: { es: "Cómo se relacionan las ideas", en: "How ideas relate" },
+      },
+      {
+        to: "/explorar",
+        es: "Por tema",
+        en: "By topic",
+        note: { es: "Descubrimiento abierto", en: "Open discovery" },
       },
     ],
   },
   {
-    id: "product",
-    es: "Producto",
-    en: "Product",
+    id: "think",
+    es: "Pensar",
+    en: "Think",
     items: [
       {
         to: "/oraculo",
-        es: "Oráculo",
-        en: "Oracle",
-        note: {
-          es: "Escribe tu pregunta y gana claridad",
-          en: "Write your question and gain clarity",
-        },
+        es: "Nueva pregunta",
+        en: "New question",
+        note: { es: "Escribe lo que intentas comprender", en: "Write what you are trying to understand" },
       },
       {
-        to: "/analisis",
-        es: "Análisis",
-        en: "Analysis",
-        note: {
-          es: "Analiza cómo estás pensando algo",
-          en: "Analyse how you are thinking something",
-        },
+        to: "/comparar",
+        es: "Comparar perspectivas",
+        en: "Compare perspectives",
+        note: { es: "Contraste y síntesis", en: "Contrast and synthesis" },
       },
       {
         to: "/mesa",
         es: "Mesa Redonda",
         en: "Round Table",
-        note: { es: "Pon tu idea a prueba", en: "Put your idea to the test" },
+        note: { es: "Pon tu pregunta en conflicto", en: "Put your question in conflict" },
       },
       {
-        to: "/comparar",
-        es: "Comparar",
-        en: "Compare",
-        note: {
-          es: "Mira el problema desde perspectivas diferentes",
-          en: "See the problem from different perspectives",
-        },
+        to: "/analisis",
+        es: "Análisis",
+        en: "Analysis",
+        note: { es: "Descubre qué estás dando por supuesto", en: "Find what you are assuming" },
       },
       {
         to: "/modo-socrates",
@@ -95,10 +86,35 @@ const GROUPS: readonly NavGroup[] = [
         note: { es: "Hazte mejores preguntas", en: "Ask yourself better questions" },
       },
       {
-        to: "/podcast",
-        es: "Podcast",
-        en: "Podcast",
-        note: { es: "Los clásicos, en voz alta", en: "The classics, read aloud" },
+        to: "/situaciones",
+        es: "Situaciones",
+        en: "Situations",
+        note: { es: "Empieza por lo que estás viviendo", en: "Start from what you are living" },
+      },
+    ],
+  },
+  {
+    id: "space",
+    es: "Mi espacio",
+    en: "My space",
+    items: [
+      {
+        to: "/recorrido",
+        es: "Historial",
+        en: "History",
+        note: { es: "Tus conversaciones y preguntas", en: "Your conversations and questions" },
+      },
+      {
+        to: "/mi-mapa",
+        es: "Mi mapa",
+        en: "My map",
+        note: { es: "Qué has estado pensando", en: "What you have been thinking" },
+      },
+      {
+        to: "/reporte",
+        es: "Retrato de pensamiento",
+        en: "Portrait of thinking",
+        note: { es: "Patrones en tus propias palabras", en: "Patterns in your own words" },
       },
       {
         to: "/biblioteca",
@@ -107,16 +123,10 @@ const GROUPS: readonly NavGroup[] = [
         note: { es: "Obras y fuentes", en: "Works and sources" },
       },
       {
-        to: "/mi-mapa",
-        es: "Mi mapa",
-        en: "My map",
-        note: { es: "Lo que has recorrido", en: "What you have explored" },
-      },
-      {
-        to: "/reporte",
-        es: "Retrato de tu pensamiento",
-        en: "Portrait of your thinking",
-        note: { es: "Patrones en tus propias palabras", en: "Patterns in your own words" },
+        to: "/podcast",
+        es: "Podcast",
+        en: "Podcast",
+        note: { es: "Los clásicos, en voz alta", en: "The classics, read aloud" },
       },
       {
         to: "/perfil",
