@@ -84,7 +84,7 @@ const COPY = {
   tryAgain: { es: "Escribir otra cosa", en: "Write something else" },
 } as const;
 
-type Result = { philosopher: PhilosopherId; reason: string };
+type Result = MatchResult;
 
 function ExplorePage() {
   const { lang } = useI18n();
@@ -191,7 +191,44 @@ function ExplorePage() {
           </p>
         )}
 
-        {chosen && result && (
+        {result?.safety && (
+          <section aria-live="polite" className="fade-up mt-12">
+            <div className="card-editorial p-6 md:p-8">
+              <h2 className="font-serif text-heading font-light text-foreground">
+                {result.safety === "crisis"
+                  ? COPY.safetyCrisisTitle[lang]
+                  : COPY.safetyOffTitle[lang]}
+              </h2>
+              <p className="mt-3 text-small leading-relaxed text-foreground/85">
+                {result.safety === "crisis"
+                  ? COPY.safetyCrisisBody[lang]
+                  : COPY.safetyOffBody[lang]}
+              </p>
+              {result.safety === "crisis" && (
+                <ul className="mt-4 space-y-2 text-small text-foreground/85">
+                  {CRISIS_RESOURCES.map((r) => (
+                    <li key={r.label.en} className="flex flex-col">
+                      <span className="font-medium text-foreground">{r.label[lang]}</span>
+                      <span className="text-micro text-muted-foreground">{r.detail[lang]}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+              <button
+                type="button"
+                onClick={() => {
+                  setResult(null);
+                  requestAnimationFrame(() => inputRef.current?.focus());
+                }}
+                className="btn-ghost-gold mt-6"
+              >
+                {COPY.tryAgain[lang]}
+              </button>
+            </div>
+          </section>
+        )}
+
+        {result && !result.safety && chosen && (
           <section aria-live="polite" className="fade-up mt-12">
             <div className="card-editorial p-6 md:p-8">
               <p className="label text-bronze">{COPY.chosen[lang]}</p>
