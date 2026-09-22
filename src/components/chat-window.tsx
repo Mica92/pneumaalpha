@@ -797,8 +797,11 @@ function ChatBody({
             />
           )}
           <div ref={scrollRef} className="relative flex-1 overflow-y-auto px-4 py-8 md:py-12">
-
-            <div className="mx-auto max-w-3xl space-y-10">
+            <SelectionCapture
+              lang={lang}
+              onCapture={(kind, text) => captureObject(kind, text)}
+              className="mx-auto max-w-3xl space-y-10"
+            >
               {messages.length === 0 && (
                 <div className="fade-up space-y-6 py-8">
                   <p className="font-display text-micro uppercase tracking-[0.4em] text-muted-foreground">
