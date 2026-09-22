@@ -4,8 +4,10 @@ import {
   GRAPH_NODES,
   KIND_LABEL,
   NODE_BY_ID,
+  nodePolitics,
   type GraphNode,
   type NodeKind,
+  type PoliticsId,
 } from "@/lib/knowledge-graph";
 import { useI18n } from "@/lib/i18n";
 
@@ -46,11 +48,13 @@ export function KnowledgeMap({
   onSelect,
   activeKinds,
   query,
+  politics,
 }: {
   selected: string | null;
   onSelect: (id: string | null) => void;
   activeKinds: Set<NodeKind>;
   query: string;
+  politics?: Set<PoliticsId>;
 }) {
   const { lang } = useI18n();
   const canvasRef = useRef<HTMLCanvasElement>(null);
