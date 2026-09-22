@@ -879,7 +879,7 @@ function ChatBody({
                               ? () => handleContrast(lens.perspectives[0].philosopher)
                               : undefined
                           }
-                          onSave={() => handleSaveInsight(text)}
+                          onSave={() => captureObject("insight", text)}
                         />
                         <ContinuationChips
                           topic={activeTopic}
