@@ -7,7 +7,6 @@ import {
   nodePolitics,
   type GraphNode,
   type NodeKind,
-  type PoliticsId,
 } from "@/lib/knowledge-graph";
 import { useI18n } from "@/lib/i18n";
 
