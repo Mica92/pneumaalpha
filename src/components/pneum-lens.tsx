@@ -63,7 +63,9 @@ export function PneumLensBody({ reading, loading, lang, onContrast, onAsk, onSav
   const c = COPY[lang];
 
   if (loading && !hasContent(reading)) {
-    return <p className="text-micro uppercase tracking-[0.25em] text-muted-foreground">{c.reading}</p>;
+    return (
+      <p className="text-micro uppercase tracking-[0.25em] text-muted-foreground">{c.reading}</p>
+    );
   }
   if (!hasContent(reading)) {
     return <p className="text-small leading-relaxed text-muted-foreground">{c.empty}</p>;

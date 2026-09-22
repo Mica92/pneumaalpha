@@ -229,8 +229,18 @@ function Home() {
 
   const featured = useMemo(() => {
     const ids: PhilosopherId[] = [
-      "nietzsche", "marx", "plato", "confucius", "buddha", "suntzu",
-      "aristotle", "marcusaurelius", "seneca", "socrates", "kant", "heidegger",
+      "nietzsche",
+      "marx",
+      "plato",
+      "confucius",
+      "buddha",
+      "suntzu",
+      "aristotle",
+      "marcusaurelius",
+      "seneca",
+      "socrates",
+      "kant",
+      "heidegger",
     ];
     return ids.filter((id) => id in PHILOSOPHERS);
   }, []);
@@ -284,7 +294,10 @@ function Home() {
           }
           className="focus-mist min-w-0 flex-1 rounded-md border border-bronze/45 bg-background/80 px-4 py-4 text-body text-foreground backdrop-blur-sm transition-colors placeholder:text-muted-foreground/70 hover:border-bronze/70"
         />
-        <button type="submit" className="btn-gold focus-mist whitespace-nowrap px-7 py-4 text-small">
+        <button
+          type="submit"
+          className="btn-gold focus-mist whitespace-nowrap px-7 py-4 text-small"
+        >
           {es ? "Pensar con Pneum" : "Think with Pneum"}
         </button>
       </div>
@@ -431,7 +444,9 @@ function Home() {
                 </li>
 
                 <li className="py-6">
-                  <p className="label">{es ? "La pregunta que aparece" : "The question that appears"}</p>
+                  <p className="label">
+                    {es ? "La pregunta que aparece" : "The question that appears"}
+                  </p>
                   <p className="mt-3 font-serif text-subtitle font-light leading-snug text-bronze-bright">
                     {DEMO_NEW_QUESTION[lang]}
                   </p>
@@ -679,7 +694,6 @@ function Home() {
             </Link>
           </p>
         </section>
-
 
         {/* ── Cierre ───────────────────────────────────────────── */}
         <section className="mx-auto max-w-3xl px-5 py-24 text-center md:px-8 md:py-32">

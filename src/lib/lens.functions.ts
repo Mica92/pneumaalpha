@@ -113,7 +113,9 @@ Strict rules:
       lang === "es" ? "CATÁLOGO DE PERSPECTIVAS:" : "PERSPECTIVE CATALOG:",
       catalog,
       "",
-      current ? `${lang === "es" ? "Perspectiva actual" : "Current perspective"}: ${current.id}` : "",
+      current
+        ? `${lang === "es" ? "Perspectiva actual" : "Current perspective"}: ${current.id}`
+        : "",
       "",
       lang === "es" ? "PREGUNTA DE LA PERSONA:" : "THE PERSON'S QUESTION:",
       data.question,
@@ -134,7 +136,11 @@ Strict rules:
         temperature: 0.4,
       });
 
-      const jsonText = text.trim().replace(/^```(?:json)?/i, "").replace(/```$/, "").trim();
+      const jsonText = text
+        .trim()
+        .replace(/^```(?:json)?/i, "")
+        .replace(/```$/, "")
+        .trim();
       const parsed = RawSchema.safeParse(JSON.parse(jsonText));
       if (!parsed.success) return EMPTY;
       const raw = parsed.data;
