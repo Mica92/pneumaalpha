@@ -205,11 +205,13 @@ function ExplorePage() {
                   : COPY.safetyOffBody[lang]}
               </p>
               {result.safety === "crisis" && (
-                <ul className="mt-4 space-y-2 text-small text-foreground/85">
+                <ul className="mt-4 space-y-3 text-small text-foreground/85">
                   {CRISIS_RESOURCES.map((r) => (
-                    <li key={r.label.en} className="flex flex-col">
-                      <span className="font-medium text-foreground">{r.label[lang]}</span>
-                      <span className="text-micro text-muted-foreground">{r.detail[lang]}</span>
+                    <li key={r.contact}>
+                      <p className="font-medium text-foreground">
+                        {r.name[lang]} — <span className="text-bronze">{r.contact}</span>
+                      </p>
+                      <p className="text-micro text-muted-foreground">{r.note[lang]}</p>
                     </li>
                   ))}
                 </ul>
