@@ -133,7 +133,7 @@ export const ThinkingComposer = forwardRef<HTMLTextAreaElement, Props>(function 
         <div className="mt-2 flex items-center justify-between gap-2 border-t border-border/40 pt-2">
           <ul className="flex min-w-0 flex-1 gap-1.5 overflow-x-auto md:flex-wrap md:overflow-visible">
             {COMMANDS.map((cmd) => (
-              <li key={cmd}>
+              <li key={cmd} className="shrink-0">
                 <button
                   type="button"
                   onClick={() => onCommand(cmd)}
