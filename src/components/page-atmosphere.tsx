@@ -20,10 +20,10 @@ export function PageAtmosphere({ variant }: { variant: keyof typeof IMAGES }) {
         width={1920}
         height={1088}
         loading="lazy"
-        className="h-full w-full object-cover grayscale-[0.2] opacity-55 brightness-110 contrast-110"
+        className="h-full w-full object-cover grayscale-0 opacity-70 brightness-125 contrast-105 saturate-[1.2]"
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-background/10 via-background/52 to-background/95" />
-      <div className="absolute inset-0 bg-gradient-to-r from-background/45 via-transparent to-background/45" />
+      <div className="absolute inset-0 bg-gradient-to-b from-background/5 via-background/40 to-background/90" />
+      <div className="absolute inset-0 bg-gradient-to-r from-background/30 via-transparent to-background/30" />
     </div>
   );
 }
