@@ -535,33 +535,6 @@ function Home() {
         </section>
 
         {/* ── Perspectivas ─────────────────────────────────────── */}
-        <section className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-28">
-          <p className="label">{es ? "Perspectivas" : "Perspectives"}</p>
-          <h2 className="balance mt-3 max-w-3xl font-serif text-title font-light text-foreground">
-            {es
-              ? "La filosofía aplicada es el motor. La claridad es el resultado."
-              : "Applied philosophy is the engine. Clarity is the result."}
-          </h2>
-          <p className="measure mt-5 text-body leading-relaxed text-muted-foreground">
-            {es
-              ? `${PHILOSOPHER_LIST.length} perspectivas construidas a partir de obra publicada. Cada una es una construcción editorial basada en los conceptos y el contexto intelectual de un pensador; no pretende ser la persona histórica.`
-              : `${PHILOSOPHER_LIST.length} perspectives built from published work. Each one is an editorial construction based on a thinker's concepts and intellectual context; it does not claim to be the historical person.`}
-          </p>
-
-          <ul className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {featured.map((id) => (
-              <li key={id}>
-                <PhilosopherCard id={id} />
-              </li>
-            ))}
-          </ul>
-          <Link
-            to="/filosofos"
-            className="focus-mist mt-8 inline-block text-small text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline"
-          >
-            {es ? "Ver todas las perspectivas →" : "See all perspectives →"}
-          </Link>
-        </section>
 
         {/* ── Ideas y rutas ────────────────────────────────────── */}
         <section className="border-y border-border/60 bg-card/25">
