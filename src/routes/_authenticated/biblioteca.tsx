@@ -81,6 +81,8 @@ function LibraryPage() {
           </p>
         </header>
 
+        <SavedInsights />
+
         <div className="mb-8 flex flex-wrap gap-2">
           <FilterChip active={filter === null} onClick={() => setFilter(null)}>
             {t("library.all")}
