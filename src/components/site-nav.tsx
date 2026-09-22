@@ -290,11 +290,10 @@ export function SiteNav({ className = "" }: { className?: string }) {
           </Link>
 
           <Link
-            to="/"
-            hash="home-inquiry"
-            className="btn-ghost-gold focus-mist whitespace-nowrap px-4 py-1.5 text-micro"
+            to="/oraculo"
+            className="btn-gold focus-mist whitespace-nowrap px-4 py-1.5 text-micro"
           >
-            {lang === "es" ? "Comenzar" : "Start"}
+            {lang === "es" ? "Pensar una pregunta" : "Think a question"}
           </Link>
 
           <Link
@@ -343,9 +342,9 @@ export function SiteNav({ className = "" }: { className?: string }) {
             <button
               type="button"
               onClick={signIn}
-                className="btn-gold whitespace-nowrap px-4 py-1.5 text-micro"
+              className="focus-mist whitespace-nowrap text-small text-muted-foreground transition-colors hover:text-foreground"
             >
-              {lang === "es" ? "Entrar con Google" : "Sign in with Google"}
+              {lang === "es" ? "Entrar" : "Sign in"}
             </button>
           )}
         </div>
