@@ -10,9 +10,9 @@ import { SiteFooter } from "@/components/site-footer";
 import { track } from "@/lib/analytics";
 import { stashQuestion } from "@/lib/question-handoff";
 
-const TITLE = "Pneum — Claridad para decisiones difíciles";
+const TITLE = "Pneum — Claridad para pensar lo que te importa";
 const DESCRIPTION =
-  "Pneum es inteligencia personal para decidir: filosofía aplicada que te ayuda a comprender una situación compleja, examinar cómo estás pensando y ver la pregunta de otra manera.";
+  "Pneum es un espacio para pensar con claridad: filosofía aplicada que te ayuda a comprender una situación compleja, examinar cómo estás pensando y ver la pregunta de otra manera.";
 
 export const Route = createFileRoute("/_authenticated/")({
   component: Home,
@@ -35,7 +35,7 @@ export const Route = createFileRoute("/_authenticated/")({
           "@type": "SoftwareApplication",
           name: SITE_NAME,
           description:
-            "Filosofía aplicada para comprender decisiones difíciles, examinar supuestos y ver patrones en cómo piensas. En español e inglés.",
+            "Filosofía aplicada para comprender situaciones complejas, examinar supuestos y ver patrones en cómo piensas. En español e inglés.",
           applicationCategory: "EducationalApplication",
           operatingSystem: "Web",
           inLanguage: ["es", "en"],
@@ -54,7 +54,7 @@ export const Route = createFileRoute("/_authenticated/")({
               name: "¿Qué es Pneum?",
               acceptedAnswer: {
                 "@type": "Answer",
-                text: "Inteligencia personal para decidir: filosofía aplicada que ayuda a comprender una situación, examinar supuestos y tensiones, y reformular la pregunta. No decide por ti.",
+                text: "Un espacio para pensar con claridad: filosofía aplicada que ayuda a comprender una situación, examinar supuestos y tensiones, y reformular la pregunta. No piensa por ti.",
               },
             },
             {
@@ -85,10 +85,10 @@ type L = { es: string; en: string };
 const INTENTS: { id: string; label: L; starter: L }[] = [
   {
     id: "decision",
-    label: { es: "Quiero tomar una decisión", en: "I want to make a decision" },
+    label: { es: "Quiero aclarar algo que me pesa", en: "I want to clear up something weighing on me" },
     starter: {
-      es: "Estoy intentando decidir si ",
-      en: "I am trying to decide whether ",
+      es: "Llevo tiempo dándole vueltas a ",
+      en: "I have been going over ",
     },
   },
   {
@@ -115,7 +115,7 @@ const DEMO_INPUT: L = {
 
 const DEMO_STEPS: { label: L; body: L; items?: L[] }[] = [
   {
-    label: { es: "Lo que parece ser la decisión", en: "What the decision seems to be" },
+    label: { es: "Lo que parece estar en juego", en: "What seems to be at stake" },
     body: { es: "Cambiar de trabajo o quedarte.", en: "Change jobs or stay." },
   },
   {
@@ -134,7 +134,7 @@ const DEMO_STEPS: { label: L; body: L; items?: L[] }[] = [
     body: { es: "Libertad ↔ estabilidad", en: "Freedom ↔ stability" },
   },
   {
-    label: { es: "Una pregunta que abre la decisión", en: "A question that opens the decision" },
+    label: { es: "Una pregunta que abre el tema", en: "A question that opens it up" },
     body: {
       es: "¿Qué perderías si te quedaras?",
       en: "What would you lose if you stayed?",
@@ -146,8 +146,8 @@ const MOVES: { name: L; text: L }[] = [
   {
     name: { es: "Clarificar", en: "Clarify" },
     text: {
-      es: "Comprende qué está realmente en juego en lo que estás decidiendo.",
-      en: "Understand what is really at stake in what you are deciding.",
+      es: "Comprende qué está realmente en juego en lo que te ocupa.",
+      en: "Understand what is really at stake in what occupies you.",
     },
   },
   {
@@ -177,8 +177,8 @@ const TRANSFORM: L[] = [
     en: "What am I assuming about what success means?",
   },
   {
-    es: "¿Qué decisión seguiría teniendo sentido si elimino la necesidad de demostrar algo?",
-    en: "Which decision would still make sense if I remove the need to prove something?",
+    es: "¿Qué camino seguiría teniendo sentido si elimino la necesidad de demostrar algo?",
+    en: "Which path would still make sense if I remove the need to prove something?",
   },
 ];
 
@@ -192,7 +192,7 @@ const ENGINE: { id: PhilosopherId; concepts: L }[] = [
 ];
 
 const OVER_TIME: { when: L; text: L }[] = [
-  { when: { es: "Hoy", en: "Today" }, text: { es: "“Ayúdame con esta decisión.”", en: "“Help me with this decision.”" } },
+  { when: { es: "Hoy", en: "Today" }, text: { es: "“Ayúdame a ordenar esto que traigo en la cabeza.”", en: "“Help me sort out what is on my mind.”" } },
   {
     when: { es: "Después", en: "Later" },
     text: {
@@ -209,7 +209,7 @@ const OVER_TIME: { when: L; text: L }[] = [
 const CONTROL: L[] = [
   { es: "Ver qué recuerda Pneum de ti.", en: "See what Pneum remembers about you." },
   { es: "Corregir o eliminar lo que no te representa.", en: "Correct or remove what does not represent you." },
-  { es: "Decidir qué entra en tu mapa.", en: "Decide what enters your map." },
+  { es: "Elegir qué entra en tu mapa.", en: "Choose what enters your map." },
   { es: "Exportar o borrar todo.", en: "Export or delete everything." },
 ];
 
@@ -279,10 +279,10 @@ function Home() {
         />
         <div className="mt-3 flex flex-wrap items-center gap-4">
           <button type="submit" className="btn-gold focus-mist px-7 py-3 text-small">
-            {es ? "Explorar una decisión" : "Explore a decision"}
+            {es ? "Empezar a pensarlo" : "Start thinking it through"}
           </button>
           <span className="text-micro text-muted-foreground">
-            {es ? "La decisión sigue siendo tuya." : "The decision remains yours."}
+            {es ? "El pensamiento sigue siendo tuyo." : "The thinking remains yours."}
           </span>
         </div>
 
@@ -321,25 +321,25 @@ function Home() {
           <div className="grid gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
             <div>
               <p className="label">
-                {es ? "Inteligencia personal para decidir" : "Personal decision intelligence"}
+                {es ? "Un espacio para pensar" : "A space for thinking"}
               </p>
               <h1 className="fade-up balance mt-5 font-serif text-display font-light text-foreground">
                 {es ? (
                   <>
-                    Hay decisiones que no necesitan más consejos. Necesitan más{" "}
+                    Hay preguntas que no necesitan más consejos. Necesitan más{" "}
                     <em className="text-bronze not-italic">claridad</em>.
                   </>
                 ) : (
                   <>
-                    Some decisions don&apos;t need more advice. They need more{" "}
+                    Some questions don&apos;t need more advice. They need more{" "}
                     <em className="text-bronze not-italic">clarity</em>.
                   </>
                 )}
               </h1>
               <p className="lead measure mt-6">
                 {es
-                  ? "Pneum usa filosofía aplicada para ayudarte a comprender situaciones complejas, examinar cómo estás pensando y decidir con mayor claridad."
-                  : "Pneum uses applied philosophy to help you understand complex situations, examine how you are thinking and decide with greater clarity."}
+                  ? "Pneum usa filosofía aplicada para ayudarte a comprender situaciones complejas, examinar cómo estás pensando y ver con mayor claridad lo que tienes delante."
+                  : "Pneum uses applied philosophy to help you understand complex situations, examine how you are thinking and see what is in front of you more clearly."}
               </p>
 
               <div className="mt-10">{composer("hero", true)}</div>
@@ -481,8 +481,8 @@ function Home() {
               </h2>
               <p className="lead measure mt-5">
                 {es
-                  ? "Tus conversaciones no quedan aisladas: decisiones, valores, conceptos, tensiones y preguntas se conectan en una representación dinámica de tu pensamiento."
-                  : "Your conversations don't stay isolated: decisions, values, concepts, tensions and questions connect into a dynamic representation of your thinking."}
+                  ? "Tus conversaciones no quedan aisladas: ideas, valores, conceptos, tensiones y preguntas se conectan en una representación dinámica de tu pensamiento."
+                  : "Your conversations don't stay isolated: ideas, values, concepts, tensions and questions connect into a dynamic representation of your thinking."}
               </p>
               <p className="mt-4 text-small text-muted-foreground">
                 {es
@@ -619,8 +619,8 @@ function Home() {
               </h2>
               <p className="mt-4 max-w-md text-small leading-relaxed text-muted-foreground">
                 {es
-                  ? "Pneum construye memoria sólo con lo que tú decides guardar, y esa memoria es legible y reversible."
-                  : "Pneum builds memory only from what you decide to keep, and that memory is readable and reversible."}
+                  ? "Pneum construye memoria sólo con lo que tú eliges guardar, y esa memoria es legible y reversible."
+                  : "Pneum builds memory only from what you choose to keep, and that memory is readable and reversible."}
               </p>
               <Link to="/perfil" className="btn-ghost-gold focus-mist mt-8 inline-flex px-5 py-2.5 text-micro">
                 {es ? "Ver y controlar tu memoria" : "See and control your memory"}
