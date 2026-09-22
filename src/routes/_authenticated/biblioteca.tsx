@@ -12,6 +12,7 @@ import {
   moderateFragment,
   type LibraryFragment,
 } from "@/lib/library.functions";
+import { deleteInsight, listInsights } from "@/lib/insights.functions";
 import {
   PHILOSOPHERS,
   PHILOSOPHER_LIST,
