@@ -908,7 +908,7 @@ function ChatBody({
               )}
 
               {error && <p className="text-center text-micro text-destructive">{error.message}</p>}
-            </div>
+            </SelectionCapture>
 
             {!atBottom && messages.length > 2 && (
               <button
