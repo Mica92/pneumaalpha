@@ -559,9 +559,7 @@ function ChatBody({
                     className="font-display text-lg text-mist pneuma-breathe"
                     intervalMs={280}
                   />
-                  <span className="text-micro uppercase tracking-[0.3em] glacier-shimmer">
-                    {t("chat.thinking")}
-                  </span>
+                  <WaitingPhase lang={lang} />
                 </div>
               </div>
             )}
