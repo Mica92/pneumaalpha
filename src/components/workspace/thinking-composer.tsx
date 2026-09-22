@@ -82,7 +82,7 @@ export const ThinkingComposer = forwardRef<HTMLTextAreaElement, Props>(function 
       )}
 
       {suggestions.length > 0 && (
-        <ul className="mb-3 flex flex-wrap gap-2">
+        <ul className="mb-3 hidden flex-wrap gap-2 md:flex">
           {suggestions.map((s) => (
             <li key={s}>
               <button
