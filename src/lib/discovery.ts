@@ -567,6 +567,229 @@ export function politicsOf(id: PhilosopherId): PoliticsId | undefined {
   return POLITICS[id];
 }
 
+/* ── Origen cultural ─────────────────────────────────────────────── */
+
+export type RegionId =
+  | "greece"
+  | "rome"
+  | "italy"
+  | "germanic"
+  | "france"
+  | "britain"
+  | "usa"
+  | "hispanic"
+  | "eastern"
+  | "scandinavia"
+  | "arab"
+  | "india"
+  | "china"
+  | "japan";
+
+export const REGION_LABELS: Record<RegionId, LocalizedString> = {
+  greece: { es: "Grecia", en: "Greece" },
+  rome: { es: "Roma", en: "Rome" },
+  italy: { es: "Italia", en: "Italy" },
+  germanic: { es: "Alemania y Austria", en: "Germany & Austria" },
+  france: { es: "Francia", en: "France" },
+  britain: { es: "Reino Unido e Irlanda", en: "Britain & Ireland" },
+  usa: { es: "Estados Unidos", en: "United States" },
+  hispanic: { es: "España e Hispanoamérica", en: "Spain & Latin America" },
+  eastern: { es: "Rusia y Europa del Este", en: "Russia & Eastern Europe" },
+  scandinavia: { es: "Escandinavia", en: "Scandinavia" },
+  arab: { es: "Mundo árabe", en: "Arab world" },
+  india: { es: "India", en: "India" },
+  china: { es: "China", en: "China" },
+  japan: { es: "Japón", en: "Japan" },
+};
+
+export const REGION_ORDER: RegionId[] = [
+  "greece",
+  "rome",
+  "italy",
+  "germanic",
+  "france",
+  "britain",
+  "usa",
+  "hispanic",
+  "eastern",
+  "scandinavia",
+  "arab",
+  "india",
+  "china",
+  "japan",
+];
+
+/** Lectura orientativa del origen cultural de cada perspectiva. */
+export const REGIONS: Partial<Record<PhilosopherId, RegionId>> = {
+  plato: "greece",
+  aristotle: "greece",
+  socrates: "greece",
+  yannaras: "greece",
+  marcusaurelius: "rome",
+  seneca: "rome",
+  aquinas: "italy",
+  evola: "italy",
+  marinella: "italy",
+  volpi: "italy",
+  heidegger: "germanic",
+  schopenhauer: "germanic",
+  nietzsche: "germanic",
+  marx: "germanic",
+  kant: "germanic",
+  hegel: "germanic",
+  spengler: "germanic",
+  junger: "germanic",
+  eckhart: "germanic",
+  stirner: "germanic",
+  gadamer: "germanic",
+  hildebrand: "germanic",
+  stein: "germanic",
+  pohlenz: "germanic",
+  arendt: "germanic",
+  hayek: "germanic",
+  mises: "germanic",
+  strauss: "germanic",
+  pascal: "france",
+  rousseau: "france",
+  sartre: "france",
+  camus: "france",
+  weil: "france",
+  derrida: "france",
+  porete: "france",
+  deshoulieres: "france",
+  sable: "france",
+  marcel: "france",
+  maritain: "france",
+  quoist: "france",
+  levinas: "france",
+  burke: "britain",
+  mill: "britain",
+  bentham: "britain",
+  berlin: "britain",
+  wollstonecraft: "britain",
+  astell: "britain",
+  anscombe: "britain",
+  emerson: "usa",
+  thoreau: "usa",
+  rand: "usa",
+  james: "usa",
+  lipman: "usa",
+  zubiri: "hispanic",
+  ortega: "hispanic",
+  kusch: "hispanic",
+  giannini: "hispanic",
+  cioran: "eastern",
+  bakunin: "eastern",
+  eliade: "eastern",
+  ziemiecka: "eastern",
+  bauman: "eastern",
+  kierkegaard: "scandinavia",
+  bostrom: "scandinavia",
+  ibnkhaldun: "arab",
+  jabri: "arab",
+  maimonides: "arab",
+  buddha: "india",
+  iqbal: "india",
+  krishnamurti: "india",
+  confucius: "china",
+  suntzu: "china",
+  nishida: "japan",
+  beauvoir: "france",
+};
+
+export function regionOf(id: PhilosopherId): RegionId | undefined {
+  return REGIONS[id];
+}
+
+/* ── Religión o tradición ────────────────────────────────────────── */
+
+export type TraditionId =
+  | "catholic"
+  | "orthodox"
+  | "protestant"
+  | "jewish"
+  | "islam"
+  | "buddhist"
+  | "confucian"
+  | "taoist"
+  | "secular";
+
+export const TRADITION_LABELS: Record<TraditionId, LocalizedString> = {
+  catholic: { es: "Cristianismo católico", en: "Catholic Christianity" },
+  orthodox: { es: "Cristianismo ortodoxo", en: "Orthodox Christianity" },
+  protestant: { es: "Cristianismo protestante", en: "Protestant Christianity" },
+  jewish: { es: "Judaísmo", en: "Judaism" },
+  islam: { es: "Islam", en: "Islam" },
+  buddhist: { es: "Budismo", en: "Buddhism" },
+  confucian: { es: "Confucianismo", en: "Confucianism" },
+  taoist: { es: "Taoísmo", en: "Taoism" },
+  secular: { es: "Secular o ateo", en: "Secular or atheist" },
+};
+
+export const TRADITION_ORDER: TraditionId[] = [
+  "catholic",
+  "orthodox",
+  "protestant",
+  "jewish",
+  "islam",
+  "buddhist",
+  "confucian",
+  "taoist",
+  "secular",
+];
+
+/** Lectura orientativa de la tradición religiosa de cada perspectiva. */
+export const TRADITIONS: Partial<Record<PhilosopherId, TraditionId>> = {
+  aquinas: "catholic",
+  maritain: "catholic",
+  marcel: "catholic",
+  hildebrand: "catholic",
+  stein: "catholic",
+  quoist: "catholic",
+  pascal: "catholic",
+  eckhart: "catholic",
+  porete: "catholic",
+  anscombe: "catholic",
+  ziemiecka: "catholic",
+  yannaras: "orthodox",
+  eliade: "orthodox",
+  kierkegaard: "protestant",
+  emerson: "protestant",
+  maimonides: "jewish",
+  levinas: "jewish",
+  ibnkhaldun: "islam",
+  iqbal: "islam",
+  jabri: "islam",
+  buddha: "buddhist",
+  nishida: "buddhist",
+  confucius: "confucian",
+  suntzu: "taoist",
+  nietzsche: "secular",
+  marx: "secular",
+  sartre: "secular",
+  camus: "secular",
+  beauvoir: "secular",
+  cioran: "secular",
+  stirner: "secular",
+  bakunin: "secular",
+  rand: "secular",
+  bentham: "secular",
+  mill: "secular",
+  derrida: "secular",
+  bauman: "secular",
+  schopenhauer: "secular",
+  hayek: "secular",
+  mises: "secular",
+  bostrom: "secular",
+  lipman: "secular",
+  giannini: "secular",
+};
+
+export function traditionOf(id: PhilosopherId): TraditionId | undefined {
+  return TRADITIONS[id];
+}
+
+
 export type Facet = {
   families: FamilyId[];
   movements: MovementId[];
