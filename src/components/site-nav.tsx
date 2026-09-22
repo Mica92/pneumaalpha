@@ -15,6 +15,7 @@ const PRIMARY: readonly NavItem[] = [
   { to: "/oraculo", es: "Decidir", en: "Decide" },
   { to: "/explorar", es: "Explorar", en: "Explore" },
   { to: "/mi-mapa", es: "Mapa", en: "Map" },
+  { to: "/conocimiento", es: "Red", en: "Network" },
   { to: "/filosofos", es: "Perspectivas", en: "Perspectives" },
 ] as const;
 
