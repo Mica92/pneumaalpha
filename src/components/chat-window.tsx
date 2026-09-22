@@ -37,6 +37,29 @@ import {
 import { TOPICS, getDailyDilemmaPrompt, type TopicId } from "@/lib/engagement";
 import { track } from "@/lib/analytics";
 
+const WAITING_PHASES: { es: string; en: string }[] = [
+  { es: "Leyendo tu pregunta", en: "Reading your question" },
+  { es: "Buscando la tensión", en: "Looking for the tension" },
+  { es: "Escribiendo la respuesta", en: "Writing the answer" },
+];
+
+function WaitingPhase({ lang }: { lang: "es" | "en" }) {
+  const [i, setI] = useState(0);
+  useEffect(() => {
+    const id = setInterval(
+      () => setI((prev) => Math.min(prev + 1, WAITING_PHASES.length - 1)),
+      1800,
+    );
+    return () => clearInterval(id);
+  }, []);
+  return (
+    <span aria-live="polite" className="text-micro uppercase tracking-[0.3em] glacier-shimmer">
+      {WAITING_PHASES[i][lang]}…
+    </span>
+  );
+}
+
+
 type Props = {
   userId: string;
   philosopher: PhilosopherId;
