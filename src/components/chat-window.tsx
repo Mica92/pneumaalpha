@@ -910,7 +910,7 @@ function ChatBody({
           {!embedded && !focusMode && <PneumLensRail {...lensProps} />}
         </div>
 
-        <footer className="sticky bottom-0 z-20 border-t border-border/60 bg-background/85 px-3 pt-3 pb-safe backdrop-blur-xl md:px-4">
+        <footer className="sticky bottom-0 z-20 border-t border-border/60 bg-background/85 px-3 pt-3 pb-20 backdrop-blur-xl md:px-4 md:pb-safe">
           <ThinkingComposer
             ref={inputRef}
             lang={lang}
