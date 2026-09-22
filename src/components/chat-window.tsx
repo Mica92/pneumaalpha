@@ -811,7 +811,7 @@ function ChatBody({
                     {meta.opening[lang]}
                   </p>
 
-                  {!embedded && (
+                  {embedded && (
                     <div className="pt-2">
                       <p className="font-display text-micro uppercase tracking-[0.3em] text-muted-foreground">
                         {t("chat.suggestions")}
