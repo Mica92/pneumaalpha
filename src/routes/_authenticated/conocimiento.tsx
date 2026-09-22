@@ -11,8 +11,11 @@ import {
   LINK_LABEL,
   NODE_BY_ID,
   neighborsOf,
+  nodePolitics,
   type NodeKind,
+  type PoliticsId,
 } from "@/lib/knowledge-graph";
+import { POLITICS_LABELS, POLITICS_ORDER } from "@/lib/discovery";
 import { PageAtmosphere } from "@/components/page-atmosphere";
 
 export const Route = createFileRoute("/_authenticated/conocimiento")({
@@ -45,6 +48,7 @@ function KnowledgePage() {
   const [selected, setSelected] = useState<string | null>(null);
   const [query, setQuery] = useState("");
   const [kinds, setKinds] = useState<Set<NodeKind>>(new Set(KINDS));
+  const [politics, setPolitics] = useState<Set<PoliticsId>>(new Set());
 
   const node = selected ? (NODE_BY_ID.get(selected) ?? null) : null;
   const links = useMemo(() => (selected ? neighborsOf(selected) : []), [selected]);
