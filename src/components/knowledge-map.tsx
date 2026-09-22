@@ -4,8 +4,10 @@ import {
   GRAPH_NODES,
   KIND_LABEL,
   NODE_BY_ID,
+  nodePolitics,
   type GraphNode,
   type NodeKind,
+  type PoliticsId,
 } from "@/lib/knowledge-graph";
 import { useI18n } from "@/lib/i18n";
 
@@ -46,11 +48,13 @@ export function KnowledgeMap({
   onSelect,
   activeKinds,
   query,
+  politics,
 }: {
   selected: string | null;
   onSelect: (id: string | null) => void;
   activeKinds: Set<NodeKind>;
   query: string;
+  politics?: Set<PoliticsId>;
 }) {
   const { lang } = useI18n();
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -71,11 +75,13 @@ export function KnowledgeMap({
   const hoverRef = useRef<string | null>(null);
   const kindsRef = useRef(activeKinds);
   const queryRef = useRef(query);
+  const politicsRef = useRef(politics);
 
   selectedRef.current = selected;
   hoverRef.current = hover;
   kindsRef.current = activeKinds;
   queryRef.current = query;
+  politicsRef.current = politics;
 
   // adjacency for highlight
   const adjacency = useMemo(() => {
@@ -231,11 +237,18 @@ export function KnowledgeMap({
       const kinds = kindsRef.current;
       const q = queryRef.current.trim().toLowerCase();
 
+      const pol = politicsRef.current;
       const visible = (id: string) => {
         const n = NODE_BY_ID.get(id);
         if (!n) return false;
         if (!kinds.has(n.kind)) return false;
         if (q && !n.label.toLowerCase().includes(q)) return false;
+        if (pol && pol.size > 0) {
+          const p = nodePolitics(n);
+          // Los nodos con facción política fuera del filtro se ocultan;
+          // los que no tienen facción quedan como tejido conectivo.
+          if (p && !pol.has(p)) return false;
+        }
         return true;
       };
 
@@ -325,6 +338,11 @@ export function KnowledgeMap({
       let bestD = Infinity;
       for (const n of GRAPH_NODES) {
         if (!kindsRef.current.has(n.kind)) continue;
+        const pol = politicsRef.current;
+        if (pol && pol.size > 0) {
+          const np = nodePolitics(n);
+          if (np && !pol.has(np)) continue;
+        }
         const p = nodes.get(n.id);
         if (!p) continue;
         const d = Math.hypot(p.x - x, p.y - y);

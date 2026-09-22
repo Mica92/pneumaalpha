@@ -11,8 +11,11 @@ import {
   LINK_LABEL,
   NODE_BY_ID,
   neighborsOf,
+  nodePolitics,
   type NodeKind,
+  type PoliticsId,
 } from "@/lib/knowledge-graph";
+import { POLITICS_LABELS, POLITICS_ORDER } from "@/lib/discovery";
 import { PageAtmosphere } from "@/components/page-atmosphere";
 
 export const Route = createFileRoute("/_authenticated/conocimiento")({
@@ -45,6 +48,7 @@ function KnowledgePage() {
   const [selected, setSelected] = useState<string | null>(null);
   const [query, setQuery] = useState("");
   const [kinds, setKinds] = useState<Set<NodeKind>>(new Set(KINDS));
+  const [politics, setPolitics] = useState<Set<PoliticsId>>(new Set());
 
   const node = selected ? (NODE_BY_ID.get(selected) ?? null) : null;
   const links = useMemo(() => (selected ? neighborsOf(selected) : []), [selected]);
@@ -54,6 +58,15 @@ function KnowledgePage() {
       const next = new Set(prev);
       if (next.has(k) && next.size > 1) next.delete(k);
       else next.add(k);
+      return next;
+    });
+  };
+
+  const togglePolitics = (p: PoliticsId) => {
+    setPolitics((prev) => {
+      const next = new Set(prev);
+      if (next.has(p)) next.delete(p);
+      else next.add(p);
       return next;
     });
   };
@@ -107,6 +120,42 @@ function KnowledgePage() {
               );
             })}
           </div>
+          <div
+            className="flex flex-wrap items-center gap-1.5"
+            role="group"
+            aria-label={t("knowledge.politics")}
+          >
+            <span className="mr-1 font-display text-micro uppercase tracking-[0.25em] text-muted-foreground">
+              {t("knowledge.politics")}
+            </span>
+            {POLITICS_ORDER.map((p) => {
+              const on = politics.has(p);
+              return (
+                <button
+                  key={p}
+                  type="button"
+                  onClick={() => togglePolitics(p)}
+                  aria-pressed={on}
+                  className={`rounded-full border px-3 py-1.5 text-micro uppercase tracking-[0.15em] transition-colors ${
+                    on
+                      ? "border-bronze/70 bg-bronze/10 text-foreground"
+                      : "border-border bg-transparent text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  {POLITICS_LABELS[p][lang]}
+                </button>
+              );
+            })}
+            {politics.size > 0 && (
+              <button
+                type="button"
+                onClick={() => setPolitics(new Set())}
+                className="rounded-full border border-transparent px-2 py-1.5 text-micro uppercase tracking-[0.15em] text-muted-foreground transition-colors hover:text-foreground"
+              >
+                {t("knowledge.politics.clear")}
+              </button>
+            )}
+          </div>
         </div>
 
         <div className="grid gap-3 lg:grid-cols-[1fr_320px]">
@@ -115,6 +164,7 @@ function KnowledgePage() {
             onSelect={setSelected}
             activeKinds={kinds}
             query={query}
+            politics={politics}
           />
 
           {/* Detail panel */}
@@ -124,6 +174,7 @@ function KnowledgePage() {
                 <p className="font-display text-micro uppercase tracking-[0.3em] text-glacier-bright">
                   {KIND_LABEL[node.kind][lang]}
                   {node.era ? ` · ${node.era}` : ""}
+                  {nodePolitics(node) ? ` · ${POLITICS_LABELS[nodePolitics(node)!][lang]}` : ""}
                 </p>
                 <h2 className="mt-2 font-display text-subtitle font-light leading-tight text-foreground">
                   {node.label}

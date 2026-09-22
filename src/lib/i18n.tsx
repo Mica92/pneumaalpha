@@ -56,6 +56,8 @@ export const T: Dict = {
     en: "Philosophers, ideas, movements and ideologies connected by influence and opposition. Drag, zoom and tap any node to explore its ecosystem.",
   },
   "knowledge.search": { es: "Buscar en la red…", en: "Search the network…" },
+  "knowledge.politics": { es: "Facción política", en: "Political faction" },
+  "knowledge.politics.clear": { es: "Quitar filtro político", en: "Clear political filter" },
   "knowledge.connections": { es: "Conexiones", en: "Connections" },
   "knowledge.talk": { es: "Conversar con esta mente", en: "Talk to this mind" },
   "knowledge.nodes": { es: "nodos en la red", en: "nodes in the network" },
