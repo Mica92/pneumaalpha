@@ -673,51 +673,6 @@ function Home() {
           </p>
         </section>
 
-        {/* ── Perspectiva del día ──────────────────────────────── */}
-        <section className="border-y border-border/60 bg-card/25">
-          <div className="mx-auto grid max-w-6xl gap-10 px-5 py-20 md:grid-cols-[260px_1fr] md:items-center md:px-8 md:py-24">
-            <div className="overflow-hidden rounded-md border border-border/70 bg-secondary">
-              {portraitOf(spotlight.id) ? (
-                <img
-                  src={portraitOf(spotlight.id)}
-                  alt={`${spotlight.name}, ${profileOf(spotlight.id)?.years ?? ""}`}
-                  loading="lazy"
-                  className={`aspect-[3/4] w-full object-cover ${portraitFocus(spotlight.id)} opacity-80 grayscale`}
-                />
-              ) : (
-                <div className="flex aspect-[3/4] items-center justify-center font-serif text-5xl text-bronze">
-                  {spotlight.glyph}
-                </div>
-              )}
-            </div>
-            <div>
-              <p className="label">{es ? "Perspectiva del día" : "Perspective of the day"}</p>
-              <h2 className="mt-3 font-serif text-title font-light text-foreground">
-                {spotlight.name}
-              </h2>
-              <p className="mt-2 text-small text-muted-foreground">{spotlight.subtitle[lang]}</p>
-              <p className="mt-6 max-w-lg font-serif text-subtitle font-light italic leading-snug text-bronze-bright">
-                {centralQuestion(spotlight.id, lang)}
-              </p>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <Link
-                  to="/$philosopher"
-                  params={{ philosopher: spotlight.id }}
-                  className="btn-ghost-gold focus-mist px-5 py-3 text-small"
-                >
-                  {es ? "Pensar desde aquí" : "Think from here"}
-                </Link>
-                <Link
-                  to="/filosofos/$id"
-                  params={{ id: spotlight.id }}
-                  className="focus-mist self-center text-small text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
-                >
-                  {es ? "Ver ficha" : "View profile"}
-                </Link>
-              </div>
-            </div>
-          </div>
-        </section>
 
         {/* ── Cierre ───────────────────────────────────────────── */}
         <section className="mx-auto max-w-3xl px-5 py-24 text-center md:px-8 md:py-32">
