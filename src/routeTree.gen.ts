@@ -33,10 +33,12 @@ import { Route as AuthenticatedBuscarRouteImport } from './routes/_authenticated
 import { Route as AuthenticatedBibliotecaRouteImport } from './routes/_authenticated/biblioteca'
 import { Route as AuthenticatedAnalisisRouteImport } from './routes/_authenticated/analisis'
 import { Route as AuthenticatedPhilosopherRouteImport } from './routes/_authenticated/$philosopher'
+import { Route as AuthenticatedSituacionesIndexRouteImport } from './routes/_authenticated/situaciones.index'
 import { Route as AuthenticatedRutasIndexRouteImport } from './routes/_authenticated/rutas.index'
 import { Route as AuthenticatedIdeasIndexRouteImport } from './routes/_authenticated/ideas.index'
 import { Route as AuthenticatedFilosofosIndexRouteImport } from './routes/_authenticated/filosofos.index'
 import { Route as ApiPodcastSpeechRouteImport } from './routes/api/podcast/speech'
+import { Route as AuthenticatedSituacionesIdRouteImport } from './routes/_authenticated/situaciones.$id'
 import { Route as AuthenticatedRutasIdRouteImport } from './routes/_authenticated/rutas.$id'
 import { Route as AuthenticatedIdeasIdRouteImport } from './routes/_authenticated/ideas.$id'
 import { Route as AuthenticatedFilosofosIdRouteImport } from './routes/_authenticated/filosofos.$id'
@@ -166,6 +168,12 @@ const AuthenticatedPhilosopherRoute =
     path: '/$philosopher',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedSituacionesIndexRoute =
+  AuthenticatedSituacionesIndexRouteImport.update({
+    id: '/situaciones/',
+    path: '/situaciones/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedRutasIndexRoute = AuthenticatedRutasIndexRouteImport.update({
   id: '/rutas/',
   path: '/rutas/',
@@ -187,6 +195,12 @@ const ApiPodcastSpeechRoute = ApiPodcastSpeechRouteImport.update({
   path: '/api/podcast/speech',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedSituacionesIdRoute =
+  AuthenticatedSituacionesIdRouteImport.update({
+    id: '/situaciones/$id',
+    path: '/situaciones/$id',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedRutasIdRoute = AuthenticatedRutasIdRouteImport.update({
   id: '/rutas/$id',
   path: '/rutas/$id',
@@ -248,10 +262,12 @@ export interface FileRoutesByFullPath {
   '/filosofos/$id': typeof AuthenticatedFilosofosIdRoute
   '/ideas/$id': typeof AuthenticatedIdeasIdRoute
   '/rutas/$id': typeof AuthenticatedRutasIdRoute
+  '/situaciones/$id': typeof AuthenticatedSituacionesIdRoute
   '/api/podcast/speech': typeof ApiPodcastSpeechRoute
   '/filosofos/': typeof AuthenticatedFilosofosIndexRoute
   '/ideas/': typeof AuthenticatedIdeasIndexRoute
   '/rutas/': typeof AuthenticatedRutasIndexRoute
+  '/situaciones/': typeof AuthenticatedSituacionesIndexRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
 }
@@ -283,10 +299,12 @@ export interface FileRoutesByTo {
   '/filosofos/$id': typeof AuthenticatedFilosofosIdRoute
   '/ideas/$id': typeof AuthenticatedIdeasIdRoute
   '/rutas/$id': typeof AuthenticatedRutasIdRoute
+  '/situaciones/$id': typeof AuthenticatedSituacionesIdRoute
   '/api/podcast/speech': typeof ApiPodcastSpeechRoute
   '/filosofos': typeof AuthenticatedFilosofosIndexRoute
   '/ideas': typeof AuthenticatedIdeasIndexRoute
   '/rutas': typeof AuthenticatedRutasIndexRoute
+  '/situaciones': typeof AuthenticatedSituacionesIndexRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
 }
@@ -320,10 +338,12 @@ export interface FileRoutesById {
   '/_authenticated/filosofos/$id': typeof AuthenticatedFilosofosIdRoute
   '/_authenticated/ideas/$id': typeof AuthenticatedIdeasIdRoute
   '/_authenticated/rutas/$id': typeof AuthenticatedRutasIdRoute
+  '/_authenticated/situaciones/$id': typeof AuthenticatedSituacionesIdRoute
   '/api/podcast/speech': typeof ApiPodcastSpeechRoute
   '/_authenticated/filosofos/': typeof AuthenticatedFilosofosIndexRoute
   '/_authenticated/ideas/': typeof AuthenticatedIdeasIndexRoute
   '/_authenticated/rutas/': typeof AuthenticatedRutasIndexRoute
+  '/_authenticated/situaciones/': typeof AuthenticatedSituacionesIndexRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
 }
@@ -357,10 +377,12 @@ export interface FileRouteTypes {
     | '/filosofos/$id'
     | '/ideas/$id'
     | '/rutas/$id'
+    | '/situaciones/$id'
     | '/api/podcast/speech'
     | '/filosofos/'
     | '/ideas/'
     | '/rutas/'
+    | '/situaciones/'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
   fileRoutesByTo: FileRoutesByTo
@@ -392,10 +414,12 @@ export interface FileRouteTypes {
     | '/filosofos/$id'
     | '/ideas/$id'
     | '/rutas/$id'
+    | '/situaciones/$id'
     | '/api/podcast/speech'
     | '/filosofos'
     | '/ideas'
     | '/rutas'
+    | '/situaciones'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
   id:
@@ -428,10 +452,12 @@ export interface FileRouteTypes {
     | '/_authenticated/filosofos/$id'
     | '/_authenticated/ideas/$id'
     | '/_authenticated/rutas/$id'
+    | '/_authenticated/situaciones/$id'
     | '/api/podcast/speech'
     | '/_authenticated/filosofos/'
     | '/_authenticated/ideas/'
     | '/_authenticated/rutas/'
+    | '/_authenticated/situaciones/'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
   fileRoutesById: FileRoutesById
@@ -618,6 +644,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedPhilosopherRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/situaciones/': {
+      id: '/_authenticated/situaciones/'
+      path: '/situaciones'
+      fullPath: '/situaciones/'
+      preLoaderRoute: typeof AuthenticatedSituacionesIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/rutas/': {
       id: '/_authenticated/rutas/'
       path: '/rutas'
@@ -645,6 +678,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/api/podcast/speech'
       preLoaderRoute: typeof ApiPodcastSpeechRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/situaciones/$id': {
+      id: '/_authenticated/situaciones/$id'
+      path: '/situaciones/$id'
+      fullPath: '/situaciones/$id'
+      preLoaderRoute: typeof AuthenticatedSituacionesIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/rutas/$id': {
       id: '/_authenticated/rutas/$id'
@@ -714,9 +754,11 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedFilosofosIdRoute: typeof AuthenticatedFilosofosIdRoute
   AuthenticatedIdeasIdRoute: typeof AuthenticatedIdeasIdRoute
   AuthenticatedRutasIdRoute: typeof AuthenticatedRutasIdRoute
+  AuthenticatedSituacionesIdRoute: typeof AuthenticatedSituacionesIdRoute
   AuthenticatedFilosofosIndexRoute: typeof AuthenticatedFilosofosIndexRoute
   AuthenticatedIdeasIndexRoute: typeof AuthenticatedIdeasIndexRoute
   AuthenticatedRutasIndexRoute: typeof AuthenticatedRutasIndexRoute
+  AuthenticatedSituacionesIndexRoute: typeof AuthenticatedSituacionesIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
@@ -742,9 +784,11 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedFilosofosIdRoute: AuthenticatedFilosofosIdRoute,
   AuthenticatedIdeasIdRoute: AuthenticatedIdeasIdRoute,
   AuthenticatedRutasIdRoute: AuthenticatedRutasIdRoute,
+  AuthenticatedSituacionesIdRoute: AuthenticatedSituacionesIdRoute,
   AuthenticatedFilosofosIndexRoute: AuthenticatedFilosofosIndexRoute,
   AuthenticatedIdeasIndexRoute: AuthenticatedIdeasIndexRoute,
   AuthenticatedRutasIndexRoute: AuthenticatedRutasIndexRoute,
+  AuthenticatedSituacionesIndexRoute: AuthenticatedSituacionesIndexRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
