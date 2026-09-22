@@ -36,6 +36,10 @@ import {
 } from "@/components/chat-engagement";
 import { TOPICS, getDailyDilemmaPrompt, type TopicId } from "@/lib/engagement";
 import { track } from "@/lib/analytics";
+import { readLens, type LensReading } from "@/lib/lens.functions";
+import { saveInsight } from "@/lib/insights.functions";
+import { PneumLensRail, PneumLensSheet } from "@/components/pneum-lens";
+import { stashQuestion } from "@/lib/question-handoff";
 
 const WAITING_PHASES: { es: string; en: string }[] = [
   { es: "Leyendo tu pregunta", en: "Reading your question" },
