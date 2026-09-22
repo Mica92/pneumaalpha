@@ -174,6 +174,7 @@ function KnowledgePage() {
                 <p className="font-display text-micro uppercase tracking-[0.3em] text-glacier-bright">
                   {KIND_LABEL[node.kind][lang]}
                   {node.era ? ` · ${node.era}` : ""}
+                  {nodePolitics(node) ? ` · ${POLITICS_LABELS[nodePolitics(node)!][lang]}` : ""}
                 </p>
                 <h2 className="mt-2 font-display text-subtitle font-light leading-tight text-foreground">
                   {node.label}
