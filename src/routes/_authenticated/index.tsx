@@ -229,8 +229,18 @@ function Home() {
 
   const featured = useMemo(() => {
     const ids: PhilosopherId[] = [
-      "nietzsche", "marx", "plato", "confucius", "buddha", "suntzu",
-      "aristotle", "marcusaurelius", "seneca", "socrates", "kant", "heidegger",
+      "nietzsche",
+      "marx",
+      "plato",
+      "confucius",
+      "buddha",
+      "suntzu",
+      "aristotle",
+      "marcusaurelius",
+      "seneca",
+      "socrates",
+      "kant",
+      "heidegger",
     ];
     return ids.filter((id) => id in PHILOSOPHERS);
   }, []);
@@ -284,7 +294,10 @@ function Home() {
           }
           className="focus-mist min-w-0 flex-1 rounded-md border border-bronze/45 bg-background/80 px-4 py-4 text-body text-foreground backdrop-blur-sm transition-colors placeholder:text-muted-foreground/70 hover:border-bronze/70"
         />
-        <button type="submit" className="btn-gold focus-mist whitespace-nowrap px-7 py-4 text-small">
+        <button
+          type="submit"
+          className="btn-gold focus-mist whitespace-nowrap px-7 py-4 text-small"
+        >
           {es ? "Pensar con Pneum" : "Think with Pneum"}
         </button>
       </div>
@@ -431,7 +444,9 @@ function Home() {
                 </li>
 
                 <li className="py-6">
-                  <p className="label">{es ? "La pregunta que aparece" : "The question that appears"}</p>
+                  <p className="label">
+                    {es ? "La pregunta que aparece" : "The question that appears"}
+                  </p>
                   <p className="mt-3 font-serif text-subtitle font-light leading-snug text-bronze-bright">
                     {DEMO_NEW_QUESTION[lang]}
                   </p>
@@ -534,39 +549,13 @@ function Home() {
           </div>
         </section>
 
-        {/* ── Perspectivas ─────────────────────────────────────── */}
-        <section className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-28">
-          <p className="label">{es ? "Perspectivas" : "Perspectives"}</p>
-          <h2 className="balance mt-3 max-w-3xl font-serif text-title font-light text-foreground">
-            {es
-              ? "La filosofía aplicada es el motor. La claridad es el resultado."
-              : "Applied philosophy is the engine. Clarity is the result."}
-          </h2>
-          <p className="measure mt-5 text-body leading-relaxed text-muted-foreground">
-            {es
-              ? `${PHILOSOPHER_LIST.length} perspectivas construidas a partir de obra publicada. Cada una es una construcción editorial basada en los conceptos y el contexto intelectual de un pensador; no pretende ser la persona histórica.`
-              : `${PHILOSOPHER_LIST.length} perspectives built from published work. Each one is an editorial construction based on a thinker's concepts and intellectual context; it does not claim to be the historical person.`}
-          </p>
-
-          <ul className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {featured.map((id) => (
-              <li key={id}>
-                <PhilosopherCard id={id} />
-              </li>
-            ))}
-          </ul>
-          <Link
-            to="/filosofos"
-            className="focus-mist mt-8 inline-block text-small text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline"
-          >
-            {es ? "Ver todas las perspectivas →" : "See all perspectives →"}
-          </Link>
-        </section>
-
-        {/* ── Ideas y rutas ────────────────────────────────────── */}
+        {/* ── Y cuando quieras ir más lejos ────────────────────── */}
         <section className="border-y border-border/60 bg-card/25">
           <div className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-28">
-            <div className="grid gap-14 lg:grid-cols-2">
+            <h2 className="balance max-w-2xl font-serif text-title font-light text-foreground">
+              {es ? "Y cuando quieras ir más lejos." : "And when you want to go further."}
+            </h2>
+            <div className="mt-12 grid gap-14 lg:grid-cols-2">
               <div>
                 <div className="flex flex-wrap items-end justify-between gap-4">
                   <h2 className="font-serif text-title font-light text-foreground">
@@ -630,6 +619,39 @@ function Home() {
                   ))}
                 </ul>
               </div>
+
+              <div className="lg:col-span-2">
+                <div className="flex flex-wrap items-end justify-between gap-4">
+                  <h2 className="font-serif text-title font-light text-foreground">
+                    {es ? "Descubre una perspectiva" : "Discover a perspective"}
+                  </h2>
+                  <Link
+                    to="/filosofos"
+                    className="focus-mist text-small text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline"
+                  >
+                    {es
+                      ? `Las ${PHILOSOPHER_LIST.length} perspectivas →`
+                      : `All ${PHILOSOPHER_LIST.length} perspectives →`}
+                  </Link>
+                </div>
+                <p className="mt-6 flex flex-wrap gap-x-4 gap-y-2 font-serif text-subtitle font-light text-foreground/85">
+                  {featured.map((id) => (
+                    <Link
+                      key={id}
+                      to="/filosofos/$id"
+                      params={{ id }}
+                      className="focus-mist underline-offset-4 transition-colors hover:text-foreground hover:underline"
+                    >
+                      {PHILOSOPHERS[id].name}
+                    </Link>
+                  ))}
+                </p>
+                <p className="measure mt-6 text-small leading-relaxed text-muted-foreground">
+                  {es
+                    ? "Cada perspectiva es una construcción editorial basada en obra publicada; no pretende ser la persona histórica."
+                    : "Each perspective is an editorial construction based on published work; it does not claim to be the historical person."}
+                </p>
+              </div>
             </div>
           </div>
         </section>
@@ -671,52 +693,6 @@ function Home() {
               {es ? "Términos" : "Terms"}
             </Link>
           </p>
-        </section>
-
-        {/* ── Perspectiva del día ──────────────────────────────── */}
-        <section className="border-y border-border/60 bg-card/25">
-          <div className="mx-auto grid max-w-6xl gap-10 px-5 py-20 md:grid-cols-[260px_1fr] md:items-center md:px-8 md:py-24">
-            <div className="overflow-hidden rounded-md border border-border/70 bg-secondary">
-              {portraitOf(spotlight.id) ? (
-                <img
-                  src={portraitOf(spotlight.id)}
-                  alt={`${spotlight.name}, ${profileOf(spotlight.id)?.years ?? ""}`}
-                  loading="lazy"
-                  className={`aspect-[3/4] w-full object-cover ${portraitFocus(spotlight.id)} opacity-80 grayscale`}
-                />
-              ) : (
-                <div className="flex aspect-[3/4] items-center justify-center font-serif text-5xl text-bronze">
-                  {spotlight.glyph}
-                </div>
-              )}
-            </div>
-            <div>
-              <p className="label">{es ? "Perspectiva del día" : "Perspective of the day"}</p>
-              <h2 className="mt-3 font-serif text-title font-light text-foreground">
-                {spotlight.name}
-              </h2>
-              <p className="mt-2 text-small text-muted-foreground">{spotlight.subtitle[lang]}</p>
-              <p className="mt-6 max-w-lg font-serif text-subtitle font-light italic leading-snug text-bronze-bright">
-                {centralQuestion(spotlight.id, lang)}
-              </p>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <Link
-                  to="/$philosopher"
-                  params={{ philosopher: spotlight.id }}
-                  className="btn-ghost-gold focus-mist px-5 py-3 text-small"
-                >
-                  {es ? "Pensar desde aquí" : "Think from here"}
-                </Link>
-                <Link
-                  to="/filosofos/$id"
-                  params={{ id: spotlight.id }}
-                  className="focus-mist self-center text-small text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
-                >
-                  {es ? "Ver ficha" : "View profile"}
-                </Link>
-              </div>
-            </div>
-          </div>
         </section>
 
         {/* ── Cierre ───────────────────────────────────────────── */}

@@ -39,6 +39,11 @@ export const ANALYTICS_EVENTS = [
   "route_started",
   "route_completed",
   "situation_opened",
+  "insight_saved",
+  "contrast_started",
+  "contrast_completed",
+  "new_question_generated",
+  "perspective_suggested",
 ] as const;
 
 export type AnalyticsEvent = (typeof ANALYTICS_EVENTS)[number];

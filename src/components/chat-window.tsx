@@ -36,6 +36,10 @@ import {
 } from "@/components/chat-engagement";
 import { TOPICS, getDailyDilemmaPrompt, type TopicId } from "@/lib/engagement";
 import { track } from "@/lib/analytics";
+import { readLens, type LensReading } from "@/lib/lens.functions";
+import { saveInsight } from "@/lib/insights.functions";
+import { PneumLensRail, PneumLensSheet } from "@/components/pneum-lens";
+import { stashQuestion } from "@/lib/question-handoff";
 
 const WAITING_PHASES: { es: string; en: string }[] = [
   { es: "Leyendo tu pregunta", en: "Reading your question" },
@@ -58,7 +62,6 @@ function WaitingPhase({ lang }: { lang: "es" | "en" }) {
     </span>
   );
 }
-
 
 type Props = {
   userId: string;
@@ -310,6 +313,77 @@ function ChatBody({
     return -1;
   })();
 
+  // ——— Pneum Lens: the structure emerging from the last exchange ———
+  const lensFn = useServerFn(readLens);
+  const saveInsightFn = useServerFn(saveInsight);
+
+  const textOf = (m: UIMessage | undefined) =>
+    m
+      ? m.parts
+          .map((p) => (p.type === "text" ? p.text : ""))
+          .join("")
+          .trim()
+      : "";
+
+  const lastAnswer = lastAssistantIdx >= 0 ? textOf(messages[lastAssistantIdx]) : "";
+  const lastQuestion = (() => {
+    for (let i = lastAssistantIdx - 1; i >= 0; i--) {
+      if (messages[i].role === "user") return textOf(messages[i]);
+    }
+    return "";
+  })();
+  const lensKey = lastAssistantIdx >= 0 ? messages[lastAssistantIdx].id : null;
+
+  const { data: lens, isFetching: lensLoading } = useQuery<LensReading>({
+    queryKey: ["lens", philosopher, lensKey, lang],
+    queryFn: () =>
+      lensFn({
+        data: {
+          question: lastQuestion || lastAnswer.slice(0, 500),
+          answer: lastAnswer.slice(0, 6000),
+          philosopher,
+          language: lang,
+        },
+      }),
+    enabled: Boolean(lensKey) && !isLoading && lastAnswer.length > 60,
+    staleTime: Infinity,
+  });
+
+  const handleSaveInsight = async (text: string) => {
+    try {
+      await saveInsightFn({
+        data: {
+          text: text.slice(0, 1200),
+          philosopher,
+          sourceQuestion: lastQuestion ? lastQuestion.slice(0, 1200) : undefined,
+        },
+      });
+      track("insight_saved", { philosopher });
+      toast.success(lang === "es" ? "Guardado en tu biblioteca." : "Saved to your library.");
+    } catch (e) {
+      console.error(e);
+      toast.error(lang === "es" ? "No se pudo guardar." : "Could not save.");
+    }
+  };
+
+  const handleContrast = (other: PhilosopherId) => {
+    const qid = lastQuestion ? stashQuestion(lastQuestion) : undefined;
+    track("contrast_started", { philosopher, other });
+    navigate({
+      to: "/comparar",
+      search: { ...(qid ? { qid } : {}), seats: [philosopher, other].join(",") },
+    });
+  };
+
+  const lensProps = {
+    reading: lens ?? null,
+    loading: lensLoading,
+    lang,
+    onContrast: handleContrast,
+    onAsk: (text: string) => sendText(text),
+    onSave: handleSaveInsight,
+  };
+
   const shell = embedded ? "h-[78vh] max-h-[860px] overflow-hidden" : "min-h-dvh";
 
   return (
@@ -502,108 +576,135 @@ function ChatBody({
           </div>
         )}
 
-        <div ref={scrollRef} className="relative flex-1 overflow-y-auto px-4 py-8 md:py-12">
-          <div className="mx-auto max-w-3xl space-y-10">
-            {messages.length === 0 && (
-              <div className="fade-up space-y-6 py-8">
-                <p className="font-display text-micro uppercase tracking-[0.4em] text-muted-foreground">
-                  {meta.name}
-                </p>
-                <p className="font-display text-heading font-light text-foreground/90">
-                  {meta.opening[lang]}
-                </p>
+        {!embedded && <PneumLensSheet {...lensProps} />}
 
-                {!embedded && (
-                  <div className="pt-2">
-                    <p className="font-display text-micro uppercase tracking-[0.3em] text-muted-foreground">
-                      {t("chat.suggestions")}
-                    </p>
-                    <ul className="mt-3 flex flex-wrap gap-2">
-                      {suggestionsFor(philosopher, lang).map((s) => (
-                        <li key={s}>
-                          <button
-                            type="button"
-                            onClick={() => sendText(s)}
-                            disabled={isLoading}
-                            className="focus-mist rounded-full border border-border/70 px-3.5 py-2 text-left text-micro text-muted-foreground transition-colors hover:border-mist/50 hover:text-foreground disabled:opacity-40"
-                          >
-                            {s}
-                          </button>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </div>
-            )}
-
-            {messages.map((m, idx) => {
-              const text = m.parts.map((p) => (p.type === "text" ? p.text : "")).join("");
-              if (m.role === "user") {
-                return <UserBubble key={m.id} text={text} />;
-              }
-              const showChips = !embedded && idx === lastAssistantIdx && !isLoading;
-              const prev = messages[idx - 1];
-              const question =
-                prev?.role === "user"
-                  ? prev.parts.map((p) => (p.type === "text" ? p.text : "")).join("")
-                  : undefined;
-              return (
-                <article
-                  key={m.id}
-                  className="fade-up"
-                  aria-live={idx === messages.length - 1 ? "polite" : undefined}
-                >
-                  <h2 className="mb-3 font-display text-micro uppercase tracking-[0.3em] text-muted-foreground">
+        <div className="flex min-h-0 flex-1">
+          <div ref={scrollRef} className="relative flex-1 overflow-y-auto px-4 py-8 md:py-12">
+            <div className="mx-auto max-w-3xl space-y-10">
+              {messages.length === 0 && (
+                <div className="fade-up space-y-6 py-8">
+                  <p className="font-display text-micro uppercase tracking-[0.4em] text-muted-foreground">
                     {meta.name}
-                  </h2>
-                  <AssistantBody text={text} />
-                  {!isLoading && text.trim().length > 40 && (
-                    <ShareFragmentButton
-                      philosopher={philosopher}
-                      text={text}
-                      question={question}
-                    />
-                  )}
-                  {showChips && (
-                    <ContinuationChips topic={activeTopic} onPick={sendText} disabled={isLoading} />
-                  )}
-                </article>
-              );
-            })}
+                  </p>
+                  <p className="font-display text-heading font-light text-foreground/90">
+                    {meta.opening[lang]}
+                  </p>
 
-            {status === "submitted" && (
-              <div className="fade-up">
-                <p className="mb-3 font-display text-micro uppercase tracking-[0.3em] text-muted-foreground">
-                  {meta.name}
-                </p>
-                <div className="flex items-center gap-3 py-2">
-                  <GreekGlyph
-                    className="font-display text-lg text-mist pneuma-breathe"
-                    intervalMs={280}
-                  />
-                  <WaitingPhase lang={lang} />
+                  {!embedded && (
+                    <div className="pt-2">
+                      <p className="font-display text-micro uppercase tracking-[0.3em] text-muted-foreground">
+                        {t("chat.suggestions")}
+                      </p>
+                      <ul className="mt-3 flex flex-wrap gap-2">
+                        {suggestionsFor(philosopher, lang).map((s) => (
+                          <li key={s}>
+                            <button
+                              type="button"
+                              onClick={() => sendText(s)}
+                              disabled={isLoading}
+                              className="focus-mist rounded-full border border-border/70 px-3.5 py-2 text-left text-micro text-muted-foreground transition-colors hover:border-mist/50 hover:text-foreground disabled:opacity-40"
+                            >
+                              {s}
+                            </button>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
                 </div>
-              </div>
+              )}
+
+              {messages.map((m, idx) => {
+                const text = m.parts.map((p) => (p.type === "text" ? p.text : "")).join("");
+                if (m.role === "user") {
+                  return <UserBubble key={m.id} text={text} />;
+                }
+                const showChips = !embedded && idx === lastAssistantIdx && !isLoading;
+                const prev = messages[idx - 1];
+                const question =
+                  prev?.role === "user"
+                    ? prev.parts.map((p) => (p.type === "text" ? p.text : "")).join("")
+                    : undefined;
+                return (
+                  <article
+                    key={m.id}
+                    className="fade-up"
+                    aria-live={idx === messages.length - 1 ? "polite" : undefined}
+                  >
+                    <h2 className="mb-3 font-display text-micro uppercase tracking-[0.3em] text-muted-foreground">
+                      {meta.name}
+                    </h2>
+                    <AssistantBody text={text} />
+                    {!isLoading && text.trim().length > 40 && (
+                      <ShareFragmentButton
+                        philosopher={philosopher}
+                        text={text}
+                        question={question}
+                      />
+                    )}
+                    {showChips && (
+                      <>
+                        <ContextActions
+                          lang={lang}
+                          onDeepen={() =>
+                            sendText(
+                              lang === "es"
+                                ? "Profundiza en eso: ¿qué hay debajo?"
+                                : "Go deeper into that: what lies beneath?",
+                            )
+                          }
+                          onContrast={
+                            lens?.perspectives[0]
+                              ? () => handleContrast(lens.perspectives[0].philosopher)
+                              : undefined
+                          }
+                          onSave={() => handleSaveInsight(text)}
+                        />
+                        <ContinuationChips
+                          topic={activeTopic}
+                          onPick={sendText}
+                          disabled={isLoading}
+                        />
+                      </>
+                    )}
+                  </article>
+                );
+              })}
+
+              {status === "submitted" && (
+                <div className="fade-up">
+                  <p className="mb-3 font-display text-micro uppercase tracking-[0.3em] text-muted-foreground">
+                    {meta.name}
+                  </p>
+                  <div className="flex items-center gap-3 py-2">
+                    <GreekGlyph
+                      className="font-display text-lg text-mist pneuma-breathe"
+                      intervalMs={280}
+                    />
+                    <WaitingPhase lang={lang} />
+                  </div>
+                </div>
+              )}
+
+              {error && <p className="text-center text-micro text-destructive">{error.message}</p>}
+            </div>
+
+            {!atBottom && messages.length > 2 && (
+              <button
+                onClick={() => {
+                  scrollRef.current?.scrollTo({
+                    top: scrollRef.current.scrollHeight,
+                    behavior: "smooth",
+                  });
+                  setAtBottom(true);
+                }}
+                className="focus-mist sticky bottom-4 left-1/2 -translate-x-1/2 rounded-full border border-border/60 bg-card/90 px-4 py-2 text-micro uppercase tracking-[0.25em] text-muted-foreground shadow-mist backdrop-blur-xl transition-colors hover:border-mist/40 hover:text-foreground"
+              >
+                ↓ {t("chat.scrollDown")}
+              </button>
             )}
-
-            {error && <p className="text-center text-micro text-destructive">{error.message}</p>}
           </div>
-
-          {!atBottom && messages.length > 2 && (
-            <button
-              onClick={() => {
-                scrollRef.current?.scrollTo({
-                  top: scrollRef.current.scrollHeight,
-                  behavior: "smooth",
-                });
-                setAtBottom(true);
-              }}
-              className="focus-mist sticky bottom-4 left-1/2 -translate-x-1/2 rounded-full border border-border/60 bg-card/90 px-4 py-2 text-micro uppercase tracking-[0.25em] text-muted-foreground shadow-mist backdrop-blur-xl transition-colors hover:border-mist/40 hover:text-foreground"
-            >
-              ↓ {t("chat.scrollDown")}
-            </button>
-          )}
+          {!embedded && <PneumLensRail {...lensProps} />}
         </div>
 
         <footer className="sticky bottom-0 z-20 border-t border-border/60 bg-background/85 px-3 pt-3 pb-safe backdrop-blur-xl md:px-4">
@@ -976,5 +1077,40 @@ function MenuItem({
     >
       {children}
     </button>
+  );
+}
+
+/** Small, contextual moves offered after a relevant answer. */
+function ContextActions({
+  lang,
+  onDeepen,
+  onContrast,
+  onSave,
+}: {
+  lang: "es" | "en";
+  onDeepen: () => void;
+  onContrast?: () => void;
+  onSave: () => void;
+}) {
+  const label = {
+    es: { deepen: "Profundizar", contrast: "Contrastar", save: "Guardar insight" },
+    en: { deepen: "Go deeper", contrast: "Contrast", save: "Save insight" },
+  }[lang];
+  const base =
+    "focus-mist rounded-full border border-foreground/10 px-3.5 py-1.5 text-micro uppercase tracking-[0.25em] text-muted-foreground transition-colors duration-300 hover:border-foreground/25 hover:text-foreground";
+  return (
+    <div className="mt-5 flex flex-wrap gap-2">
+      <button type="button" onClick={onDeepen} className={base}>
+        {label.deepen}
+      </button>
+      {onContrast && (
+        <button type="button" onClick={onContrast} className={base}>
+          {label.contrast}
+        </button>
+      )}
+      <button type="button" onClick={onSave} className={base}>
+        {label.save}
+      </button>
+    </div>
   );
 }
