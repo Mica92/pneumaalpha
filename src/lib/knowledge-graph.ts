@@ -2375,3 +2375,60 @@ export function neighborsOf(id: string) {
   }
   return out;
 }
+
+// ── Espectro político de los nodos ──────────────────────────────────
+// Filósofos: se resuelve con `politicsOf` (discovery). Ideologías y
+// movimientos: lectura orientativa y editable, igual que en discovery.
+
+import { politicsOf, type PoliticsId } from "./discovery";
+
+export type { PoliticsId };
+
+const IDEOLOGY_POLITICS: Record<string, PoliticsId> = {
+  socialism: "left",
+  communism: "left",
+  anarchism: "left",
+  marxism_leninism: "left",
+  anarcho_communism: "left",
+  democratic_socialism: "left",
+  progressivism: "left",
+  feminism: "left",
+  green_politics: "left",
+  social_liberalism: "center",
+  social_democracy: "center",
+  liberalism: "center",
+  christian_democracy: "center",
+  centrism: "center",
+  republicanism: "center",
+  technocracy: "center",
+  communitarianism: "center",
+  distributism: "center",
+  conservatism: "right",
+  classical_liberalism: "right",
+  libertarianism: "right",
+  neoliberalism: "right",
+  traditionalism_pol: "right",
+  reactionary: "right",
+  nationalism: "right",
+  fascism: "right",
+  monarchism: "right",
+  integralism: "right",
+  theocracy: "right",
+  paleoconservatism: "right",
+  neoconservatism: "right",
+  national_conservatism: "right",
+  anarcho_capitalism: "right",
+  legitimism: "right",
+  clerical_authoritarianism: "right",
+  identitarianism: "right",
+  eurasianism: "right",
+  agrarianism: "right",
+  counter_revolution: "right",
+  integral_traditionalism: "right",
+  new_right: "right",
+};
+
+export function nodePolitics(n: GraphNode): PoliticsId | undefined {
+  if (n.kind === "philosopher" && n.chat) return politicsOf(n.chat);
+  return IDEOLOGY_POLITICS[n.id];
+}
