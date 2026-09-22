@@ -62,6 +62,15 @@ function KnowledgePage() {
     });
   };
 
+  const togglePolitics = (p: PoliticsId) => {
+    setPolitics((prev) => {
+      const next = new Set(prev);
+      if (next.has(p)) next.delete(p);
+      else next.add(p);
+      return next;
+    });
+  };
+
   return (
     <>
       <SiteNav />
@@ -110,6 +119,42 @@ function KnowledgePage() {
                 </button>
               );
             })}
+          </div>
+          <div
+            className="flex flex-wrap items-center gap-1.5"
+            role="group"
+            aria-label={t("knowledge.politics")}
+          >
+            <span className="mr-1 font-display text-micro uppercase tracking-[0.25em] text-muted-foreground">
+              {t("knowledge.politics")}
+            </span>
+            {POLITICS_ORDER.map((p) => {
+              const on = politics.has(p);
+              return (
+                <button
+                  key={p}
+                  type="button"
+                  onClick={() => togglePolitics(p)}
+                  aria-pressed={on}
+                  className={`rounded-full border px-3 py-1.5 text-micro uppercase tracking-[0.15em] transition-colors ${
+                    on
+                      ? "border-bronze/70 bg-bronze/10 text-foreground"
+                      : "border-border bg-transparent text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  {POLITICS_LABELS[p][lang]}
+                </button>
+              );
+            })}
+            {politics.size > 0 && (
+              <button
+                type="button"
+                onClick={() => setPolitics(new Set())}
+                className="rounded-full border border-transparent px-2 py-1.5 text-micro uppercase tracking-[0.15em] text-muted-foreground transition-colors hover:text-foreground"
+              >
+                {t("knowledge.politics.clear")}
+              </button>
+            )}
           </div>
         </div>
 
