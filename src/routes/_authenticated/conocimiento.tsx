@@ -124,6 +124,21 @@ function KnowledgePage() {
                 </button>
               );
             })}
+            <button
+              type="button"
+              onClick={() => setPoliticsOnly((v) => !v)}
+              aria-pressed={politicsOnly}
+              className={`flex items-center gap-2 rounded-full border px-3 py-1.5 text-micro uppercase tracking-[0.15em] transition-colors ${
+                politicsOnly
+                  ? "border-bronze/70 bg-bronze/10 text-foreground"
+                  : "border-border bg-transparent text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              <span
+                className={`h-1.5 w-1.5 rounded-full bg-bronze ${politicsOnly ? "" : "opacity-40"}`}
+              />
+              {t("knowledge.politics")}
+            </button>
           </div>
         </div>
 
