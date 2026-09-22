@@ -48,7 +48,12 @@ function KnowledgePage() {
   const [selected, setSelected] = useState<string | null>(null);
   const [query, setQuery] = useState("");
   const [kinds, setKinds] = useState<Set<NodeKind>>(new Set(KINDS));
-  const [politics, setPolitics] = useState<Set<PoliticsId>>(new Set());
+  const [politicsOnly, setPoliticsOnly] = useState(false);
+
+  const politics = useMemo<Set<PoliticsId>>(
+    () => (politicsOnly ? new Set(POLITICS_ORDER) : new Set()),
+    [politicsOnly],
+  );
 
   const node = selected ? (NODE_BY_ID.get(selected) ?? null) : null;
   const links = useMemo(() => (selected ? neighborsOf(selected) : []), [selected]);
@@ -62,14 +67,6 @@ function KnowledgePage() {
     });
   };
 
-  const togglePolitics = (p: PoliticsId) => {
-    setPolitics((prev) => {
-      const next = new Set(prev);
-      if (next.has(p)) next.delete(p);
-      else next.add(p);
-      return next;
-    });
-  };
 
   return (
     <>
@@ -119,42 +116,21 @@ function KnowledgePage() {
                 </button>
               );
             })}
-          </div>
-          <div
-            className="flex flex-wrap items-center gap-1.5"
-            role="group"
-            aria-label={t("knowledge.politics")}
-          >
-            <span className="mr-1 font-display text-micro uppercase tracking-[0.25em] text-muted-foreground">
+            <button
+              type="button"
+              onClick={() => setPoliticsOnly((v) => !v)}
+              aria-pressed={politicsOnly}
+              className={`flex items-center gap-2 rounded-full border px-3 py-1.5 text-micro uppercase tracking-[0.15em] transition-colors ${
+                politicsOnly
+                  ? "border-bronze/70 bg-bronze/10 text-foreground"
+                  : "border-border bg-transparent text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              <span
+                className={`h-1.5 w-1.5 rounded-full bg-bronze ${politicsOnly ? "" : "opacity-40"}`}
+              />
               {t("knowledge.politics")}
-            </span>
-            {POLITICS_ORDER.map((p) => {
-              const on = politics.has(p);
-              return (
-                <button
-                  key={p}
-                  type="button"
-                  onClick={() => togglePolitics(p)}
-                  aria-pressed={on}
-                  className={`rounded-full border px-3 py-1.5 text-micro uppercase tracking-[0.15em] transition-colors ${
-                    on
-                      ? "border-bronze/70 bg-bronze/10 text-foreground"
-                      : "border-border bg-transparent text-muted-foreground hover:text-foreground"
-                  }`}
-                >
-                  {POLITICS_LABELS[p][lang]}
-                </button>
-              );
-            })}
-            {politics.size > 0 && (
-              <button
-                type="button"
-                onClick={() => setPolitics(new Set())}
-                className="rounded-full border border-transparent px-2 py-1.5 text-micro uppercase tracking-[0.15em] text-muted-foreground transition-colors hover:text-foreground"
-              >
-                {t("knowledge.politics.clear")}
-              </button>
-            )}
+            </button>
           </div>
         </div>
 
