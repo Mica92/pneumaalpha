@@ -12,6 +12,8 @@ import { matchPhilosopher } from "@/lib/oracle.functions";
 import { PHILOSOPHERS, type PhilosopherId } from "@/lib/philosophers";
 import { CATEGORIES, IDEAS, REAL_PROBLEMS, centralQuestion } from "@/lib/discovery";
 import { supabase } from "@/integrations/supabase/client";
+import { CRISIS_RESOURCES } from "@/lib/safety";
+import type { MatchResult } from "@/lib/oracle.functions";
 import { PageAtmosphere } from "@/components/page-atmosphere";
 
 export const Route = createFileRoute("/_authenticated/explorar")({
@@ -63,6 +65,23 @@ const COPY = {
   questions: { es: "Grandes preguntas", en: "Great questions" },
   chosen: { es: "Tu voz para esta conversación", en: "Your voice for this conversation" },
   again: { es: "Elegir otra mente", en: "Choose another mind" },
+  safetyOffTitle: {
+    es: "Esto no parece una pregunta para pensar",
+    en: "This doesn't look like a question to think through",
+  },
+  safetyOffBody: {
+    es: "Pneum está hecho para preguntas, problemas y decisiones complejas. Si quieres, reformula lo que traes como una pregunta abierta y lo pensamos juntos.",
+    en: "Pneum is built for hard questions, complex problems and decisions. If you like, reframe what you bring as an open question and we'll think it through together.",
+  },
+  safetyCrisisTitle: {
+    es: "Tu vida importa más que esta conversación",
+    en: "Your life matters more than this conversation",
+  },
+  safetyCrisisBody: {
+    es: "Lo que escribiste suena a un momento muy difícil. Antes de seguir, considera hablar con alguien que pueda acompañarte de verdad:",
+    en: "What you wrote sounds like a very hard moment. Before going on, consider talking to someone who can truly be there for you:",
+  },
+  tryAgain: { es: "Escribir otra cosa", en: "Write something else" },
 } as const;
 
 type Result = { philosopher: PhilosopherId; reason: string };
