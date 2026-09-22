@@ -48,13 +48,13 @@ export function KnowledgeMap({
   onSelect,
   activeKinds,
   query,
-  politics,
+  politicsOnly,
 }: {
   selected: string | null;
   onSelect: (id: string | null) => void;
   activeKinds: Set<NodeKind>;
   query: string;
-  politics?: Set<PoliticsId>;
+  politicsOnly?: boolean;
 }) {
   const { lang } = useI18n();
   const canvasRef = useRef<HTMLCanvasElement>(null);
