@@ -1,4 +1,4 @@
-import type { LocalizedString } from "@/lib/discovery";
+import type { LocalizedString } from "@/lib/philosophers";
 
 /**
  * Entradas por situación: puertas de entrada al producto desde la vida real,
