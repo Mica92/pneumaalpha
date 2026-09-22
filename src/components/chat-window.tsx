@@ -402,13 +402,166 @@ function ChatBody({
     });
   };
 
+  // ——— Thinking Workspace: the reflection and its thought objects ———
+  const openReflectionFn = useServerFn(openReflection);
+  const updateReflectionFn = useServerFn(updateReflection);
+  const listObjectsFn = useServerFn(listThoughtObjects);
+  const saveObjectFn = useServerFn(saveThoughtObject);
+  const updateObjectFn = useServerFn(updateThoughtObject);
+  const deleteObjectFn = useServerFn(deleteThoughtObject);
+  const saveDecisionFn = useServerFn(saveDecisionRecord);
+  const patternsFn = useServerFn(findPatterns);
+
+  const [memoryOpen, setMemoryOpen] = useState(false);
+  const [decisionOpen, setDecisionOpen] = useState(false);
+  const [savingDecision, setSavingDecision] = useState(false);
+  const [focusMode, setFocusMode] = useState(false);
+
+  const { data: reflection, refetch: refetchReflection } = useQuery({
+    queryKey: ["reflection", philosopher],
+    queryFn: () => openReflectionFn({ data: { philosopher } }),
+    enabled: !embedded,
+    staleTime: 60_000,
+  });
+
+  const reflectionId = reflection?.id ?? null;
+
+  const { data: objects = [], refetch: refetchObjects } = useQuery<ThoughtObject[]>({
+    queryKey: ["thought-objects", reflectionId],
+    queryFn: () => listObjectsFn({ data: { reflectionId } }),
+    enabled: Boolean(reflectionId),
+  });
+
+  const { data: patterns = [] } = useQuery({
+    queryKey: ["thought-patterns"],
+    queryFn: () => patternsFn(),
+    enabled: !embedded,
+    staleTime: 300_000,
+  });
+
+  // Title and state follow the reflection without ever taking it over.
+  const firstQuestion = (() => {
+    for (const m of messages) if (m.role === "user") return textOf(m);
+    return "";
+  })();
+
+  useEffect(() => {
+    if (!reflection || !firstQuestion) return;
+    if (reflection.title) return;
+    const title = titleFromQuestion(firstQuestion);
+    updateReflectionFn({
+      data: { id: reflection.id, title, openingQuestion: firstQuestion.slice(0, 2000) },
+    })
+      .then(() => refetchReflection())
+      .catch(() => undefined);
+  }, [reflection, firstQuestion, updateReflectionFn, refetchReflection]);
+
+  const exchanges = messages.filter((m) => m.role === "user").length;
+  useEffect(() => {
+    if (!reflection) return;
+    const next = suggestState(objects, exchanges);
+    if (next === reflection.state) return;
+    updateReflectionFn({ data: { id: reflection.id, state: next } })
+      .then(() => refetchReflection())
+      .catch(() => undefined);
+  }, [reflection, objects, exchanges, updateReflectionFn, refetchReflection]);
+
+  const setReflectionState = async (state: ReflectionState) => {
+    if (!reflection) return;
+    await updateReflectionFn({ data: { id: reflection.id, state } });
+    await refetchReflection();
+  };
+
+  const captureObject = async (kind: ThoughtKind, text: string, rationale?: string) => {
+    try {
+      await saveObjectFn({
+        data: {
+          reflectionId,
+          kind,
+          text: text.slice(0, 2000),
+          context: lastQuestion ? lastQuestion.slice(0, 2000) : undefined,
+          rationale,
+          philosopher,
+        },
+      });
+      if (kind === "insight") track("insight_saved", { philosopher });
+      await refetchObjects();
+      toast.success(
+        lang === "es"
+          ? `${KIND_LABEL[kind].es} añadido a tu mapa.`
+          : `${KIND_LABEL[kind].en} added to your map.`,
+      );
+    } catch (e) {
+      console.error(e);
+      toast.error(lang === "es" ? "No se pudo guardar." : "Could not save.");
+    }
+  };
+
+  const handleSaveDecision = async (draft: DecisionDraft) => {
+    setSavingDecision(true);
+    try {
+      await saveDecisionFn({
+        data: {
+          reflectionId,
+          situation: draft.situation,
+          decision: draft.decision,
+          reason: draft.reason || undefined,
+          risk: draft.risk || undefined,
+          learned: draft.learned || undefined,
+          watchFor: draft.watchFor || undefined,
+          reviewInDays: draft.reviewInDays,
+        },
+      });
+      await refetchObjects();
+      await refetchReflection();
+      setDecisionOpen(false);
+      toast.success(lang === "es" ? "Decisión guardada." : "Decision saved.");
+    } catch (e) {
+      console.error(e);
+      toast.error(lang === "es" ? "No se pudo guardar." : "Could not save.");
+    } finally {
+      setSavingDecision(false);
+    }
+  };
+
+  const COMMAND_PROMPTS: Record<ThinkingCommand, { es: string; en: string }> = {
+    clarify: {
+      es: "Clarifica lo que acabo de decir: separa los hechos de mis interpretaciones.",
+      en: "Clarify what I just said: separate the facts from my interpretations.",
+    },
+    question: {
+      es: "Cuestiona lo que estoy dando por supuesto aquí.",
+      en: "Question what I am taking for granted here.",
+    },
+    shift: {
+      es: "Mira esto mismo desde otra lente: ética, existencial, pragmática o material.",
+      en: "Look at this from another lens: ethical, existential, pragmatic or material.",
+    },
+    deepen: {
+      es: "Profundiza en eso: ¿qué hay debajo?",
+      en: "Go deeper into that: what lies beneath?",
+    },
+    summarize: {
+      es: "Resume lo que ahora veo: la tensión, el supuesto y la pregunta que queda abierta.",
+      en: "Summarise what I now see: the tension, the assumption and the question still open.",
+    },
+  };
+
+  const composerSuggestions = useMemo(() => {
+    if (messages.length === 0) return suggestionsFor(philosopher, lang).slice(0, 3);
+    if (lang === "es") {
+      return ["¿Qué está realmente en juego?", "¿Qué estoy suponiendo?", "¿Qué no estoy viendo?"];
+    }
+    return ["What is really at stake?", "What am I assuming?", "What am I not seeing?"];
+  }, [messages.length, philosopher, lang]);
+
   const lensProps = {
     reading: lens ?? null,
     loading: lensLoading,
     lang,
     onContrast: handleContrast,
     onAsk: (text: string) => sendText(text),
-    onSave: handleSaveInsight,
+    onSave: (text: string) => captureObject("insight", text),
   };
 
   const shell = embedded ? "h-[78vh] max-h-[860px] overflow-hidden" : "min-h-dvh";
