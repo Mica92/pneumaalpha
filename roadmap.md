@@ -5,4 +5,4 @@
 - [x] Podcast trasladado a Editorial con redirección
 - [x] Correos y documentos con marca Pneum.app
 - [x] Footer y navegación actualizados
-- [ ] Verificación de seguridad, compilación y recorrido visual
+- [x] Verificación de seguridad, compilación y recorrido visual

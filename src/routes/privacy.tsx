@@ -35,7 +35,7 @@ const ES: LegalCopy = {
     },
     {
       h: "1. Responsable del tratamiento",
-      p: "Kionas IA, proveedor del servicio Pneum.app.app, actúa como responsable (data controller) de los datos descritos en esta política. Contacto: privacy@pneum.app.",
+      p: "Kionas IA, proveedor del servicio Pneum.app, actúa como responsable (data controller) de los datos descritos en esta política. Contacto: privacy@pneum.app.",
     },
     {
       h: "2. Datos que recogemos",

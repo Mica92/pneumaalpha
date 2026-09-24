@@ -32,7 +32,7 @@ const ES: LegalCopy = {
   sections: [
     {
       h: "1. Vendedor",
-      p: "Kionas IA\nServicio: Pneum (también presentado como “Pneum”)\nDomicilio: Santiago, Chile\nCorreo general: soporte@pneum.app\nSitio: https://pneum.app",
+      p: "Kionas IA\nServicio: Pneum.app\nDomicilio: Santiago, Chile\nCorreo general: soporte@pneum.app\nSitio: https://pneum.app",
     },
     {
       h: "2. Soporte del producto",
@@ -59,7 +59,7 @@ const EN: LegalCopy = {
   sections: [
     {
       h: "1. Seller",
-      p: "Kionas IA\nService: Pneum (also presented as “Pneum”)\nAddress: Santiago, Chile\nGeneral email: soporte@pneum.app\nWebsite: https://pneum.app",
+      p: "Kionas IA\nService: Pneum.app\nAddress: Santiago, Chile\nGeneral email: soporte@pneum.app\nWebsite: https://pneum.app",
     },
     {
       h: "2. Product support",
