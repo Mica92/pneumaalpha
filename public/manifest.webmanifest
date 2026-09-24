@@ -1,7 +1,7 @@
 {
   "name": "Pneum",
   "short_name": "Pneum",
-  "description": "Conversa con conciencias filosóficas reconstruidas.",
+  "description": "Conversa con perspectivas filosóficas para pensar con claridad.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",

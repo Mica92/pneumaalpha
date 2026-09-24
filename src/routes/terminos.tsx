@@ -25,13 +25,13 @@ export const Route = createFileRoute("/terminos")({
 const ES: LegalCopy = {
   kicker: "Documento · Acuerdo",
   title: "Términos y condiciones",
-  updated: "Última actualización: 31 de agosto de 2026",
+  updated: "Última actualización: 24 de septiembre de 2026",
   intro:
     "Pneum es un servicio gratuito operado por Kionas IA. Al usarlo o crear una cuenta, aceptas estos términos.",
   sections: [
     {
       h: "1. Quiénes somos",
-      p: "El servicio Pneum (también presentado como “Pneum Alpha”) es prestado por Kionas IA (“nosotros”). Contratas con Kionas IA. Contacto: soporte@pneumaalpha.app.",
+      p: "El servicio Pneum.app.app es prestado por Kionas IA (“nosotros”). Contratas con Kionas IA. Contacto: soporte@pneum.app.",
     },
     {
       h: "2. Aceptación",
@@ -51,7 +51,7 @@ const ES: LegalCopy = {
     },
     {
       h: "6. Uso responsable de la inteligencia artificial",
-      p: "Queda prohibido generar contenido ilegal, sexual con menores, de odio, violento, difamatorio, engañoso (incluidas suplantaciones o deepfakes de personas reales), instrucciones para dañar a otros, malware o intentos de eludir los filtros del sistema (jailbreaking).\n\nEres responsable de los textos que envías, de contar con los derechos sobre el contenido que introduces, del uso que das a los resultados y de verificar su exactitud. Las respuestas son generadas automáticamente y pueden contener errores, omisiones o afirmaciones inexactas; no deben usarse como sustituto de asesoría profesional ni en decisiones reguladas sin supervisión humana.\n\nEn la medida permitida por la ley, no reclamamos propiedad sobre los textos que introduces; conservas tus derechos y nos concedes una licencia limitada para procesarlos y prestarte el servicio. Si consideras que un resultado infringe tus derechos, escríbenos a soporte@pneumaalpha.app y atenderemos el reclamo; las infracciones reiteradas conllevan la terminación de la cuenta.\n\nNos reservamos el derecho a moderar: filtrar o rechazar respuestas, retirar contenido y restringir cuentas cuando exista riesgo o incumplimiento.\n\nPneum no reconstruye personas vivas ni figuras públicas contemporáneas: solo autores históricos de dominio público. No es un compañero virtual ni un servicio de acompañamiento emocional o romántico, y no ofrece contenido adulto. El detalle completo —incluidas las reglas de seguridad ante señales de crisis y el procedimiento de moderación— está en la Política de uso aceptable de IA, disponible en https://pneum.app/uso-de-ia, que forma parte integrante de estos términos.",
+      p: "Queda prohibido generar contenido ilegal, sexual con menores, de odio, violento, difamatorio, engañoso (incluidas suplantaciones o deepfakes de personas reales), instrucciones para dañar a otros, malware o intentos de eludir los filtros del sistema (jailbreaking).\n\nEres responsable de los textos que envías, de contar con los derechos sobre el contenido que introduces, del uso que das a los resultados y de verificar su exactitud. Las respuestas son generadas automáticamente y pueden contener errores, omisiones o afirmaciones inexactas; no deben usarse como sustituto de asesoría profesional ni en decisiones reguladas sin supervisión humana.\n\nEn la medida permitida por la ley, no reclamamos propiedad sobre los textos que introduces; conservas tus derechos y nos concedes una licencia limitada para procesarlos y prestarte el servicio. Si consideras que un resultado infringe tus derechos, escríbenos a soporte@pneum.app y atenderemos el reclamo; las infracciones reiteradas conllevan la terminación de la cuenta.\n\nNos reservamos el derecho a moderar: filtrar o rechazar respuestas, retirar contenido y restringir cuentas cuando exista riesgo o incumplimiento.\n\nPneum no reconstruye personas vivas ni figuras públicas contemporáneas: solo autores históricos de dominio público. No es un compañero virtual ni un servicio de acompañamiento emocional o romántico, y no ofrece contenido adulto. El detalle completo —incluidas las reglas de seguridad ante señales de crisis y el procedimiento de moderación— está en la Política de uso aceptable de IA, disponible en https://pneum.app/uso-de-ia, que forma parte integrante de estos términos.",
     },
     {
       h: "7. Propiedad intelectual",
@@ -88,13 +88,13 @@ const ES: LegalCopy = {
 const EN: LegalCopy = {
   kicker: "Document · Agreement",
   title: "Terms and conditions",
-  updated: "Last updated: August 31, 2026",
+  updated: "Last updated: September 24, 2026",
   intro:
     "Pneum is a free service operated by Kionas IA. By using it or creating an account, you accept these terms.",
   sections: [
     {
       h: "1. Who we are",
-      p: "The Pneum service (also presented as “Pneum Alpha”) is provided by Kionas IA (“we”). You are contracting with Kionas IA. Contact: soporte@pneumaalpha.app.",
+      p: "The Pneum.app service is provided by Kionas IA (“we”). You are contracting with Kionas IA. Contact: soporte@pneum.app.",
     },
     {
       h: "2. Acceptance",
@@ -114,7 +114,7 @@ const EN: LegalCopy = {
     },
     {
       h: "6. Responsible use of AI",
-      p: "You may not generate unlawful content, child sexual content, hateful, violent, defamatory or deceptive material (including impersonation or deepfakes of real people), instructions to harm others, malware, or attempts to bypass system safeguards (jailbreaking).\n\nYou are responsible for the prompts you submit, for holding the rights to the content you input, for how you use the outputs and for verifying their accuracy. Outputs are generated automatically and may be inaccurate or incomplete; they are not a substitute for professional advice and must not be used in regulated decisions without human oversight.\n\nTo the extent permitted by law we claim no ownership of your inputs; you keep your rights and grant us a limited licence to process them in order to provide the service. If you believe an output infringes your rights, write to soporte@pneumaalpha.app and we will review the complaint; repeated infringement leads to account termination.\n\nWe reserve moderation rights: filtering or refusing outputs, removing content and restricting accounts where there is risk or breach.\n\nPneum does not reconstruct living people or contemporary public figures: historical, public-domain authors only. It is not a virtual companion or an emotional/romantic support service, and it offers no adult content. The full detail — including safety rules for crisis signals and the moderation procedure — is in the AI Acceptable Use Policy at https://pneum.app/uso-de-ia, which forms part of these terms.",
+      p: "You may not generate unlawful content, child sexual content, hateful, violent, defamatory or deceptive material (including impersonation or deepfakes of real people), instructions to harm others, malware, or attempts to bypass system safeguards (jailbreaking).\n\nYou are responsible for the prompts you submit, for holding the rights to the content you input, for how you use the outputs and for verifying their accuracy. Outputs are generated automatically and may be inaccurate or incomplete; they are not a substitute for professional advice and must not be used in regulated decisions without human oversight.\n\nTo the extent permitted by law we claim no ownership of your inputs; you keep your rights and grant us a limited licence to process them in order to provide the service. If you believe an output infringes your rights, write to soporte@pneum.app and we will review the complaint; repeated infringement leads to account termination.\n\nWe reserve moderation rights: filtering or refusing outputs, removing content and restricting accounts where there is risk or breach.\n\nPneum does not reconstruct living people or contemporary public figures: historical, public-domain authors only. It is not a virtual companion or an emotional/romantic support service, and it offers no adult content. The full detail — including safety rules for crisis signals and the moderation procedure — is in the AI Acceptable Use Policy at https://pneum.app/uso-de-ia, which forms part of these terms.",
     },
     {
       h: "7. Intellectual property",

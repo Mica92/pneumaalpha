@@ -26,7 +26,7 @@ export const Route = createFileRoute("/uso-de-ia")({
 const ES: LegalCopy = {
   kicker: "Documento · Uso de IA",
   title: "Política de uso aceptable de inteligencia artificial",
-  updated: "Última actualización: 2 de septiembre de 2026",
+  updated: "Última actualización: 24 de septiembre de 2026",
   intro:
     "Pneum es un producto editorial y educativo de filosofía operado por Kionas IA. La inteligencia artificial es la interfaz que permite estudiar el pensamiento de autores históricos de dominio público; no es un compañero virtual, ni un asistente personal de propósito general, ni un servicio de consejo profesional. Esta política describe cómo se generan las respuestas, qué usos están prohibidos y cómo moderamos el servicio.",
   sections: [
@@ -52,7 +52,7 @@ const ES: LegalCopy = {
     },
     {
       h: "6. Moderación y cumplimiento",
-      p: "Aplicamos filtros sobre las entradas y las salidas del modelo, además de los filtros de seguridad del proveedor del modelo. Podemos rechazar una respuesta, retirar contenido, limitar funciones, suspender o cerrar cuentas cuando exista incumplimiento o riesgo. Las infracciones graves o reiteradas conllevan la terminación definitiva del acceso.\n\nPuedes reportar una respuesta problemática escribiendo a soporte@pneumaalpha.app; revisamos cada reporte.",
+      p: "Aplicamos filtros sobre las entradas y las salidas del modelo, además de los filtros de seguridad del proveedor del modelo. Podemos rechazar una respuesta, retirar contenido, limitar funciones, suspender o cerrar cuentas cuando exista incumplimiento o riesgo. Las infracciones graves o reiteradas conllevan la terminación definitiva del acceso.\n\nPuedes reportar una respuesta problemática escribiendo a soporte@pneum.app; revisamos cada reporte.",
     },
     {
       h: "7. Edad mínima",
@@ -60,11 +60,11 @@ const ES: LegalCopy = {
     },
     {
       h: "8. Tus contenidos y tus derechos",
-      p: "No reclamamos propiedad sobre los textos que escribes; conservas tus derechos y nos concedes una licencia limitada para procesarlos y prestarte el servicio. Los mensajes se envían a proveedores de modelos de lenguaje que actúan como encargados del tratamiento. Puedes exportar o eliminar tus conversaciones desde tu perfil o pidiéndolo a privacy@pneumaalpha.app. El detalle está en la Política de privacidad.",
+      p: "No reclamamos propiedad sobre los textos que escribes; conservas tus derechos y nos concedes una licencia limitada para procesarlos y prestarte el servicio. Los mensajes se envían a proveedores de modelos de lenguaje que actúan como encargados del tratamiento. Puedes exportar o eliminar tus conversaciones desde tu perfil o pidiéndolo a privacy@pneum.app. El detalle está en la Política de privacidad.",
     },
     {
       h: "9. Contacto",
-      p: "Kionas IA · soporte@pneumaalpha.app · Santiago, Chile.",
+      p: "Kionas IA · soporte@pneum.app · Santiago, Chile.",
     },
   ],
   back: "← Volver al inicio",
@@ -73,7 +73,7 @@ const ES: LegalCopy = {
 const EN: LegalCopy = {
   kicker: "Document · AI use",
   title: "Acceptable use policy for artificial intelligence",
-  updated: "Last updated: September 2, 2026",
+  updated: "Last updated: September 24, 2026",
   intro:
     "Pneum is an editorial and educational philosophy product operated by Kionas IA. Artificial intelligence is the interface that lets you study the thought of historical, public-domain authors; it is not a virtual companion, a general-purpose assistant, or a professional advice service. This policy explains how answers are generated, which uses are prohibited, and how we moderate the service.",
   sections: [
@@ -99,7 +99,7 @@ const EN: LegalCopy = {
     },
     {
       h: "6. Moderation and enforcement",
-      p: "We apply filters to model inputs and outputs, in addition to the model provider's own safety filters. We may refuse an answer, remove content, limit features, suspend or close accounts where there is breach or risk. Serious or repeated violations lead to permanent termination.\n\nYou can report a problematic output at soporte@pneumaalpha.app; we review every report.",
+      p: "We apply filters to model inputs and outputs, in addition to the model provider's own safety filters. We may refuse an answer, remove content, limit features, suspend or close accounts where there is breach or risk. Serious or repeated violations lead to permanent termination.\n\nYou can report a problematic output at soporte@pneum.app; we review every report.",
     },
     {
       h: "7. Minimum age",
@@ -107,11 +107,11 @@ const EN: LegalCopy = {
     },
     {
       h: "8. Your content and your rights",
-      p: "We claim no ownership of the text you write; you keep your rights and grant us a limited licence to process it to provide the service. Messages are sent to language-model providers acting as processors. You can export or delete your conversations from your profile or by writing to privacy@pneumaalpha.app. Full detail is in the Privacy Policy.",
+      p: "We claim no ownership of the text you write; you keep your rights and grant us a limited licence to process it to provide the service. Messages are sent to language-model providers acting as processors. You can export or delete your conversations from your profile or by writing to privacy@pneum.app. Full detail is in the Privacy Policy.",
     },
     {
       h: "9. Contact",
-      p: "Kionas IA · soporte@pneumaalpha.app · Santiago, Chile.",
+      p: "Kionas IA · soporte@pneum.app · Santiago, Chile.",
     },
   ],
   back: "← Back to home",

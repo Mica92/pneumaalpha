@@ -9,7 +9,7 @@ import { EmailChangeEmail } from '@/lib/email-templates/email-change'
 import { ReauthenticationEmail } from '@/lib/email-templates/reauthentication'
 
 // Configuration
-const SITE_NAME = "Pneuma Alpha"
+const SITE_NAME = "Pneum"
 const SENDER_DOMAIN = "noreply.pneum.app"
 const ROOT_DOMAIN = "pneum.app"
 const FROM_DOMAIN = "pneum.app"
@@ -28,7 +28,7 @@ export const Route = createFileRoute("/lovable/email/auth/webhook")({
           sendUrl: process.env['LOVABLE_SEND_URL'],
           emails: {
             signup: {
-              subject: 'Confirma tu correo · Pneuma Alpha',
+              subject: 'Confirma tu correo · Pneum',
               render: (data) =>
                 React.createElement(SignupEmail, {
                   siteName: SITE_NAME,
@@ -38,7 +38,7 @@ export const Route = createFileRoute("/lovable/email/auth/webhook")({
                 }),
             },
             invite: {
-              subject: 'Te han invitado a Pneuma Alpha',
+              subject: 'Te han invitado a Pneum',
               render: (data) =>
                 React.createElement(InviteEmail, {
                   siteName: SITE_NAME,
@@ -47,7 +47,7 @@ export const Route = createFileRoute("/lovable/email/auth/webhook")({
                 }),
             },
             magiclink: {
-              subject: 'Tu enlace de acceso · Pneuma Alpha',
+              subject: 'Tu enlace de acceso · Pneum',
               render: (data) =>
                 React.createElement(MagicLinkEmail, {
                   siteName: SITE_NAME,
@@ -55,7 +55,7 @@ export const Route = createFileRoute("/lovable/email/auth/webhook")({
                 }),
             },
             recovery: {
-              subject: 'Restablece tu contraseña · Pneuma Alpha',
+              subject: 'Restablece tu contraseña · Pneum',
               render: (data) =>
                 React.createElement(RecoveryEmail, {
                   siteName: SITE_NAME,
@@ -63,7 +63,7 @@ export const Route = createFileRoute("/lovable/email/auth/webhook")({
                 }),
             },
             email_change: {
-              subject: 'Confirma tu nuevo correo · Pneuma Alpha',
+              subject: 'Confirma tu nuevo correo · Pneum',
               render: (data) =>
                 React.createElement(EmailChangeEmail, {
                   siteName: SITE_NAME,
@@ -74,7 +74,7 @@ export const Route = createFileRoute("/lovable/email/auth/webhook")({
                 }),
             },
             reauthentication: {
-              subject: 'Tu código de verificación · Pneuma Alpha',
+              subject: 'Tu código de verificación · Pneum',
               render: (data) =>
                 React.createElement(ReauthenticationEmail, { token: data.token ?? '' }),
             },

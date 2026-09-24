@@ -15,7 +15,9 @@ import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ContactoRouteImport } from './routes/contacto'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as EditorialIndexRouteImport } from './routes/editorial/index'
 import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
+import { Route as EditorialPodcastRouteImport } from './routes/editorial/podcast'
 import { Route as AuthenticatedUmbralRouteImport } from './routes/_authenticated/umbral'
 import { Route as AuthenticatedReporteRouteImport } from './routes/_authenticated/reporte'
 import { Route as AuthenticatedRecorridoRouteImport } from './routes/_authenticated/recorrido'
@@ -37,6 +39,7 @@ import { Route as AuthenticatedSituacionesIndexRouteImport } from './routes/_aut
 import { Route as AuthenticatedRutasIndexRouteImport } from './routes/_authenticated/rutas.index'
 import { Route as AuthenticatedIdeasIndexRouteImport } from './routes/_authenticated/ideas.index'
 import { Route as AuthenticatedFilosofosIndexRouteImport } from './routes/_authenticated/filosofos.index'
+import { Route as EditorialCategoryArticleRouteImport } from './routes/editorial/$category.$article'
 import { Route as ApiPodcastSpeechRouteImport } from './routes/api/podcast/speech'
 import { Route as AuthenticatedSituacionesIdRouteImport } from './routes/_authenticated/situaciones.$id'
 import { Route as AuthenticatedRutasIdRouteImport } from './routes/_authenticated/rutas.$id'
@@ -75,10 +78,20 @@ const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
   id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EditorialIndexRoute = EditorialIndexRouteImport.update({
+  id: '/editorial/',
+  path: '/editorial/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthenticatedIndexRoute = AuthenticatedIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const EditorialPodcastRoute = EditorialPodcastRouteImport.update({
+  id: '/editorial/podcast',
+  path: '/editorial/podcast',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedUmbralRoute = AuthenticatedUmbralRouteImport.update({
   id: '/umbral',
@@ -190,6 +203,12 @@ const AuthenticatedFilosofosIndexRoute =
     path: '/filosofos/',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const EditorialCategoryArticleRoute =
+  EditorialCategoryArticleRouteImport.update({
+    id: '/editorial/$category/$article',
+    path: '/editorial/$category/$article',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiPodcastSpeechRoute = ApiPodcastSpeechRouteImport.update({
   id: '/api/podcast/speech',
   path: '/api/podcast/speech',
@@ -258,12 +277,15 @@ export interface FileRoutesByFullPath {
   '/recorrido': typeof AuthenticatedRecorridoRoute
   '/reporte': typeof AuthenticatedReporteRoute
   '/umbral': typeof AuthenticatedUmbralRoute
+  '/editorial/podcast': typeof EditorialPodcastRoute
+  '/editorial/': typeof EditorialIndexRoute
   '/admin/analitica': typeof AuthenticatedAdminAnaliticaRoute
   '/filosofos/$id': typeof AuthenticatedFilosofosIdRoute
   '/ideas/$id': typeof AuthenticatedIdeasIdRoute
   '/rutas/$id': typeof AuthenticatedRutasIdRoute
   '/situaciones/$id': typeof AuthenticatedSituacionesIdRoute
   '/api/podcast/speech': typeof ApiPodcastSpeechRoute
+  '/editorial/$category/$article': typeof EditorialCategoryArticleRoute
   '/filosofos/': typeof AuthenticatedFilosofosIndexRoute
   '/ideas/': typeof AuthenticatedIdeasIndexRoute
   '/rutas/': typeof AuthenticatedRutasIndexRoute
@@ -294,13 +316,16 @@ export interface FileRoutesByTo {
   '/recorrido': typeof AuthenticatedRecorridoRoute
   '/reporte': typeof AuthenticatedReporteRoute
   '/umbral': typeof AuthenticatedUmbralRoute
+  '/editorial/podcast': typeof EditorialPodcastRoute
   '/': typeof AuthenticatedIndexRoute
+  '/editorial': typeof EditorialIndexRoute
   '/admin/analitica': typeof AuthenticatedAdminAnaliticaRoute
   '/filosofos/$id': typeof AuthenticatedFilosofosIdRoute
   '/ideas/$id': typeof AuthenticatedIdeasIdRoute
   '/rutas/$id': typeof AuthenticatedRutasIdRoute
   '/situaciones/$id': typeof AuthenticatedSituacionesIdRoute
   '/api/podcast/speech': typeof ApiPodcastSpeechRoute
+  '/editorial/$category/$article': typeof EditorialCategoryArticleRoute
   '/filosofos': typeof AuthenticatedFilosofosIndexRoute
   '/ideas': typeof AuthenticatedIdeasIndexRoute
   '/rutas': typeof AuthenticatedRutasIndexRoute
@@ -333,13 +358,16 @@ export interface FileRoutesById {
   '/_authenticated/recorrido': typeof AuthenticatedRecorridoRoute
   '/_authenticated/reporte': typeof AuthenticatedReporteRoute
   '/_authenticated/umbral': typeof AuthenticatedUmbralRoute
+  '/editorial/podcast': typeof EditorialPodcastRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
+  '/editorial/': typeof EditorialIndexRoute
   '/_authenticated/admin/analitica': typeof AuthenticatedAdminAnaliticaRoute
   '/_authenticated/filosofos/$id': typeof AuthenticatedFilosofosIdRoute
   '/_authenticated/ideas/$id': typeof AuthenticatedIdeasIdRoute
   '/_authenticated/rutas/$id': typeof AuthenticatedRutasIdRoute
   '/_authenticated/situaciones/$id': typeof AuthenticatedSituacionesIdRoute
   '/api/podcast/speech': typeof ApiPodcastSpeechRoute
+  '/editorial/$category/$article': typeof EditorialCategoryArticleRoute
   '/_authenticated/filosofos/': typeof AuthenticatedFilosofosIndexRoute
   '/_authenticated/ideas/': typeof AuthenticatedIdeasIndexRoute
   '/_authenticated/rutas/': typeof AuthenticatedRutasIndexRoute
@@ -373,12 +401,15 @@ export interface FileRouteTypes {
     | '/recorrido'
     | '/reporte'
     | '/umbral'
+    | '/editorial/podcast'
+    | '/editorial/'
     | '/admin/analitica'
     | '/filosofos/$id'
     | '/ideas/$id'
     | '/rutas/$id'
     | '/situaciones/$id'
     | '/api/podcast/speech'
+    | '/editorial/$category/$article'
     | '/filosofos/'
     | '/ideas/'
     | '/rutas/'
@@ -409,13 +440,16 @@ export interface FileRouteTypes {
     | '/recorrido'
     | '/reporte'
     | '/umbral'
+    | '/editorial/podcast'
     | '/'
+    | '/editorial'
     | '/admin/analitica'
     | '/filosofos/$id'
     | '/ideas/$id'
     | '/rutas/$id'
     | '/situaciones/$id'
     | '/api/podcast/speech'
+    | '/editorial/$category/$article'
     | '/filosofos'
     | '/ideas'
     | '/rutas'
@@ -447,13 +481,16 @@ export interface FileRouteTypes {
     | '/_authenticated/recorrido'
     | '/_authenticated/reporte'
     | '/_authenticated/umbral'
+    | '/editorial/podcast'
     | '/_authenticated/'
+    | '/editorial/'
     | '/_authenticated/admin/analitica'
     | '/_authenticated/filosofos/$id'
     | '/_authenticated/ideas/$id'
     | '/_authenticated/rutas/$id'
     | '/_authenticated/situaciones/$id'
     | '/api/podcast/speech'
+    | '/editorial/$category/$article'
     | '/_authenticated/filosofos/'
     | '/_authenticated/ideas/'
     | '/_authenticated/rutas/'
@@ -469,7 +506,10 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TerminosRoute: typeof TerminosRoute
   UsoDeIaRoute: typeof UsoDeIaRoute
+  EditorialPodcastRoute: typeof EditorialPodcastRoute
+  EditorialIndexRoute: typeof EditorialIndexRoute
   ApiPodcastSpeechRoute: typeof ApiPodcastSpeechRoute
+  EditorialCategoryArticleRoute: typeof EditorialCategoryArticleRoute
   LovableEmailAuthPreviewRoute: typeof LovableEmailAuthPreviewRoute
   LovableEmailAuthWebhookRoute: typeof LovableEmailAuthWebhookRoute
 }
@@ -518,12 +558,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/editorial/': {
+      id: '/editorial/'
+      path: '/editorial'
+      fullPath: '/editorial/'
+      preLoaderRoute: typeof EditorialIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated/': {
       id: '/_authenticated/'
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof AuthenticatedIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/editorial/podcast': {
+      id: '/editorial/podcast'
+      path: '/editorial/podcast'
+      fullPath: '/editorial/podcast'
+      preLoaderRoute: typeof EditorialPodcastRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/_authenticated/umbral': {
       id: '/_authenticated/umbral'
@@ -672,6 +726,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedFilosofosIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/editorial/$category/$article': {
+      id: '/editorial/$category/$article'
+      path: '/editorial/$category/$article'
+      fullPath: '/editorial/$category/$article'
+      preLoaderRoute: typeof EditorialCategoryArticleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/podcast/speech': {
       id: '/api/podcast/speech'
       path: '/api/podcast/speech'
@@ -801,7 +862,10 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TerminosRoute: TerminosRoute,
   UsoDeIaRoute: UsoDeIaRoute,
+  EditorialPodcastRoute: EditorialPodcastRoute,
+  EditorialIndexRoute: EditorialIndexRoute,
   ApiPodcastSpeechRoute: ApiPodcastSpeechRoute,
+  EditorialCategoryArticleRoute: EditorialCategoryArticleRoute,
   LovableEmailAuthPreviewRoute: LovableEmailAuthPreviewRoute,
   LovableEmailAuthWebhookRoute: LovableEmailAuthWebhookRoute,
 }

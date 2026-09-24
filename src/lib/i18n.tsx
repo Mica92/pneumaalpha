@@ -22,8 +22,8 @@ type Dict = Record<string, { es: string; en: string }>;
 export const T: Dict = {
   "app.name": { es: "Pneum", en: "Pneum" },
   "app.tagline": {
-    es: "Conversaciones con conciencias filosóficas reconstruidas.",
-    en: "Conversations with reconstructed philosophical minds.",
+    es: "Conversaciones con perspectivas filosóficas para pensar con claridad.",
+    en: "A space for structuring and understanding your thinking more clearly.",
   },
 
   "umbral.kicker": { es: "Umbral", en: "Threshold" },

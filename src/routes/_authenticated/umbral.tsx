@@ -28,7 +28,7 @@ export const Route = createFileRoute("/_authenticated/umbral")({
       {
         property: "og:description",
         content:
-          "Múltiples conciencias filosóficas reconstruidas. Una lámpara distante. Una conversación que no se apaga.",
+          "Múltiples perspectivas filosóficas para pensar con claridad. Una lámpara distante. Una conversación que no se apaga.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: `${SITE_URL}/umbral` },

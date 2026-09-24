@@ -37,7 +37,7 @@ export const Route = createFileRoute("/_authenticated/filosofos/")({
       { title: "Filósofos — Pneum" },
       {
         name: "description",
-        content: `${COUNT} conciencias filosóficas reconstruidas: quién es cada una, qué pregunta la mueve y de qué puedes hablar con ella.`,
+        content: `${COUNT} perspectivas filosóficas para pensar con claridad: quién es cada una, qué pregunta la mueve y de qué puedes hablar con ella.`,
       },
       { property: "og:title", content: "Filósofos — Pneum" },
       {

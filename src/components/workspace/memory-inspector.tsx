@@ -12,6 +12,7 @@ const COPY = {
     unmute: "Volver a utilizar",
     remove: "Eliminar",
     close: "Cerrar",
+    trust: ["Tú controlas tu pensamiento.", "Tus datos son tuyos.", "Nada se guarda sin que tú lo elijas."],
   },
   en: {
     title: "Memory",
@@ -24,6 +25,7 @@ const COPY = {
     unmute: "Use this again",
     remove: "Delete",
     close: "Close",
+    trust: ["You control your thinking.", "Your data is yours.", "Nothing is stored unless you choose it."],
   },
 } as const;
 
@@ -63,6 +65,9 @@ export function MemoryInspector({
         <header className="border-b border-border/60 px-6 py-5">
           <h2 className="font-display text-subtitle font-light text-foreground">{c.title}</h2>
           <p className="mt-1 text-micro leading-relaxed text-muted-foreground">{c.lead}</p>
+          <ul className="mt-4 space-y-1 border-l border-bronze/50 pl-3 text-micro text-muted-foreground">
+            {c.trust.map((line) => <li key={line}>{line}</li>)}
+          </ul>
         </header>
 
         <div className="flex-1 overflow-y-auto px-6 py-6">

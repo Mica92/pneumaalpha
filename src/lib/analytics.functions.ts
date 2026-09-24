@@ -46,6 +46,10 @@ export const ANALYTICS_EVENTS = [
   "perspective_suggested",
   "intent_selected",
   "tension_explored",
+  "editorial_viewed",
+  "editorial_category_selected",
+  "editorial_article_viewed",
+  "editorial_comment_submitted",
 ] as const;
 
 export type AnalyticsEvent = (typeof ANALYTICS_EVENTS)[number];
