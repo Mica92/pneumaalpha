@@ -109,10 +109,10 @@ export function SiteFooter() {
             Pneum · {new Date().getFullYear()} · {es ? "Vendido por" : "Sold by"} Kionas IA,
             Santiago, Chile ·{" "}
             <a
-              href="mailto:soporte@pneumaalpha.app"
+              href="mailto:soporte@pneum.app"
               className="focus-mist underline underline-offset-4 transition-colors hover:text-foreground"
             >
-              soporte@pneumaalpha.app
+              soporte@pneum.app
             </a>
           </span>
           <span className="text-muted-foreground/60">
