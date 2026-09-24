@@ -18,7 +18,7 @@ const EMAIL_TEMPLATES: Record<string, React.ComponentType<any>> = {
 }
 
 // Configuration
-const SITE_NAME = "Pneuma"
+const SITE_NAME = "Pneum"
 const ROOT_DOMAIN = "pneum.app"
 
 // Sample data for preview mode ONLY (not used in actual email sending).
