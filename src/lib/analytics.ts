@@ -1,3 +1,4 @@
+import { supabase } from "@/integrations/supabase/client";
 import { trackEvent, type AnalyticsEvent } from "@/lib/analytics.functions";
 
 const KEY = "pneum.session";
@@ -22,7 +23,14 @@ export function track(
   props?: Record<string, string | number | boolean>,
 ) {
   if (typeof window === "undefined") return;
-  void trackEvent({ data: { event, sessionId: sessionId(), props } }).catch(() => {});
+  // Only send when a session exists; public visitors without one are skipped.
+  void supabase.auth
+    .getSession()
+    .then(({ data }) => {
+      if (!data.session) return;
+      return trackEvent({ data: { event, sessionId: sessionId(), props } });
+    })
+    .catch(() => {});
 }
 
 const ONCE_PREFIX = "pneum.once.";
