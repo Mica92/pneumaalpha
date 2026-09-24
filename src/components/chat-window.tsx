@@ -1,4 +1,5 @@
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { classifyTheme } from "@/lib/topic-classifier";
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport, type UIMessage } from "ai";
 import { useServerFn } from "@tanstack/react-start";
@@ -276,7 +277,7 @@ function ChatBody({
       const trimmed = text.trim();
       if (!trimmed || isLoading) return;
       setAtBottom(true);
-      track("message_sent", { philosopher });
+      track("message_sent", { philosopher, theme: classifyTheme(trimmed) });
       await sendMessage({ text: trimmed });
     },
     [isLoading, philosopher, sendMessage],
@@ -292,7 +293,7 @@ function ChatBody({
       inputRef.current.style.height = "auto";
     }
     setAtBottom(true);
-    track("message_sent", { philosopher });
+    track("message_sent", { philosopher, theme: classifyTheme(text) });
     await sendMessage({ text });
   };
 
@@ -925,7 +926,7 @@ function ChatBody({
                 inputRef.current.style.height = "auto";
               }
               setAtBottom(true);
-              track("message_sent", { philosopher });
+              track("message_sent", { philosopher, theme: classifyTheme(text) });
               void sendMessage({ text });
             }}
             disabled={isLoading}
