@@ -97,6 +97,92 @@ export type Database = {
           },
         ]
       }
+      editorial_comment_reports: {
+        Row: {
+          comment_id: string
+          created_at: string
+          id: string
+          reason: string
+          user_id: string
+        }
+        Insert: {
+          comment_id: string
+          created_at?: string
+          id?: string
+          reason: string
+          user_id: string
+        }
+        Update: {
+          comment_id?: string
+          created_at?: string
+          id?: string
+          reason?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "editorial_comment_reports_comment_id_fkey"
+            columns: ["comment_id"]
+            isOneToOne: false
+            referencedRelation: "editorial_comments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "editorial_comment_reports_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      editorial_comments: {
+        Row: {
+          article_slug: string
+          author_name: string
+          content: string
+          created_at: string
+          id: string
+          lang: string
+          moderation_note: string | null
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          article_slug: string
+          author_name: string
+          content: string
+          created_at?: string
+          id?: string
+          lang?: string
+          moderation_note?: string | null
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          article_slug?: string
+          author_name?: string
+          content?: string
+          created_at?: string
+          id?: string
+          lang?: string
+          moderation_note?: string | null
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "editorial_comments_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       journey_nodes: {
         Row: {
           count: number
