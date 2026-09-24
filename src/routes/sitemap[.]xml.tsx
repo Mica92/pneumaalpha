@@ -3,6 +3,7 @@ import type {} from "@tanstack/react-start";
 import { PHILOSOPHER_LIST } from "@/lib/philosophers";
 import { SITUATIONS } from "@/lib/situations";
 import { SITE_URL } from "@/lib/site";
+import { EDITORIAL_ARTICLES } from "@/lib/editorial";
 
 export const Route = createFileRoute("/sitemap.xml")({
   server: {
@@ -21,7 +22,8 @@ export const Route = createFileRoute("/sitemap.xml")({
           "/reporte",
           "/conocimiento",
           "/analisis",
-          "/podcast",
+          "/editorial",
+          "/editorial/podcast",
           "/mesa",
           "/modo-socrates",
           "/biblioteca",
@@ -32,6 +34,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           "/contacto",
           "/situaciones",
           ...SITUATIONS.map((s) => `/situaciones/${s.id}`),
+          ...EDITORIAL_ARTICLES.map((a) => `/editorial/${a.category}/${a.slug}`),
           ...PHILOSOPHER_LIST.map((p) => `/${p.id}`),
         ];
         const urls = paths.map(

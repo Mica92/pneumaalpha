@@ -1,25 +1,19 @@
-# Pneum
+# Pneum.app
 
-> Bilingual (ES / EN) conversations with a broad library of reconstructed philosophical minds, including the twelve anchors: Nietzsche, Marx, Plato, Confucius, Buddha, Sun Tzu, Aristotle, Marcus Aurelius, Seneca, Socrates, Kant and Heidegger.
+> A bilingual space for structuring and understanding your thinking more clearly, using philosophy as an instrument.
 
-Pneum is a contemplative chat experience inspired by Blade Runner 2049, Dune, and Arrival. Each figure is rendered as a living consciousness with a distinct system prompt, place, and cadence. Users converse freely in Spanish or English; the AI replies in the same language.
+Pneum helps people clarify questions, examine assumptions, compare philosophical perspectives and recognize patterns in their own thinking. It does not decide for the user. Memory is visible, editable and controlled by the person.
 
-## Pages
+## Main sections
+- [Think](/oraculo): Begin with a question or situation.
+- [Editorial](/editorial): 40 bilingual readings across philosophy, concepts, clarity of thought, essays, research, podcast and perspectives.
+- [Perspectives](/filosofos): Historically grounded philosophical lenses.
+- [Thinking map](/mi-mapa): A personal map built only from what the user chooses to keep.
+- [Knowledge network](/conocimiento): Interactive graph connecting thinkers, ideas, movements, ideologies and religions.
+- [Privacy](/privacy): How Pneum protects user control, data and intellectual autonomy.
 
-- [Threshold](/): The home page — choose a mind to converse with.
-- [Heidegger](/heidegger): Being, anxiety, technology. A thinker by the fire in the Black Forest.
-- [Schopenhauer](/schopenhauer): The Will, suffering, compassion. A caustic gentleman between Kant and the Upanishads.
-- [William James](/james): Stream of consciousness, the will to believe, religious experience.
-- [Nietzsche](/nietzsche): Will to power, transvaluation, amor fati.
-- [Marx](/marx): Commodity, surplus value, alienation, class struggle.
-- [Bentham](/bentham): Utility, the felicific calculus, reform. An English legislator of happiness.
-- [Pohlenz](/pohlenz): The Stoa as a living spiritual movement. A Göttingen philologist who restored Stoicism to its historical depth.
-- [Racionalismo](/rationalism): A living map of 17th-century rationalism — Descartes, Spinoza, Leibniz, Malebranche and their circle, in a single voice.
-- [Plato](/plato): Forms, justice, eros and education through dialogue.
-- [Confucius](/confucius): Humaneness, ritual, learning and right relationship.
-- [Buddha](/buddha): Suffering, impermanence, attention and liberation.
-- [Sun Tzu](/suntzu): Strategy, terrain, timing and victory without waste.
-- [Aristotle](/aristotle): Causes, virtue, logic and the good life.
-- [Marcus Aurelius](/marcusaurelius): Duty, mortality and inner discipline.
-- [Seneca](/seneca): Time, adversity, anger and daily philosophy.
-- [Socrates](/socrates): Examination, refutation and care of the soul.
+## Trust principles
+- You control your thinking.
+- Your data is yours.
+- Pneum does not decide for you.
+- Your information is not used to manipulate you.
