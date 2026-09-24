@@ -31,7 +31,7 @@ const ES: LegalCopy = {
   sections: [
     {
       h: "1. Quiénes somos",
-      p: "El servicio Pneum.app.app es prestado por Kionas IA (“nosotros”). Contratas con Kionas IA. Contacto: soporte@pneum.app.",
+      p: "El servicio Pneum.app es prestado por Kionas IA (“nosotros”). Contratas con Kionas IA. Contacto: soporte@pneum.app.",
     },
     {
       h: "2. Aceptación",
