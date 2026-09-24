@@ -25,7 +25,7 @@ export const Route = createFileRoute("/terminos")({
 const ES: LegalCopy = {
   kicker: "Documento · Acuerdo",
   title: "Términos y condiciones",
-  updated: "Última actualización: 31 de agosto de 2026",
+  updated: "Última actualización: 24 de septiembre de 2026",
   intro:
     "Pneum es un servicio gratuito operado por Kionas IA. Al usarlo o crear una cuenta, aceptas estos términos.",
   sections: [
@@ -88,7 +88,7 @@ const ES: LegalCopy = {
 const EN: LegalCopy = {
   kicker: "Document · Agreement",
   title: "Terms and conditions",
-  updated: "Last updated: August 31, 2026",
+  updated: "Last updated: September 24, 2026",
   intro:
     "Pneum is a free service operated by Kionas IA. By using it or creating an account, you accept these terms.",
   sections: [

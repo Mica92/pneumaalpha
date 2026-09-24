@@ -17,6 +17,7 @@ const PRIMARY: readonly NavItem[] = [
   { to: "/mi-mapa", es: "Mapa", en: "Map" },
   { to: "/conocimiento", es: "Red", en: "Network" },
   { to: "/filosofos", es: "Perspectivas", en: "Perspectives" },
+  { to: "/editorial", es: "Editorial", en: "Editorial" },
 ] as const;
 
 function isGoogleUser(user: ReturnType<typeof useAuth>["user"]) {

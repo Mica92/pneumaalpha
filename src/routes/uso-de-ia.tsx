@@ -26,7 +26,7 @@ export const Route = createFileRoute("/uso-de-ia")({
 const ES: LegalCopy = {
   kicker: "Documento · Uso de IA",
   title: "Política de uso aceptable de inteligencia artificial",
-  updated: "Última actualización: 2 de septiembre de 2026",
+  updated: "Última actualización: 24 de septiembre de 2026",
   intro:
     "Pneum es un producto editorial y educativo de filosofía operado por Kionas IA. La inteligencia artificial es la interfaz que permite estudiar el pensamiento de autores históricos de dominio público; no es un compañero virtual, ni un asistente personal de propósito general, ni un servicio de consejo profesional. Esta política describe cómo se generan las respuestas, qué usos están prohibidos y cómo moderamos el servicio.",
   sections: [
@@ -73,7 +73,7 @@ const ES: LegalCopy = {
 const EN: LegalCopy = {
   kicker: "Document · AI use",
   title: "Acceptable use policy for artificial intelligence",
-  updated: "Last updated: September 2, 2026",
+  updated: "Last updated: September 24, 2026",
   intro:
     "Pneum is an editorial and educational philosophy product operated by Kionas IA. Artificial intelligence is the interface that lets you study the thought of historical, public-domain authors; it is not a virtual companion, a general-purpose assistant, or a professional advice service. This policy explains how answers are generated, which uses are prohibited, and how we moderate the service.",
   sections: [

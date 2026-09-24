@@ -25,10 +25,14 @@ export const Route = createFileRoute("/privacy")({
 const ES: LegalCopy = {
   kicker: "Documento · Confianza",
   title: "Política de privacidad",
-  updated: "Última actualización: 31 de agosto de 2026",
+  updated: "Última actualización: 24 de septiembre de 2026",
   intro:
     "Pneum es operado por Kionas IA, responsable del tratamiento de tus datos personales. Aquí explicamos, sin rodeos, qué recogemos, con qué finalidad y base legal, con quién lo compartimos y qué control conservas.",
   sections: [
+    {
+      h: "Nuestra promesa de privacidad",
+      p: "Tú controlas tu pensamiento. Tus datos son tuyos. Pneum no decide por ti. Tu información no se utiliza para manipularte. Estas promesas guían el diseño del producto: la memoria es visible y reversible, nada se guarda en tu mapa sin una acción tuya y no vendemos tus datos ni los usamos para publicidad de terceros.",
+    },
     {
       h: "1. Responsable del tratamiento",
       p: "Kionas IA, proveedor del servicio Pneum (también presentado como “Pneum”), actúa como responsable (data controller) de los datos descritos en esta política. Contacto: privacy@pneum.app.",
@@ -80,10 +84,14 @@ const ES: LegalCopy = {
 const EN: LegalCopy = {
   kicker: "Document · Trust",
   title: "Privacy notice",
-  updated: "Last updated: August 31, 2026",
+  updated: "Last updated: September 24, 2026",
   intro:
     "Pneum is operated by Kionas IA, the controller of your personal data. This notice explains plainly what we collect, for what purpose and legal basis, who we share it with, and what control you keep.",
   sections: [
+    {
+      h: "Our privacy promise",
+      p: "You control your thinking. Your data is yours. Pneum does not decide for you. Your information is not used to manipulate you. These promises guide the product: memory is visible and reversible, nothing enters your map without your action, and we do not sell your data or use it for third-party advertising.",
+    },
     {
       h: "1. Data controller",
       p: "Kionas IA, provider of the Pneum service (also presented as “Pneum”), acts as data controller for the data described here. Contact: privacy@pneum.app.",

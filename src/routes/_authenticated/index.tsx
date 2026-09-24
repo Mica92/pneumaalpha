@@ -612,12 +612,12 @@ function Home() {
 
         {/* 09 — Tu pensamiento te pertenece */}
         <section className="band-paper border-y border-border">
-          <div className="mx-auto grid max-w-6xl gap-10 px-5 py-16 md:grid-cols-2 md:px-8 md:py-24">
+          <div className="mx-auto max-w-6xl px-5 py-16 md:px-8 md:py-24">
             <div>
               <h2 className="font-serif text-title font-light text-foreground">
                 {es ? "Tu pensamiento te pertenece." : "Your thinking belongs to you."}
               </h2>
-              <p className="mt-4 max-w-md text-small leading-relaxed text-muted-foreground">
+              <p className="mt-4 max-w-xl text-small leading-relaxed text-muted-foreground">
                 {es
                   ? "Pneum construye memoria sólo con lo que tú eliges guardar, y esa memoria es legible y reversible."
                   : "Pneum builds memory only from what you choose to keep, and that memory is readable and reversible."}
@@ -626,13 +626,22 @@ function Home() {
                 {es ? "Ver y controlar tu memoria" : "See and control your memory"}
               </Link>
             </div>
-            <ul className="grid gap-0 divide-y divide-border/60 self-start border-y border-border/60">
-              {CONTROL.map((c) => (
-                <li key={c.en} className="py-4 text-small text-muted-foreground">
-                  {c[lang]}
+            <ul className="mt-12 grid border-y border-border md:grid-cols-2">
+              {[
+                { es: "Tú controlas tu pensamiento.", en: "You control your thinking.", noteEs: "Eliges qué conservar, corregir o eliminar.", noteEn: "You choose what to keep, correct or delete." },
+                { es: "Tus datos son tuyos.", en: "Your data is yours.", noteEs: "Puedes acceder, exportar o borrar tu información.", noteEn: "You can access, export or erase your information." },
+                { es: "Pneum no decide por ti.", en: "Pneum does not decide for you.", noteEs: "Ofrece perspectivas; el juicio sigue siendo tuyo.", noteEn: "It offers perspectives; judgment remains yours." },
+                { es: "Tu información no se utiliza para manipularte.", en: "Your information is not used to manipulate you.", noteEs: "No vendemos tus datos ni los usamos para publicidad de terceros.", noteEn: "We do not sell your data or use it for third-party advertising." },
+              ].map((promise, index) => (
+                <li key={promise.en} className={`py-6 md:px-7 ${index % 2 ? "md:border-l md:border-border" : ""} ${index > 1 ? "md:border-t md:border-border" : ""}`}>
+                  <strong className="block font-serif text-subtitle font-light text-foreground">{es ? promise.es : promise.en}</strong>
+                  <span className="mt-2 block text-small leading-relaxed text-muted-foreground">{es ? promise.noteEs : promise.noteEn}</span>
                 </li>
               ))}
             </ul>
+            <p className="mt-7 text-micro text-muted-foreground">
+              {es ? "En concreto: " : "In practice: "}{CONTROL.map((c) => c[lang]).join(" · ")}
+            </p>
           </div>
         </section>
 

@@ -26,7 +26,7 @@ export const Route = createFileRoute("/contacto")({
 const ES: LegalCopy = {
   kicker: "Documento · Contacto",
   title: "Contacto y soporte",
-  updated: "Última actualización: 2 de septiembre de 2026",
+  updated: "Última actualización: 24 de septiembre de 2026",
   intro:
     "Pneum es operado por Kionas IA. Aquí están los canales para soporte del producto, privacidad y reportes de contenido.",
   sections: [
@@ -53,7 +53,7 @@ const ES: LegalCopy = {
 const EN: LegalCopy = {
   kicker: "Document · Contact",
   title: "Contact and support",
-  updated: "Last updated: September 2, 2026",
+  updated: "Last updated: September 24, 2026",
   intro:
     "Pneum is operated by Kionas IA. These are the channels for product support, privacy and content reports.",
   sections: [
