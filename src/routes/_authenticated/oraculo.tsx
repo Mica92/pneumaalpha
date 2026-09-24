@@ -1,4 +1,5 @@
 import { SITE_URL } from "@/lib/site";
+import { classifyTheme } from "@/lib/topic-classifier";
 import { SiteNav } from "@/components/site-nav";
 import { SiteFooter } from "@/components/site-footer";
 import { createFileRoute, Link } from "@tanstack/react-router";
@@ -74,7 +75,7 @@ function OraclePage() {
       setError(null);
       setResult(null);
       setAsked(text);
-      track("oracle_run", { source, length: text.length });
+      track("oracle_run", { source, length: text.length, theme: classifyTheme(text) });
       try {
         const r = await matchFn({
           data: { inquiry: text, language: lang, tone: tone ?? undefined },
