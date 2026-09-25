@@ -1,4 +1,4 @@
-# PneumaA — Esqueleto de la web
+# Kionas — Esqueleto de la web
 
 Mapa detallado de la aplicación: rutas, pantallas, bloques de UI, lógica de servidor, datos y canales externos. Documento de referencia; no describe trabajo pendiente.
 
@@ -46,7 +46,7 @@ Archivo: `src/routes/auth.tsx`
 
 ### / — portada bento
 Archivo: `src/routes/_authenticated/index.tsx`
-- Cabecera: marca `PneumaMark` (PNEUMALPHA), H1 y bajada, accesos a Oráculo y Reporte.
+- Cabecera: marca `PneumaMark` (KIONAS), H1 y bajada, accesos a Oráculo y Reporte.
 - Dos tarjetas destacadas de mayor tamaño (primera celda cinematográfica `col-span-3 row-span-2`).
 - Rejilla bento con todas las mentes: glifo, nombre, subtítulo y blurb, cada una con `aria-label` `"<nombre> — <subtítulo>"`; el conteo de mentes se deriva de `PHILOSOPHER_LIST.length`, nunca está escrito a mano.
 - `InstallAppCard` (instalación PWA) y `TelegramCard` (vinculación por código de 6 dígitos).
@@ -163,7 +163,7 @@ Bilingüe de punta a punta: todo texto pasa por `useI18n()` / `t()` (`src/lib/i1
 
 | Archivo | Rol |
 | --- | --- |
-| `pneuma-mark.tsx` | Marca PNEUMALPHA (cuñas apiladas + wordmark Sora bold), colores por variables CSS |
+| `pneuma-mark.tsx` | Marca KIONAS (cuñas apiladas + wordmark Sora bold), colores por variables CSS |
 | `greek-glyph.tsx` | Indicador de carga que cicla letras griegas |
 | `chat-window.tsx` | Pantalla de conversación completa |
 | `chat-engagement.tsx` | Barra de temas, dilema, chips y preguntas raíz |

@@ -19,10 +19,10 @@ export const Route = createFileRoute("/_authenticated/rutas/$id")({
     const r = loaderData ? routeById(loaderData.id) : undefined;
     if (!r) {
       return {
-        meta: [{ title: "Ruta no disponible — Pneum" }, { name: "robots", content: "noindex" }],
+        meta: [{ title: "Ruta no disponible — Kionas" }, { name: "robots", content: "noindex" }],
       };
     }
-    const title = `${r.question.es} — Ruta filosófica | Pneum`;
+    const title = `${r.question.es} — Ruta filosófica | Kionas`;
     return {
       meta: [
         { title },

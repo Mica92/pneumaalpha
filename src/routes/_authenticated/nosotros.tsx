@@ -9,7 +9,7 @@ export const Route = createFileRoute("/_authenticated/nosotros")({
   component: NosotrosPage,
   head: () => {
     const description =
-      "Creemos que muchos problemas difíciles están mal formulados. Pneum construye perspectivas filosóficas editoriales, a partir de obra publicada, para ayudar a examinar supuestos y decidir con criterio propio.";
+      "Creemos que muchos problemas difíciles están mal formulados. Kionas construye perspectivas filosóficas editoriales, a partir de obra publicada, para ayudar a examinar supuestos y decidir con criterio propio.";
     return {
       meta: [
         { title: `${SITE_NAME} — Nosotros` },

@@ -96,7 +96,7 @@ function SituationPage() {
               text={situation.starter[lang]}
               className="btn-gold focus-mist px-6 py-3 text-small"
             >
-              {es ? "Pensar con Pneum" : "Think with Pneum"}
+              {es ? "Pensar con Kionas" : "Think with Kionas"}
             </AskLink>
             <Link to="/oraculo" className="btn-ghost-gold focus-mist px-5 py-3 text-small">
               {es ? "Escribir mi propia pregunta" : "Write my own question"}

@@ -23,17 +23,17 @@ export const Route = createFileRoute("/_authenticated/oraculo")({
   component: OraclePage,
   head: () => ({
     meta: [
-      { title: "Pneum — Escribe tu pregunta y gana claridad" },
+      { title: "Kionas — Escribe tu pregunta y gana claridad" },
       {
         name: "description",
         content:
-          "Escribe lo que estás intentando comprender. Pneum lee tu pregunta, muestra lo que hay detrás y te ofrece perspectivas para pensarla mejor.",
+          "Escribe lo que estás intentando comprender. Kionas lee tu pregunta, muestra lo que hay detrás y te ofrece perspectivas para pensarla mejor.",
       },
-      { property: "og:title", content: "Pneum — Claridad para preguntas difíciles" },
+      { property: "og:title", content: "Kionas — Claridad para preguntas difíciles" },
       {
         property: "og:description",
         content:
-          "Pneum interpreta tu pregunta, identifica las tensiones que contiene y te muestra perspectivas relevantes para pensarla mejor.",
+          "Kionas interpreta tu pregunta, identifica las tensiones que contiene y te muestra perspectivas relevantes para pensarla mejor.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: `${SITE_URL}/oraculo` },
@@ -138,8 +138,8 @@ function OraclePage() {
           </h1>
           <p className="fade-up mt-5 max-w-xl text-small leading-relaxed text-muted-foreground md:text-base">
             {es
-              ? "Puede ser una pregunta, una situación, una decisión o una idea. Pneum lee lo que traes, muestra lo que parece haber detrás y te ofrece perspectivas para pensarlo mejor."
-              : "It can be a question, a situation, a decision or an idea. Pneum reads what you bring, shows what seems to lie beneath it and offers perspectives to think it through."}
+              ? "Puede ser una pregunta, una situación, una decisión o una idea. Kionas lee lo que traes, muestra lo que parece haber detrás y te ofrece perspectivas para pensarlo mejor."
+              : "It can be a question, a situation, a decision or an idea. Kionas reads what you bring, shows what seems to lie beneath it and offers perspectives to think it through."}
           </p>
         </header>
 
@@ -185,8 +185,8 @@ function OraclePage() {
                   ? "Estamos leyendo tu pregunta…"
                   : "We are reading your question…"
                 : es
-                  ? "Pensarlo con Pneum"
-                  : "Think it with Pneum"}
+                  ? "Pensarlo con Kionas"
+                  : "Think it with Kionas"}
             </button>
           </div>
         </form>
@@ -217,8 +217,8 @@ function OraclePage() {
               </p>
               <p className="mt-4 text-small leading-relaxed text-muted-foreground">
                 {es
-                  ? "Pneum no puede acompañarte en esto y no es el lugar adecuado ahora. Hay personas disponibles en este momento, gratis y sin juicio."
-                  : "Pneum cannot accompany you in this and is not the right place right now. There are people available at this moment, free and without judgement."}
+                  ? "Kionas no puede acompañarte en esto y no es el lugar adecuado ahora. Hay personas disponibles en este momento, gratis y sin juicio."
+                  : "Kionas cannot accompany you in this and is not the right place right now. There are people available at this moment, free and without judgement."}
               </p>
               <ul className="mt-6 space-y-4">
                 {CRISIS_RESOURCES.map((r) => (
@@ -249,8 +249,8 @@ function OraclePage() {
               </p>
               <p className="mt-4 text-small leading-relaxed text-muted-foreground">
                 {es
-                  ? "Pneum no resuelve tareas técnicas, cálculos ni información general. Sí puede ayudarte a pensar el problema o la decisión que hay detrás. Reescríbelo como pregunta y lo trabajamos."
-                  : "Pneum does not solve technical tasks, calculations or general information. It can help you think through the problem or decision behind it. Rewrite it as a question and we will work on it."}
+                  ? "Kionas no resuelve tareas técnicas, cálculos ni información general. Sí puede ayudarte a pensar el problema o la decisión que hay detrás. Reescríbelo como pregunta y lo trabajamos."
+                  : "Kionas does not solve technical tasks, calculations or general information. It can help you think through the problem or decision behind it. Rewrite it as a question and we will work on it."}
               </p>
               <button
                 type="button"

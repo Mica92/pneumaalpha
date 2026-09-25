@@ -8,7 +8,7 @@ import { SITUATIONS } from "@/lib/situations";
 
 const TITLE = `Empieza por la situación que estás viviendo — ${SITE_NAME}`;
 const DESCRIPTION =
-  "Seis situaciones reales por las que entrar a Pneum: una decisión difícil, cambiar de trabajo, entender una relación, justificar algo ya decidido, examinar una idea o entender un conflicto.";
+  "Seis situaciones reales por las que entrar a Kionas: una decisión difícil, cambiar de trabajo, entender una relación, justificar algo ya decidido, examinar una idea o entender un conflicto.";
 
 export const Route = createFileRoute("/_authenticated/situaciones/")({
   component: SituationsIndex,
@@ -44,8 +44,8 @@ function SituationsIndex() {
           </h1>
           <p className="measure mt-5 text-body leading-relaxed text-muted-foreground">
             {es
-              ? "No necesitas una pregunta bien formulada. Elige lo que más se parezca a lo tuyo y Pneum se encarga de encontrar la pregunta que hay debajo."
-              : "You do not need a well-formed question. Pick whatever is closest to your case and Pneum will find the question underneath."}
+              ? "No necesitas una pregunta bien formulada. Elige lo que más se parezca a lo tuyo y Kionas se encarga de encontrar la pregunta que hay debajo."
+              : "You do not need a well-formed question. Pick whatever is closest to your case and Kionas will find the question underneath."}
           </p>
         </header>
 

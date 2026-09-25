@@ -33,7 +33,7 @@ function NotFoundComponent() {
           to="/"
           className="mt-8 inline-flex items-center justify-center rounded-md border border-border bg-card/60 px-6 py-2.5 text-micro uppercase tracking-[0.25em] text-foreground transition-colors hover:border-primary/50 hover:bg-card"
         >
-          ← Pneum
+          ← Kionas
         </Link>
       </div>
     </div>
@@ -82,7 +82,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "theme-color", content: "#0B0B0D" },
       { name: "apple-mobile-web-app-capable", content: "yes" },
       { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
-      { name: "apple-mobile-web-app-title", content: "Pneum" },
+      { name: "apple-mobile-web-app-title", content: "Kionas" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },

@@ -16,13 +16,13 @@ export const Route = createFileRoute("/editorial/podcast")({
   component: PodcastPage,
   head: () => ({
     meta: [
-      { title: "Pneum — Podcast: clásicos de la literatura en clave filosófica" },
+      { title: "Kionas — Podcast: clásicos de la literatura en clave filosófica" },
       {
         name: "description",
         content:
           "Resúmenes filosóficos de cinco minutos, narrados con voz natural, sobre diez clásicos de la literatura: El lobo estepario, Los hermanos Karamázov, El proceso y más.",
       },
-      { property: "og:title", content: "Pneum — Podcast filosófico" },
+      { property: "og:title", content: "Kionas — Podcast filosófico" },
       {
         property: "og:description",
         content:

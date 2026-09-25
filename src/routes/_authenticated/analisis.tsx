@@ -14,13 +14,13 @@ export const Route = createFileRoute("/_authenticated/analisis")({
   component: AnalysisPage,
   head: () => ({
     meta: [
-      { title: "Pneum — Análisis de textos, frases y conceptos" },
+      { title: "Kionas — Análisis de textos, frases y conceptos" },
       {
         name: "description",
         content:
           "Análisis filosófico detallado de textos, frases y conceptos: conceptos clave, influencias políticas, literarias, religiosas y científicas, tensiones y linaje.",
       },
-      { property: "og:title", content: "Pneum — Análisis filosófico" },
+      { property: "og:title", content: "Kionas — Análisis filosófico" },
       {
         property: "og:description",
         content:

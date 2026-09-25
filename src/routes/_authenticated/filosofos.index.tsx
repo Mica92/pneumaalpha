@@ -34,12 +34,12 @@ export const Route = createFileRoute("/_authenticated/filosofos/")({
   component: PhilosophersIndex,
   head: () => ({
     meta: [
-      { title: "Filósofos — Pneum" },
+      { title: "Filósofos — Kionas" },
       {
         name: "description",
         content: `${COUNT} perspectivas filosóficas para pensar con claridad: quién es cada una, qué pregunta la mueve y de qué puedes hablar con ella.`,
       },
-      { property: "og:title", content: "Filósofos — Pneum" },
+      { property: "og:title", content: "Filósofos — Kionas" },
       {
         property: "og:description",
         content: "Explora las mentes por tema, época o pregunta central y empieza a conversar.",

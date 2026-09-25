@@ -1,7 +1,7 @@
-# Pneum — Build Android AAB con Capacitor
+# Kionas — Build Android AAB con Capacitor
 
 `applicationId`: **app.pneuma.alpha**
-`appName`: **Pneum**
+`appName`: **Kionas**
 
 > Pneuma es una app SSR (TanStack Start sobre Cloudflare Workers). Capacitor
 > empaqueta **solo el cliente estático**; las funciones de servidor
@@ -22,7 +22,7 @@ la app empaquetada no llame a `localhost`:
 
 ```bash
 # .env.production (o variables de entorno al construir)
-VITE_PUBLIC_API_URL=https://pneumaalpha.lovable.app
+VITE_PUBLIC_API_URL=https://kionas.lovable.app
 ```
 
 Y asegúrate de usarla en cualquier `fetch` / cliente Supabase del lado cliente.

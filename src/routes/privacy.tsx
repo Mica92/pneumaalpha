@@ -5,9 +5,9 @@ import { SITE_URL } from "@/lib/site";
 export const Route = createFileRoute("/privacy")({
   component: PrivacyPage,
   head: () => {
-    const title = "Política de privacidad — Pneum";
+    const title = "Política de privacidad — Kionas";
     const description =
-      "Cómo Kionas IA recopila, utiliza, comparte y protege tus datos en Pneum: categorías, bases legales, destinatarios, retención y tus derechos.";
+      "Cómo Kionas IA recopila, utiliza, comparte y protege tus datos en Kionas: categorías, bases legales, destinatarios, retención y tus derechos.";
     return {
       meta: [
         { title },
@@ -27,15 +27,15 @@ const ES: LegalCopy = {
   title: "Política de privacidad",
   updated: "Última actualización: 24 de septiembre de 2026",
   intro:
-    "Pneum es operado por Kionas IA, responsable del tratamiento de tus datos personales. Aquí explicamos, sin rodeos, qué recogemos, con qué finalidad y base legal, con quién lo compartimos y qué control conservas.",
+    "Kionas es operado por Kionas IA, responsable del tratamiento de tus datos personales. Aquí explicamos, sin rodeos, qué recogemos, con qué finalidad y base legal, con quién lo compartimos y qué control conservas.",
   sections: [
     {
       h: "Nuestra promesa de privacidad",
-      p: "Tú controlas tu pensamiento. Tus datos son tuyos. Pneum no decide por ti. Tu información no se utiliza para manipularte. Estas promesas guían el diseño del producto: la memoria es visible y reversible, nada se guarda en tu mapa sin una acción tuya y no vendemos tus datos ni los usamos para publicidad de terceros.",
+      p: "Tú controlas tu pensamiento. Tus datos son tuyos. Kionas no decide por ti. Tu información no se utiliza para manipularte. Estas promesas guían el diseño del producto: la memoria es visible y reversible, nada se guarda en tu mapa sin una acción tuya y no vendemos tus datos ni los usamos para publicidad de terceros.",
     },
     {
       h: "1. Responsable del tratamiento",
-      p: "Kionas IA, proveedor del servicio Pneum.app, actúa como responsable (data controller) de los datos descritos en esta política. Contacto: privacy@pneum.app.",
+      p: "Kionas IA, proveedor del servicio Kionas.app, actúa como responsable (data controller) de los datos descritos en esta política. Contacto: privacy@kionas.app.",
     },
     {
       h: "2. Datos que recogemos",
@@ -47,7 +47,7 @@ const ES: LegalCopy = {
     },
     {
       h: "4. Con quién compartimos",
-      p: "· Proveedores de infraestructura: alojamiento, base de datos, autenticación y proveedores de modelos de lenguaje, que tratan los datos por cuenta nuestra.\n· Asesores profesionales (legales, contables) cuando sea necesario.\n· Autoridades, cuando la ley lo exija.\nNo vendemos tus datos, no los usamos para publicidad de terceros y no entrenamos modelos con tus conversaciones.\n\nQué se envía a los proveedores de modelos de lenguaje: el texto de tu mensaje, el contexto reciente de esa conversación y la instrucción editorial del filósofo. No enviamos tu nombre, tu correo ni tu identificador de cuenta. Puedes borrar cualquier conversación desde la interfaz o pedir la eliminación completa en privacy@pneum.app.",
+      p: "· Proveedores de infraestructura: alojamiento, base de datos, autenticación y proveedores de modelos de lenguaje, que tratan los datos por cuenta nuestra.\n· Asesores profesionales (legales, contables) cuando sea necesario.\n· Autoridades, cuando la ley lo exija.\nNo vendemos tus datos, no los usamos para publicidad de terceros y no entrenamos modelos con tus conversaciones.\n\nQué se envía a los proveedores de modelos de lenguaje: el texto de tu mensaje, el contexto reciente de esa conversación y la instrucción editorial del filósofo. No enviamos tu nombre, tu correo ni tu identificador de cuenta. Puedes borrar cualquier conversación desde la interfaz o pedir la eliminación completa en privacy@kionas.app.",
     },
     {
       h: "5. Transferencias internacionales",
@@ -63,7 +63,7 @@ const ES: LegalCopy = {
     },
     {
       h: "8. Tus derechos",
-      p: "Puedes solicitar acceso, rectificación, eliminación, limitación, portabilidad y oposición al tratamiento, así como retirar tu consentimiento en cualquier momento. Escríbenos a privacy@pneum.app y responderemos en el plazo de un mes. Si resides en el EEE o el Reino Unido, también puedes reclamar ante tu autoridad de protección de datos.",
+      p: "Puedes solicitar acceso, rectificación, eliminación, limitación, portabilidad y oposición al tratamiento, así como retirar tu consentimiento en cualquier momento. Escríbenos a privacy@kionas.app y responderemos en el plazo de un mes. Si resides en el EEE o el Reino Unido, también puedes reclamar ante tu autoridad de protección de datos.",
     },
     {
       h: "9. Cookies y almacenamiento local",
@@ -71,11 +71,11 @@ const ES: LegalCopy = {
     },
     {
       h: "10. Menores",
-      p: "Pneum no está dirigido a menores de 16 años. Si crees que un menor nos ha enviado datos, contáctanos para retirarlos.",
+      p: "Kionas no está dirigido a menores de 16 años. Si crees que un menor nos ha enviado datos, contáctanos para retirarlos.",
     },
     {
       h: "11. Cambios y contacto",
-      p: "Si esta política cambia, actualizaremos la fecha de la cabecera y anunciaremos en la aplicación los cambios sustantivos. Para cualquier asunto de privacidad: privacy@pneum.app.",
+      p: "Si esta política cambia, actualizaremos la fecha de la cabecera y anunciaremos en la aplicación los cambios sustantivos. Para cualquier asunto de privacidad: privacy@kionas.app.",
     },
   ],
   back: "← Volver al inicio",
@@ -86,15 +86,15 @@ const EN: LegalCopy = {
   title: "Privacy notice",
   updated: "Last updated: September 24, 2026",
   intro:
-    "Pneum is operated by Kionas IA, the controller of your personal data. This notice explains plainly what we collect, for what purpose and legal basis, who we share it with, and what control you keep.",
+    "Kionas is operated by Kionas IA, the controller of your personal data. This notice explains plainly what we collect, for what purpose and legal basis, who we share it with, and what control you keep.",
   sections: [
     {
       h: "Our privacy promise",
-      p: "You control your thinking. Your data is yours. Pneum does not decide for you. Your information is not used to manipulate you. These promises guide the product: memory is visible and reversible, nothing enters your map without your action, and we do not sell your data or use it for third-party advertising.",
+      p: "You control your thinking. Your data is yours. Kionas does not decide for you. Your information is not used to manipulate you. These promises guide the product: memory is visible and reversible, nothing enters your map without your action, and we do not sell your data or use it for third-party advertising.",
     },
     {
       h: "1. Data controller",
-      p: "Kionas IA, provider of the Pneum.app service, acts as data controller for the data described here. Contact: privacy@pneum.app.",
+      p: "Kionas IA, provider of the Kionas.app service, acts as data controller for the data described here. Contact: privacy@kionas.app.",
     },
     {
       h: "2. Data we collect",
@@ -106,7 +106,7 @@ const EN: LegalCopy = {
     },
     {
       h: "4. Who we share it with",
-      p: "· Infrastructure providers: hosting, database, authentication and language-model providers, processing data on our behalf.\n· Professional advisers (legal, accounting) where necessary.\n· Authorities, where required by law.\nWe do not sell your data, we do not use it for third-party advertising, and we do not train models on your conversations.\n\nWhat is sent to language-model providers: the text of your message, the recent context of that conversation and the philosopher's editorial instruction. We do not send your name, email or account identifier. You can delete any conversation from the interface or request full deletion at privacy@pneum.app.",
+      p: "· Infrastructure providers: hosting, database, authentication and language-model providers, processing data on our behalf.\n· Professional advisers (legal, accounting) where necessary.\n· Authorities, where required by law.\nWe do not sell your data, we do not use it for third-party advertising, and we do not train models on your conversations.\n\nWhat is sent to language-model providers: the text of your message, the recent context of that conversation and the philosopher's editorial instruction. We do not send your name, email or account identifier. You can delete any conversation from the interface or request full deletion at privacy@kionas.app.",
     },
     {
       h: "5. International transfers",
@@ -122,7 +122,7 @@ const EN: LegalCopy = {
     },
     {
       h: "8. Your rights",
-      p: "You may request access, rectification, erasure, restriction, portability and objection, and withdraw consent at any time. Write to privacy@pneum.app and we will reply within one month. If you are in the EEA or the UK you may also complain to your supervisory authority.",
+      p: "You may request access, rectification, erasure, restriction, portability and objection, and withdraw consent at any time. Write to privacy@kionas.app and we will reply within one month. If you are in the EEA or the UK you may also complain to your supervisory authority.",
     },
     {
       h: "9. Cookies and local storage",
@@ -130,11 +130,11 @@ const EN: LegalCopy = {
     },
     {
       h: "10. Minors",
-      p: "Pneum is not directed to children under 16. If you believe a minor has sent us data, contact us so we can remove it.",
+      p: "Kionas is not directed to children under 16. If you believe a minor has sent us data, contact us so we can remove it.",
     },
     {
       h: "11. Changes and contact",
-      p: "If this notice changes we will update the date in the header and announce substantive changes in-app. For any privacy matter: privacy@pneum.app.",
+      p: "If this notice changes we will update the date in the header and announce substantive changes in-app. For any privacy matter: privacy@kionas.app.",
     },
   ],
   back: "← Back to home",

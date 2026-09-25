@@ -10,9 +10,9 @@ import { SiteFooter } from "@/components/site-footer";
 import { track } from "@/lib/analytics";
 import { stashQuestion } from "@/lib/question-handoff";
 
-const TITLE = "Pneum — Claridad para pensar lo que te importa";
+const TITLE = "Kionas — Claridad para pensar lo que te importa";
 const DESCRIPTION =
-  "Pneum es un espacio para pensar con claridad: filosofía aplicada que te ayuda a comprender una situación compleja, examinar cómo estás pensando y ver la pregunta de otra manera.";
+  "Kionas es un espacio para pensar con claridad: filosofía aplicada que te ayuda a comprender una situación compleja, examinar cómo estás pensando y ver la pregunta de otra manera.";
 
 export const Route = createFileRoute("/_authenticated/")({
   component: Home,
@@ -51,7 +51,7 @@ export const Route = createFileRoute("/_authenticated/")({
           mainEntity: [
             {
               "@type": "Question",
-              name: "¿Qué es Pneum?",
+              name: "¿Qué es Kionas?",
               acceptedAnswer: {
                 "@type": "Answer",
                 text: "Un espacio para pensar con claridad: filosofía aplicada que ayuda a comprender una situación, examinar supuestos y tensiones, y reformular la pregunta. No piensa por ti.",
@@ -67,10 +67,10 @@ export const Route = createFileRoute("/_authenticated/")({
             },
             {
               "@type": "Question",
-              name: "¿Pneum reemplaza a un terapeuta?",
+              name: "¿Kionas reemplaza a un terapeuta?",
               acceptedAnswer: {
                 "@type": "Answer",
-                text: "No. Pneum es una herramienta de claridad de pensamiento, no un servicio de salud mental ni un sustituto de terapia profesional.",
+                text: "No. Kionas es una herramienta de claridad de pensamiento, no un servicio de salud mental ni un sustituto de terapia profesional.",
               },
             },
           ],
@@ -207,7 +207,7 @@ const OVER_TIME: { when: L; text: L }[] = [
 ];
 
 const CONTROL: L[] = [
-  { es: "Ver qué recuerda Pneum de ti.", en: "See what Pneum remembers about you." },
+  { es: "Ver qué recuerda Kionas de ti.", en: "See what Kionas remembers about you." },
   { es: "Corregir o eliminar lo que no te representa.", en: "Correct or remove what does not represent you." },
   { es: "Elegir qué entra en tu mapa.", en: "Choose what enters your map." },
   { es: "Exportar o borrar todo.", en: "Export or delete everything." },
@@ -338,8 +338,8 @@ function Home() {
               </h1>
               <p className="lead measure mt-6">
                 {es
-                  ? "Pneum usa filosofía aplicada para ayudarte a comprender situaciones complejas, examinar cómo estás pensando y ver con mayor claridad lo que tienes delante."
-                  : "Pneum uses applied philosophy to help you understand complex situations, examine how you are thinking and see what is in front of you more clearly."}
+                  ? "Kionas usa filosofía aplicada para ayudarte a comprender situaciones complejas, examinar cómo estás pensando y ver con mayor claridad lo que tienes delante."
+                  : "Kionas uses applied philosophy to help you understand complex situations, examine how you are thinking and see what is in front of you more clearly."}
               </p>
 
               <div className="mt-10">{composer("hero", true)}</div>
@@ -392,7 +392,7 @@ function Home() {
           </div>
         </section>
 
-        {/* 03 — Qué hace Pneum */}
+        {/* 03 — Qué hace Kionas */}
         <section className="border-y border-border/60">
           <div className="mx-auto grid max-w-6xl gap-10 px-5 py-16 md:grid-cols-3 md:gap-0 md:px-8 md:py-24">
             {MOVES.map((m, i) => (
@@ -408,8 +408,8 @@ function Home() {
         <section className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-28">
           <h2 className="balance max-w-3xl font-serif text-title font-light text-foreground">
             {es
-              ? "Pneum no te da una respuesta. Te ayuda a ver la estructura de la pregunta."
-              : "Pneum doesn't give you an answer. It helps you see the structure of the question."}
+              ? "Kionas no te da una respuesta. Te ayuda a ver la estructura de la pregunta."
+              : "Kionas doesn't give you an answer. It helps you see the structure of the question."}
           </h2>
           <ol className="mt-12 grid gap-0 divide-y divide-border/60 border-y border-border/60">
             {TRANSFORM.map((q, i) => (
@@ -476,8 +476,8 @@ function Home() {
               <p className="label">{es ? "Mapa de pensamiento" : "Thinking map"}</p>
               <h2 className="balance mt-4 font-serif text-title font-light text-foreground">
                 {es
-                  ? "Con cada conversación, Pneum aprende algo sobre cómo piensas."
-                  : "With each conversation, Pneum learns something about how you think."}
+                  ? "Con cada conversación, Kionas aprende algo sobre cómo piensas."
+                  : "With each conversation, Kionas learns something about how you think."}
               </h2>
               <p className="lead measure mt-5">
                 {es
@@ -619,8 +619,8 @@ function Home() {
               </h2>
               <p className="mt-4 max-w-xl text-small leading-relaxed text-muted-foreground">
                 {es
-                  ? "Pneum construye memoria sólo con lo que tú eliges guardar, y esa memoria es legible y reversible."
-                  : "Pneum builds memory only from what you choose to keep, and that memory is readable and reversible."}
+                  ? "Kionas construye memoria sólo con lo que tú eliges guardar, y esa memoria es legible y reversible."
+                  : "Kionas builds memory only from what you choose to keep, and that memory is readable and reversible."}
               </p>
               <Link to="/perfil" className="btn-ghost-gold focus-mist mt-8 inline-flex px-5 py-2.5 text-micro">
                 {es ? "Ver y controlar tu memoria" : "See and control your memory"}
@@ -630,7 +630,7 @@ function Home() {
               {[
                 { es: "Tú controlas tu pensamiento.", en: "You control your thinking.", noteEs: "Eliges qué conservar, corregir o eliminar.", noteEn: "You choose what to keep, correct or delete." },
                 { es: "Tus datos son tuyos.", en: "Your data is yours.", noteEs: "Puedes acceder, exportar o borrar tu información.", noteEn: "You can access, export or erase your information." },
-                { es: "Pneum no decide por ti.", en: "Pneum does not decide for you.", noteEs: "Ofrece perspectivas; el juicio sigue siendo tuyo.", noteEn: "It offers perspectives; judgment remains yours." },
+                { es: "Kionas no decide por ti.", en: "Kionas does not decide for you.", noteEs: "Ofrece perspectivas; el juicio sigue siendo tuyo.", noteEn: "It offers perspectives; judgment remains yours." },
                 { es: "Tu información no se utiliza para manipularte.", en: "Your information is not used to manipulate you.", noteEs: "No vendemos tus datos ni los usamos para publicidad de terceros.", noteEn: "We do not sell your data or use it for third-party advertising." },
               ].map((promise, index) => (
                 <li key={promise.en} className={`py-6 md:px-7 ${index % 2 ? "md:border-l md:border-border" : ""} ${index > 1 ? "md:border-t md:border-border" : ""}`}>

@@ -12,13 +12,13 @@ export const Route = createFileRoute("/_authenticated/perfil")({
   component: ProfilePage,
   head: () => ({
     meta: [
-      { title: "Tu perfil — Pneum" },
+      { title: "Tu perfil — Kionas" },
       {
         name: "description",
         content:
-          "Tu cuenta en Pneum: inicia sesión con Google para conservar tus conversaciones, tu mapa filosófico y tu recorrido en cualquier dispositivo.",
+          "Tu cuenta en Kionas: inicia sesión con Google para conservar tus conversaciones, tu mapa filosófico y tu recorrido en cualquier dispositivo.",
       },
-      { property: "og:title", content: "Tu perfil — Pneum" },
+      { property: "og:title", content: "Tu perfil — Kionas" },
       {
         property: "og:description",
         content: "Conserva tus conversaciones y tu mapa filosófico con una cuenta de Google.",
@@ -90,7 +90,7 @@ function ProfilePage() {
               <div>
                 <p className="label">{es ? "Acceso" : "Access"}</p>
                 <p className="mt-2 font-serif text-subtitle text-foreground">
-                  {es ? "Todo Pneum está disponible sin límites" : "All of Pneum is available without limits"}
+                  {es ? "Todo Kionas está disponible sin límites" : "All of Kionas is available without limits"}
                 </p>
               </div>
             </div>
@@ -121,8 +121,8 @@ function ProfilePage() {
           <>
             <p className="mt-6 max-w-xl text-small leading-relaxed text-muted-foreground">
               {es
-                ? "Puedes seguir usando Pneum sin cuenta. Si entras con Google, tus conversaciones, tu mapa y tu recorrido te acompañan en cualquier dispositivo."
-                : "You can keep using Pneum without an account. Sign in with Google and your conversations, map and journey follow you on any device."}
+                ? "Puedes seguir usando Kionas sin cuenta. Si entras con Google, tus conversaciones, tu mapa y tu recorrido te acompañan en cualquier dispositivo."
+                : "You can keep using Kionas without an account. Sign in with Google and your conversations, map and journey follow you on any device."}
             </p>
             <button type="button" onClick={signIn} className="btn-gold mt-8">
               {es ? "Entrar con Google" : "Sign in with Google"}

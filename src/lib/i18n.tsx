@@ -20,7 +20,7 @@ function detectInitial(): Language {
 type Dict = Record<string, { es: string; en: string }>;
 
 export const T: Dict = {
-  "app.name": { es: "Pneum", en: "Pneum" },
+  "app.name": { es: "Kionas", en: "Kionas" },
   "app.tagline": {
     es: "Conversaciones con perspectivas filosóficas para pensar con claridad.",
     en: "A space for structuring and understanding your thinking more clearly.",
@@ -95,8 +95,8 @@ export const T: Dict = {
     en: "The classics, thought aloud",
   },
   "podcast.page.sub": {
-    es: "Elija una obra: Pneum escribe un ensayo hablado de máximo cinco minutos y se lo lee con una voz humana, pausada.",
-    en: "Choose a work: Pneum writes a spoken essay of at most five minutes and reads it to you in a calm, human voice.",
+    es: "Elija una obra: Kionas escribe un ensayo hablado de máximo cinco minutos y se lo lee con una voz humana, pausada.",
+    en: "Choose a work: Kionas writes a spoken essay of at most five minutes and reads it to you in a calm, human voice.",
   },
   "podcast.catalogue": { es: "Episodios", en: "Episodes" },
   "podcast.listen": { es: "Escuchar →", en: "Listen →" },
@@ -176,8 +176,8 @@ export const T: Dict = {
   "analysis.questions": { es: "Para seguir pensando", en: "To keep thinking" },
   "analysis.voices": { es: "Conversa sobre esto con", en: "Discuss this with" },
 
-  "auth.title.signin": { es: "Bienvenido a Pneum", en: "Welcome to Pneum" },
-  "auth.title.signup": { es: "Crea tu lugar en Pneum", en: "Create your place in Pneum" },
+  "auth.title.signin": { es: "Bienvenido a Kionas", en: "Welcome to Kionas" },
+  "auth.title.signup": { es: "Crea tu lugar en Kionas", en: "Create your place in Kionas" },
   "auth.sub.signin": {
     es: "Vuelve a la cabaña. La lámpara sigue encendida.",
     en: "Return to the cabin. The lamp is still burning.",
@@ -355,8 +355,8 @@ export const T: Dict = {
     en: "Write what you are trying to understand.",
   },
   "oracle.card.sub": {
-    es: "Una pregunta, un problema, una decisión. Pneum te muestra lo que hay detrás y las perspectivas que ayudan a verlo.",
-    en: "A question, a problem, a decision. Pneum shows what lies beneath it and the perspectives that help you see it.",
+    es: "Una pregunta, un problema, una decisión. Kionas te muestra lo que hay detrás y las perspectivas que ayudan a verlo.",
+    en: "A question, a problem, a decision. Kionas shows what lies beneath it and the perspectives that help you see it.",
   },
   "oracle.card.cta": { es: "Empezar por una pregunta →", en: "Start with a question →" },
   "oracle.page.title": {
@@ -364,14 +364,14 @@ export const T: Dict = {
     en: "What are you trying to understand?",
   },
   "oracle.page.sub": {
-    es: "Escríbelo como te salga. Pneum lee tu planteamiento y te propone la perspectiva filosófica que mejor lo ilumina, con el motivo de la elección.",
-    en: "Write it however it comes. Pneum reads what you wrote and proposes the philosophical perspective that best illuminates it, with the reason for the choice.",
+    es: "Escríbelo como te salga. Kionas lee tu planteamiento y te propone la perspectiva filosófica que mejor lo ilumina, con el motivo de la elección.",
+    en: "Write it however it comes. Kionas reads what you wrote and proposes the philosophical perspective that best illuminates it, with the reason for the choice.",
   },
   "oracle.placeholder": {
     es: "Ej.: No sé si debo seguir en este trabajo.",
     en: "E.g.: I don't know whether to stay in this job.",
   },
-  "oracle.submit": { es: "Pensarlo con Pneum", en: "Think it with Pneum" },
+  "oracle.submit": { es: "Pensarlo con Kionas", en: "Think it with Kionas" },
   "oracle.submitting": { es: "Leyendo tu pregunta…", en: "Reading your question…" },
   "oracle.result.kicker": { es: "La perspectiva propuesta", en: "The proposed perspective" },
   "oracle.result.enter": {
@@ -450,8 +450,8 @@ export const T: Dict = {
     en: "Reconstructed minds",
   },
   "umbral.about.body": {
-    es: "Cada voz de Pneum se levanta sobre cuatro capas: su biografía y su época, la obra que escribió, su temperamento y su forma de discutir, y —cuando existe— un corpus de fuentes indexadas del que puede citar. No es una enciclopedia que resume a un filósofo: es un interlocutor que sostiene sus convicciones, te contradice y te devuelve preguntas.",
-    en: "Every Pneum voice stands on four layers: biography and era, the work they wrote, their temperament and way of arguing, and — where it exists — an indexed corpus of sources they can quote from. It is not an encyclopedia summarising a philosopher: it is an interlocutor who holds convictions, contradicts you and hands questions back.",
+    es: "Cada voz de Kionas se levanta sobre cuatro capas: su biografía y su época, la obra que escribió, su temperamento y su forma de discutir, y —cuando existe— un corpus de fuentes indexadas del que puede citar. No es una enciclopedia que resume a un filósofo: es un interlocutor que sostiene sus convicciones, te contradice y te devuelve preguntas.",
+    en: "Every Kionas voice stands on four layers: biography and era, the work they wrote, their temperament and way of arguing, and — where it exists — an indexed corpus of sources they can quote from. It is not an encyclopedia summarising a philosopher: it is an interlocutor who holds convictions, contradicts you and hands questions back.",
   },
   "umbral.random": { es: "Conversación aleatoria", en: "Random conversation" },
   "umbral.random.sub": {
@@ -623,8 +623,8 @@ export const T: Dict = {
     en: "A conflict can look external when it starts in our own interpretation.",
   },
   "about.intro.p3": {
-    es: "Y una opinión puede parecer evidente sólo porque nunca examinamos sus supuestos. Pneum nació para explorar ese espacio.",
-    en: "And an opinion can look obvious only because we never examined its assumptions. Pneum was born to explore that space.",
+    es: "Y una opinión puede parecer evidente sólo porque nunca examinamos sus supuestos. Kionas nació para explorar ese espacio.",
+    en: "And an opinion can look obvious only because we never examined its assumptions. Kionas was born to explore that space.",
   },
 
   "about.what.title": { es: "Cómo trabajamos", en: "How we work" },

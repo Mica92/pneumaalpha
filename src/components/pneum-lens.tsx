@@ -17,7 +17,7 @@ type Props = {
 
 const COPY = {
   es: {
-    title: "Pneum Lens",
+    title: "Kionas Lens",
     reading: "Leyendo lo que está emergiendo…",
     stake: "En juego",
     tension: "Tensión",
@@ -30,7 +30,7 @@ const COPY = {
     empty: "Cuando la conversación avance, aquí aparecerá lo que está en juego.",
   },
   en: {
-    title: "Pneum Lens",
+    title: "Kionas Lens",
     reading: "Reading what is emerging…",
     stake: "At stake",
     tension: "Tension",

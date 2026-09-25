@@ -97,13 +97,13 @@ Set the philosophical persona aside and answer as someone present and sober:
 - Five sentences maximum. No rhetorical questions, no closing counter-question.`;
 }
 
-/** Directive appended when the request is outside what Pneum does. */
+/** Directive appended when the request is outside what Kionas does. */
 export function offDomainDirective(lang: "es" | "en"): string {
   return lang === "es"
     ? `\n\n[LÍMITE DE DOMINIO]
-Lo que pide parece estar fuera de lo que hace Pneum (programación, cálculos, datos actuales, traducciones o información general).
+Lo que pide parece estar fuera de lo que hace Kionas (programación, cálculos, datos actuales, traducciones o información general).
 Dilo en una frase, sin disculpas largas, y ofrece lo que sí puedes: pensar con la persona el problema o la decisión que hay detrás de esa tarea.`
     : `\n\n[DOMAIN LIMIT]
-The request seems outside what Pneum does (programming, calculations, current data, translations or general information).
+The request seems outside what Kionas does (programming, calculations, current data, translations or general information).
 Say so in one sentence, without long apologies, and offer what you can: thinking through the problem or decision behind that task.`;
 }
