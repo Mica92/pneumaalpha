@@ -3,7 +3,7 @@
 - [x] 40 contenidos completos en 8 categorías, ES/EN
 - [x] Comentarios con cuenta, revisión y reportes
 - [x] Podcast trasladado a Editorial con redirección
-- [x] Correos y documentos con marca Pneum.app
+- [x] Correos y documentos con marca Kionas.app
 - [x] Footer y navegación actualizados
 - [x] Verificación de seguridad, compilación y recorrido visual
 
