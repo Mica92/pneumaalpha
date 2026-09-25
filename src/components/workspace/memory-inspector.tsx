@@ -3,7 +3,7 @@ import { KIND_LABEL, KIND_TONE, type ThoughtObject } from "@/lib/workspace.share
 const COPY = {
   es: {
     title: "Memoria",
-    lead: "Pneum actualmente entiende que…",
+    lead: "Kionas actualmente entiende que…",
     empty: "Todavía no hay nada guardado. Nada entra aquí sin que tú lo decidas.",
     inMap: "En tu mapa",
     addMap: "Añadir al mapa",
@@ -16,7 +16,7 @@ const COPY = {
   },
   en: {
     title: "Memory",
-    lead: "Pneum currently understands that…",
+    lead: "Kionas currently understands that…",
     empty: "Nothing is stored yet. Nothing lands here unless you decide it.",
     inMap: "In your map",
     addMap: "Add to map",

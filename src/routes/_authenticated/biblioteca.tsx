@@ -28,13 +28,13 @@ export const Route = createFileRoute("/_authenticated/biblioteca")({
   component: LibraryPage,
   head: () => ({
     meta: [
-      { title: "Pneum — Biblioteca de Ideas · pasajes y preguntas profundas" },
+      { title: "Kionas — Biblioteca de Ideas · pasajes y preguntas profundas" },
       {
         name: "description",
         content:
           "Fragmentos de conversación filosófica compartidos de forma anónima y revisados uno a uno: preguntas profundas y pasajes de pensadores reconstruidos con IA.",
       },
-      { property: "og:title", content: "Pneum — Biblioteca de Ideas" },
+      { property: "og:title", content: "Kionas — Biblioteca de Ideas" },
       {
         property: "og:description",
         content: "Lo que otros preguntaron: pasajes escogidos de conversaciones filosóficas.",

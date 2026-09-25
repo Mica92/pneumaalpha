@@ -340,7 +340,7 @@ function ChatBody({
     return -1;
   })();
 
-  // ——— Pneum Lens: the structure emerging from the last exchange ———
+  // ——— Kionas Lens: the structure emerging from the last exchange ———
   const lensFn = useServerFn(readLens);
 
   const textOf = (m: UIMessage | undefined) =>

@@ -19,7 +19,7 @@ const COPY = {
     open: "Abrir el mapa",
     memory: "Memoria",
     decision: "Registrar decisión",
-    patterns: "Pneum observa",
+    patterns: "Kionas observa",
     inThree: "En varias reflexiones",
   },
   en: {
@@ -31,7 +31,7 @@ const COPY = {
     open: "Open the map",
     memory: "Memory",
     decision: "Record a decision",
-    patterns: "Pneum notices",
+    patterns: "Kionas notices",
     inThree: "Across several reflections",
   },
 } as const;

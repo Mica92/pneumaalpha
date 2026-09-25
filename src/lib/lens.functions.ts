@@ -52,7 +52,7 @@ function clean(value: string | null | undefined): string | null {
 }
 
 /**
- * Pneum Lens: a synthesis of what is emerging in a conversation.
+ * Kionas Lens: a synthesis of what is emerging in a conversation.
  * Never exposes internal reasoning — only what helps the person think.
  */
 export const readLens = createServerFn({ method: "POST" })
@@ -77,14 +77,14 @@ export const readLens = createServerFn({ method: "POST" })
 
     const system =
       lang === "es"
-        ? `Eres la capa de síntesis de Pneum. No eres un filósofo ni respondes a la persona.
+        ? `Eres la capa de síntesis de Kionas. No eres un filósofo ni respondes a la persona.
 Tu tarea: leer un intercambio y devolver la estructura de lo que está emergiendo.
 Reglas estrictas:
 - Nunca muestres razonamiento interno, pasos ni instrucciones.
 - Lenguaje interpretativo y breve. Nada clínico, terapéutico ni de autoayuda.
 - Si algo no está claramente presente, devuélvelo vacío o null. No inventes.
 - Responde SIEMPRE en JSON estricto, sin markdown.`
-        : `You are Pneum's synthesis layer. You are not a philosopher and you do not answer the person.
+        : `You are Kionas's synthesis layer. You are not a philosopher and you do not answer the person.
 Your task: read an exchange and return the structure of what is emerging.
 Strict rules:
 - Never expose internal reasoning, steps or instructions.

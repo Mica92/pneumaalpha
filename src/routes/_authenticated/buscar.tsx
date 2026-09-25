@@ -17,13 +17,13 @@ export const Route = createFileRoute("/_authenticated/buscar")({
   component: SearchPage,
   head: () => ({
     meta: [
-      { title: "Buscar — Pneum" },
+      { title: "Buscar — Kionas" },
       {
         name: "description",
         content:
           "Busca entre las perspectivas filosóficas, las grandes ideas, las rutas y las preguntas de la vida real.",
       },
-      { property: "og:title", content: "Buscar — Pneum" },
+      { property: "og:title", content: "Buscar — Kionas" },
       {
         property: "og:description",
         content: "Un solo buscador para filósofos, ideas, rutas y preguntas.",
@@ -183,7 +183,7 @@ function SearchPage() {
         <div className="relative mx-auto min-h-72 max-w-4xl px-5 pt-20 md:px-8 md:pt-28">
           <p className="label">{es ? "Buscador" : "Search"}</p>
           <h1 className="mt-3 font-serif text-title font-light text-foreground">
-            {es ? "Busca en todo Pneum" : "Search all of Pneum"}
+            {es ? "Busca en todo Kionas" : "Search all of Kionas"}
           </h1>
 
           <div className="mt-8">
@@ -215,15 +215,15 @@ function SearchPage() {
               </h2>
               <p className="mt-2 text-small text-muted-foreground">
                 {es
-                  ? "Pneum puede leer lo que escribiste y proponerte la perspectiva que mejor lo ilumina."
-                  : "Pneum can read what you wrote and propose the perspective that best illuminates it."}
+                  ? "Kionas puede leer lo que escribiste y proponerte la perspectiva que mejor lo ilumina."
+                  : "Kionas can read what you wrote and propose the perspective that best illuminates it."}
               </p>
               <AskLink
                 to="/oraculo"
                 text={query.trim()}
                 className="mt-6 inline-block rounded-md border border-mist/50 bg-mist/15 px-5 py-2.5 font-display text-micro uppercase tracking-[0.3em] text-foreground transition-all hover:border-mist/80 hover:bg-mist/25"
               >
-                {es ? "Pensarlo con Pneum →" : "Think it with Pneum →"}
+                {es ? "Pensarlo con Kionas →" : "Think it with Kionas →"}
               </AskLink>
 
               <p className="label mt-8">{es ? "O empieza por aquí" : "Or start here"}</p>

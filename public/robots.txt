@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://pneum.app/sitemap.xml
+Sitemap: https://kionas.app/sitemap.xml

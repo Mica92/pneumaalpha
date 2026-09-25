@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Genera public/og-image.png (1200x630) con el cisne de origami de Pneum."""
+"""Genera public/og-image.png (1200x630) con el cisne de origami de Kionas."""
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 
 W, H = 1200, 630
@@ -89,7 +89,7 @@ serif_b = font(SERIF, 78, weight="Bold")
 sans = font(SANS, 26)
 
 
-brand = "Pneum"
+brand = "Kionas"
 d.text((W / 2, 500), brand, fill=(245, 245, 245), font=serif_b, anchor="mm")
 
 tag = "Conversa con las grandes mentes de la historia"
@@ -98,3 +98,23 @@ d.text((W / 2, 570), tag, fill=(168, 168, 178), font=sans, anchor="mm")
 
 img.convert("RGB").save("public/og-image.png", optimize=True)
 print("og-image.png generado:", img.size)
+
+# Logotipo horizontal de marca, conservando el cisne y la paleta editorial.
+LW, LH = 1600, 600
+logo = Image.new("RGB", (LW, LH), BG)
+ld = ImageDraw.Draw(logo)
+logo_scale = 6.0
+logo_ox = 160 - minx * logo_scale
+logo_oy = LH / 2 - (maxy + miny) / 2 * logo_scale
+def LT(point):
+    return (logo_ox + point[0] * logo_scale, logo_oy + point[1] * logo_scale)
+for pts, g in facets:
+    tone = GOLD if g < 150 else ((212, 182, 124) if g < 220 else (242, 239, 232))
+    ld.polygon([LT(point) for point in pts], fill=tone)
+ld.line([LT(point) for point in neck], fill=(242, 239, 232), width=int(5 * logo_scale), joint="curve")
+ld.polygon([LT(point) for point in head], fill=(184, 154, 98))
+ld.polygon([LT(point) for point in beak], fill=(212, 182, 124))
+logo_font = font(SERIF, 168, weight="Regular")
+ld.text((610, LH / 2 + 6), brand, fill=(242, 239, 232), font=logo_font, anchor="lm")
+logo.save("public/kionas-logo.png", optimize=True)
+print("kionas-logo.png generado:", logo.size)

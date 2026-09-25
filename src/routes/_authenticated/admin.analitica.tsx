@@ -12,12 +12,12 @@ export const Route = createFileRoute("/_authenticated/admin/analitica")({
   component: AnalyticsPage,
   head: () => ({
     meta: [
-      { title: "Analítica interna — Pneum" },
+      { title: "Analítica interna — Kionas" },
       {
         name: "description",
-        content: "Panel interno de retención y conversión de Pneum.",
+        content: "Panel interno de retención y conversión de Kionas.",
       },
-      { property: "og:title", content: "Analítica interna — Pneum" },
+      { property: "og:title", content: "Analítica interna — Kionas" },
       { property: "og:description", content: "Panel interno de retención y conversión." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },

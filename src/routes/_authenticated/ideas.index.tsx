@@ -11,13 +11,13 @@ export const Route = createFileRoute("/_authenticated/ideas/")({
   component: IdeasIndex,
   head: () => ({
     meta: [
-      { title: "Grandes ideas — Pneum" },
+      { title: "Grandes ideas — Kionas" },
       {
         name: "description",
         content:
           "Existencia, voluntad, libertad, poder, virtud, sentido: las ideas que atraviesan la filosofía, explicadas en lenguaje simple.",
       },
-      { property: "og:title", content: "Grandes ideas — Pneum" },
+      { property: "og:title", content: "Grandes ideas — Kionas" },
       {
         property: "og:description",
         content:

@@ -15,13 +15,13 @@ export const Route = createFileRoute("/_authenticated/reporte")({
   component: ReportPage,
   head: () => ({
     meta: [
-      { title: "Retrato de tu pensamiento — Pneum" },
+      { title: "Retrato de tu pensamiento — Kionas" },
       {
         name: "description",
         content:
           "Patrones observables en tus propias palabras: temas que reaparecen, cómo argumentas, tensiones abiertas y qué leer después. No es un diagnóstico.",
       },
-      { property: "og:title", content: "Retrato de tu pensamiento — Pneum" },
+      { property: "og:title", content: "Retrato de tu pensamiento — Kionas" },
       {
         property: "og:description",
         content:

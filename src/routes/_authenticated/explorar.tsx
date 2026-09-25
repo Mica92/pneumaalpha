@@ -20,13 +20,13 @@ export const Route = createFileRoute("/_authenticated/explorar")({
   component: ExplorePage,
   head: () => ({
     meta: [
-      { title: "Explorar — habla y encuentra tu filósofo | Pneum" },
+      { title: "Explorar — habla y encuentra tu filósofo | Kionas" },
       {
         name: "description",
         content:
           "Escribe lo que tengas en mente y la IA te asigna la mente filosófica adecuada para conversar. Con una guía de temas y preguntas para empezar.",
       },
-      { property: "og:title", content: "Explorar — habla y encuentra tu filósofo | Pneum" },
+      { property: "og:title", content: "Explorar — habla y encuentra tu filósofo | Kionas" },
       {
         property: "og:description",
         content: "Un chat abierto: cuenta lo que te ocurre y conversa con la mente adecuada.",
@@ -70,8 +70,8 @@ const COPY = {
     en: "This doesn't look like a question to think through",
   },
   safetyOffBody: {
-    es: "Pneum está hecho para preguntas, problemas y decisiones complejas. Si quieres, reformula lo que traes como una pregunta abierta y lo pensamos juntos.",
-    en: "Pneum is built for hard questions, complex problems and decisions. If you like, reframe what you bring as an open question and we'll think it through together.",
+    es: "Kionas está hecho para preguntas, problemas y decisiones complejas. Si quieres, reformula lo que traes como una pregunta abierta y lo pensamos juntos.",
+    en: "Kionas is built for hard questions, complex problems and decisions. If you like, reframe what you bring as an open question and we'll think it through together.",
   },
   safetyCrisisTitle: {
     es: "Tu vida importa más que esta conversación",

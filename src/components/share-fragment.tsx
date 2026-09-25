@@ -73,10 +73,10 @@ export function ShareFragmentButton({ philosopher, text, question }: Props) {
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
 
-  const author = PHILOSOPHERS[philosopher]?.name ?? "Pneum";
+  const author = PHILOSOPHERS[philosopher]?.name ?? "Kionas";
   const excerpt = text.trim().slice(0, MAX);
-  const footer = "pneum.app · Pneum";
-  const shareText = `“${excerpt}”\n— ${author} · Pneum`;
+  const footer = "kionas.app · Kionas";
+  const shareText = `“${excerpt}”\n— ${author} · Kionas`;
 
   const handleCopy = async () => {
     try {
@@ -93,7 +93,7 @@ export function ShareFragmentButton({ philosopher, text, question }: Props) {
       return;
     }
     try {
-      await navigator.share({ text: shareText, title: "Pneum" });
+      await navigator.share({ text: shareText, title: "Kionas" });
     } catch {
       /* user cancelled */
     }
@@ -108,7 +108,7 @@ export function ShareFragmentButton({ philosopher, text, question }: Props) {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = `pneumaa-${philosopher}.png`;
+    a.download = `kionas-${philosopher}.png`;
     a.click();
     URL.revokeObjectURL(url);
   };

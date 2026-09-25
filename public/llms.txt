@@ -1,8 +1,8 @@
-# Pneum.app
+# Kionas.app
 
 > A bilingual space for structuring and understanding your thinking more clearly, using philosophy as an instrument.
 
-Pneum helps people clarify questions, examine assumptions, compare philosophical perspectives and recognize patterns in their own thinking. It does not decide for the user. Memory is visible, editable and controlled by the person.
+Kionas helps people clarify questions, examine assumptions, compare philosophical perspectives and recognize patterns in their own thinking. It does not decide for the user. Memory is visible, editable and controlled by the person.
 
 ## Main sections
 - [Think](/oraculo): Begin with a question or situation.
@@ -10,10 +10,10 @@ Pneum helps people clarify questions, examine assumptions, compare philosophical
 - [Perspectives](/filosofos): Historically grounded philosophical lenses.
 - [Thinking map](/mi-mapa): A personal map built only from what the user chooses to keep.
 - [Knowledge network](/conocimiento): Interactive graph connecting thinkers, ideas, movements, ideologies and religions.
-- [Privacy](/privacy): How Pneum protects user control, data and intellectual autonomy.
+- [Privacy](/privacy): How Kionas protects user control, data and intellectual autonomy.
 
 ## Trust principles
 - You control your thinking.
 - Your data is yours.
-- Pneum does not decide for you.
+- Kionas does not decide for you.
 - Your information is not used to manipulate you.

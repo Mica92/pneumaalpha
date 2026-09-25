@@ -16,10 +16,10 @@ export const Route = createFileRoute("/_authenticated/$philosopher")({
   head: ({ params }) => {
     const id = params.philosopher as string;
     if (!isPhilosopherId(id)) {
-      return { meta: [{ title: "Pneum" }] };
+      return { meta: [{ title: "Kionas" }] };
     }
     const p = PHILOSOPHERS[id as PhilosopherId];
-    const title = `Conversa con ${p.name} — Pneum`;
+    const title = `Conversa con ${p.name} — Kionas`;
     const description = `${p.blurb.es} Diálogo bilingüe (ES / EN) con ${p.name}, reconstruido como conciencia viva.`;
     const url = `${SITE_URL}/${id}`;
     return {

@@ -1,5 +1,5 @@
 /**
- * Pneum mark — faceted origami swan.
+ * Kionas mark — faceted origami swan.
  * Stable bronze facets tie the mark to the architectural editorial system.
  */
 type Props = {
@@ -9,7 +9,7 @@ type Props = {
 };
 
 export function PneumaMark({ className = "", withWordmark = false, size = 28 }: Props) {
-  const label = "Pneum";
+  const label = "Kionas";
 
   return (
     <span className={`inline-flex items-center gap-3 ${className}`} role="img" aria-label={label}>
@@ -62,7 +62,7 @@ export function PneumaMark({ className = "", withWordmark = false, size = 28 }: 
           aria-hidden="true"
           className="whitespace-nowrap font-serif text-subtitle font-medium tracking-[0.14em] text-foreground"
         >
-          Pneu<span className="text-bronze">m</span>
+          Kion<span className="text-bronze">as</span>
         </span>
       )}
     </span>

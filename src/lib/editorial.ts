@@ -90,7 +90,7 @@ export type EditorialArticle = Seed & { author: string; publishedAt: string; rea
 
 export const EDITORIAL_ARTICLES: EditorialArticle[] = S.map((seed, index) => ({
   ...seed,
-  author: "Pneum",
+  author: "Kionas",
   publishedAt: "2026-09-24",
   readingMinutes: seed.category === "investigaciones" ? 8 : seed.category === "ensayos" ? 7 : 5,
   sections: [

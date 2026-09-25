@@ -20,7 +20,7 @@ export function LegalPage({ copy }: { copy: { es: LegalCopy; en: LegalCopy } }) 
   return (
     <main className="reading-surface mx-auto min-h-screen max-w-3xl px-6 py-12 md:px-10 md:py-20">
       <header className="flex items-center justify-between border-b border-border/60 pb-6">
-        <Link to="/" aria-label="Pneum">
+        <Link to="/" aria-label="Kionas">
           <PneumaMark withWordmark />
         </Link>
         <LanguageSelector />
