@@ -62,7 +62,7 @@ export function PneumaMark({ className = "", withWordmark = false, size = 28 }: 
           aria-hidden="true"
           className="whitespace-nowrap font-serif text-subtitle font-medium tracking-[0.14em] text-foreground"
         >
-          Pneu<span className="text-bronze">m</span>
+          Kion<span className="text-bronze">as</span>
         </span>
       )}
     </span>

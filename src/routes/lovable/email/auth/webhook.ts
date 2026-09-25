@@ -10,9 +10,9 @@ import { ReauthenticationEmail } from '@/lib/email-templates/reauthentication'
 
 // Configuration
 const SITE_NAME = "Kionas"
-const SENDER_DOMAIN = "noreply.pneum.app"
-const ROOT_DOMAIN = "pneum.app"
-const FROM_DOMAIN = "pneum.app"
+const SENDER_DOMAIN = "noreply.kionas.app"
+const ROOT_DOMAIN = "kionas.app"
+const FROM_DOMAIN = "kionas.app"
 const SITE_URL = `https://${ROOT_DOMAIN}`
 
 // The SDK handler owns verification, dispatch, and retry semantics; this file

@@ -113,7 +113,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           url: SITE_URL,
           inLanguage: ["es", "en"],
           description:
-            "Conversaciones filosóficas bilingües (ES/EN) con conciencias reconstruidas: filosofía aplicada para pensar, decidir y vivir mejor.",
+            "Un espacio bilingüe para estructurar y comprender tu pensamiento con mayor claridad, usando la filosofía como instrumento.",
           potentialAction: {
             "@type": "SearchAction",
             target: `${SITE_URL}/buscar?q={search_term_string}`,

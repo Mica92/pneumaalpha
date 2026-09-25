@@ -75,7 +75,7 @@ export function ShareFragmentButton({ philosopher, text, question }: Props) {
 
   const author = PHILOSOPHERS[philosopher]?.name ?? "Kionas";
   const excerpt = text.trim().slice(0, MAX);
-  const footer = "pneum.app · Kionas";
+  const footer = "kionas.app · Kionas";
   const shareText = `“${excerpt}”\n— ${author} · Kionas`;
 
   const handleCopy = async () => {
@@ -108,7 +108,7 @@ export function ShareFragmentButton({ philosopher, text, question }: Props) {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = `pneumaa-${philosopher}.png`;
+    a.download = `kionas-${philosopher}.png`;
     a.click();
     URL.revokeObjectURL(url);
   };
