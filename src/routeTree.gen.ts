@@ -9,64 +9,48 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as UsoDeIaRouteImport } from './routes/uso-de-ia'
-import { Route as TerminosRouteImport } from './routes/terminos'
-import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
-import { Route as PrivacyRouteImport } from './routes/privacy'
-import { Route as ContactoRouteImport } from './routes/contacto'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
-import { Route as EditorialIndexRouteImport } from './routes/editorial/index'
+import { Route as ContactoRouteImport } from './routes/contacto'
+import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as TerminosRouteImport } from './routes/terminos'
+import { Route as UsoDeIaRouteImport } from './routes/uso-de-ia'
 import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
-import { Route as EditorialPodcastRouteImport } from './routes/editorial/podcast'
-import { Route as AuthenticatedUmbralRouteImport } from './routes/_authenticated/umbral'
-import { Route as AuthenticatedReporteRouteImport } from './routes/_authenticated/reporte'
-import { Route as AuthenticatedRecorridoRouteImport } from './routes/_authenticated/recorrido'
-import { Route as AuthenticatedPodcastRouteImport } from './routes/_authenticated/podcast'
-import { Route as AuthenticatedPerfilRouteImport } from './routes/_authenticated/perfil'
-import { Route as AuthenticatedOraculoRouteImport } from './routes/_authenticated/oraculo'
-import { Route as AuthenticatedNosotrosRouteImport } from './routes/_authenticated/nosotros'
-import { Route as AuthenticatedModoSocratesRouteImport } from './routes/_authenticated/modo-socrates'
-import { Route as AuthenticatedMiMapaRouteImport } from './routes/_authenticated/mi-mapa'
-import { Route as AuthenticatedMesaRouteImport } from './routes/_authenticated/mesa'
-import { Route as AuthenticatedExplorarRouteImport } from './routes/_authenticated/explorar'
-import { Route as AuthenticatedConocimientoRouteImport } from './routes/_authenticated/conocimiento'
-import { Route as AuthenticatedCompararRouteImport } from './routes/_authenticated/comparar'
-import { Route as AuthenticatedBuscarRouteImport } from './routes/_authenticated/buscar'
-import { Route as AuthenticatedBibliotecaRouteImport } from './routes/_authenticated/biblioteca'
-import { Route as AuthenticatedAnalisisRouteImport } from './routes/_authenticated/analisis'
 import { Route as AuthenticatedPhilosopherRouteImport } from './routes/_authenticated/$philosopher'
-import { Route as AuthenticatedSituacionesIndexRouteImport } from './routes/_authenticated/situaciones.index'
-import { Route as AuthenticatedRutasIndexRouteImport } from './routes/_authenticated/rutas.index'
-import { Route as AuthenticatedIdeasIndexRouteImport } from './routes/_authenticated/ideas.index'
-import { Route as AuthenticatedFilosofosIndexRouteImport } from './routes/_authenticated/filosofos.index'
-import { Route as EditorialCategoryArticleRouteImport } from './routes/editorial/$category.$article'
-import { Route as ApiPodcastSpeechRouteImport } from './routes/api/podcast/speech'
-import { Route as AuthenticatedSituacionesIdRouteImport } from './routes/_authenticated/situaciones.$id'
-import { Route as AuthenticatedRutasIdRouteImport } from './routes/_authenticated/rutas.$id'
-import { Route as AuthenticatedIdeasIdRouteImport } from './routes/_authenticated/ideas.$id'
-import { Route as AuthenticatedFilosofosIdRouteImport } from './routes/_authenticated/filosofos.$id'
+import { Route as AuthenticatedAnalisisRouteImport } from './routes/_authenticated/analisis'
+import { Route as AuthenticatedBibliotecaRouteImport } from './routes/_authenticated/biblioteca'
+import { Route as AuthenticatedBuscarRouteImport } from './routes/_authenticated/buscar'
+import { Route as AuthenticatedCompararRouteImport } from './routes/_authenticated/comparar'
+import { Route as AuthenticatedConocimientoRouteImport } from './routes/_authenticated/conocimiento'
+import { Route as AuthenticatedExplorarRouteImport } from './routes/_authenticated/explorar'
+import { Route as AuthenticatedMesaRouteImport } from './routes/_authenticated/mesa'
+import { Route as AuthenticatedMiMapaRouteImport } from './routes/_authenticated/mi-mapa'
+import { Route as AuthenticatedModoSocratesRouteImport } from './routes/_authenticated/modo-socrates'
+import { Route as AuthenticatedNosotrosRouteImport } from './routes/_authenticated/nosotros'
+import { Route as AuthenticatedOraculoRouteImport } from './routes/_authenticated/oraculo'
+import { Route as AuthenticatedPerfilRouteImport } from './routes/_authenticated/perfil'
+import { Route as AuthenticatedPodcastRouteImport } from './routes/_authenticated/podcast'
+import { Route as AuthenticatedRecorridoRouteImport } from './routes/_authenticated/recorrido'
+import { Route as AuthenticatedReporteRouteImport } from './routes/_authenticated/reporte'
+import { Route as AuthenticatedUmbralRouteImport } from './routes/_authenticated/umbral'
+import { Route as EditorialIndexRouteImport } from './routes/editorial/index'
+import { Route as EditorialPodcastRouteImport } from './routes/editorial/podcast'
 import { Route as AuthenticatedAdminAnaliticaRouteImport } from './routes/_authenticated/admin.analitica'
-import { Route as LovableEmailAuthWebhookRouteImport } from './routes/lovable/email/auth/webhook'
+import { Route as AuthenticatedFilosofosIndexRouteImport } from './routes/_authenticated/filosofos.index'
+import { Route as AuthenticatedFilosofosIdRouteImport } from './routes/_authenticated/filosofos.$id'
+import { Route as AuthenticatedIdeasIndexRouteImport } from './routes/_authenticated/ideas.index'
+import { Route as AuthenticatedIdeasIdRouteImport } from './routes/_authenticated/ideas.$id'
+import { Route as AuthenticatedRutasIndexRouteImport } from './routes/_authenticated/rutas.index'
+import { Route as AuthenticatedRutasIdRouteImport } from './routes/_authenticated/rutas.$id'
+import { Route as AuthenticatedSituacionesIndexRouteImport } from './routes/_authenticated/situaciones.index'
+import { Route as AuthenticatedSituacionesIdRouteImport } from './routes/_authenticated/situaciones.$id'
+import { Route as ApiPodcastSpeechRouteImport } from './routes/api/podcast/speech'
+import { Route as EditorialCategoryArticleRouteImport } from './routes/editorial/$category.$article'
 import { Route as LovableEmailAuthPreviewRouteImport } from './routes/lovable/email/auth/preview'
+import { Route as LovableEmailAuthWebhookRouteImport } from './routes/lovable/email/auth/webhook'
 
-const UsoDeIaRoute = UsoDeIaRouteImport.update({
-  id: '/uso-de-ia',
-  path: '/uso-de-ia',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const TerminosRoute = TerminosRouteImport.update({
-  id: '/terminos',
-  path: '/terminos',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
-  id: '/sitemap.xml',
-  path: '/sitemap.xml',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PrivacyRoute = PrivacyRouteImport.update({
-  id: '/privacy',
-  path: '/privacy',
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactoRoute = ContactoRouteImport.update({
@@ -74,105 +58,29 @@ const ContactoRoute = ContactoRouteImport.update({
   path: '/contacto',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
-  id: '/_authenticated',
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
-const EditorialIndexRoute = EditorialIndexRouteImport.update({
-  id: '/editorial/',
-  path: '/editorial/',
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TerminosRoute = TerminosRouteImport.update({
+  id: '/terminos',
+  path: '/terminos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const UsoDeIaRoute = UsoDeIaRouteImport.update({
+  id: '/uso-de-ia',
+  path: '/uso-de-ia',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedIndexRoute = AuthenticatedIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const EditorialPodcastRoute = EditorialPodcastRouteImport.update({
-  id: '/editorial/podcast',
-  path: '/editorial/podcast',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthenticatedUmbralRoute = AuthenticatedUmbralRouteImport.update({
-  id: '/umbral',
-  path: '/umbral',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const AuthenticatedReporteRoute = AuthenticatedReporteRouteImport.update({
-  id: '/reporte',
-  path: '/reporte',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const AuthenticatedRecorridoRoute = AuthenticatedRecorridoRouteImport.update({
-  id: '/recorrido',
-  path: '/recorrido',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const AuthenticatedPodcastRoute = AuthenticatedPodcastRouteImport.update({
-  id: '/podcast',
-  path: '/podcast',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const AuthenticatedPerfilRoute = AuthenticatedPerfilRouteImport.update({
-  id: '/perfil',
-  path: '/perfil',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const AuthenticatedOraculoRoute = AuthenticatedOraculoRouteImport.update({
-  id: '/oraculo',
-  path: '/oraculo',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const AuthenticatedNosotrosRoute = AuthenticatedNosotrosRouteImport.update({
-  id: '/nosotros',
-  path: '/nosotros',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const AuthenticatedModoSocratesRoute =
-  AuthenticatedModoSocratesRouteImport.update({
-    id: '/modo-socrates',
-    path: '/modo-socrates',
-    getParentRoute: () => AuthenticatedRouteRoute,
-  } as any)
-const AuthenticatedMiMapaRoute = AuthenticatedMiMapaRouteImport.update({
-  id: '/mi-mapa',
-  path: '/mi-mapa',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const AuthenticatedMesaRoute = AuthenticatedMesaRouteImport.update({
-  id: '/mesa',
-  path: '/mesa',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const AuthenticatedExplorarRoute = AuthenticatedExplorarRouteImport.update({
-  id: '/explorar',
-  path: '/explorar',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const AuthenticatedConocimientoRoute =
-  AuthenticatedConocimientoRouteImport.update({
-    id: '/conocimiento',
-    path: '/conocimiento',
-    getParentRoute: () => AuthenticatedRouteRoute,
-  } as any)
-const AuthenticatedCompararRoute = AuthenticatedCompararRouteImport.update({
-  id: '/comparar',
-  path: '/comparar',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const AuthenticatedBuscarRoute = AuthenticatedBuscarRouteImport.update({
-  id: '/buscar',
-  path: '/buscar',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const AuthenticatedBibliotecaRoute = AuthenticatedBibliotecaRouteImport.update({
-  id: '/biblioteca',
-  path: '/biblioteca',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const AuthenticatedAnalisisRoute = AuthenticatedAnalisisRouteImport.update({
-  id: '/analisis',
-  path: '/analisis',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedPhilosopherRoute =
@@ -181,48 +89,119 @@ const AuthenticatedPhilosopherRoute =
     path: '/$philosopher',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
-const AuthenticatedSituacionesIndexRoute =
-  AuthenticatedSituacionesIndexRouteImport.update({
-    id: '/situaciones/',
-    path: '/situaciones/',
+const AuthenticatedAnalisisRoute = AuthenticatedAnalisisRouteImport.update({
+  id: '/analisis',
+  path: '/analisis',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedBibliotecaRoute = AuthenticatedBibliotecaRouteImport.update({
+  id: '/biblioteca',
+  path: '/biblioteca',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedBuscarRoute = AuthenticatedBuscarRouteImport.update({
+  id: '/buscar',
+  path: '/buscar',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedCompararRoute = AuthenticatedCompararRouteImport.update({
+  id: '/comparar',
+  path: '/comparar',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedConocimientoRoute =
+  AuthenticatedConocimientoRouteImport.update({
+    id: '/conocimiento',
+    path: '/conocimiento',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
-const AuthenticatedRutasIndexRoute = AuthenticatedRutasIndexRouteImport.update({
-  id: '/rutas/',
-  path: '/rutas/',
+const AuthenticatedExplorarRoute = AuthenticatedExplorarRouteImport.update({
+  id: '/explorar',
+  path: '/explorar',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const AuthenticatedIdeasIndexRoute = AuthenticatedIdeasIndexRouteImport.update({
-  id: '/ideas/',
-  path: '/ideas/',
+const AuthenticatedMesaRoute = AuthenticatedMesaRouteImport.update({
+  id: '/mesa',
+  path: '/mesa',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedMiMapaRoute = AuthenticatedMiMapaRouteImport.update({
+  id: '/mi-mapa',
+  path: '/mi-mapa',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedModoSocratesRoute =
+  AuthenticatedModoSocratesRouteImport.update({
+    id: '/modo-socrates',
+    path: '/modo-socrates',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedNosotrosRoute = AuthenticatedNosotrosRouteImport.update({
+  id: '/nosotros',
+  path: '/nosotros',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedOraculoRoute = AuthenticatedOraculoRouteImport.update({
+  id: '/oraculo',
+  path: '/oraculo',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedPerfilRoute = AuthenticatedPerfilRouteImport.update({
+  id: '/perfil',
+  path: '/perfil',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedPodcastRoute = AuthenticatedPodcastRouteImport.update({
+  id: '/podcast',
+  path: '/podcast',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedRecorridoRoute = AuthenticatedRecorridoRouteImport.update({
+  id: '/recorrido',
+  path: '/recorrido',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedReporteRoute = AuthenticatedReporteRouteImport.update({
+  id: '/reporte',
+  path: '/reporte',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedUmbralRoute = AuthenticatedUmbralRouteImport.update({
+  id: '/umbral',
+  path: '/umbral',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const EditorialIndexRoute = EditorialIndexRouteImport.update({
+  id: '/editorial/',
+  path: '/editorial/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EditorialPodcastRoute = EditorialPodcastRouteImport.update({
+  id: '/editorial/podcast',
+  path: '/editorial/podcast',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedAdminAnaliticaRoute =
+  AuthenticatedAdminAnaliticaRouteImport.update({
+    id: '/admin/analitica',
+    path: '/admin/analitica',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedFilosofosIndexRoute =
   AuthenticatedFilosofosIndexRouteImport.update({
     id: '/filosofos/',
     path: '/filosofos/',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
-const EditorialCategoryArticleRoute =
-  EditorialCategoryArticleRouteImport.update({
-    id: '/editorial/$category/$article',
-    path: '/editorial/$category/$article',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const ApiPodcastSpeechRoute = ApiPodcastSpeechRouteImport.update({
-  id: '/api/podcast/speech',
-  path: '/api/podcast/speech',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthenticatedSituacionesIdRoute =
-  AuthenticatedSituacionesIdRouteImport.update({
-    id: '/situaciones/$id',
-    path: '/situaciones/$id',
+const AuthenticatedFilosofosIdRoute =
+  AuthenticatedFilosofosIdRouteImport.update({
+    id: '/filosofos/$id',
+    path: '/filosofos/$id',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
-const AuthenticatedRutasIdRoute = AuthenticatedRutasIdRouteImport.update({
-  id: '/rutas/$id',
-  path: '/rutas/$id',
+const AuthenticatedIdeasIndexRoute = AuthenticatedIdeasIndexRouteImport.update({
+  id: '/ideas/',
+  path: '/ideas/',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedIdeasIdRoute = AuthenticatedIdeasIdRouteImport.update({
@@ -230,26 +209,47 @@ const AuthenticatedIdeasIdRoute = AuthenticatedIdeasIdRouteImport.update({
   path: '/ideas/$id',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const AuthenticatedFilosofosIdRoute =
-  AuthenticatedFilosofosIdRouteImport.update({
-    id: '/filosofos/$id',
-    path: '/filosofos/$id',
+const AuthenticatedRutasIndexRoute = AuthenticatedRutasIndexRouteImport.update({
+  id: '/rutas/',
+  path: '/rutas/',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedRutasIdRoute = AuthenticatedRutasIdRouteImport.update({
+  id: '/rutas/$id',
+  path: '/rutas/$id',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedSituacionesIndexRoute =
+  AuthenticatedSituacionesIndexRouteImport.update({
+    id: '/situaciones/',
+    path: '/situaciones/',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
-const AuthenticatedAdminAnaliticaRoute =
-  AuthenticatedAdminAnaliticaRouteImport.update({
-    id: '/admin/analitica',
-    path: '/admin/analitica',
+const AuthenticatedSituacionesIdRoute =
+  AuthenticatedSituacionesIdRouteImport.update({
+    id: '/situaciones/$id',
+    path: '/situaciones/$id',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
-const LovableEmailAuthWebhookRoute = LovableEmailAuthWebhookRouteImport.update({
-  id: '/lovable/email/auth/webhook',
-  path: '/lovable/email/auth/webhook',
+const ApiPodcastSpeechRoute = ApiPodcastSpeechRouteImport.update({
+  id: '/api/podcast/speech',
+  path: '/api/podcast/speech',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EditorialCategoryArticleRoute =
+  EditorialCategoryArticleRouteImport.update({
+    id: '/editorial/$category/$article',
+    path: '/editorial/$category/$article',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const LovableEmailAuthPreviewRoute = LovableEmailAuthPreviewRouteImport.update({
   id: '/lovable/email/auth/preview',
   path: '/lovable/email/auth/preview',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LovableEmailAuthWebhookRoute = LovableEmailAuthWebhookRouteImport.update({
+  id: '/lovable/email/auth/webhook',
+  path: '/lovable/email/auth/webhook',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -516,32 +516,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/uso-de-ia': {
-      id: '/uso-de-ia'
-      path: '/uso-de-ia'
-      fullPath: '/uso-de-ia'
-      preLoaderRoute: typeof UsoDeIaRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/terminos': {
-      id: '/terminos'
-      path: '/terminos'
-      fullPath: '/terminos'
-      preLoaderRoute: typeof TerminosRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/sitemap.xml': {
-      id: '/sitemap.xml'
-      path: '/sitemap.xml'
-      fullPath: '/sitemap.xml'
-      preLoaderRoute: typeof SitemapDotxmlRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/privacy': {
-      id: '/privacy'
-      path: '/privacy'
-      fullPath: '/privacy'
-      preLoaderRoute: typeof PrivacyRouteImport
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contacto': {
@@ -551,18 +530,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactoRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_authenticated': {
-      id: '/_authenticated'
-      path: ''
-      fullPath: '/'
-      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/editorial/': {
-      id: '/editorial/'
-      path: '/editorial'
-      fullPath: '/editorial/'
-      preLoaderRoute: typeof EditorialIndexRouteImport
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terminos': {
+      id: '/terminos'
+      path: '/terminos'
+      fullPath: '/terminos'
+      preLoaderRoute: typeof TerminosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/uso-de-ia': {
+      id: '/uso-de-ia'
+      path: '/uso-de-ia'
+      fullPath: '/uso-de-ia'
+      preLoaderRoute: typeof UsoDeIaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated/': {
@@ -572,116 +565,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/editorial/podcast': {
-      id: '/editorial/podcast'
-      path: '/editorial/podcast'
-      fullPath: '/editorial/podcast'
-      preLoaderRoute: typeof EditorialPodcastRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_authenticated/umbral': {
-      id: '/_authenticated/umbral'
-      path: '/umbral'
-      fullPath: '/umbral'
-      preLoaderRoute: typeof AuthenticatedUmbralRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/reporte': {
-      id: '/_authenticated/reporte'
-      path: '/reporte'
-      fullPath: '/reporte'
-      preLoaderRoute: typeof AuthenticatedReporteRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/recorrido': {
-      id: '/_authenticated/recorrido'
-      path: '/recorrido'
-      fullPath: '/recorrido'
-      preLoaderRoute: typeof AuthenticatedRecorridoRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/podcast': {
-      id: '/_authenticated/podcast'
-      path: '/podcast'
-      fullPath: '/podcast'
-      preLoaderRoute: typeof AuthenticatedPodcastRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/perfil': {
-      id: '/_authenticated/perfil'
-      path: '/perfil'
-      fullPath: '/perfil'
-      preLoaderRoute: typeof AuthenticatedPerfilRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/oraculo': {
-      id: '/_authenticated/oraculo'
-      path: '/oraculo'
-      fullPath: '/oraculo'
-      preLoaderRoute: typeof AuthenticatedOraculoRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/nosotros': {
-      id: '/_authenticated/nosotros'
-      path: '/nosotros'
-      fullPath: '/nosotros'
-      preLoaderRoute: typeof AuthenticatedNosotrosRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/modo-socrates': {
-      id: '/_authenticated/modo-socrates'
-      path: '/modo-socrates'
-      fullPath: '/modo-socrates'
-      preLoaderRoute: typeof AuthenticatedModoSocratesRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/mi-mapa': {
-      id: '/_authenticated/mi-mapa'
-      path: '/mi-mapa'
-      fullPath: '/mi-mapa'
-      preLoaderRoute: typeof AuthenticatedMiMapaRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/mesa': {
-      id: '/_authenticated/mesa'
-      path: '/mesa'
-      fullPath: '/mesa'
-      preLoaderRoute: typeof AuthenticatedMesaRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/explorar': {
-      id: '/_authenticated/explorar'
-      path: '/explorar'
-      fullPath: '/explorar'
-      preLoaderRoute: typeof AuthenticatedExplorarRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/conocimiento': {
-      id: '/_authenticated/conocimiento'
-      path: '/conocimiento'
-      fullPath: '/conocimiento'
-      preLoaderRoute: typeof AuthenticatedConocimientoRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/comparar': {
-      id: '/_authenticated/comparar'
-      path: '/comparar'
-      fullPath: '/comparar'
-      preLoaderRoute: typeof AuthenticatedCompararRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/buscar': {
-      id: '/_authenticated/buscar'
-      path: '/buscar'
-      fullPath: '/buscar'
-      preLoaderRoute: typeof AuthenticatedBuscarRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/biblioteca': {
-      id: '/_authenticated/biblioteca'
-      path: '/biblioteca'
-      fullPath: '/biblioteca'
-      preLoaderRoute: typeof AuthenticatedBibliotecaRouteImport
+    '/_authenticated/$philosopher': {
+      id: '/_authenticated/$philosopher'
+      path: '/$philosopher'
+      fullPath: '/$philosopher'
+      preLoaderRoute: typeof AuthenticatedPhilosopherRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/analisis': {
@@ -691,32 +579,130 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAnalisisRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/$philosopher': {
-      id: '/_authenticated/$philosopher'
-      path: '/$philosopher'
-      fullPath: '/$philosopher'
-      preLoaderRoute: typeof AuthenticatedPhilosopherRouteImport
+    '/_authenticated/biblioteca': {
+      id: '/_authenticated/biblioteca'
+      path: '/biblioteca'
+      fullPath: '/biblioteca'
+      preLoaderRoute: typeof AuthenticatedBibliotecaRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/situaciones/': {
-      id: '/_authenticated/situaciones/'
-      path: '/situaciones'
-      fullPath: '/situaciones/'
-      preLoaderRoute: typeof AuthenticatedSituacionesIndexRouteImport
+    '/_authenticated/buscar': {
+      id: '/_authenticated/buscar'
+      path: '/buscar'
+      fullPath: '/buscar'
+      preLoaderRoute: typeof AuthenticatedBuscarRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/rutas/': {
-      id: '/_authenticated/rutas/'
-      path: '/rutas'
-      fullPath: '/rutas/'
-      preLoaderRoute: typeof AuthenticatedRutasIndexRouteImport
+    '/_authenticated/comparar': {
+      id: '/_authenticated/comparar'
+      path: '/comparar'
+      fullPath: '/comparar'
+      preLoaderRoute: typeof AuthenticatedCompararRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/ideas/': {
-      id: '/_authenticated/ideas/'
-      path: '/ideas'
-      fullPath: '/ideas/'
-      preLoaderRoute: typeof AuthenticatedIdeasIndexRouteImport
+    '/_authenticated/conocimiento': {
+      id: '/_authenticated/conocimiento'
+      path: '/conocimiento'
+      fullPath: '/conocimiento'
+      preLoaderRoute: typeof AuthenticatedConocimientoRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/explorar': {
+      id: '/_authenticated/explorar'
+      path: '/explorar'
+      fullPath: '/explorar'
+      preLoaderRoute: typeof AuthenticatedExplorarRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/mesa': {
+      id: '/_authenticated/mesa'
+      path: '/mesa'
+      fullPath: '/mesa'
+      preLoaderRoute: typeof AuthenticatedMesaRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/mi-mapa': {
+      id: '/_authenticated/mi-mapa'
+      path: '/mi-mapa'
+      fullPath: '/mi-mapa'
+      preLoaderRoute: typeof AuthenticatedMiMapaRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/modo-socrates': {
+      id: '/_authenticated/modo-socrates'
+      path: '/modo-socrates'
+      fullPath: '/modo-socrates'
+      preLoaderRoute: typeof AuthenticatedModoSocratesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/nosotros': {
+      id: '/_authenticated/nosotros'
+      path: '/nosotros'
+      fullPath: '/nosotros'
+      preLoaderRoute: typeof AuthenticatedNosotrosRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/oraculo': {
+      id: '/_authenticated/oraculo'
+      path: '/oraculo'
+      fullPath: '/oraculo'
+      preLoaderRoute: typeof AuthenticatedOraculoRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/perfil': {
+      id: '/_authenticated/perfil'
+      path: '/perfil'
+      fullPath: '/perfil'
+      preLoaderRoute: typeof AuthenticatedPerfilRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/podcast': {
+      id: '/_authenticated/podcast'
+      path: '/podcast'
+      fullPath: '/podcast'
+      preLoaderRoute: typeof AuthenticatedPodcastRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/recorrido': {
+      id: '/_authenticated/recorrido'
+      path: '/recorrido'
+      fullPath: '/recorrido'
+      preLoaderRoute: typeof AuthenticatedRecorridoRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/reporte': {
+      id: '/_authenticated/reporte'
+      path: '/reporte'
+      fullPath: '/reporte'
+      preLoaderRoute: typeof AuthenticatedReporteRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/umbral': {
+      id: '/_authenticated/umbral'
+      path: '/umbral'
+      fullPath: '/umbral'
+      preLoaderRoute: typeof AuthenticatedUmbralRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/editorial/': {
+      id: '/editorial/'
+      path: '/editorial'
+      fullPath: '/editorial/'
+      preLoaderRoute: typeof EditorialIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/editorial/podcast': {
+      id: '/editorial/podcast'
+      path: '/editorial/podcast'
+      fullPath: '/editorial/podcast'
+      preLoaderRoute: typeof EditorialPodcastRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/admin/analitica': {
+      id: '/_authenticated/admin/analitica'
+      path: '/admin/analitica'
+      fullPath: '/admin/analitica'
+      preLoaderRoute: typeof AuthenticatedAdminAnaliticaRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/filosofos/': {
@@ -726,32 +712,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedFilosofosIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/editorial/$category/$article': {
-      id: '/editorial/$category/$article'
-      path: '/editorial/$category/$article'
-      fullPath: '/editorial/$category/$article'
-      preLoaderRoute: typeof EditorialCategoryArticleRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/podcast/speech': {
-      id: '/api/podcast/speech'
-      path: '/api/podcast/speech'
-      fullPath: '/api/podcast/speech'
-      preLoaderRoute: typeof ApiPodcastSpeechRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_authenticated/situaciones/$id': {
-      id: '/_authenticated/situaciones/$id'
-      path: '/situaciones/$id'
-      fullPath: '/situaciones/$id'
-      preLoaderRoute: typeof AuthenticatedSituacionesIdRouteImport
+    '/_authenticated/filosofos/$id': {
+      id: '/_authenticated/filosofos/$id'
+      path: '/filosofos/$id'
+      fullPath: '/filosofos/$id'
+      preLoaderRoute: typeof AuthenticatedFilosofosIdRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/rutas/$id': {
-      id: '/_authenticated/rutas/$id'
-      path: '/rutas/$id'
-      fullPath: '/rutas/$id'
-      preLoaderRoute: typeof AuthenticatedRutasIdRouteImport
+    '/_authenticated/ideas/': {
+      id: '/_authenticated/ideas/'
+      path: '/ideas'
+      fullPath: '/ideas/'
+      preLoaderRoute: typeof AuthenticatedIdeasIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/ideas/$id': {
@@ -761,25 +733,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedIdeasIdRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/filosofos/$id': {
-      id: '/_authenticated/filosofos/$id'
-      path: '/filosofos/$id'
-      fullPath: '/filosofos/$id'
-      preLoaderRoute: typeof AuthenticatedFilosofosIdRouteImport
+    '/_authenticated/rutas/': {
+      id: '/_authenticated/rutas/'
+      path: '/rutas'
+      fullPath: '/rutas/'
+      preLoaderRoute: typeof AuthenticatedRutasIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/admin/analitica': {
-      id: '/_authenticated/admin/analitica'
-      path: '/admin/analitica'
-      fullPath: '/admin/analitica'
-      preLoaderRoute: typeof AuthenticatedAdminAnaliticaRouteImport
+    '/_authenticated/rutas/$id': {
+      id: '/_authenticated/rutas/$id'
+      path: '/rutas/$id'
+      fullPath: '/rutas/$id'
+      preLoaderRoute: typeof AuthenticatedRutasIdRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/lovable/email/auth/webhook': {
-      id: '/lovable/email/auth/webhook'
-      path: '/lovable/email/auth/webhook'
-      fullPath: '/lovable/email/auth/webhook'
-      preLoaderRoute: typeof LovableEmailAuthWebhookRouteImport
+    '/_authenticated/situaciones/': {
+      id: '/_authenticated/situaciones/'
+      path: '/situaciones'
+      fullPath: '/situaciones/'
+      preLoaderRoute: typeof AuthenticatedSituacionesIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/situaciones/$id': {
+      id: '/_authenticated/situaciones/$id'
+      path: '/situaciones/$id'
+      fullPath: '/situaciones/$id'
+      preLoaderRoute: typeof AuthenticatedSituacionesIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/api/podcast/speech': {
+      id: '/api/podcast/speech'
+      path: '/api/podcast/speech'
+      fullPath: '/api/podcast/speech'
+      preLoaderRoute: typeof ApiPodcastSpeechRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/editorial/$category/$article': {
+      id: '/editorial/$category/$article'
+      path: '/editorial/$category/$article'
+      fullPath: '/editorial/$category/$article'
+      preLoaderRoute: typeof EditorialCategoryArticleRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/lovable/email/auth/preview': {
@@ -787,6 +780,13 @@ declare module '@tanstack/react-router' {
       path: '/lovable/email/auth/preview'
       fullPath: '/lovable/email/auth/preview'
       preLoaderRoute: typeof LovableEmailAuthPreviewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lovable/email/auth/webhook': {
+      id: '/lovable/email/auth/webhook'
+      path: '/lovable/email/auth/webhook'
+      fullPath: '/lovable/email/auth/webhook'
+      preLoaderRoute: typeof LovableEmailAuthWebhookRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
