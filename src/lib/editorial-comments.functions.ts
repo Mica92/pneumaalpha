@@ -66,8 +66,9 @@ export const editEditorialComment = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth]).inputValidator((input) => EditSchema.parse(input))
   .handler(async ({ data, context }) => {
     if (context.claims.is_anonymous === true) throw new Error("identified_account_required");
-    const { error } = await context.supabase.from("editorial_comments").update({ content: data.content, status: "pending", moderation_note: null }).eq("id", data.id).eq("user_id", context.userId);
+    const { data: updated, error } = await context.supabase.from("editorial_comments").update({ content: data.content, status: "pending", moderation_note: null }).eq("id", data.id).eq("user_id", context.userId).select("id");
     if (error) throw new Error("Could not edit comment");
+    if (!updated?.length) throw new Error("Comment not found or not editable");
     return { ok: true };
   });
 
