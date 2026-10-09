@@ -5,6 +5,7 @@ import { SITUATIONS } from "@/lib/situations";
 import { SITE_URL } from "@/lib/site";
 import { EDITORIAL_ARTICLES } from "@/lib/editorial";
 import { IDEAS, ROUTES } from "@/lib/discovery";
+import { TRADITION_LIST } from "@/lib/traditions";
 
 export const Route = createFileRoute("/sitemap.xml")({
   server: {
@@ -33,6 +34,8 @@ export const Route = createFileRoute("/sitemap.xml")({
           "/terminos",
           "/uso-de-ia",
           "/contacto",
+          "/dialogos",
+          "/explorador",
           "/situaciones",
           ...SITUATIONS.map((s) => `/situaciones/${s.id}`),
           ...EDITORIAL_ARTICLES.map((a) => `/editorial/${a.category}/${a.slug}`),
@@ -40,6 +43,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           ...PHILOSOPHER_LIST.map((p) => `/filosofos/${p.id}`),
           ...IDEAS.map((i) => `/ideas/${i.id}`),
           ...ROUTES.map((r) => `/rutas/${r.id}`),
+          ...TRADITION_LIST.map((t) => `/dialogos/${t.id}`),
         ];
         const urls = paths.map(
           (path) =>

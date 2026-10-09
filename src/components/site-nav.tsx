@@ -190,6 +190,20 @@ export function SiteNav({ className = "" }: { className?: string }) {
               {lang === "es" ? "Instrumentos" : "Instruments"}
             </Link>
             <Link
+              to="/dialogos"
+              onClick={() => setOpen(false)}
+              className="focus-mist border-b border-border/30 py-3 text-small text-muted-foreground transition-colors hover:text-foreground"
+            >
+              {lang === "es" ? "Diálogos" : "Dialogues"}
+            </Link>
+            <Link
+              to="/explorador"
+              onClick={() => setOpen(false)}
+              className="focus-mist border-b border-border/30 py-3 text-small text-muted-foreground transition-colors hover:text-foreground"
+            >
+              {lang === "es" ? "Explorador" : "Explorer"}
+            </Link>
+            <Link
               to="/recorrido"
               onClick={() => setOpen(false)}
               className="focus-mist border-b border-border/30 py-3 text-small text-muted-foreground transition-colors hover:text-foreground"
