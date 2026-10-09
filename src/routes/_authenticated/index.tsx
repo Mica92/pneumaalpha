@@ -9,6 +9,7 @@ import { SiteNav } from "@/components/site-nav";
 import { SiteFooter } from "@/components/site-footer";
 import { track } from "@/lib/analytics";
 import { stashQuestion } from "@/lib/question-handoff";
+import { HowItWorks } from "@/components/how-it-works";
 
 const TITLE = "Kionas — Claridad para pensar lo que te importa";
 const DESCRIPTION =
@@ -391,6 +392,9 @@ function Home() {
             </div>
           </div>
         </section>
+
+        {/* Onboarding — el vocabulario de Kionas (descartable, una vez) */}
+        <HowItWorks lang={lang} />
 
         {/* 03 — Qué hace Kionas */}
         <section className="border-y border-border/60">
