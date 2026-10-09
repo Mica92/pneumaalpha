@@ -13,7 +13,6 @@ export const Route = createFileRoute("/sitemap.xml")({
       GET: async () => {
         const paths = [
           "/",
-          "/umbral",
           "/filosofos",
           "/ideas",
           "/rutas",
@@ -28,7 +27,6 @@ export const Route = createFileRoute("/sitemap.xml")({
           "/editorial/podcast",
           "/mesa",
           "/modo-socrates",
-          "/biblioteca",
           "/nosotros",
           "/privacy",
           "/terminos",

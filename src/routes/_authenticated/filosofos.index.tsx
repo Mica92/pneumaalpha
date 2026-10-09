@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { SITE_URL } from "@/lib/site";
-import { createFileRoute } from "@tanstack/react-router";
-import { PHILOSOPHER_LIST, type PhilosopherId } from "@/lib/philosophers";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { PHILOSOPHERS, PHILOSOPHER_LIST, type PhilosopherId } from "@/lib/philosophers";
 import { profileOf } from "@/lib/portraits";
 import {
   CATEGORIES,
@@ -78,6 +78,8 @@ function PhilosophersIndex() {
   const [levels, setLevels] = useState<LevelId[]>([]);
   const [eras, setEras] = useState<EraId[]>([]);
   const [politics, setPolitics] = useState<PoliticsId[]>([]);
+  const [mode, setMode] = useState<"single" | "compare">("single");
+  const [seats, setSeats] = useState<PhilosopherId[]>([]);
 
   useEffect(() => {
     if (!open) return;
@@ -98,6 +100,11 @@ function PhilosophersIndex() {
 
   const toggle = <T,>(list: T[], set: (v: T[]) => void, value: T) =>
     set(list.includes(value) ? list.filter((x) => x !== value) : [...list, value]);
+
+  const toggleSeat = (id: PhilosopherId) =>
+    setSeats((prev) =>
+      prev.includes(id) ? prev.filter((s) => s !== id) : prev.length >= 3 ? prev : [...prev, id],
+    );
 
   const activeCount =
     (cat === "all" ? 0 : 1) +
@@ -217,6 +224,32 @@ function PhilosophersIndex() {
                 }
                  className="page-form focus-mist w-full max-w-md px-4 py-3 text-small text-foreground placeholder:text-muted-foreground/70"
               />
+
+              <div
+                className="inline-flex items-center rounded-full border border-border/70 p-0.5 backdrop-blur-md"
+                role="group"
+                aria-label={es ? "Modo de exploración" : "Exploration mode"}
+              >
+                {(["single", "compare"] as const).map((m) => (
+                  <button
+                    key={m}
+                    type="button"
+                    onClick={() => setMode(m)}
+                    aria-pressed={mode === m}
+                    className={`focus-mist rounded-full px-3.5 py-1.5 text-micro transition-colors ${
+                      mode === m ? "bg-bronze/15 text-foreground" : "text-muted-foreground hover:text-foreground"
+                    }`}
+                  >
+                    {m === "single"
+                      ? es
+                        ? "Una perspectiva"
+                        : "One perspective"
+                      : es
+                        ? "Comparar"
+                        : "Compare"}
+                  </button>
+                ))}
+              </div>
 
               <button
                 type="button"
@@ -371,6 +404,52 @@ function PhilosophersIndex() {
             <p className="text-small text-muted-foreground">
               {es ? "Ninguna mente coincide con esa búsqueda." : "No mind matches that search."}
             </p>
+          ) : mode === "compare" ? (
+            <>
+              <div className="flex flex-wrap items-center gap-3">
+                <p className="label">
+                  {seats.length}/3 {es ? "seleccionadas" : "selected"}
+                </p>
+                {seats.length >= 2 && (
+                  <Link
+                    to="/comparar"
+                    search={{ seats: seats.join(",") }}
+                    className="btn-gold focus-mist inline-flex px-6 py-2.5 text-small"
+                  >
+                    {es
+                      ? `Comparar ${seats.length} perspectivas →`
+                      : `Compare ${seats.length} perspectives →`}
+                  </Link>
+                )}
+              </div>
+              <ul className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                {results.map((id) => {
+                  const p = PHILOSOPHERS[id];
+                  const on = seats.includes(id);
+                  return (
+                    <li key={id}>
+                      <button
+                        type="button"
+                        onClick={() => toggleSeat(id)}
+                        aria-pressed={on}
+                        className={`focus-mist flex h-full w-full items-center justify-between gap-4 rounded-xl border p-5 text-left transition-colors ${
+                          on
+                            ? "border-bronze/60 bg-bronze/10"
+                            : "border-border/60 bg-card/30 hover:border-bronze/40"
+                        }`}
+                      >
+                        <span className="font-serif text-subtitle font-light text-foreground">
+                          {p.name}
+                        </span>
+                        <span aria-hidden="true" className={`text-bronze ${on ? "" : "opacity-0"}`}>
+                          ✓
+                        </span>
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+            </>
           ) : (
             <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {results.map((id) => (

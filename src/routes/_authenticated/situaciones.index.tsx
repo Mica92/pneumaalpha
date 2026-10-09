@@ -5,6 +5,7 @@ import { PageAtmosphere } from "@/components/page-atmosphere";
 import { useI18n } from "@/lib/i18n";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
 import { SITUATIONS } from "@/lib/situations";
+import { IdeasSituacionesTabs } from "@/components/ideas-situaciones-tabs";
 
 const TITLE = `Empieza por la situación que estás viviendo — ${SITE_NAME}`;
 const DESCRIPTION =
@@ -48,6 +49,8 @@ function SituationsIndex() {
               : "You do not need a well-formed question. Pick whatever is closest to your case and Kionas will find the question underneath."}
           </p>
         </header>
+
+        <IdeasSituacionesTabs active="situaciones" />
 
         <ul className="relative mt-12 grid gap-4 md:grid-cols-2">
           {SITUATIONS.map((s) => (

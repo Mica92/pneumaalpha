@@ -6,6 +6,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { PHILOSOPHERS } from "@/lib/philosophers";
 import { useI18n } from "@/lib/i18n";
 import { PageAtmosphere } from "@/components/page-atmosphere";
+import { IdeasSituacionesTabs } from "@/components/ideas-situaciones-tabs";
 
 export const Route = createFileRoute("/_authenticated/ideas/")({
   component: IdeasIndex,
@@ -49,6 +50,7 @@ function IdeasIndex() {
               ? "Cada concepto explicado en lenguaje llano, con las mentes que lo pensaron y las preguntas que abre en tu vida."
               : "Each concept in plain language, with the minds that thought it and the questions it opens in your life."}
           </p>
+          <IdeasSituacionesTabs active="ideas" />
         </div>
 
         <section className="mx-auto max-w-6xl px-5 py-12 md:px-8 md:py-16">

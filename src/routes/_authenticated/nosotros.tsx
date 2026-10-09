@@ -144,11 +144,11 @@ function NosotrosPage() {
 
           <section className="flex justify-center pt-6">
             <Link
-              to="/umbral"
+              to="/mi-mapa"
               className="btn-gold px-6 py-2.5 text-small"
-              aria-label={lang === "es" ? "Volver al inicio" : "Back to home"}
+              aria-label={lang === "es" ? "Ir a tu mapa" : "Go to your map"}
             >
-              {lang === "es" ? "Volver al umbral" : "Back to threshold"}
+              {lang === "es" ? "Ir a tu mapa" : "Go to your map"}
             </Link>
           </section>
         </article>
