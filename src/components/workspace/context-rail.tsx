@@ -44,6 +44,7 @@ type Props = {
   onState: (state: ReflectionState) => void;
   onOpenMemory: () => void;
   onOpenDecision: () => void;
+  className?: string;
 };
 
 export function ContextRail({
@@ -54,6 +55,7 @@ export function ContextRail({
   onState,
   onOpenMemory,
   onOpenDecision,
+  className = "hidden w-[15rem] shrink-0 border-r border-border/40 px-5 py-8 lg:block",
 }: Props) {
   const c = COPY[lang];
   const counts = objects.reduce<Record<string, number>>((acc, o) => {
@@ -62,7 +64,7 @@ export function ContextRail({
   }, {});
 
   return (
-    <aside className="hidden w-[15rem] shrink-0 border-r border-border/40 px-5 py-8 lg:block">
+    <aside className={className}>
       <div className="sticky top-28 space-y-7">
         <section className="space-y-2">
           <h2 className="font-display text-micro uppercase tracking-[0.3em] text-muted-foreground">

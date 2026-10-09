@@ -399,6 +399,8 @@ function ChatBody({
   const [decisionOpen, setDecisionOpen] = useState(false);
   const [savingDecision, setSavingDecision] = useState(false);
   const [focusMode, setFocusMode] = useState(false);
+  const [railOpen, setRailOpen] = useState(true);
+  const [mobileRailOpen, setMobileRailOpen] = useState(false);
 
   const { data: reflection, refetch: refetchReflection } = useQuery({
     queryKey: ["reflection", philosopher],
@@ -621,6 +623,19 @@ function ChatBody({
 
             {/* Desktop actions */}
             <div className="hidden items-center gap-3 md:flex">
+              <button
+                type="button"
+                onClick={() => setRailOpen((v) => !v)}
+                aria-pressed={railOpen}
+                aria-label={lang === "es" ? "Mostrar u ocultar el panel" : "Toggle the side panel"}
+                title={lang === "es" ? "Mostrar u ocultar el panel" : "Toggle the side panel"}
+                className="focus-mist hidden h-9 w-9 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-card hover:text-foreground lg:inline-flex"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <rect x="3" y="4" width="18" height="16" rx="2" />
+                  <line x1="9" y1="4" x2="9" y2="20" />
+                </svg>
+              </button>
               <LanguageSelector />
               <HeaderAction
                 onClick={() => {
@@ -704,6 +719,14 @@ function ChatBody({
                     >
                       {t("chat.migrate")}
                     </MenuItem>
+                    <MenuItem
+                      onClick={() => {
+                        setMobileRailOpen(true);
+                        setActionsOpen(false);
+                      }}
+                    >
+                      {lang === "es" ? "Panel de reflexión" : "Reflection panel"}
+                    </MenuItem>
                     {philosopher === "aquinas" && (
                       <div className="px-3 py-2.5">
                         <CorpusBadge />
@@ -770,7 +793,7 @@ function ChatBody({
         {!embedded && !focusMode && <PneumLensSheet {...lensProps} />}
 
         <div className="flex min-h-0 flex-1">
-          {!embedded && !focusMode && (
+          {!embedded && !focusMode && railOpen && (
             <ContextRail
               lang={lang}
               reflection={reflection ?? null}
@@ -980,6 +1003,41 @@ function ChatBody({
           onSave={handleSaveDecision}
         />
 
+        {mobileRailOpen && (
+          <div
+            className="fixed inset-0 z-50 flex justify-start bg-background/70 backdrop-blur-xl fade-up lg:hidden"
+            onClick={() => setMobileRailOpen(false)}
+          >
+            <aside
+              className="flex h-full w-[17rem] max-w-[85vw] flex-col overflow-y-auto border-r border-border/60 bg-background/95 shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-center justify-between border-b border-border/60 px-5 py-4">
+                <p className="font-display text-micro uppercase tracking-[0.3em] text-muted-foreground">
+                  {lang === "es" ? "Tu reflexión" : "Your reflection"}
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setMobileRailOpen(false)}
+                  aria-label={lang === "es" ? "Cerrar" : "Close"}
+                  className="focus-mist inline-flex h-8 w-8 items-center justify-center rounded-md text-muted-foreground transition-colors hover:text-foreground"
+                >
+                  ✕
+                </button>
+              </div>
+              <ContextRail
+                lang={lang}
+                reflection={reflection ?? null}
+                objects={objects}
+                patterns={patterns}
+                onState={setReflectionState}
+                onOpenMemory={() => { setMobileRailOpen(false); setMemoryOpen(true); }}
+                onOpenDecision={() => { setMobileRailOpen(false); setDecisionOpen(true); }}
+                className="flex-1 px-5 py-5"
+              />
+            </aside>
+          </div>
+        )}
 
         {archiveOpen && (
           <div
