@@ -86,7 +86,8 @@ const CATEGORY_FRAMING: Record<EditorialCategoryId, LocalizedText> = {
 };
 
 export type EditorialSection = { heading: LocalizedText; paragraphs: LocalizedText[] };
-export type EditorialArticle = Seed & { author: string; publishedAt: string; readingMinutes: number; sections: EditorialSection[] };
+export type EditorialImage = { src: string; alt: LocalizedText; author: string; source: string; license: string; pageUrl: string; addedAt: string };
+export type EditorialArticle = Seed & { author: string; publishedAt: string; readingMinutes: number; sections: EditorialSection[]; image?: EditorialImage };
 
 export const EDITORIAL_ARTICLES: EditorialArticle[] = S.map((seed, index) => ({
   ...seed,
