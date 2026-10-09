@@ -206,6 +206,13 @@ export function SiteNav({ className = "" }: { className?: string }) {
               {lang === "es" ? "Explorador" : "Explorer"}
             </Link>
             <Link
+              to="/comparar"
+              onClick={() => setOpen(false)}
+              className="focus-mist border-b border-border/30 py-3 text-small text-muted-foreground transition-colors hover:text-foreground"
+            >
+              {lang === "es" ? "Comparar perspectivas" : "Compare perspectives"}
+            </Link>
+            <Link
               to="/recorrido"
               onClick={() => setOpen(false)}
               className="focus-mist border-b border-border/30 py-3 text-small text-muted-foreground transition-colors hover:text-foreground"

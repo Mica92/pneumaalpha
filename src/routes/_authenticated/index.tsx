@@ -465,7 +465,17 @@ function Home() {
                 </li>
               ))}
             </ul>
-            <p className="mt-8 max-w-2xl text-small leading-relaxed text-muted-foreground">
+            <div className="mt-8 flex flex-wrap items-center gap-4">
+              <Link to="/comparar" className="btn-gold focus-mist inline-flex px-6 py-2.5 text-small">
+                {es ? "Comparar perspectivas" : "Compare perspectives"}
+              </Link>
+              <p className="max-w-md text-small leading-relaxed text-muted-foreground">
+                {es
+                  ? "Una misma pregunta, respondida en paralelo por dos o tres mentes."
+                  : "One question, answered side by side by two or three minds."}
+              </p>
+            </div>
+            <p className="mt-6 max-w-2xl text-small leading-relaxed text-muted-foreground">
               {es
                 ? "Primero eliges desde qué lente mirar la situación; después aparecen los pensadores que representan esa lente."
                 : "First you choose the lens to look through; then the thinkers who represent that lens appear."}

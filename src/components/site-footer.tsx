@@ -6,6 +6,7 @@ const GROUPS = [
   { es:"Pensar", en:"Think", links:[
     {to:"/oraculo",es:"Espacio de reflexión",en:"Reflection space"},
     {to:"/explorar",es:"Oráculo",en:"Oracle"},
+    {to:"/comparar",es:"Comparar perspectivas",en:"Compare perspectives"},
     {to:"/dialogos",es:"Diálogos",en:"Dialogues"},
     {to:"/explorador",es:"Explorador",en:"Explorer"},
     {to:"/umbral",es:"Instrumentos",en:"Instruments"},
