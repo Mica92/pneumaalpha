@@ -402,6 +402,16 @@ function ChatBody({
   const [railOpen, setRailOpen] = useState(true);
   const [mobileRailOpen, setMobileRailOpen] = useState(false);
 
+  // Preguntas ya formuladas en esta conversación — historial compacto del panel lateral.
+  const questions = useMemo(
+    () =>
+      messages
+        .filter((m) => m.role === "user")
+        .map((m) => m.parts.map((p) => (p.type === "text" ? p.text : "")).join("").trim())
+        .filter(Boolean),
+    [messages],
+  );
+
   const { data: reflection, refetch: refetchReflection } = useQuery({
     queryKey: ["reflection", philosopher],
     queryFn: () => openReflectionFn({ data: { philosopher } }),
@@ -799,6 +809,7 @@ function ChatBody({
               reflection={reflection ?? null}
               objects={objects}
               patterns={patterns}
+              questions={questions}
               onState={setReflectionState}
               onOpenMemory={() => setMemoryOpen(true)}
               onOpenDecision={() => setDecisionOpen(true)}
@@ -1030,6 +1041,7 @@ function ChatBody({
                 reflection={reflection ?? null}
                 objects={objects}
                 patterns={patterns}
+                questions={questions}
                 onState={setReflectionState}
                 onOpenMemory={() => { setMobileRailOpen(false); setMemoryOpen(true); }}
                 onOpenDecision={() => { setMobileRailOpen(false); setDecisionOpen(true); }}

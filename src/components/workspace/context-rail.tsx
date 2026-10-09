@@ -1,3 +1,4 @@
+import { useMemo, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import {
   KIND_LABEL,
@@ -21,6 +22,9 @@ const COPY = {
     decision: "Registrar decisión",
     patterns: "Kionas observa",
     inThree: "En varias reflexiones",
+    search: "Buscar en esta reflexión",
+    history: "Preguntas",
+    noResults: "Sin resultados.",
   },
   en: {
     thisReflection: "This reflection",
@@ -33,6 +37,9 @@ const COPY = {
     decision: "Record a decision",
     patterns: "Kionas notices",
     inThree: "Across several reflections",
+    search: "Search this reflection",
+    history: "Questions",
+    noResults: "No results.",
   },
 } as const;
 
@@ -44,6 +51,8 @@ type Props = {
   onState: (state: ReflectionState) => void;
   onOpenMemory: () => void;
   onOpenDecision: () => void;
+  /** Preguntas ya formuladas en esta conversación (historial compacto). */
+  questions?: string[];
   className?: string;
 };
 
@@ -55,13 +64,25 @@ export function ContextRail({
   onState,
   onOpenMemory,
   onOpenDecision,
+  questions = [],
   className = "hidden w-[15rem] shrink-0 border-r border-border/40 px-5 py-8 lg:block",
 }: Props) {
   const c = COPY[lang];
+  const [query, setQuery] = useState("");
   const counts = objects.reduce<Record<string, number>>((acc, o) => {
     acc[o.kind] = (acc[o.kind] ?? 0) + 1;
     return acc;
   }, {});
+
+  const q = query.trim().toLowerCase();
+  const filteredObjects = useMemo(
+    () => (q ? objects.filter((o) => o.text.toLowerCase().includes(q)) : objects),
+    [objects, q],
+  );
+  const filteredQuestions = useMemo(
+    () => (q ? questions.filter((t) => t.toLowerCase().includes(q)) : questions),
+    [questions, q],
+  );
 
   return (
     <aside className={className}>
@@ -106,21 +127,77 @@ export function ContextRail({
           <h2 className="font-display text-micro uppercase tracking-[0.3em] text-muted-foreground">
             {c.objects}
           </h2>
+          <input
+            type="search"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder={c.search}
+            aria-label={c.search}
+            className="focus-mist w-full rounded-md border border-border/60 bg-background/60 px-2.5 py-1.5 text-micro text-foreground placeholder:text-muted-foreground/70 transition-colors hover:border-bronze/50"
+          />
           {objects.length === 0 ? (
             <p className="text-micro leading-relaxed text-muted-foreground">{c.empty}</p>
+          ) : filteredObjects.length === 0 ? (
+            <p className="text-micro leading-relaxed text-muted-foreground">{c.noResults}</p>
           ) : (
-            <ul className="space-y-1">
-              {Object.entries(counts).map(([kind, n]) => (
-                <li key={kind} className="flex items-baseline justify-between text-micro">
-                  <span className={KIND_TONE[kind as keyof typeof KIND_TONE]}>
-                    {KIND_LABEL[kind as keyof typeof KIND_LABEL][lang]}
-                  </span>
-                  <span className="text-muted-foreground">{n}</span>
-                </li>
-              ))}
-            </ul>
+            <>
+              <ul className="space-y-0.5">
+                {Object.entries(counts).map(([kind, n]) => (
+                  <li key={kind} className="flex items-baseline justify-between text-micro">
+                    <span className={KIND_TONE[kind as keyof typeof KIND_TONE]}>
+                      {KIND_LABEL[kind as keyof typeof KIND_LABEL][lang]}
+                    </span>
+                    <span className="text-muted-foreground">{n}</span>
+                  </li>
+                ))}
+              </ul>
+              <ul className="space-y-1.5 border-t border-border/40 pt-2">
+                {filteredObjects.map((o) => (
+                  <li key={o.id}>
+                    <button
+                      type="button"
+                      onClick={onOpenMemory}
+                      title={o.text}
+                      className="focus-mist block w-full text-left text-micro leading-snug text-foreground/80 transition-colors hover:text-foreground"
+                    >
+                      <span className={`mr-1 ${KIND_TONE[o.kind]}`}>
+                        {KIND_LABEL[o.kind][lang]}:
+                      </span>
+                      <span className="text-muted-foreground">
+                        {o.text.length > 72 ? `${o.text.slice(0, 69).trimEnd()}…` : o.text}
+                      </span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </>
           )}
         </section>
+
+        {questions.length > 0 && (
+          <section className="space-y-2">
+            <h2 className="font-display text-micro uppercase tracking-[0.3em] text-muted-foreground">
+              {c.history}
+            </h2>
+            {filteredQuestions.length === 0 ? (
+              <p className="text-micro leading-relaxed text-muted-foreground">{c.noResults}</p>
+            ) : (
+              <ul className="space-y-1">
+                {filteredQuestions
+                  .slice(-8)
+                  .reverse()
+                  .map((t, i) => (
+                    <li
+                      key={`${i}-${t.slice(0, 12)}`}
+                      className="text-micro leading-snug text-muted-foreground"
+                    >
+                      {t.length > 80 ? `${t.slice(0, 77).trimEnd()}…` : t}
+                    </li>
+                  ))}
+              </ul>
+            )}
+          </section>
+        )}
 
         {patterns.length > 0 && (
           <section className="space-y-2">
