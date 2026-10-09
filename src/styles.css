@@ -184,6 +184,46 @@
   --keep: oklch(0.66 0.055 135);
 }
 
+/* --- Tema claro (opt-in). El tema por defecto sigue siendo el oscuro. --- */
+.light {
+  --background: oklch(0.965 0.006 85);
+  --foreground: oklch(0.20 0.008 60);
+  --card: oklch(0.975 0.006 85);
+  --card-foreground: oklch(0.20 0.008 60);
+  --popover: oklch(0.99 0.003 85);
+  --popover-foreground: oklch(0.20 0.008 60);
+  --primary: oklch(0.56 0.062 76);
+  --primary-foreground: oklch(0.98 0.004 85);
+  --secondary: oklch(0.925 0.006 85);
+  --secondary-foreground: oklch(0.20 0.008 60);
+  --muted: oklch(0.935 0.005 85);
+  --muted-foreground: oklch(0.46 0.012 70);
+  --accent: oklch(0.925 0.006 85);
+  --accent-foreground: oklch(0.20 0.008 60);
+  --destructive: oklch(0.55 0.16 25);
+  --destructive-foreground: oklch(0.98 0.004 85);
+  --border: oklch(0.86 0.010 80);
+  --input: oklch(0.935 0.005 85);
+  --ring: oklch(0.56 0.062 76);
+  --ink: oklch(0.20 0.008 60);
+  --surface: oklch(0.935 0.005 85);
+  --paper: oklch(0.965 0.006 85);
+  --bronze: oklch(0.56 0.062 76);
+  --bronze-bright: oklch(0.48 0.060 70);
+  --bronze-soft: oklch(0.64 0.048 78);
+  --mist: oklch(0.20 0.008 60);
+  --glacier: oklch(0.56 0.062 76);
+  --glacier-bright: oklch(0.48 0.060 70);
+  --fog: oklch(0.64 0.048 78);
+  --sage: oklch(0.48 0.060 70);
+  --tension: oklch(0.50 0.09 245);
+  --keep: oklch(0.47 0.07 135);
+}
+
+/* El fondo arquitectónico y el ruido están calibrados para tinta: se neutralizan en claro. */
+.light body::before,
+.light body::after { display: none; }
+
 @media (max-width: 767px) {
   body {
     padding-bottom: 3.5rem;

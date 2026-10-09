@@ -3,6 +3,7 @@ import { Link, useNavigate } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
 import { PneumaMark } from "@/components/pneuma-mark";
 import { LanguageSelector, useI18n } from "@/lib/i18n";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { useAuth } from "@/hooks/use-auth";
 import { lovable } from "@/integrations/lovable";
 import { supabase } from "@/integrations/supabase/client";
@@ -98,6 +99,7 @@ export function SiteNav({ className = "" }: { className?: string }) {
           </Link>
 
           <LanguageSelector />
+          <ThemeToggle />
 
           {signedIn ? (
             <>
@@ -150,6 +152,7 @@ export function SiteNav({ className = "" }: { className?: string }) {
             <SearchIcon />
           </Link>
           <LanguageSelector />
+          <ThemeToggle />
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}

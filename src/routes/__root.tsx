@@ -19,6 +19,7 @@ import { GreekGlyph } from "@/components/greek-glyph";
 import { ArchitecturalBackground } from "@/components/architectural-background";
 import { MobileTabBar } from "@/components/site-nav";
 import { SITE_URL, SITE_NAME } from "@/lib/site";
+import { useThemeBoot } from "@/lib/theme";
 
 function NotFoundComponent() {
   return (
@@ -160,6 +161,9 @@ function RootComponent() {
     });
     return () => subscription.unsubscribe();
   }, [router, queryClient]);
+
+  // Tema claro/oscuro: se aplica en cada carga de página.
+  useThemeBoot();
 
   return (
     <QueryClientProvider client={queryClient}>
