@@ -69,7 +69,24 @@ const COPY = {
   next: { es: "Siguientes pasos", en: "Next steps" },
   loading: { es: "Cargando tu mapa…", en: "Loading your map…" },
   remove: { es: "Quitar del mapa", en: "Remove from map" },
+  instruments: { es: "Tus instrumentos", en: "Your instruments" },
+  instrumentsSub: {
+    es: "Accesos directos a las herramientas de Kionas.",
+    en: "Shortcuts to Kionas' tools.",
+  },
 } as const;
+
+const INSTRUMENTS: { to: string; es: string; en: string; d: { es: string; en: string } }[] = [
+  { to: "/oraculo", es: "Espacio de reflexión", en: "Reflection space", d: { es: "Conversa con una mente.", en: "Converse with a mind." } },
+  { to: "/comparar", es: "Comparar perspectivas", en: "Compare perspectives", d: { es: "Dos o tres mentes, una pregunta.", en: "Two or three minds, one question." } },
+  { to: "/dialogos", es: "Diálogos filosóficos", en: "Philosophical dialogues", d: { es: "Razona desde una tradición.", en: "Reason from a tradition." } },
+  { to: "/explorador", es: "Explorador ontológico", en: "Ontological explorer", d: { es: "El significado de una palabra.", en: "The meaning of a word." } },
+  { to: "/analisis", es: "Análisis", en: "Analysis", d: { es: "Descompón una idea.", en: "Break an idea apart." } },
+  { to: "/mesa", es: "Mesa redonda", en: "Round table", d: { es: "Tres mentes debaten.", en: "Three minds debate." } },
+  { to: "/modo-socrates", es: "Modo Sócrates", en: "Socratic mode", d: { es: "Preguntas que afinan.", en: "Questions that sharpen." } },
+  { to: "/reporte", es: "Reporte", en: "Report", d: { es: "Sintetiza tu exploración.", en: "Synthesize your exploration." } },
+  { to: "/conocimiento", es: "Red de ideas", en: "Idea network", d: { es: "El mapa universal.", en: "The universal map." } },
+];
 
 function PersonalMapPage() {
   const { lang } = useI18n();
@@ -266,6 +283,25 @@ function PersonalMapPage() {
             )}
           </>
         )}
+
+        <section className="mt-14 border-t border-border/60 pt-10">
+          <p className="label text-primary">{COPY.instruments[lang]}</p>
+          <p className="mt-2 max-w-xl text-micro text-muted-foreground">{COPY.instrumentsSub[lang]}</p>
+          <ul className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {INSTRUMENTS.map((ins) => (
+              <li key={ins.to}>
+                <Link
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  to={ins.to as any}
+                  className="card-editorial focus-mist block h-full p-5 transition-colors hover:border-primary/50"
+                >
+                  <span className="font-serif text-subtitle font-light text-foreground">{ins[lang]}</span>
+                  <span className="mt-1 block text-micro text-muted-foreground">{ins.d[lang]}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
       </main>
       <SiteFooter />
     </>

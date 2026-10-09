@@ -3,26 +3,26 @@ import { PneumaMark } from "@/components/pneuma-mark";
 import { useI18n } from "@/lib/i18n";
 
 const GROUPS = [
-  { es:"Pensar", en:"Think", links:[
-    {to:"/oraculo",es:"Espacio de reflexión",en:"Reflection space"},
-    {to:"/explorar",es:"Oráculo",en:"Oracle"},
-    {to:"/comparar",es:"Comparar perspectivas",en:"Compare perspectives"},
-    {to:"/dialogos",es:"Diálogos",en:"Dialogues"},
-    {to:"/explorador",es:"Explorador",en:"Explorer"},
-    {to:"/umbral",es:"Instrumentos",en:"Instruments"},
-  ]},
   { es:"Explorar", en:"Explore", links:[
-    {to:"/editorial",es:"Editorial",en:"Editorial"},
+    {to:"/mi-mapa",es:"Mapa",en:"Map"},
+    {to:"/explorar",es:"Explorar",en:"Explore"},
     {to:"/filosofos",es:"Perspectivas",en:"Perspectives"},
     {to:"/ideas",es:"Ideas",en:"Ideas"},
-    {to:"/rutas",es:"Rutas",en:"Paths"},
-    {to:"/situaciones",es:"Situaciones",en:"Situations"},
-    {to:"/conocimiento",es:"Red",en:"Network"},
+    {to:"/editorial",es:"Editorial",en:"Editorial"},
+  ]},
+  { es:"Instrumentos", en:"Instruments", links:[
+    {to:"/oraculo",es:"Espacio de reflexión",en:"Reflection space"},
+    {to:"/comparar",es:"Comparar perspectivas",en:"Compare perspectives"},
+    {to:"/dialogos",es:"Diálogos filosóficos",en:"Philosophical dialogues"},
+    {to:"/explorador",es:"Explorador ontológico",en:"Ontological explorer"},
+    {to:"/analisis",es:"Análisis",en:"Analysis"},
+    {to:"/mesa",es:"Mesa redonda",en:"Round table"},
+    {to:"/modo-socrates",es:"Modo Sócrates",en:"Socratic mode"},
+    {to:"/conocimiento",es:"Red de ideas",en:"Idea network"},
   ]},
   { es:"Tu espacio", en:"Your space", links:[
-    {to:"/mi-mapa",es:"Mapa",en:"Map"},
     {to:"/recorrido",es:"Recorrido",en:"Journey"},
-    {to:"/biblioteca",es:"Biblioteca",en:"Library"},
+    {to:"/rutas",es:"Rutas",en:"Paths"},
     {to:"/perfil",es:"Perfil y memoria",en:"Profile and memory"},
   ]},
   { es:"Kionas.app", en:"Kionas.app", links:[

@@ -13,14 +13,11 @@ type NavItem = { to: string; es: string; en: string };
 
 /** Navegación mínima: cuatro entradas. Todo lo demás vive dentro del recorrido. */
 const PRIMARY: readonly NavItem[] = [
-  { to: "/oraculo", es: "Pensar", en: "Think" },
-  { to: "/explorar", es: "Explorar", en: "Explore" },
   { to: "/mi-mapa", es: "Mapa", en: "Map" },
-  { to: "/conocimiento", es: "Red", en: "Network" },
+  { to: "/explorar", es: "Explorar", en: "Explore" },
   { to: "/filosofos", es: "Perspectivas", en: "Perspectives" },
+  { to: "/ideas", es: "Ideas", en: "Ideas" },
   { to: "/editorial", es: "Editorial", en: "Editorial" },
-  { to: "/dialogos", es: "Diálogos", en: "Dialogues" },
-  { to: "/explorador", es: "Explorador", en: "Explorer" },
 ] as const;
 
 function isGoogleUser(user: ReturnType<typeof useAuth>["user"]) {
@@ -185,34 +182,6 @@ export function SiteNav({ className = "" }: { className?: string }) {
               </Link>
             ))}
             <Link
-              to="/umbral"
-              onClick={() => setOpen(false)}
-              className="focus-mist border-b border-border/30 py-3 text-small text-muted-foreground transition-colors hover:text-foreground"
-            >
-              {lang === "es" ? "Instrumentos" : "Instruments"}
-            </Link>
-            <Link
-              to="/dialogos"
-              onClick={() => setOpen(false)}
-              className="focus-mist border-b border-border/30 py-3 text-small text-muted-foreground transition-colors hover:text-foreground"
-            >
-              {lang === "es" ? "Diálogos" : "Dialogues"}
-            </Link>
-            <Link
-              to="/explorador"
-              onClick={() => setOpen(false)}
-              className="focus-mist border-b border-border/30 py-3 text-small text-muted-foreground transition-colors hover:text-foreground"
-            >
-              {lang === "es" ? "Explorador" : "Explorer"}
-            </Link>
-            <Link
-              to="/comparar"
-              onClick={() => setOpen(false)}
-              className="focus-mist border-b border-border/30 py-3 text-small text-muted-foreground transition-colors hover:text-foreground"
-            >
-              {lang === "es" ? "Comparar perspectivas" : "Compare perspectives"}
-            </Link>
-            <Link
               to="/recorrido"
               onClick={() => setOpen(false)}
               className="focus-mist border-b border-border/30 py-3 text-small text-muted-foreground transition-colors hover:text-foreground"
@@ -261,9 +230,9 @@ export function MobileTabBar() {
   const { lang } = useI18n();
   const tabs: readonly NavItem[] = [
     { to: "/", es: "Inicio", en: "Home" },
-    { to: "/oraculo", es: "Pensar", en: "Think" },
     { to: "/mi-mapa", es: "Mapa", en: "Map" },
     { to: "/explorar", es: "Explorar", en: "Explore" },
+    { to: "/ideas", es: "Ideas", en: "Ideas" },
   ];
   return (
     <nav

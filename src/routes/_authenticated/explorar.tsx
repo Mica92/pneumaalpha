@@ -97,6 +97,7 @@ function ExplorePage() {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
+  const [guideOpen, setGuideOpen] = useState(false);
 
   useEffect(() => {
     inputRef.current?.focus();
@@ -274,75 +275,95 @@ function ExplorePage() {
           </section>
         )}
 
-        {/* ── Guía de temas y preguntas ─────────────────────────── */}
+        {/* ── Preguntas sugeridas (desplegable) ─────────────────── */}
         <section className="mt-20" aria-labelledby="guide-heading">
           <div className="rule-hairline mb-6" />
-          <h2 id="guide-heading" className="font-serif text-heading font-light text-foreground">
-            {COPY.guideTitle[lang]}
-          </h2>
-          <p className="mt-2 text-small text-muted-foreground">{COPY.guideSub[lang]}</p>
+          <button
+            type="button"
+            id="guide-heading"
+            onClick={() => setGuideOpen((v) => !v)}
+            aria-expanded={guideOpen}
+            aria-controls="guide-content"
+            className="focus-mist flex w-full items-center justify-between gap-4 text-left"
+          >
+            <span className="font-serif text-heading font-light text-foreground">
+              {lang === "es" ? "Preguntas sugeridas" : "Suggested questions"}
+            </span>
+            <span
+              aria-hidden="true"
+              className={`text-muted-foreground transition-transform duration-200 ${guideOpen ? "rotate-180" : ""}`}
+            >
+              ↓
+            </span>
+          </button>
 
-          <h3 className="label mt-8">{COPY.topics[lang]}</h3>
-          <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {CATEGORIES.map((c) => (
-              <button
-                key={c.id}
-                type="button"
-                onClick={() => pick(c.seed[lang])}
-                className="card-editorial p-4 text-left transition-colors hover:border-bronze/50"
-              >
-                <span className="font-serif text-subtitle text-bronze">{c.glyph}</span>
-                <p className="mt-2 font-serif text-subtitle text-foreground">{c.title[lang]}</p>
-                <p className="mt-1 text-micro text-muted-foreground">{c.tags[lang]}</p>
-              </button>
-            ))}
-          </div>
+          {guideOpen && (
+            <div id="guide-content" className="mt-6">
+              <p className="text-small text-muted-foreground">{COPY.guideSub[lang]}</p>
 
-          <h3 className="label mt-10">{COPY.problems[lang]}</h3>
-          <div className="mt-3 flex flex-wrap gap-2">
-            {REAL_PROBLEMS.map((p) => (
-              <button
-                key={p.id}
-                type="button"
-                onClick={() => pick(p.text[lang])}
-                className="rounded-full border border-border/70 px-4 py-2 text-small text-muted-foreground transition-colors hover:border-bronze/60 hover:text-foreground"
-              >
-                {p.text[lang]}
-              </button>
-            ))}
-          </div>
+              <h3 className="label mt-8">{COPY.topics[lang]}</h3>
+              <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                {CATEGORIES.map((c) => (
+                  <button
+                    key={c.id}
+                    type="button"
+                    onClick={() => pick(c.seed[lang])}
+                    className="card-editorial p-4 text-left transition-colors hover:border-bronze/50"
+                  >
+                    <span className="font-serif text-subtitle text-bronze">{c.glyph}</span>
+                    <p className="mt-2 font-serif text-subtitle text-foreground">{c.title[lang]}</p>
+                    <p className="mt-1 text-micro text-muted-foreground">{c.tags[lang]}</p>
+                  </button>
+                ))}
+              </div>
 
-          <h3 className="label mt-10">{COPY.questions[lang]}</h3>
-          <ul className="mt-3 grid gap-2 sm:grid-cols-2">
-            {questions.map((q) => (
-              <li key={q}>
-                <button
-                  type="button"
-                  onClick={() => pick(q)}
-                  className="w-full border-b border-border/40 py-3 text-left font-serif text-lg text-foreground/90 transition-colors hover:text-bronze"
-                >
-                  {q}
-                </button>
-              </li>
-            ))}
-          </ul>
+              <h3 className="label mt-10">{COPY.problems[lang]}</h3>
+              <div className="mt-3 flex flex-wrap gap-2">
+                {REAL_PROBLEMS.map((p) => (
+                  <button
+                    key={p.id}
+                    type="button"
+                    onClick={() => pick(p.text[lang])}
+                    className="rounded-full border border-border/70 px-4 py-2 text-small text-muted-foreground transition-colors hover:border-bronze/60 hover:text-foreground"
+                  >
+                    {p.text[lang]}
+                  </button>
+                ))}
+              </div>
 
-          <h3 className="label mt-10">
-            {lang === "es" ? "Preguntas centrales de cada mente" : "Each mind's central question"}
-          </h3>
-          <ul className="mt-3 flex flex-wrap gap-2">
-            {(Object.keys(PHILOSOPHERS) as PhilosopherId[]).slice(0, 10).map((id) => (
-              <li key={id}>
-                <button
-                  type="button"
-                  onClick={() => pick(centralQuestion(id, lang))}
-                  className="rounded-full border border-border/70 px-4 py-2 text-small text-muted-foreground transition-colors hover:border-bronze/60 hover:text-foreground"
-                >
-                  {centralQuestion(id, lang)}
-                </button>
-              </li>
-            ))}
-          </ul>
+              <h3 className="label mt-10">{COPY.questions[lang]}</h3>
+              <ul className="mt-3 grid gap-2 sm:grid-cols-2">
+                {questions.map((q) => (
+                  <li key={q}>
+                    <button
+                      type="button"
+                      onClick={() => pick(q)}
+                      className="w-full border-b border-border/40 py-3 text-left font-serif text-lg text-foreground/90 transition-colors hover:text-bronze"
+                    >
+                      {q}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+
+              <h3 className="label mt-10">
+                {lang === "es" ? "Preguntas centrales de cada mente" : "Each mind's central question"}
+              </h3>
+              <ul className="mt-3 flex flex-wrap gap-2">
+                {(Object.keys(PHILOSOPHERS) as PhilosopherId[]).slice(0, 10).map((id) => (
+                  <li key={id}>
+                    <button
+                      type="button"
+                      onClick={() => pick(centralQuestion(id, lang))}
+                      className="rounded-full border border-border/70 px-4 py-2 text-small text-muted-foreground transition-colors hover:border-bronze/60 hover:text-foreground"
+                    >
+                      {centralQuestion(id, lang)}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </section>
       </main>
       <SiteFooter />
