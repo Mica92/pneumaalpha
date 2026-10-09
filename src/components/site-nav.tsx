@@ -19,6 +19,8 @@ const PRIMARY: readonly NavItem[] = [
   { to: "/conocimiento", es: "Red", en: "Network" },
   { to: "/filosofos", es: "Perspectivas", en: "Perspectives" },
   { to: "/editorial", es: "Editorial", en: "Editorial" },
+  { to: "/dialogos", es: "Diálogos", en: "Dialogues" },
+  { to: "/explorador", es: "Explorador", en: "Explorer" },
 ] as const;
 
 function isGoogleUser(user: ReturnType<typeof useAuth>["user"]) {
@@ -76,7 +78,7 @@ export function SiteNav({ className = "" }: { className?: string }) {
           <PneumaMark size={24} withWordmark />
         </Link>
 
-        <div className="hidden items-center gap-7 md:flex">
+        <div className="hidden items-center gap-5 md:flex">
           {PRIMARY.map((item) => (
             <Link
               key={item.to}
