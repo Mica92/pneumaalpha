@@ -6,8 +6,8 @@ const COPY = {
   es: {
     title: "¿Qué estás intentando comprender?",
     placeholder:
-      "Cuéntame lo que está ocurriendo, incluso si todavía no sabes exactamente cómo formularlo.",
-    send: "Enviar",
+      "Cuéntame lo que está ocurriendo, incluso si no sabes cómo formularlo. Ej.: «¿debería cambiar de trabajo?»",
+    send: "Pensar",
     mic: "Dictar",
     micStop: "Detener dictado",
     hint: "Enter envía · Mayús+Enter salta de línea",
@@ -21,8 +21,8 @@ const COPY = {
   },
   en: {
     title: "What are you trying to understand?",
-    placeholder: "Tell me what is happening, even if you can't phrase it precisely yet.",
-    send: "Send",
+    placeholder: "Tell me what is happening, even if you can't phrase it precisely yet. E.g. «should I change jobs?»",
+    send: "Think",
     mic: "Dictate",
     micStop: "Stop dictation",
     hint: "Enter sends · Shift+Enter adds a line",

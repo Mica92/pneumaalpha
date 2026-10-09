@@ -200,6 +200,15 @@
 @layer base {
   * { border-color: var(--color-border); }
 
+  /* Affordance: lo clicable se siente clicable (Tailwind v4 deja cursor:default en botones) */
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  a[href],
+  label[for],
+  summary,
+  select { cursor: pointer; }
+  button:disabled, [aria-disabled="true"] { cursor: not-allowed; }
+
   html {
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;

@@ -761,7 +761,9 @@ function ChatBody({
         {!embedded && !focusMode && (
           <div className="sticky top-[57px] z-10 md:top-[73px]">
             <TopicBar activeTopic={activeTopic} onPick={handleTopicPick} disabled={isLoading} />
-            <DilemmaBanner onConverse={handleDilemma} disabled={isLoading} />
+            {messages.length === 0 && (
+              <DilemmaBanner onConverse={handleDilemma} disabled={isLoading} />
+            )}
           </div>
         )}
 

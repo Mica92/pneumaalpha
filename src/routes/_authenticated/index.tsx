@@ -272,8 +272,8 @@ function Home() {
           }}
           placeholder={
             es
-              ? "Cuéntame la situación con tus propias palabras…"
-              : "Tell me the situation in your own words…"
+              ? "Cuéntame la situación con tus propias palabras… (ej. ¿debería cambiar de trabajo?)"
+              : "Tell me the situation in your own words… (e.g. should I change jobs?)"
           }
           className="focus-mist mt-4 w-full resize-y rounded-md border border-border bg-background/70 px-4 py-4 text-body leading-relaxed text-foreground transition-colors placeholder:text-muted-foreground/70 hover:border-bronze/60"
         />
