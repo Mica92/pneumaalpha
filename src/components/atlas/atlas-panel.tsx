@@ -90,7 +90,7 @@ export function AtlasPanel({ entity, relation, onSelect, onClose, onAdd, reason,
             src={portrait}
             alt={entity.label[lang]}
             loading="lazy"
-            className="h-16 w-16 shrink-0 rounded-full object-cover grayscale"
+            className="h-16 w-16 shrink-0 rounded-full object-cover grayscale portrait-bronze"
           />
         )}
         <div>

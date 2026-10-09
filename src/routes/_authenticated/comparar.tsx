@@ -246,7 +246,7 @@ function ComparePage() {
                           loading="lazy"
                           width={40}
                           height={40}
-                          className={`h-10 w-10 rounded-full border border-border/70 object-cover ${portraitFocus(turn.philosopher)} grayscale`}
+                          className={`h-10 w-10 rounded-full border border-border/70 object-cover ${portraitFocus(turn.philosopher)} grayscale portrait-bronze`}
                         />
                       ) : (
                         <span aria-hidden="true" className="font-serif text-subtitle text-bronze">

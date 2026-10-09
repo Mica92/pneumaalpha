@@ -4,6 +4,7 @@ import { PHILOSOPHER_LIST } from "@/lib/philosophers";
 import { SITUATIONS } from "@/lib/situations";
 import { SITE_URL } from "@/lib/site";
 import { EDITORIAL_ARTICLES } from "@/lib/editorial";
+import { IDEAS, ROUTES } from "@/lib/discovery";
 
 export const Route = createFileRoute("/sitemap.xml")({
   server: {
@@ -36,6 +37,9 @@ export const Route = createFileRoute("/sitemap.xml")({
           ...SITUATIONS.map((s) => `/situaciones/${s.id}`),
           ...EDITORIAL_ARTICLES.map((a) => `/editorial/${a.category}/${a.slug}`),
           ...PHILOSOPHER_LIST.map((p) => `/${p.id}`),
+          ...PHILOSOPHER_LIST.map((p) => `/filosofos/${p.id}`),
+          ...IDEAS.map((i) => `/ideas/${i.id}`),
+          ...ROUTES.map((r) => `/rutas/${r.id}`),
         ];
         const urls = paths.map(
           (path) =>

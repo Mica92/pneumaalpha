@@ -26,7 +26,7 @@ export function PhilosopherCard({ id }: { id: PhilosopherId }) {
               src={portrait}
               alt={`${p.name}, ${profile?.years ?? ""}`}
               loading="lazy"
-              className={`h-full w-full object-cover ${portraitFocus(id)} opacity-70 grayscale transition-all duration-700 group-hover:scale-[1.03] group-hover:opacity-90`}
+              className={`h-full w-full object-cover ${portraitFocus(id)} opacity-70 grayscale portrait-bronze transition-all duration-700 group-hover:scale-[1.03] group-hover:opacity-90`}
             />
           ) : (
             <div className="flex h-full items-center justify-center font-serif text-4xl text-bronze">

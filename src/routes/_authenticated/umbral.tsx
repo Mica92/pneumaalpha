@@ -280,7 +280,7 @@ function Index() {
                       src={portrait}
                       alt={`Retrato de ${p.name}`}
                       loading="lazy"
-                      className={`h-full w-full object-cover ${portraitFocus(p.id)} opacity-40 grayscale brightness-125 contrast-105 transition-all duration-[1200ms] group-hover:scale-[1.04] group-hover:opacity-55`}
+                      className={`h-full w-full object-cover ${portraitFocus(p.id)} opacity-40 grayscale portrait-bronze brightness-125 contrast-105 transition-all duration-[1200ms] group-hover:scale-[1.04] group-hover:opacity-55`}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-card via-card/85 to-card/25" />
                     <div className="absolute inset-0 bg-gradient-to-r from-card/90 via-transparent to-transparent" />

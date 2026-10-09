@@ -6,6 +6,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { PhilosopherCard } from "@/components/philosopher-card";
 import { useI18n } from "@/lib/i18n";
 import { recordIdea } from "@/lib/journey";
+import { SITE_URL } from "@/lib/site";
 
 export const Route = createFileRoute("/_authenticated/ideas/$id")({
   loader: ({ params }) => {
@@ -28,8 +29,10 @@ export const Route = createFileRoute("/_authenticated/ideas/$id")({
         { property: "og:title", content: title },
         { property: "og:description", content: idea.short.es },
         { property: "og:type", content: "article" },
+        { property: "og:url", content: `${SITE_URL}/ideas/${loaderData.id}` },
         { name: "twitter:card", content: "summary" },
       ],
+      links: [{ rel: "canonical", href: `${SITE_URL}/ideas/${loaderData.id}` }],
     };
   },
   component: IdeaPage,

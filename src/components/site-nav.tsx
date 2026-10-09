@@ -136,7 +136,7 @@ export function SiteNav({ className = "" }: { className?: string }) {
               onClick={signIn}
               className="btn-gold focus-mist whitespace-nowrap px-4 py-1.5 text-micro"
             >
-              {lang === "es" ? "Iniciar" : "Start"}
+              {lang === "es" ? "Iniciar sesión" : "Sign in"}
             </button>
           )}
         </div>

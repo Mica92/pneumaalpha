@@ -8,6 +8,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { useI18n } from "@/lib/i18n";
 import { recordRoute } from "@/lib/journey";
 import { AskLink } from "@/components/ask-link";
+import { SITE_URL } from "@/lib/site";
 
 export const Route = createFileRoute("/_authenticated/rutas/$id")({
   loader: ({ params }) => {
@@ -30,8 +31,10 @@ export const Route = createFileRoute("/_authenticated/rutas/$id")({
         { property: "og:title", content: title },
         { property: "og:description", content: r.intro.es },
         { property: "og:type", content: "article" },
+        { property: "og:url", content: `${SITE_URL}/rutas/${loaderData.id}` },
         { name: "twitter:card", content: "summary" },
       ],
+      links: [{ rel: "canonical", href: `${SITE_URL}/rutas/${loaderData.id}` }],
     };
   },
   component: RoutePage,
@@ -81,7 +84,7 @@ function RoutePage() {
                       src={portrait}
                       alt={p.name}
                       loading="lazy"
-                      className={`h-full w-full object-cover ${portraitFocus(step.philosopher)} opacity-75 grayscale`}
+                      className={`h-full w-full object-cover ${portraitFocus(step.philosopher)} opacity-75 grayscale portrait-bronze`}
                     />
                   ) : null}
                 </div>

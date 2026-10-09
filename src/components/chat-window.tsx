@@ -562,7 +562,7 @@ function ChatBody({
             loading="lazy"
             width={1536}
             height={1024}
-            className="h-full w-full object-cover opacity-[0.16] grayscale contrast-105"
+            className="h-full w-full object-cover opacity-[0.16] grayscale portrait-bronze contrast-105"
           />
           <span className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/70 to-background/95" />
         </div>
@@ -597,7 +597,7 @@ function ChatBody({
                     src={portraitOf(philosopher)}
                     alt={`Retrato de ${meta.name}`}
                     loading="lazy"
-                    className={`h-full w-full object-cover ${portraitFocus(philosopher)} grayscale brightness-125 contrast-105`}
+                    className={`h-full w-full object-cover ${portraitFocus(philosopher)} grayscale portrait-bronze brightness-125 contrast-105`}
                   />
                   <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/50 to-transparent" />
                 </span>

@@ -78,7 +78,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       // title / description / og:title / og:description viven en cada ruta hoja para evitar duplicados.
       { property: "og:site_name", content: SITE_NAME },
       { property: "og:type", content: "website" },
+      { property: "og:image", content: `${SITE_URL}/og-image.png` },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: `${SITE_URL}/og-image.png` },
       { name: "theme-color", content: "#0B0B0D" },
       { name: "apple-mobile-web-app-capable", content: "yes" },
       { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },

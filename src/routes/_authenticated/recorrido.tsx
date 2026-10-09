@@ -109,7 +109,7 @@ function JourneyPage() {
                                 src={portrait}
                                 alt={p.name}
                                 loading="lazy"
-                                className={`h-full w-full object-cover ${portraitFocus(m.philosopher)} opacity-80 grayscale`}
+                                className={`h-full w-full object-cover ${portraitFocus(m.philosopher)} opacity-80 grayscale portrait-bronze`}
                               />
                             )}
                           </div>

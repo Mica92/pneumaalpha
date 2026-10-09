@@ -8,6 +8,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { PhilosopherCard } from "@/components/philosopher-card";
 import { useI18n } from "@/lib/i18n";
 import { recordPhilosopher } from "@/lib/journey";
+import { SITE_URL } from "@/lib/site";
 
 export const Route = createFileRoute("/_authenticated/filosofos/$id")({
   loader: ({ params }) => {
@@ -30,8 +31,10 @@ export const Route = createFileRoute("/_authenticated/filosofos/$id")({
         { property: "og:title", content: title },
         { property: "og:description", content: description },
         { property: "og:type", content: "profile" },
+        { property: "og:url", content: `${SITE_URL}/filosofos/${loaderData.id}` },
         { name: "twitter:card", content: "summary" },
       ],
+      links: [{ rel: "canonical", href: `${SITE_URL}/filosofos/${loaderData.id}` }],
     };
   },
   component: PhilosopherProfilePage,
@@ -79,7 +82,7 @@ function PhilosopherProfilePage() {
                   <img
                     src={portrait}
                     alt={`${p.name}, ${profile?.years ?? ""}`}
-                    className={`aspect-[3/4] w-full object-cover ${portraitFocus(id)} opacity-85 grayscale`}
+                    className={`aspect-[3/4] w-full object-cover ${portraitFocus(id)} opacity-85 grayscale portrait-bronze`}
                   />
                 ) : (
                   <div className="flex aspect-[3/4] items-center justify-center font-serif text-6xl text-bronze">

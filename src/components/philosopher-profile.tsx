@@ -35,7 +35,7 @@ export function PhilosopherProfilePanel({ philosopher, open, onClose }: Props) {
             <img
               src={portrait}
               alt={`${lang === "es" ? "Retrato de" : "Portrait of"} ${meta.name}`}
-              className={`h-72 w-full object-cover ${portraitFocus(philosopher)} grayscale brightness-125 contrast-105`}
+              className={`h-72 w-full object-cover ${portraitFocus(philosopher)} grayscale portrait-bronze brightness-125 contrast-105`}
             />
           ) : (
             <div className="flex h-40 w-full items-center justify-center">

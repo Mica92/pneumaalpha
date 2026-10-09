@@ -247,7 +247,7 @@ function SeatTurn({ turn }: { turn: RoundtableTurn }) {
           decoding="async"
           width={44}
           height={44}
-          className={`h-11 w-11 shrink-0 rounded-full border border-border/70 object-cover ${portraitFocus(turn.philosopher)} grayscale brightness-125`}
+          className={`h-11 w-11 shrink-0 rounded-full border border-border/70 object-cover ${portraitFocus(turn.philosopher)} grayscale portrait-bronze brightness-125`}
         />
       ) : (
         <span className="shrink-0 font-display text-subtitle text-mist" aria-hidden="true">
