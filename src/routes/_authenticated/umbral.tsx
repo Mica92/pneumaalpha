@@ -93,17 +93,6 @@ const FEATURES = [
     glow: "bg-sage/20",
   },
   {
-    to: "/mesa",
-    kicker: "mesa.kicker",
-    title: "mesa.card.title",
-    sub: "mesa.card.sub",
-    cta: "mesa.card.cta",
-    accent: "text-glacier-bright",
-    border: "border-glacier/40 hover:border-glacier/75",
-    rule: "bg-gradient-to-r from-transparent via-glacier/60 to-transparent",
-    glow: "bg-glacier/25",
-  },
-  {
     to: "/modo-socrates",
     kicker: "socrates.kicker",
     title: "socrates.card.title",

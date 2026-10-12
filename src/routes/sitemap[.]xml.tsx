@@ -25,7 +25,6 @@ export const Route = createFileRoute("/sitemap.xml")({
           "/analisis",
           "/editorial",
           "/editorial/podcast",
-          "/mesa",
           "/modo-socrates",
           "/nosotros",
           "/privacy",

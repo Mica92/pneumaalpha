@@ -16,7 +16,6 @@ const GROUPS = [
     {to:"/dialogos",es:"Diálogos filosóficos",en:"Philosophical dialogues"},
     {to:"/explorador",es:"Explorador ontológico",en:"Ontological explorer"},
     {to:"/analisis",es:"Análisis",en:"Analysis"},
-    {to:"/mesa",es:"Mesa redonda",en:"Round table"},
     {to:"/modo-socrates",es:"Modo Sócrates",en:"Socratic mode"},
     {to:"/conocimiento",es:"Red de ideas",en:"Idea network"},
   ]},

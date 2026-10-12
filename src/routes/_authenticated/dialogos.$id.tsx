@@ -1,18 +1,37 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { createFileRoute, Link, notFound, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
+import ReactMarkdown from "react-markdown";
 import { SITE_URL } from "@/lib/site";
 import { useI18n } from "@/lib/i18n";
 import { SiteNav } from "@/components/site-nav";
 import { SiteFooter } from "@/components/site-footer";
 import { traditionById, TRADITION_LIST } from "@/lib/traditions";
+import { TraditionBrowser } from "@/components/tradition-browser";
 import { dialogar, contrastar, confrontar } from "@/lib/dialogos.functions";
+
+type Mode = "dialogar" | "contrastar" | "confrontar";
+
+const MODES: { key: Mode; es: string; en: string }[] = [
+  { key: "dialogar", es: "Dialogar", en: "Converse" },
+  { key: "contrastar", es: "Contrastar", en: "Compare" },
+  { key: "confrontar", es: "Confrontar", en: "Confront" },
+];
+
+const MAX_MESSAGES = 40;
 
 export const Route = createFileRoute("/_authenticated/dialogos/$id")({
   loader: ({ params }: { params: { id: string } }) => {
     if (!traditionById(params.id)) throw notFound();
     return { id: params.id };
   },
+  validateSearch: (search: Record<string, unknown>): { mode?: Mode; with?: string } => ({
+    mode:
+      search.mode === "dialogar" || search.mode === "contrastar" || search.mode === "confrontar"
+        ? search.mode
+        : "dialogar",
+    with: typeof search.with === "string" ? search.with.slice(0, 200) : undefined,
+  }),
   head: ({ loaderData }: { loaderData?: { id: string } }) => {
     const t = loaderData ? traditionById(loaderData.id) : undefined;
     if (!t) {
@@ -36,57 +55,59 @@ export const Route = createFileRoute("/_authenticated/dialogos/$id")({
 });
 
 type ChatMsg = { role: "user" | "assistant"; content: string };
-type Tab = "dialogar" | "contrastar" | "confrontar";
 
 function DialogoPage() {
   const { id } = Route.useLoaderData();
+  const { mode = "dialogar", with: withParam } = Route.useSearch();
   const { lang } = useI18n();
   const es = lang === "es";
   const t = traditionById(id)!;
+  const navigate = useNavigate();
 
   const dialogarFn = useServerFn(dialogar);
   const contrastarFn = useServerFn(contrastar);
   const confrontarFn = useServerFn(confrontar);
 
-  const [tab, setTab] = useState<Tab>("dialogar");
-  const [busy, setBusy] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
-  // Modo 1 — dialogar
   const [messages, setMessages] = useState<ChatMsg[]>([]);
   const [input, setInput] = useState("");
-
-  // Modo 2 — contrastar
   const [question, setQuestion] = useState("");
-  const [picks, setPicks] = useState<string[]>([id]);
+  const [picks, setPicks] = useState<string[]>(() => {
+    const ids = withParam ? withParam.split(",").filter((x) => traditionById(x)) : [];
+    return ids.length >= 2 ? ids : [id];
+  });
   const [contrast, setContrast] = useState<string | null>(null);
-
-  // Modo 3 — confrontar
   const [thesis, setThesis] = useState("");
   const [confront, setConfront] = useState<string | null>(null);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [fichaOpen, setFichaOpen] = useState(false);
 
-  const togglePick = (tid: string) => {
+  const togglePick = (tid: string) =>
     setPicks((prev) =>
-      prev.includes(tid)
-        ? prev.filter((p) => p !== tid)
-        : prev.length >= 3
-          ? prev
-          : [...prev, tid],
+      prev.includes(tid) ? prev.filter((p) => p !== tid) : prev.length >= 3 ? prev : [...prev, tid],
     );
+
+  const switchTradition = (newId: string) => {
+    navigate({ to: "/dialogos/$id", params: { id: newId }, search: { mode } });
   };
 
   const send = async () => {
-    if (!input.trim() || busy) return;
-    const next: ChatMsg[] = [...messages, { role: "user", content: input.trim() }];
+    const text = input.trim();
+    if (!text || busy) return;
+    const trimmed = messages.length >= MAX_MESSAGES ? messages.slice(-38) : messages;
+    const next: ChatMsg[] = [...trimmed, { role: "user", content: text }];
     setMessages(next);
     setInput("");
     setBusy(true);
     setError(null);
     try {
       const res = await dialogarFn({ data: { tradition: id, messages: next, language: lang } });
-      setMessages([...next, { role: "assistant", content: res.text }]);
-    } catch (e) {
-      setError(e instanceof Error ? e.message : String(e));
+      if (!res.text) throw new Error("empty");
+      setMessages((prev) => [...prev, { role: "assistant", content: res.text }]);
+    } catch {
+      setMessages(trimmed);
+      setInput(text);
+      setError(es ? "No pudimos responder ahora. Inténtalo otra vez." : "We couldn't respond right now. Try again.");
     } finally {
       setBusy(false);
     }
@@ -97,12 +118,11 @@ function DialogoPage() {
     setBusy(true);
     setError(null);
     try {
-      const res = await contrastarFn({
-        data: { question: question.trim(), traditions: picks, language: lang },
-      });
+      const res = await contrastarFn({ data: { question: question.trim(), traditions: picks, language: lang } });
+      if (!res.text) throw new Error("empty");
       setContrast(res.text);
-    } catch (e) {
-      setError(e instanceof Error ? e.message : String(e));
+    } catch {
+      setError(es ? "No pudimos contrastar ahora. Inténtalo otra vez." : "We couldn't compare right now. Try again.");
     } finally {
       setBusy(false);
     }
@@ -113,68 +133,76 @@ function DialogoPage() {
     setBusy(true);
     setError(null);
     try {
-      const res = await confrontarFn({
-        data: { thesis: thesis.trim(), tradition: id, language: lang },
-      });
+      const res = await confrontarFn({ data: { thesis: thesis.trim(), tradition: id, language: lang } });
+      if (!res.text) throw new Error("empty");
       setConfront(res.text);
-    } catch (e) {
-      setError(e instanceof Error ? e.message : String(e));
+    } catch {
+      setError(es ? "No pudimos examinar la tesis ahora. Inténtalo otra vez." : "We couldn't examine the thesis right now. Try again.");
     } finally {
       setBusy(false);
     }
   };
 
-  const tabs: { key: Tab; es: string; en: string }[] = [
-    { key: "dialogar", es: "Dialogar", en: "Converse" },
-    { key: "contrastar", es: "Contrastar", en: "Compare" },
-    { key: "confrontar", es: "Confrontar", en: "Confront" },
-  ];
-
   return (
     <>
       <SiteNav />
       <main className="route-enter relative z-10 mx-auto max-w-3xl px-5 pb-24 pt-10 md:px-8 md:pt-14">
-        <Link
-          to="/dialogos"
-          className="focus-mist text-micro text-muted-foreground transition-colors hover:text-foreground"
-        >
+        <Link to="/dialogos" className="focus-mist text-micro text-muted-foreground transition-colors hover:text-foreground">
           ← {es ? "Todos los diálogos" : "All dialogues"}
         </Link>
 
-        <p className="label mt-8">{es ? "Diálogos filosóficos" : "Philosophical dialogues"}</p>
-        <h1 className="mt-3 font-serif text-display font-light text-foreground">{t.name[lang]}</h1>
-        <p className="mt-4 font-serif text-subtitle font-light italic text-bronze-bright">
-          {t.tagline[lang]}
-        </p>
+        <div className="mt-6 flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <p className="label">{es ? "Diálogos filosóficos" : "Philosophical dialogues"}</p>
+            <h1 className="mt-3 font-serif text-display font-light text-foreground">{t.name[lang]}</h1>
+          </div>
 
-        {/* Tabs */}
-        <div className="mt-8 flex flex-wrap gap-2">
-          {tabs.map((tb) => (
-            <button
-              key={tb.key}
-              type="button"
-              onClick={() => setTab(tb.key)}
-              aria-pressed={tab === tb.key}
+          <label className="flex flex-col gap-1">
+            <span className="text-micro uppercase tracking-[0.25em] text-muted-foreground">
+              {es ? "Cambiar corriente" : "Switch tradition"}
+            </span>
+            <select
+              value={id}
+              onChange={(e) => switchTradition(e.target.value)}
+              className="focus-mist rounded-md border border-border bg-background/70 px-3 py-2 text-small text-foreground transition-colors hover:border-bronze/60"
+            >
+              {TRADITION_LIST.map((tr) => (
+                <option key={tr.id} value={tr.id}>
+                  {tr.name[lang]}
+                </option>
+              ))}
+            </select>
+          </label>
+        </div>
+
+        <p className="mt-3 font-serif text-subtitle font-light italic text-bronze-bright">{t.tagline[lang]}</p>
+
+        {/* Modos (controles reales) */}
+        <div className="mt-8 flex flex-wrap gap-2" role="tablist" aria-label={es ? "Modo" : "Mode"}>
+          {MODES.map((m) => (
+            <Link
+              key={m.key}
+              to="/dialogos/$id"
+              params={{ id }}
+              search={{ mode: m.key }}
+              role="tab"
+              aria-current={mode === m.key ? "page" : undefined}
               className={`focus-mist rounded-full border px-4 py-1.5 text-micro uppercase tracking-[0.2em] transition-colors ${
-                tab === tb.key
-                  ? "border-bronze/60 text-bronze"
-                  : "border-border text-muted-foreground hover:text-foreground"
+                mode === m.key ? "border-bronze/60 text-bronze" : "border-border text-muted-foreground hover:text-foreground"
               }`}
             >
-              {tb[lang]}
-            </button>
+              {m[lang]}
+            </Link>
           ))}
         </div>
 
-        {/* Modo 1 — Dialogar */}
-        {tab === "dialogar" && (
+        {/* Dialogar */}
+        {mode === "dialogar" && (
           <section className="mt-8">
             {messages.length === 0 && (
               <div className="space-y-3">
                 <p className="text-small text-muted-foreground">
-                  {es
-                    ? "Empieza con una de estas preguntas, o escribe la tuya:"
-                    : "Start with one of these questions, or write your own:"}
+                  {es ? "Empieza con una de estas preguntas, o escribe la tuya:" : "Start with one of these questions, or write your own:"}
                 </p>
                 <ul className="flex flex-wrap gap-2">
                   {t.questions.map((q) => (
@@ -199,15 +227,14 @@ function DialogoPage() {
                   className={
                     m.role === "user"
                       ? "ml-auto max-w-[85%] rounded-2xl border border-border/50 bg-card/60 px-4 py-3 text-small text-foreground"
-                      : "max-w-[95%] rounded-2xl px-1 py-1 text-small leading-relaxed text-foreground/90"
+                      : "max-w-[95%] text-small leading-relaxed text-foreground/90"
                   }
                 >
-                  {m.role === "user" && (
-                    <p className="mb-1 font-display text-micro uppercase tracking-[0.3em] text-muted-foreground">
-                      {es ? "Tú" : "You"}
-                    </p>
+                  {m.role === "user" ? (
+                    <p className="whitespace-pre-wrap">{m.content}</p>
+                  ) : (
+                    <RichText text={m.content} />
                   )}
-                  <p className="whitespace-pre-wrap">{m.content}</p>
                 </div>
               ))}
               {busy && (
@@ -221,18 +248,15 @@ function DialogoPage() {
               className="mt-6"
               onSubmit={(e) => {
                 e.preventDefault();
-                send();
+                void send();
               }}
             >
               <textarea
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 rows={2}
-                placeholder={
-                  es
-                    ? "Tu pregunta, desde esta forma de pensar…"
-                    : "Your question, from this way of thinking…"
-                }
+                maxLength={2000}
+                placeholder={es ? "Tu pregunta, desde esta forma de pensar…" : "Your question, from this way of thinking…"}
                 className="focus-mist w-full resize-y rounded-md border border-border bg-background/70 px-4 py-3 text-body leading-relaxed text-foreground transition-colors placeholder:text-muted-foreground/70 hover:border-bronze/60"
               />
               <button
@@ -246,8 +270,8 @@ function DialogoPage() {
           </section>
         )}
 
-        {/* Modo 2 — Contrastar */}
-        {tab === "contrastar" && (
+        {/* Contrastar */}
+        {mode === "contrastar" && (
           <section className="mt-8">
             <label className="block font-serif text-subtitle font-light text-foreground">
               {es ? "Tu pregunta" : "Your question"}
@@ -256,56 +280,70 @@ function DialogoPage() {
               value={question}
               onChange={(e) => setQuestion(e.target.value)}
               rows={2}
+              maxLength={800}
               placeholder={es ? "¿Qué significa ser libre?" : "What does it mean to be free?"}
               className="focus-mist mt-3 w-full resize-y rounded-md border border-border bg-background/70 px-4 py-3 text-body leading-relaxed text-foreground transition-colors placeholder:text-muted-foreground/70 hover:border-bronze/60"
             />
 
-            <p className="mt-6 text-micro uppercase tracking-[0.25em] text-muted-foreground">
-              {es ? "Tradiciones a contrastar (2–3)" : "Traditions to compare (2–3)"}
-            </p>
-            <ul className="mt-3 flex flex-wrap gap-2">
-              {TRADITION_LIST.map((tr) => {
-                const on = picks.includes(tr.id);
-                return (
-                  <li key={tr.id}>
-                    <button
-                      type="button"
-                      onClick={() => togglePick(tr.id)}
-                      aria-pressed={on}
-                      className={`focus-mist rounded-full border px-3.5 py-1.5 text-micro transition-colors ${
-                        on
-                          ? "border-bronze/60 bg-bronze/10 text-bronze"
-                          : "border-border text-muted-foreground hover:text-foreground"
-                      }`}
-                    >
-                      {tr.name[lang]}
-                    </button>
-                  </li>
-                );
-              })}
-            </ul>
+            {picks.length > 0 && (
+              <div className="mt-5">
+                <p className="text-micro uppercase tracking-[0.25em] text-muted-foreground">
+                  {es ? "Corrientes elegidas (2–3)" : "Chosen traditions (2–3)"}
+                </p>
+                <ul className="mt-2 flex flex-wrap gap-2">
+                  {picks.map((pid) => {
+                    const p = traditionById(pid);
+                    return (
+                      <li key={pid}>
+                        <button
+                          type="button"
+                          onClick={() => togglePick(pid)}
+                          className="focus-mist rounded-full border border-bronze/60 bg-bronze/10 px-3.5 py-1.5 text-micro text-bronze"
+                        >
+                          {p ? p.name[lang] : pid} ✕
+                        </button>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            )}
+
+            <div className="mt-5">
+              <TraditionBrowser
+                mode="multi"
+                selected={picks}
+                onToggle={togglePick}
+                onOpen={() => {}}
+                maxSelect={3}
+              />
+            </div>
 
             <button
               type="button"
               onClick={runContrast}
               disabled={busy || question.trim().length < 3 || picks.length < 2}
-              className="btn-gold focus-mist mt-5 px-6 py-2.5 text-small disabled:cursor-not-allowed disabled:opacity-40"
+              className="btn-gold focus-mist mt-6 px-6 py-2.5 text-small disabled:cursor-not-allowed disabled:opacity-40"
             >
               {es ? "Contrastar" : "Compare"}
             </button>
 
+            {busy && mode === "contrastar" && (
+              <p className="mt-4 text-micro uppercase tracking-[0.3em] text-muted-foreground pneuma-breathe">
+                {es ? "Contrastando…" : "Comparing…"}
+              </p>
+            )}
+
             {contrast && (
               <div className="mt-8 rounded-xl border border-border/60 bg-card/40 p-6">
-                <p className="whitespace-pre-wrap text-small leading-relaxed text-foreground/90">
-                  {contrast}
-                </p>
+                <RichText text={contrast} />
               </div>
             )}
           </section>
         )}
 
-        {/* Modo 3 — Confrontar */}
-        {tab === "confrontar" && (
+        {/* Confrontar */}
+        {mode === "confrontar" && (
           <section className="mt-8">
             <label className="block font-serif text-subtitle font-light text-foreground">
               {es ? "Tu tesis, creencia o argumento" : "Your thesis, belief or argument"}
@@ -314,11 +352,8 @@ function DialogoPage() {
               value={thesis}
               onChange={(e) => setThesis(e.target.value)}
               rows={4}
-              placeholder={
-                es
-                  ? "Ej.: «Ser libre es poder hacer lo que quiera.»"
-                  : "E.g. «Being free is being able to do whatever I want.»"
-              }
+              maxLength={2000}
+              placeholder={es ? "Ej.: «Ser libre es poder hacer lo que quiera.»" : "E.g. «Being free is being able to do whatever I want.»"}
               className="focus-mist mt-3 w-full resize-y rounded-md border border-border bg-background/70 px-4 py-3 text-body leading-relaxed text-foreground transition-colors placeholder:text-muted-foreground/70 hover:border-bronze/60"
             />
             <button
@@ -330,88 +365,120 @@ function DialogoPage() {
               {es ? "Poner a prueba" : "Test it"}
             </button>
 
+            {busy && mode === "confrontar" && (
+              <p className="mt-4 text-micro uppercase tracking-[0.3em] text-muted-foreground pneuma-breathe">
+                {es ? "Examinando…" : "Examining…"}
+              </p>
+            )}
+
             {confront && (
               <div className="mt-8 rounded-xl border border-border/60 bg-card/40 p-6">
-                <p className="whitespace-pre-wrap text-small leading-relaxed text-foreground/90">
-                  {confront}
-                </p>
+                <RichText text={confront} />
               </div>
             )}
           </section>
         )}
 
         {error && (
-          <p className="mt-8 rounded-md border border-destructive/40 bg-destructive/10 px-4 py-3 text-small text-destructive">
+          <p className="mt-8 rounded-md border border-destructive/40 bg-destructive/10 px-4 py-3 text-small text-destructive" role="alert">
             {error}
           </p>
         )}
 
-        {/* Ficha de la tradición */}
-        <section className="mt-16 border-t border-border/60 pt-10">
-          <h2 className="label">{es ? "Ficha de la tradición" : "Tradition card"}</h2>
+        {/* Ficha plegada por defecto */}
+        <section className="mt-16 border-t border-border/60 pt-6">
+          <button
+            type="button"
+            onClick={() => setFichaOpen((v) => !v)}
+            aria-expanded={fichaOpen}
+            aria-controls="tradition-ficha"
+            className="focus-mist flex w-full items-center justify-between gap-4 text-left"
+          >
+            <span className="label">{es ? "Ficha de la tradición" : "Tradition card"}</span>
+            <span aria-hidden="true" className={`text-muted-foreground transition-transform duration-200 ${fichaOpen ? "rotate-180" : ""}`}>
+              ▾
+            </span>
+          </button>
 
-          <h3 className="mt-5 font-serif text-heading font-light text-foreground">
-            {es ? "Conceptos centrales" : "Central concepts"}
-          </h3>
-          <ul className="mt-3 flex flex-wrap gap-2">
-            {t.concepts.map((c) => (
-              <li key={c}>
-                <Link
-                  to="/explorador"
-                  search={{ q: c }}
-                  className="focus-mist inline-block rounded-full border border-border/70 px-3 py-1 text-micro text-muted-foreground transition-colors hover:border-bronze/50 hover:text-foreground"
-                >
-                  {c} ↗
-                </Link>
-              </li>
-            ))}
-          </ul>
-
-          <dl className="mt-8 space-y-6">
-            <div>
-              <dt className="label">{es ? "Premisas" : "Premises"}</dt>
-              <dd className="mt-2 space-y-1">
-                {t.premises.map((p) => (
-                  <p key={p} className="text-small text-muted-foreground">
-                    — {p}
-                  </p>
+          {fichaOpen && (
+            <div id="tradition-ficha" className="mt-6">
+              <h3 className="font-serif text-heading font-light text-foreground">
+                {es ? "Conceptos centrales" : "Central concepts"}
+              </h3>
+              <ul className="mt-3 flex flex-wrap gap-2">
+                {t.concepts.map((c) => (
+                  <li key={c}>
+                    <Link
+                      to="/explorador"
+                      search={{ q: c }}
+                      className="focus-mist inline-block rounded-full border border-border/70 px-3 py-1 text-micro text-muted-foreground transition-colors hover:border-bronze/50 hover:text-foreground"
+                    >
+                      {c} ↗
+                    </Link>
+                  </li>
                 ))}
-              </dd>
+              </ul>
+
+              <dl className="mt-8 space-y-6">
+                <div>
+                  <dt className="label">{es ? "Premisas" : "Premises"}</dt>
+                  <dd className="mt-2 space-y-1">
+                    {t.premises.map((p) => (
+                      <p key={p} className="text-small text-muted-foreground">— {p}</p>
+                    ))}
+                  </dd>
+                </div>
+                <div>
+                  <dt className="label">{es ? "Método" : "Method"}</dt>
+                  <dd className="mt-2 text-small text-muted-foreground">{t.method}</dd>
+                </div>
+                <div>
+                  <dt className="label">{es ? "Referencias" : "References"}</dt>
+                  <dd className="mt-2 text-small text-muted-foreground">{t.authors.join(" · ")}</dd>
+                </div>
+                <div className="grid gap-6 sm:grid-cols-2">
+                  <div>
+                    <dt className="label">{es ? "Tensiones internas" : "Internal tensions"}</dt>
+                    <dd className="mt-2 space-y-1">
+                      {t.tensions.map((x) => (
+                        <p key={x} className="text-small text-muted-foreground">— {x}</p>
+                      ))}
+                    </dd>
+                  </div>
+                  <div>
+                    <dt className="label">{es ? "Objeciones" : "Objections"}</dt>
+                    <dd className="mt-2 space-y-1">
+                      {t.objections.map((x) => (
+                        <p key={x} className="text-small text-muted-foreground">— {x}</p>
+                      ))}
+                    </dd>
+                  </div>
+                </div>
+              </dl>
             </div>
-            <div>
-              <dt className="label">{es ? "Método" : "Method"}</dt>
-              <dd className="mt-2 text-small text-muted-foreground">{t.method}</dd>
-            </div>
-            <div>
-              <dt className="label">{es ? "Referencias" : "References"}</dt>
-              <dd className="mt-2 text-small text-muted-foreground">{t.authors.join(" · ")}</dd>
-            </div>
-            <div className="grid gap-6 sm:grid-cols-2">
-              <div>
-                <dt className="label">{es ? "Tensiones internas" : "Internal tensions"}</dt>
-                <dd className="mt-2 space-y-1">
-                  {t.tensions.map((x) => (
-                    <p key={x} className="text-small text-muted-foreground">
-                      — {x}
-                    </p>
-                  ))}
-                </dd>
-              </div>
-              <div>
-                <dt className="label">{es ? "Objeciones" : "Objections"}</dt>
-                <dd className="mt-2 space-y-1">
-                  {t.objections.map((x) => (
-                    <p key={x} className="text-small text-muted-foreground">
-                      — {x}
-                    </p>
-                  ))}
-                </dd>
-              </div>
-            </div>
-          </dl>
+          )}
         </section>
       </main>
       <SiteFooter />
     </>
+  );
+}
+
+function RichText({ text }: { text: string }) {
+  return (
+    <ReactMarkdown
+      components={{
+        h1: (props) => <h2 className="font-serif text-heading font-light text-foreground">{props.children}</h2>,
+        h2: (props) => <h2 className="font-serif text-heading font-light text-foreground">{props.children}</h2>,
+        h3: (props) => <h3 className="mt-4 font-serif text-subtitle font-light text-foreground">{props.children}</h3>,
+        p: (props) => <p className="mt-3 text-small leading-relaxed text-foreground/90">{props.children}</p>,
+        ul: (props) => <ul className="mt-3 list-disc space-y-1 pl-5 text-small text-foreground/90">{props.children}</ul>,
+        ol: (props) => <ol className="mt-3 list-decimal space-y-1 pl-5 text-small text-foreground/90">{props.children}</ol>,
+        strong: (props) => <strong className="font-semibold text-foreground">{props.children}</strong>,
+        em: (props) => <em className="italic">{props.children}</em>,
+      }}
+    >
+      {text}
+    </ReactMarkdown>
   );
 }

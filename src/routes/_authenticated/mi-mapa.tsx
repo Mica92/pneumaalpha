@@ -82,7 +82,6 @@ const INSTRUMENTS: { to: string; es: string; en: string; d: { es: string; en: st
   { to: "/dialogos", es: "Diálogos filosóficos", en: "Philosophical dialogues", d: { es: "Razona desde una tradición.", en: "Reason from a tradition." } },
   { to: "/explorador", es: "Explorador ontológico", en: "Ontological explorer", d: { es: "El significado de una palabra.", en: "The meaning of a word." } },
   { to: "/analisis", es: "Análisis", en: "Analysis", d: { es: "Descompón una idea.", en: "Break an idea apart." } },
-  { to: "/mesa", es: "Mesa redonda", en: "Round table", d: { es: "Tres mentes debaten.", en: "Three minds debate." } },
   { to: "/modo-socrates", es: "Modo Sócrates", en: "Socratic mode", d: { es: "Preguntas que afinan.", en: "Questions that sharpen." } },
   { to: "/reporte", es: "Reporte", en: "Report", d: { es: "Sintetiza tu exploración.", en: "Synthesize your exploration." } },
   { to: "/conocimiento", es: "Red de ideas", en: "Idea network", d: { es: "El mapa universal.", en: "The universal map." } },
