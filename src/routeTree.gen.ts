@@ -38,6 +38,7 @@ import { Route as AuthenticatedUmbralRouteImport } from './routes/_authenticated
 import { Route as EditorialIndexRouteImport } from './routes/editorial/index'
 import { Route as EditorialPodcastRouteImport } from './routes/editorial/podcast'
 import { Route as AuthenticatedAdminAnaliticaRouteImport } from './routes/_authenticated/admin.analitica'
+import { Route as AuthenticatedDialogosIndexRouteImport } from './routes/_authenticated/dialogos.index'
 import { Route as AuthenticatedDialogosIdRouteImport } from './routes/_authenticated/dialogos.$id'
 import { Route as AuthenticatedFilosofosIndexRouteImport } from './routes/_authenticated/filosofos.index'
 import { Route as AuthenticatedFilosofosIdRouteImport } from './routes/_authenticated/filosofos.$id'
@@ -200,6 +201,12 @@ const AuthenticatedAdminAnaliticaRoute =
     path: '/admin/analitica',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedDialogosIndexRoute =
+  AuthenticatedDialogosIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedDialogosRoute,
+  } as any)
 const AuthenticatedDialogosIdRoute = AuthenticatedDialogosIdRouteImport.update({
   id: '/$id',
   path: '/$id',
@@ -307,6 +314,7 @@ export interface FileRoutesByFullPath {
   '/situaciones/$id': typeof AuthenticatedSituacionesIdRoute
   '/api/podcast/speech': typeof ApiPodcastSpeechRoute
   '/editorial/$category/$article': typeof EditorialCategoryArticleRoute
+  '/dialogos/': typeof AuthenticatedDialogosIndexRoute
   '/filosofos/': typeof AuthenticatedFilosofosIndexRoute
   '/ideas/': typeof AuthenticatedIdeasIndexRoute
   '/rutas/': typeof AuthenticatedRutasIndexRoute
@@ -326,7 +334,6 @@ export interface FileRoutesByTo {
   '/buscar': typeof AuthenticatedBuscarRoute
   '/comparar': typeof AuthenticatedCompararRoute
   '/conocimiento': typeof AuthenticatedConocimientoRoute
-  '/dialogos': typeof AuthenticatedDialogosRouteWithChildren
   '/explorador': typeof AuthenticatedExploradorRoute
   '/explorar': typeof AuthenticatedExplorarRoute
   '/mesa': typeof AuthenticatedMesaRoute
@@ -350,6 +357,7 @@ export interface FileRoutesByTo {
   '/situaciones/$id': typeof AuthenticatedSituacionesIdRoute
   '/api/podcast/speech': typeof ApiPodcastSpeechRoute
   '/editorial/$category/$article': typeof EditorialCategoryArticleRoute
+  '/dialogos': typeof AuthenticatedDialogosIndexRoute
   '/filosofos': typeof AuthenticatedFilosofosIndexRoute
   '/ideas': typeof AuthenticatedIdeasIndexRoute
   '/rutas': typeof AuthenticatedRutasIndexRoute
@@ -395,6 +403,7 @@ export interface FileRoutesById {
   '/_authenticated/situaciones/$id': typeof AuthenticatedSituacionesIdRoute
   '/api/podcast/speech': typeof ApiPodcastSpeechRoute
   '/editorial/$category/$article': typeof EditorialCategoryArticleRoute
+  '/_authenticated/dialogos/': typeof AuthenticatedDialogosIndexRoute
   '/_authenticated/filosofos/': typeof AuthenticatedFilosofosIndexRoute
   '/_authenticated/ideas/': typeof AuthenticatedIdeasIndexRoute
   '/_authenticated/rutas/': typeof AuthenticatedRutasIndexRoute
@@ -440,6 +449,7 @@ export interface FileRouteTypes {
     | '/situaciones/$id'
     | '/api/podcast/speech'
     | '/editorial/$category/$article'
+    | '/dialogos/'
     | '/filosofos/'
     | '/ideas/'
     | '/rutas/'
@@ -459,7 +469,6 @@ export interface FileRouteTypes {
     | '/buscar'
     | '/comparar'
     | '/conocimiento'
-    | '/dialogos'
     | '/explorador'
     | '/explorar'
     | '/mesa'
@@ -483,6 +492,7 @@ export interface FileRouteTypes {
     | '/situaciones/$id'
     | '/api/podcast/speech'
     | '/editorial/$category/$article'
+    | '/dialogos'
     | '/filosofos'
     | '/ideas'
     | '/rutas'
@@ -527,6 +537,7 @@ export interface FileRouteTypes {
     | '/_authenticated/situaciones/$id'
     | '/api/podcast/speech'
     | '/editorial/$category/$article'
+    | '/_authenticated/dialogos/'
     | '/_authenticated/filosofos/'
     | '/_authenticated/ideas/'
     | '/_authenticated/rutas/'
@@ -755,6 +766,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminAnaliticaRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/dialogos/': {
+      id: '/_authenticated/dialogos/'
+      path: '/'
+      fullPath: '/dialogos/'
+      preLoaderRoute: typeof AuthenticatedDialogosIndexRouteImport
+      parentRoute: typeof AuthenticatedDialogosRoute
+    }
     '/_authenticated/dialogos/$id': {
       id: '/_authenticated/dialogos/$id'
       path: '/$id'
@@ -851,10 +869,12 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedDialogosRouteChildren {
   AuthenticatedDialogosIdRoute: typeof AuthenticatedDialogosIdRoute
+  AuthenticatedDialogosIndexRoute: typeof AuthenticatedDialogosIndexRoute
 }
 
 const AuthenticatedDialogosRouteChildren: AuthenticatedDialogosRouteChildren = {
   AuthenticatedDialogosIdRoute: AuthenticatedDialogosIdRoute,
+  AuthenticatedDialogosIndexRoute: AuthenticatedDialogosIndexRoute,
 }
 
 const AuthenticatedDialogosRouteWithChildren =
