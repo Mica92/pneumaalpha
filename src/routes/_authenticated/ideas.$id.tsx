@@ -29,10 +29,10 @@ export const Route = createFileRoute("/_authenticated/ideas/$id")({
         { property: "og:title", content: title },
         { property: "og:description", content: idea.short.es },
         { property: "og:type", content: "article" },
-        { property: "og:url", content: `${SITE_URL}/ideas/${loaderData.id}` },
+        { property: "og:url", content: `${SITE_URL}/ideas/${idea.id}` },
         { name: "twitter:card", content: "summary" },
       ],
-      links: [{ rel: "canonical", href: `${SITE_URL}/ideas/${loaderData.id}` }],
+      links: [{ rel: "canonical", href: `${SITE_URL}/ideas/${idea.id}` }],
     };
   },
   component: IdeaPage,

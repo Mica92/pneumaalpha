@@ -31,10 +31,10 @@ export const Route = createFileRoute("/_authenticated/rutas/$id")({
         { property: "og:title", content: title },
         { property: "og:description", content: r.intro.es },
         { property: "og:type", content: "article" },
-        { property: "og:url", content: `${SITE_URL}/rutas/${loaderData.id}` },
+        { property: "og:url", content: `${SITE_URL}/rutas/${r.id}` },
         { name: "twitter:card", content: "summary" },
       ],
-      links: [{ rel: "canonical", href: `${SITE_URL}/rutas/${loaderData.id}` }],
+      links: [{ rel: "canonical", href: `${SITE_URL}/rutas/${r.id}` }],
     };
   },
   component: RoutePage,
