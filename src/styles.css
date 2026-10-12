@@ -443,6 +443,56 @@
 
 /* --- Typographic utilities --- */
 
+/* Explorer: one quiet reading rhythm for curated and generated answers. */
+.ontology-response {
+  font-size: var(--text-body);
+  line-height: 1.8;
+  color: var(--foreground);
+  overflow-wrap: anywhere;
+}
+.ontology-response :is(h2, h3, h4) {
+  letter-spacing: 0;
+  text-transform: none;
+}
+.ontology-response h2 {
+  margin-top: 2.5rem;
+  margin-bottom: 1.25rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid var(--border);
+  font-size: 1.875rem;
+  font-weight: 400;
+  line-height: 1.25;
+}
+.ontology-response > h2:first-child { margin-top: 0; padding-top: 0; border: 0; }
+.ontology-response :is(h3, h4) {
+  margin-top: 1.75rem;
+  margin-bottom: 0.5rem;
+  font-size: 1.5rem;
+  line-height: 1.3;
+  font-weight: 400;
+}
+.ontology-response p { margin-top: 0.75rem; }
+.ontology-response strong { font-weight: 600; color: var(--foreground); }
+.ontology-response :is(ul, ol) { margin-top: 1rem; padding-left: 1.25rem; }
+.ontology-response ul { list-style: disc; }
+.ontology-response ol { list-style: decimal; }
+.ontology-response li { margin-top: 0.875rem; padding-left: 0.25rem; }
+.ontology-response li::marker { color: var(--bronze); }
+.ontology-response li > p:first-child { margin-top: 0; }
+.ontology-response blockquote {
+  border-left: 2px solid var(--bronze);
+  margin-top: 1.5rem;
+  padding-left: 1.25rem;
+  color: var(--bronze-bright);
+}
+.ontology-response blockquote p { font-family: var(--font-serif); font-size: 1.5rem; line-height: 1.4; }
+.ontology-response a { color: var(--bronze-bright); text-decoration: underline; text-underline-offset: 3px; }
+.ontology-response hr { margin-block: 2rem; border-color: var(--border); }
+.ontology-response pre { overflow-x: auto; padding: 1rem; background: var(--muted); border-radius: var(--radius); }
+.ontology-response .ontology-terms { list-style: none; padding-left: 0; }
+.ontology-response .ontology-terms > li { margin-top: 1.75rem; padding: 0 0 1.75rem; border-bottom: 1px solid var(--border); }
+.ontology-response .ontology-terms > li:last-child { padding-bottom: 0; border-bottom: 0; }
+
 /* Comfortable reading measure (~68 and ~78 characters) */
 @utility measure {
   max-width: 34em;

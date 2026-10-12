@@ -20,6 +20,14 @@ function detectInitial(): Language {
 type Dict = Record<string, { es: string; en: string }>;
 
 export const T: Dict = {
+  "ontology.meaning": { es: "Significado", en: "Meaning" },
+  "ontology.greek": { es: "En griego", en: "In Greek" },
+  "ontology.latin": { es: "En latín", en: "In Latin" },
+  "ontology.synthesis": { es: "Síntesis", en: "Synthesis" },
+  "ontology.question": { es: "Pregunta", en: "Question" },
+  "ontology.distinction": { es: "Distinción", en: "Distinction" },
+  "ontology.example": { es: "Ejemplo", en: "Example" },
+  "ontology.word": { es: "Palabra a explorar", en: "Word to explore" },
   "app.name": { es: "Kionas", en: "Kionas" },
   "app.tagline": {
     es: "Conversaciones con perspectivas filosóficas para pensar con claridad.",
