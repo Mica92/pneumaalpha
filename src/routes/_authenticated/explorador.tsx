@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { SITE_URL } from "@/lib/site";
@@ -7,6 +7,8 @@ import { SiteNav } from "@/components/site-nav";
 import { SiteFooter } from "@/components/site-footer";
 import { explorarPalabra, type ExploracionResult } from "@/lib/ontologia.functions";
 import { ONTOLOGIA } from "@/lib/ontologia";
+import { Button } from "@/components/ui/button";
+import { OntologicalResponse } from "@/components/ontological-response";
 
 export const Route = createFileRoute("/_authenticated/explorador")({
   validateSearch: (search: Record<string, unknown>): { q?: string } => ({
@@ -35,7 +37,7 @@ export const Route = createFileRoute("/_authenticated/explorador")({
 });
 
 function ExploradorPage() {
-  const { lang } = useI18n();
+  const { lang, t } = useI18n();
   const es = lang === "es";
   const { q } = Route.useSearch();
   const fn = useServerFn(explorarPalabra);
@@ -89,34 +91,37 @@ function ExploradorPage() {
         >
           <div className="flex gap-3">
             <input
+              aria-label={t("ontology.word")}
               value={word}
               onChange={(e) => setWord(e.target.value)}
               placeholder={es ? "amor, libertad, justicia, verdad…" : "love, freedom, justice, truth…"}
-              className="focus-mist w-full rounded-md border border-border bg-background/70 px-4 py-3 text-body text-foreground transition-colors placeholder:text-muted-foreground/70 hover:border-bronze/60"
+              className="focus-mist min-w-0 w-full rounded-md border border-border bg-background/70 px-4 py-3 text-body text-foreground transition-colors placeholder:text-muted-foreground/70 hover:border-bronze/60"
             />
-            <button
+            <Button
               type="submit"
               disabled={busy || word.trim().length < 2}
-              className="btn-gold focus-mist shrink-0 px-5 py-3 text-small disabled:cursor-not-allowed disabled:opacity-40"
+              className="btn-gold focus-mist h-auto shrink-0 px-4 py-3 text-small shadow-none sm:px-5 disabled:cursor-not-allowed disabled:opacity-40"
             >
               {es ? "Explorar" : "Explore"}
-            </button>
+            </Button>
           </div>
         </form>
 
         <ul className="mt-4 flex flex-wrap gap-2">
           {ONTOLOGIA.map((c) => (
             <li key={c.id}>
-              <button
+              <Button
+                variant="ghost"
+                size="sm"
                 type="button"
                 onClick={() => {
                   setWord(c.palabra);
                   run(c.palabra);
                 }}
-                className="focus-mist rounded-full border border-border/70 px-3 py-1 text-micro text-muted-foreground transition-colors hover:border-bronze/50 hover:text-foreground"
+                className="focus-mist text-micro text-muted-foreground hover:text-foreground"
               >
                 {c.palabra}
-              </button>
+              </Button>
             </li>
           ))}
         </ul>
@@ -133,15 +138,10 @@ function ExploradorPage() {
           </p>
         )}
 
-        {result && result.source === "ia" && (
-          <article className="mt-10 whitespace-pre-wrap rounded-xl border border-border/60 bg-card/40 p-6 text-small leading-relaxed text-foreground/90">
-            {result.text}
-          </article>
-        )}
-
-        {result && result.source === "curado" && (
-          <ConceptoCard concept={result.concept} lang={lang} />
-        )}
+        <div aria-live="polite" aria-busy={busy}>
+          {result?.source === "ia" && <OntologicalResponse text={result.text} />}
+          {result?.source === "curado" && <ConceptoCard concept={result.concept} lang={lang} />}
+        </div>
       </main>
       <SiteFooter />
     </>
@@ -149,41 +149,42 @@ function ExploradorPage() {
 }
 
 function ConceptoCard({ concept, lang }: { concept: NonNullable<ExploracionResult & { source: "curado" }>["concept"]; lang: "es" | "en" }) {
-  const es = lang === "es";
+  const { t } = useI18n();
 
   return (
-    <article className="mt-10">
-      <p className="label uppercase tracking-[0.3em]">{es ? "Significado" : "Meaning"}</p>
-      <h2 className="mt-2 font-serif text-title font-light capitalize text-foreground">{concept.palabra}</h2>
-      <p className="mt-5 text-base leading-relaxed text-foreground/90">{concept.definicion}</p>
+    <article className="ontology-response mt-12 min-w-0 border-t border-border/70 pt-8">
+      <p className="!mt-0 text-micro text-muted-foreground">{t("ontology.meaning")}</p>
+      <h2 className="!mt-2 !border-0 !pt-0 capitalize">{concept.palabra}</h2>
+      <p>{concept.definicion}</p>
 
-      <section className="mt-10">
-        <h3 className="font-serif text-heading font-light text-foreground">{es ? "En griego" : "In Greek"}</h3>
-        <ul className="mt-5 space-y-6">
+      <section>
+        <h2>{t("ontology.greek")}</h2>
+        <ul className="ontology-terms">
           {concept.griego.map((t) => (
             <Termino key={t.nombre} termino={t} lang={lang} />
           ))}
         </ul>
       </section>
 
-      <section className="mt-10">
-        <h3 className="font-serif text-heading font-light text-foreground">{es ? "En latín" : "In Latin"}</h3>
-        <ul className="mt-5 space-y-6">
+      <section>
+        <h2>{t("ontology.latin")}</h2>
+        <ul className="ontology-terms">
           {concept.latin.map((t) => (
             <Termino key={t.nombre} termino={t} lang={lang} />
           ))}
         </ul>
       </section>
 
-      <section className="mt-10 rounded-xl border border-border/60 bg-card/40 p-6">
-        <h3 className="font-serif text-heading font-light text-foreground">{es ? "Síntesis" : "Synthesis"}</h3>
-        <p className="mt-3 text-small leading-relaxed text-foreground/90">{concept.sintesis}</p>
+      <section>
+        <h2>{t("ontology.synthesis")}</h2>
+        <p>{concept.sintesis}</p>
       </section>
 
       {concept.pregunta && (
-        <p className="mt-8 border-l border-bronze/50 pl-4 font-serif text-subtitle font-light italic leading-snug text-bronze-bright">
-          {concept.pregunta}
-        </p>
+        <section>
+          <h2>{t("ontology.question")}</h2>
+          <blockquote><p>{concept.pregunta}</p></blockquote>
+        </section>
       )}
     </article>
   );
@@ -196,21 +197,21 @@ function Termino({
   termino: { nombre: string; grafia: string; significado: string; distincion: string; ejemplo?: string };
   lang: "es" | "en";
 }) {
-  const es = lang === "es";
+  const { t } = useI18n();
   return (
-    <li className="border-l border-border/60 pl-5">
+    <li>
       <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-        <h4 className="font-serif text-subtitle font-normal text-foreground">{termino.nombre}</h4>
+        <h3 className="!mt-0">{termino.nombre}</h3>
         <span className="font-serif text-small text-bronze-bright">{termino.grafia}</span>
       </div>
-      <p className="mt-2 text-small leading-relaxed text-foreground/90">{termino.significado}</p>
-      <p className="mt-2 text-small leading-relaxed text-muted-foreground">
-        <span className="text-bronze">{es ? "Distinción: " : "Distinction: "}</span>
+      <p>{termino.significado}</p>
+      <p className="!text-muted-foreground">
+        <strong>{t("ontology.distinction")}: </strong>
         {termino.distincion}
       </p>
       {termino.ejemplo && (
-        <p className="mt-2 text-small italic leading-relaxed text-muted-foreground/90">
-          {es ? "Ejemplo: " : "Example: "}
+        <p className="!text-muted-foreground">
+          <strong>{t("ontology.example")}: </strong>
           {termino.ejemplo}
         </p>
       )}
