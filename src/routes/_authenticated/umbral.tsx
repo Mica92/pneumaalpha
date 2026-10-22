@@ -17,7 +17,7 @@ export const Route = createFileRoute("/_authenticated/umbral")({
       {
         name: "description",
         content:
-          "Filosofía en diálogo: conversa con pensadores reconstruidos con IA (Heidegger, Nietzsche, Marx, Schopenhauer y más), convoca mesas redondas, usa el modo Sócrates y explora el mapa de ideas.",
+          "Filosofía en diálogo: conversa con pensadores reconstruidos con IA (Heidegger, Nietzsche, Marx, Schopenhauer y más), compara perspectivas, usa el modo Sócrates y explora el mapa de ideas.",
       },
       {
         name: "keywords",
@@ -45,7 +45,7 @@ export const Route = createFileRoute("/_authenticated/umbral")({
           url: `${SITE_URL}/umbral`,
           inLanguage: ["es", "en"],
           description:
-            "Conversaciones filosóficas con mentes reconstruidas mediante IA, mesa redonda, modo Sócrates y un mapa interactivo de ideas.",
+            "Conversaciones filosóficas con mentes reconstruidas mediante IA, comparación de perspectivas, modo Sócrates y un mapa interactivo de ideas.",
           about: [
             { "@type": "Thing", name: "Filosofía" },
             { "@type": "Thing", name: "Historia de las ideas" },

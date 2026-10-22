@@ -25,4 +25,5 @@
 - [x] Ficha de la tradición plegada por defecto
 - [x] Retirada de Mesa redonda: /mesa redirige a /comparar conservando qid y seats
 - [x] Eliminar menciones de Mesa en footer, Mi mapa, Umbral y sitemap
-- [ ] Probar generación real (Dialogar/Contrastar/Confrontar) en el entorno desplegado
+- [ ] Verificar generación real, continuación, selección desde catálogo y cambio de corriente en la vista previa
+- [ ] Verificar filtros, paginación, móvil y redirección de Mesa

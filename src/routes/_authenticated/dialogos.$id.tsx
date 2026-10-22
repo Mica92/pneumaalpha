@@ -1,5 +1,5 @@
 import { createFileRoute, Link, notFound, useNavigate } from "@tanstack/react-router";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import ReactMarkdown from "react-markdown";
 import { SITE_URL } from "@/lib/site";
@@ -8,6 +8,9 @@ import { SiteNav } from "@/components/site-nav";
 import { SiteFooter } from "@/components/site-footer";
 import { traditionById, TRADITION_LIST } from "@/lib/traditions";
 import { TraditionBrowser } from "@/components/tradition-browser";
+import { Button } from "@/components/ui/button";
+import { useAuth } from "@/hooks/use-auth";
+import { contrastSelection, dialogueHistory } from "@/lib/dialogos.shared";
 import { dialogar, contrastar, confrontar } from "@/lib/dialogos.functions";
 
 type Mode = "dialogar" | "contrastar" | "confrontar";
@@ -18,7 +21,6 @@ const MODES: { key: Mode; es: string; en: string }[] = [
   { key: "confrontar", es: "Confrontar", en: "Confront" },
 ];
 
-const MAX_MESSAGES = 40;
 
 export const Route = createFileRoute("/_authenticated/dialogos/$id")({
   loader: ({ params }: { params: { id: string } }) => {
@@ -59,28 +61,31 @@ type ChatMsg = { role: "user" | "assistant"; content: string };
 function DialogoPage() {
   const { id } = Route.useLoaderData();
   const { mode = "dialogar", with: withParam } = Route.useSearch();
-  const { lang } = useI18n();
+  const { lang, t: tr } = useI18n();
+  const { loading, session } = useAuth();
+  const requestLock = useRef(false);
   const es = lang === "es";
-  const t = traditionById(id)!;
+  const t = traditionById(id);
   const navigate = useNavigate();
 
   const dialogarFn = useServerFn(dialogar);
   const contrastarFn = useServerFn(contrastar);
   const confrontarFn = useServerFn(confrontar);
 
-  const [messages, setMessages] = useState<ChatMsg[]>([]);
-  const [input, setInput] = useState("");
-  const [question, setQuestion] = useState("");
-  const [picks, setPicks] = useState<string[]>(() => {
-    const ids = withParam ? withParam.split(",").filter((x) => traditionById(x)) : [];
-    return ids.length >= 2 ? ids : [id];
-  });
-  const [contrast, setContrast] = useState<string | null>(null);
-  const [thesis, setThesis] = useState("");
-  const [confront, setConfront] = useState<string | null>(null);
-  const [busy, setBusy] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [fichaOpen, setFichaOpen] = useState(false);
+  type DialogueState = { messages: ChatMsg[]; input: string; question: string; picks: string[]; contrast: string | null; thesis: string; confront: string | null; busy: Mode | null; error: string | null; fichaOpen: boolean };
+  const [states, setStates] = useState<Record<string, DialogueState>>({});
+  const current = states[id] ?? { messages: [], input: "", question: "", picks: contrastSelection(id, withParam), contrast: null, thesis: "", confront: null, busy: null, error: null, fichaOpen: false };
+  function setter<K extends keyof DialogueState>(key: K) {
+    return (value: DialogueState[K] | ((previous: DialogueState[K]) => DialogueState[K])) => {
+      setStates(previous => {
+        const state = previous[id] ?? current;
+        return { ...previous, [id]: { ...state, [key]: typeof value === "function" ? (value as (p: DialogueState[K]) => DialogueState[K])(state[key]) : value } };
+      });
+    };
+  }
+  const { messages, input, question, picks, contrast, thesis, confront, busy, error, fichaOpen } = current;
+  const setMessages = setter("messages"), setInput = setter("input"), setQuestion = setter("question"), setPicks = setter("picks"), setContrast = setter("contrast"), setThesis = setter("thesis"), setConfront = setter("confront"), setBusy = setter("busy"), setError = setter("error"), setFichaOpen = setter("fichaOpen");
+  if (!t) return null;
 
   const togglePick = (tid: string) =>
     setPicks((prev) =>
@@ -93,53 +98,59 @@ function DialogoPage() {
 
   const send = async () => {
     const text = input.trim();
-    if (!text || busy) return;
-    const trimmed = messages.length >= MAX_MESSAGES ? messages.slice(-38) : messages;
+    if (!text || requestLock.current || loading || !session) return;
+    requestLock.current = true;
+    const trimmed = dialogueHistory(messages);
     const next: ChatMsg[] = [...trimmed, { role: "user", content: text }];
     setMessages(next);
     setInput("");
-    setBusy(true);
+    setBusy("dialogar");
     setError(null);
     try {
       const res = await dialogarFn({ data: { tradition: id, messages: next, language: lang } });
-      if (!res.text) throw new Error("empty");
+      if (!res.text?.trim()) throw new Error("empty");
       setMessages((prev) => [...prev, { role: "assistant", content: res.text }]);
     } catch {
       setMessages(trimmed);
       setInput(text);
-      setError(es ? "No pudimos responder ahora. Inténtalo otra vez." : "We couldn't respond right now. Try again.");
+      setError(tr("dialogue.text15"));
     } finally {
-      setBusy(false);
+      requestLock.current = false;
+      setBusy(null);
     }
   };
 
   const runContrast = async () => {
-    if (question.trim().length < 3 || picks.length < 2 || busy) return;
-    setBusy(true);
+    if (question.trim().length < 3 || picks.length < 2 || requestLock.current || loading || !session) return;
+    requestLock.current = true;
+    setBusy("contrastar");
     setError(null);
     try {
       const res = await contrastarFn({ data: { question: question.trim(), traditions: picks, language: lang } });
-      if (!res.text) throw new Error("empty");
+      if (!res.text?.trim()) throw new Error("empty");
       setContrast(res.text);
     } catch {
-      setError(es ? "No pudimos contrastar ahora. Inténtalo otra vez." : "We couldn't compare right now. Try again.");
+      setError(tr("dialogue.text16"));
     } finally {
-      setBusy(false);
+      requestLock.current = false;
+      setBusy(null);
     }
   };
 
   const runConfront = async () => {
-    if (thesis.trim().length < 3 || busy) return;
-    setBusy(true);
+    if (thesis.trim().length < 3 || requestLock.current || loading || !session) return;
+    requestLock.current = true;
+    setBusy("confrontar");
     setError(null);
     try {
       const res = await confrontarFn({ data: { thesis: thesis.trim(), tradition: id, language: lang } });
-      if (!res.text) throw new Error("empty");
+      if (!res.text?.trim()) throw new Error("empty");
       setConfront(res.text);
     } catch {
-      setError(es ? "No pudimos examinar la tesis ahora. Inténtalo otra vez." : "We couldn't examine the thesis right now. Try again.");
+      setError(tr("dialogue.text17"));
     } finally {
-      setBusy(false);
+      requestLock.current = false;
+      setBusy(null);
     }
   };
 
@@ -148,21 +159,22 @@ function DialogoPage() {
       <SiteNav />
       <main className="route-enter relative z-10 mx-auto max-w-3xl px-5 pb-24 pt-10 md:px-8 md:pt-14">
         <Link to="/dialogos" className="focus-mist text-micro text-muted-foreground transition-colors hover:text-foreground">
-          ← {es ? "Todos los diálogos" : "All dialogues"}
+          ← {tr("dialogue.text18")}
         </Link>
 
         <div className="mt-6 flex flex-wrap items-end justify-between gap-4">
           <div>
-            <p className="label">{es ? "Diálogos filosóficos" : "Philosophical dialogues"}</p>
+            <p className="label">{tr("dialogue.title")}</p>
             <h1 className="mt-3 font-serif text-display font-light text-foreground">{t.name[lang]}</h1>
           </div>
 
           <label className="flex flex-col gap-1">
             <span className="text-micro uppercase tracking-[0.25em] text-muted-foreground">
-              {es ? "Cambiar corriente" : "Switch tradition"}
+              {tr("dialogue.text19")}
             </span>
             <select
               value={id}
+              disabled={Boolean(busy)}
               onChange={(e) => switchTradition(e.target.value)}
               className="focus-mist rounded-md border border-border bg-background/70 px-3 py-2 text-small text-foreground transition-colors hover:border-bronze/60"
             >
@@ -178,14 +190,14 @@ function DialogoPage() {
         <p className="mt-3 font-serif text-subtitle font-light italic text-bronze-bright">{t.tagline[lang]}</p>
 
         {/* Modos (controles reales) */}
-        <div className="mt-8 flex flex-wrap gap-2" role="tablist" aria-label={es ? "Modo" : "Mode"}>
+        <div className="mt-8 flex flex-wrap gap-2" role="group" aria-label={tr("dialogue.text11")}>
           {MODES.map((m) => (
             <Link
               key={m.key}
               to="/dialogos/$id"
               params={{ id }}
-              search={{ mode: m.key }}
-              role="tab"
+              search={{ mode: m.key, with: withParam }}
+              
               aria-current={mode === m.key ? "page" : undefined}
               className={`focus-mist rounded-full border px-4 py-1.5 text-micro uppercase tracking-[0.2em] transition-colors ${
                 mode === m.key ? "border-bronze/60 text-bronze" : "border-border text-muted-foreground hover:text-foreground"
@@ -202,18 +214,18 @@ function DialogoPage() {
             {messages.length === 0 && (
               <div className="space-y-3">
                 <p className="text-small text-muted-foreground">
-                  {es ? "Empieza con una de estas preguntas, o escribe la tuya:" : "Start with one of these questions, or write your own:"}
+                  {tr("dialogue.text20")}
                 </p>
                 <ul className="flex flex-wrap gap-2">
                   {t.questions.map((q) => (
                     <li key={q.es}>
-                      <button
+                      <Button variant="ghost"
                         type="button"
                         onClick={() => setInput(q[lang])}
                         className="focus-mist rounded-full border border-border/70 px-3.5 py-2 text-left text-micro text-muted-foreground transition-colors hover:border-bronze/50 hover:text-foreground"
                       >
                         {q[lang]}
-                      </button>
+                      </Button>
                     </li>
                   ))}
                 </ul>
@@ -237,9 +249,9 @@ function DialogoPage() {
                   )}
                 </div>
               ))}
-              {busy && (
+              {busy === "dialogar" && (
                 <p className="text-micro uppercase tracking-[0.3em] text-muted-foreground pneuma-breathe">
-                  {es ? "Pensando…" : "Thinking…"}
+                  {tr("dialogue.text21")}
                 </p>
               )}
             </div>
@@ -252,20 +264,22 @@ function DialogoPage() {
               }}
             >
               <textarea
+                aria-label={tr("dialogue.yourQuestion")}
+                disabled={Boolean(busy)}
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 rows={2}
                 maxLength={2000}
-                placeholder={es ? "Tu pregunta, desde esta forma de pensar…" : "Your question, from this way of thinking…"}
+                placeholder={tr("dialogue.text22")}
                 className="focus-mist w-full resize-y rounded-md border border-border bg-background/70 px-4 py-3 text-body leading-relaxed text-foreground transition-colors placeholder:text-muted-foreground/70 hover:border-bronze/60"
               />
-              <button
+              <Button variant="ghost"
                 type="submit"
-                disabled={busy || !input.trim()}
+                disabled={Boolean(busy) || loading || !session || !input.trim()}
                 className="btn-gold focus-mist mt-3 px-6 py-2.5 text-small disabled:cursor-not-allowed disabled:opacity-40"
               >
-                {es ? "Pensar" : "Think"}
-              </button>
+                {tr("dialogue.text23")}
+              </Button>
             </form>
           </section>
         )}
@@ -274,40 +288,18 @@ function DialogoPage() {
         {mode === "contrastar" && (
           <section className="mt-8">
             <label className="block font-serif text-subtitle font-light text-foreground">
-              {es ? "Tu pregunta" : "Your question"}
+              {tr("dialogue.yourQuestion")}
             </label>
             <textarea
+              aria-label={tr("dialogue.yourQuestion")}
+              disabled={Boolean(busy)}
               value={question}
               onChange={(e) => setQuestion(e.target.value)}
               rows={2}
               maxLength={800}
-              placeholder={es ? "¿Qué significa ser libre?" : "What does it mean to be free?"}
+              placeholder={tr("dialogue.text24")}
               className="focus-mist mt-3 w-full resize-y rounded-md border border-border bg-background/70 px-4 py-3 text-body leading-relaxed text-foreground transition-colors placeholder:text-muted-foreground/70 hover:border-bronze/60"
             />
-
-            {picks.length > 0 && (
-              <div className="mt-5">
-                <p className="text-micro uppercase tracking-[0.25em] text-muted-foreground">
-                  {es ? "Corrientes elegidas (2–3)" : "Chosen traditions (2–3)"}
-                </p>
-                <ul className="mt-2 flex flex-wrap gap-2">
-                  {picks.map((pid) => {
-                    const p = traditionById(pid);
-                    return (
-                      <li key={pid}>
-                        <button
-                          type="button"
-                          onClick={() => togglePick(pid)}
-                          className="focus-mist rounded-full border border-bronze/60 bg-bronze/10 px-3.5 py-1.5 text-micro text-bronze"
-                        >
-                          {p ? p.name[lang] : pid} ✕
-                        </button>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
-            )}
 
             <div className="mt-5">
               <TraditionBrowser
@@ -316,26 +308,27 @@ function DialogoPage() {
                 onToggle={togglePick}
                 onOpen={() => {}}
                 maxSelect={3}
+                disabled={Boolean(busy)}
               />
             </div>
 
-            <button
+            <Button variant="ghost"
               type="button"
               onClick={runContrast}
-              disabled={busy || question.trim().length < 3 || picks.length < 2}
+              disabled={Boolean(busy) || loading || !session || question.trim().length < 3 || picks.length < 2}
               className="btn-gold focus-mist mt-6 px-6 py-2.5 text-small disabled:cursor-not-allowed disabled:opacity-40"
             >
-              {es ? "Contrastar" : "Compare"}
-            </button>
+              {tr("dialogue.text26")}
+            </Button>
 
-            {busy && mode === "contrastar" && (
+            {busy === "contrastar" && (
               <p className="mt-4 text-micro uppercase tracking-[0.3em] text-muted-foreground pneuma-breathe">
-                {es ? "Contrastando…" : "Comparing…"}
+                {tr("dialogue.text27")}
               </p>
             )}
 
             {contrast && (
-              <div className="mt-8 rounded-xl border border-border/60 bg-card/40 p-6">
+              <div className="mt-8 min-w-0">
                 <RichText text={contrast} />
               </div>
             )}
@@ -346,33 +339,35 @@ function DialogoPage() {
         {mode === "confrontar" && (
           <section className="mt-8">
             <label className="block font-serif text-subtitle font-light text-foreground">
-              {es ? "Tu tesis, creencia o argumento" : "Your thesis, belief or argument"}
+              {tr("dialogue.thesis")}
             </label>
             <textarea
+              aria-label={tr("dialogue.thesis")}
+              disabled={Boolean(busy)}
               value={thesis}
               onChange={(e) => setThesis(e.target.value)}
               rows={4}
               maxLength={2000}
-              placeholder={es ? "Ej.: «Ser libre es poder hacer lo que quiera.»" : "E.g. «Being free is being able to do whatever I want.»"}
+              placeholder={tr("dialogue.text28")}
               className="focus-mist mt-3 w-full resize-y rounded-md border border-border bg-background/70 px-4 py-3 text-body leading-relaxed text-foreground transition-colors placeholder:text-muted-foreground/70 hover:border-bronze/60"
             />
-            <button
+            <Button variant="ghost"
               type="button"
               onClick={runConfront}
-              disabled={busy || thesis.trim().length < 3}
+              disabled={Boolean(busy) || loading || !session || thesis.trim().length < 3}
               className="btn-gold focus-mist mt-5 px-6 py-2.5 text-small disabled:cursor-not-allowed disabled:opacity-40"
             >
-              {es ? "Poner a prueba" : "Test it"}
-            </button>
+              {tr("dialogue.text29")}
+            </Button>
 
-            {busy && mode === "confrontar" && (
+            {busy === "confrontar" && (
               <p className="mt-4 text-micro uppercase tracking-[0.3em] text-muted-foreground pneuma-breathe">
-                {es ? "Examinando…" : "Examining…"}
+                {tr("dialogue.text30")}
               </p>
             )}
 
             {confront && (
-              <div className="mt-8 rounded-xl border border-border/60 bg-card/40 p-6">
+              <div className="mt-8 min-w-0">
                 <RichText text={confront} />
               </div>
             )}
@@ -387,23 +382,23 @@ function DialogoPage() {
 
         {/* Ficha plegada por defecto */}
         <section className="mt-16 border-t border-border/60 pt-6">
-          <button
+          <Button variant="ghost"
             type="button"
             onClick={() => setFichaOpen((v) => !v)}
             aria-expanded={fichaOpen}
-            aria-controls="tradition-ficha"
+            aria-controls={`tradition-ficha-${id}`}
             className="focus-mist flex w-full items-center justify-between gap-4 text-left"
           >
-            <span className="label">{es ? "Ficha de la tradición" : "Tradition card"}</span>
+            <span className="label">{tr("dialogue.text31")}</span>
             <span aria-hidden="true" className={`text-muted-foreground transition-transform duration-200 ${fichaOpen ? "rotate-180" : ""}`}>
               ▾
             </span>
-          </button>
+          </Button>
 
           {fichaOpen && (
-            <div id="tradition-ficha" className="mt-6">
+            <div id={`tradition-ficha-${id}`} className="mt-6">
               <h3 className="font-serif text-heading font-light text-foreground">
-                {es ? "Conceptos centrales" : "Central concepts"}
+                {tr("dialogue.text32")}
               </h3>
               <ul className="mt-3 flex flex-wrap gap-2">
                 {t.concepts.map((c) => (
@@ -421,7 +416,7 @@ function DialogoPage() {
 
               <dl className="mt-8 space-y-6">
                 <div>
-                  <dt className="label">{es ? "Premisas" : "Premises"}</dt>
+                  <dt className="label">{tr("dialogue.text33")}</dt>
                   <dd className="mt-2 space-y-1">
                     {t.premises.map((p) => (
                       <p key={p} className="text-small text-muted-foreground">— {p}</p>
@@ -429,16 +424,16 @@ function DialogoPage() {
                   </dd>
                 </div>
                 <div>
-                  <dt className="label">{es ? "Método" : "Method"}</dt>
+                  <dt className="label">{tr("dialogue.text34")}</dt>
                   <dd className="mt-2 text-small text-muted-foreground">{t.method}</dd>
                 </div>
                 <div>
-                  <dt className="label">{es ? "Referencias" : "References"}</dt>
+                  <dt className="label">{tr("dialogue.text35")}</dt>
                   <dd className="mt-2 text-small text-muted-foreground">{t.authors.join(" · ")}</dd>
                 </div>
                 <div className="grid gap-6 sm:grid-cols-2">
                   <div>
-                    <dt className="label">{es ? "Tensiones internas" : "Internal tensions"}</dt>
+                    <dt className="label">{tr("dialogue.text36")}</dt>
                     <dd className="mt-2 space-y-1">
                       {t.tensions.map((x) => (
                         <p key={x} className="text-small text-muted-foreground">— {x}</p>
@@ -446,7 +441,7 @@ function DialogoPage() {
                     </dd>
                   </div>
                   <div>
-                    <dt className="label">{es ? "Objeciones" : "Objections"}</dt>
+                    <dt className="label">{tr("dialogue.text37")}</dt>
                     <dd className="mt-2 space-y-1">
                       {t.objections.map((x) => (
                         <p key={x} className="text-small text-muted-foreground">— {x}</p>
@@ -466,6 +461,7 @@ function DialogoPage() {
 
 function RichText({ text }: { text: string }) {
   return (
+    <div className="ontology-response min-w-0">
     <ReactMarkdown
       components={{
         h1: (props) => <h2 className="font-serif text-heading font-light text-foreground">{props.children}</h2>,
@@ -480,5 +476,6 @@ function RichText({ text }: { text: string }) {
     >
       {text}
     </ReactMarkdown>
+    </div>
   );
 }

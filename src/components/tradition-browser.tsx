@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useId, useMemo, useState } from "react";
 import {
   TRADITIONS,
   TRADITION_FAMILIES,
@@ -6,7 +6,8 @@ import {
 } from "@/lib/traditions";
 import { useI18n } from "@/lib/i18n";
 
-const PAGE_SIZE = 8;
+import { Button } from "@/components/ui/button";
+import { TRADITION_PAGE_SIZE as PAGE_SIZE } from "@/lib/dialogos.shared";
 
 export type TraditionBrowserProps = {
   mode: "single" | "multi";
@@ -14,6 +15,7 @@ export type TraditionBrowserProps = {
   onToggle: (id: string) => void;
   onOpen: (id: string) => void;
   maxSelect?: number;
+  disabled?: boolean;
 };
 
 /**
@@ -26,8 +28,10 @@ export function TraditionBrowser({
   onToggle,
   onOpen,
   maxSelect = 3,
+  disabled = false,
 }: TraditionBrowserProps) {
-  const { lang } = useI18n();
+  const { lang, t: tr } = useI18n();
+  const searchId = useId();
   const es = lang === "es";
   const [query, setQuery] = useState("");
   const [family, setFamily] = useState<"all" | TraditionFamilyId>("all");
@@ -61,21 +65,29 @@ export function TraditionBrowser({
 
   return (
     <div>
+      {mode === "multi" && selected.length > 0 && (
+        <div className="mb-4 flex flex-wrap gap-2">
+          {selected.map(id => {
+            const item = TRADITIONS.find(t => t.id === id);
+            return item ? <Button key={id} variant="outline" size="sm" disabled={disabled} onClick={() => onToggle(id)} aria-label={tr("dialogue.remove", { name: item.name[lang] })}>{item.name[lang]} ×</Button> : null;
+          })}
+        </div>
+      )}
       {/* Buscador + filtro */}
       <div className="flex flex-col gap-3">
-        <label className="sr-only" htmlFor="tradition-search">
-          {es ? "Buscar corriente" : "Search tradition"}
+        <label className="sr-only" htmlFor={searchId}>
+          {tr("dialogue.text4")}
         </label>
         <input
-          id="tradition-search"
+          id={searchId}
           type="search"
           value={query}
           onChange={(e) => search(e.target.value)}
-          placeholder={es ? "Buscar corriente: estoicismo, libertad…" : "Search tradition: stoicism, freedom…"}
+          placeholder={tr("dialogue.text5")}
           className="focus-mist w-full rounded-md border border-border bg-background/70 px-4 py-2.5 text-small text-foreground placeholder:text-muted-foreground/70 transition-colors hover:border-bronze/60"
         />
         <div className="flex flex-wrap gap-2">
-          <button
+          <Button variant="ghost"
             type="button"
             onClick={() => pickFamily("all")}
             aria-pressed={family === "all"}
@@ -85,10 +97,10 @@ export function TraditionBrowser({
                 : "border-border/70 text-muted-foreground hover:border-bronze/40 hover:text-foreground"
             }`}
           >
-            {es ? "Todas" : "All"}
-          </button>
+            {tr("dialogue.text6")}
+          </Button>
           {TRADITION_FAMILIES.map((f) => (
-            <button
+            <Button variant="ghost"
               key={f.id}
               type="button"
               onClick={() => pickFamily(f.id)}
@@ -100,7 +112,7 @@ export function TraditionBrowser({
               }`}
             >
               {f.name[lang]}
-            </button>
+            </Button>
           ))}
         </div>
       </div>
@@ -108,35 +120,35 @@ export function TraditionBrowser({
       {/* Contador + paginación */}
       <div className="mt-5 flex items-center justify-between gap-4 border-b border-border/60 pb-3">
         <p className="text-micro text-muted-foreground">
-          {total} {es ? "corrientes" : "traditions"}
+          {total} {tr("dialogue.text7")}
         </p>
         <div className="flex items-center gap-2">
-          <button
+          <Button variant="ghost"
             type="button"
             disabled={safePage === 0}
             onClick={() => setPage((p) => Math.max(0, p - 1))}
             className="focus-mist rounded-full border border-border/70 px-3 py-1 text-micro text-muted-foreground transition-colors hover:text-foreground disabled:cursor-not-allowed disabled:opacity-40"
           >
-            ← {es ? "Anterior" : "Prev"}
-          </button>
+            ← {tr("dialogue.text8")}
+          </Button>
           <span className="text-micro text-muted-foreground">
             {safePage + 1}/{pages}
           </span>
-          <button
+          <Button variant="ghost"
             type="button"
             disabled={safePage >= pages - 1}
             onClick={() => setPage((p) => Math.min(pages - 1, p + 1))}
             className="focus-mist rounded-full border border-border/70 px-3 py-1 text-micro text-muted-foreground transition-colors hover:text-foreground disabled:cursor-not-allowed disabled:opacity-40"
           >
-            {es ? "Siguiente" : "Next"} →
-          </button>
+            {tr("dialogue.text9")} →
+          </Button>
         </div>
       </div>
 
       {/* Listado */}
       {items.length === 0 ? (
         <p className="mt-6 text-small text-muted-foreground">
-          {es ? "No hay corrientes que coincidan." : "No matching traditions."}
+          {tr("dialogue.text10")}
         </p>
       ) : (
         <ul className="mt-2 divide-y divide-border/50">
@@ -145,12 +157,12 @@ export function TraditionBrowser({
             return (
               <li key={t.id}>
                 {mode === "multi" ? (
-                  <button
+                  <Button variant="ghost"
                     type="button"
                     onClick={() => onToggle(t.id)}
                     aria-pressed={on}
-                    disabled={!on && selected.length >= maxSelect}
-                    className="focus-mist flex w-full items-center justify-between gap-4 py-3.5 text-left disabled:cursor-not-allowed"
+                    disabled={disabled || (!on && selected.length >= maxSelect)}
+                    className="focus-mist flex h-auto w-full items-center justify-between gap-4 whitespace-normal py-3.5 text-left disabled:cursor-not-allowed"
                   >
                     <span>
                       <span className="font-serif text-subtitle font-light text-foreground">
@@ -163,12 +175,12 @@ export function TraditionBrowser({
                     <span aria-hidden="true" className={`shrink-0 text-bronze ${on ? "" : "opacity-20"}`}>
                       ✓
                     </span>
-                  </button>
+                  </Button>
                 ) : (
-                  <button
+                  <Button variant="ghost"
                     type="button"
                     onClick={() => onOpen(t.id)}
-                    className="focus-mist group flex w-full items-center justify-between gap-4 py-3.5 text-left"
+                    className="focus-mist group flex h-auto w-full items-center justify-between gap-4 whitespace-normal py-3.5 text-left"
                   >
                     <span>
                       <span className="font-serif text-subtitle font-light text-foreground group-hover:text-bronze-bright">
@@ -181,7 +193,7 @@ export function TraditionBrowser({
                     <span aria-hidden="true" className="shrink-0 text-bronze opacity-0 transition-opacity group-hover:opacity-100">
                       →
                     </span>
-                  </button>
+                  </Button>
                 )}
               </li>
             );
