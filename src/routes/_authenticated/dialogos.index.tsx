@@ -4,6 +4,7 @@ import { SITE_URL } from "@/lib/site";
 import { useI18n } from "@/lib/i18n";
 import { SiteNav } from "@/components/site-nav";
 import { SiteFooter } from "@/components/site-footer";
+import { Button } from "@/components/ui/button";
 import { TraditionBrowser } from "@/components/tradition-browser";
 
 type Mode = "dialogar" | "contrastar" | "confrontar";
@@ -38,7 +39,7 @@ export const Route = createFileRoute("/_authenticated/dialogos/")({
 });
 
 function DialogosIndex() {
-  const { lang } = useI18n();
+  const { lang, t: tr } = useI18n();
   const es = lang === "es";
   const navigate = useNavigate();
   const [mode, setMode] = useState<Mode>("dialogar");
@@ -55,30 +56,31 @@ function DialogosIndex() {
 
   const runContrast = () => {
     if (picks.length < 2) return;
-    const [first, ...others] = picks;
+    const [first] = picks;
+    if (!first) return;
     navigate({
       to: "/dialogos/$id",
       params: { id: first },
-      search: { mode: "contrastar", with: others.join(",") },
+      search: { mode: "contrastar", with: picks.join(",") },
     });
   };
 
   return (
     <>
       <SiteNav />
-      <main className="route-enter relative z-10 mx-auto max-w-4xl px-5 pb-24 pt-16 md:px-8 md:pt-24">
-        <p className="label">{es ? "Diálogos filosóficos" : "Philosophical dialogues"}</p>
-        <h1 className="mt-3 max-w-2xl font-serif text-display font-light text-foreground">
-          {es ? "Una pregunta, muchas formas de pensar" : "One question, many ways of thinking"}
+      <main className="route-enter relative z-10 mx-auto max-w-4xl px-5 pb-24 pt-8 md:px-8 md:pt-10">
+        <p className="label">{tr("dialogue.title")}</p>
+        <h1 className="mt-3 max-w-2xl font-serif text-heading font-light text-foreground">
+          {tr("dialogue.title")}
         </h1>
 
         <div
           className="mt-7 inline-flex items-center rounded-full border border-border/70 p-0.5 backdrop-blur-md"
           role="group"
-          aria-label={es ? "Modo" : "Mode"}
+          aria-label={tr("dialogue.text11")}
         >
           {MODES.map((m) => (
-            <button
+            <Button variant="ghost"
               key={m.key}
               type="button"
               onClick={() => {
@@ -91,18 +93,14 @@ function DialogosIndex() {
               }`}
             >
               {m[lang]}
-            </button>
+            </Button>
           ))}
         </div>
 
         <p className="mt-3 text-micro text-muted-foreground">
           {mode === "contrastar"
-            ? es
-              ? "Elige dos o tres corrientes para contrastarlas sobre una misma pregunta."
-              : "Pick two or three traditions to compare them on one question."
-            : es
-              ? "Elige una corriente para empezar."
-              : "Pick a tradition to begin."}
+            ? tr("dialogue.text12")
+            : tr("dialogue.text13")}
         </p>
 
         <div className="mt-8">
@@ -118,9 +116,9 @@ function DialogosIndex() {
         {mode === "contrastar" && (
           <div className="mt-6 flex flex-wrap items-center gap-4">
             <p className="text-micro text-muted-foreground">
-              {picks.length}/3 {es ? "seleccionadas" : "selected"}
+              {picks.length}/3 {tr("dialogue.text14")}
             </p>
-            <button
+            <Button variant="ghost"
               type="button"
               onClick={runContrast}
               disabled={picks.length < 2}
@@ -133,7 +131,7 @@ function DialogosIndex() {
                 : picks.length >= 2
                   ? `Compare ${picks.length} traditions →`
                   : "Compare →"}
-            </button>
+            </Button>
           </div>
         )}
       </main>
