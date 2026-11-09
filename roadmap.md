@@ -37,4 +37,5 @@
 - [x] Lista de solicitudes en el panel de administración
 - [x] Sitemap, metadatos, manifest y enlace discreto desde la app
 - [x] QA escritorio/móvil, envío real del formulario y acceso a /app
+- [x] Aviso por correo de cada solicitud a la dirección del propietario
 - [ ] Asignar una cuenta administradora para ver las solicitudes (requiere indicar qué cuenta)
