@@ -107,7 +107,7 @@ function InstitutionalHome() {
             <SectionHeading id="challenge-title" eyebrow={CHALLENGE.eyebrow[lang]} title={CHALLENGE.title[lang]} lead={CHALLENGE.lead[lang]} />
           </Reveal>
 
-          <Reveal className="mt-14 rounded-lg border border-border bg-card px-6 py-10 md:px-10 md:py-12" aria-labelledby="figures-title">
+          <Reveal className="mt-14 rounded-lg border border-border bg-card px-6 py-10 md:px-10 md:py-12">
             <div className="max-w-2xl">
               <Eyebrow>{EVIDENCE_COPY.challengeEyebrow[lang]}</Eyebrow>
               <h3 id="figures-title" className="inst-title mt-3 text-[clamp(1.6rem,1.2rem+1.5vw,2.25rem)]">
