@@ -32,7 +32,7 @@ export type Source = {
   venue: L;
   kind: EvidenceKind;
   url: string;
-  short: string; // cita breve visible bajo cada indicador
+  short: L; // cita breve visible bajo cada indicador
 };
 
 export const SOURCES: Record<SourceId, Source> = {
@@ -44,7 +44,7 @@ export const SOURCES: Record<SourceId, Source> = {
     venue: { es: "OCDE, publicado el 8 de septiembre de 2026", en: "OECD, published 8 September 2026" },
     kind: "assessment",
     url: "https://www.oecd.org/en/publications/pisa-2025-results-volume-i-country-notes_2d4ff9ea-en/chile_9226f5cb-en.html",
-    short: "PISA 2025",
+    short: { es: "OCDE, PISA 2025", en: "OECD, PISA 2025" },
   },
   wei2025: {
     id: "wei2025",
@@ -54,7 +54,7 @@ export const SOURCES: Record<SourceId, Source> = {
     venue: { es: "Journal of Intelligence, 13(10), 130", en: "Journal of Intelligence, 13(10), 130" },
     kind: "meta-analysis",
     url: "https://pubmed.ncbi.nlm.nih.gov/41149769/",
-    short: "Wei & Chen, Journal of Intelligence, 2025",
+    short: { es: "Wei & Chen, Journal of Intelligence, 2025", en: "Wei & Chen, Journal of Intelligence, 2025" },
   },
   bishop2026: {
     id: "bishop2026",
@@ -64,7 +64,7 @@ export const SOURCES: Record<SourceId, Source> = {
     venue: { es: "Journal of Experimental Psychology: Applied", en: "Journal of Experimental Psychology: Applied" },
     kind: "field-experiment",
     url: "https://doi.org/10.1037/xap0000571",
-    short: "Bishop, Feltz & Conway, 2026",
+    short: { es: "Bishop, Feltz & Conway, 2026", en: "Bishop, Feltz & Conway, 2026" },
   },
   oecd2022: {
     id: "oecd2022",
@@ -74,7 +74,7 @@ export const SOURCES: Record<SourceId, Source> = {
     venue: { es: "OCDE, iniciativa internacional CLA+", en: "OECD, CLA+ International Initiative" },
     kind: "report",
     url: "https://www.oecd.org/en/publications/does-higher-education-teach-students-to-think-critically_cc9fa6aa-en.html",
-    short: "OCDE, 2022",
+    short: { es: "OCDE, 2022", en: "OECD, 2022" },
   },
   deo2026: {
     id: "deo2026",
@@ -84,17 +84,17 @@ export const SOURCES: Record<SourceId, Source> = {
     venue: { es: "OCDE", en: "OECD" },
     kind: "report",
     url: "https://www.oecd.org/en/publications/oecd-digital-education-outlook-2026_062a7394-en.html",
-    short: "OECD Digital Education Outlook, 2026",
+    short: { es: "OECD Digital Education Outlook, 2026", en: "OECD Digital Education Outlook, 2026" },
   },
   clemente: {
     id: "clemente",
     author: "Clemente Course in the Humanities",
     year: "2011 · 2017",
-    title: "About — encuestas a participantes",
-    venue: { es: "Sitio oficial del programa", en: "Programme’s official site" },
+    title: "About",
+    venue: { es: "Sitio oficial del programa; encuestas a participantes", en: "Programme’s official site; participant surveys" },
     kind: "survey",
     url: "https://www.clementecourse.org/about",
-    short: "Clemente Course, encuestas 2011 y 2017",
+    short: { es: "Clemente Course, encuestas 2011 y 2017", en: "Clemente Course, 2011 and 2017 surveys" },
   },
   neh2014: {
     id: "neh2014",
@@ -104,7 +104,7 @@ export const SOURCES: Record<SourceId, Source> = {
     venue: { es: "NEH", en: "NEH" },
     kind: "report",
     url: "https://www.neh.gov/about/awards/national-humanities-medals/the-clemente-course-in-the-humanities",
-    short: "NEH, Medalla Nacional de Humanidades 2014",
+    short: { es: "NEH, Medalla Nacional de Humanidades 2014", en: "NEH, 2014 National Humanities Medal" },
   },
   eef2021: {
     id: "eef2021",
@@ -114,7 +114,7 @@ export const SOURCES: Record<SourceId, Source> = {
     venue: { es: "EEF, Reino Unido (finalizado en noviembre de 2021)", en: "EEF, United Kingdom (completed November 2021)" },
     kind: "trial",
     url: "https://educationendowmentfoundation.org.uk/Projects-and-Evaluation/Projects/Philosophy-for-Children-Effectiveness-Trial",
-    short: "Education Endowment Foundation, 2021",
+    short: { es: "Education Endowment Foundation, 2021", en: "Education Endowment Foundation, 2021" },
   },
 };
 

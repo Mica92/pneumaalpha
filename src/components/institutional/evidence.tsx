@@ -44,7 +44,7 @@ export function EvidenceMetric({ metric, className }: { metric: Metric; classNam
   const { lang } = useI18n();
   return (
     <div className={className}>
-      <p className="font-serif text-[clamp(3rem,2.2rem+2.6vw,4.25rem)] leading-none tabular-nums text-foreground">{metric.value}</p>
+      <p className="font-serif text-[clamp(3rem,2.2rem+2.6vw,4.25rem)] leading-none tabular-nums lining-nums text-foreground">{metric.value}</p>
       <p className="mt-4 max-w-[19rem] text-small text-ink">{metric.label[lang]}</p>
       <p className="mt-4 text-micro tracking-[0.06em] text-muted-foreground">{metric.micro[lang]}</p>
       <SourceLink id={metric.source} className="mt-2" />
@@ -60,7 +60,7 @@ export function EvidenceStudy({ study, detailed = false }: { study: Study; detai
     <article className="flex h-full flex-col">
       <p className="inst-eyebrow">{KIND_LABEL[s.kind][lang]} · {s.year}</p>
       <p className="mt-6 flex items-baseline gap-3">
-        <span className="font-serif text-[clamp(3.5rem,2.6rem+3vw,5rem)] leading-none tabular-nums text-foreground">{study.headline}</span>
+        <span className="font-serif text-[clamp(3.5rem,2.6rem+3vw,5rem)] leading-none tabular-nums lining-nums text-foreground">{study.headline}</span>
         <span className="font-serif text-[1.6rem] text-foreground/80">{study.headlineUnit[lang]}</span>
       </p>
       <p className="mt-3 text-small text-muted-foreground">{study.secondary[lang]}</p>
@@ -80,7 +80,7 @@ export function EvidenceStudy({ study, detailed = false }: { study: Study; detai
         </>
       ) : null}
       <div className="mt-auto flex flex-wrap items-center justify-between gap-3 pt-7">
-        <p className="text-micro text-muted-foreground">{s.short}</p>
+        <p className="text-micro text-muted-foreground">{s.short[lang]}</p>
         <SourceLink id={study.source} label={EVIDENCE_COPY.examine[lang]} className="text-small" />
       </div>
     </article>
@@ -170,7 +170,7 @@ export function AiLearningNote({ className }: { className?: string }) {
       <div>
         <p className="text-body text-ink">{EVIDENCE_COPY.aiBody[lang]}</p>
         <p className="mt-2 text-micro text-muted-foreground">
-          {SOURCES.deo2026.short} · <SourceLink id="deo2026" />
+          {SOURCES.deo2026.short[lang]} · <SourceLink id="deo2026" />
         </p>
         <p className="mt-6 border-t border-border pt-6 text-body text-foreground">{EVIDENCE_COPY.aiKionas[lang]}</p>
       </div>
@@ -183,12 +183,12 @@ export function PilotBridge({ withIndicators = false, ctaTo }: { withIndicators?
   const { lang } = useI18n();
   return (
     <Reveal className="rounded-lg border border-border bg-card p-8 md:p-10">
-      <div className="grid gap-8 lg:grid-cols-[1fr_1.2fr] lg:gap-14">
-        <div>
+      <div>
+        <div className="max-w-2xl">
           <h3 className="inst-title text-[clamp(1.6rem,1.2rem+1.5vw,2.3rem)]">{EVIDENCE_COPY.bridgeTitle[lang]}</h3>
           <p className="mt-4 text-body text-muted-foreground">{EVIDENCE_COPY.bridgeBody[lang]}</p>
         </div>
-        <ol className="flex flex-col gap-3 self-center sm:flex-row sm:flex-wrap sm:items-center" aria-label={lang === "es" ? "Proceso de validación" : "Validation process"}>
+        <ol className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center" aria-label={lang === "es" ? "Proceso de validación" : "Validation process"}>
           {PILOT_FLOW.map((step, i) => (
             <li key={step.en} className="flex items-center gap-3">
               <span className={cn("rounded-full border px-4 py-2 text-small", i === 1 ? "border-navy bg-navy text-ivory" : "border-border bg-background text-foreground")}>

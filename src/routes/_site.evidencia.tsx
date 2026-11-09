@@ -232,7 +232,7 @@ function EvidencePage() {
           <ul className="mt-14 grid gap-8 md:grid-cols-3 md:gap-0">
             {CLEMENTE.map((c) => (
               <li key={c.value + c.year} className="border-t border-border pt-6 md:border-t-0 md:border-l md:px-8 md:pt-0 md:first:border-l-0 md:first:pl-0">
-                <p className="font-serif text-[clamp(3rem,2.2rem+2.6vw,4.25rem)] leading-none tabular-nums text-foreground">{c.value}</p>
+                <p className="font-serif text-[clamp(3rem,2.2rem+2.6vw,4.25rem)] leading-none tabular-nums lining-nums text-foreground">{c.value}</p>
                 <p className="mt-4 text-small text-ink">
                   {es ? "de los encuestados " : "of respondents "}
                   {c.label[lang]}
@@ -291,7 +291,7 @@ function EvidencePage() {
               </li>
             </ol>
             <p className="mt-4 text-micro text-muted-foreground">
-              {SOURCES.eef2021.short} · <SourceLink id="eef2021" />
+              {SOURCES.eef2021.short[lang]} · <SourceLink id="eef2021" />
             </p>
             <MethodologyNote className="mt-8">
               {es
