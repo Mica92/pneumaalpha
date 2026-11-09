@@ -40,7 +40,7 @@ export const submitInstitutionalLead = createServerFn({ method: "POST" })
       throw new Error("RATE_LIMITED");
     }
 
-    const { error } = await supabaseAdmin.from("institutional_leads").insert({
+    const { data: inserted, error } = await supabaseAdmin.from("institutional_leads").insert({
       full_name: data.fullName,
       email: data.email,
       institution: data.institution,
@@ -51,8 +51,30 @@ export const submitInstitutionalLead = createServerFn({ method: "POST" })
       language: data.language,
       source_path: data.sourcePath,
       ip_hash: ipHash,
-    });
-    if (error) throw new Error("No pudimos registrar la solicitud. Inténtalo de nuevo.");
+    }).select("id").single();
+    if (error || !inserted) throw new Error("No pudimos registrar la solicitud. Inténtalo de nuevo.");
+
+    // Aviso al equipo (destinatario fijo en la plantilla). Si el correo falla, la solicitud ya quedó guardada.
+    try {
+      const { sendTemplateEmail } = await import("@/lib/email-templates/send-email");
+      await sendTemplateEmail("lead-notification", "", {
+        templateData: {
+          fullName: data.fullName,
+          email: data.email,
+          institution: data.institution,
+          jobTitle: data.jobTitle,
+          country: data.country,
+          message: data.message,
+          interest: data.interest,
+          language: data.language,
+          sourcePath: data.sourcePath,
+        },
+        idempotencyKey: `lead-notification-${inserted.id}`,
+        replyTo: data.email,
+      });
+    } catch (e) {
+      console.error("[leads] notification email failed", e);
+    }
     return { ok: true as const };
   });
 
