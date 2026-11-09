@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { useI18n } from "@/lib/i18n";
 import { FORM } from "@/lib/institutional-content";
 import { submitInstitutionalLead } from "@/lib/leads.functions";
-import { invalidLeadFields, LEAD_MESSAGE_MAX, type LeadField } from "@/lib/leads.shared";
+import { invalidLeadFields, LEAD_MESSAGE_MAX, type LeadField, type LeadInput } from "@/lib/leads.shared";
 import { cn } from "@/lib/utils";
 
 type Values = {
@@ -55,7 +55,7 @@ export function LeadForm({
   }, []);
 
   useEffect(() => {
-    if (state === "done" || state === "error") statusRef.current?.focus();
+    if (state === "done") statusRef.current?.focus();
   }, [state]);
 
   const id = (name: string) => `${uid}-${name}`;
@@ -68,7 +68,7 @@ export function LeadForm({
       interest,
       language: lang,
       sourcePath,
-      consent: consent as true,
+      consent,
       website,
       elapsedMs: Math.max(0, Date.now() - startedAt.current),
     };
@@ -84,7 +84,8 @@ export function LeadForm({
     setState("sending");
     setErrorMsg("");
     try {
-      await submit({ data: payload });
+      // invalidLeadFields ya confirmó la forma exacta del esquema (incluido consent === true).
+      await submit({ data: payload as LeadInput });
       setState("done");
     } catch (err) {
       const msg = err instanceof Error ? err.message : "";
@@ -266,7 +267,7 @@ export function LeadForm({
           )}
         </Button>
         <div ref={statusRef} tabIndex={-1} aria-live="polite" className="focus:outline-none">
-          {state === "error" && errorMsg ? <p className="text-small text-destructive">{errorMsg}</p> : null}
+          {state === "error" && errorMsg ? <p role="alert" className="text-small text-destructive">{errorMsg}</p> : null}
         </div>
       </div>
     </form>
