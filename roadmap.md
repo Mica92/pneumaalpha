@@ -40,6 +40,14 @@
 - [x] Aviso por correo de cada solicitud a la dirección del propietario
 - [ ] Asignar una cuenta administradora para ver las solicitudes (requiere indicar qué cuenta)
 
+# Separación Kionas Website / Kionas Platform
+- [x] Auditoría de dependencias reales y mapa de separación (docs/separation/SEPARATION.md)
+- [x] Sitio institucional autónomo: compila, pruebas, páginas, enlaces a la app (kionas-website.zip)
+- [x] Limpieza de la app probada en copia: compila, sin contenido institucional en el paquete móvil
+- [ ] Importar y publicar Kionas Website como proyecto Lovable nuevo (paso manual del propietario)
+- [ ] Conectar kionas.app a la web y app.kionas.app a esta app (requiere los dominios)
+- [ ] Aplicar platform-cleanup.patch aquí y verificar (espera a que la web esté publicada)
+
 # Evidencia en la web institucional
 - [x] Verificar cada fuente del documento antes de publicar cifras
 - [x] Cifras PISA 2025 en «El desafío educativo» y enlace discreto en la portada

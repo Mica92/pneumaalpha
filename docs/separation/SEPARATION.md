@@ -91,7 +91,7 @@ los binarios `src/assets/product/*.jpg` (el parche no incluye binarios). El parc
 3. En el chat del proyecto nuevo, pedir lo indicado en su `README.md` (activar Cloud, aplicar migración, correo, prueba del formulario).
 4. Publicar Kionas Website y conectar `kionas.app` y `www.kionas.app` (Settings → Domains).
 5. En **este** proyecto: conectar `app.kionas.app` (Settings → Domains) y retirar `kionas.app` / `www.kionas.app` de aquí.
-6. En la configuración de autenticación de este proyecto, añadir `https://app.kionas.app` a las direcciones de retorno permitidas.
-7. Pedir en este chat: «aplica la limpieza de la separación». Entonces se aplica el parche, se verifica y se publica.
-8. GitHub (opcional): en cada proyecto, Project settings → Git → conectar; cada uno crea su propio repositorio
+6. Pedir en este chat: «aplica la limpieza de la separación». Entonces se aplica el parche, se verifica
+   el inicio de sesión con Google en `app.kionas.app` y se publica.
+7. GitHub (opcional): en cada proyecto, Project settings → Git → conectar; cada uno crea su propio repositorio
    (`kionas-platform`, `kionas-website`). Lovable no puede vincular repositorios existentes.
