@@ -292,6 +292,7 @@
 
 html:has(.institutional) { background-color: oklch(0.958 0.007 89); }
 html:has(.institutional) body { background-color: oklch(0.958 0.007 89); padding-bottom: 0; }
+html:has(.institutional) [data-mobile-tabbar] { display: none; }
 html:has(.institutional) body::before,
 html:has(.institutional) body::after { display: none; }
 

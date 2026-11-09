@@ -44,12 +44,12 @@ function ProfilePage() {
   const email = user?.email ?? null;
 
   async function signIn() {
-    await lovable.auth.signInWithOAuth("google", { redirect_uri: window.location.origin });
+    await lovable.auth.signInWithOAuth("google", { redirect_uri: `${window.location.origin}${window.location.pathname}` });
   }
 
   async function signOut() {
     await supabase.auth.signOut();
-    await navigate({ to: "/" });
+    await navigate({ to: "/app" });
   }
 
   return (

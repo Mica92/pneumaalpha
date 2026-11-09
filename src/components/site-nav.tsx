@@ -50,14 +50,14 @@ export function SiteNav({ className = "" }: { className?: string }) {
   const avatar = (user?.user_metadata?.avatar_url as string | undefined) ?? null;
 
   async function signIn() {
-    await lovable.auth.signInWithOAuth("google", { redirect_uri: window.location.origin });
+    await lovable.auth.signInWithOAuth("google", { redirect_uri: `${window.location.origin}${window.location.pathname}` });
   }
 
   async function signOut() {
     await queryClient.cancelQueries();
     queryClient.clear();
     await supabase.auth.signOut();
-    await navigate({ to: "/" });
+    await navigate({ to: "/app" });
   }
 
   return (
@@ -71,7 +71,7 @@ export function SiteNav({ className = "" }: { className?: string }) {
         aria-label={lang === "es" ? "Navegación principal" : "Main navigation"}
         className="mx-auto flex max-w-6xl items-center justify-between gap-6 px-5 py-4 md:px-8"
       >
-        <Link to="/" className="focus-mist shrink-0" aria-label="Kionas">
+        <Link to="/app" className="focus-mist shrink-0" aria-label="Kionas">
           <PneumaMark size={24} withWordmark />
         </Link>
 
@@ -229,13 +229,14 @@ export function SiteNav({ className = "" }: { className?: string }) {
 export function MobileTabBar() {
   const { lang } = useI18n();
   const tabs: readonly NavItem[] = [
-    { to: "/", es: "Inicio", en: "Home" },
+    { to: "/app", es: "Inicio", en: "Home" },
     { to: "/mi-mapa", es: "Mapa", en: "Map" },
     { to: "/explorar", es: "Explorar", en: "Explore" },
     { to: "/ideas", es: "Ideas", en: "Ideas" },
   ];
   return (
     <nav
+      data-mobile-tabbar
       aria-label={lang === "es" ? "Navegación rápida" : "Quick navigation"}
       className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-4 border-t border-border/50 bg-background/95 backdrop-blur-xl md:hidden"
     >
@@ -246,7 +247,7 @@ export function MobileTabBar() {
           to={t.to as any}
           className="focus-mist py-3 text-center text-micro text-muted-foreground transition-colors hover:text-foreground"
           activeProps={{ className: "text-foreground" }}
-          activeOptions={{ exact: t.to === "/" }}
+          activeOptions={{ exact: t.to === "/app" }}
         >
           {t[lang]}
         </Link>
