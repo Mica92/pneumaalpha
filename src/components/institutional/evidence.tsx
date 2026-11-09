@@ -67,7 +67,7 @@ export function EvidenceStudy({ study, detailed = false }: { study: Study; detai
       <h3 className="inst-title mt-8 text-[clamp(1.6rem,1.3rem+1vw,2.1rem)]">{study.title[lang]}</h3>
       <p className="mt-4 text-body text-ink">{study.body[lang]}</p>
       <div className="mt-6 rounded-md border border-border bg-background px-5 py-4">
-        <p className="font-sans text-small font-semibold tabular-nums text-foreground">{study.indicator}</p>
+        <p className="font-sans text-small font-semibold tabular-nums text-foreground">{study.indicator[lang]}</p>
         <p className="mt-1 text-micro text-muted-foreground">{study.indicatorNote[lang]}</p>
       </div>
       {detailed ? (

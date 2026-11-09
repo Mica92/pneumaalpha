@@ -189,7 +189,7 @@ export type Study = {
   secondary: L;
   title: L;
   body: L;
-  indicator: string;
+  indicator: L;
   indicatorNote: L;
   population: L;
   source: SourceId;
@@ -207,7 +207,7 @@ export const STUDIES: Study[] = [
       es: "Un metaanálisis internacional de 2025 identificó un efecto global favorable de los programas Philosophy for Children sobre capacidades cognitivas evaluadas, con efectos observados en razonamiento, pensamiento crítico y creatividad.",
       en: "A 2025 international meta-analysis found a favourable overall effect of Philosophy for Children programmes on the cognitive abilities assessed, with effects observed in reasoning, critical thinking and creativity.",
     },
-    indicator: "Hedges’ g = 0,59",
+    indicator: { es: "Hedges’ g = 0,59", en: "Hedges’ g = 0.59" },
     indicatorNote: {
       es: "Tamaño de efecto estandarizado (IC 95%: 0,43–0,75); no representa un porcentaje de mejora.",
       en: "Standardised effect size (95% CI: 0.43–0.75); it does not represent a percentage improvement.",
@@ -232,7 +232,7 @@ export const STUDIES: Study[] = [
       es: "Un experimento universitario encontró efectos importantes en cuatro errores de juicio y razonamiento después de un curso específicamente diseñado para trabajar estas capacidades.",
       en: "A university experiment found substantial effects on four errors of judgement and reasoning after a course specifically designed to work on these skills.",
     },
-    indicator: "Cohen’s d > 0,80",
+    indicator: { es: "Cohen’s d > 0,80", en: "Cohen’s d > 0.80" },
     indicatorNote: {
       es: "Tamaño de efecto estandarizado; no significa 80% de mejora.",
       en: "Standardised effect size; it does not mean an 80% improvement.",
