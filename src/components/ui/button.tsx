@@ -17,7 +17,7 @@ const buttonVariants = cva(
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
         institutional:
-          "bg-primary text-primary-foreground shadow-inst hover:bg-navy-deep focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-background active:translate-y-px transition-[background-color,transform]",
+          "bg-primary text-primary-foreground shadow-inst hover:bg-primary/90 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-background active:translate-y-px transition-[background-color,transform]",
         institutionalOutline:
           "border border-foreground/25 bg-transparent text-foreground hover:border-foreground hover:bg-card focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-background active:translate-y-px",
       },
