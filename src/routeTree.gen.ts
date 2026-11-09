@@ -35,6 +35,7 @@ import { Route as AuthenticatedPodcastRouteImport } from './routes/_authenticate
 import { Route as AuthenticatedRecorridoRouteImport } from './routes/_authenticated/recorrido'
 import { Route as AuthenticatedReporteRouteImport } from './routes/_authenticated/reporte'
 import { Route as AuthenticatedUmbralRouteImport } from './routes/_authenticated/umbral'
+import { Route as SiteIndexRouteImport } from './routes/_site.index'
 import { Route as EditorialIndexRouteImport } from './routes/editorial/index'
 import { Route as EditorialPodcastRouteImport } from './routes/editorial/podcast'
 import { Route as AuthenticatedAdminAnaliticaRouteImport } from './routes/_authenticated/admin.analitica'
@@ -184,6 +185,11 @@ const AuthenticatedUmbralRoute = AuthenticatedUmbralRouteImport.update({
   path: '/umbral',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const SiteIndexRoute = SiteIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => SiteRoute,
+} as any)
 const EditorialIndexRoute = EditorialIndexRouteImport.update({
   id: '/editorial/',
   path: '/editorial/',
@@ -278,7 +284,7 @@ const LovableEmailAuthWebhookRoute = LovableEmailAuthWebhookRouteImport.update({
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof SiteRoute
+  '/': typeof SiteIndexRoute
   '/contacto': typeof ContactoRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -322,7 +328,7 @@ export interface FileRoutesByFullPath {
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof SiteRoute
+  '/': typeof SiteIndexRoute
   '/contacto': typeof ContactoRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -367,7 +373,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
-  '/_site': typeof SiteRoute
+  '/_site': typeof SiteRouteWithChildren
   '/contacto': typeof ContactoRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -393,6 +399,7 @@ export interface FileRoutesById {
   '/_authenticated/reporte': typeof AuthenticatedReporteRoute
   '/_authenticated/umbral': typeof AuthenticatedUmbralRoute
   '/editorial/podcast': typeof EditorialPodcastRoute
+  '/_site/': typeof SiteIndexRoute
   '/editorial/': typeof EditorialIndexRoute
   '/_authenticated/admin/analitica': typeof AuthenticatedAdminAnaliticaRoute
   '/_authenticated/dialogos/$id': typeof AuthenticatedDialogosIdRoute
@@ -527,6 +534,7 @@ export interface FileRouteTypes {
     | '/_authenticated/reporte'
     | '/_authenticated/umbral'
     | '/editorial/podcast'
+    | '/_site/'
     | '/editorial/'
     | '/_authenticated/admin/analitica'
     | '/_authenticated/dialogos/$id'
@@ -547,7 +555,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
-  SiteRoute: typeof SiteRoute
+  SiteRoute: typeof SiteRouteWithChildren
   ContactoRoute: typeof ContactoRoute
   PrivacyRoute: typeof PrivacyRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
@@ -744,6 +752,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/umbral'
       preLoaderRoute: typeof AuthenticatedUmbralRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_site/': {
+      id: '/_site/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof SiteIndexRouteImport
+      parentRoute: typeof SiteRoute
     }
     '/editorial/': {
       id: '/editorial/'
@@ -947,9 +962,19 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
 const AuthenticatedRouteRouteWithChildren =
   AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
 
+interface SiteRouteChildren {
+  SiteIndexRoute: typeof SiteIndexRoute
+}
+
+const SiteRouteChildren: SiteRouteChildren = {
+  SiteIndexRoute: SiteIndexRoute,
+}
+
+const SiteRouteWithChildren = SiteRoute._addFileChildren(SiteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
-  SiteRoute: SiteRoute,
+  SiteRoute: SiteRouteWithChildren,
   ContactoRoute: ContactoRoute,
   PrivacyRoute: PrivacyRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
