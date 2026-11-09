@@ -15,7 +15,7 @@ const TITLE = "Kionas — Claridad para pensar lo que te importa";
 const DESCRIPTION =
   "Kionas es un espacio para pensar con claridad: filosofía aplicada que te ayuda a comprender una situación compleja, examinar cómo estás pensando y ver la pregunta de otra manera.";
 
-export const Route = createFileRoute("/_authenticated/")({
+export const Route = createFileRoute("/_authenticated/app")({
   component: Home,
   head: () => ({
     meta: [
@@ -24,10 +24,10 @@ export const Route = createFileRoute("/_authenticated/")({
       { property: "og:title", content: TITLE },
       { property: "og:description", content: DESCRIPTION },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: `${SITE_URL}/` },
+      { property: "og:url", content: `${SITE_URL}/app` },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: `${SITE_URL}/` }],
+    links: [{ rel: "canonical", href: `${SITE_URL}/app` }],
     scripts: [
       {
         type: "application/ld+json",
