@@ -39,3 +39,13 @@
 - [x] QA escritorio/móvil, envío real del formulario y acceso a /app
 - [x] Aviso por correo de cada solicitud a la dirección del propietario
 - [ ] Asignar una cuenta administradora para ver las solicitudes (requiere indicar qué cuenta)
+
+# Evidencia en la web institucional
+- [x] Verificar cada fuente del documento antes de publicar cifras
+- [x] Cifras PISA 2025 en «El desafío educativo» y enlace discreto en la portada
+- [x] Bloque «Educación en la era de la IA» en Metodología (portada y página)
+- [x] Sección «Evidencia científica» entre Metodología y Pilotos
+- [x] Puente evidencia → pilotos con indicadores propuestos
+- [x] Página /evidencia con contexto, estudios, límites, glosario, validación y bibliografía
+- [x] Revisión escritorio/móvil, ES/EN y enlaces a fuentes
+

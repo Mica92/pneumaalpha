@@ -4,6 +4,7 @@ import { MEASURES, PILOT_HOME, PILOT_STAGES, type L } from "@/lib/institutional-
 import { breadcrumb, institutionalHead } from "@/lib/institutional-head";
 import { Eyebrow, PageHero, Reveal, SectionHeading } from "@/components/institutional/primitives";
 import { LeadForm } from "@/components/institutional/lead-form";
+import { PilotBridge } from "@/components/institutional/evidence";
 
 export const Route = createFileRoute("/_site/pilotos")({
   component: PilotsPage,
@@ -64,6 +65,12 @@ function PilotsPage() {
               </Reveal>
             ))}
           </ol>
+        </div>
+      </section>
+
+      <section aria-label={es ? "De la evidencia a la evaluación" : "From evidence to evaluation"} className="border-t border-border py-20 md:py-24">
+        <div className="inst-container">
+          <PilotBridge withIndicators ctaTo="/contacto" />
         </div>
       </section>
 

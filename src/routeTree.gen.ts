@@ -36,6 +36,7 @@ import { Route as AuthenticatedReporteRouteImport } from './routes/_authenticate
 import { Route as AuthenticatedUmbralRouteImport } from './routes/_authenticated/umbral'
 import { Route as SiteIndexRouteImport } from './routes/_site.index'
 import { Route as SiteContactoRouteImport } from './routes/_site.contacto'
+import { Route as SiteEvidenciaRouteImport } from './routes/_site.evidencia'
 import { Route as SiteInstitucionesRouteImport } from './routes/_site.instituciones'
 import { Route as SiteMetodologiaRouteImport } from './routes/_site.metodologia'
 import { Route as SiteNosotrosRouteImport } from './routes/_site.nosotros'
@@ -197,6 +198,11 @@ const SiteContactoRoute = SiteContactoRouteImport.update({
   path: '/contacto',
   getParentRoute: () => SiteRoute,
 } as any)
+const SiteEvidenciaRoute = SiteEvidenciaRouteImport.update({
+  id: '/evidencia',
+  path: '/evidencia',
+  getParentRoute: () => SiteRoute,
+} as any)
 const SiteInstitucionesRoute = SiteInstitucionesRouteImport.update({
   id: '/instituciones',
   path: '/instituciones',
@@ -352,6 +358,7 @@ export interface FileRoutesByFullPath {
   '/reporte': typeof AuthenticatedReporteRoute
   '/umbral': typeof AuthenticatedUmbralRoute
   '/contacto': typeof SiteContactoRoute
+  '/evidencia': typeof SiteEvidenciaRoute
   '/instituciones': typeof SiteInstitucionesRoute
   '/metodologia': typeof SiteMetodologiaRoute
   '/nosotros': typeof SiteNosotrosRoute
@@ -402,6 +409,7 @@ export interface FileRoutesByTo {
   '/reporte': typeof AuthenticatedReporteRoute
   '/umbral': typeof AuthenticatedUmbralRoute
   '/contacto': typeof SiteContactoRoute
+  '/evidencia': typeof SiteEvidenciaRoute
   '/instituciones': typeof SiteInstitucionesRoute
   '/metodologia': typeof SiteMetodologiaRoute
   '/nosotros': typeof SiteNosotrosRoute
@@ -455,6 +463,7 @@ export interface FileRoutesById {
   '/_authenticated/reporte': typeof AuthenticatedReporteRoute
   '/_authenticated/umbral': typeof AuthenticatedUmbralRoute
   '/_site/contacto': typeof SiteContactoRoute
+  '/_site/evidencia': typeof SiteEvidenciaRoute
   '/_site/instituciones': typeof SiteInstitucionesRoute
   '/_site/metodologia': typeof SiteMetodologiaRoute
   '/_site/nosotros': typeof SiteNosotrosRoute
@@ -509,6 +518,7 @@ export interface FileRouteTypes {
     | '/reporte'
     | '/umbral'
     | '/contacto'
+    | '/evidencia'
     | '/instituciones'
     | '/metodologia'
     | '/nosotros'
@@ -559,6 +569,7 @@ export interface FileRouteTypes {
     | '/reporte'
     | '/umbral'
     | '/contacto'
+    | '/evidencia'
     | '/instituciones'
     | '/metodologia'
     | '/nosotros'
@@ -611,6 +622,7 @@ export interface FileRouteTypes {
     | '/_authenticated/reporte'
     | '/_authenticated/umbral'
     | '/_site/contacto'
+    | '/_site/evidencia'
     | '/_site/instituciones'
     | '/_site/metodologia'
     | '/_site/nosotros'
@@ -843,6 +855,13 @@ declare module '@tanstack/react-router' {
       path: '/contacto'
       fullPath: '/contacto'
       preLoaderRoute: typeof SiteContactoRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/evidencia': {
+      id: '/_site/evidencia'
+      path: '/evidencia'
+      fullPath: '/evidencia'
+      preLoaderRoute: typeof SiteEvidenciaRouteImport
       parentRoute: typeof SiteRoute
     }
     '/_site/instituciones': {
@@ -1098,6 +1117,7 @@ const AuthenticatedRouteRouteWithChildren =
 
 interface SiteRouteChildren {
   SiteContactoRoute: typeof SiteContactoRoute
+  SiteEvidenciaRoute: typeof SiteEvidenciaRoute
   SiteInstitucionesRoute: typeof SiteInstitucionesRoute
   SiteMetodologiaRoute: typeof SiteMetodologiaRoute
   SiteNosotrosRoute: typeof SiteNosotrosRoute
@@ -1109,6 +1129,7 @@ interface SiteRouteChildren {
 
 const SiteRouteChildren: SiteRouteChildren = {
   SiteContactoRoute: SiteContactoRoute,
+  SiteEvidenciaRoute: SiteEvidenciaRoute,
   SiteInstitucionesRoute: SiteInstitucionesRoute,
   SiteMetodologiaRoute: SiteMetodologiaRoute,
   SiteNosotrosRoute: SiteNosotrosRoute,
