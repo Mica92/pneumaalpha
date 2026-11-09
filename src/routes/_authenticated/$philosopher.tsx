@@ -60,7 +60,7 @@ function PhilosopherChat() {
   const { add } = useJourney();
 
   useEffect(() => {
-    if (!isPhilosopherId(philosopher)) navigate({ to: "/" });
+    if (!isPhilosopherId(philosopher)) navigate({ to: "/app" });
   }, [philosopher, navigate]);
 
   // Cada conversación deja huella en el mapa personal.
@@ -86,7 +86,7 @@ function PhilosopherChat() {
       userId={user.id}
       philosopher={philosopher}
       initialPrompt={q}
-      onSignOut={() => navigate({ to: "/" })}
+      onSignOut={() => navigate({ to: "/app" })}
     />
   );
 }

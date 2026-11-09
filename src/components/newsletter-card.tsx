@@ -79,7 +79,7 @@ export function NewsletterCard({ className = "" }: { className?: string }) {
       window.localStorage.setItem(PENDING_KEY, "1");
       if (normalized) window.localStorage.setItem(PENDING_PHONE_KEY, normalized);
       const res = await lovable.auth.signInWithOAuth("google", {
-        redirect_uri: window.location.origin,
+        redirect_uri: `${window.location.origin}${window.location.pathname}`,
       });
       if ("error" in res && res.error) throw res.error;
       // Non-redirect flow: the session is already set, subscribe right away.

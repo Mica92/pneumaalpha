@@ -80,6 +80,16 @@
   --color-bronze-bright: var(--bronze-bright);
   --color-bronze-soft: var(--bronze-soft);
 
+  /* Sitio institucional */
+  --color-brass: var(--brass);
+  --color-navy: var(--navy);
+  --color-navy-deep: var(--navy-deep);
+  --color-ivory: var(--ivory);
+  --color-sage-blue: var(--sage-blue);
+  --color-sage-line: var(--sage-line);
+  --color-graphite: var(--graphite);
+  --shadow-inst: var(--shadow-inst);
+
   /* Acentos semánticos */
   --color-tension: var(--tension);
   --color-keep: var(--keep);
@@ -219,6 +229,72 @@
   --tension: oklch(0.50 0.09 245);
   --keep: oklch(0.47 0.07 135);
 }
+
+/* --- Sitio institucional (siempre claro): marfil, azul institucional, bronce y salvia.
+   Acotado a `.institutional` para no alterar el tema de la aplicación. --- */
+.institutional {
+  --background: oklch(0.958 0.007 89);          /* #F3F1EC marfil */
+  --foreground: oklch(0.265 0.048 254);         /* #14263C azul institucional */
+  --card: oklch(1 0 0);                         /* #FFFFFF */
+  --card-foreground: oklch(0.265 0.048 254);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.265 0.048 254);
+  --primary: oklch(0.265 0.048 254);
+  --primary-foreground: oklch(0.958 0.007 89);
+  --secondary: oklch(0.916 0.013 87);           /* #E7E3DA */
+  --secondary-foreground: oklch(0.265 0.048 254);
+  --muted: oklch(0.935 0.010 88);
+  --muted-foreground: oklch(0.47 0.019 254);    /* gris tinta suave, AA sobre marfil */
+  --accent: oklch(0.916 0.013 87);
+  --accent-foreground: oklch(0.265 0.048 254);
+  --destructive: oklch(0.52 0.16 25);
+  --destructive-foreground: oklch(0.98 0.004 85);
+  --border: oklch(0.868 0.019 86);              /* #D9D3C6 */
+  --input: oklch(0.868 0.019 86);
+  --ring: oklch(0.703 0.075 81);
+  --ink: oklch(0.349 0.017 252);                /* #343B43 gris tinta */
+  --surface: oklch(1 0 0);
+  --paper: oklch(0.958 0.007 89);
+  --bronze: oklch(0.50 0.07 78);                /* bronce legible para texto pequeño */
+  --bronze-bright: oklch(0.703 0.075 81);       /* #B79B69 bronce decorativo */
+  --bronze-soft: oklch(0.62 0.06 80);
+  --brass: oklch(0.703 0.075 81);
+  --navy: oklch(0.265 0.048 254);
+  --navy-deep: oklch(0.22 0.042 254);
+  --ivory: oklch(0.958 0.007 89);
+  --sage-blue: oklch(0.524 0.023 208);          /* #5B6E71 salvia legible */
+  --sage-line: oklch(0.607 0.026 207);          /* #71878A salvia */
+  --graphite: oklch(0.349 0.017 252);
+  --mist: oklch(0.265 0.048 254);
+  --shadow-inst: 0 1px 2px oklch(0.265 0.048 254 / 0.04), 0 24px 60px -32px oklch(0.265 0.048 254 / 0.28);
+
+  background-color: var(--background);
+  color: var(--ink);
+}
+
+/* Bloques sobre azul institucional dentro del sitio. */
+.institutional .inst-dark,
+.inst-dark {
+  --background: oklch(0.265 0.048 254);
+  --foreground: oklch(0.958 0.007 89);
+  --card: oklch(0.30 0.048 254);
+  --card-foreground: oklch(0.958 0.007 89);
+  --primary: oklch(0.958 0.007 89);
+  --primary-foreground: oklch(0.265 0.048 254);
+  --muted-foreground: oklch(0.82 0.015 250);
+  --border: oklch(0.40 0.040 254);
+  --ink: oklch(0.90 0.010 89);
+  --bronze: oklch(0.78 0.072 82);
+  --ring: oklch(0.78 0.072 82);
+  background-color: var(--background);
+  color: var(--ink);
+}
+
+html:has(.institutional) { background-color: oklch(0.958 0.007 89); }
+html:has(.institutional) body { background-color: oklch(0.958 0.007 89); padding-bottom: 0; }
+html:has(.institutional) [data-mobile-tabbar] { display: none; }
+html:has(.institutional) body::before,
+html:has(.institutional) body::after { display: none; }
 
 /* El fondo arquitectónico y el ruido están calibrados para tinta: se neutralizan en claro. */
 .light body::before,
@@ -618,4 +694,65 @@
   --bronze-bright: oklch(0.48 0.060 70);
   background: var(--paper);
   color: var(--foreground);
+}
+
+/* --- Sitio institucional: utilidades --- */
+@utility inst-container {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 76rem;
+  padding-inline: 1.25rem;
+  @media (min-width: 768px) { padding-inline: 2rem; }
+}
+
+@utility inst-eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  line-height: 1.4;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--bronze);
+}
+
+@utility inst-title {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  color: var(--foreground);
+  letter-spacing: -0.018em;
+  line-height: 1.06;
+  text-wrap: balance;
+}
+
+@utility inst-h3 {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 1.0625rem;
+  line-height: 1.35;
+  letter-spacing: -0.005em;
+  color: var(--foreground);
+}
+
+@utility inst-link {
+  color: var(--foreground);
+  text-decoration-line: underline;
+  text-decoration-color: var(--brass);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.28em;
+  transition: text-decoration-color 200ms ease, color 200ms ease;
+  &:hover { text-decoration-color: currentColor; }
+}
+
+@utility inst-reveal {
+  transition: opacity 700ms cubic-bezier(0.2, 0.7, 0.2, 1), transform 700ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  /* Visible por defecto (SSR, sin JS). Solo se oculta lo que está bajo el pliegue hasta que entra. */
+  &[data-visible="false"] { opacity: 0; transform: translateY(14px); }
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+    &[data-visible="false"] { opacity: 1; transform: none; }
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html:has(.institutional) { scroll-behavior: smooth; }
 }

@@ -27,3 +27,14 @@
 - [x] Eliminar menciones de Mesa en footer, Mi mapa, Umbral y sitemap
 - [ ] Verificar generación real, continuación, selección desde catálogo y cambio de corriente en la vista previa
 - [ ] Verificar filtros, paginación, móvil y redirección de Mesa
+
+# Web institucional (B2B educación)
+- [x] Mover la pantalla de inicio de la app a /app sin romper enlaces, sesión ni inicio con Google
+- [x] Sistema visual institucional claro (marfil, azul profundo, bronce, salvia) acotado al sitio público
+- [x] Home institucional en / con las 10 secciones, ES/EN
+- [x] Páginas /plataforma, /soluciones, /instituciones, /metodologia, /pilotos, /nosotros, /contacto
+- [x] Formulario de demostración con registro privado, validación y antispam
+- [x] Lista de solicitudes en el panel de administración
+- [x] Sitemap, metadatos, manifest y enlace discreto desde la app
+- [x] QA escritorio/móvil, envío real del formulario y acceso a /app
+- [ ] Asignar una cuenta administradora para ver las solicitudes (requiere indicar qué cuenta)

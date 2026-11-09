@@ -183,6 +183,51 @@ export type Database = {
           },
         ]
       }
+      institutional_leads: {
+        Row: {
+          country: string
+          created_at: string
+          email: string
+          full_name: string
+          id: string
+          institution: string
+          interest: string
+          ip_hash: string | null
+          job_title: string
+          language: string
+          message: string
+          source_path: string
+        }
+        Insert: {
+          country: string
+          created_at?: string
+          email: string
+          full_name: string
+          id?: string
+          institution: string
+          interest?: string
+          ip_hash?: string | null
+          job_title: string
+          language?: string
+          message?: string
+          source_path?: string
+        }
+        Update: {
+          country?: string
+          created_at?: string
+          email?: string
+          full_name?: string
+          id?: string
+          institution?: string
+          interest?: string
+          ip_hash?: string | null
+          job_title?: string
+          language?: string
+          message?: string
+          source_path?: string
+        }
+        Relationships: []
+      }
       journey_nodes: {
         Row: {
           count: number

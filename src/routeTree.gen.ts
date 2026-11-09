@@ -10,14 +10,14 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
-import { Route as ContactoRouteImport } from './routes/contacto'
+import { Route as SiteRouteImport } from './routes/_site'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as TerminosRouteImport } from './routes/terminos'
 import { Route as UsoDeIaRouteImport } from './routes/uso-de-ia'
-import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
 import { Route as AuthenticatedPhilosopherRouteImport } from './routes/_authenticated/$philosopher'
 import { Route as AuthenticatedAnalisisRouteImport } from './routes/_authenticated/analisis'
+import { Route as AuthenticatedAppRouteImport } from './routes/_authenticated/app'
 import { Route as AuthenticatedBibliotecaRouteImport } from './routes/_authenticated/biblioteca'
 import { Route as AuthenticatedBuscarRouteImport } from './routes/_authenticated/buscar'
 import { Route as AuthenticatedCompararRouteImport } from './routes/_authenticated/comparar'
@@ -28,13 +28,20 @@ import { Route as AuthenticatedExplorarRouteImport } from './routes/_authenticat
 import { Route as AuthenticatedMesaRouteImport } from './routes/_authenticated/mesa'
 import { Route as AuthenticatedMiMapaRouteImport } from './routes/_authenticated/mi-mapa'
 import { Route as AuthenticatedModoSocratesRouteImport } from './routes/_authenticated/modo-socrates'
-import { Route as AuthenticatedNosotrosRouteImport } from './routes/_authenticated/nosotros'
 import { Route as AuthenticatedOraculoRouteImport } from './routes/_authenticated/oraculo'
 import { Route as AuthenticatedPerfilRouteImport } from './routes/_authenticated/perfil'
 import { Route as AuthenticatedPodcastRouteImport } from './routes/_authenticated/podcast'
 import { Route as AuthenticatedRecorridoRouteImport } from './routes/_authenticated/recorrido'
 import { Route as AuthenticatedReporteRouteImport } from './routes/_authenticated/reporte'
 import { Route as AuthenticatedUmbralRouteImport } from './routes/_authenticated/umbral'
+import { Route as SiteIndexRouteImport } from './routes/_site.index'
+import { Route as SiteContactoRouteImport } from './routes/_site.contacto'
+import { Route as SiteInstitucionesRouteImport } from './routes/_site.instituciones'
+import { Route as SiteMetodologiaRouteImport } from './routes/_site.metodologia'
+import { Route as SiteNosotrosRouteImport } from './routes/_site.nosotros'
+import { Route as SitePilotosRouteImport } from './routes/_site.pilotos'
+import { Route as SitePlataformaRouteImport } from './routes/_site.plataforma'
+import { Route as SiteSolucionesRouteImport } from './routes/_site.soluciones'
 import { Route as EditorialIndexRouteImport } from './routes/editorial/index'
 import { Route as EditorialPodcastRouteImport } from './routes/editorial/podcast'
 import { Route as AuthenticatedAdminAnaliticaRouteImport } from './routes/_authenticated/admin.analitica'
@@ -57,9 +64,8 @@ const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
   id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ContactoRoute = ContactoRouteImport.update({
-  id: '/contacto',
-  path: '/contacto',
+const SiteRoute = SiteRouteImport.update({
+  id: '/_site',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PrivacyRoute = PrivacyRouteImport.update({
@@ -82,11 +88,6 @@ const UsoDeIaRoute = UsoDeIaRouteImport.update({
   path: '/uso-de-ia',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedIndexRoute = AuthenticatedIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
 const AuthenticatedPhilosopherRoute =
   AuthenticatedPhilosopherRouteImport.update({
     id: '/$philosopher',
@@ -96,6 +97,11 @@ const AuthenticatedPhilosopherRoute =
 const AuthenticatedAnalisisRoute = AuthenticatedAnalisisRouteImport.update({
   id: '/analisis',
   path: '/analisis',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedAppRoute = AuthenticatedAppRouteImport.update({
+  id: '/app',
+  path: '/app',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedBibliotecaRoute = AuthenticatedBibliotecaRouteImport.update({
@@ -150,11 +156,6 @@ const AuthenticatedModoSocratesRoute =
     path: '/modo-socrates',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
-const AuthenticatedNosotrosRoute = AuthenticatedNosotrosRouteImport.update({
-  id: '/nosotros',
-  path: '/nosotros',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
 const AuthenticatedOraculoRoute = AuthenticatedOraculoRouteImport.update({
   id: '/oraculo',
   path: '/oraculo',
@@ -184,6 +185,46 @@ const AuthenticatedUmbralRoute = AuthenticatedUmbralRouteImport.update({
   id: '/umbral',
   path: '/umbral',
   getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const SiteIndexRoute = SiteIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => SiteRoute,
+} as any)
+const SiteContactoRoute = SiteContactoRouteImport.update({
+  id: '/contacto',
+  path: '/contacto',
+  getParentRoute: () => SiteRoute,
+} as any)
+const SiteInstitucionesRoute = SiteInstitucionesRouteImport.update({
+  id: '/instituciones',
+  path: '/instituciones',
+  getParentRoute: () => SiteRoute,
+} as any)
+const SiteMetodologiaRoute = SiteMetodologiaRouteImport.update({
+  id: '/metodologia',
+  path: '/metodologia',
+  getParentRoute: () => SiteRoute,
+} as any)
+const SiteNosotrosRoute = SiteNosotrosRouteImport.update({
+  id: '/nosotros',
+  path: '/nosotros',
+  getParentRoute: () => SiteRoute,
+} as any)
+const SitePilotosRoute = SitePilotosRouteImport.update({
+  id: '/pilotos',
+  path: '/pilotos',
+  getParentRoute: () => SiteRoute,
+} as any)
+const SitePlataformaRoute = SitePlataformaRouteImport.update({
+  id: '/plataforma',
+  path: '/plataforma',
+  getParentRoute: () => SiteRoute,
+} as any)
+const SiteSolucionesRoute = SiteSolucionesRouteImport.update({
+  id: '/soluciones',
+  path: '/soluciones',
+  getParentRoute: () => SiteRoute,
 } as any)
 const EditorialIndexRoute = EditorialIndexRouteImport.update({
   id: '/editorial/',
@@ -279,14 +320,14 @@ const LovableEmailAuthWebhookRoute = LovableEmailAuthWebhookRouteImport.update({
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof AuthenticatedIndexRoute
-  '/contacto': typeof ContactoRoute
+  '/': typeof SiteIndexRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terminos': typeof TerminosRoute
   '/uso-de-ia': typeof UsoDeIaRoute
   '/$philosopher': typeof AuthenticatedPhilosopherRoute
   '/analisis': typeof AuthenticatedAnalisisRoute
+  '/app': typeof AuthenticatedAppRoute
   '/biblioteca': typeof AuthenticatedBibliotecaRoute
   '/buscar': typeof AuthenticatedBuscarRoute
   '/comparar': typeof AuthenticatedCompararRoute
@@ -297,13 +338,19 @@ export interface FileRoutesByFullPath {
   '/mesa': typeof AuthenticatedMesaRoute
   '/mi-mapa': typeof AuthenticatedMiMapaRoute
   '/modo-socrates': typeof AuthenticatedModoSocratesRoute
-  '/nosotros': typeof AuthenticatedNosotrosRoute
   '/oraculo': typeof AuthenticatedOraculoRoute
   '/perfil': typeof AuthenticatedPerfilRoute
   '/podcast': typeof AuthenticatedPodcastRoute
   '/recorrido': typeof AuthenticatedRecorridoRoute
   '/reporte': typeof AuthenticatedReporteRoute
   '/umbral': typeof AuthenticatedUmbralRoute
+  '/contacto': typeof SiteContactoRoute
+  '/instituciones': typeof SiteInstitucionesRoute
+  '/metodologia': typeof SiteMetodologiaRoute
+  '/nosotros': typeof SiteNosotrosRoute
+  '/pilotos': typeof SitePilotosRoute
+  '/plataforma': typeof SitePlataformaRoute
+  '/soluciones': typeof SiteSolucionesRoute
   '/editorial/podcast': typeof EditorialPodcastRoute
   '/editorial/': typeof EditorialIndexRoute
   '/admin/analitica': typeof AuthenticatedAdminAnaliticaRoute
@@ -323,13 +370,14 @@ export interface FileRoutesByFullPath {
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
 }
 export interface FileRoutesByTo {
-  '/contacto': typeof ContactoRoute
+  '/': typeof SiteIndexRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terminos': typeof TerminosRoute
   '/uso-de-ia': typeof UsoDeIaRoute
   '/$philosopher': typeof AuthenticatedPhilosopherRoute
   '/analisis': typeof AuthenticatedAnalisisRoute
+  '/app': typeof AuthenticatedAppRoute
   '/biblioteca': typeof AuthenticatedBibliotecaRoute
   '/buscar': typeof AuthenticatedBuscarRoute
   '/comparar': typeof AuthenticatedCompararRoute
@@ -339,15 +387,20 @@ export interface FileRoutesByTo {
   '/mesa': typeof AuthenticatedMesaRoute
   '/mi-mapa': typeof AuthenticatedMiMapaRoute
   '/modo-socrates': typeof AuthenticatedModoSocratesRoute
-  '/nosotros': typeof AuthenticatedNosotrosRoute
   '/oraculo': typeof AuthenticatedOraculoRoute
   '/perfil': typeof AuthenticatedPerfilRoute
   '/podcast': typeof AuthenticatedPodcastRoute
   '/recorrido': typeof AuthenticatedRecorridoRoute
   '/reporte': typeof AuthenticatedReporteRoute
   '/umbral': typeof AuthenticatedUmbralRoute
+  '/contacto': typeof SiteContactoRoute
+  '/instituciones': typeof SiteInstitucionesRoute
+  '/metodologia': typeof SiteMetodologiaRoute
+  '/nosotros': typeof SiteNosotrosRoute
+  '/pilotos': typeof SitePilotosRoute
+  '/plataforma': typeof SitePlataformaRoute
+  '/soluciones': typeof SiteSolucionesRoute
   '/editorial/podcast': typeof EditorialPodcastRoute
-  '/': typeof AuthenticatedIndexRoute
   '/editorial': typeof EditorialIndexRoute
   '/admin/analitica': typeof AuthenticatedAdminAnaliticaRoute
   '/dialogos/$id': typeof AuthenticatedDialogosIdRoute
@@ -368,13 +421,14 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
-  '/contacto': typeof ContactoRoute
+  '/_site': typeof SiteRouteWithChildren
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terminos': typeof TerminosRoute
   '/uso-de-ia': typeof UsoDeIaRoute
   '/_authenticated/$philosopher': typeof AuthenticatedPhilosopherRoute
   '/_authenticated/analisis': typeof AuthenticatedAnalisisRoute
+  '/_authenticated/app': typeof AuthenticatedAppRoute
   '/_authenticated/biblioteca': typeof AuthenticatedBibliotecaRoute
   '/_authenticated/buscar': typeof AuthenticatedBuscarRoute
   '/_authenticated/comparar': typeof AuthenticatedCompararRoute
@@ -385,15 +439,21 @@ export interface FileRoutesById {
   '/_authenticated/mesa': typeof AuthenticatedMesaRoute
   '/_authenticated/mi-mapa': typeof AuthenticatedMiMapaRoute
   '/_authenticated/modo-socrates': typeof AuthenticatedModoSocratesRoute
-  '/_authenticated/nosotros': typeof AuthenticatedNosotrosRoute
   '/_authenticated/oraculo': typeof AuthenticatedOraculoRoute
   '/_authenticated/perfil': typeof AuthenticatedPerfilRoute
   '/_authenticated/podcast': typeof AuthenticatedPodcastRoute
   '/_authenticated/recorrido': typeof AuthenticatedRecorridoRoute
   '/_authenticated/reporte': typeof AuthenticatedReporteRoute
   '/_authenticated/umbral': typeof AuthenticatedUmbralRoute
+  '/_site/contacto': typeof SiteContactoRoute
+  '/_site/instituciones': typeof SiteInstitucionesRoute
+  '/_site/metodologia': typeof SiteMetodologiaRoute
+  '/_site/nosotros': typeof SiteNosotrosRoute
+  '/_site/pilotos': typeof SitePilotosRoute
+  '/_site/plataforma': typeof SitePlataformaRoute
+  '/_site/soluciones': typeof SiteSolucionesRoute
   '/editorial/podcast': typeof EditorialPodcastRoute
-  '/_authenticated/': typeof AuthenticatedIndexRoute
+  '/_site/': typeof SiteIndexRoute
   '/editorial/': typeof EditorialIndexRoute
   '/_authenticated/admin/analitica': typeof AuthenticatedAdminAnaliticaRoute
   '/_authenticated/dialogos/$id': typeof AuthenticatedDialogosIdRoute
@@ -415,13 +475,13 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/contacto'
     | '/privacy'
     | '/sitemap.xml'
     | '/terminos'
     | '/uso-de-ia'
     | '/$philosopher'
     | '/analisis'
+    | '/app'
     | '/biblioteca'
     | '/buscar'
     | '/comparar'
@@ -432,13 +492,19 @@ export interface FileRouteTypes {
     | '/mesa'
     | '/mi-mapa'
     | '/modo-socrates'
-    | '/nosotros'
     | '/oraculo'
     | '/perfil'
     | '/podcast'
     | '/recorrido'
     | '/reporte'
     | '/umbral'
+    | '/contacto'
+    | '/instituciones'
+    | '/metodologia'
+    | '/nosotros'
+    | '/pilotos'
+    | '/plataforma'
+    | '/soluciones'
     | '/editorial/podcast'
     | '/editorial/'
     | '/admin/analitica'
@@ -458,13 +524,14 @@ export interface FileRouteTypes {
     | '/lovable/email/auth/webhook'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/contacto'
+    | '/'
     | '/privacy'
     | '/sitemap.xml'
     | '/terminos'
     | '/uso-de-ia'
     | '/$philosopher'
     | '/analisis'
+    | '/app'
     | '/biblioteca'
     | '/buscar'
     | '/comparar'
@@ -474,15 +541,20 @@ export interface FileRouteTypes {
     | '/mesa'
     | '/mi-mapa'
     | '/modo-socrates'
-    | '/nosotros'
     | '/oraculo'
     | '/perfil'
     | '/podcast'
     | '/recorrido'
     | '/reporte'
     | '/umbral'
+    | '/contacto'
+    | '/instituciones'
+    | '/metodologia'
+    | '/nosotros'
+    | '/pilotos'
+    | '/plataforma'
+    | '/soluciones'
     | '/editorial/podcast'
-    | '/'
     | '/editorial'
     | '/admin/analitica'
     | '/dialogos/$id'
@@ -502,13 +574,14 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/_authenticated'
-    | '/contacto'
+    | '/_site'
     | '/privacy'
     | '/sitemap.xml'
     | '/terminos'
     | '/uso-de-ia'
     | '/_authenticated/$philosopher'
     | '/_authenticated/analisis'
+    | '/_authenticated/app'
     | '/_authenticated/biblioteca'
     | '/_authenticated/buscar'
     | '/_authenticated/comparar'
@@ -519,15 +592,21 @@ export interface FileRouteTypes {
     | '/_authenticated/mesa'
     | '/_authenticated/mi-mapa'
     | '/_authenticated/modo-socrates'
-    | '/_authenticated/nosotros'
     | '/_authenticated/oraculo'
     | '/_authenticated/perfil'
     | '/_authenticated/podcast'
     | '/_authenticated/recorrido'
     | '/_authenticated/reporte'
     | '/_authenticated/umbral'
+    | '/_site/contacto'
+    | '/_site/instituciones'
+    | '/_site/metodologia'
+    | '/_site/nosotros'
+    | '/_site/pilotos'
+    | '/_site/plataforma'
+    | '/_site/soluciones'
     | '/editorial/podcast'
-    | '/_authenticated/'
+    | '/_site/'
     | '/editorial/'
     | '/_authenticated/admin/analitica'
     | '/_authenticated/dialogos/$id'
@@ -548,7 +627,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
-  ContactoRoute: typeof ContactoRoute
+  SiteRoute: typeof SiteRouteWithChildren
   PrivacyRoute: typeof PrivacyRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TerminosRoute: typeof TerminosRoute
@@ -570,11 +649,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/contacto': {
-      id: '/contacto'
-      path: '/contacto'
-      fullPath: '/contacto'
-      preLoaderRoute: typeof ContactoRouteImport
+    '/_site': {
+      id: '/_site'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof SiteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/privacy': {
@@ -605,13 +684,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UsoDeIaRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_authenticated/': {
-      id: '/_authenticated/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof AuthenticatedIndexRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
     '/_authenticated/$philosopher': {
       id: '/_authenticated/$philosopher'
       path: '/$philosopher'
@@ -624,6 +696,13 @@ declare module '@tanstack/react-router' {
       path: '/analisis'
       fullPath: '/analisis'
       preLoaderRoute: typeof AuthenticatedAnalisisRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/app': {
+      id: '/_authenticated/app'
+      path: '/app'
+      fullPath: '/app'
+      preLoaderRoute: typeof AuthenticatedAppRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/biblioteca': {
@@ -696,13 +775,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedModoSocratesRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/nosotros': {
-      id: '/_authenticated/nosotros'
-      path: '/nosotros'
-      fullPath: '/nosotros'
-      preLoaderRoute: typeof AuthenticatedNosotrosRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
     '/_authenticated/oraculo': {
       id: '/_authenticated/oraculo'
       path: '/oraculo'
@@ -744,6 +816,62 @@ declare module '@tanstack/react-router' {
       fullPath: '/umbral'
       preLoaderRoute: typeof AuthenticatedUmbralRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_site/': {
+      id: '/_site/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof SiteIndexRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/contacto': {
+      id: '/_site/contacto'
+      path: '/contacto'
+      fullPath: '/contacto'
+      preLoaderRoute: typeof SiteContactoRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/instituciones': {
+      id: '/_site/instituciones'
+      path: '/instituciones'
+      fullPath: '/instituciones'
+      preLoaderRoute: typeof SiteInstitucionesRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/metodologia': {
+      id: '/_site/metodologia'
+      path: '/metodologia'
+      fullPath: '/metodologia'
+      preLoaderRoute: typeof SiteMetodologiaRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/nosotros': {
+      id: '/_site/nosotros'
+      path: '/nosotros'
+      fullPath: '/nosotros'
+      preLoaderRoute: typeof SiteNosotrosRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/pilotos': {
+      id: '/_site/pilotos'
+      path: '/pilotos'
+      fullPath: '/pilotos'
+      preLoaderRoute: typeof SitePilotosRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/plataforma': {
+      id: '/_site/plataforma'
+      path: '/plataforma'
+      fullPath: '/plataforma'
+      preLoaderRoute: typeof SitePlataformaRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/soluciones': {
+      id: '/_site/soluciones'
+      path: '/soluciones'
+      fullPath: '/soluciones'
+      preLoaderRoute: typeof SiteSolucionesRouteImport
+      parentRoute: typeof SiteRoute
     }
     '/editorial/': {
       id: '/editorial/'
@@ -885,6 +1013,7 @@ const AuthenticatedDialogosRouteWithChildren =
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedPhilosopherRoute: typeof AuthenticatedPhilosopherRoute
   AuthenticatedAnalisisRoute: typeof AuthenticatedAnalisisRoute
+  AuthenticatedAppRoute: typeof AuthenticatedAppRoute
   AuthenticatedBibliotecaRoute: typeof AuthenticatedBibliotecaRoute
   AuthenticatedBuscarRoute: typeof AuthenticatedBuscarRoute
   AuthenticatedCompararRoute: typeof AuthenticatedCompararRoute
@@ -895,14 +1024,12 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedMesaRoute: typeof AuthenticatedMesaRoute
   AuthenticatedMiMapaRoute: typeof AuthenticatedMiMapaRoute
   AuthenticatedModoSocratesRoute: typeof AuthenticatedModoSocratesRoute
-  AuthenticatedNosotrosRoute: typeof AuthenticatedNosotrosRoute
   AuthenticatedOraculoRoute: typeof AuthenticatedOraculoRoute
   AuthenticatedPerfilRoute: typeof AuthenticatedPerfilRoute
   AuthenticatedPodcastRoute: typeof AuthenticatedPodcastRoute
   AuthenticatedRecorridoRoute: typeof AuthenticatedRecorridoRoute
   AuthenticatedReporteRoute: typeof AuthenticatedReporteRoute
   AuthenticatedUmbralRoute: typeof AuthenticatedUmbralRoute
-  AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
   AuthenticatedAdminAnaliticaRoute: typeof AuthenticatedAdminAnaliticaRoute
   AuthenticatedFilosofosIdRoute: typeof AuthenticatedFilosofosIdRoute
   AuthenticatedIdeasIdRoute: typeof AuthenticatedIdeasIdRoute
@@ -917,6 +1044,7 @@ interface AuthenticatedRouteRouteChildren {
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedPhilosopherRoute: AuthenticatedPhilosopherRoute,
   AuthenticatedAnalisisRoute: AuthenticatedAnalisisRoute,
+  AuthenticatedAppRoute: AuthenticatedAppRoute,
   AuthenticatedBibliotecaRoute: AuthenticatedBibliotecaRoute,
   AuthenticatedBuscarRoute: AuthenticatedBuscarRoute,
   AuthenticatedCompararRoute: AuthenticatedCompararRoute,
@@ -927,14 +1055,12 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedMesaRoute: AuthenticatedMesaRoute,
   AuthenticatedMiMapaRoute: AuthenticatedMiMapaRoute,
   AuthenticatedModoSocratesRoute: AuthenticatedModoSocratesRoute,
-  AuthenticatedNosotrosRoute: AuthenticatedNosotrosRoute,
   AuthenticatedOraculoRoute: AuthenticatedOraculoRoute,
   AuthenticatedPerfilRoute: AuthenticatedPerfilRoute,
   AuthenticatedPodcastRoute: AuthenticatedPodcastRoute,
   AuthenticatedRecorridoRoute: AuthenticatedRecorridoRoute,
   AuthenticatedReporteRoute: AuthenticatedReporteRoute,
   AuthenticatedUmbralRoute: AuthenticatedUmbralRoute,
-  AuthenticatedIndexRoute: AuthenticatedIndexRoute,
   AuthenticatedAdminAnaliticaRoute: AuthenticatedAdminAnaliticaRoute,
   AuthenticatedFilosofosIdRoute: AuthenticatedFilosofosIdRoute,
   AuthenticatedIdeasIdRoute: AuthenticatedIdeasIdRoute,
@@ -949,9 +1075,33 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
 const AuthenticatedRouteRouteWithChildren =
   AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
 
+interface SiteRouteChildren {
+  SiteContactoRoute: typeof SiteContactoRoute
+  SiteInstitucionesRoute: typeof SiteInstitucionesRoute
+  SiteMetodologiaRoute: typeof SiteMetodologiaRoute
+  SiteNosotrosRoute: typeof SiteNosotrosRoute
+  SitePilotosRoute: typeof SitePilotosRoute
+  SitePlataformaRoute: typeof SitePlataformaRoute
+  SiteSolucionesRoute: typeof SiteSolucionesRoute
+  SiteIndexRoute: typeof SiteIndexRoute
+}
+
+const SiteRouteChildren: SiteRouteChildren = {
+  SiteContactoRoute: SiteContactoRoute,
+  SiteInstitucionesRoute: SiteInstitucionesRoute,
+  SiteMetodologiaRoute: SiteMetodologiaRoute,
+  SiteNosotrosRoute: SiteNosotrosRoute,
+  SitePilotosRoute: SitePilotosRoute,
+  SitePlataformaRoute: SitePlataformaRoute,
+  SiteSolucionesRoute: SiteSolucionesRoute,
+  SiteIndexRoute: SiteIndexRoute,
+}
+
+const SiteRouteWithChildren = SiteRoute._addFileChildren(SiteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
-  ContactoRoute: ContactoRoute,
+  SiteRoute: SiteRouteWithChildren,
   PrivacyRoute: PrivacyRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TerminosRoute: TerminosRoute,

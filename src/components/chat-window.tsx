@@ -589,7 +589,7 @@ function ChatBody({
         <header className="sticky top-0 z-20 border-b border-border/40 bg-background/80 px-4 py-3 backdrop-blur-xl md:px-6 md:py-4">
           <div className="mx-auto grid max-w-3xl grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-4">
             <Link
-              to="/"
+              to="/app"
               aria-label={t("chat.back")}
               title={t("chat.back")}
               className="focus-mist inline-flex h-9 w-9 items-center justify-center rounded-md text-muted-foreground transition-colors duration-300 hover:text-foreground"
