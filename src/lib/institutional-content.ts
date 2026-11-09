@@ -417,6 +417,7 @@ export const FOOTER = {
         { to: "/soluciones", label: { es: "Soluciones", en: "Solutions" } },
         { to: "/instituciones", label: { es: "Instituciones", en: "Institutions" } },
         { to: "/metodologia", label: { es: "Metodología", en: "Methodology" } },
+        { to: "/evidencia", label: { es: "Evidencia", en: "Evidence" } },
       ],
     },
     {

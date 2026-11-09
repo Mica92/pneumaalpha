@@ -27,6 +27,8 @@ import { ProductFrame } from "@/components/institutional/product-frame";
 import { ConceptDiagram } from "@/components/institutional/concept-diagram";
 import { FeatureShowcase } from "@/components/institutional/feature-showcase";
 import { LeadForm } from "@/components/institutional/lead-form";
+import { AiLearningNote, EvidenceMetric, EvidenceStudy, MethodologyNote, PilotBridge } from "@/components/institutional/evidence";
+import { CHALLENGE_METRICS, EVIDENCE_COPY, PISA_CAVEAT, STUDIES } from "@/lib/evidence";
 
 export const Route = createFileRoute("/_site/")({
   component: InstitutionalHome,
@@ -86,6 +88,9 @@ function InstitutionalHome() {
               <span aria-hidden="true" className="h-px w-8 bg-brass" />
               {HERO.tag[lang]}
             </p>
+            <Link to="/evidencia" className="inst-link mt-4 inline-flex items-center gap-1.5 text-micro text-muted-foreground">
+              {EVIDENCE_COPY.heroLink[lang]} <ArrowRight aria-hidden="true" size={12} />
+            </Link>
           </div>
 
           <div className="relative pb-40 sm:pb-36 lg:pb-40">
@@ -101,6 +106,27 @@ function InstitutionalHome() {
           <Reveal>
             <SectionHeading id="challenge-title" eyebrow={CHALLENGE.eyebrow[lang]} title={CHALLENGE.title[lang]} lead={CHALLENGE.lead[lang]} />
           </Reveal>
+
+          <Reveal className="mt-14 rounded-lg border border-border bg-card px-6 py-10 md:px-10 md:py-12" aria-labelledby="figures-title">
+            <div className="max-w-2xl">
+              <Eyebrow>{EVIDENCE_COPY.challengeEyebrow[lang]}</Eyebrow>
+              <h3 id="figures-title" className="inst-title mt-3 text-[clamp(1.6rem,1.2rem+1.5vw,2.25rem)]">
+                {EVIDENCE_COPY.challengeTitle[lang]}
+              </h3>
+              <p className="mt-3 text-body text-muted-foreground">{EVIDENCE_COPY.challengeLead[lang]}</p>
+            </div>
+            <div className="mt-10 grid gap-8 md:grid-cols-3 md:gap-0">
+              {CHALLENGE_METRICS.map((m) => (
+                <EvidenceMetric
+                  key={m.id}
+                  metric={m}
+                  className="border-t border-border pt-6 md:border-t-0 md:border-l md:px-8 md:pt-0 md:first:border-l-0 md:first:pl-0"
+                />
+              ))}
+            </div>
+            <MethodologyNote className="mt-10 max-w-3xl">{PISA_CAVEAT[lang]}</MethodologyNote>
+          </Reveal>
+
           <ol className="mt-14 grid border-t border-foreground/20 md:grid-cols-3">
             {CHALLENGE.items.map((item, i) => (
               <Reveal as="li" key={item.title.en} delay={i * 80} className="border-b border-border py-8 md:border-b-0 md:border-l md:px-8 md:first:border-l-0 md:first:pl-0">
@@ -223,6 +249,33 @@ function InstitutionalHome() {
             </Link>
           </div>
         </div>
+        <div className="inst-container mt-16">
+          <AiLearningNote />
+        </div>
+      </section>
+
+      {/* 06b — Evidencia científica */}
+      <section aria-labelledby="evidence-title" className="border-t border-border bg-card py-20 md:py-28">
+        <div className="inst-container">
+          <Reveal>
+            <SectionHeading id="evidence-title" eyebrow={EVIDENCE_COPY.sectionEyebrow[lang]} title={EVIDENCE_COPY.sectionTitle[lang]} lead={EVIDENCE_COPY.sectionLead[lang]} />
+          </Reveal>
+          <div className="mt-14 grid gap-px overflow-hidden rounded-lg border border-border bg-border lg:grid-cols-2">
+            {STUDIES.map((s, i) => (
+              <Reveal key={s.id} delay={i * 90} className="bg-card p-8 md:p-12">
+                <EvidenceStudy study={s} />
+              </Reveal>
+            ))}
+          </div>
+          <div className="mt-10 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+            <p className="max-w-2xl text-small text-muted-foreground">{EVIDENCE_COPY.sectionClose[lang]}</p>
+            <Button asChild variant="institutionalOutline" size="xl" className="self-start md:self-auto">
+              <Link to="/evidencia">
+                {EVIDENCE_COPY.explore[lang]} <ArrowRight aria-hidden="true" />
+              </Link>
+            </Button>
+          </div>
+        </div>
       </section>
 
       {/* 07 — Pilotos */}
@@ -253,6 +306,9 @@ function InstitutionalHome() {
               </ul>
               <p className="mt-5 border-t border-border pt-4 text-micro text-muted-foreground">{PILOT_HOME.measuresNote[lang]}</p>
             </Reveal>
+          </div>
+          <div className="mt-12">
+            <PilotBridge />
           </div>
           <div className="mt-12 flex flex-wrap gap-3">
             <Button asChild variant="institutional" size="xl">

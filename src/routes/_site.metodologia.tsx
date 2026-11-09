@@ -4,6 +4,7 @@ import { useI18n } from "@/lib/i18n";
 import { CTA, PRINCIPLES, STEPS, type L } from "@/lib/institutional-content";
 import { breadcrumb, institutionalHead } from "@/lib/institutional-head";
 import { Eyebrow, IndexNumber, PageHero, Reveal, SectionHeading } from "@/components/institutional/primitives";
+import { AiLearningNote } from "@/components/institutional/evidence";
 
 export const Route = createFileRoute("/_site/metodologia")({
   component: MethodologyPage,
@@ -92,6 +93,12 @@ function MethodologyPage() {
         </div>
       </section>
 
+      <section aria-label={es ? "Educación en la era de la IA" : "Education in the age of AI"} className="pb-20 md:pb-24">
+        <div className="inst-container">
+          <AiLearningNote />
+        </div>
+      </section>
+
       <section aria-labelledby="method-steps" className="border-t border-border bg-secondary/50 py-20 md:py-24">
         <div className="inst-container grid gap-12 lg:grid-cols-[1fr_1.4fr] lg:gap-20">
           <div>
@@ -165,7 +172,10 @@ function MethodologyPage() {
           <p className="max-w-2xl text-body text-muted-foreground">
             {es
               ? "Kionas aún no ha publicado estudios de impacto propios. Las experiencias piloto son el camino para generar evidencia en contextos reales."
-              : "Kionas has not yet published its own impact studies. Pilot experiences are the way to generate evidence in real settings."}
+              : "Kionas has not yet published its own impact studies. Pilot experiences are the way to generate evidence in real settings."}{" "}
+            <Link to="/evidencia" className="inst-link">
+              {es ? "Ver la evidencia externa que inspira el enfoque" : "See the external evidence behind the approach"}
+            </Link>
           </p>
           <Button asChild variant="institutional" size="xl">
             <Link to="/pilotos">{CTA.pilot[lang]}</Link>
