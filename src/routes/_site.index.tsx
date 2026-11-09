@@ -88,9 +88,9 @@ function InstitutionalHome() {
             </p>
           </div>
 
-          <div className="relative pb-24 sm:pb-16 lg:pb-10">
+          <div className="relative pb-40 sm:pb-36 lg:pb-28">
             <ProductFrame shot="app" alt={HERO.caption[lang]} priority />
-            <ConceptDiagram className="absolute right-4 -bottom-2 w-[min(88%,22rem)] sm:-left-8 sm:right-auto lg:-left-14" />
+            <ConceptDiagram className="absolute right-4 bottom-0 w-[min(86%,19.5rem)] sm:right-auto sm:-left-6 lg:-left-12" />
           </div>
         </div>
       </section>
