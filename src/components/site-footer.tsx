@@ -25,6 +25,7 @@ const GROUPS = [
     {to:"/perfil",es:"Perfil y memoria",en:"Profile and memory"},
   ]},
   { es:"Kionas.app", en:"Kionas.app", links:[
+    {to:"/",es:"Kionas para instituciones",en:"Kionas for institutions"},
     {to:"/nosotros",es:"Nosotros",en:"About"},
     {to:"/contacto",es:"Contacto",en:"Contact"},
     {to:"/privacy",es:"Privacidad",en:"Privacy"},
