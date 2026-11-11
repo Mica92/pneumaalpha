@@ -10,14 +10,14 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
-import { Route as SiteRouteImport } from './routes/_site'
+import { Route as AppRouteImport } from './routes/app'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as TerminosRouteImport } from './routes/terminos'
 import { Route as UsoDeIaRouteImport } from './routes/uso-de-ia'
+import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
 import { Route as AuthenticatedPhilosopherRouteImport } from './routes/_authenticated/$philosopher'
 import { Route as AuthenticatedAnalisisRouteImport } from './routes/_authenticated/analisis'
-import { Route as AuthenticatedAppRouteImport } from './routes/_authenticated/app'
 import { Route as AuthenticatedBibliotecaRouteImport } from './routes/_authenticated/biblioteca'
 import { Route as AuthenticatedBuscarRouteImport } from './routes/_authenticated/buscar'
 import { Route as AuthenticatedCompararRouteImport } from './routes/_authenticated/comparar'
@@ -34,15 +34,6 @@ import { Route as AuthenticatedPodcastRouteImport } from './routes/_authenticate
 import { Route as AuthenticatedRecorridoRouteImport } from './routes/_authenticated/recorrido'
 import { Route as AuthenticatedReporteRouteImport } from './routes/_authenticated/reporte'
 import { Route as AuthenticatedUmbralRouteImport } from './routes/_authenticated/umbral'
-import { Route as SiteIndexRouteImport } from './routes/_site.index'
-import { Route as SiteContactoRouteImport } from './routes/_site.contacto'
-import { Route as SiteEvidenciaRouteImport } from './routes/_site.evidencia'
-import { Route as SiteInstitucionesRouteImport } from './routes/_site.instituciones'
-import { Route as SiteMetodologiaRouteImport } from './routes/_site.metodologia'
-import { Route as SiteNosotrosRouteImport } from './routes/_site.nosotros'
-import { Route as SitePilotosRouteImport } from './routes/_site.pilotos'
-import { Route as SitePlataformaRouteImport } from './routes/_site.plataforma'
-import { Route as SiteSolucionesRouteImport } from './routes/_site.soluciones'
 import { Route as EditorialIndexRouteImport } from './routes/editorial/index'
 import { Route as EditorialPodcastRouteImport } from './routes/editorial/podcast'
 import { Route as AuthenticatedAdminAnaliticaRouteImport } from './routes/_authenticated/admin.analitica'
@@ -66,8 +57,9 @@ const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
   id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SiteRoute = SiteRouteImport.update({
-  id: '/_site',
+const AppRoute = AppRouteImport.update({
+  id: '/app',
+  path: '/app',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PrivacyRoute = PrivacyRouteImport.update({
@@ -90,6 +82,11 @@ const UsoDeIaRoute = UsoDeIaRouteImport.update({
   path: '/uso-de-ia',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedIndexRoute = AuthenticatedIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedPhilosopherRoute =
   AuthenticatedPhilosopherRouteImport.update({
     id: '/$philosopher',
@@ -99,11 +96,6 @@ const AuthenticatedPhilosopherRoute =
 const AuthenticatedAnalisisRoute = AuthenticatedAnalisisRouteImport.update({
   id: '/analisis',
   path: '/analisis',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const AuthenticatedAppRoute = AuthenticatedAppRouteImport.update({
-  id: '/app',
-  path: '/app',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedBibliotecaRoute = AuthenticatedBibliotecaRouteImport.update({
@@ -187,51 +179,6 @@ const AuthenticatedUmbralRoute = AuthenticatedUmbralRouteImport.update({
   id: '/umbral',
   path: '/umbral',
   getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const SiteIndexRoute = SiteIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => SiteRoute,
-} as any)
-const SiteContactoRoute = SiteContactoRouteImport.update({
-  id: '/contacto',
-  path: '/contacto',
-  getParentRoute: () => SiteRoute,
-} as any)
-const SiteEvidenciaRoute = SiteEvidenciaRouteImport.update({
-  id: '/evidencia',
-  path: '/evidencia',
-  getParentRoute: () => SiteRoute,
-} as any)
-const SiteInstitucionesRoute = SiteInstitucionesRouteImport.update({
-  id: '/instituciones',
-  path: '/instituciones',
-  getParentRoute: () => SiteRoute,
-} as any)
-const SiteMetodologiaRoute = SiteMetodologiaRouteImport.update({
-  id: '/metodologia',
-  path: '/metodologia',
-  getParentRoute: () => SiteRoute,
-} as any)
-const SiteNosotrosRoute = SiteNosotrosRouteImport.update({
-  id: '/nosotros',
-  path: '/nosotros',
-  getParentRoute: () => SiteRoute,
-} as any)
-const SitePilotosRoute = SitePilotosRouteImport.update({
-  id: '/pilotos',
-  path: '/pilotos',
-  getParentRoute: () => SiteRoute,
-} as any)
-const SitePlataformaRoute = SitePlataformaRouteImport.update({
-  id: '/plataforma',
-  path: '/plataforma',
-  getParentRoute: () => SiteRoute,
-} as any)
-const SiteSolucionesRoute = SiteSolucionesRouteImport.update({
-  id: '/soluciones',
-  path: '/soluciones',
-  getParentRoute: () => SiteRoute,
 } as any)
 const EditorialIndexRoute = EditorialIndexRouteImport.update({
   id: '/editorial/',
@@ -333,14 +280,14 @@ const LovableEmailTransactionalPreviewRoute =
   } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof SiteIndexRoute
+  '/': typeof AuthenticatedIndexRoute
+  '/app': typeof AppRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terminos': typeof TerminosRoute
   '/uso-de-ia': typeof UsoDeIaRoute
   '/$philosopher': typeof AuthenticatedPhilosopherRoute
   '/analisis': typeof AuthenticatedAnalisisRoute
-  '/app': typeof AuthenticatedAppRoute
   '/biblioteca': typeof AuthenticatedBibliotecaRoute
   '/buscar': typeof AuthenticatedBuscarRoute
   '/comparar': typeof AuthenticatedCompararRoute
@@ -357,14 +304,6 @@ export interface FileRoutesByFullPath {
   '/recorrido': typeof AuthenticatedRecorridoRoute
   '/reporte': typeof AuthenticatedReporteRoute
   '/umbral': typeof AuthenticatedUmbralRoute
-  '/contacto': typeof SiteContactoRoute
-  '/evidencia': typeof SiteEvidenciaRoute
-  '/instituciones': typeof SiteInstitucionesRoute
-  '/metodologia': typeof SiteMetodologiaRoute
-  '/nosotros': typeof SiteNosotrosRoute
-  '/pilotos': typeof SitePilotosRoute
-  '/plataforma': typeof SitePlataformaRoute
-  '/soluciones': typeof SiteSolucionesRoute
   '/editorial/podcast': typeof EditorialPodcastRoute
   '/editorial/': typeof EditorialIndexRoute
   '/admin/analitica': typeof AuthenticatedAdminAnaliticaRoute
@@ -385,14 +324,13 @@ export interface FileRoutesByFullPath {
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof SiteIndexRoute
+  '/app': typeof AppRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terminos': typeof TerminosRoute
   '/uso-de-ia': typeof UsoDeIaRoute
   '/$philosopher': typeof AuthenticatedPhilosopherRoute
   '/analisis': typeof AuthenticatedAnalisisRoute
-  '/app': typeof AuthenticatedAppRoute
   '/biblioteca': typeof AuthenticatedBibliotecaRoute
   '/buscar': typeof AuthenticatedBuscarRoute
   '/comparar': typeof AuthenticatedCompararRoute
@@ -408,15 +346,8 @@ export interface FileRoutesByTo {
   '/recorrido': typeof AuthenticatedRecorridoRoute
   '/reporte': typeof AuthenticatedReporteRoute
   '/umbral': typeof AuthenticatedUmbralRoute
-  '/contacto': typeof SiteContactoRoute
-  '/evidencia': typeof SiteEvidenciaRoute
-  '/instituciones': typeof SiteInstitucionesRoute
-  '/metodologia': typeof SiteMetodologiaRoute
-  '/nosotros': typeof SiteNosotrosRoute
-  '/pilotos': typeof SitePilotosRoute
-  '/plataforma': typeof SitePlataformaRoute
-  '/soluciones': typeof SiteSolucionesRoute
   '/editorial/podcast': typeof EditorialPodcastRoute
+  '/': typeof AuthenticatedIndexRoute
   '/editorial': typeof EditorialIndexRoute
   '/admin/analitica': typeof AuthenticatedAdminAnaliticaRoute
   '/dialogos/$id': typeof AuthenticatedDialogosIdRoute
@@ -438,14 +369,13 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
-  '/_site': typeof SiteRouteWithChildren
+  '/app': typeof AppRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terminos': typeof TerminosRoute
   '/uso-de-ia': typeof UsoDeIaRoute
   '/_authenticated/$philosopher': typeof AuthenticatedPhilosopherRoute
   '/_authenticated/analisis': typeof AuthenticatedAnalisisRoute
-  '/_authenticated/app': typeof AuthenticatedAppRoute
   '/_authenticated/biblioteca': typeof AuthenticatedBibliotecaRoute
   '/_authenticated/buscar': typeof AuthenticatedBuscarRoute
   '/_authenticated/comparar': typeof AuthenticatedCompararRoute
@@ -462,16 +392,8 @@ export interface FileRoutesById {
   '/_authenticated/recorrido': typeof AuthenticatedRecorridoRoute
   '/_authenticated/reporte': typeof AuthenticatedReporteRoute
   '/_authenticated/umbral': typeof AuthenticatedUmbralRoute
-  '/_site/contacto': typeof SiteContactoRoute
-  '/_site/evidencia': typeof SiteEvidenciaRoute
-  '/_site/instituciones': typeof SiteInstitucionesRoute
-  '/_site/metodologia': typeof SiteMetodologiaRoute
-  '/_site/nosotros': typeof SiteNosotrosRoute
-  '/_site/pilotos': typeof SitePilotosRoute
-  '/_site/plataforma': typeof SitePlataformaRoute
-  '/_site/soluciones': typeof SiteSolucionesRoute
   '/editorial/podcast': typeof EditorialPodcastRoute
-  '/_site/': typeof SiteIndexRoute
+  '/_authenticated/': typeof AuthenticatedIndexRoute
   '/editorial/': typeof EditorialIndexRoute
   '/_authenticated/admin/analitica': typeof AuthenticatedAdminAnaliticaRoute
   '/_authenticated/dialogos/$id': typeof AuthenticatedDialogosIdRoute
@@ -494,13 +416,13 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/app'
     | '/privacy'
     | '/sitemap.xml'
     | '/terminos'
     | '/uso-de-ia'
     | '/$philosopher'
     | '/analisis'
-    | '/app'
     | '/biblioteca'
     | '/buscar'
     | '/comparar'
@@ -517,14 +439,6 @@ export interface FileRouteTypes {
     | '/recorrido'
     | '/reporte'
     | '/umbral'
-    | '/contacto'
-    | '/evidencia'
-    | '/instituciones'
-    | '/metodologia'
-    | '/nosotros'
-    | '/pilotos'
-    | '/plataforma'
-    | '/soluciones'
     | '/editorial/podcast'
     | '/editorial/'
     | '/admin/analitica'
@@ -545,14 +459,13 @@ export interface FileRouteTypes {
     | '/lovable/email/transactional/preview'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/'
+    | '/app'
     | '/privacy'
     | '/sitemap.xml'
     | '/terminos'
     | '/uso-de-ia'
     | '/$philosopher'
     | '/analisis'
-    | '/app'
     | '/biblioteca'
     | '/buscar'
     | '/comparar'
@@ -568,15 +481,8 @@ export interface FileRouteTypes {
     | '/recorrido'
     | '/reporte'
     | '/umbral'
-    | '/contacto'
-    | '/evidencia'
-    | '/instituciones'
-    | '/metodologia'
-    | '/nosotros'
-    | '/pilotos'
-    | '/plataforma'
-    | '/soluciones'
     | '/editorial/podcast'
+    | '/'
     | '/editorial'
     | '/admin/analitica'
     | '/dialogos/$id'
@@ -597,14 +503,13 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/_authenticated'
-    | '/_site'
+    | '/app'
     | '/privacy'
     | '/sitemap.xml'
     | '/terminos'
     | '/uso-de-ia'
     | '/_authenticated/$philosopher'
     | '/_authenticated/analisis'
-    | '/_authenticated/app'
     | '/_authenticated/biblioteca'
     | '/_authenticated/buscar'
     | '/_authenticated/comparar'
@@ -621,16 +526,8 @@ export interface FileRouteTypes {
     | '/_authenticated/recorrido'
     | '/_authenticated/reporte'
     | '/_authenticated/umbral'
-    | '/_site/contacto'
-    | '/_site/evidencia'
-    | '/_site/instituciones'
-    | '/_site/metodologia'
-    | '/_site/nosotros'
-    | '/_site/pilotos'
-    | '/_site/plataforma'
-    | '/_site/soluciones'
     | '/editorial/podcast'
-    | '/_site/'
+    | '/_authenticated/'
     | '/editorial/'
     | '/_authenticated/admin/analitica'
     | '/_authenticated/dialogos/$id'
@@ -652,7 +549,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
-  SiteRoute: typeof SiteRouteWithChildren
+  AppRoute: typeof AppRoute
   PrivacyRoute: typeof PrivacyRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TerminosRoute: typeof TerminosRoute
@@ -675,11 +572,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_site': {
-      id: '/_site'
-      path: ''
-      fullPath: '/'
-      preLoaderRoute: typeof SiteRouteImport
+    '/app': {
+      id: '/app'
+      path: '/app'
+      fullPath: '/app'
+      preLoaderRoute: typeof AppRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/privacy': {
@@ -710,6 +607,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UsoDeIaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/': {
+      id: '/_authenticated/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/$philosopher': {
       id: '/_authenticated/$philosopher'
       path: '/$philosopher'
@@ -722,13 +626,6 @@ declare module '@tanstack/react-router' {
       path: '/analisis'
       fullPath: '/analisis'
       preLoaderRoute: typeof AuthenticatedAnalisisRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/app': {
-      id: '/_authenticated/app'
-      path: '/app'
-      fullPath: '/app'
-      preLoaderRoute: typeof AuthenticatedAppRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/biblioteca': {
@@ -842,69 +739,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/umbral'
       preLoaderRoute: typeof AuthenticatedUmbralRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_site/': {
-      id: '/_site/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof SiteIndexRouteImport
-      parentRoute: typeof SiteRoute
-    }
-    '/_site/contacto': {
-      id: '/_site/contacto'
-      path: '/contacto'
-      fullPath: '/contacto'
-      preLoaderRoute: typeof SiteContactoRouteImport
-      parentRoute: typeof SiteRoute
-    }
-    '/_site/evidencia': {
-      id: '/_site/evidencia'
-      path: '/evidencia'
-      fullPath: '/evidencia'
-      preLoaderRoute: typeof SiteEvidenciaRouteImport
-      parentRoute: typeof SiteRoute
-    }
-    '/_site/instituciones': {
-      id: '/_site/instituciones'
-      path: '/instituciones'
-      fullPath: '/instituciones'
-      preLoaderRoute: typeof SiteInstitucionesRouteImport
-      parentRoute: typeof SiteRoute
-    }
-    '/_site/metodologia': {
-      id: '/_site/metodologia'
-      path: '/metodologia'
-      fullPath: '/metodologia'
-      preLoaderRoute: typeof SiteMetodologiaRouteImport
-      parentRoute: typeof SiteRoute
-    }
-    '/_site/nosotros': {
-      id: '/_site/nosotros'
-      path: '/nosotros'
-      fullPath: '/nosotros'
-      preLoaderRoute: typeof SiteNosotrosRouteImport
-      parentRoute: typeof SiteRoute
-    }
-    '/_site/pilotos': {
-      id: '/_site/pilotos'
-      path: '/pilotos'
-      fullPath: '/pilotos'
-      preLoaderRoute: typeof SitePilotosRouteImport
-      parentRoute: typeof SiteRoute
-    }
-    '/_site/plataforma': {
-      id: '/_site/plataforma'
-      path: '/plataforma'
-      fullPath: '/plataforma'
-      preLoaderRoute: typeof SitePlataformaRouteImport
-      parentRoute: typeof SiteRoute
-    }
-    '/_site/soluciones': {
-      id: '/_site/soluciones'
-      path: '/soluciones'
-      fullPath: '/soluciones'
-      preLoaderRoute: typeof SiteSolucionesRouteImport
-      parentRoute: typeof SiteRoute
     }
     '/editorial/': {
       id: '/editorial/'
@@ -1053,7 +887,6 @@ const AuthenticatedDialogosRouteWithChildren =
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedPhilosopherRoute: typeof AuthenticatedPhilosopherRoute
   AuthenticatedAnalisisRoute: typeof AuthenticatedAnalisisRoute
-  AuthenticatedAppRoute: typeof AuthenticatedAppRoute
   AuthenticatedBibliotecaRoute: typeof AuthenticatedBibliotecaRoute
   AuthenticatedBuscarRoute: typeof AuthenticatedBuscarRoute
   AuthenticatedCompararRoute: typeof AuthenticatedCompararRoute
@@ -1070,6 +903,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedRecorridoRoute: typeof AuthenticatedRecorridoRoute
   AuthenticatedReporteRoute: typeof AuthenticatedReporteRoute
   AuthenticatedUmbralRoute: typeof AuthenticatedUmbralRoute
+  AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
   AuthenticatedAdminAnaliticaRoute: typeof AuthenticatedAdminAnaliticaRoute
   AuthenticatedFilosofosIdRoute: typeof AuthenticatedFilosofosIdRoute
   AuthenticatedIdeasIdRoute: typeof AuthenticatedIdeasIdRoute
@@ -1084,7 +918,6 @@ interface AuthenticatedRouteRouteChildren {
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedPhilosopherRoute: AuthenticatedPhilosopherRoute,
   AuthenticatedAnalisisRoute: AuthenticatedAnalisisRoute,
-  AuthenticatedAppRoute: AuthenticatedAppRoute,
   AuthenticatedBibliotecaRoute: AuthenticatedBibliotecaRoute,
   AuthenticatedBuscarRoute: AuthenticatedBuscarRoute,
   AuthenticatedCompararRoute: AuthenticatedCompararRoute,
@@ -1101,6 +934,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedRecorridoRoute: AuthenticatedRecorridoRoute,
   AuthenticatedReporteRoute: AuthenticatedReporteRoute,
   AuthenticatedUmbralRoute: AuthenticatedUmbralRoute,
+  AuthenticatedIndexRoute: AuthenticatedIndexRoute,
   AuthenticatedAdminAnaliticaRoute: AuthenticatedAdminAnaliticaRoute,
   AuthenticatedFilosofosIdRoute: AuthenticatedFilosofosIdRoute,
   AuthenticatedIdeasIdRoute: AuthenticatedIdeasIdRoute,
@@ -1115,35 +949,9 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
 const AuthenticatedRouteRouteWithChildren =
   AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
 
-interface SiteRouteChildren {
-  SiteContactoRoute: typeof SiteContactoRoute
-  SiteEvidenciaRoute: typeof SiteEvidenciaRoute
-  SiteInstitucionesRoute: typeof SiteInstitucionesRoute
-  SiteMetodologiaRoute: typeof SiteMetodologiaRoute
-  SiteNosotrosRoute: typeof SiteNosotrosRoute
-  SitePilotosRoute: typeof SitePilotosRoute
-  SitePlataformaRoute: typeof SitePlataformaRoute
-  SiteSolucionesRoute: typeof SiteSolucionesRoute
-  SiteIndexRoute: typeof SiteIndexRoute
-}
-
-const SiteRouteChildren: SiteRouteChildren = {
-  SiteContactoRoute: SiteContactoRoute,
-  SiteEvidenciaRoute: SiteEvidenciaRoute,
-  SiteInstitucionesRoute: SiteInstitucionesRoute,
-  SiteMetodologiaRoute: SiteMetodologiaRoute,
-  SiteNosotrosRoute: SiteNosotrosRoute,
-  SitePilotosRoute: SitePilotosRoute,
-  SitePlataformaRoute: SitePlataformaRoute,
-  SiteSolucionesRoute: SiteSolucionesRoute,
-  SiteIndexRoute: SiteIndexRoute,
-}
-
-const SiteRouteWithChildren = SiteRoute._addFileChildren(SiteRouteChildren)
-
 const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
-  SiteRoute: SiteRouteWithChildren,
+  AppRoute: AppRoute,
   PrivacyRoute: PrivacyRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TerminosRoute: TerminosRoute,
