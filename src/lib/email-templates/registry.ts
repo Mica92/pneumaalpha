@@ -1,5 +1,4 @@
 import type { ComponentType } from 'react'
-import { template as leadNotificationTemplate } from './lead-notification'
 
 export interface TemplateEntry {
   component: ComponentType<any>
@@ -19,5 +18,4 @@ export interface TemplateEntry {
  *   // then add to TEMPLATES: 'welcome': welcomeTemplate
  */
 export const TEMPLATES: Record<string, TemplateEntry> = {
-  'lead-notification': leadNotificationTemplate,
 }
