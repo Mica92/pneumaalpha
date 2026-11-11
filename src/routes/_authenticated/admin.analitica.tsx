@@ -5,7 +5,6 @@ import { SiteNav } from "@/components/site-nav";
 import { SiteFooter } from "@/components/site-footer";
 import { useI18n } from "@/lib/i18n";
 import { getAnalyticsOverview, type AnalyticsOverview } from "@/lib/analytics.functions";
-import { LeadsAdmin } from "@/components/institutional/leads-admin";
 
 const HISTORICAL_LIFETIME_SEATS = 51;
 
@@ -165,7 +164,6 @@ function AnalyticsPage() {
             </section>
           </>
         )}
-        {data && <LeadsAdmin />}
       </main>
       <SiteFooter />
     </>

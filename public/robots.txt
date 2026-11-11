@@ -1,4 +1,10 @@
 User-agent: *
 Allow: /
+Disallow: /perfil
+Disallow: /mi-mapa
+Disallow: /recorrido
+Disallow: /reporte
+Disallow: /admin/
+Disallow: /api/
 
-Sitemap: https://kionas.app/sitemap.xml
+Sitemap: https://app.kionas.app/sitemap.xml

@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate, useParams } from "@tanstack/react-router";
+import { createFileRoute, notFound, redirect, useNavigate, useParams } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/hooks/use-auth";
 import { ChatWindow } from "@/components/chat-window";
@@ -6,11 +6,28 @@ import { GreekGlyph } from "@/components/greek-glyph";
 import { PHILOSOPHERS, isPhilosopherId, type PhilosopherId } from "@/lib/philosophers";
 import { entityForChat } from "@/lib/atlas";
 import { useJourney } from "@/lib/atlas/use-journey";
-import { SITE_URL } from "@/lib/site";
+import { SITE_URL, WEBSITE_URL } from "@/lib/site";
 import { readQuestion, validateQid } from "@/lib/question-handoff";
 
 
+/** Direcciones públicas que hoy pertenecen al sitio institucional independiente. */
+const WEBSITE_PATHS = new Set([
+  "plataforma",
+  "soluciones",
+  "instituciones",
+  "metodologia",
+  "evidencia",
+  "pilotos",
+  "nosotros",
+  "contacto",
+]);
+
 export const Route = createFileRoute("/_authenticated/$philosopher")({
+  beforeLoad: ({ params }) => {
+    const id = params.philosopher;
+    if (WEBSITE_PATHS.has(id)) throw redirect({ href: `${WEBSITE_URL}/${id}`, statusCode: 301 });
+    if (!isPhilosopherId(id)) throw notFound();
+  },
   component: PhilosopherChat,
   validateSearch: validateQid,
   head: ({ params }) => {
@@ -60,7 +77,7 @@ function PhilosopherChat() {
   const { add } = useJourney();
 
   useEffect(() => {
-    if (!isPhilosopherId(philosopher)) navigate({ to: "/app" });
+    if (!isPhilosopherId(philosopher)) navigate({ to: "/" });
   }, [philosopher, navigate]);
 
   // Cada conversación deja huella en el mapa personal.
@@ -86,7 +103,7 @@ function PhilosopherChat() {
       userId={user.id}
       philosopher={philosopher}
       initialPrompt={q}
-      onSignOut={() => navigate({ to: "/app" })}
+      onSignOut={() => navigate({ to: "/" })}
     />
   );
 }

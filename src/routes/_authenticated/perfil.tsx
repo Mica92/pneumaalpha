@@ -49,7 +49,7 @@ function ProfilePage() {
 
   async function signOut() {
     await supabase.auth.signOut();
-    await navigate({ to: "/app" });
+    await navigate({ to: "/" });
   }
 
   return (

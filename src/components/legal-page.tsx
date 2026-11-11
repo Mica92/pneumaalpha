@@ -1,3 +1,4 @@
+import { WEBSITE_URL } from "@/lib/site";
 import { Link } from "@tanstack/react-router";
 import { useI18n, LanguageSelector } from "@/lib/i18n";
 import { PneumaMark } from "@/components/pneuma-mark";
@@ -62,9 +63,9 @@ export function LegalPage({ copy }: { copy: { es: LegalCopy; en: LegalCopy } }) 
           <Link to="/uso-de-ia" className="transition-colors hover:text-foreground">
             {lang === "es" ? "Uso de IA" : "AI use"}
           </Link>
-          <Link to="/contacto" className="transition-colors hover:text-foreground">
+          <a href={`${WEBSITE_URL}/contacto`} className="transition-colors hover:text-foreground">
             {lang === "es" ? "Contacto" : "Contact"}
-          </Link>
+          </a>
         </nav>
       </footer>
     </main>

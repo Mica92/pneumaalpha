@@ -1,3 +1,4 @@
+import { WEBSITE_URL } from "@/lib/site";
 import { useState } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
@@ -57,7 +58,7 @@ export function SiteNav({ className = "" }: { className?: string }) {
     await queryClient.cancelQueries();
     queryClient.clear();
     await supabase.auth.signOut();
-    await navigate({ to: "/app" });
+    await navigate({ to: "/" });
   }
 
   return (
@@ -71,7 +72,7 @@ export function SiteNav({ className = "" }: { className?: string }) {
         aria-label={lang === "es" ? "Navegación principal" : "Main navigation"}
         className="mx-auto flex max-w-6xl items-center justify-between gap-6 px-5 py-4 md:px-8"
       >
-        <Link to="/app" className="focus-mist shrink-0" aria-label="Kionas">
+        <Link to="/" className="focus-mist shrink-0" aria-label="Kionas">
           <PneumaMark size={24} withWordmark />
         </Link>
 
@@ -188,13 +189,13 @@ export function SiteNav({ className = "" }: { className?: string }) {
             >
               {lang === "es" ? "Historial" : "History"}
             </Link>
-            <Link
-              to="/nosotros"
+            <a
+              href={WEBSITE_URL}
               onClick={() => setOpen(false)}
               className="focus-mist border-b border-border/30 py-3 text-small text-muted-foreground transition-colors hover:text-foreground"
             >
-              {lang === "es" ? "Nosotros" : "About"}
-            </Link>
+              {lang === "es" ? "Acerca de Kionas" : "About Kionas"}
+            </a>
             {signedIn ? (
               <button
                 type="button"
@@ -229,7 +230,7 @@ export function SiteNav({ className = "" }: { className?: string }) {
 export function MobileTabBar() {
   const { lang } = useI18n();
   const tabs: readonly NavItem[] = [
-    { to: "/app", es: "Inicio", en: "Home" },
+    { to: "/", es: "Inicio", en: "Home" },
     { to: "/mi-mapa", es: "Mapa", en: "Map" },
     { to: "/explorar", es: "Explorar", en: "Explore" },
     { to: "/ideas", es: "Ideas", en: "Ideas" },
@@ -247,7 +248,7 @@ export function MobileTabBar() {
           to={t.to as any}
           className="focus-mist py-3 text-center text-micro text-muted-foreground transition-colors hover:text-foreground"
           activeProps={{ className: "text-foreground" }}
-          activeOptions={{ exact: t.to === "/app" }}
+          activeOptions={{ exact: t.to === "/" }}
         >
           {t[lang]}
         </Link>
