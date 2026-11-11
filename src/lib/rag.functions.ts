@@ -46,7 +46,7 @@ export const retrieveSources = createServerFn({ method: "POST" })
       })
       .parse(input),
   )
-  .handler(async ({ data, context }) => {
+  .handler(async ({ data }) => {
     try {
       const embedding = await embed(data.query);
       const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
