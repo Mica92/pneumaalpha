@@ -123,7 +123,8 @@ export const sendChat = createServerFn({ method: "POST" })
           const embedJson = (await embedRes.json()) as { data: { embedding: number[] }[] };
           const vector = embedJson.data[0]?.embedding;
           if (vector) {
-            const { data: hits } = await supabase.rpc("match_philosopher_sources", {
+            const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+            const { data: hits } = await supabaseAdmin.rpc("match_philosopher_sources", {
               query_embedding: `[${vector.join(",")}]`,
               target_philosopher: philosopher,
               match_count: 5,

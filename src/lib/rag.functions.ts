@@ -49,7 +49,8 @@ export const retrieveSources = createServerFn({ method: "POST" })
   .handler(async ({ data, context }) => {
     try {
       const embedding = await embed(data.query);
-      const { data: rows, error } = await context.supabase.rpc("match_philosopher_sources", {
+      const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+      const { data: rows, error } = await supabaseAdmin.rpc("match_philosopher_sources", {
         query_embedding: toVectorLiteral(embedding),
         target_philosopher: data.philosopher,
         match_count: data.matchCount,
@@ -121,8 +122,9 @@ export const seedAquinasCorpus = createServerFn({ method: "POST" })
 export const countSources = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((input) => z.object({ philosopher: z.string() }).parse(input))
-  .handler(async ({ data, context }) => {
-    const { count } = await context.supabase
+  .handler(async ({ data }) => {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { count } = await supabaseAdmin
       .from("philosopher_sources")
       .select("id", { count: "exact", head: true })
       .eq("philosopher", data.philosopher);
