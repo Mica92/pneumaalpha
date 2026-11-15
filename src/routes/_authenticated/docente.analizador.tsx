@@ -316,7 +316,7 @@ function StatusDot({ status }: { status: ClaimStatus }) {
       aria-hidden
       className={cn(
         "inline-block h-2.5 w-2.5 shrink-0 rounded-full",
-        status === "verifiable" && "bg-sage",
+        status === "verifiable" && "bg-sage-blue",
         status === "plausible" && "bg-bronze",
         status === "debatable" && "border border-muted-foreground",
       )}
