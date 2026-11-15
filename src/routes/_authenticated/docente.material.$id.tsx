@@ -322,6 +322,7 @@ function Workspace({ material }: { material: Material }) {
               content={auto.content as unknown as ExamContent}
               setContent={(u) => auto.setContent((p) => u(p as unknown as ExamContent) as unknown as Record<string, unknown>)}
               meta={{ concept: material.concept, discipline: material.discipline, subject: material.subject, level: material.level, language: material.language }}
+              materialId={material.id}
             />
           ) : kind === "map" ? (
             <MapEditor
