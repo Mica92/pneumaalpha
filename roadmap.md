@@ -70,3 +70,9 @@
 - [x] Planificador de clases sencillo
 - [x] Pruebas de reglas y recorrido completo en el navegador
 - [ ] Asignar la cuenta administradora que aprueba docentes (requiere confirmación del propietario)
+
+# Kionas Docente (Fase 2)
+- [x] Convertir materiales entre sí (guía/mapa/examen/clase) con vínculo al original
+- [x] Panel de materiales relacionados y aviso cuando el original cambia
+- [ ] Analizador de argumentos (pendiente de que el usuario lo pida)
+- [ ] Mapas avanzados, biblioteca con colecciones, banco de preguntas, curador, Class Studio 2.0
