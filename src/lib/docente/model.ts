@@ -465,6 +465,27 @@ export function searchNodes(map: MapContent, query: string): Set<string> {
   return new Set(map.nodes.filter((n) => fold(`${n.label} ${n.note}`).includes(q)).map((n) => n.id));
 }
 
+/** First spot around an anchor that does not overlap existing nodes (falls back to the nearest ring). */
+export function findFreeSpot(
+  nodes: Pick<MapNode, "x" | "y">[],
+  anchor: { x: number; y: number },
+  width = 1200,
+  height = 800,
+): { x: number; y: number } {
+  const clampX = (x: number) => Math.round(Math.min(width - 90, Math.max(90, x)));
+  const clampY = (y: number) => Math.round(Math.min(height - 40, Math.max(40, y)));
+  const free = (x: number, y: number) => nodes.every((n) => Math.abs(n.x - x) > 170 || Math.abs(n.y - y) > 56);
+  for (const r of [170, 240, 320, 420]) {
+    for (let k = 0; k < 12; k++) {
+      const a = (k / 12) * Math.PI * 2 + r / 100;
+      const x = clampX(anchor.x + Math.cos(a) * r * 1.3);
+      const y = clampY(anchor.y + Math.sin(a) * r * 0.8);
+      if (free(x, y)) return { x, y };
+    }
+  }
+  return { x: clampX(anchor.x + 180), y: clampY(anchor.y + 120) };
+}
+
 /** Merges an addition (new nodes/edges) into a map, dropping nodes whose label already exists. */
 export function mergeMap(base: MapContent, add: { nodes: MapNode[]; edges: MapEdge[] }): MapContent {
   const labels = new Set(base.nodes.map((n) => fold(n.label)));

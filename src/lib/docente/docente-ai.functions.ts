@@ -10,7 +10,7 @@ import { DocOut, ExamOut, MapOut, QuestionOut, toExam, toMap, toMapParts, toQues
 import { mentionsRegistered } from "./thinkers";
 import { resolveConversion } from "./conversions";
 import { DIMENSIONS, isEmptyAnalysis, normalizeAnalysis, type ArgumentAnalysis } from "./analysis";
-import { QUESTION_TYPES, asMap, mergeMap, type ExamQuestion, type MapEdge, type MapNode, type MaterialKind, type NodeDetail } from "./model";
+import { QUESTION_TYPES, asMap, findFreeSpot, mergeMap, type ExamQuestion, type MapEdge, type MapNode, type MaterialKind, type NodeDetail } from "./model";
 import { MAP_H, MAP_W } from "./map-svg";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -435,17 +435,13 @@ Devuelve JSON: {"nodes": [{"key","label","kind","note"}], "edges": [{"from","to"
     const parts = toMapParts(raw, anchors);
     if (parts.nodes.length === 0) throw new Error("BAD_AI_OUTPUT");
     const byId = new Map(map.nodes.map((n) => [n.id, n]));
-    const placed = parts.nodes.map((n, i) => {
+    const occupied: { x: number; y: number }[] = [...map.nodes];
+    const placed = parts.nodes.map((n) => {
       const edge = parts.edges.find((e) => (e.from === n.id && byId.has(e.to)) || (e.to === n.id && byId.has(e.from)));
       const anchor = edge ? byId.get(edge.from === n.id ? edge.to : edge.from) : undefined;
-      const a = (i / parts.nodes.length) * Math.PI * 2 + 0.4;
-      const bx = anchor?.x ?? MAP_W / 2;
-      const by = anchor?.y ?? MAP_H / 2;
-      return {
-        ...n,
-        x: Math.round(Math.min(MAP_W - 90, Math.max(90, bx + Math.cos(a) * 190))),
-        y: Math.round(Math.min(MAP_H - 50, Math.max(50, by + Math.sin(a) * 140))),
-      };
+      const spot = findFreeSpot(occupied, anchor ?? { x: MAP_W / 2, y: MAP_H / 2 }, MAP_W, MAP_H);
+      occupied.push(spot);
+      return { ...n, ...spot };
     });
     const content = mergeMap(map, { nodes: placed, edges: parts.edges });
     const { data: row, error: e2 } = await context.supabase

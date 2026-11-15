@@ -12,6 +12,7 @@ import {
   hiddenByCollapse,
   layoutArgument,
   layoutRadial,
+  findFreeSpot,
   searchNodes,
   uid,
   type EdgeLogic,
@@ -419,12 +420,8 @@ export function MapEditor({
     setSelected(id);
   }
 
-  function placeNear(base: MapNode | undefined, i = Math.random() * 8, total = 8) {
-    const angle = (i / total) * Math.PI * 2 + Math.PI / 6;
-    return {
-      x: Math.round(Math.min(MAP_W - 80, Math.max(80, (base?.x ?? MAP_W / 2) + Math.cos(angle) * 190))),
-      y: Math.round(Math.min(MAP_H - 50, Math.max(50, (base?.y ?? MAP_H / 2) + Math.sin(angle) * 140))),
-    };
+  function placeNear(base: MapNode | undefined, taken: { x: number; y: number }[] = []) {
+    return findFreeSpot([...content.nodes, ...taken], base ?? { x: MAP_W / 2, y: MAP_H / 2 }, MAP_W, MAP_H);
   }
 
   function addNode(kind: NodeKind = argumentMode ? "premise" : "concept", label = tr("Nuevo nodo", "New node"), rel?: Relation, note = "") {
@@ -469,7 +466,13 @@ export function MapEditor({
           existingLabels: content.nodes.map((n) => n.label).slice(0, 200),
         },
       });
-      setProposal({ nodes: r.nodes.map((n, i) => ({ ...n, ...placeNear(sel, i, Math.max(1, r.nodes.length)) })), edges: r.edges });
+      const taken: { x: number; y: number }[] = [];
+      const nodes = r.nodes.map((n) => {
+        const spot = placeNear(sel, taken);
+        taken.push(spot);
+        return { ...n, ...spot };
+      });
+      setProposal({ nodes, edges: r.edges });
     } catch (e) {
       setErr(errorText(e, lang));
     } finally {

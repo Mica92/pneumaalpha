@@ -104,3 +104,12 @@ describe("question bank", () => {
     assert.equal(filterBank(items, { type: "concept", difficulty: "advanced" }).length, 0);
   });
 });
+
+describe("placing new nodes", () => {
+  test("a new node is placed where it does not overlap existing ones", async () => {
+    const { findFreeSpot } = await import("./model");
+    const nodes = [{ x: 600, y: 400 }, { x: 830, y: 400 }, { x: 600, y: 540 }];
+    const p = findFreeSpot(nodes, { x: 600, y: 400 });
+    assert.ok(nodes.every((n) => Math.abs(n.x - p.x) > 170 || Math.abs(n.y - p.y) > 56));
+  });
+});
