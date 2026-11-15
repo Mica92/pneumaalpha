@@ -36,7 +36,7 @@ export function RelatedMaterials({ material }: { material: Material }) {
       await qc.invalidateQueries({ queryKey: ["docente-material", material.id] });
       await qc.invalidateQueries({ queryKey: ["docente-related", material.id] });
     } catch (e) {
-      setErr(errorText(e, tr));
+      setErr(errorText(e, lang));
     } finally {
       setBusy(false);
     }
