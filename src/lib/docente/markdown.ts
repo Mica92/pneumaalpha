@@ -42,6 +42,22 @@ export function materialToMarkdown(meta: PrintMeta, content: unknown, variant: V
     for (const n of m.nodes) {
       out.push(`- **${n.label}** (${NODE_KIND_LABELS[n.kind]?.[lang] ?? n.kind})${n.note ? ` — ${n.note}` : ""}`);
     }
+    const explored = m.nodes.filter((n) => n.detail?.definition);
+    if (explored.length) {
+      out.push(`## ${L(lang, "Nodos explorados", "Explored nodes")}`);
+      for (const n of explored) {
+        const d = n.detail!;
+        const parts = [`### ${n.label}`, d.definition];
+        const list = (t: string, xs: string[]) => xs.length && parts.push(`**${t}**\n\n${xs.map((x) => `- ${x}`).join("\n")}`);
+        list(L(lang, "Interpretaciones", "Interpretations"), d.interpretations);
+        list(L(lang, "Autores", "Authors"), d.authors);
+        list(L(lang, "Objeciones", "Objections"), d.objections);
+        list(L(lang, "Aplicaciones", "Applications"), d.applications);
+        list(L(lang, "Preguntas de discusión", "Discussion questions"), d.questions);
+        list(L(lang, "Bibliografía sugerida (verificar)", "Suggested bibliography (verify)"), d.bibliography);
+        out.push(parts.join("\n\n"));
+      }
+    }
     out.push(`## ${L(lang, "Relaciones", "Relations")}`);
     for (const e of m.edges) {
       const a = byId.get(e.from)?.label;
