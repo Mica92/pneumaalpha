@@ -12,6 +12,7 @@ const LINKS = [
   { to: "/docente/clases/nueva", es: "Clases", en: "Classes" },
   { to: "/docente/analizador", es: "Analizador", en: "Analyzer" },
   { to: "/docente/biblioteca", es: "Biblioteca", en: "Library" },
+  { to: "/docente/banco", es: "Banco", en: "Bank" },
 ] as const;
 
 export function DocenteShell({ children, wide = false }: { children: ReactNode; wide?: boolean }) {
