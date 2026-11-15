@@ -10,6 +10,7 @@ const LINKS = [
   { to: "/docente/examenes/nuevo", es: "Exámenes", en: "Exams" },
   { to: "/docente/mapas/nuevo", es: "Mapas", en: "Maps" },
   { to: "/docente/clases/nueva", es: "Clases", en: "Classes" },
+  { to: "/docente/analizador", es: "Analizador", en: "Analyzer" },
   { to: "/docente/biblioteca", es: "Biblioteca", en: "Library" },
 ] as const;
 
