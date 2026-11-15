@@ -2,7 +2,7 @@
  * Kionas Docente — Reasoning Analyzer: client-safe model, normalization and
  * conversion into guide sections or an argument map. No I/O here.
  */
-import { cleanEdges, layoutRadial, uid, type DocContent, type DocSection, type EpistemicKind, type MapContent, type MapEdge, type MapNode, type NodeKind, type Relation } from "./model";
+import { cleanEdges, layoutArgument, uid, type DocContent, type DocSection, type EpistemicKind, type MapContent, type MapEdge, type MapNode, type NodeKind, type Relation } from "./model";
 
 export const CLAIM_STATUSES = ["verifiable", "plausible", "debatable"] as const;
 export type ClaimStatus = (typeof CLAIM_STATUSES)[number];
