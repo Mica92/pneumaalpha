@@ -83,7 +83,7 @@ export async function generateJson(opts: {
       .map((c) => c.text ?? "")
       .join("");
   } catch (err) {
-    console.error("[docente-ai] gateway error", err instanceof GatewayError ? err.toJSON?.() ?? err : err);
+    console.error("[docente-ai] gateway error", err instanceof GatewayError ? err.toJSON() : err);
     throw new Error(aiErrorCode(err));
   }
   return extractJson(text);
