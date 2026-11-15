@@ -3,7 +3,7 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useQueryClient } from "@tanstack/react-query";
 import { DocenteShell, PageHeading } from "@/components/docente/shell";
-import { BaseConfigFields, Field, GenerationStatus, SourceNotice, inputCls } from "@/components/docente/config-fields";
+import { BaseConfigFields, Field, GenerationStatus, SourceNotice, inputCls, ConversionNotice } from "@/components/docente/config-fields";
 import { useSeededConfig, validateCreateSearch } from "@/components/docente/use-seeded-config";
 import { generateClass } from "@/lib/docente/docente-ai.functions";
 import { errorText, useTr } from "@/lib/docente/use-docente";
@@ -43,7 +43,7 @@ function NewClass() {
     setBusy(true);
     setErr(null);
     try {
-      const { id } = await generate({ data: { ...config, modality, students, resources, fromMaterialId: search.from ?? null } });
+      const { id } = await generate({ data: { ...config, modality, students, resources, fromMaterialId: search.from ?? null, conversion: search.conv ?? null } });
       await qc.invalidateQueries({ queryKey: ["docente-materials"] });
       await navigate({ to: "/docente/material/$id", params: { id } });
     } catch (e) {
@@ -62,10 +62,10 @@ function NewClass() {
           "Kionas proposes opening, development, confrontation, application and closing. You can edit each phase and project it.",
         )}
       />
-      {source && (
-        <p className="mb-6 text-small text-muted-foreground">
-          {tr("A partir de:", "Based on:")} <span className="text-foreground">{source.title}</span>
-        </p>
+      {(source || search.conv) && (
+        <div className="mt-6">
+          <ConversionNotice conv={search.conv} sourceTitle={source?.title} />
+        </div>
       )}
       <form
         onSubmit={(e) => {

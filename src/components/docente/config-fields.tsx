@@ -3,6 +3,7 @@ import { DISCIPLINE_FAMILIES, LEVELS } from "@/lib/docente/catalog";
 import { useI18n } from "@/lib/i18n";
 import { useTr } from "@/lib/docente/use-docente";
 import { cn } from "@/lib/utils";
+import { getConversion } from "@/lib/docente/conversions";
 
 export type BaseConfig = {
   concept: string;

@@ -3,7 +3,7 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useQueryClient } from "@tanstack/react-query";
 import { DocenteShell, PageHeading } from "@/components/docente/shell";
-import { BaseConfigFields, Field, GenerationStatus, SourceNotice, inputCls } from "@/components/docente/config-fields";
+import { BaseConfigFields, Field, GenerationStatus, SourceNotice, inputCls, ConversionNotice } from "@/components/docente/config-fields";
 import { useSeededConfig, validateCreateSearch } from "@/components/docente/use-seeded-config";
 import { generateMap } from "@/lib/docente/docente-ai.functions";
 import { createMaterial } from "@/lib/docente/docente.functions";
@@ -49,7 +49,7 @@ function NewMap() {
     setBusy(true);
     setErr(null);
     try {
-      const { id } = await generate({ data: { ...config, size, fromMaterialId: search.from ?? null } });
+      const { id } = await generate({ data: { ...config, size, fromMaterialId: search.from ?? null, conversion: search.conv ?? null } });
       await open(id);
     } catch (e) {
       setErr(errorText(e, lang));
@@ -93,10 +93,10 @@ function NewMap() {
           "Generate a structure with AI or start from a blank canvas. Maps stay editable: nodes, named relations and notes.",
         )}
       />
-      {source && (
-        <p className="mb-6 text-small text-muted-foreground">
-          {tr("A partir de:", "Based on:")} <span className="text-foreground">{source.title}</span>
-        </p>
+      {(source || search.conv) && (
+        <div className="mt-6">
+          <ConversionNotice conv={search.conv} sourceTitle={source?.title} />
+        </div>
       )}
       <form
         onSubmit={(e) => {
