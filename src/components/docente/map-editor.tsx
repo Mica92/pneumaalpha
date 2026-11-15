@@ -39,7 +39,7 @@ export function MapEditor({
   const [connectFrom, setConnectFrom] = useState<string | null>(null);
   const [relation, setRelation] = useState<Relation>("relates");
   const [proposal, setProposal] = useState<{ nodes: MapNode[]; edges: MapEdge[] } | null>(null);
-  const [aiAction, setAiAction] = useState<NodeAction>("expand");
+  const [aiAction, setAiAction] = useState<NodeAction>("deepen");
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<string | null>(null);
   const expand = useServerFn(expandMapNode);
