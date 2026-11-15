@@ -106,12 +106,13 @@ export function analysisToDoc(a: ArgumentAnalysis, lang: "es" | "en"): DocConten
 
 /** Caps keep the argument map readable (at most 15 nodes around the thesis). */
 const MAP_ROLE: Partial<Record<DimensionKey, { kind: NodeKind; relation: Relation; towardThesis: boolean; max: number }>> = {
-  explicit_premises: { kind: "concept", relation: "grounds", towardThesis: true, max: 3 },
-  implicit_premises: { kind: "concept", relation: "presupposes", towardThesis: false, max: 2 },
+  explicit_premises: { kind: "premise", relation: "grounds", towardThesis: true, max: 3 },
+  implicit_premises: { kind: "premise", relation: "presupposes", towardThesis: false, max: 1 },
+  inferences: { kind: "inference", relation: "infers", towardThesis: true, max: 2 },
   evidence: { kind: "case", relation: "grounds", towardThesis: true, max: 2 },
   weaknesses: { kind: "question", relation: "questions", towardThesis: true, max: 2 },
   objections: { kind: "objection", relation: "opposes", towardThesis: true, max: 3 },
-  alternatives: { kind: "school", relation: "distinguishes", towardThesis: true, max: 2 },
+  alternatives: { kind: "school", relation: "questions", towardThesis: true, max: 1 },
 };
 
 function shortLabel(text: string): string {
@@ -149,5 +150,5 @@ export function analysisToMap(a: ArgumentAnalysis, lang: "es" | "en"): MapConten
       );
     }
   }
-  return layoutRadial(cleanEdges({ nodes, edges }));
+  return layoutArgument(cleanEdges({ nodes, edges, mode: "argument" }));
 }

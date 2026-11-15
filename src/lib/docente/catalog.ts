@@ -274,7 +274,33 @@ export const NODE_KIND_LABELS: Record<NodeKind, L> = {
   question: { es: "Pregunta", en: "Question" },
   case: { es: "Caso", en: "Case" },
   objection: { es: "Objeción", en: "Objection" },
+  premise: { es: "Premisa", en: "Premise" },
+  inference: { es: "Inferencia", en: "Inference" },
+  conclusion: { es: "Conclusión", en: "Conclusion" },
 };
+
+export const EDGE_LOGIC_LABELS: Record<"support" | "contradiction" | "question" | "conceptual", L> = {
+  support: { es: "Apoyo", en: "Support" },
+  contradiction: { es: "Contradicción", en: "Contradiction" },
+  question: { es: "Cuestionamiento", en: "Questioning" },
+  conceptual: { es: "Relación conceptual", en: "Conceptual relation" },
+};
+
+export const DIFFICULTY_LABELS: Record<"basic" | "intermediate" | "advanced", L> = {
+  basic: { es: "Básica", en: "Basic" },
+  intermediate: { es: "Intermedia", en: "Intermediate" },
+  advanced: { es: "Avanzada", en: "Advanced" },
+};
+
+/** Quick-start names offered when a teacher creates a collection; any name is allowed. */
+export const SUGGESTED_COLLECTIONS: L[] = [
+  { es: "Filosofía de la ciencia", en: "Philosophy of science" },
+  { es: "Ética profesional", en: "Professional ethics" },
+  { es: "Pensamiento crítico", en: "Critical thinking" },
+  { es: "Neurociencia y libre albedrío", en: "Neuroscience and free will" },
+  { es: "Filosofía política", en: "Political philosophy" },
+  { es: "Metodología de investigación", en: "Research methodology" },
+];
 
 export const RELATION_LABELS: Record<Relation, L> = {
   relates: { es: "se relaciona con", en: "relates to" },
@@ -285,6 +311,7 @@ export const RELATION_LABELS: Record<Relation, L> = {
   distinguishes: { es: "distingue", en: "distinguishes" },
   applies: { es: "aplica", en: "applies" },
   grounds: { es: "fundamenta", en: "grounds" },
+  infers: { es: "permite inferir", en: "leads to" },
 };
 
 export const KIND_LABELS: Record<"guide" | "exam" | "map" | "class", L> = {
