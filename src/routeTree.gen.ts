@@ -41,6 +41,7 @@ import { Route as AuthenticatedAdminAnaliticaRouteImport } from './routes/_authe
 import { Route as AuthenticatedDialogosIndexRouteImport } from './routes/_authenticated/dialogos.index'
 import { Route as AuthenticatedDialogosIdRouteImport } from './routes/_authenticated/dialogos.$id'
 import { Route as AuthenticatedDocenteIndexRouteImport } from './routes/_authenticated/docente.index'
+import { Route as AuthenticatedDocenteBibliotecaRouteImport } from './routes/_authenticated/docente.biblioteca'
 import { Route as AuthenticatedFilosofosIndexRouteImport } from './routes/_authenticated/filosofos.index'
 import { Route as AuthenticatedFilosofosIdRouteImport } from './routes/_authenticated/filosofos.$id'
 import { Route as AuthenticatedIdeasIndexRouteImport } from './routes/_authenticated/ideas.index'
@@ -225,6 +226,12 @@ const AuthenticatedDocenteIndexRoute =
     path: '/',
     getParentRoute: () => AuthenticatedDocenteRoute,
   } as any)
+const AuthenticatedDocenteBibliotecaRoute =
+  AuthenticatedDocenteBibliotecaRouteImport.update({
+    id: '/biblioteca',
+    path: '/biblioteca',
+    getParentRoute: () => AuthenticatedDocenteRoute,
+  } as any)
 const AuthenticatedFilosofosIndexRoute =
   AuthenticatedFilosofosIndexRouteImport.update({
     id: '/filosofos/',
@@ -357,6 +364,7 @@ export interface FileRoutesByFullPath {
   '/editorial/': typeof EditorialIndexRoute
   '/admin/analitica': typeof AuthenticatedAdminAnaliticaRoute
   '/dialogos/$id': typeof AuthenticatedDialogosIdRoute
+  '/docente/biblioteca': typeof AuthenticatedDocenteBibliotecaRoute
   '/filosofos/$id': typeof AuthenticatedFilosofosIdRoute
   '/ideas/$id': typeof AuthenticatedIdeasIdRoute
   '/rutas/$id': typeof AuthenticatedRutasIdRoute
@@ -406,6 +414,7 @@ export interface FileRoutesByTo {
   '/editorial': typeof EditorialIndexRoute
   '/admin/analitica': typeof AuthenticatedAdminAnaliticaRoute
   '/dialogos/$id': typeof AuthenticatedDialogosIdRoute
+  '/docente/biblioteca': typeof AuthenticatedDocenteBibliotecaRoute
   '/filosofos/$id': typeof AuthenticatedFilosofosIdRoute
   '/ideas/$id': typeof AuthenticatedIdeasIdRoute
   '/rutas/$id': typeof AuthenticatedRutasIdRoute
@@ -459,6 +468,7 @@ export interface FileRoutesById {
   '/editorial/': typeof EditorialIndexRoute
   '/_authenticated/admin/analitica': typeof AuthenticatedAdminAnaliticaRoute
   '/_authenticated/dialogos/$id': typeof AuthenticatedDialogosIdRoute
+  '/_authenticated/docente/biblioteca': typeof AuthenticatedDocenteBibliotecaRoute
   '/_authenticated/filosofos/$id': typeof AuthenticatedFilosofosIdRoute
   '/_authenticated/ideas/$id': typeof AuthenticatedIdeasIdRoute
   '/_authenticated/rutas/$id': typeof AuthenticatedRutasIdRoute
@@ -512,6 +522,7 @@ export interface FileRouteTypes {
     | '/editorial/'
     | '/admin/analitica'
     | '/dialogos/$id'
+    | '/docente/biblioteca'
     | '/filosofos/$id'
     | '/ideas/$id'
     | '/rutas/$id'
@@ -561,6 +572,7 @@ export interface FileRouteTypes {
     | '/editorial'
     | '/admin/analitica'
     | '/dialogos/$id'
+    | '/docente/biblioteca'
     | '/filosofos/$id'
     | '/ideas/$id'
     | '/rutas/$id'
@@ -613,6 +625,7 @@ export interface FileRouteTypes {
     | '/editorial/'
     | '/_authenticated/admin/analitica'
     | '/_authenticated/dialogos/$id'
+    | '/_authenticated/docente/biblioteca'
     | '/_authenticated/filosofos/$id'
     | '/_authenticated/ideas/$id'
     | '/_authenticated/rutas/$id'
@@ -877,6 +890,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDocenteIndexRouteImport
       parentRoute: typeof AuthenticatedDocenteRoute
     }
+    '/_authenticated/docente/biblioteca': {
+      id: '/_authenticated/docente/biblioteca'
+      path: '/biblioteca'
+      fullPath: '/docente/biblioteca'
+      preLoaderRoute: typeof AuthenticatedDocenteBibliotecaRouteImport
+      parentRoute: typeof AuthenticatedDocenteRoute
+    }
     '/_authenticated/filosofos/': {
       id: '/_authenticated/filosofos/'
       path: '/filosofos'
@@ -1022,6 +1042,7 @@ const AuthenticatedDialogosRouteWithChildren =
   )
 
 interface AuthenticatedDocenteRouteChildren {
+  AuthenticatedDocenteBibliotecaRoute: typeof AuthenticatedDocenteBibliotecaRoute
   AuthenticatedDocenteIndexRoute: typeof AuthenticatedDocenteIndexRoute
   AuthenticatedDocenteClasesNuevaRoute: typeof AuthenticatedDocenteClasesNuevaRoute
   AuthenticatedDocenteExamenesNuevoRoute: typeof AuthenticatedDocenteExamenesNuevoRoute
@@ -1031,6 +1052,7 @@ interface AuthenticatedDocenteRouteChildren {
 }
 
 const AuthenticatedDocenteRouteChildren: AuthenticatedDocenteRouteChildren = {
+  AuthenticatedDocenteBibliotecaRoute: AuthenticatedDocenteBibliotecaRoute,
   AuthenticatedDocenteIndexRoute: AuthenticatedDocenteIndexRoute,
   AuthenticatedDocenteClasesNuevaRoute: AuthenticatedDocenteClasesNuevaRoute,
   AuthenticatedDocenteExamenesNuevoRoute:
