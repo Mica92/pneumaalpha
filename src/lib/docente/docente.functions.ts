@@ -3,6 +3,7 @@ import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { z } from "zod";
 import { assertTeacher, readAccess, type AccessState } from "./access";
 import type { MaterialKind } from "./model";
+import type { Json } from "@/integrations/supabase/types";
 
 const KIND = z.enum(["guide", "exam", "map", "class"]);
 /** Upper bound for a stored document so one material can't grow without limit. */
@@ -25,9 +26,10 @@ export type MaterialSummary = {
   created_at: string;
   updated_at: string;
 };
+type JsonObject = { [key: string]: Json | undefined };
 export type Material = MaterialSummary & {
-  config: Record<string, unknown>;
-  content: Record<string, unknown>;
+  config: JsonObject;
+  content: JsonObject;
 };
 export type MaterialVersion = { id: string; title: string; note: string; created_at: string };
 

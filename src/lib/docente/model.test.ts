@@ -1,4 +1,6 @@
-import { describe, expect, test } from "bun:test";
+import { describe, test } from "node:test";
+import assert from "node:assert/strict";
+import { materialToMarkdown } from "./markdown";
 import {
   auditExam,
   cleanEdges,
@@ -38,21 +40,21 @@ function exam(questions: ExamQuestion[], totalPoints = 100): ExamContent {
 
 describe("exam points", () => {
   test("integer distribution always adds up to the exam total", () => {
-    expect(distributeInteger(100, [1, 1, 1])).toEqual([34, 33, 33]);
-    expect(distributeInteger(100, [3, 1]).reduce((a, b) => a + b, 0)).toBe(100);
+    assert.deepEqual(distributeInteger(100, [1, 1, 1]), [34, 33, 33]);
+    assert.equal(distributeInteger(100, [3, 1]).reduce((a, b) => a + b, 0), 100);
   });
 
   test("rebalancing makes questions sum to 100 and each rubric sum to its question", () => {
     const e = rebalanceExamPoints(exam([q({ points: 30 }), q({ points: 30 }), q({ points: 10 })]));
-    expect(examPointsSum(e)).toBe(100);
+    assert.equal(examPointsSum(e), 100);
     for (const question of e.questions) {
-      expect(question.rubric.reduce((s, c) => s + c.points, 0)).toBe(question.points);
+      assert.equal(question.rubric.reduce((s, c) => s + c.points, 0), question.points);
     }
   });
 
   test("auditor flags an exam whose points do not match the total", () => {
     const issues = auditExam(exam([q({ points: 40 }), q({ points: 40 })]));
-    expect(issues.some((i) => i.code === "points_total" && i.severity === "error")).toBe(true);
+    assert.equal(issues.some((i) => i.code === "points_total" && i.severity === "error"), true);
   });
 
   test("auditor flags repeated questions and multiple choice without a correct answer", () => {
@@ -62,8 +64,8 @@ describe("exam points", () => {
         q({ points: 50, type: "multiple_choice", prompt: "identifica la tesis", options: ["a", "b", "c"], rubric: [] }),
       ]),
     );
-    expect(issues.some((i) => i.code === "duplicate")).toBe(true);
-    expect(issues.some((i) => i.code === "mc_no_answer")).toBe(true);
+    assert.equal(issues.some((i) => i.code === "duplicate"), true);
+    assert.equal(issues.some((i) => i.code === "mc_no_answer"), true);
   });
 });
 
@@ -73,11 +75,11 @@ describe("student versions", () => {
       exam([q({ points: 50 }), q({ points: 50, type: "multiple_choice", options: ["a", "b", "c"], correctOption: 2 })]),
     );
     const json = JSON.stringify(s);
-    expect(json).not.toContain("La tesis es");
-    expect(json).not.toContain("Nota privada");
-    expect(json).not.toContain("Reconstruye");
-    expect(json).not.toContain("Kant, Crítica");
-    expect(s.questions.every((x) => x.correctOption === null && x.rubric.length === 0)).toBe(true);
+    assert.ok(!json.includes("La tesis es"));
+    assert.ok(!json.includes("Nota privada"));
+    assert.ok(!json.includes("Reconstruye"));
+    assert.ok(!json.includes("Kant, Crítica"));
+    assert.equal(s.questions.every((x) => x.correctOption === null && x.rubric.length === 0), true);
   });
 
   test("student guide drops teacher-only sections", () => {
@@ -87,7 +89,20 @@ describe("student versions", () => {
         { id: "2", key: "notes", title: "Pauta", body: "y", audience: "teacher", epistemic: "pedagogical", sources: [] },
       ],
     });
-    expect(doc.sections.map((s) => s.id)).toEqual(["1"]);
+    assert.deepEqual(doc.sections.map((s) => s.id), ["1"]);
+  });
+});
+
+describe("printable student copy", () => {
+  test("student exam markdown has no expected answers, rubrics or teacher notes", () => {
+    const e = exam([q({ points: 100 })]);
+    const md = materialToMarkdown({ title: "Prueba", kind: "exam", language: "es" }, e, "student");
+    assert.ok(md.includes("Identifica la tesis"));
+    assert.ok(!md.includes("La tesis es"));
+    assert.ok(!md.includes("Nota privada"));
+    assert.ok(!md.includes("Reconstruye"));
+    const teacher = materialToMarkdown({ title: "Prueba", kind: "exam", language: "es" }, e, "teacher");
+    assert.ok(teacher.includes("La tesis es"));
   });
 });
 
@@ -98,10 +113,10 @@ describe("variant B", () => {
       q({ points: 50, prompt: "Otra" }),
     ]);
     const b = makeVariantB(a, 3);
-    expect(b.variant).toBe("B");
-    expect(b.questions).toHaveLength(2);
+    assert.equal(b.variant, "B");
+    assert.equal(b.questions.length, 2);
     const mc = b.questions.find((x) => x.type === "multiple_choice")!;
-    expect(mc.options[mc.correctOption!]).toBe("dos");
+    assert.equal(mc.options[mc.correctOption!], "dos");
   });
 });
 
@@ -119,6 +134,6 @@ describe("maps", () => {
         { id: "4", from: "a", to: "zzz", relation: "relates" },
       ],
     });
-    expect(m.edges.map((e) => e.id)).toEqual(["1"]);
+    assert.deepEqual(m.edges.map((e) => e.id), ["1"]);
   });
 });
