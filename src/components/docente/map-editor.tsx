@@ -785,7 +785,7 @@ function NodeDetailView({ detail, onAdd }: { detail: NodeDetail; onAdd?: (label:
     { key: "questions", title: tr("Preguntas de discusión", "Discussion questions"), kind: "question", rel: "questions" },
   ];
   return (
-    <div className="mt-3 space-y-3 text-small">
+    <div className="mt-3 max-h-[28rem] space-y-3 overflow-auto pr-1 text-small">
       {detail.definition && <p className="text-foreground">{detail.definition}</p>}
       {groups.map((g) => {
         const items = detail[g.key] as string[];
