@@ -32,12 +32,18 @@ export const CONVERSIONS: Conversion[] = [
   { id: "formative", from: ["exam"], to: "class", label: { es: "Actividad formativa de preparación", en: "Formative prep activity" }, instruction: "Diseña una actividad formativa que prepare para el examen de origen sin revelar sus preguntas ni respuestas." },
 ];
 
+/** Conversions run from inside an editor (not listed in "Convert into…"), kept here so labels and validation stay in one place. */
+export const EDITOR_CONVERSIONS: Conversion[] = [
+  { id: "map_discipline", from: ["map"], to: "map", label: { es: "Enfoque disciplinar", en: "Discipline focus" }, instruction: "Conserva el mapa de origen y añade relaciones propias de la disciplina indicada." },
+  { id: "base_map", from: ["map"], to: "map", label: { es: "Mapa base de Kionas", en: "Kionas base map" }, instruction: "" },
+];
+
 export function conversionsFor(kind: MaterialKind): Conversion[] {
   return CONVERSIONS.filter((c) => c.from.includes(kind));
 }
 
 export function getConversion(id: string | null | undefined): Conversion | null {
-  return CONVERSIONS.find((c) => c.id === id) ?? null;
+  return CONVERSIONS.find((c) => c.id === id) ?? EDITOR_CONVERSIONS.find((c) => c.id === id) ?? null;
 }
 
 /** Valid only when it exists, accepts the source kind and produces the requested kind. */
