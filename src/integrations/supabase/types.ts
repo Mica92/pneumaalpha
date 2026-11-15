@@ -282,6 +282,69 @@ export type Database = {
         }
         Relationships: []
       }
+      material_collection_items: {
+        Row: {
+          added_at: string
+          collection_id: string
+          material_id: string
+          user_id: string
+        }
+        Insert: {
+          added_at?: string
+          collection_id: string
+          material_id: string
+          user_id: string
+        }
+        Update: {
+          added_at?: string
+          collection_id?: string
+          material_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "material_collection_items_collection_id_fkey"
+            columns: ["collection_id"]
+            isOneToOne: false
+            referencedRelation: "material_collections"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "material_collection_items_material_id_fkey"
+            columns: ["material_id"]
+            isOneToOne: false
+            referencedRelation: "teaching_materials"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      material_collections: {
+        Row: {
+          created_at: string
+          description: string
+          id: string
+          name: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string
+          id?: string
+          name: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          id?: string
+          name?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       material_versions: {
         Row: {
           content: Json
@@ -438,6 +501,74 @@ export type Database = {
           id?: string
         }
         Relationships: []
+      }
+      question_bank: {
+        Row: {
+          competency: string
+          concept: string
+          created_at: string
+          difficulty: string
+          discipline: string
+          id: string
+          language: string
+          points: number
+          prompt: string
+          qtype: string
+          question: Json
+          review_status: string
+          source_material_id: string | null
+          sources: string
+          subject: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          competency?: string
+          concept?: string
+          created_at?: string
+          difficulty?: string
+          discipline?: string
+          id?: string
+          language?: string
+          points?: number
+          prompt?: string
+          qtype?: string
+          question?: Json
+          review_status?: string
+          source_material_id?: string | null
+          sources?: string
+          subject?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          competency?: string
+          concept?: string
+          created_at?: string
+          difficulty?: string
+          discipline?: string
+          id?: string
+          language?: string
+          points?: number
+          prompt?: string
+          qtype?: string
+          question?: Json
+          review_status?: string
+          source_material_id?: string | null
+          sources?: string
+          subject?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "question_bank_source_material_id_fkey"
+            columns: ["source_material_id"]
+            isOneToOne: false
+            referencedRelation: "teaching_materials"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       reflections: {
         Row: {
@@ -645,6 +776,7 @@ export type Database = {
       }
       teaching_materials: {
         Row: {
+          archived_at: string | null
           concept: string
           config: Json
           content: Json
@@ -664,6 +796,7 @@ export type Database = {
           user_id: string
         }
         Insert: {
+          archived_at?: string | null
           concept?: string
           config?: Json
           content?: Json
@@ -683,6 +816,7 @@ export type Database = {
           user_id: string
         }
         Update: {
+          archived_at?: string | null
           concept?: string
           config?: Json
           content?: Json

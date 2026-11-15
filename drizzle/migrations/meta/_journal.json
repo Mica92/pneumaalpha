@@ -29,6 +29,13 @@
       "when": 1794710252858,
       "tag": "0003_docente_material_derivations",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1794714501846,
+      "tag": "0004_docente_collections_bank_archive",
+      "breakpoints": true
     }
   ]
 }
