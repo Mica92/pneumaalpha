@@ -27,6 +27,9 @@ export function MaterialRow({ m, actions }: { m: MaterialSummary; actions?: Reac
           {m.title || m.concept || (lang === "es" ? "Sin título" : "Untitled")}
         </Link>
         {meta && <p className="truncate text-micro text-muted-foreground">{meta}</p>}
+        {m.source_material_id && (
+          <p className="text-micro text-muted-foreground">{lang === "es" ? "↳ Derivado de otro material" : "↳ Derived from another material"}</p>
+        )}
       </div>
       <span
         className={cn(

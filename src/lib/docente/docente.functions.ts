@@ -23,6 +23,8 @@ export type MaterialSummary = {
   language: "es" | "en";
   review_status: "draft" | "reviewed";
   source_material_id: string | null;
+  conversion: string;
+  source_synced_at: string | null;
   created_at: string;
   updated_at: string;
 };
@@ -34,7 +36,7 @@ export type Material = MaterialSummary & {
 export type MaterialVersion = { id: string; title: string; note: string; created_at: string };
 
 const SUMMARY_COLS =
-  "id, kind, title, concept, discipline, subject, level, language, review_status, source_material_id, created_at, updated_at";
+  "id, kind, title, concept, discipline, subject, level, language, review_status, source_material_id, conversion, source_synced_at, created_at, updated_at";
 
 /* ───────── Access ───────── */
 
@@ -370,4 +372,57 @@ export const restoreVersion = createServerFn({ method: "POST" })
       .eq("user_id", userId);
     if (e3) throw e3;
     return { ok: true, materialId: v.material_id as string };
+  });
+
+/* ───────── Related materials ───────── */
+
+export type RelatedMaterials = { source: MaterialSummary | null; derived: MaterialSummary[] };
+
+export const listRelated = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((input: unknown) => z.object({ id: z.string().uuid() }).parse(input))
+  .handler(async ({ data, context }): Promise<RelatedMaterials> => {
+    await assertTeacher(context.supabase, context.userId, context.claims as Record<string, unknown>);
+    const { data: self, error } = await context.supabase
+      .from("teaching_materials")
+      .select("source_material_id")
+      .eq("id", data.id)
+      .eq("user_id", context.userId)
+      .maybeSingle();
+    if (error) throw error;
+    if (!self) throw new Error("NOT_FOUND");
+    let source: MaterialSummary | null = null;
+    if (self.source_material_id) {
+      const { data: s } = await context.supabase
+        .from("teaching_materials")
+        .select(SUMMARY_COLS)
+        .eq("id", self.source_material_id as string)
+        .eq("user_id", context.userId)
+        .maybeSingle();
+      source = (s as MaterialSummary | null) ?? null;
+    }
+    const { data: derived, error: dErr } = await context.supabase
+      .from("teaching_materials")
+      .select(SUMMARY_COLS)
+      .eq("source_material_id", data.id)
+      .eq("user_id", context.userId)
+      .order("created_at", { ascending: false })
+      .limit(50);
+    if (dErr) throw dErr;
+    return { source, derived: (derived ?? []) as MaterialSummary[] };
+  });
+
+/** Teacher confirms the derivative is up to date with its (changed) source. Never touches content. */
+export const markSourceSynced = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((input: unknown) => z.object({ id: z.string().uuid() }).parse(input))
+  .handler(async ({ data, context }): Promise<{ ok: true }> => {
+    await assertTeacher(context.supabase, context.userId, context.claims as Record<string, unknown>);
+    const { error } = await context.supabase
+      .from("teaching_materials")
+      .update({ source_synced_at: new Date().toISOString() })
+      .eq("id", data.id)
+      .eq("user_id", context.userId);
+    if (error) throw error;
+    return { ok: true };
   });

@@ -5,12 +5,13 @@ import { getMaterial, type Material } from "@/lib/docente/docente.functions";
 import { useI18n } from "@/lib/i18n";
 import { emptyConfig, type BaseConfig } from "./config-fields";
 
-export type CreateSearch = { concept?: string; from?: string };
+export type CreateSearch = { concept?: string; from?: string; conv?: string };
 
 export function validateCreateSearch(s: Record<string, unknown>): CreateSearch {
   const concept = typeof s.concept === "string" ? s.concept.slice(0, 200) : undefined;
   const from = typeof s.from === "string" && /^[0-9a-f-]{36}$/i.test(s.from) ? s.from : undefined;
-  return { concept, from };
+  const conv = from && typeof s.conv === "string" && /^[a-z_]{2,40}$/.test(s.conv) ? s.conv : undefined;
+  return { concept, from, conv };
 }
 
 /** Form config prefilled from the dashboard concept or from a source material. */

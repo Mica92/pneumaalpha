@@ -3,7 +3,7 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useQueryClient } from "@tanstack/react-query";
 import { DocenteShell, PageHeading } from "@/components/docente/shell";
-import { BaseConfigFields, Field, GenerationStatus, SourceNotice, inputCls } from "@/components/docente/config-fields";
+import { BaseConfigFields, Field, GenerationStatus, SourceNotice, inputCls, ConversionNotice } from "@/components/docente/config-fields";
 import { useSeededConfig, validateCreateSearch } from "@/components/docente/use-seeded-config";
 import { EXAM_TYPES, QUESTION_TYPE_LABELS } from "@/lib/docente/catalog";
 import { generateExam } from "@/lib/docente/docente-ai.functions";
@@ -63,7 +63,7 @@ function NewExam() {
           difficulty,
           responseFormat,
           competencies,
-          fromMaterialId: search.from ?? null,
+          fromMaterialId: search.from ?? null, conversion: search.conv ?? null,
         },
       });
       await qc.invalidateQueries({ queryKey: ["docente-materials"] });
@@ -110,10 +110,10 @@ function NewExam() {
           "Assess knowledge, analysis, application and reasoning. You get a teacher key kept separate from the student version.",
         )}
       />
-      {source && (
-        <p className="mb-6 text-small text-muted-foreground">
-          {tr("A partir de:", "Based on:")} <span className="text-foreground">{source.title}</span>
-        </p>
+      {(source || search.conv) && (
+        <div className="mb-6">
+          <ConversionNotice conv={search.conv} sourceTitle={source?.title} />
+        </div>
       )}
       <form
         onSubmit={(e) => {

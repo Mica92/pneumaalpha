@@ -648,6 +648,7 @@ export type Database = {
           concept: string
           config: Json
           content: Json
+          conversion: string
           created_at: string
           discipline: string
           id: string
@@ -656,6 +657,7 @@ export type Database = {
           level: string
           review_status: string
           source_material_id: string | null
+          source_synced_at: string | null
           subject: string
           title: string
           updated_at: string
@@ -665,6 +667,7 @@ export type Database = {
           concept?: string
           config?: Json
           content?: Json
+          conversion?: string
           created_at?: string
           discipline?: string
           id?: string
@@ -673,6 +676,7 @@ export type Database = {
           level?: string
           review_status?: string
           source_material_id?: string | null
+          source_synced_at?: string | null
           subject?: string
           title?: string
           updated_at?: string
@@ -682,6 +686,7 @@ export type Database = {
           concept?: string
           config?: Json
           content?: Json
+          conversion?: string
           created_at?: string
           discipline?: string
           id?: string
@@ -690,6 +695,7 @@ export type Database = {
           level?: string
           review_status?: string
           source_material_id?: string | null
+          source_synced_at?: string | null
           subject?: string
           title?: string
           updated_at?: string
