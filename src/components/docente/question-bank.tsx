@@ -212,7 +212,10 @@ export function BankBrowser() {
   const items = useMemo(() => filterBank(data ?? [], f), [data, f]);
   const disciplines = useMemo(() => [...new Set((data ?? []).map((e) => e.discipline).filter(Boolean))].sort(), [data]);
 
-  async function patch(id: string, p: Parameters<typeof update>[0]["data"]) {
+  async function patch(
+    id: string,
+    p: Partial<Pick<BankEntry, "competency" | "difficulty" | "sources" | "points">> & { reviewStatus?: "draft" | "reviewed" },
+  ) {
     setErr(null);
     qc.setQueryData<BankEntry[]>(BANK_KEY, (old) =>
       old?.map((e) => (e.id === id ? { ...e, ...p, ...(p.reviewStatus ? { review_status: p.reviewStatus } : {}) } as BankEntry : e)),
