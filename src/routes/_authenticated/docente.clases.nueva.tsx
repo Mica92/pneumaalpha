@@ -63,7 +63,7 @@ function NewClass() {
         )}
       />
       {(source || search.conv) && (
-        <div className="mt-6">
+        <div className="mb-6">
           <ConversionNotice conv={search.conv} sourceTitle={source?.title} />
         </div>
       )}

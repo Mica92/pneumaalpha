@@ -20,6 +20,8 @@ import {
   type MaterialVersion,
 } from "@/lib/docente/docente.functions";
 import { KIND_LABELS } from "@/lib/docente/catalog";
+import { CREATE_ROUTE, conversionsFor } from "@/lib/docente/conversions";
+import { RelatedMaterials } from "@/components/docente/related-materials";
 import { materialToMarkdown, type Variant } from "@/lib/docente/markdown";
 import { MAP_H, MAP_W, mapToSvg } from "@/lib/docente/map-svg";
 import { asDoc, asExam, asMap, auditExam, makeVariantB, type DocContent, type ExamContent, type MapContent } from "@/lib/docente/model";
@@ -278,9 +280,11 @@ function Workspace({ material }: { material: Material }) {
           <details className="relative">
             <summary className={cn(btn, "list-none cursor-pointer")}>{tr("Más", "More")} ▾</summary>
             <div className="absolute z-20 mt-1 w-64 rounded-md border border-border bg-popover p-2 shadow-lg">
-              {kind !== "exam" && <DeriveLink to="/docente/examenes/nuevo" from={material.id} label={tr("Crear examen a partir de esto", "Create exam from this")} />}
-              {kind !== "map" && <DeriveLink to="/docente/mapas/nuevo" from={material.id} label={tr("Crear mapa a partir de esto", "Create map from this")} />}
-              {kind !== "class" && <DeriveLink to="/docente/clases/nueva" from={material.id} label={tr("Planificar una clase con esto", "Plan a class with this")} />}
+              <p className="label px-2 pb-1 pt-1 text-micro text-muted-foreground">{tr("Convertir en…", "Convert into…")}</p>
+              {conversionsFor(kind).map((c) => (
+                <DeriveLink key={c.id} to={CREATE_ROUTE[c.to]} from={material.id} conv={c.id} label={c.label[lang]} />
+              ))}
+              <div className="my-1 border-t border-border" />
               <ExportItem label={tr("Duplicar", "Duplicate")} busy={busy === "dup"} onClick={() => duplicate(false)} />
               <ExportItem label={tr("Guardar versión", "Save version")} busy={busy === "snap"} onClick={saveSnapshot} />
               <ExportItem label={tr("Historial de versiones", "Version history")} busy={false} onClick={() => setShowVersions((s) => !s)} />
@@ -308,6 +312,8 @@ function Workspace({ material }: { material: Material }) {
           />
         )}
       </div>
+
+      <RelatedMaterials material={material} />
 
       <div className="mt-8">
         {view === "edit" ? (
@@ -358,9 +364,9 @@ function ExportItem({ label, onClick, busy, danger }: { label: string; onClick: 
   );
 }
 
-function DeriveLink({ to, from, label }: { to: "/docente/examenes/nuevo" | "/docente/mapas/nuevo" | "/docente/clases/nueva"; from: string; label: string }) {
+function DeriveLink({ to, from, conv, label }: { to: (typeof CREATE_ROUTE)[keyof typeof CREATE_ROUTE]; from: string; conv: string; label: string }) {
   return (
-    <Link to={to} search={{ from, concept: undefined }} className="focus-mist block rounded px-2 py-1.5 text-small text-foreground hover:bg-muted">
+    <Link to={to} search={{ from, conv, concept: undefined }} className="focus-mist block rounded px-2 py-1.5 text-small text-foreground hover:bg-muted">
       {label}
     </Link>
   );
