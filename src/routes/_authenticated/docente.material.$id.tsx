@@ -207,12 +207,13 @@ function Workspace({ material }: { material: Material }) {
             <SaveIndicator state={auto.state} onRetry={auto.retry} />
           </span>
         </div>
-        <input
+        <textarea
           aria-label={tr("Título", "Title")}
           value={auto.title}
           maxLength={240}
-          onChange={(e) => auto.setTitle(e.target.value)}
-          className="focus-mist mt-3 w-full rounded bg-transparent font-serif text-title font-light text-foreground"
+          rows={1}
+          onChange={(e) => auto.setTitle(e.target.value.replace(/\n/g, " "))}
+          className="focus-mist mt-3 w-full resize-none rounded bg-transparent font-serif text-title font-light text-foreground [field-sizing:content]"
         />
 
         <div className="mt-5 flex flex-wrap items-center gap-2 border-y border-border/60 py-3">
