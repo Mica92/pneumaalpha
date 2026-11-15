@@ -23,6 +23,7 @@ import { Route as AuthenticatedBuscarRouteImport } from './routes/_authenticated
 import { Route as AuthenticatedCompararRouteImport } from './routes/_authenticated/comparar'
 import { Route as AuthenticatedConocimientoRouteImport } from './routes/_authenticated/conocimiento'
 import { Route as AuthenticatedDialogosRouteImport } from './routes/_authenticated/dialogos'
+import { Route as AuthenticatedDocenteRouteImport } from './routes/_authenticated/docente'
 import { Route as AuthenticatedExploradorRouteImport } from './routes/_authenticated/explorador'
 import { Route as AuthenticatedExplorarRouteImport } from './routes/_authenticated/explorar'
 import { Route as AuthenticatedMesaRouteImport } from './routes/_authenticated/mesa'
@@ -122,6 +123,11 @@ const AuthenticatedConocimientoRoute =
 const AuthenticatedDialogosRoute = AuthenticatedDialogosRouteImport.update({
   id: '/dialogos',
   path: '/dialogos',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedDocenteRoute = AuthenticatedDocenteRouteImport.update({
+  id: '/docente',
+  path: '/docente',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedExploradorRoute = AuthenticatedExploradorRouteImport.update({
@@ -293,6 +299,7 @@ export interface FileRoutesByFullPath {
   '/comparar': typeof AuthenticatedCompararRoute
   '/conocimiento': typeof AuthenticatedConocimientoRoute
   '/dialogos': typeof AuthenticatedDialogosRouteWithChildren
+  '/docente': typeof AuthenticatedDocenteRoute
   '/explorador': typeof AuthenticatedExploradorRoute
   '/explorar': typeof AuthenticatedExplorarRoute
   '/mesa': typeof AuthenticatedMesaRoute
@@ -335,6 +342,7 @@ export interface FileRoutesByTo {
   '/buscar': typeof AuthenticatedBuscarRoute
   '/comparar': typeof AuthenticatedCompararRoute
   '/conocimiento': typeof AuthenticatedConocimientoRoute
+  '/docente': typeof AuthenticatedDocenteRoute
   '/explorador': typeof AuthenticatedExploradorRoute
   '/explorar': typeof AuthenticatedExplorarRoute
   '/mesa': typeof AuthenticatedMesaRoute
@@ -381,6 +389,7 @@ export interface FileRoutesById {
   '/_authenticated/comparar': typeof AuthenticatedCompararRoute
   '/_authenticated/conocimiento': typeof AuthenticatedConocimientoRoute
   '/_authenticated/dialogos': typeof AuthenticatedDialogosRouteWithChildren
+  '/_authenticated/docente': typeof AuthenticatedDocenteRoute
   '/_authenticated/explorador': typeof AuthenticatedExploradorRoute
   '/_authenticated/explorar': typeof AuthenticatedExplorarRoute
   '/_authenticated/mesa': typeof AuthenticatedMesaRoute
@@ -428,6 +437,7 @@ export interface FileRouteTypes {
     | '/comparar'
     | '/conocimiento'
     | '/dialogos'
+    | '/docente'
     | '/explorador'
     | '/explorar'
     | '/mesa'
@@ -470,6 +480,7 @@ export interface FileRouteTypes {
     | '/buscar'
     | '/comparar'
     | '/conocimiento'
+    | '/docente'
     | '/explorador'
     | '/explorar'
     | '/mesa'
@@ -515,6 +526,7 @@ export interface FileRouteTypes {
     | '/_authenticated/comparar'
     | '/_authenticated/conocimiento'
     | '/_authenticated/dialogos'
+    | '/_authenticated/docente'
     | '/_authenticated/explorador'
     | '/_authenticated/explorar'
     | '/_authenticated/mesa'
@@ -661,6 +673,13 @@ declare module '@tanstack/react-router' {
       path: '/dialogos'
       fullPath: '/dialogos'
       preLoaderRoute: typeof AuthenticatedDialogosRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/docente': {
+      id: '/_authenticated/docente'
+      path: '/docente'
+      fullPath: '/docente'
+      preLoaderRoute: typeof AuthenticatedDocenteRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/explorador': {
@@ -892,6 +911,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedCompararRoute: typeof AuthenticatedCompararRoute
   AuthenticatedConocimientoRoute: typeof AuthenticatedConocimientoRoute
   AuthenticatedDialogosRoute: typeof AuthenticatedDialogosRouteWithChildren
+  AuthenticatedDocenteRoute: typeof AuthenticatedDocenteRoute
   AuthenticatedExploradorRoute: typeof AuthenticatedExploradorRoute
   AuthenticatedExplorarRoute: typeof AuthenticatedExplorarRoute
   AuthenticatedMesaRoute: typeof AuthenticatedMesaRoute
@@ -923,6 +943,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedCompararRoute: AuthenticatedCompararRoute,
   AuthenticatedConocimientoRoute: AuthenticatedConocimientoRoute,
   AuthenticatedDialogosRoute: AuthenticatedDialogosRouteWithChildren,
+  AuthenticatedDocenteRoute: AuthenticatedDocenteRoute,
   AuthenticatedExploradorRoute: AuthenticatedExploradorRoute,
   AuthenticatedExplorarRoute: AuthenticatedExplorarRoute,
   AuthenticatedMesaRoute: AuthenticatedMesaRoute,
