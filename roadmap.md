@@ -57,3 +57,16 @@
 - [x] Página /evidencia con contexto, estudios, límites, glosario, validación y bibliografía
 - [x] Revisión escritorio/móvil, ES/EN y enlaces a fuentes
 
+
+# Kionas Docente (Fase 1)
+- [ ] Acceso solo para docentes aprobados (solicitud + aprobación del administrador)
+- [ ] Panel Docente con caja principal y materiales recientes
+- [ ] Catálogo de disciplinas con carrera personalizada
+- [ ] Generador y editor de guías (secciones, reordenar, versiones, IA contextual con aceptar/rechazar)
+- [ ] Generador y editor de exámenes (puntajes validados, pauta, auditor, regenerar pregunta)
+- [ ] Versión estudiante sin soluciones; PDF, DOCX e impresión A4/Carta
+- [ ] Mapas conceptuales editables (IA o manual, relaciones con nombre, SVG/PNG)
+- [ ] Mi biblioteca con búsqueda y filtros; duplicar; convertir en examen/mapa/clase
+- [ ] Planificador de clases sencillo
+- [ ] Pruebas de reglas y recorrido completo en el navegador
+- [ ] Asignar la cuenta administradora que aprueba docentes (requiere confirmación del propietario)
