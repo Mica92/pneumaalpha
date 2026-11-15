@@ -27,12 +27,13 @@ function DocenteHome() {
   const navigate = useNavigate();
   const [concept, setConcept] = useState("");
   const fetchList = useServerFn(listMaterials);
-  const { data, isLoading, error } = useQuery({
+  const { data: raw, isLoading, error } = useQuery({
     queryKey: ["docente-materials"],
     queryFn: () => fetchList({ data: { limit: 100 } }) as Promise<MaterialSummary[]>,
   });
   const c = concept.trim() || undefined;
 
+  const data = raw?.filter((m) => !m.archived_at);
   const byKind = (k: MaterialKind) => (data ?? []).filter((m) => m.kind === k).slice(0, 4);
 
   return (
