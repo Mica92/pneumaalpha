@@ -416,14 +416,21 @@ function argumentLayer(k: NodeKind): number {
 
 /** Top-down layout: premises, then inferences, then the conclusion, then objections and questions. */
 export function layoutArgument(map: MapContent, width = 1200, height = 800): MapContent {
+  const PER_ROW = 5;
   const layers: MapNode[][] = [[], [], [], []];
   for (const n of map.nodes) layers[argumentLayer(n.kind)].push(n);
-  const used = layers.filter((l) => l.length > 0);
+  // Long layers wrap into several rows so nodes never overlap.
+  const rows: MapNode[][] = [];
+  for (const layer of layers) {
+    for (let i = 0; i < layer.length; i += PER_ROW) rows.push(layer.slice(i, i + PER_ROW));
+  }
   const pos = new Map<string, { x: number; y: number }>();
-  used.forEach((layer, li) => {
-    const y = Math.round(((li + 1) / (used.length + 1)) * height);
-    layer.forEach((n, i) => {
-      pos.set(n.id, { x: Math.round(((i + 1) / (layer.length + 1)) * width), y });
+  rows.forEach((row, ri) => {
+    const y = Math.round(((ri + 1) / (rows.length + 1)) * height);
+    row.forEach((n, i) => {
+      // Stagger alternate rows so vertical edges stay readable.
+      const shift = ri % 2 && row.length < PER_ROW ? width / (PER_ROW + 1) / 2 : 0;
+      pos.set(n.id, { x: Math.round(((i + 1) / (row.length + 1)) * width + shift * 0), y });
     });
   });
   return { ...map, nodes: map.nodes.map((n) => ({ ...n, ...(pos.get(n.id) ?? { x: n.x, y: n.y }) })) };
