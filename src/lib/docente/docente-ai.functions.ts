@@ -7,6 +7,7 @@ import { consumeQuota, generateJson, qualityRules } from "./ai-helpers";
 import { GUIDE_SECTIONS, GUIDE_TEMPLATES, QUESTION_TYPE_LABELS, SECTION_ACTIONS, NODE_ACTIONS } from "./catalog";
 import { materialDigest } from "./markdown";
 import { DocOut, ExamOut, MapOut, QuestionOut, toExam, toMap, toMapParts, toQuestion, toSections } from "./normalize";
+import { mentionsRegistered } from "./thinkers";
 import { QUESTION_TYPES, type ExamQuestion, type MapEdge, type MapNode, type MaterialKind } from "./model";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -392,6 +393,6 @@ ${data.text}
     return {
       text: (out.text || data.text).trim(),
       notes: out.notes.trim(),
-      sources: out.sources.map((s) => s.trim()).filter(Boolean).slice(0, 12),
+      sources: out.sources.map((s) => s.trim()).filter((s) => s && mentionsRegistered(s)).slice(0, 12),
     };
   });
