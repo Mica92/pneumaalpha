@@ -51,6 +51,7 @@ import { Route as AuthenticatedSituacionesIndexRouteImport } from './routes/_aut
 import { Route as AuthenticatedSituacionesIdRouteImport } from './routes/_authenticated/situaciones.$id'
 import { Route as ApiPodcastSpeechRouteImport } from './routes/api/podcast/speech'
 import { Route as EditorialCategoryArticleRouteImport } from './routes/editorial/$category.$article'
+import { Route as AuthenticatedDocenteGuiasNuevaRouteImport } from './routes/_authenticated/docente.guias.nueva'
 import { Route as LovableEmailAuthPreviewRouteImport } from './routes/lovable/email/auth/preview'
 import { Route as LovableEmailAuthWebhookRouteImport } from './routes/lovable/email/auth/webhook'
 import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
@@ -275,6 +276,12 @@ const EditorialCategoryArticleRoute =
     path: '/editorial/$category/$article',
     getParentRoute: () => rootRouteImport,
   } as any)
+const AuthenticatedDocenteGuiasNuevaRoute =
+  AuthenticatedDocenteGuiasNuevaRouteImport.update({
+    id: '/guias/nueva',
+    path: '/guias/nueva',
+    getParentRoute: () => AuthenticatedDocenteRoute,
+  } as any)
 const LovableEmailAuthPreviewRoute = LovableEmailAuthPreviewRouteImport.update({
   id: '/lovable/email/auth/preview',
   path: '/lovable/email/auth/preview',
@@ -334,6 +341,7 @@ export interface FileRoutesByFullPath {
   '/ideas/': typeof AuthenticatedIdeasIndexRoute
   '/rutas/': typeof AuthenticatedRutasIndexRoute
   '/situaciones/': typeof AuthenticatedSituacionesIndexRoute
+  '/docente/guias/nueva': typeof AuthenticatedDocenteGuiasNuevaRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
@@ -378,6 +386,7 @@ export interface FileRoutesByTo {
   '/ideas': typeof AuthenticatedIdeasIndexRoute
   '/rutas': typeof AuthenticatedRutasIndexRoute
   '/situaciones': typeof AuthenticatedSituacionesIndexRoute
+  '/docente/guias/nueva': typeof AuthenticatedDocenteGuiasNuevaRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
@@ -426,6 +435,7 @@ export interface FileRoutesById {
   '/_authenticated/ideas/': typeof AuthenticatedIdeasIndexRoute
   '/_authenticated/rutas/': typeof AuthenticatedRutasIndexRoute
   '/_authenticated/situaciones/': typeof AuthenticatedSituacionesIndexRoute
+  '/_authenticated/docente/guias/nueva': typeof AuthenticatedDocenteGuiasNuevaRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
@@ -474,6 +484,7 @@ export interface FileRouteTypes {
     | '/ideas/'
     | '/rutas/'
     | '/situaciones/'
+    | '/docente/guias/nueva'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
     | '/lovable/email/transactional/preview'
@@ -518,6 +529,7 @@ export interface FileRouteTypes {
     | '/ideas'
     | '/rutas'
     | '/situaciones'
+    | '/docente/guias/nueva'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
     | '/lovable/email/transactional/preview'
@@ -565,6 +577,7 @@ export interface FileRouteTypes {
     | '/_authenticated/ideas/'
     | '/_authenticated/rutas/'
     | '/_authenticated/situaciones/'
+    | '/_authenticated/docente/guias/nueva'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
     | '/lovable/email/transactional/preview'
@@ -882,6 +895,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EditorialCategoryArticleRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/docente/guias/nueva': {
+      id: '/_authenticated/docente/guias/nueva'
+      path: '/guias/nueva'
+      fullPath: '/docente/guias/nueva'
+      preLoaderRoute: typeof AuthenticatedDocenteGuiasNuevaRouteImport
+      parentRoute: typeof AuthenticatedDocenteRoute
+    }
     '/lovable/email/auth/preview': {
       id: '/lovable/email/auth/preview'
       path: '/lovable/email/auth/preview'
@@ -923,10 +943,12 @@ const AuthenticatedDialogosRouteWithChildren =
 
 interface AuthenticatedDocenteRouteChildren {
   AuthenticatedDocenteIndexRoute: typeof AuthenticatedDocenteIndexRoute
+  AuthenticatedDocenteGuiasNuevaRoute: typeof AuthenticatedDocenteGuiasNuevaRoute
 }
 
 const AuthenticatedDocenteRouteChildren: AuthenticatedDocenteRouteChildren = {
   AuthenticatedDocenteIndexRoute: AuthenticatedDocenteIndexRoute,
+  AuthenticatedDocenteGuiasNuevaRoute: AuthenticatedDocenteGuiasNuevaRoute,
 }
 
 const AuthenticatedDocenteRouteWithChildren =
