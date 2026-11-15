@@ -75,4 +75,8 @@
 - [x] Convertir materiales entre sí (guía/mapa/examen/clase) con vínculo al original
 - [x] Panel de materiales relacionados y aviso cuando el original cambia
 - [x] Analizador de argumentos: 10 dimensiones editables → guía, mapa argumentativo, preguntas o examen
-- [ ] Mapas avanzados, biblioteca con colecciones, banco de preguntas, curador, Class Studio 2.0
+- [x] Mapas avanzados: 10 mapas base, exploración de nodos, modo argumentativo, enfoque disciplinar, zoom/desplazamiento, búsqueda, filtros, contraer ramas, deshacer/rehacer, SVG/PNG/PDF y presentación
+- [x] Biblioteca con colecciones privadas (nombres sugeridos) y archivo
+- [x] Banco de preguntas: guardar desde exámenes, buscar/filtrar, revisar e insertar en otros exámenes
+- [ ] Curador académico y Class Studio 2.0 (no solicitados todavía)
+- [ ] Asignar dificultad/competencia con IA al guardar en el banco (hoy la indica el docente)
