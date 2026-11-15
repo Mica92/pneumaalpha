@@ -375,7 +375,7 @@ function PrintView({ kind, md, map, language, variant }: { kind: Material["kind"
           ? tr("Versión estudiante: sin respuestas, rúbricas, notas ni secciones docentes.", "Student version: no answers, rubrics, notes or teacher sections.")
           : tr("Vista previa de impresión.", "Print preview.")}
       </p>
-      <article className="print-sheet mx-auto max-w-[52rem] rounded-sm bg-white px-8 py-10 text-neutral-900 shadow-md md:px-14 print:max-w-none print:p-0 print:shadow-none">
+      <article className="print-sheet mx-auto max-w-[52rem] rounded-sm bg-paper px-8 py-10 text-ink shadow-md md:px-14 print:max-w-none print:p-0 print:shadow-none">
         {svg && kind === "map" && <div className="mb-6 [&_svg]:h-auto [&_svg]:w-full" dangerouslySetInnerHTML={{ __html: svg }} />}
         <DocMarkdown text={md} className="doc-print" />
       </article>
