@@ -1,0 +1,388 @@
+/**
+ * Kionas Docente — client-safe content model and pure rules.
+ * Everything here runs in the browser and on the server; keep it free of I/O.
+ */
+
+export type Lang = "es" | "en";
+export type MaterialKind = "guide" | "exam" | "map" | "class";
+export const MATERIAL_KINDS: readonly MaterialKind[] = ["guide", "exam", "map", "class"] as const;
+
+export type SourceStatus = "pending" | "verified";
+export type SourceRef = { id: string; text: string; status: SourceStatus };
+
+/** What kind of claim a section mostly makes (intellectual quality system). */
+export const EPISTEMIC_KINDS = [
+  "etymology",
+  "conceptual",
+  "interpretive",
+  "scientific",
+  "hypothetical",
+  "pedagogical",
+] as const;
+export type EpistemicKind = (typeof EPISTEMIC_KINDS)[number];
+
+export type DocSection = {
+  id: string;
+  key: string;
+  title: string;
+  body: string;
+  /** "teacher" sections never reach the student version. */
+  audience: "all" | "teacher";
+  epistemic: EpistemicKind;
+  sources: SourceRef[];
+  minutes?: number;
+};
+export type DocContent = { sections: DocSection[] };
+
+export const QUESTION_TYPES = [
+  "concept",
+  "argument",
+  "assumption",
+  "error",
+  "confrontation",
+  "case",
+  "evidence",
+  "reconstruction",
+  "essay",
+  "map",
+  "multiple_choice",
+] as const;
+export type QuestionType = (typeof QUESTION_TYPES)[number];
+
+export type RubricCriterion = { id: string; criterion: string; descriptor: string; points: number };
+export type ExamQuestion = {
+  id: string;
+  type: QuestionType;
+  prompt: string;
+  caseText: string;
+  options: string[];
+  correctOption: number | null;
+  points: number;
+  answerLines: number;
+  answerGuide: string;
+  rubric: RubricCriterion[];
+  teacherNotes: string;
+};
+export type ExamContent = {
+  instructions: string;
+  durationMin: number;
+  totalPoints: number;
+  questions: ExamQuestion[];
+  bibliography: string;
+  /** Set on B variants; versions are never claimed to be psychometrically equivalent. */
+  variant?: "A" | "B";
+};
+
+export const NODE_KINDS = [
+  "central",
+  "concept",
+  "author",
+  "school",
+  "discipline",
+  "question",
+  "case",
+  "objection",
+] as const;
+export type NodeKind = (typeof NODE_KINDS)[number];
+export const RELATIONS = [
+  "relates",
+  "opposes",
+  "presupposes",
+  "questions",
+  "develops",
+  "distinguishes",
+  "applies",
+  "grounds",
+] as const;
+export type Relation = (typeof RELATIONS)[number];
+export type MapNode = { id: string; label: string; kind: NodeKind; note: string; x: number; y: number };
+export type MapEdge = { id: string; from: string; to: string; relation: Relation };
+export type MapContent = { nodes: MapNode[]; edges: MapEdge[] };
+
+export type AnyContent = DocContent | ExamContent | MapContent;
+
+export function uid(prefix = "b"): string {
+  const rnd =
+    typeof crypto !== "undefined" && "randomUUID" in crypto
+      ? crypto.randomUUID().slice(0, 8)
+      : Math.random().toString(36).slice(2, 10);
+  return `${prefix}_${rnd}`;
+}
+
+/* ───────────── Exams ───────────── */
+
+export function examPointsSum(exam: Pick<ExamContent, "questions">): number {
+  return round2(exam.questions.reduce((s, q) => s + (Number.isFinite(q.points) ? q.points : 0), 0));
+}
+
+export function rubricPointsSum(q: Pick<ExamQuestion, "rubric">): number {
+  return round2(q.rubric.reduce((s, c) => s + (Number.isFinite(c.points) ? c.points : 0), 0));
+}
+
+function round2(n: number) {
+  return Math.round(n * 100) / 100;
+}
+
+/**
+ * Spread `total` across `weights` as integers that add up exactly to `total`
+ * (largest-remainder method). Zero/invalid weights count as 1.
+ */
+export function distributeInteger(total: number, weights: number[]): number[] {
+  if (weights.length === 0) return [];
+  const t = Math.max(0, Math.round(total));
+  const w = weights.map((x) => (Number.isFinite(x) && x > 0 ? x : 1));
+  const sum = w.reduce((a, b) => a + b, 0);
+  const raw = w.map((x) => (x / sum) * t);
+  const floors = raw.map(Math.floor);
+  let rest = t - floors.reduce((a, b) => a + b, 0);
+  const order = raw
+    .map((r, i) => ({ i, frac: r - Math.floor(r) }))
+    .sort((a, b) => b.frac - a.frac || a.i - b.i);
+  for (const { i } of order) {
+    if (rest <= 0) break;
+    floors[i] += 1;
+    rest -= 1;
+  }
+  return floors;
+}
+
+/** Rescales question points so they add up to the exam total, keeping proportions. */
+export function rebalanceExamPoints(exam: ExamContent): ExamContent {
+  const pts = distributeInteger(
+    exam.totalPoints,
+    exam.questions.map((q) => q.points),
+  );
+  return {
+    ...exam,
+    questions: exam.questions.map((q, i) => rebalanceRubric({ ...q, points: pts[i] })),
+  };
+}
+
+/** Rescales a question's rubric so its criteria add up to the question's points. */
+export function rebalanceRubric(q: ExamQuestion): ExamQuestion {
+  if (q.rubric.length === 0) return q;
+  const pts = distributeInteger(
+    q.points,
+    q.rubric.map((c) => c.points),
+  );
+  return { ...q, rubric: q.rubric.map((c, i) => ({ ...c, points: pts[i] })) };
+}
+
+/** Student copy: no answers, rubrics, correct options or teacher notes — ever. */
+export function toStudentExam(exam: ExamContent): ExamContent {
+  return {
+    instructions: exam.instructions,
+    durationMin: exam.durationMin,
+    totalPoints: exam.totalPoints,
+    bibliography: "",
+    variant: exam.variant,
+    questions: exam.questions.map((q) => ({
+      id: q.id,
+      type: q.type,
+      prompt: q.prompt,
+      caseText: q.caseText,
+      options: [...q.options],
+      correctOption: null,
+      points: q.points,
+      answerLines: q.answerLines,
+      answerGuide: "",
+      rubric: [],
+      teacherNotes: "",
+    })),
+  };
+}
+
+/** Student copy of a guide or class: drops teacher-only sections. */
+export function toStudentDoc(doc: DocContent): DocContent {
+  return { sections: doc.sections.filter((s) => s.audience !== "teacher") };
+}
+
+export type AuditIssue = {
+  code:
+    | "points_total"
+    | "rubric_points"
+    | "empty_prompt"
+    | "no_guide"
+    | "duplicate"
+    | "mc_no_answer"
+    | "mc_few_options"
+    | "time_load"
+    | "no_bibliography"
+    | "no_questions";
+  severity: "error" | "warning";
+  questionIndex?: number;
+  detail?: string;
+};
+
+/** Minutes a student plausibly needs per question type (rough heuristic, shown as an estimate). */
+const MINUTES_BY_TYPE: Record<QuestionType, number> = {
+  concept: 4,
+  multiple_choice: 2,
+  argument: 8,
+  assumption: 7,
+  error: 7,
+  confrontation: 12,
+  case: 15,
+  evidence: 10,
+  reconstruction: 10,
+  essay: 25,
+  map: 12,
+};
+
+export function estimateExamMinutes(exam: Pick<ExamContent, "questions">): number {
+  return exam.questions.reduce((s, q) => s + (MINUTES_BY_TYPE[q.type] ?? 8), 0);
+}
+
+function normText(s: string) {
+  return s.toLowerCase().replace(/[^\p{L}\p{N}]+/gu, " ").trim();
+}
+
+/** Deterministic pre-export checks. Warnings, never an automatic "valid" stamp. */
+export function auditExam(exam: ExamContent): AuditIssue[] {
+  const issues: AuditIssue[] = [];
+  if (exam.questions.length === 0) {
+    issues.push({ code: "no_questions", severity: "error" });
+    return issues;
+  }
+  const sum = examPointsSum(exam);
+  if (sum !== exam.totalPoints) {
+    issues.push({ code: "points_total", severity: "error", detail: `${sum}/${exam.totalPoints}` });
+  }
+  const seen = new Map<string, number>();
+  exam.questions.forEach((q, i) => {
+    if (!q.prompt.trim()) issues.push({ code: "empty_prompt", severity: "error", questionIndex: i });
+    if (q.rubric.length > 0 && rubricPointsSum(q) !== q.points) {
+      issues.push({
+        code: "rubric_points",
+        severity: "warning",
+        questionIndex: i,
+        detail: `${rubricPointsSum(q)}/${q.points}`,
+      });
+    }
+    if (q.type === "multiple_choice") {
+      if (q.options.filter((o) => o.trim()).length < 3)
+        issues.push({ code: "mc_few_options", severity: "warning", questionIndex: i });
+      if (q.correctOption === null || q.correctOption < 0 || q.correctOption >= q.options.length)
+        issues.push({ code: "mc_no_answer", severity: "error", questionIndex: i });
+    } else if (!q.answerGuide.trim() && q.rubric.length === 0) {
+      issues.push({ code: "no_guide", severity: "warning", questionIndex: i });
+    }
+    const key = normText(q.prompt);
+    if (key) {
+      const prev = seen.get(key);
+      if (prev !== undefined)
+        issues.push({ code: "duplicate", severity: "warning", questionIndex: i, detail: String(prev + 1) });
+      else seen.set(key, i);
+    }
+  });
+  const est = estimateExamMinutes(exam);
+  if (exam.durationMin > 0 && est > exam.durationMin * 1.15) {
+    issues.push({ code: "time_load", severity: "warning", detail: `${est}/${exam.durationMin}` });
+  }
+  if (!exam.bibliography.trim()) issues.push({ code: "no_bibliography", severity: "warning" });
+  return issues;
+}
+
+/** Deterministic pseudo-random generator so a B variant is reproducible from its seed. */
+function mulberry32(seed: number) {
+  let a = seed >>> 0;
+  return () => {
+    a = (a + 0x6d2b79f5) >>> 0;
+    let t = a;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+function shuffle<T>(arr: T[], rnd: () => number): T[] {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(rnd() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+/** Version B: same questions, different order and shuffled options (answer key kept in sync). */
+export function makeVariantB(exam: ExamContent, seed = 7): ExamContent {
+  const rnd = mulberry32(seed);
+  const questions = shuffle(exam.questions, rnd).map((q) => {
+    if (q.options.length < 2) return { ...q, id: uid("q") };
+    const idx = shuffle(
+      q.options.map((_, i) => i),
+      rnd,
+    );
+    return {
+      ...q,
+      id: uid("q"),
+      options: idx.map((i) => q.options[i]),
+      correctOption: q.correctOption === null ? null : idx.indexOf(q.correctOption),
+    };
+  });
+  return { ...exam, questions, variant: "B" };
+}
+
+/* ───────────── Maps ───────────── */
+
+/** Radial layout: central node in the middle, its neighbours on a ring, the rest on an outer ring. */
+export function layoutRadial(map: MapContent, width = 1200, height = 800): MapContent {
+  if (map.nodes.length === 0) return map;
+  const cx = width / 2;
+  const cy = height / 2;
+  const central = map.nodes.find((n) => n.kind === "central") ?? map.nodes[0];
+  const neighbours = new Set<string>();
+  for (const e of map.edges) {
+    if (e.from === central.id) neighbours.add(e.to);
+    if (e.to === central.id) neighbours.add(e.from);
+  }
+  const ring1 = map.nodes.filter((n) => n.id !== central.id && neighbours.has(n.id));
+  const ring2 = map.nodes.filter((n) => n.id !== central.id && !neighbours.has(n.id));
+  const pos = new Map<string, { x: number; y: number }>();
+  pos.set(central.id, { x: cx, y: cy });
+  const place = (nodes: MapNode[], rx: number, ry: number, offset: number) => {
+    nodes.forEach((n, i) => {
+      const a = offset + (i / Math.max(1, nodes.length)) * Math.PI * 2;
+      pos.set(n.id, { x: Math.round(cx + rx * Math.cos(a)), y: Math.round(cy + ry * Math.sin(a)) });
+    });
+  };
+  place(ring1, width * 0.28, height * 0.3, -Math.PI / 2);
+  place(ring2, width * 0.44, height * 0.44, -Math.PI / 2 + 0.3);
+  return { ...map, nodes: map.nodes.map((n) => ({ ...n, ...(pos.get(n.id) ?? { x: n.x, y: n.y }) })) };
+}
+
+/** Drops edges pointing at missing nodes, self-loops and exact duplicates. */
+export function cleanEdges(map: MapContent): MapContent {
+  const ids = new Set(map.nodes.map((n) => n.id));
+  const seen = new Set<string>();
+  const edges = map.edges.filter((e) => {
+    if (!ids.has(e.from) || !ids.has(e.to) || e.from === e.to) return false;
+    const k = `${e.from}|${e.to}|${e.relation}`;
+    if (seen.has(k)) return false;
+    seen.add(k);
+    return true;
+  });
+  return { ...map, edges };
+}
+
+/* ───────────── Type guards ───────────── */
+
+export function asDoc(c: unknown): DocContent {
+  const s = (c as DocContent | null)?.sections;
+  return { sections: Array.isArray(s) ? s : [] };
+}
+export function asExam(c: unknown): ExamContent {
+  const e = (c ?? {}) as Partial<ExamContent>;
+  return {
+    instructions: e.instructions ?? "",
+    durationMin: e.durationMin ?? 60,
+    totalPoints: e.totalPoints ?? 100,
+    questions: Array.isArray(e.questions) ? e.questions : [],
+    bibliography: e.bibliography ?? "",
+    variant: e.variant,
+  };
+}
+export function asMap(c: unknown): MapContent {
+  const m = (c ?? {}) as Partial<MapContent>;
+  return { nodes: Array.isArray(m.nodes) ? m.nodes : [], edges: Array.isArray(m.edges) ? m.edges : [] };
+}
