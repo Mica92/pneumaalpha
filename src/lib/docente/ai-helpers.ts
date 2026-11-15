@@ -1,6 +1,5 @@
-import { generateText } from "ai";
+import { GatewayError, PaymentRequiredError, RateLimitError, generateResponse } from "@lovable.dev/ai-gateway";
 import type { SupabaseClient } from "@supabase/supabase-js";
-import { createLovableAiGatewayProvider } from "@/lib/ai-gateway";
 import { PHILOSOPHER_LIST } from "@/lib/philosophers";
 
 /** Per-teacher daily cap on generations, to keep AI costs bounded. */
@@ -45,36 +44,46 @@ export function qualityRules(language: "es" | "en"): string {
 }
 
 export function aiErrorCode(err: unknown): string {
-  const e = err as { statusCode?: number; message?: string; cause?: { statusCode?: number } };
-  const status = e?.statusCode ?? e?.cause?.statusCode;
-  if (status === 402) return "AI_CREDITS";
-  if (status === 429) return "AI_RATE";
-  if (e?.message && /^(AI_|FORBIDDEN|NOT_FOUND|BAD_AI)/.test(e.message)) return e.message;
+  if (err instanceof PaymentRequiredError) return "AI_CREDITS";
+  if (err instanceof RateLimitError) return "AI_RATE";
+  if (err instanceof GatewayError) return "AI_FAILED";
+  const msg = (err as { message?: string })?.message;
+  if (msg && /^(AI_|FORBIDDEN|NOT_FOUND|BAD_AI)/.test(msg)) return msg;
   return "AI_FAILED";
 }
 
-/** Calls the model and returns parsed JSON. Throws BAD_AI_OUTPUT if the reply isn't JSON. */
+type ResponseOutputItem = { type?: string; content?: { type?: string; text?: string }[] };
+
+/** Calls the model in JSON mode and returns the parsed object. */
 export async function generateJson(opts: {
   system: string;
   prompt: string;
   maxOutputTokens?: number;
-  temperature?: number;
 }): Promise<unknown> {
-  const apiKey = process.env.LOVABLE_API_KEY;
-  if (!apiKey) throw new Error("AI_NOT_CONFIGURED");
-  const gateway = createLovableAiGatewayProvider(apiKey);
-  let text: string;
+  let text = "";
   try {
-    const res = await generateText({
-      model: gateway("google/gemini-3-flash-preview"),
-      system: `${opts.system}\n\nResponde ÚNICAMENTE con un objeto JSON válido, sin texto antes ni después y sin bloques de código.`,
-      prompt: opts.prompt,
-      temperature: opts.temperature ?? 0.5,
-      maxOutputTokens: opts.maxOutputTokens ?? 12000,
+    const res = await generateResponse({
+      model: "openai/gpt-6-astra",
+      instructions: opts.system,
+      input: [
+        {
+          role: "user",
+          content: `${opts.prompt}\n\nReturn JSON only: a single valid JSON object, no text before or after it.`,
+        },
+      ],
+      text: { format: { type: "json_object" } },
+      reasoning: { effort: "low" },
+      max_output_tokens: opts.maxOutputTokens ?? 16000,
     });
-    text = res.text;
+    const output = ((res as { output?: ResponseOutputItem[] }).output ?? []) as ResponseOutputItem[];
+    text = output
+      .filter((item) => item.type === "message")
+      .flatMap((item) => item.content ?? [])
+      .filter((c) => c.type === "output_text")
+      .map((c) => c.text ?? "")
+      .join("");
   } catch (err) {
-    console.error("[docente-ai] gateway error", err);
+    console.error("[docente-ai] gateway error", err instanceof GatewayError ? err.toJSON?.() ?? err : err);
     throw new Error(aiErrorCode(err));
   }
   return extractJson(text);
