@@ -63,6 +63,8 @@ export function useAutosave<T extends Record<string, unknown>>(
   const pending = useRef<{ title: string; content: T } | null>(null);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const inFlight = useRef(false);
+  const titleRef = useRef(initial.title);
+  const contentRef = useRef<T>(initial.content);
 
   const flush = useCallback(async () => {
     if (timer.current) clearTimeout(timer.current);
@@ -107,8 +109,6 @@ export function useAutosave<T extends Record<string, unknown>>(
     },
     [schedule],
   );
-  const titleRef = useRef(title);
-  const contentRef = useRef(content);
   const updateTitle = useCallback(
     (t: string) => {
       titleRef.current = t;
