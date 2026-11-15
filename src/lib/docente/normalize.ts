@@ -15,6 +15,7 @@ import {
   type MapEdge,
   type MapNode,
 } from "./model";
+import { filterBibliography, mentionsRegistered } from "./thinkers";
 
 /** Lenient parsers for model output: unknown values fall back to safe defaults. */
 const str = (max = 20000) => z.preprocess((v) => (typeof v === "string" ? v : v == null ? "" : String(v)), z.string()).transform((s) => s.slice(0, max));
@@ -43,7 +44,7 @@ export function toSections(raw: z.infer<typeof DocOut>["sections"]): DocSection[
       epistemic: s.epistemic,
       minutes: s.minutes && s.minutes > 0 ? Math.round(s.minutes) : undefined,
       // Generated references are never presented as verified.
-      sources: s.sources.filter((t) => t.trim()).map((t) => ({ id: uid("r"), text: t.trim(), status: "pending" as const })),
+      sources: s.sources.filter((t) => t.trim() && mentionsRegistered(t)).map((t) => ({ id: uid("r"), text: t.trim(), status: "pending" as const })),
     }));
 }
 
@@ -92,7 +93,7 @@ export function toExam(raw: z.infer<typeof ExamOut>, durationMin: number, totalP
     instructions: raw.instructions.trim(),
     durationMin,
     totalPoints,
-    bibliography: raw.bibliography.trim(),
+    bibliography: filterBibliography(raw.bibliography),
     questions: raw.questions.map(toQuestion).filter((q) => q.prompt),
   };
   // Points always add up to the declared total; the teacher can still adjust them.
@@ -117,6 +118,8 @@ export function toMapParts(
   const nodes: MapNode[] = [];
   for (const n of raw.nodes) {
     if (!n.label.trim()) continue;
+    // Author nodes may only name thinkers registered in Kionas.
+    if (n.kind === "author" && !mentionsRegistered(n.label)) continue;
     const id = uid("n");
     keyToId.set(n.key || n.label, id);
     keyToId.set(n.label, id);
