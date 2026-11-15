@@ -631,3 +631,38 @@
 }
 
 
+
+/* ── Kionas Docente: document reading, print and projection ── */
+.doc-prose { font-size: 0.975rem; line-height: 1.7; color: var(--foreground); }
+.doc-prose > :first-child { margin-top: 0; }
+.doc-prose :is(h1, h2, h3, h4) { font-family: var(--font-serif); font-weight: 500; line-height: 1.2; }
+.doc-prose h1 { font-size: 2rem; margin-top: 1.5rem; }
+.doc-prose h2 { font-size: 1.5rem; margin-top: 1.75rem; }
+.doc-prose h3 { font-size: 1.2rem; margin-top: 1.25rem; }
+.doc-prose h4 { font-size: 1.05rem; margin-top: 1rem; }
+.doc-prose p { margin-top: 0.6rem; }
+.doc-prose strong { font-weight: 600; }
+.doc-prose :is(ul, ol) { margin-top: 0.6rem; padding-left: 1.4rem; }
+.doc-prose ul { list-style: disc; }
+.doc-prose ol { list-style: decimal; }
+.doc-prose li + li { margin-top: 0.25rem; }
+.doc-prose blockquote { margin-top: 0.8rem; border-left: 2px solid var(--bronze); padding-left: 0.9rem; color: var(--muted-foreground); }
+.doc-prose a { text-decoration: underline; text-underline-offset: 3px; }
+.doc-prose hr { margin: 1.5rem 0; border-color: var(--border); }
+.doc-prose table { margin-top: 0.8rem; width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+.doc-prose :is(th, td) { border: 1px solid var(--border); padding: 0.4rem 0.6rem; text-align: left; vertical-align: top; }
+.doc-prose th { font-weight: 600; }
+.doc-prose code { font-size: 0.85em; }
+
+.doc-print { color: var(--ink); font-family: Georgia, "Times New Roman", serif; }
+.doc-print :is(h1, h2, h3, h4) { color: var(--ink); }
+.doc-print blockquote { color: color-mix(in oklab, var(--ink) 70%, transparent); }
+.doc-print :is(th, td), .doc-print hr { border-color: color-mix(in oklab, var(--ink) 25%, transparent); }
+
+.doc-projection { font-size: clamp(1.15rem, 0.9rem + 1vw, 1.6rem); line-height: 1.6; }
+
+@media print {
+  @page { margin: 18mm; }
+  body { background: var(--paper) !important; }
+  .print-sheet { color: var(--ink); }
+}
