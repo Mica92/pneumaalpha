@@ -428,9 +428,7 @@ export function layoutArgument(map: MapContent, width = 1200, height = 800): Map
   rows.forEach((row, ri) => {
     const y = Math.round(((ri + 1) / (rows.length + 1)) * height);
     row.forEach((n, i) => {
-      // Stagger alternate rows so vertical edges stay readable.
-      const shift = ri % 2 && row.length < PER_ROW ? width / (PER_ROW + 1) / 2 : 0;
-      pos.set(n.id, { x: Math.round(((i + 1) / (row.length + 1)) * width + shift * 0), y });
+      pos.set(n.id, { x: Math.round(((i + 1) / (row.length + 1)) * width), y });
     });
   });
   return { ...map, nodes: map.nodes.map((n) => ({ ...n, ...(pos.get(n.id) ?? { x: n.x, y: n.y }) })) };

@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { createPortal } from "react-dom";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
@@ -511,7 +512,7 @@ function Projection({ title, doc, onClose }: { title: string; doc: DocContent; o
     };
   }, [slides.length, onClose]);
   const s = slides[i];
-  return (
+  return createPortal(
     <div role="dialog" aria-modal="true" aria-label={tr("Modo proyección", "Projection mode")} className="fixed inset-0 z-[100] flex flex-col bg-background">
       <div className="flex items-center gap-4 border-b border-border/60 px-6 py-3 text-small text-muted-foreground">
         <span className="font-serif text-lg text-foreground">{title}</span>
@@ -541,6 +542,7 @@ function Projection({ title, doc, onClose }: { title: string; doc: DocContent; o
           {tr("Siguiente", "Next")} →
         </button>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }

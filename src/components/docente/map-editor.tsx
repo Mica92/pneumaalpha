@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { createPortal } from "react-dom";
 import { useServerFn } from "@tanstack/react-start";
 import { Maximize2, Minus, Plus, Redo2, Undo2 } from "lucide-react";
 import {
@@ -870,7 +871,8 @@ export function MapPresentation({ map, onClose }: { map: MapContent; onClose: ()
     return s;
   }, [focus, map.edges]);
   const dimmed = new Set(map.nodes.filter((n) => !near.has(n.id)).map((n) => n.id));
-  return (
+  // Portal: page containers use transforms, which would trap a fixed overlay below the site header.
+  return createPortal(
     <div role="dialog" aria-modal="true" aria-label={tr("Presentación del mapa", "Map presentation")} className="fixed inset-0 z-[100] flex flex-col bg-background">
       <div className="flex items-center gap-4 border-b border-border/60 px-6 py-3 text-small text-muted-foreground">
         <span className="tabular-nums">{order.length ? i + 1 : 0} / {order.length}</span>
@@ -901,7 +903,8 @@ export function MapPresentation({ map, onClose }: { map: MapContent; onClose: ()
         <PresBtn disabled={i === 0} onClick={() => setI((x) => Math.max(0, x - 1))}>← {tr("Anterior", "Previous")}</PresBtn>
         <PresBtn disabled={i >= order.length - 1} onClick={() => setI((x) => Math.min(order.length - 1, x + 1))}>{tr("Siguiente", "Next")} →</PresBtn>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }
 
