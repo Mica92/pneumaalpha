@@ -15,6 +15,13 @@
       "when": 1794405416699,
       "tag": "0001_restrict_sources_and_guest_access",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1794707332789,
+      "tag": "0002_kionas_docente_core",
+      "breakpoints": true
     }
   ]
 }

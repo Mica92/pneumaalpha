@@ -97,6 +97,27 @@ export type Database = {
           },
         ]
       }
+      docente_ai_usage: {
+        Row: {
+          action: string
+          created_at: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          action: string
+          created_at?: string
+          id?: string
+          user_id: string
+        }
+        Update: {
+          action?: string
+          created_at?: string
+          id?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       editorial_comment_reports: {
         Row: {
           comment_id: string
@@ -260,6 +281,44 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      material_versions: {
+        Row: {
+          content: Json
+          created_at: string
+          id: string
+          material_id: string
+          note: string
+          title: string
+          user_id: string
+        }
+        Insert: {
+          content?: Json
+          created_at?: string
+          id?: string
+          material_id: string
+          note?: string
+          title?: string
+          user_id: string
+        }
+        Update: {
+          content?: Json
+          created_at?: string
+          id?: string
+          material_id?: string
+          note?: string
+          title?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "material_versions_material_id_fkey"
+            columns: ["material_id"]
+            isOneToOne: false
+            referencedRelation: "teaching_materials"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       messages: {
         Row: {
@@ -541,6 +600,110 @@ export type Database = {
           whop_receipt_id?: string | null
         }
         Relationships: []
+      }
+      teacher_access: {
+        Row: {
+          created_at: string
+          discipline: string
+          email: string | null
+          full_name: string
+          institution: string
+          message: string
+          reviewed_at: string | null
+          reviewed_by: string | null
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          discipline?: string
+          email?: string | null
+          full_name: string
+          institution: string
+          message?: string
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          discipline?: string
+          email?: string | null
+          full_name?: string
+          institution?: string
+          message?: string
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      teaching_materials: {
+        Row: {
+          concept: string
+          config: Json
+          content: Json
+          created_at: string
+          discipline: string
+          id: string
+          kind: string
+          language: string
+          level: string
+          review_status: string
+          source_material_id: string | null
+          subject: string
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          concept?: string
+          config?: Json
+          content?: Json
+          created_at?: string
+          discipline?: string
+          id?: string
+          kind: string
+          language?: string
+          level?: string
+          review_status?: string
+          source_material_id?: string | null
+          subject?: string
+          title?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          concept?: string
+          config?: Json
+          content?: Json
+          created_at?: string
+          discipline?: string
+          id?: string
+          kind?: string
+          language?: string
+          level?: string
+          review_status?: string
+          source_material_id?: string | null
+          subject?: string
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "teaching_materials_source_material_id_fkey"
+            columns: ["source_material_id"]
+            isOneToOne: false
+            referencedRelation: "teaching_materials"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       telegram_link_codes: {
         Row: {
