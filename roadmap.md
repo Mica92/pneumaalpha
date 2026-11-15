@@ -74,5 +74,5 @@
 # Kionas Docente (Fase 2)
 - [x] Convertir materiales entre sí (guía/mapa/examen/clase) con vínculo al original
 - [x] Panel de materiales relacionados y aviso cuando el original cambia
-- [ ] Analizador de argumentos (pendiente de que el usuario lo pida)
+- [x] Analizador de argumentos: 10 dimensiones editables → guía, mapa argumentativo, preguntas o examen
 - [ ] Mapas avanzados, biblioteca con colecciones, banco de preguntas, curador, Class Studio 2.0
