@@ -137,3 +137,19 @@ describe("maps", () => {
     assert.deepEqual(m.edges.map((e) => e.id), ["1"]);
   });
 });
+
+import { filterBibliography, mentionsRegistered } from "./thinkers";
+
+describe("registered thinkers only", () => {
+  const names = ["Kant", "William James", "Nietzsche"];
+  test("a reference is kept only when it cites a registered thinker", () => {
+    assert.equal(mentionsRegistered("Immanuel Kant, Fundamentación de la metafísica de las costumbres", names), true);
+    assert.equal(mentionsRegistered("James, Principios de psicología", names), true);
+    assert.equal(mentionsRegistered("Isaiah Berlin, Dos conceptos de libertad", names), false);
+  });
+  test("bibliography drops list items by unregistered authors", () => {
+    const out = filterBibliography("- Kant, Crítica de la razón pura\n- Berlin, Dos conceptos de libertad", names);
+    assert.ok(out.includes("Kant"));
+    assert.ok(!out.includes("Berlin"));
+  });
+});
