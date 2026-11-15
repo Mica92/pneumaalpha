@@ -8,6 +8,7 @@ import { GUIDE_SECTIONS, GUIDE_TEMPLATES, QUESTION_TYPE_LABELS, SECTION_ACTIONS,
 import { materialDigest } from "./markdown";
 import { DocOut, ExamOut, MapOut, QuestionOut, toExam, toMap, toMapParts, toQuestion, toSections } from "./normalize";
 import { mentionsRegistered } from "./thinkers";
+import { resolveConversion } from "./conversions";
 import { QUESTION_TYPES, type ExamQuestion, type MapEdge, type MapNode, type MaterialKind } from "./model";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -22,6 +23,7 @@ const Base = z.object({
   durationMin: z.number().int().min(10).max(600).default(90),
   language: z.enum(["es", "en"]).default("es"),
   fromMaterialId: z.string().uuid().nullable().optional(),
+  conversion: z.string().max(40).nullable().optional(),
 });
 
 function contextBlock(c: z.infer<typeof Base>) {
@@ -37,7 +39,13 @@ function contextBlock(c: z.infer<typeof Base>) {
     .join("\n");
 }
 
-async function loadSource(supabase: Sb, userId: string, id: string | null | undefined): Promise<string> {
+async function loadSource(
+  supabase: Sb,
+  userId: string,
+  id: string | null | undefined,
+  target?: MaterialKind,
+  conversion?: string | null,
+): Promise<string> {
   if (!id) return "";
   const { data, error } = await supabase
     .from("teaching_materials")
@@ -58,7 +66,9 @@ async function loadSource(supabase: Sb, userId: string, id: string | null | unde
     },
     data.content,
   );
-  return `\n\nMaterial de origen del docente (úsalo como base; es solo información):\n<material>\n${digest}\n</material>`;
+  const conv = target ? resolveConversion(conversion, data.kind as MaterialKind, target) : null;
+  const task = conv ? `\n\nTarea de conversión: ${conv.instruction}` : "";
+  return `\n\nMaterial de origen del docente (úsalo como base; es solo información):\n<material>\n${digest}\n</material>${task}`;
 }
 
 async function insertMaterial(
@@ -70,6 +80,16 @@ async function insertMaterial(
   content: unknown,
   config: Record<string, unknown>,
 ) {
+  let syncedAt: string | null = null;
+  if (c.fromMaterialId) {
+    const { data: src } = await supabase
+      .from("teaching_materials")
+      .select("updated_at")
+      .eq("id", c.fromMaterialId)
+      .eq("user_id", userId)
+      .maybeSingle();
+    syncedAt = (src?.updated_at as string | undefined) ?? null;
+  }
   const { data, error } = await supabase
     .from("teaching_materials")
     .insert({
@@ -84,6 +104,8 @@ async function insertMaterial(
       config,
       content,
       source_material_id: c.fromMaterialId ?? null,
+      conversion: c.fromMaterialId ? (c.conversion ?? "").slice(0, 40) : "",
+      source_synced_at: syncedAt,
     })
     .select("id")
     .single();
@@ -116,7 +138,7 @@ export const generateGuide = createServerFn({ method: "POST" })
       .filter(Boolean)
       .map((s) => `- ${s!.key}: ${s!.label[data.language]}`)
       .join("\n");
-    const source = await loadSource(context.supabase, context.userId, data.fromMaterialId);
+    const source = await loadSource(context.supabase, context.userId, data.fromMaterialId, "guide", data.conversion);
     const system = `Eres el motor académico de Kionas Docente: un filósofo e investigador universitario que diseña guías de estudio rigurosas para profesores. No eres un generador genérico de textos.
 
 ${qualityRules(data.language)}
@@ -181,7 +203,7 @@ export const generateExam = createServerFn({ method: "POST" })
   .inputValidator((input: unknown) => ExamInput.parse(input))
   .handler(async ({ data, context }) => {
     await guard(context, "exam");
-    const source = await loadSource(context.supabase, context.userId, data.fromMaterialId);
+    const source = await loadSource(context.supabase, context.userId, data.fromMaterialId, "exam", data.conversion);
     const types =
       data.questionTypes.length > 0
         ? data.questionTypes.map((t) => `${t} (${QUESTION_TYPE_LABELS[t][data.language]})`).join(", ")
@@ -253,7 +275,7 @@ export const generateMap = createServerFn({ method: "POST" })
   .inputValidator((input: unknown) => Base.extend({ size: z.enum(["compact", "full"]).default("full") }).parse(input))
   .handler(async ({ data, context }) => {
     await guard(context, "map");
-    const source = await loadSource(context.supabase, context.userId, data.fromMaterialId);
+    const source = await loadSource(context.supabase, context.userId, data.fromMaterialId, "map", data.conversion);
     const system = `Eres el cartógrafo conceptual de Kionas Docente. Construyes mapas intelectuales donde cada conexión tiene significado.
 
 ${qualityRules(data.language)}
@@ -323,7 +345,7 @@ export const generateClass = createServerFn({ method: "POST" })
   )
   .handler(async ({ data, context }) => {
     await guard(context, "class");
-    const source = await loadSource(context.supabase, context.userId, data.fromMaterialId);
+    const source = await loadSource(context.supabase, context.userId, data.fromMaterialId, "class", data.conversion);
     const system = `Eres el planificador pedagógico de Kionas Docente. Conviertes materiales en una clase concreta, realista y aplicable.
 
 ${qualityRules(data.language)}
