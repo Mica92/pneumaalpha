@@ -19,6 +19,7 @@ const PRIMARY: readonly NavItem[] = [
   { to: "/filosofos", es: "Perspectivas", en: "Perspectives" },
   { to: "/ideas", es: "Ideas", en: "Ideas" },
   { to: "/editorial", es: "Editorial", en: "Editorial" },
+  { to: "/docente", es: "Docente", en: "Teachers" },
 ] as const;
 
 function isGoogleUser(user: ReturnType<typeof useAuth>["user"]) {
