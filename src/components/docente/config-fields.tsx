@@ -210,3 +210,22 @@ export function SourceNotice() {
     </p>
   );
 }
+
+/** Shows which source material and conversion a new material is being created from. */
+export function ConversionNotice({ conv, sourceTitle }: { conv?: string; sourceTitle?: string | null }) {
+  const tr = useTr();
+  const { lang } = useI18n();
+  const c = getConversion(conv);
+  if (!sourceTitle && !c) return null;
+  return (
+    <div className="rounded-md border border-border bg-muted/40 px-4 py-3 text-small">
+      {c && <p className="font-medium text-foreground">{c.label[lang]}</p>}
+      {sourceTitle && (
+        <p className="text-muted-foreground">
+          {tr("A partir de:", "From:")} <span className="text-foreground">{sourceTitle}</span>.{" "}
+          {tr("El original no se modifica; el nuevo material quedará vinculado a él.", "The original is not changed; the new material stays linked to it.")}
+        </p>
+      )}
+    </div>
+  );
+}
