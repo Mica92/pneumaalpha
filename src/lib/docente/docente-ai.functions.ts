@@ -10,7 +10,8 @@ import { DocOut, ExamOut, MapOut, QuestionOut, toExam, toMap, toMapParts, toQues
 import { mentionsRegistered } from "./thinkers";
 import { resolveConversion } from "./conversions";
 import { DIMENSIONS, isEmptyAnalysis, normalizeAnalysis, type ArgumentAnalysis } from "./analysis";
-import { QUESTION_TYPES, type ExamQuestion, type MapEdge, type MapNode, type MaterialKind } from "./model";
+import { QUESTION_TYPES, asMap, mergeMap, type ExamQuestion, type MapEdge, type MapNode, type MaterialKind, type NodeDetail } from "./model";
+import { MAP_H, MAP_W } from "./map-svg";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Sb = SupabaseClient<any, any, any>;
@@ -331,6 +332,143 @@ Nodos existentes: ${data.existingLabels.join("; ")}
     const filtered = { nodes: raw.nodes.filter((n) => !existing.has(n.label.toLowerCase())), edges: raw.edges };
     const parts = toMapParts(filtered, { SELF: data.nodeId });
     return { nodes: parts.nodes, edges: parts.edges };
+  });
+
+/** Explores one node in depth. Returned to the editor, which caches it on the node; nothing else changes. */
+export const exploreMapNode = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((input: unknown) =>
+    z
+      .object({
+        concept: z.string().trim().max(200).default(""),
+        discipline: z.string().trim().max(120).default(""),
+        language: z.enum(["es", "en"]).default("es"),
+        nodeLabel: z.string().trim().min(1).max(160),
+        nodeNote: z.string().max(1200).default(""),
+        nodeKind: z.string().max(30).default("concept"),
+        neighbours: z.array(z.string().max(160)).max(40).default([]),
+      })
+      .parse(input),
+  )
+  .handler(async ({ data, context }): Promise<NodeDetail> => {
+    await guard(context, "map_explore");
+    const system = `Eres el cartógrafo conceptual de Kionas Docente. Explicas un nodo de un mapa intelectual para un profesor universitario.
+
+${qualityRules(data.language)}
+
+Devuelve JSON: {"definition": string (2–4 frases), "interpretations": [string], "authors": [string "Autor: idea en una frase"], "related": [string concepto], "objections": [string], "applications": [string], "bibliography": [string "Autor, Obra"], "questions": [string]}.
+- Entre 2 y 5 elementos por lista; frases breves y autocontenidas.
+- "authors" y "bibliography" solo con pensadores permitidos; si ninguno trata el nodo, deja la lista vacía.
+- "applications" adaptadas a la disciplina indicada, si la hay.`;
+    const prompt = `Mapa sobre: ${data.concept}${data.discipline ? ` (disciplina: ${data.discipline})` : ""}
+<material>
+Nodo (${data.nodeKind}): ${data.nodeLabel}${data.nodeNote ? ` — ${data.nodeNote}` : ""}
+Nodos vecinos: ${data.neighbours.join("; ")}
+</material>`;
+    const list = z.array(z.string()).catch([]);
+    const out = z
+      .object({
+        definition: z.string().catch(""),
+        interpretations: list,
+        authors: list,
+        related: list,
+        objections: list,
+        applications: list,
+        bibliography: list,
+        questions: list,
+      })
+      .parse(await generateJson({ system, prompt, maxOutputTokens: 4000 }));
+    const clean = (a: string[], keep: (s: string) => boolean = () => true) =>
+      a.map((x) => x.trim().slice(0, 400)).filter((x) => x && keep(x)).slice(0, 6);
+    const detail: NodeDetail = {
+      definition: out.definition.trim().slice(0, 1500),
+      interpretations: clean(out.interpretations),
+      authors: clean(out.authors, mentionsRegistered),
+      related: clean(out.related),
+      objections: clean(out.objections),
+      applications: clean(out.applications),
+      bibliography: clean(out.bibliography, mentionsRegistered),
+      questions: clean(out.questions),
+    };
+    if (!detail.definition && detail.related.length === 0) throw new Error("BAD_AI_OUTPUT");
+    return detail;
+  });
+
+/**
+ * Discipline focus: keeps every node of the original map, adds discipline-specific nodes,
+ * and saves the result as a NEW linked map. The original is never modified.
+ */
+export const adaptMapToDiscipline = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((input: unknown) =>
+    z.object({ id: z.string().uuid(), discipline: z.string().trim().min(2).max(120) }).parse(input),
+  )
+  .handler(async ({ data, context }): Promise<{ id: string }> => {
+    await guard(context, "map_discipline");
+    const { data: src, error } = await context.supabase
+      .from("teaching_materials")
+      .select("kind, title, concept, subject, level, language, content, updated_at")
+      .eq("id", data.id)
+      .eq("user_id", context.userId)
+      .maybeSingle();
+    if (error) throw error;
+    if (!src || src.kind !== "map") throw new Error("NOT_FOUND");
+    const language = src.language as "es" | "en";
+    const map = asMap(src.content);
+    const anchors: Record<string, string> = {};
+    const listing = map.nodes
+      .slice(0, 80)
+      .map((n, i) => {
+        anchors[`N${i + 1}`] = n.id;
+        return `N${i + 1} (${n.kind}): ${n.label}`;
+      })
+      .join("\n");
+    const system = `Eres el cartógrafo conceptual de Kionas Docente.
+
+${qualityRules(language)}
+
+Adapta un mapa existente a la disciplina "${data.discipline}". No reescribas ni elimines nodos existentes: propón entre 4 y 8 nodos NUEVOS propios de esa disciplina (teorías, problemas, conceptos, casos, preguntas) conectados a nodos existentes (usa sus claves N1, N2…).
+Tipos: concept, author, school, discipline, question, case, objection. Relaciones: relates, opposes, presupposes, questions, develops, distinguishes, applies, grounds. Si un vínculo es débil, no lo propongas.
+Devuelve JSON: {"nodes": [{"key","label","kind","note"}], "edges": [{"from","to","relation"}]}`;
+    const prompt = `Concepto del mapa: ${src.concept}\n<material>\n${listing}\n</material>`;
+    const raw = MapOut.parse(await generateJson({ system, prompt, maxOutputTokens: 4000 }));
+    const parts = toMapParts(raw, anchors);
+    if (parts.nodes.length === 0) throw new Error("BAD_AI_OUTPUT");
+    const byId = new Map(map.nodes.map((n) => [n.id, n]));
+    const placed = parts.nodes.map((n, i) => {
+      const edge = parts.edges.find((e) => (e.from === n.id && byId.has(e.to)) || (e.to === n.id && byId.has(e.from)));
+      const anchor = edge ? byId.get(edge.from === n.id ? edge.to : edge.from) : undefined;
+      const a = (i / parts.nodes.length) * Math.PI * 2 + 0.4;
+      const bx = anchor?.x ?? MAP_W / 2;
+      const by = anchor?.y ?? MAP_H / 2;
+      return {
+        ...n,
+        x: Math.round(Math.min(MAP_W - 90, Math.max(90, bx + Math.cos(a) * 190))),
+        y: Math.round(Math.min(MAP_H - 50, Math.max(50, by + Math.sin(a) * 140))),
+      };
+    });
+    const content = mergeMap(map, { nodes: placed, edges: parts.edges });
+    const { data: row, error: e2 } = await context.supabase
+      .from("teaching_materials")
+      .insert({
+        user_id: context.userId,
+        kind: "map",
+        title: `${src.title} — ${data.discipline}`.slice(0, 240),
+        concept: src.concept,
+        discipline: data.discipline,
+        subject: src.subject,
+        level: src.level,
+        language,
+        config: { disciplineFocus: data.discipline },
+        content: content as never,
+        source_material_id: data.id,
+        conversion: "map_discipline",
+        source_synced_at: src.updated_at,
+      })
+      .select("id")
+      .single();
+    if (e2) throw e2;
+    return { id: row.id as string };
   });
 
 /* ───────── Class ───────── */
