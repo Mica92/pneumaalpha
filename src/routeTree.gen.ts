@@ -40,6 +40,7 @@ import { Route as EditorialPodcastRouteImport } from './routes/editorial/podcast
 import { Route as AuthenticatedAdminAnaliticaRouteImport } from './routes/_authenticated/admin.analitica'
 import { Route as AuthenticatedDialogosIndexRouteImport } from './routes/_authenticated/dialogos.index'
 import { Route as AuthenticatedDialogosIdRouteImport } from './routes/_authenticated/dialogos.$id'
+import { Route as AuthenticatedDocenteIndexRouteImport } from './routes/_authenticated/docente.index'
 import { Route as AuthenticatedFilosofosIndexRouteImport } from './routes/_authenticated/filosofos.index'
 import { Route as AuthenticatedFilosofosIdRouteImport } from './routes/_authenticated/filosofos.$id'
 import { Route as AuthenticatedIdeasIndexRouteImport } from './routes/_authenticated/ideas.index'
@@ -213,6 +214,12 @@ const AuthenticatedDialogosIdRoute = AuthenticatedDialogosIdRouteImport.update({
   path: '/$id',
   getParentRoute: () => AuthenticatedDialogosRoute,
 } as any)
+const AuthenticatedDocenteIndexRoute =
+  AuthenticatedDocenteIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedDocenteRoute,
+  } as any)
 const AuthenticatedFilosofosIndexRoute =
   AuthenticatedFilosofosIndexRouteImport.update({
     id: '/filosofos/',
@@ -299,7 +306,7 @@ export interface FileRoutesByFullPath {
   '/comparar': typeof AuthenticatedCompararRoute
   '/conocimiento': typeof AuthenticatedConocimientoRoute
   '/dialogos': typeof AuthenticatedDialogosRouteWithChildren
-  '/docente': typeof AuthenticatedDocenteRoute
+  '/docente': typeof AuthenticatedDocenteRouteWithChildren
   '/explorador': typeof AuthenticatedExploradorRoute
   '/explorar': typeof AuthenticatedExplorarRoute
   '/mesa': typeof AuthenticatedMesaRoute
@@ -322,6 +329,7 @@ export interface FileRoutesByFullPath {
   '/api/podcast/speech': typeof ApiPodcastSpeechRoute
   '/editorial/$category/$article': typeof EditorialCategoryArticleRoute
   '/dialogos/': typeof AuthenticatedDialogosIndexRoute
+  '/docente/': typeof AuthenticatedDocenteIndexRoute
   '/filosofos/': typeof AuthenticatedFilosofosIndexRoute
   '/ideas/': typeof AuthenticatedIdeasIndexRoute
   '/rutas/': typeof AuthenticatedRutasIndexRoute
@@ -342,7 +350,6 @@ export interface FileRoutesByTo {
   '/buscar': typeof AuthenticatedBuscarRoute
   '/comparar': typeof AuthenticatedCompararRoute
   '/conocimiento': typeof AuthenticatedConocimientoRoute
-  '/docente': typeof AuthenticatedDocenteRoute
   '/explorador': typeof AuthenticatedExploradorRoute
   '/explorar': typeof AuthenticatedExplorarRoute
   '/mesa': typeof AuthenticatedMesaRoute
@@ -366,6 +373,7 @@ export interface FileRoutesByTo {
   '/api/podcast/speech': typeof ApiPodcastSpeechRoute
   '/editorial/$category/$article': typeof EditorialCategoryArticleRoute
   '/dialogos': typeof AuthenticatedDialogosIndexRoute
+  '/docente': typeof AuthenticatedDocenteIndexRoute
   '/filosofos': typeof AuthenticatedFilosofosIndexRoute
   '/ideas': typeof AuthenticatedIdeasIndexRoute
   '/rutas': typeof AuthenticatedRutasIndexRoute
@@ -389,7 +397,7 @@ export interface FileRoutesById {
   '/_authenticated/comparar': typeof AuthenticatedCompararRoute
   '/_authenticated/conocimiento': typeof AuthenticatedConocimientoRoute
   '/_authenticated/dialogos': typeof AuthenticatedDialogosRouteWithChildren
-  '/_authenticated/docente': typeof AuthenticatedDocenteRoute
+  '/_authenticated/docente': typeof AuthenticatedDocenteRouteWithChildren
   '/_authenticated/explorador': typeof AuthenticatedExploradorRoute
   '/_authenticated/explorar': typeof AuthenticatedExplorarRoute
   '/_authenticated/mesa': typeof AuthenticatedMesaRoute
@@ -413,6 +421,7 @@ export interface FileRoutesById {
   '/api/podcast/speech': typeof ApiPodcastSpeechRoute
   '/editorial/$category/$article': typeof EditorialCategoryArticleRoute
   '/_authenticated/dialogos/': typeof AuthenticatedDialogosIndexRoute
+  '/_authenticated/docente/': typeof AuthenticatedDocenteIndexRoute
   '/_authenticated/filosofos/': typeof AuthenticatedFilosofosIndexRoute
   '/_authenticated/ideas/': typeof AuthenticatedIdeasIndexRoute
   '/_authenticated/rutas/': typeof AuthenticatedRutasIndexRoute
@@ -460,6 +469,7 @@ export interface FileRouteTypes {
     | '/api/podcast/speech'
     | '/editorial/$category/$article'
     | '/dialogos/'
+    | '/docente/'
     | '/filosofos/'
     | '/ideas/'
     | '/rutas/'
@@ -480,7 +490,6 @@ export interface FileRouteTypes {
     | '/buscar'
     | '/comparar'
     | '/conocimiento'
-    | '/docente'
     | '/explorador'
     | '/explorar'
     | '/mesa'
@@ -504,6 +513,7 @@ export interface FileRouteTypes {
     | '/api/podcast/speech'
     | '/editorial/$category/$article'
     | '/dialogos'
+    | '/docente'
     | '/filosofos'
     | '/ideas'
     | '/rutas'
@@ -550,6 +560,7 @@ export interface FileRouteTypes {
     | '/api/podcast/speech'
     | '/editorial/$category/$article'
     | '/_authenticated/dialogos/'
+    | '/_authenticated/docente/'
     | '/_authenticated/filosofos/'
     | '/_authenticated/ideas/'
     | '/_authenticated/rutas/'
@@ -794,6 +805,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDialogosIdRouteImport
       parentRoute: typeof AuthenticatedDialogosRoute
     }
+    '/_authenticated/docente/': {
+      id: '/_authenticated/docente/'
+      path: '/'
+      fullPath: '/docente/'
+      preLoaderRoute: typeof AuthenticatedDocenteIndexRouteImport
+      parentRoute: typeof AuthenticatedDocenteRoute
+    }
     '/_authenticated/filosofos/': {
       id: '/_authenticated/filosofos/'
       path: '/filosofos'
@@ -903,6 +921,17 @@ const AuthenticatedDialogosRouteWithChildren =
     AuthenticatedDialogosRouteChildren,
   )
 
+interface AuthenticatedDocenteRouteChildren {
+  AuthenticatedDocenteIndexRoute: typeof AuthenticatedDocenteIndexRoute
+}
+
+const AuthenticatedDocenteRouteChildren: AuthenticatedDocenteRouteChildren = {
+  AuthenticatedDocenteIndexRoute: AuthenticatedDocenteIndexRoute,
+}
+
+const AuthenticatedDocenteRouteWithChildren =
+  AuthenticatedDocenteRoute._addFileChildren(AuthenticatedDocenteRouteChildren)
+
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedPhilosopherRoute: typeof AuthenticatedPhilosopherRoute
   AuthenticatedAnalisisRoute: typeof AuthenticatedAnalisisRoute
@@ -911,7 +940,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedCompararRoute: typeof AuthenticatedCompararRoute
   AuthenticatedConocimientoRoute: typeof AuthenticatedConocimientoRoute
   AuthenticatedDialogosRoute: typeof AuthenticatedDialogosRouteWithChildren
-  AuthenticatedDocenteRoute: typeof AuthenticatedDocenteRoute
+  AuthenticatedDocenteRoute: typeof AuthenticatedDocenteRouteWithChildren
   AuthenticatedExploradorRoute: typeof AuthenticatedExploradorRoute
   AuthenticatedExplorarRoute: typeof AuthenticatedExplorarRoute
   AuthenticatedMesaRoute: typeof AuthenticatedMesaRoute
@@ -943,7 +972,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedCompararRoute: AuthenticatedCompararRoute,
   AuthenticatedConocimientoRoute: AuthenticatedConocimientoRoute,
   AuthenticatedDialogosRoute: AuthenticatedDialogosRouteWithChildren,
-  AuthenticatedDocenteRoute: AuthenticatedDocenteRoute,
+  AuthenticatedDocenteRoute: AuthenticatedDocenteRouteWithChildren,
   AuthenticatedExploradorRoute: AuthenticatedExploradorRoute,
   AuthenticatedExplorarRoute: AuthenticatedExplorarRoute,
   AuthenticatedMesaRoute: AuthenticatedMesaRoute,
