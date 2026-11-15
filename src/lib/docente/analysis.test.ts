@@ -38,3 +38,11 @@ describe("reasoning analyzer", () => {
     assert.ok(m.edges.some((e) => e.from === objection.id && e.to === thesis.id && e.relation === "opposes"));
   });
 });
+
+describe("argument map size", () => {
+  test("never more than 16 nodes, so the map stays readable", () => {
+    const many = Array.from({ length: 12 }, (_, i) => ({ text: `Elemento ${i}`, status: "plausible" }));
+    const raw = Object.fromEntries(["thesis", "explicit_premises", "implicit_premises", "evidence", "weaknesses", "objections", "alternatives", "questions"].map((k) => [k, many]));
+    assert.ok(analysisToMap(normalizeAnalysis(raw), "es").nodes.length <= 16);
+  });
+});

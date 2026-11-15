@@ -104,19 +104,19 @@ export function analysisToDoc(a: ArgumentAnalysis, lang: "es" | "en"): DocConten
   return { sections };
 }
 
-const MAP_ROLE: Partial<Record<DimensionKey, { kind: NodeKind; relation: Relation; towardThesis: boolean }>> = {
-  explicit_premises: { kind: "concept", relation: "grounds", towardThesis: true },
-  implicit_premises: { kind: "concept", relation: "presupposes", towardThesis: false },
-  evidence: { kind: "case", relation: "grounds", towardThesis: true },
-  weaknesses: { kind: "question", relation: "questions", towardThesis: true },
-  objections: { kind: "objection", relation: "opposes", towardThesis: true },
-  alternatives: { kind: "school", relation: "distinguishes", towardThesis: true },
-  questions: { kind: "question", relation: "questions", towardThesis: true },
+/** Caps keep the argument map readable (at most 15 nodes around the thesis). */
+const MAP_ROLE: Partial<Record<DimensionKey, { kind: NodeKind; relation: Relation; towardThesis: boolean; max: number }>> = {
+  explicit_premises: { kind: "concept", relation: "grounds", towardThesis: true, max: 3 },
+  implicit_premises: { kind: "concept", relation: "presupposes", towardThesis: false, max: 2 },
+  evidence: { kind: "case", relation: "grounds", towardThesis: true, max: 2 },
+  weaknesses: { kind: "question", relation: "questions", towardThesis: true, max: 2 },
+  objections: { kind: "objection", relation: "opposes", towardThesis: true, max: 3 },
+  alternatives: { kind: "school", relation: "distinguishes", towardThesis: true, max: 2 },
 };
 
 function shortLabel(text: string): string {
   const t = text.replace(/\s+/g, " ").trim();
-  return t.length > 80 ? `${t.slice(0, 77)}…` : t;
+  return t.length > 56 ? `${t.slice(0, 53)}…` : t;
 }
 
 /**
@@ -132,7 +132,7 @@ export function analysisToMap(a: ArgumentAnalysis, lang: "es" | "en"): MapConten
   for (const d of DIMENSIONS) {
     const role = MAP_ROLE[d.key];
     if (!role) continue;
-    for (const it of a.dimensions[d.key].slice(0, 6)) {
+    for (const it of a.dimensions[d.key].slice(0, role.max)) {
       const n: MapNode = {
         id: uid("n"),
         label: shortLabel(it.text),
