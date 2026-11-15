@@ -51,7 +51,10 @@ import { Route as AuthenticatedSituacionesIndexRouteImport } from './routes/_aut
 import { Route as AuthenticatedSituacionesIdRouteImport } from './routes/_authenticated/situaciones.$id'
 import { Route as ApiPodcastSpeechRouteImport } from './routes/api/podcast/speech'
 import { Route as EditorialCategoryArticleRouteImport } from './routes/editorial/$category.$article'
+import { Route as AuthenticatedDocenteClasesNuevaRouteImport } from './routes/_authenticated/docente.clases.nueva'
+import { Route as AuthenticatedDocenteExamenesNuevoRouteImport } from './routes/_authenticated/docente.examenes.nuevo'
 import { Route as AuthenticatedDocenteGuiasNuevaRouteImport } from './routes/_authenticated/docente.guias.nueva'
+import { Route as AuthenticatedDocenteMapasNuevoRouteImport } from './routes/_authenticated/docente.mapas.nuevo'
 import { Route as LovableEmailAuthPreviewRouteImport } from './routes/lovable/email/auth/preview'
 import { Route as LovableEmailAuthWebhookRouteImport } from './routes/lovable/email/auth/webhook'
 import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
@@ -276,10 +279,28 @@ const EditorialCategoryArticleRoute =
     path: '/editorial/$category/$article',
     getParentRoute: () => rootRouteImport,
   } as any)
+const AuthenticatedDocenteClasesNuevaRoute =
+  AuthenticatedDocenteClasesNuevaRouteImport.update({
+    id: '/clases/nueva',
+    path: '/clases/nueva',
+    getParentRoute: () => AuthenticatedDocenteRoute,
+  } as any)
+const AuthenticatedDocenteExamenesNuevoRoute =
+  AuthenticatedDocenteExamenesNuevoRouteImport.update({
+    id: '/examenes/nuevo',
+    path: '/examenes/nuevo',
+    getParentRoute: () => AuthenticatedDocenteRoute,
+  } as any)
 const AuthenticatedDocenteGuiasNuevaRoute =
   AuthenticatedDocenteGuiasNuevaRouteImport.update({
     id: '/guias/nueva',
     path: '/guias/nueva',
+    getParentRoute: () => AuthenticatedDocenteRoute,
+  } as any)
+const AuthenticatedDocenteMapasNuevoRoute =
+  AuthenticatedDocenteMapasNuevoRouteImport.update({
+    id: '/mapas/nuevo',
+    path: '/mapas/nuevo',
     getParentRoute: () => AuthenticatedDocenteRoute,
   } as any)
 const LovableEmailAuthPreviewRoute = LovableEmailAuthPreviewRouteImport.update({
@@ -341,7 +362,10 @@ export interface FileRoutesByFullPath {
   '/ideas/': typeof AuthenticatedIdeasIndexRoute
   '/rutas/': typeof AuthenticatedRutasIndexRoute
   '/situaciones/': typeof AuthenticatedSituacionesIndexRoute
+  '/docente/clases/nueva': typeof AuthenticatedDocenteClasesNuevaRoute
+  '/docente/examenes/nuevo': typeof AuthenticatedDocenteExamenesNuevoRoute
   '/docente/guias/nueva': typeof AuthenticatedDocenteGuiasNuevaRoute
+  '/docente/mapas/nuevo': typeof AuthenticatedDocenteMapasNuevoRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
@@ -386,7 +410,10 @@ export interface FileRoutesByTo {
   '/ideas': typeof AuthenticatedIdeasIndexRoute
   '/rutas': typeof AuthenticatedRutasIndexRoute
   '/situaciones': typeof AuthenticatedSituacionesIndexRoute
+  '/docente/clases/nueva': typeof AuthenticatedDocenteClasesNuevaRoute
+  '/docente/examenes/nuevo': typeof AuthenticatedDocenteExamenesNuevoRoute
   '/docente/guias/nueva': typeof AuthenticatedDocenteGuiasNuevaRoute
+  '/docente/mapas/nuevo': typeof AuthenticatedDocenteMapasNuevoRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
@@ -435,7 +462,10 @@ export interface FileRoutesById {
   '/_authenticated/ideas/': typeof AuthenticatedIdeasIndexRoute
   '/_authenticated/rutas/': typeof AuthenticatedRutasIndexRoute
   '/_authenticated/situaciones/': typeof AuthenticatedSituacionesIndexRoute
+  '/_authenticated/docente/clases/nueva': typeof AuthenticatedDocenteClasesNuevaRoute
+  '/_authenticated/docente/examenes/nuevo': typeof AuthenticatedDocenteExamenesNuevoRoute
   '/_authenticated/docente/guias/nueva': typeof AuthenticatedDocenteGuiasNuevaRoute
+  '/_authenticated/docente/mapas/nuevo': typeof AuthenticatedDocenteMapasNuevoRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
@@ -484,7 +514,10 @@ export interface FileRouteTypes {
     | '/ideas/'
     | '/rutas/'
     | '/situaciones/'
+    | '/docente/clases/nueva'
+    | '/docente/examenes/nuevo'
     | '/docente/guias/nueva'
+    | '/docente/mapas/nuevo'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
     | '/lovable/email/transactional/preview'
@@ -529,7 +562,10 @@ export interface FileRouteTypes {
     | '/ideas'
     | '/rutas'
     | '/situaciones'
+    | '/docente/clases/nueva'
+    | '/docente/examenes/nuevo'
     | '/docente/guias/nueva'
+    | '/docente/mapas/nuevo'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
     | '/lovable/email/transactional/preview'
@@ -577,7 +613,10 @@ export interface FileRouteTypes {
     | '/_authenticated/ideas/'
     | '/_authenticated/rutas/'
     | '/_authenticated/situaciones/'
+    | '/_authenticated/docente/clases/nueva'
+    | '/_authenticated/docente/examenes/nuevo'
     | '/_authenticated/docente/guias/nueva'
+    | '/_authenticated/docente/mapas/nuevo'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
     | '/lovable/email/transactional/preview'
@@ -895,11 +934,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EditorialCategoryArticleRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/docente/clases/nueva': {
+      id: '/_authenticated/docente/clases/nueva'
+      path: '/clases/nueva'
+      fullPath: '/docente/clases/nueva'
+      preLoaderRoute: typeof AuthenticatedDocenteClasesNuevaRouteImport
+      parentRoute: typeof AuthenticatedDocenteRoute
+    }
+    '/_authenticated/docente/examenes/nuevo': {
+      id: '/_authenticated/docente/examenes/nuevo'
+      path: '/examenes/nuevo'
+      fullPath: '/docente/examenes/nuevo'
+      preLoaderRoute: typeof AuthenticatedDocenteExamenesNuevoRouteImport
+      parentRoute: typeof AuthenticatedDocenteRoute
+    }
     '/_authenticated/docente/guias/nueva': {
       id: '/_authenticated/docente/guias/nueva'
       path: '/guias/nueva'
       fullPath: '/docente/guias/nueva'
       preLoaderRoute: typeof AuthenticatedDocenteGuiasNuevaRouteImport
+      parentRoute: typeof AuthenticatedDocenteRoute
+    }
+    '/_authenticated/docente/mapas/nuevo': {
+      id: '/_authenticated/docente/mapas/nuevo'
+      path: '/mapas/nuevo'
+      fullPath: '/docente/mapas/nuevo'
+      preLoaderRoute: typeof AuthenticatedDocenteMapasNuevoRouteImport
       parentRoute: typeof AuthenticatedDocenteRoute
     }
     '/lovable/email/auth/preview': {
@@ -943,12 +1003,19 @@ const AuthenticatedDialogosRouteWithChildren =
 
 interface AuthenticatedDocenteRouteChildren {
   AuthenticatedDocenteIndexRoute: typeof AuthenticatedDocenteIndexRoute
+  AuthenticatedDocenteClasesNuevaRoute: typeof AuthenticatedDocenteClasesNuevaRoute
+  AuthenticatedDocenteExamenesNuevoRoute: typeof AuthenticatedDocenteExamenesNuevoRoute
   AuthenticatedDocenteGuiasNuevaRoute: typeof AuthenticatedDocenteGuiasNuevaRoute
+  AuthenticatedDocenteMapasNuevoRoute: typeof AuthenticatedDocenteMapasNuevoRoute
 }
 
 const AuthenticatedDocenteRouteChildren: AuthenticatedDocenteRouteChildren = {
   AuthenticatedDocenteIndexRoute: AuthenticatedDocenteIndexRoute,
+  AuthenticatedDocenteClasesNuevaRoute: AuthenticatedDocenteClasesNuevaRoute,
+  AuthenticatedDocenteExamenesNuevoRoute:
+    AuthenticatedDocenteExamenesNuevoRoute,
   AuthenticatedDocenteGuiasNuevaRoute: AuthenticatedDocenteGuiasNuevaRoute,
+  AuthenticatedDocenteMapasNuevoRoute: AuthenticatedDocenteMapasNuevoRoute,
 }
 
 const AuthenticatedDocenteRouteWithChildren =
