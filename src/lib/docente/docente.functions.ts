@@ -25,6 +25,7 @@ export type MaterialSummary = {
   source_material_id: string | null;
   conversion: string;
   source_synced_at: string | null;
+  archived_at: string | null;
   created_at: string;
   updated_at: string;
 };
@@ -36,7 +37,7 @@ export type Material = MaterialSummary & {
 export type MaterialVersion = { id: string; title: string; note: string; created_at: string };
 
 const SUMMARY_COLS =
-  "id, kind, title, concept, discipline, subject, level, language, review_status, source_material_id, conversion, source_synced_at, created_at, updated_at";
+  "id, kind, title, concept, discipline, subject, level, language, review_status, source_material_id, conversion, source_synced_at, archived_at, created_at, updated_at";
 
 /* ───────── Access ───────── */
 
