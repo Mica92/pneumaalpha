@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { createPortal } from "react-dom";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
@@ -22,6 +23,9 @@ import {
 import { KIND_LABELS } from "@/lib/docente/catalog";
 import { CREATE_ROUTE, conversionsFor } from "@/lib/docente/conversions";
 import { RelatedMaterials } from "@/components/docente/related-materials";
+import { CollectionsPanel } from "@/components/docente/collections";
+import { adaptMapToDiscipline } from "@/lib/docente/docente-ai.functions";
+import { setArchived } from "@/lib/docente/library.functions";
 import { materialToMarkdown, type Variant } from "@/lib/docente/markdown";
 import { MAP_H, MAP_W, mapToSvg } from "@/lib/docente/map-svg";
 import { asDoc, asExam, asMap, auditExam, makeVariantB, type DocContent, type ExamContent, type MapContent } from "@/lib/docente/model";
@@ -95,6 +99,10 @@ function Workspace({ material }: { material: Material }) {
   const [msg, setMsg] = useState<string | null>(null);
   const [showVersions, setShowVersions] = useState(false);
   const [projecting, setProjecting] = useState(false);
+  const [showCollections, setShowCollections] = useState(false);
+  const [archivedAt, setArchivedAt] = useState(material.archived_at);
+  const archive = useServerFn(setArchived);
+  const adapt = useServerFn(adaptMapToDiscipline);
   const update = useServerFn(updateMaterial);
   const dup = useServerFn(duplicateMaterial);
   const del = useServerFn(deleteMaterial);
@@ -133,7 +141,33 @@ function Workspace({ material }: { material: Material }) {
     );
   }
 
-  async function exportAs(format: "pdf" | "docx" | "png", variant: Variant) {
+  async function toggleArchive() {
+    await run("archive", async () => {
+      const next = !archivedAt;
+      await archive({ data: { id: material.id, archived: next } });
+      setArchivedAt(next ? new Date().toISOString() : null);
+      await qc.invalidateQueries({ queryKey: ["docente-materials"] });
+    });
+  }
+
+  async function disciplineFocus() {
+    const discipline = window.prompt(
+      tr(
+        "¿Hacia qué disciplina quieres enfocar este mapa? Se creará una nueva versión vinculada; el mapa original no cambia.",
+        "Which discipline should this map focus on? A new linked version is created; the original map is unchanged.",
+      ),
+      "",
+    );
+    if (!discipline?.trim()) return;
+    await run("discipline", async () => {
+      await auto.flush();
+      const { id } = await adapt({ data: { id: material.id, discipline: discipline.trim() } });
+      await qc.invalidateQueries({ queryKey: ["docente-materials"] });
+      await navigate({ to: "/docente/material/$id", params: { id } });
+    });
+  }
+
+  async function exportAs(format: "pdf" | "docx" | "png" | "svg", variant: Variant) {
     if (!confirmExamIssues()) return;
     await run(`${format}-${variant}`, async () => {
       const ex = await import("@/lib/docente/export");
@@ -142,7 +176,12 @@ function Workspace({ material }: { material: Material }) {
       let blob: Blob;
       if (kind === "map") {
         const svg = mapToSvg(auto.content as unknown as MapContent, material.language);
-        blob = format === "png" ? await ex.svgToPngBlob(svg, MAP_W, MAP_H, 2) : await ex.mapToPdfBlob(svg, md, size, auto.title);
+        blob =
+          format === "svg"
+            ? new Blob([svg], { type: "image/svg+xml" })
+            : format === "png"
+              ? await ex.svgToPngBlob(svg, MAP_W, MAP_H, 2)
+              : await ex.mapToPdfBlob(svg, md, size, auto.title);
       } else if (format === "docx") blob = await ex.markdownToDocxBlob(md, size, auto.title);
       else blob = await ex.markdownToPdfBlob(md, size, auto.title);
       ex.downloadBlob(blob, ex.safeFilename(auto.title, suffix, format));
@@ -243,6 +282,7 @@ function Workspace({ material }: { material: Material }) {
               {kind === "map" ? (
                 <>
                   <ExportItem label={tr("Imagen PNG", "PNG image")} busy={busy === "png-teacher"} onClick={() => exportAs("png", "teacher")} />
+                  <ExportItem label={tr("Vector SVG", "SVG vector")} busy={busy === "svg-teacher"} onClick={() => exportAs("svg", "teacher")} />
                   <ExportItem label="PDF" busy={busy === "pdf-teacher"} onClick={() => exportAs("pdf", "teacher")} />
                 </>
               ) : (
@@ -284,7 +324,12 @@ function Workspace({ material }: { material: Material }) {
               {conversionsFor(kind).map((c) => (
                 <DeriveLink key={c.id} to={CREATE_ROUTE[c.to]} from={material.id} conv={c.id} label={c.label[lang]} />
               ))}
+              {kind === "map" && (
+                <ExportItem label={tr("Enfoque disciplinar…", "Discipline focus…")} busy={busy === "discipline"} onClick={disciplineFocus} />
+              )}
               <div className="my-1 border-t border-border" />
+              <ExportItem label={tr("Colecciones", "Collections")} busy={false} onClick={() => setShowCollections((s) => !s)} />
+              <ExportItem label={archivedAt ? tr("Restaurar del archivo", "Restore from archive") : tr("Archivar", "Archive")} busy={busy === "archive"} onClick={toggleArchive} />
               <ExportItem label={tr("Duplicar", "Duplicate")} busy={busy === "dup"} onClick={() => duplicate(false)} />
               <ExportItem label={tr("Guardar versión", "Save version")} busy={busy === "snap"} onClick={saveSnapshot} />
               <ExportItem label={tr("Historial de versiones", "Version history")} busy={false} onClick={() => setShowVersions((s) => !s)} />
@@ -302,6 +347,13 @@ function Workspace({ material }: { material: Material }) {
             {tr("Procesando…", "Working…")}
           </p>
         )}
+        {archivedAt && (
+          <p className="mt-3 text-small text-muted-foreground">
+            {tr("Material archivado: no aparece en el panel ni en la biblioteca principal.", "Archived material: hidden from the desk and the main library.")}{" "}
+            <button type="button" onClick={toggleArchive} className="focus-mist underline hover:text-foreground">{tr("Restaurar", "Restore")}</button>
+          </p>
+        )}
+        {showCollections && <CollectionsPanel materialId={material.id} />}
         {showVersions && (
           <VersionsPanel
             materialId={material.id}
@@ -322,6 +374,7 @@ function Workspace({ material }: { material: Material }) {
               content={auto.content as unknown as ExamContent}
               setContent={(u) => auto.setContent((p) => u(p as unknown as ExamContent) as unknown as Record<string, unknown>)}
               meta={{ concept: material.concept, discipline: material.discipline, subject: material.subject, level: material.level, language: material.language }}
+              materialId={material.id}
             />
           ) : kind === "map" ? (
             <MapEditor
@@ -459,7 +512,7 @@ function Projection({ title, doc, onClose }: { title: string; doc: DocContent; o
     };
   }, [slides.length, onClose]);
   const s = slides[i];
-  return (
+  return createPortal(
     <div role="dialog" aria-modal="true" aria-label={tr("Modo proyección", "Projection mode")} className="fixed inset-0 z-[100] flex flex-col bg-background">
       <div className="flex items-center gap-4 border-b border-border/60 px-6 py-3 text-small text-muted-foreground">
         <span className="font-serif text-lg text-foreground">{title}</span>
@@ -489,6 +542,7 @@ function Projection({ title, doc, onClose }: { title: string; doc: DocContent; o
           {tr("Siguiente", "Next")} →
         </button>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }

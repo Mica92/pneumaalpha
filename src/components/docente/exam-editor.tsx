@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
-import { ArrowDown, ArrowUp, Copy, Trash2 } from "lucide-react";
+import { ArrowDown, ArrowUp, BookmarkPlus, Copy, Trash2 } from "lucide-react";
 import {
   QUESTION_TYPES,
   auditExam,
@@ -23,6 +23,7 @@ import { cn } from "@/lib/utils";
 import { DocMarkdown } from "./doc-markdown";
 import { MdTextarea } from "./md-textarea";
 import { Field, inputCls } from "./config-fields";
+import { BankPicker, SaveToBankDialog } from "./question-bank";
 
 export type ExamMeta = { concept: string; discipline: string; subject: string; level: string; language: "es" | "en" };
 
@@ -75,14 +76,19 @@ export function ExamEditor({
   content,
   setContent,
   meta,
+  materialId = null,
 }: {
   content: ExamContent;
   setContent: (u: (prev: ExamContent) => ExamContent) => void;
   meta: ExamMeta;
+  materialId?: string | null;
 }) {
   const tr = useTr();
   const { lang } = useI18n();
   const [showKey, setShowKey] = useState(true);
+  const [toBank, setToBank] = useState<ExamQuestion[] | null>(null);
+  const [picking, setPicking] = useState(false);
+  const [bankMsg, setBankMsg] = useState<string | null>(null);
   const issues = auditExam(content);
   const sum = examPointsSum(content);
   const est = estimateExamMinutes(content);
@@ -179,12 +185,43 @@ export function ExamEditor({
               if (window.confirm(tr("¿Eliminar esta pregunta?", "Delete this question?")))
                 setContent((c) => ({ ...c, questions: c.questions.filter((x) => x.id !== q.id) }));
             }}
+            onSaveToBank={() => setToBank([q])}
           />
         ))}
       </ol>
-      <button type="button" onClick={() => setContent((c) => ({ ...c, questions: [...c.questions, blankQuestion()] }))} className="btn-ghost-gold focus-mist px-4 py-2 text-small">
-        {tr("Añadir pregunta", "Add question")}
-      </button>
+      <div className="flex flex-wrap items-center gap-2">
+        <button type="button" onClick={() => setContent((c) => ({ ...c, questions: [...c.questions, blankQuestion()] }))} className="btn-ghost-gold focus-mist px-4 py-2 text-small">
+          {tr("Añadir pregunta", "Add question")}
+        </button>
+        <button type="button" onClick={() => setPicking(true)} className="btn-ghost-gold focus-mist px-4 py-2 text-small">
+          {tr("Insertar desde el banco", "Insert from bank")}
+        </button>
+        <button type="button" onClick={() => setToBank(content.questions)} disabled={content.questions.length === 0} className="btn-ghost-gold focus-mist px-4 py-2 text-small disabled:opacity-50">
+          {tr("Guardar todas en el banco", "Save all to bank")}
+        </button>
+        {bankMsg && <span role="status" className="text-small text-muted-foreground">{bankMsg}</span>}
+      </div>
+      {toBank && (
+        <SaveToBankDialog
+          questions={toBank}
+          meta={meta}
+          materialId={materialId}
+          onClose={(n) => {
+            setToBank(null);
+            if (n) setBankMsg(tr(`${n} pregunta(s) guardada(s) en tu banco.`, `${n} question(s) saved to your bank.`));
+          }}
+        />
+      )}
+      {picking && (
+        <BankPicker
+          onClose={() => setPicking(false)}
+          onInsert={(qs) => {
+            setContent((c) => ({ ...c, questions: [...c.questions, ...qs] }));
+            setPicking(false);
+            setBankMsg(tr(`${qs.length} pregunta(s) insertada(s). Revisa el puntaje total.`, `${qs.length} question(s) inserted. Check the total points.`));
+          }}
+        />
+      )}
 
       <div>
         <p className="mb-1.5 text-small font-medium text-foreground">{tr("Bibliografía de referencia (pauta docente)", "Reference bibliography (teacher key)")}</p>
@@ -205,6 +242,7 @@ function QuestionCard({
   onMove,
   onDuplicate,
   onRemove,
+  onSaveToBank,
 }: {
   q: ExamQuestion;
   index: number;
@@ -215,6 +253,7 @@ function QuestionCard({
   onMove: (d: -1 | 1) => void;
   onDuplicate: () => void;
   onRemove: () => void;
+  onSaveToBank: () => void;
 }) {
   const tr = useTr();
   const { lang } = useI18n();
@@ -269,6 +308,7 @@ function QuestionCard({
         <div className="ml-auto flex">
           <button type="button" className={iconBtn} onClick={() => onMove(-1)} disabled={index === 0} aria-label={tr("Subir", "Move up")}><ArrowUp className="h-4 w-4" /></button>
           <button type="button" className={iconBtn} onClick={() => onMove(1)} disabled={index === count - 1} aria-label={tr("Bajar", "Move down")}><ArrowDown className="h-4 w-4" /></button>
+          <button type="button" className={iconBtn} onClick={onSaveToBank} disabled={!q.prompt.trim()} aria-label={tr("Guardar en el banco", "Save to bank")} title={tr("Guardar en el banco", "Save to bank")}><BookmarkPlus className="h-4 w-4" /></button>
           <button type="button" className={iconBtn} onClick={onDuplicate} aria-label={tr("Duplicar", "Duplicate")}><Copy className="h-4 w-4" /></button>
           <button type="button" className={iconBtn} onClick={onRemove} aria-label={tr("Eliminar", "Delete")}><Trash2 className="h-4 w-4" /></button>
         </div>

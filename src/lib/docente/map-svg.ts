@@ -1,5 +1,5 @@
 import { NODE_KIND_LABELS, RELATION_LABELS } from "./catalog";
-import type { MapContent, MapNode, NodeKind } from "./model";
+import { edgeLogic, type EdgeLogic, type MapContent, type MapNode, type NodeKind } from "./model";
 
 export const MAP_W = 1200;
 export const MAP_H = 800;
@@ -47,6 +47,17 @@ const PRINT: Record<NodeKind, { fill: string; stroke: string }> = {
   question: { fill: "#FFFFFF", stroke: "#8A6D3B" },
   case: { fill: "#F1F3EC", stroke: "#5D6B4A" },
   objection: { fill: "#F7ECEA", stroke: "#8C4A3F" },
+  premise: { fill: "#FFFFFF", stroke: "#3F5A6B" },
+  inference: { fill: "#F3EBDD", stroke: "#8A6D3B" },
+  conclusion: { fill: "#F3EBDD", stroke: "#8A6D3B" },
+};
+
+/** Print colours per logical reading of a relation (support / contradiction / questioning). */
+const EDGE_PRINT: Record<EdgeLogic, string> = {
+  support: "#4F6A45",
+  contradiction: "#8C4A3F",
+  question: "#8A6D3B",
+  conceptual: "#7A7A80",
 };
 
 function esc(s: string) {
@@ -66,8 +77,9 @@ export function mapToSvg(map: MapContent, lang: "es" | "en"): string {
       const mx = (p.x + q.x) / 2;
       const my = (p.y + q.y) / 2;
       const label = RELATION_LABELS[e.relation][lang];
-      const dash = e.relation === "opposes" || e.relation === "questions" ? ' stroke-dasharray="6 4"' : "";
-      return `<line x1="${p.x}" y1="${p.y}" x2="${q.x}" y2="${q.y}" stroke="#7A7A80" stroke-width="1.4"${dash} marker-end="url(#arrow)"/>
+      const logic = edgeLogic(e.relation);
+      const dash = logic === "contradiction" || logic === "question" ? ' stroke-dasharray="6 4"' : "";
+      return `<line x1="${p.x}" y1="${p.y}" x2="${q.x}" y2="${q.y}" stroke="${EDGE_PRINT[logic]}" stroke-width="1.4"${dash} marker-end="url(#arrow-${logic})"/>
 <rect x="${mx - label.length * 3.1 - 6}" y="${my - 9}" width="${label.length * 6.2 + 12}" height="16" rx="3" fill="#FFFFFF" opacity="0.92"/>
 <text x="${mx}" y="${my + 3}" text-anchor="middle" font-size="10.5" fill="#55555A" font-family="Helvetica, Arial, sans-serif">${esc(label)}</text>`;
     })
@@ -88,7 +100,7 @@ ${kind}<text text-anchor="middle" font-size="${fs}" fill="#1C1C20" font-family="
     })
     .join("\n");
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${MAP_W}" height="${MAP_H}" viewBox="0 0 ${MAP_W} ${MAP_H}">
-<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7A7A80"/></marker></defs>
+<defs>${(Object.keys(EDGE_PRINT) as EdgeLogic[]).map((k) => `<marker id="arrow-${k}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="${EDGE_PRINT[k]}"/></marker>`).join("")}</defs>
 <rect width="100%" height="100%" fill="#FFFFFF"/>
 ${edges}
 ${nodes}
