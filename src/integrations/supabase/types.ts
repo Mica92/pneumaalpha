@@ -14,6 +14,75 @@ export type Database = {
   }
   public: {
     Tables: {
+      academic_sources: {
+        Row: {
+          analyses: Json
+          archived_at: string | null
+          authors: string
+          body: string
+          container: string
+          created_at: string
+          doi: string
+          extraction_note: string
+          id: string
+          integrity: string
+          metadata_checked_at: string | null
+          metadata_source: string
+          notes: string
+          origin: string
+          page_count: number
+          title: string
+          updated_at: string
+          url: string
+          user_id: string
+          year: string
+        }
+        Insert: {
+          analyses?: Json
+          archived_at?: string | null
+          authors?: string
+          body?: string
+          container?: string
+          created_at?: string
+          doi?: string
+          extraction_note?: string
+          id?: string
+          integrity?: string
+          metadata_checked_at?: string | null
+          metadata_source?: string
+          notes?: string
+          origin: string
+          page_count?: number
+          title?: string
+          updated_at?: string
+          url?: string
+          user_id: string
+          year?: string
+        }
+        Update: {
+          analyses?: Json
+          archived_at?: string | null
+          authors?: string
+          body?: string
+          container?: string
+          created_at?: string
+          doi?: string
+          extraction_note?: string
+          id?: string
+          integrity?: string
+          metadata_checked_at?: string | null
+          metadata_source?: string
+          notes?: string
+          origin?: string
+          page_count?: number
+          title?: string
+          updated_at?: string
+          url?: string
+          user_id?: string
+          year?: string
+        }
+        Relationships: []
+      }
       analytics_events: {
         Row: {
           created_at: string

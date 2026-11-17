@@ -377,7 +377,11 @@ function Sources({
                 )}
                 title={tr("Cambiar estado de verificación", "Toggle verification status")}
               >
-                {r.status === "verified" ? tr("Verificada por mí", "Verified by me") : tr("Pendiente de verificación", "Pending verification")}
+                {r.status === "verified"
+                  ? tr("Verificada por mí", "Verified by me")
+                  : r.status === "provided"
+                    ? tr("Fuente proporcionada", "Provided source")
+                    : tr("Pendiente de verificación", "Pending verification")}
               </button>
               <button
                 type="button"

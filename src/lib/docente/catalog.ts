@@ -1,4 +1,4 @@
-import type { EpistemicKind, Lang, NodeKind, QuestionType, Relation } from "./model";
+import type { EpistemicKind, Lang, MaterialKind, NodeKind, QuestionType, Relation } from "./model";
 
 type L = { es: string; en: string };
 
@@ -314,7 +314,8 @@ export const RELATION_LABELS: Record<Relation, L> = {
   infers: { es: "permite inferir", en: "leads to" },
 };
 
-export const KIND_LABELS: Record<"guide" | "exam" | "map" | "class", L> = {
+export const KIND_LABELS: Record<MaterialKind, L> = {
+  research: { es: "Investigación", en: "Research" },
   guide: { es: "Guía", en: "Guide" },
   exam: { es: "Examen", en: "Exam" },
   map: { es: "Mapa", en: "Map" },

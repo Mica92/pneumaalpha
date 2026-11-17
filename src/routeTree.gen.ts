@@ -45,6 +45,7 @@ import { Route as AuthenticatedDocenteAdminRouteImport } from './routes/_authent
 import { Route as AuthenticatedDocenteAnalizadorRouteImport } from './routes/_authenticated/docente.analizador'
 import { Route as AuthenticatedDocenteBancoRouteImport } from './routes/_authenticated/docente.banco'
 import { Route as AuthenticatedDocenteBibliotecaRouteImport } from './routes/_authenticated/docente.biblioteca'
+import { Route as AuthenticatedDocenteInvestigarRouteImport } from './routes/_authenticated/docente.investigar'
 import { Route as AuthenticatedFilosofosIndexRouteImport } from './routes/_authenticated/filosofos.index'
 import { Route as AuthenticatedFilosofosIdRouteImport } from './routes/_authenticated/filosofos.$id'
 import { Route as AuthenticatedIdeasIndexRouteImport } from './routes/_authenticated/ideas.index'
@@ -57,6 +58,8 @@ import { Route as ApiPodcastSpeechRouteImport } from './routes/api/podcast/speec
 import { Route as EditorialCategoryArticleRouteImport } from './routes/editorial/$category.$article'
 import { Route as AuthenticatedDocenteClasesNuevaRouteImport } from './routes/_authenticated/docente.clases.nueva'
 import { Route as AuthenticatedDocenteExamenesNuevoRouteImport } from './routes/_authenticated/docente.examenes.nuevo'
+import { Route as AuthenticatedDocenteFuentesIndexRouteImport } from './routes/_authenticated/docente.fuentes.index'
+import { Route as AuthenticatedDocenteFuentesIdRouteImport } from './routes/_authenticated/docente.fuentes.$id'
 import { Route as AuthenticatedDocenteGuiasNuevaRouteImport } from './routes/_authenticated/docente.guias.nueva'
 import { Route as AuthenticatedDocenteMapasNuevoRouteImport } from './routes/_authenticated/docente.mapas.nuevo'
 import { Route as AuthenticatedDocenteMaterialIdRouteImport } from './routes/_authenticated/docente.material.$id'
@@ -253,6 +256,12 @@ const AuthenticatedDocenteBibliotecaRoute =
     path: '/biblioteca',
     getParentRoute: () => AuthenticatedDocenteRoute,
   } as any)
+const AuthenticatedDocenteInvestigarRoute =
+  AuthenticatedDocenteInvestigarRouteImport.update({
+    id: '/investigar',
+    path: '/investigar',
+    getParentRoute: () => AuthenticatedDocenteRoute,
+  } as any)
 const AuthenticatedFilosofosIndexRoute =
   AuthenticatedFilosofosIndexRouteImport.update({
     id: '/filosofos/',
@@ -318,6 +327,18 @@ const AuthenticatedDocenteExamenesNuevoRoute =
   AuthenticatedDocenteExamenesNuevoRouteImport.update({
     id: '/examenes/nuevo',
     path: '/examenes/nuevo',
+    getParentRoute: () => AuthenticatedDocenteRoute,
+  } as any)
+const AuthenticatedDocenteFuentesIndexRoute =
+  AuthenticatedDocenteFuentesIndexRouteImport.update({
+    id: '/fuentes/',
+    path: '/fuentes/',
+    getParentRoute: () => AuthenticatedDocenteRoute,
+  } as any)
+const AuthenticatedDocenteFuentesIdRoute =
+  AuthenticatedDocenteFuentesIdRouteImport.update({
+    id: '/fuentes/$id',
+    path: '/fuentes/$id',
     getParentRoute: () => AuthenticatedDocenteRoute,
   } as any)
 const AuthenticatedDocenteGuiasNuevaRoute =
@@ -389,6 +410,7 @@ export interface FileRoutesByFullPath {
   '/docente/analizador': typeof AuthenticatedDocenteAnalizadorRoute
   '/docente/banco': typeof AuthenticatedDocenteBancoRoute
   '/docente/biblioteca': typeof AuthenticatedDocenteBibliotecaRoute
+  '/docente/investigar': typeof AuthenticatedDocenteInvestigarRoute
   '/filosofos/$id': typeof AuthenticatedFilosofosIdRoute
   '/ideas/$id': typeof AuthenticatedIdeasIdRoute
   '/rutas/$id': typeof AuthenticatedRutasIdRoute
@@ -403,12 +425,14 @@ export interface FileRoutesByFullPath {
   '/situaciones/': typeof AuthenticatedSituacionesIndexRoute
   '/docente/clases/nueva': typeof AuthenticatedDocenteClasesNuevaRoute
   '/docente/examenes/nuevo': typeof AuthenticatedDocenteExamenesNuevoRoute
+  '/docente/fuentes/$id': typeof AuthenticatedDocenteFuentesIdRoute
   '/docente/guias/nueva': typeof AuthenticatedDocenteGuiasNuevaRoute
   '/docente/mapas/nuevo': typeof AuthenticatedDocenteMapasNuevoRoute
   '/docente/material/$id': typeof AuthenticatedDocenteMaterialIdRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
+  '/docente/fuentes/': typeof AuthenticatedDocenteFuentesIndexRoute
 }
 export interface FileRoutesByTo {
   '/app': typeof AppRoute
@@ -442,6 +466,7 @@ export interface FileRoutesByTo {
   '/docente/analizador': typeof AuthenticatedDocenteAnalizadorRoute
   '/docente/banco': typeof AuthenticatedDocenteBancoRoute
   '/docente/biblioteca': typeof AuthenticatedDocenteBibliotecaRoute
+  '/docente/investigar': typeof AuthenticatedDocenteInvestigarRoute
   '/filosofos/$id': typeof AuthenticatedFilosofosIdRoute
   '/ideas/$id': typeof AuthenticatedIdeasIdRoute
   '/rutas/$id': typeof AuthenticatedRutasIdRoute
@@ -456,12 +481,14 @@ export interface FileRoutesByTo {
   '/situaciones': typeof AuthenticatedSituacionesIndexRoute
   '/docente/clases/nueva': typeof AuthenticatedDocenteClasesNuevaRoute
   '/docente/examenes/nuevo': typeof AuthenticatedDocenteExamenesNuevoRoute
+  '/docente/fuentes/$id': typeof AuthenticatedDocenteFuentesIdRoute
   '/docente/guias/nueva': typeof AuthenticatedDocenteGuiasNuevaRoute
   '/docente/mapas/nuevo': typeof AuthenticatedDocenteMapasNuevoRoute
   '/docente/material/$id': typeof AuthenticatedDocenteMaterialIdRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
+  '/docente/fuentes': typeof AuthenticatedDocenteFuentesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -499,6 +526,7 @@ export interface FileRoutesById {
   '/_authenticated/docente/analizador': typeof AuthenticatedDocenteAnalizadorRoute
   '/_authenticated/docente/banco': typeof AuthenticatedDocenteBancoRoute
   '/_authenticated/docente/biblioteca': typeof AuthenticatedDocenteBibliotecaRoute
+  '/_authenticated/docente/investigar': typeof AuthenticatedDocenteInvestigarRoute
   '/_authenticated/filosofos/$id': typeof AuthenticatedFilosofosIdRoute
   '/_authenticated/ideas/$id': typeof AuthenticatedIdeasIdRoute
   '/_authenticated/rutas/$id': typeof AuthenticatedRutasIdRoute
@@ -513,12 +541,14 @@ export interface FileRoutesById {
   '/_authenticated/situaciones/': typeof AuthenticatedSituacionesIndexRoute
   '/_authenticated/docente/clases/nueva': typeof AuthenticatedDocenteClasesNuevaRoute
   '/_authenticated/docente/examenes/nuevo': typeof AuthenticatedDocenteExamenesNuevoRoute
+  '/_authenticated/docente/fuentes/$id': typeof AuthenticatedDocenteFuentesIdRoute
   '/_authenticated/docente/guias/nueva': typeof AuthenticatedDocenteGuiasNuevaRoute
   '/_authenticated/docente/mapas/nuevo': typeof AuthenticatedDocenteMapasNuevoRoute
   '/_authenticated/docente/material/$id': typeof AuthenticatedDocenteMaterialIdRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
+  '/_authenticated/docente/fuentes/': typeof AuthenticatedDocenteFuentesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -556,6 +586,7 @@ export interface FileRouteTypes {
     | '/docente/analizador'
     | '/docente/banco'
     | '/docente/biblioteca'
+    | '/docente/investigar'
     | '/filosofos/$id'
     | '/ideas/$id'
     | '/rutas/$id'
@@ -570,12 +601,14 @@ export interface FileRouteTypes {
     | '/situaciones/'
     | '/docente/clases/nueva'
     | '/docente/examenes/nuevo'
+    | '/docente/fuentes/$id'
     | '/docente/guias/nueva'
     | '/docente/mapas/nuevo'
     | '/docente/material/$id'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
     | '/lovable/email/transactional/preview'
+    | '/docente/fuentes/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/app'
@@ -609,6 +642,7 @@ export interface FileRouteTypes {
     | '/docente/analizador'
     | '/docente/banco'
     | '/docente/biblioteca'
+    | '/docente/investigar'
     | '/filosofos/$id'
     | '/ideas/$id'
     | '/rutas/$id'
@@ -623,12 +657,14 @@ export interface FileRouteTypes {
     | '/situaciones'
     | '/docente/clases/nueva'
     | '/docente/examenes/nuevo'
+    | '/docente/fuentes/$id'
     | '/docente/guias/nueva'
     | '/docente/mapas/nuevo'
     | '/docente/material/$id'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
     | '/lovable/email/transactional/preview'
+    | '/docente/fuentes'
   id:
     | '__root__'
     | '/_authenticated'
@@ -665,6 +701,7 @@ export interface FileRouteTypes {
     | '/_authenticated/docente/analizador'
     | '/_authenticated/docente/banco'
     | '/_authenticated/docente/biblioteca'
+    | '/_authenticated/docente/investigar'
     | '/_authenticated/filosofos/$id'
     | '/_authenticated/ideas/$id'
     | '/_authenticated/rutas/$id'
@@ -679,12 +716,14 @@ export interface FileRouteTypes {
     | '/_authenticated/situaciones/'
     | '/_authenticated/docente/clases/nueva'
     | '/_authenticated/docente/examenes/nuevo'
+    | '/_authenticated/docente/fuentes/$id'
     | '/_authenticated/docente/guias/nueva'
     | '/_authenticated/docente/mapas/nuevo'
     | '/_authenticated/docente/material/$id'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
     | '/lovable/email/transactional/preview'
+    | '/_authenticated/docente/fuentes/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -957,6 +996,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDocenteBibliotecaRouteImport
       parentRoute: typeof AuthenticatedDocenteRoute
     }
+    '/_authenticated/docente/investigar': {
+      id: '/_authenticated/docente/investigar'
+      path: '/investigar'
+      fullPath: '/docente/investigar'
+      preLoaderRoute: typeof AuthenticatedDocenteInvestigarRouteImport
+      parentRoute: typeof AuthenticatedDocenteRoute
+    }
     '/_authenticated/filosofos/': {
       id: '/_authenticated/filosofos/'
       path: '/filosofos'
@@ -1041,6 +1087,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDocenteExamenesNuevoRouteImport
       parentRoute: typeof AuthenticatedDocenteRoute
     }
+    '/_authenticated/docente/fuentes/': {
+      id: '/_authenticated/docente/fuentes/'
+      path: '/fuentes'
+      fullPath: '/docente/fuentes/'
+      preLoaderRoute: typeof AuthenticatedDocenteFuentesIndexRouteImport
+      parentRoute: typeof AuthenticatedDocenteRoute
+    }
+    '/_authenticated/docente/fuentes/$id': {
+      id: '/_authenticated/docente/fuentes/$id'
+      path: '/fuentes/$id'
+      fullPath: '/docente/fuentes/$id'
+      preLoaderRoute: typeof AuthenticatedDocenteFuentesIdRouteImport
+      parentRoute: typeof AuthenticatedDocenteRoute
+    }
     '/_authenticated/docente/guias/nueva': {
       id: '/_authenticated/docente/guias/nueva'
       path: '/guias/nueva'
@@ -1106,12 +1166,15 @@ interface AuthenticatedDocenteRouteChildren {
   AuthenticatedDocenteAnalizadorRoute: typeof AuthenticatedDocenteAnalizadorRoute
   AuthenticatedDocenteBancoRoute: typeof AuthenticatedDocenteBancoRoute
   AuthenticatedDocenteBibliotecaRoute: typeof AuthenticatedDocenteBibliotecaRoute
+  AuthenticatedDocenteInvestigarRoute: typeof AuthenticatedDocenteInvestigarRoute
   AuthenticatedDocenteIndexRoute: typeof AuthenticatedDocenteIndexRoute
   AuthenticatedDocenteClasesNuevaRoute: typeof AuthenticatedDocenteClasesNuevaRoute
   AuthenticatedDocenteExamenesNuevoRoute: typeof AuthenticatedDocenteExamenesNuevoRoute
+  AuthenticatedDocenteFuentesIdRoute: typeof AuthenticatedDocenteFuentesIdRoute
   AuthenticatedDocenteGuiasNuevaRoute: typeof AuthenticatedDocenteGuiasNuevaRoute
   AuthenticatedDocenteMapasNuevoRoute: typeof AuthenticatedDocenteMapasNuevoRoute
   AuthenticatedDocenteMaterialIdRoute: typeof AuthenticatedDocenteMaterialIdRoute
+  AuthenticatedDocenteFuentesIndexRoute: typeof AuthenticatedDocenteFuentesIndexRoute
 }
 
 const AuthenticatedDocenteRouteChildren: AuthenticatedDocenteRouteChildren = {
@@ -1119,13 +1182,16 @@ const AuthenticatedDocenteRouteChildren: AuthenticatedDocenteRouteChildren = {
   AuthenticatedDocenteAnalizadorRoute: AuthenticatedDocenteAnalizadorRoute,
   AuthenticatedDocenteBancoRoute: AuthenticatedDocenteBancoRoute,
   AuthenticatedDocenteBibliotecaRoute: AuthenticatedDocenteBibliotecaRoute,
+  AuthenticatedDocenteInvestigarRoute: AuthenticatedDocenteInvestigarRoute,
   AuthenticatedDocenteIndexRoute: AuthenticatedDocenteIndexRoute,
   AuthenticatedDocenteClasesNuevaRoute: AuthenticatedDocenteClasesNuevaRoute,
   AuthenticatedDocenteExamenesNuevoRoute:
     AuthenticatedDocenteExamenesNuevoRoute,
+  AuthenticatedDocenteFuentesIdRoute: AuthenticatedDocenteFuentesIdRoute,
   AuthenticatedDocenteGuiasNuevaRoute: AuthenticatedDocenteGuiasNuevaRoute,
   AuthenticatedDocenteMapasNuevoRoute: AuthenticatedDocenteMapasNuevoRoute,
   AuthenticatedDocenteMaterialIdRoute: AuthenticatedDocenteMaterialIdRoute,
+  AuthenticatedDocenteFuentesIndexRoute: AuthenticatedDocenteFuentesIndexRoute,
 }
 
 const AuthenticatedDocenteRouteWithChildren =

@@ -1,16 +1,17 @@
 import type { ReactNode } from "react";
-import { Link } from "@tanstack/react-router";
+import { Link, useRouterState } from "@tanstack/react-router";
 import { SiteNav } from "@/components/site-nav";
 import { useDocenteAccess, useTr } from "@/lib/docente/use-docente";
 import { cn } from "@/lib/utils";
 
 const LINKS = [
   { to: "/docente", es: "Panel", en: "Desk", exact: true },
+  { to: "/docente/investigar", es: "Investigar", en: "Research", also: "/docente/fuentes" },
   { to: "/docente/guias/nueva", es: "Guías", en: "Guides" },
   { to: "/docente/examenes/nuevo", es: "Exámenes", en: "Exams" },
   { to: "/docente/mapas/nuevo", es: "Mapas", en: "Maps" },
   { to: "/docente/clases/nueva", es: "Clases", en: "Classes" },
-  { to: "/docente/analizador", es: "Analizador", en: "Analyzer" },
+  { to: "/docente/analizador", es: "Argumentos", en: "Arguments" },
   { to: "/docente/biblioteca", es: "Biblioteca", en: "Library" },
   { to: "/docente/banco", es: "Banco", en: "Bank" },
 ] as const;
@@ -18,6 +19,7 @@ const LINKS = [
 export function DocenteShell({ children, wide = false }: { children: ReactNode; wide?: boolean }) {
   const tr = useTr();
   const { data: access } = useDocenteAccess();
+  const path = useRouterState({ select: (s) => s.location.pathname });
   return (
     <>
       <SiteNav className="print:hidden" />
@@ -35,7 +37,10 @@ export function DocenteShell({ children, wide = false }: { children: ReactNode; 
                 key={l.to}
                 to={l.to}
                 activeOptions={{ exact: "exact" in l ? l.exact : false }}
-                className="focus-mist shrink-0 border-b-2 border-transparent px-3 py-3 text-small text-muted-foreground transition-colors hover:text-foreground"
+                className={cn(
+                  "focus-mist shrink-0 border-b-2 border-transparent px-3 py-3 text-small text-muted-foreground transition-colors hover:text-foreground",
+                  "also" in l && path.startsWith(l.also) && "border-bronze text-foreground",
+                )}
                 activeProps={{ className: "border-bronze text-foreground" }}
               >
                 {tr(l.es, l.en)}

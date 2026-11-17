@@ -52,7 +52,7 @@ function DocenteHome() {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            void navigate({ to: "/docente/guias/nueva", search: { concept: c } });
+            void navigate({ to: "/docente/investigar", search: { q: c } });
           }}
         >
           <input
@@ -65,16 +65,19 @@ function DocenteHome() {
           />
           <div className="mt-5 flex flex-wrap gap-2">
             <button type="submit" className="btn-gold focus-mist px-4 py-2 text-small">
-              {tr("Crear guía", "Create guide")}
+              {tr("Investigar", "Research")}
             </button>
+            <Link to="/docente/guias/nueva" search={{ concept: c }} className="btn-ghost-gold focus-mist px-4 py-2 text-small">
+              {tr("Crear guía", "Create guide")}
+            </Link>
             <Link to="/docente/examenes/nuevo" search={{ concept: c }} className="btn-ghost-gold focus-mist px-4 py-2 text-small">
               {tr("Crear examen", "Create exam")}
             </Link>
             <Link to="/docente/mapas/nuevo" search={{ concept: c }} className="btn-ghost-gold focus-mist px-4 py-2 text-small">
               {tr("Crear mapa", "Create map")}
             </Link>
-            <Link to="/docente/biblioteca" search={{ q: c }} className="btn-ghost-gold focus-mist px-4 py-2 text-small">
-              {tr("Explorar biblioteca", "Browse library")}
+            <Link to="/docente/clases/nueva" search={{ concept: c }} className="btn-ghost-gold focus-mist px-4 py-2 text-small">
+              {tr("Preparar clase", "Plan a class")}
             </Link>
           </div>
         </form>
@@ -94,8 +97,8 @@ function DocenteHome() {
         {data && data.length === 0 && (
           <p className="mt-4 max-w-xl text-small text-muted-foreground">
             {tr(
-              "Aún no tienes materiales. Escribe un concepto arriba y crea tu primera guía.",
-              "You have no materials yet. Type a concept above and create your first guide.",
+              "Aún no tienes materiales. Escribe un concepto arriba para investigarlo o crear tu primera guía.",
+              "You have no materials yet. Type a concept above to research it or create your first guide.",
             )}
           </p>
         )}
@@ -109,7 +112,8 @@ function DocenteHome() {
       </section>
 
       {data && data.length > 0 && (
-        <div className="mt-12 grid gap-10 md:grid-cols-3">
+        <div className="mt-12 grid gap-10 md:grid-cols-2 lg:grid-cols-4">
+          <KindColumn title={tr("Investigaciones guardadas", "Saved research")} items={byKind("research")} kind="research" />
           <KindColumn title={tr("Guías guardadas", "Saved guides")} items={byKind("guide")} kind="guide" />
           <KindColumn title={tr("Mapas en desarrollo", "Maps in progress")} items={byKind("map")} kind="map" />
           <KindColumn title={tr("Exámenes creados", "Exams created")} items={byKind("exam")} kind="exam" />

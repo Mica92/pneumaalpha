@@ -5,6 +5,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { DocenteShell, PageHeading } from "@/components/docente/shell";
 import { BaseConfigFields, Field, GenerationStatus, SourceNotice, inputCls, ConversionNotice } from "@/components/docente/config-fields";
 import { useSeededConfig, validateCreateSearch } from "@/components/docente/use-seeded-config";
+import { SourcesField, parseSourceIds } from "@/components/docente/sources-ui";
 import { generateMap } from "@/lib/docente/docente-ai.functions";
 import { createMaterial } from "@/lib/docente/docente.functions";
 import { uid, type MapContent } from "@/lib/docente/model";
@@ -34,6 +35,7 @@ function NewMap() {
   const navigate = useNavigate();
   const qc = useQueryClient();
   const { config, setConfig, source } = useSeededConfig(search);
+  const [sourceIds, setSourceIds] = useState<string[]>(() => parseSourceIds(search.sources));
   const [size, setSize] = useState<"compact" | "full">("full");
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<string | null>(null);
@@ -50,7 +52,7 @@ function NewMap() {
     setBusy(true);
     setErr(null);
     try {
-      const { id } = await generate({ data: { ...config, size, fromMaterialId: search.from ?? null, conversion: search.conv ?? null } });
+      const { id } = await generate({ data: { ...config, sourceIds, size, fromMaterialId: search.from ?? null, conversion: search.conv ?? null } });
       await open(id);
     } catch (e) {
       setErr(errorText(e, lang));
@@ -156,6 +158,7 @@ function NewMap() {
           </select>
         </Field>
         <div className="space-y-4">
+          <SourcesField value={sourceIds} onChange={setSourceIds} />
           <GenerationStatus busy={busy} error={err} onRetry={run} />
           <div className="flex flex-wrap gap-3">
             <button type="submit" disabled={busy || !config.concept.trim()} className="btn-gold focus-mist px-5 py-2.5 text-small disabled:opacity-50">

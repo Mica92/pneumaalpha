@@ -41,6 +41,20 @@ export function errorText(err: unknown, lang: "es" | "en"): string {
   if (msg.includes("FORBIDDEN"))
     return es ? "Tu cuenta no tiene acceso a esta acción." : "Your account does not have access to this action.";
   if (msg.includes("NOT_FOUND")) return es ? "No encontramos este material." : "We could not find this material.";
+  if (msg.includes("VERIFY_REQUIREMENTS"))
+    return es
+      ? "Para marcarla como verificada, confirma que consultaste el documento y comprobaste sus datos, e indica título y autoría."
+      : "To mark it verified, confirm you consulted the document and checked its details, and give its title and authors.";
+  if (msg.includes("SOURCE_NO_TEXT"))
+    return es ? "Esta fuente no tiene texto para analizar. Pega o sube el documento." : "This source has no text to analyse. Paste or upload the document.";
+  if (msg.includes("BAD_DOI")) return es ? "Ese DOI no tiene un formato válido (ej. 10.1000/xyz123)." : "That DOI is not valid (e.g. 10.1000/xyz123).";
+  if (msg.includes("DOI_NOT_FOUND")) return es ? "Crossref no tiene registrado ese DOI." : "Crossref has no record of that DOI.";
+  if (msg.includes("DOI_LOOKUP_FAILED")) return es ? "No pudimos consultar Crossref. Inténtalo más tarde." : "We could not reach Crossref. Try again later.";
+  if (msg.includes("UNSUPPORTED_FILE")) return es ? "Formato no admitido. Usa PDF, DOCX o TXT." : "Unsupported format. Use PDF, DOCX or TXT.";
+  if (msg.includes("FILE_TOO_LARGE")) return es ? "El archivo supera los 25 MB." : "The file is larger than 25 MB.";
+  if (msg.includes("EMPTY_SOURCE")) return es ? "Añade un texto, un archivo, un DOI o un título." : "Add a text, a file, a DOI or a title.";
+  if (msg.includes("MISSING_PREMISE")) return es ? "Indica la premisa y cómo quieres modificarla." : "Give the premise and how you want to change it.";
+  if (msg.includes("MISSING_COMPARE")) return es ? "Pega el segundo razonamiento para comparar." : "Paste the second argument to compare.";
   if (msg.includes("CONTENT_TOO_LARGE"))
     return es ? "El documento es demasiado extenso para guardarse." : "The document is too long to be saved.";
   return es ? "Algo salió mal. Inténtalo de nuevo." : "Something went wrong. Please try again.";

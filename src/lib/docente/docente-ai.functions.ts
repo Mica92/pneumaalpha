@@ -12,6 +12,8 @@ import { resolveConversion } from "./conversions";
 import { DIMENSIONS, isEmptyAnalysis, normalizeAnalysis, type ArgumentAnalysis } from "./analysis";
 import { QUESTION_TYPES, asMap, findFreeSpot, mergeMap, type ExamQuestion, type MapEdge, type MapNode, type MaterialKind, type NodeDetail } from "./model";
 import { MAP_H, MAP_W } from "./map-svg";
+import { loadSourceContext } from "./source-context";
+import { attachProvidedRefs } from "./research";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Sb = SupabaseClient<any, any, any>;
@@ -26,6 +28,8 @@ const Base = z.object({
   language: z.enum(["es", "en"]).default("es"),
   fromMaterialId: z.string().uuid().nullable().optional(),
   conversion: z.string().max(40).nullable().optional(),
+  /** The teacher's own Source Desk documents to build on (max 3). */
+  sourceIds: z.array(z.string().uuid()).max(3).default([]),
 });
 
 function contextBlock(c: z.infer<typeof Base>) {
@@ -141,6 +145,7 @@ export const generateGuide = createServerFn({ method: "POST" })
       .map((s) => `- ${s!.key}: ${s!.label[data.language]}`)
       .join("\n");
     const source = await loadSource(context.supabase, context.userId, data.fromMaterialId, "guide", data.conversion);
+    const docs = await loadSourceContext(context.supabase, context.userId, data.sourceIds, data.language);
     const system = `Eres el motor académico de Kionas Docente: un filósofo e investigador universitario que diseña guías de estudio rigurosas para profesores. No eres un generador genérico de textos.
 
 ${qualityRules(data.language)}
@@ -157,9 +162,9 @@ Devuelve un objeto JSON con esta forma:
 - Las preguntas de evaluación con respuestas o pautas deben ir en una sección adicional con "key":"teacher_notes" y "audience":"teacher".
 - "sources" solo con obras reales de los pensadores permitidos; deja [] si no corresponde.
 - Extensión total aproximada: ${tpl.words} palabras. Profundidad: ${data.depth}.`;
-    const prompt = `${contextBlock(data)}\nTipo de material: ${tpl.label[data.language]}\n\nSecciones solicitadas:\n${sectionList}${source}`;
+    const prompt = `${contextBlock(data)}\nTipo de material: ${tpl.label[data.language]}\n\nSecciones solicitadas:\n${sectionList}${source}${docs.prompt}`;
     const raw = DocOut.parse(await generateJson({ system, prompt, maxOutputTokens: 20000 }));
-    const sections = toSections(raw.sections);
+    const sections = attachProvidedRefs(toSections(raw.sections), docs.citations);
     if (sections.length === 0) throw new Error("BAD_AI_OUTPUT");
     return insertMaterial(
       context.supabase,
@@ -168,7 +173,7 @@ Devuelve un objeto JSON con esta forma:
       data,
       raw.title || data.concept,
       { sections },
-      { templateId: tpl.id, depth: data.depth, objective: data.objective, durationMin: data.durationMin },
+      { templateId: tpl.id, depth: data.depth, objective: data.objective, durationMin: data.durationMin, sourceIds: data.sourceIds },
     );
   });
 
@@ -206,6 +211,7 @@ export const generateExam = createServerFn({ method: "POST" })
   .handler(async ({ data, context }) => {
     await guard(context, "exam");
     const source = await loadSource(context.supabase, context.userId, data.fromMaterialId, "exam", data.conversion);
+    const docs = await loadSourceContext(context.supabase, context.userId, data.sourceIds, data.language);
     const types =
       data.questionTypes.length > 0
         ? data.questionTypes.map((t) => `${t} (${QUESTION_TYPE_LABELS[t][data.language]})`).join(", ")
@@ -220,15 +226,17 @@ Número de preguntas: ${data.questionCount}
 Puntaje total: ${data.totalPoints} (los puntos de las preguntas deben sumar exactamente ${data.totalPoints})
 Dificultad: ${data.difficulty}
 Formato de respuesta: ${data.responseFormat === "open" ? "preguntas abiertas" : data.responseFormat === "closed" ? "preferentemente cerradas" : "mixto"}
-Tipos de pregunta: ${types}${source}`;
+Tipos de pregunta: ${types}${source}${docs.prompt}`;
     const raw = ExamOut.parse(await generateJson({ system, prompt, maxOutputTokens: 20000 }));
     const exam = toExam(raw, data.durationMin, data.totalPoints);
+    if (docs.citations.length) exam.bibliography = [exam.bibliography, ...docs.citations.map((c) => `- ${c}`)].filter(Boolean).join("\n");
     if (exam.questions.length === 0) throw new Error("BAD_AI_OUTPUT");
     return insertMaterial(context.supabase, context.userId, "exam", data, raw.title || data.concept, exam, {
       examType: data.examType,
       difficulty: data.difficulty,
       competencies: data.competencies,
       objective: data.objective,
+      sourceIds: data.sourceIds,
     });
   });
 
@@ -278,6 +286,7 @@ export const generateMap = createServerFn({ method: "POST" })
   .handler(async ({ data, context }) => {
     await guard(context, "map");
     const source = await loadSource(context.supabase, context.userId, data.fromMaterialId, "map", data.conversion);
+    const docs = await loadSourceContext(context.supabase, context.userId, data.sourceIds, data.language);
     const system = `Eres el cartógrafo conceptual de Kionas Docente. Construyes mapas intelectuales donde cada conexión tiene significado.
 
 ${qualityRules(data.language)}
@@ -289,10 +298,10 @@ ${qualityRules(data.language)}
 - "note": una o dos frases que expliquen el nodo.
 - ${data.size === "compact" ? "Entre 8 y 12 nodos." : "Entre 14 y 22 nodos."}
 Devuelve JSON: {"title": string, "nodes": [{"key": string, "label": string, "kind": string, "note": string}], "edges": [{"from": key, "to": key, "relation": string}]}`;
-    const raw = MapOut.parse(await generateJson({ system, prompt: `${contextBlock(data)}${source}`, maxOutputTokens: 8000 }));
+    const raw = MapOut.parse(await generateJson({ system, prompt: `${contextBlock(data)}${source}${docs.prompt}`, maxOutputTokens: 8000 }));
     const map = toMap(raw);
     if (map.nodes.length === 0) throw new Error("BAD_AI_OUTPUT");
-    return insertMaterial(context.supabase, context.userId, "map", data, raw.title || data.concept, map, {});
+    return insertMaterial(context.supabase, context.userId, "map", data, raw.title || data.concept, map, { sourceIds: data.sourceIds });
   });
 
 /** Proposes new nodes around one node. Nothing is saved until the teacher accepts. */
@@ -481,6 +490,7 @@ export const generateClass = createServerFn({ method: "POST" })
   .handler(async ({ data, context }) => {
     await guard(context, "class");
     const source = await loadSource(context.supabase, context.userId, data.fromMaterialId, "class", data.conversion);
+    const docs = await loadSourceContext(context.supabase, context.userId, data.sourceIds, data.language);
     const system = `Eres el planificador pedagógico de Kionas Docente. Conviertes materiales en una clase concreta, realista y aplicable.
 
 ${qualityRules(data.language)}
@@ -492,15 +502,16 @@ Devuelve JSON: {"title": string, "sections": [{"key","title","minutes","body","e
     const prompt = `${contextBlock(data)}
 Modalidad: ${data.modality}
 Número aproximado de estudiantes: ${data.students}
-Recursos disponibles: ${data.resources || "aula estándar con proyector"}${source}`;
+Recursos disponibles: ${data.resources || "aula estándar con proyector"}${source}${docs.prompt}`;
     const raw = DocOut.parse(await generateJson({ system, prompt, maxOutputTokens: 10000 }));
-    const sections = toSections(raw.sections);
+    const sections = attachProvidedRefs(toSections(raw.sections), docs.citations);
     if (sections.length === 0) throw new Error("BAD_AI_OUTPUT");
     return insertMaterial(context.supabase, context.userId, "class", data, raw.title || data.concept, { sections }, {
       modality: data.modality,
       students: data.students,
       resources: data.resources,
       durationMin: data.durationMin,
+      sourceIds: data.sourceIds,
     });
   });
 
@@ -587,6 +598,7 @@ ${dims}
 - Distingue lo que el texto dice de lo que tú interpretas. No atribuyas al texto premisas que no contiene salvo en "implicit_premises".
 - Si una dimensión no aplica (por ejemplo, no hay evidencia), devuelve una lista vacía o un único elemento que lo explique.
 - Entre 1 y 6 elementos por dimensión; frases claras y autocontenidas. "questions": entre 3 y 6 preguntas abiertas.
+- No presentes un desacuerdo filosófico razonable como si fuera una falacia: en "weaknesses" incluye solo saltos inferenciales, ambigüedades o problemas de evidencia identificables.
 - En "alternatives" solo puedes nombrar pensadores de la lista permitida; si no, describe la escuela o disciplina sin nombres.
 Devuelve JSON: {"title": string (breve, describe el razonamiento), ${DIMENSIONS.map((d) => `"${d.key}": [item]`).join(", ")}}`;
     const prompt = [

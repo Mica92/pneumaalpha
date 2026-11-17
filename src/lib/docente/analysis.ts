@@ -50,7 +50,76 @@ export type ArgumentAnalysis = {
   dimensions: Record<DimensionKey, AnalysisItem[]>;
   /** Teacher's own observations per dimension. */
   notes: Partial<Record<DimensionKey, string>>;
+  /** Argument Clinic results the teacher chose to keep. */
+  clinic?: ClinicResult[];
 };
+
+/* ───────── Argument Clinic ───────── */
+
+export const CLINIC_OPS = ["steelman", "counterpoint", "assumption_test", "weak_inferences", "reconstruction", "compare"] as const;
+export type ClinicOp = (typeof CLINIC_OPS)[number];
+export const CLINIC_INFO: Record<ClinicOp, { label: { es: string; en: string }; hint: { es: string; en: string }; instruction: string }> = {
+  steelman: {
+    label: { es: "Steelman", en: "Steelman" },
+    hint: { es: "La versión razonable más sólida de la posición, antes de criticarla.", en: "The strongest reasonable version of the position, before criticising it." },
+    instruction: 'Construye la versión razonable más sólida de la posición (steelman): explicita premisas que la fortalecen, acota su alcance y responde a la objeción más obvia. "items": premisas o movimientos que la refuerzan.',
+  },
+  counterpoint: {
+    label: { es: "Contrapunto", en: "Counterpoint" },
+    hint: { es: "Una objeción fuerte y pertinente.", en: "A strong, relevant objection." },
+    instruction: 'Formula la objeción más fuerte y pertinente (no un hombre de paja). "intro": la objeción en un párrafo; "items": sus apoyos y la réplica más plausible del defensor.',
+  },
+  assumption_test: {
+    label: { es: "Prueba de supuestos", en: "Assumption test" },
+    hint: { es: "Qué ocurre con la conclusión si cambia una premisa.", en: "What happens to the conclusion if a premise changes." },
+    instruction: 'Examina qué ocurre con la conclusión si se modifica la premisa indicada como indica el docente. "intro": efecto general (se mantiene, se debilita, cae o cambia de alcance) y por qué; "items": consecuencias concretas.',
+  },
+  weak_inferences: {
+    label: { es: "Inferencias débiles", en: "Weak inferences" },
+    hint: { es: "Saltos no justificados entre premisas y conclusión.", en: "Unjustified leaps between premises and conclusion." },
+    instruction: 'Identifica saltos inferenciales no justificados. "text": el paso débil; "detail": qué falta para justificarlo. Distingue un salto lógico de un desacuerdo filosófico razonable y no llames falacia a lo segundo.',
+  },
+  reconstruction: {
+    label: { es: "Reconstrucción", en: "Reconstruction" },
+    hint: { es: "El argumento con estructura y claridad mejoradas.", en: "The argument with clearer structure." },
+    instruction: 'Reconstruye el argumento en forma estándar numerada: "items" en orden (P1, P2…, C), cada uno con "detail" que indique si es explícito, implícito o añadido para la validez.',
+  },
+  compare: {
+    label: { es: "Comparación", en: "Comparison" },
+    hint: { es: "Contrasta dos razonamientos sobre el mismo problema.", en: "Contrast two lines of reasoning on the same problem." },
+    instruction: 'Compara el razonamiento A con el razonamiento B sobre el mismo problema. "items": puntos de contraste (tesis, premisas, evidencia, alcance, solidez); "detail" indica qué dice cada uno y cuál está mejor justificado en ese punto, si se puede decir.',
+  },
+};
+
+export type ClinicResult = {
+  id: string;
+  op: ClinicOp;
+  title: string;
+  intro: string;
+  items: { text: string; detail: string }[];
+  /** What the teacher asked (premise changed, compared text) so the result can be read later. */
+  input?: string;
+};
+
+/** Safe clinic result from model JSON; empty results are rejected upstream. */
+export function normalizeClinic(op: ClinicOp, raw: unknown, input?: string): ClinicResult {
+  const r = (raw && typeof raw === "object" ? raw : {}) as { title?: unknown; intro?: unknown; items?: unknown };
+  const items = (Array.isArray(r.items) ? r.items : [])
+    .map((it) => {
+      const o = (typeof it === "string" ? { text: it } : (it ?? {})) as { text?: unknown; detail?: unknown };
+      return { text: typeof o.text === "string" ? o.text.trim().slice(0, MAX_TEXT) : "", detail: typeof o.detail === "string" ? o.detail.trim().slice(0, MAX_TEXT) : "" };
+    })
+    .filter((it) => it.text)
+    .slice(0, MAX_ITEMS);
+  return {
+    id: uid("k"),
+    op,
+    title: typeof r.title === "string" && r.title.trim() ? r.title.trim().slice(0, 240) : "",
+    intro: typeof r.intro === "string" ? r.intro.trim().slice(0, 4000) : "",
+    items,
+    ...(input ? { input: input.slice(0, 2000) } : {}),
+  };
+}
 
 const MAX_ITEMS = 12;
 const MAX_TEXT = 2000;
@@ -100,6 +169,19 @@ export function analysisToDoc(a: ArgumentAnalysis, lang: "es" | "en"): DocConten
         sources: [],
       });
     }
+  }
+  for (const k of a.clinic ?? []) {
+    const head = k.input ? `*${k.input}*\n\n` : "";
+    const list = k.items.map((it) => `- **${it.text}**${it.detail ? ` — ${it.detail}` : ""}`).join("\n");
+    sections.push({
+      id: uid("s"),
+      key: `clinic_${k.op}`,
+      title: `${CLINIC_INFO[k.op].label[lang]}${k.title ? ` — ${k.title}` : ""}`,
+      body: `${head}${k.intro}${k.intro && list ? "\n\n" : ""}${list}`.trim(),
+      audience: "all",
+      epistemic: "interpretive",
+      sources: [],
+    });
   }
   return { sections };
 }

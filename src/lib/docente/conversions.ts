@@ -11,13 +11,17 @@ export type Conversion = {
 };
 
 export const CONVERSIONS: Conversion[] = [
+  // From a research session
+  { id: "research_to_guide", from: ["research"], to: "guide", label: { es: "Convertir en guía", en: "Turn into a guide" }, instruction: "Convierte la investigación de origen en una guía de estudio: conserva sus distinciones, interpretaciones y referencias; no añadas autores ni afirmaciones que no estén en ella." },
+  { id: "concept_card", from: ["research"], to: "guide", label: { es: "Ficha conceptual", en: "Concept card" }, instruction: "Elabora una ficha conceptual breve (una página): definición, distinciones clave, variantes, supuestos, objeción principal y dos preguntas. Pocas secciones y muy precisas." },
+  { id: "bibliography_collection", from: ["research"], to: "guide", label: { es: "Colección bibliográfica", en: "Bibliography collection" }, instruction: "Organiza las referencias de la investigación de origen en una bibliografía comentada por tema. Usa solo referencias presentes en el origen; no añadas obras nuevas." },
   // From a guide (or class)
-  { id: "to_exam", from: ["guide", "class", "map"], to: "exam", label: { es: "Convertir en examen", en: "Turn into an exam" }, instruction: "Evalúa exactamente los conceptos, autores y argumentos del material de origen; no introduzcas contenidos que no estén en él." },
-  { id: "to_map", from: ["guide", "class"], to: "map", label: { es: "Generar mapa conceptual", en: "Generate concept map" }, instruction: "Construye el mapa con los conceptos, autores y relaciones presentes en el material de origen." },
-  { id: "to_class", from: ["guide", "exam"], to: "class", label: { es: "Crear planificación de clase", en: "Plan a class" }, instruction: "Planifica una clase que enseñe el contenido del material de origen." },
-  { id: "question_bank", from: ["guide", "map"], to: "exam", label: { es: "Extraer preguntas", en: "Extract questions" }, instruction: "Crea un banco amplio de preguntas abiertas de discusión y análisis a partir del material de origen. Sin opciones múltiples." },
-  { id: "debate", from: ["guide", "map"], to: "class", label: { es: "Crear debate", en: "Create a debate" }, instruction: "La clase completa es un debate estructurado: posiciones enfrentadas tomadas del material de origen, roles, turnos, preguntas de réplica y criterios de evaluación del debate." },
-  { id: "case_analysis", from: ["guide"], to: "guide", label: { es: "Generar análisis de caso", en: "Generate case analysis" }, instruction: "Transforma el material en un análisis de caso aplicado: presenta un caso concreto, identifica supuestos, argumentos en juego, perspectivas y preguntas guiadas." },
+  { id: "to_exam", from: ["guide", "class", "map", "research"], to: "exam", label: { es: "Convertir en examen", en: "Turn into an exam" }, instruction: "Evalúa exactamente los conceptos, autores y argumentos del material de origen; no introduzcas contenidos que no estén en él." },
+  { id: "to_map", from: ["guide", "class", "research"], to: "map", label: { es: "Generar mapa conceptual", en: "Generate concept map" }, instruction: "Construye el mapa con los conceptos, autores y relaciones presentes en el material de origen." },
+  { id: "to_class", from: ["guide", "exam", "research"], to: "class", label: { es: "Crear planificación de clase", en: "Plan a class" }, instruction: "Planifica una clase que enseñe el contenido del material de origen." },
+  { id: "question_bank", from: ["guide", "map", "research"], to: "exam", label: { es: "Extraer preguntas", en: "Extract questions" }, instruction: "Crea un banco amplio de preguntas abiertas de discusión y análisis a partir del material de origen. Sin opciones múltiples." },
+  { id: "debate", from: ["guide", "map", "research"], to: "class", label: { es: "Crear debate", en: "Create a debate" }, instruction: "La clase completa es un debate estructurado: posiciones enfrentadas tomadas del material de origen, roles, turnos, preguntas de réplica y criterios de evaluación del debate." },
+  { id: "case_analysis", from: ["guide", "research"], to: "guide", label: { es: "Generar análisis de caso", en: "Generate case analysis" }, instruction: "Transforma el material en un análisis de caso aplicado: presenta un caso concreto, identifica supuestos, argumentos en juego, perspectivas y preguntas guiadas." },
   { id: "summary", from: ["guide", "class"], to: "guide", label: { es: "Crear versión resumida", en: "Create a summary" }, instruction: "Genera una versión resumida y breve del material de origen: conserva solo las ideas centrales, definiciones clave y preguntas principales. Pocas secciones." },
   { id: "adapt_discipline", from: ["guide", "exam", "map"], to: "guide", label: { es: "Adaptar a otra disciplina", en: "Adapt to another discipline" }, instruction: "Adapta el material de origen a la carrera o disciplina indicada en el contexto, transformando problemas, ejemplos y marcos conceptuales." },
   // From a map
@@ -52,7 +56,8 @@ export function resolveConversion(id: string | null | undefined, sourceKind: Mat
   return c && c.from.includes(sourceKind) && c.to === targetKind ? c : null;
 }
 
-export const CREATE_ROUTE: Record<MaterialKind, "/docente/guias/nueva" | "/docente/examenes/nuevo" | "/docente/mapas/nuevo" | "/docente/clases/nueva"> = {
+export const CREATE_ROUTE: Record<MaterialKind, "/docente/guias/nueva" | "/docente/examenes/nuevo" | "/docente/mapas/nuevo" | "/docente/clases/nueva" | "/docente/investigar"> = {
+  research: "/docente/investigar",
   guide: "/docente/guias/nueva",
   exam: "/docente/examenes/nuevo",
   map: "/docente/mapas/nuevo",

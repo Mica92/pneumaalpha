@@ -4,10 +4,11 @@
  */
 
 export type Lang = "es" | "en";
-export type MaterialKind = "guide" | "exam" | "map" | "class";
-export const MATERIAL_KINDS: readonly MaterialKind[] = ["guide", "exam", "map", "class"] as const;
+export type MaterialKind = "guide" | "exam" | "map" | "class" | "research";
+export const MATERIAL_KINDS: readonly MaterialKind[] = ["research", "guide", "exam", "map", "class"] as const;
 
-export type SourceStatus = "pending" | "verified";
+/** "provided" = a document the teacher supplied (Source Desk); only the teacher can mark "verified". */
+export type SourceStatus = "pending" | "verified" | "provided";
 export type SourceRef = { id: string; text: string; status: SourceStatus };
 
 /** What kind of claim a section mostly makes (intellectual quality system). */

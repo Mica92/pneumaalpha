@@ -5,6 +5,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { DocenteShell, PageHeading } from "@/components/docente/shell";
 import { BaseConfigFields, Field, GenerationStatus, SourceNotice, inputCls, ConversionNotice } from "@/components/docente/config-fields";
 import { useSeededConfig, validateCreateSearch } from "@/components/docente/use-seeded-config";
+import { SourcesField, parseSourceIds } from "@/components/docente/sources-ui";
 import { GUIDE_SECTIONS, GUIDE_TEMPLATES } from "@/lib/docente/catalog";
 import { generateGuide } from "@/lib/docente/docente-ai.functions";
 import { errorText, useTr } from "@/lib/docente/use-docente";
@@ -33,6 +34,7 @@ function NewGuide() {
   const navigate = useNavigate();
   const qc = useQueryClient();
   const { config, setConfig, source } = useSeededConfig(search);
+  const [sourceIds, setSourceIds] = useState<string[]>(() => parseSourceIds(search.sources));
   const [templateId, setTemplateId] = useState("standard");
   const [sections, setSections] = useState<string[]>(GUIDE_TEMPLATES[1].sections);
   const [depth, setDepth] = useState<"introductory" | "intermediate" | "advanced">("intermediate");
@@ -51,7 +53,7 @@ function NewGuide() {
     setErr(null);
     try {
       const { id } = await generate({
-        data: { ...config, templateId, sectionKeys: sections, depth, fromMaterialId: search.from ?? null, conversion: search.conv ?? null },
+        data: { ...config, sourceIds, templateId, sectionKeys: sections, depth, fromMaterialId: search.from ?? null, conversion: search.conv ?? null },
       });
       await qc.invalidateQueries({ queryKey: ["docente-materials"] });
       await navigate({ to: "/docente/material/$id", params: { id } });
@@ -137,6 +139,7 @@ function NewGuide() {
         </Field>
 
         <div className="space-y-4">
+          <SourcesField value={sourceIds} onChange={setSourceIds} />
           <GenerationStatus busy={busy} error={err} onRetry={run} />
           <button type="submit" disabled={busy || !config.concept.trim() || sections.length === 0} className="btn-gold focus-mist px-5 py-2.5 text-small disabled:opacity-50">
             {busy ? tr("Generando…", "Generating…") : tr("Generar guía", "Generate guide")}

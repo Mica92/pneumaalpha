@@ -80,3 +80,14 @@
 - [x] Banco de preguntas: guardar desde exámenes, buscar/filtrar, revisar e insertar en otros exámenes
 - [ ] Curador académico y Class Studio 2.0 (no solicitados todavía)
 - [ ] Asignar dificultad/competencia con IA al guardar en el banco (hoy la indica el docente)
+
+# Kionas Docente (Fase 3 · Etapa A — Profundidad intelectual)
+- [ ] Auditoría de fases anteriores y restricción: sin funciones para estudiantes ni LMS
+- [ ] Research Desk: concepto/pregunta/autor/teoría/problema/texto/caso, 6 modalidades, 3 profundidades, guardado y conversión
+- [ ] Concept Intelligence: matriz conceptual (significado → aplicaciones) con distinción etimológico/filosófico/empírico
+- [ ] Source Desk: texto pegado, TXT, PDF, DOCX y DOI; fuentes privadas; integridad verificada/proporcionada/pendiente
+- [ ] Análisis de fuentes con caché (resumen, tesis, conceptos, argumentos, citas comprobadas con página, preguntas, vacíos) y comparación
+- [ ] Usar fuentes al crear guías, exámenes, mapas y clases
+- [ ] Argument Clinic: steelman, contrapunto, prueba de supuestos, inferencias débiles, reconstrucción, comparación
+- [ ] Pruebas de reglas y verificación en la vista previa
+- [ ] Etapas B–E (Case Studio, Curriculum Architect, Exam/Maps 3.0, Quality Assistant, Teaching Insights): pendientes

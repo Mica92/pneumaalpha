@@ -7,6 +7,8 @@ import { DocenteShell, SaveIndicator } from "@/components/docente/shell";
 import { DocEditor } from "@/components/docente/doc-editor";
 import { ExamEditor, issueText } from "@/components/docente/exam-editor";
 import { MapEditor } from "@/components/docente/map-editor";
+import { ConceptMatrixView } from "@/components/docente/concept-matrix";
+import { asResearch, type ResearchContent } from "@/lib/docente/research";
 import { DocMarkdown } from "@/components/docente/doc-markdown";
 import { inputCls } from "@/components/docente/config-fields";
 import {
@@ -89,6 +91,7 @@ function Workspace({ material }: { material: Material }) {
   const initialContent = useMemo<Record<string, unknown>>(() => {
     if (kind === "exam") return asExam(material.content);
     if (kind === "map") return asMap(material.content);
+    if (kind === "research") return asResearch(material.content);
     return asDoc(material.content);
   }, [kind, material.content]);
   const auto = useAutosave<Record<string, unknown>>(material.id, { title: material.title, content: initialContent });
@@ -118,7 +121,8 @@ function Workspace({ material }: { material: Material }) {
     level: material.level,
   };
   const exam = kind === "exam" ? (auto.content as unknown as ExamContent) : null;
-  const variants: Variant[] = kind === "map" ? ["teacher"] : ["teacher", "student"];
+  // Maps print once; research is teacher-only preparation and has no student version.
+  const variants: Variant[] = kind === "map" || kind === "research" ? ["teacher"] : ["teacher", "student"];
 
   async function run(label: string, fn: () => Promise<void>) {
     setBusy(label);
@@ -268,7 +272,7 @@ function Workspace({ material }: { material: Material }) {
                 onClick={() => setView(v)}
                 className={cn("focus-mist px-3 py-1.5 text-micro", view === v ? "bg-muted text-foreground" : "text-muted-foreground hover:text-foreground")}
               >
-                {v === "edit" ? tr("Editar", "Edit") : v === "teacher" ? (kind === "map" ? tr("Vista de impresión", "Print view") : tr("Versión docente", "Teacher version")) : tr("Versión estudiante", "Student version")}
+                {v === "edit" ? tr("Editar", "Edit") : v === "teacher" ? (kind === "map" || kind === "research" ? tr("Vista de impresión", "Print view") : tr("Versión docente", "Teacher version")) : tr("Versión estudiante", "Student version")}
               </button>
             ))}
           </div>
@@ -383,11 +387,23 @@ function Workspace({ material }: { material: Material }) {
               meta={{ concept: material.concept, discipline: material.discipline, language: material.language }}
             />
           ) : (
+            <>
+            {kind === "research" && (auto.content as unknown as ResearchContent).matrix && (
+              <ConceptMatrixView
+                matrix={(auto.content as unknown as ResearchContent).matrix!}
+                onChange={(m) => auto.setContent((p) => ({ ...p, matrix: m }))}
+                materialId={material.id}
+                discipline={material.discipline}
+                language={material.language}
+              />
+            )}
             <DocEditor
               content={auto.content as unknown as DocContent}
-              setContent={(u) => auto.setContent((p) => u(p as unknown as DocContent) as unknown as Record<string, unknown>)}
+              // Keep fields beyond the sections (e.g. the research matrix) when the editor updates them.
+              setContent={(u) => auto.setContent((p) => ({ ...p, ...(u(p as unknown as DocContent) as unknown as Record<string, unknown>) }))}
               meta={{ concept: material.concept, discipline: material.discipline, subject: material.subject, level: material.level, language: material.language, kind: kind === "class" ? "class" : "guide" }}
             />
+            </>
           )
         ) : (
           <PrintView kind={kind} md={materialToMarkdown(meta, auto.content, view)} map={kind === "map" ? (auto.content as unknown as MapContent) : null} language={material.language} variant={view} />

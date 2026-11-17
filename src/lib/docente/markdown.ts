@@ -9,6 +9,7 @@ import {
   type MaterialKind,
 } from "./model";
 import { NODE_KIND_LABELS, QUESTION_TYPE_LABELS, RELATION_LABELS } from "./catalog";
+import { asResearch, matrixToMarkdown } from "./research";
 
 export type Variant = "teacher" | "student";
 
@@ -67,7 +68,10 @@ export function materialToMarkdown(meta: PrintMeta, content: unknown, variant: V
     return out.join("\n\n");
   }
 
-  const doc = variant === "student" ? toStudentDoc(asDoc(content)) : asDoc(content);
+  // Research is teacher-only preparation: it never has a student version.
+  const research = meta.kind === "research" ? asResearch(content) : null;
+  const doc = research ? research : variant === "student" ? toStudentDoc(asDoc(content)) : asDoc(content);
+  if (research?.matrix) out.push(matrixToMarkdown(research.matrix, lang));
   for (const s of doc.sections) {
     const minutes = s.minutes ? ` (${s.minutes} min)` : "";
     out.push(`## ${s.title}${minutes}`);
@@ -77,7 +81,9 @@ export function materialToMarkdown(meta: PrintMeta, content: unknown, variant: V
         .map((r) =>
           variant === "teacher" && r.status === "pending"
             ? `- ${r.text} — *${L(lang, "pendiente de verificación", "pending verification")}*`
-            : `- ${r.text}`,
+            : variant === "teacher" && r.status === "provided"
+              ? `- ${r.text} — *${L(lang, "fuente proporcionada por el docente", "source provided by the teacher")}*`
+              : `- ${r.text}`,
         )
         .join("\n");
       out.push(`**${L(lang, "Fuentes", "Sources")}**\n\n${refs}`);

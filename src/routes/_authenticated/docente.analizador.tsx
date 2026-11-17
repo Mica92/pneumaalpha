@@ -5,10 +5,14 @@ import { useQueryClient } from "@tanstack/react-query";
 import { DocenteShell, PageHeading } from "@/components/docente/shell";
 import { Field, GenerationStatus, SourceNotice, inputCls } from "@/components/docente/config-fields";
 import { analyzeArgument } from "@/lib/docente/docente-ai.functions";
+import { argumentClinic } from "@/lib/docente/research-ai.functions";
 import { createMaterial } from "@/lib/docente/docente.functions";
 import {
   CLAIM_STATUSES,
   CLAIM_STATUS_LABELS,
+  CLINIC_INFO,
+  CLINIC_OPS,
+  type ClinicOp,
   DIMENSIONS,
   analysisToDoc,
   analysisToMap,
@@ -25,10 +29,10 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/_authenticated/docente/analizador")({
   head: () => ({
     meta: [
-      { title: "Analizador de argumentos — Kionas Docente" },
+      { title: "Argument Clinic — Kionas Docente" },
       { name: "description", content: "Analiza tesis, premisas, supuestos, objeciones y reconstrucciones de un razonamiento y conviértelos en guías, mapas o exámenes." },
-      { property: "og:title", content: "Analizador de argumentos — Kionas Docente" },
-      { property: "og:description", content: "Examina un razonamiento en diez dimensiones editables." },
+      { property: "og:title", content: "Argument Clinic — Kionas Docente" },
+      { property: "og:description", content: "Examina un razonamiento en diez dimensiones editables, con steelman, contrapunto, prueba de supuestos y comparación." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
@@ -136,8 +140,8 @@ function Analyzer() {
   return (
     <DocenteShell>
       <PageHeading
-        eyebrow="06 · Reasoning Analyzer"
-        title={tr("Analizador de argumentos", "Reasoning analyzer")}
+        eyebrow="Argument Clinic"
+        title={tr("Clínica de argumentos", "Argument clinic")}
         lead={tr(
           "Pega una afirmación, un razonamiento, un fragmento o un caso. Kionas propone un análisis en diez dimensiones que puedes corregir antes de usarlo.",
           "Paste a claim, an argument, a passage or a case. Kionas proposes a ten-dimension analysis you can correct before using it.",
@@ -284,6 +288,15 @@ function Analyzer() {
             ))}
           </ol>
 
+          <ClinicPanel
+            analysis={analysis}
+            setAnalysis={setAnalysis}
+            text={text}
+            concept={concept}
+            discipline={discipline}
+            language={language}
+          />
+
           <div className="sticky bottom-4 mt-8 rounded-md border border-border bg-background/95 p-4 backdrop-blur">
             <p className="mb-3 text-small text-muted-foreground">
               {tr("Usar este análisis (se guarda en tu biblioteca y queda vinculado):", "Use this analysis (saved to your library and linked):")}
@@ -321,5 +334,147 @@ function StatusDot({ status }: { status: ClaimStatus }) {
         status === "debatable" && "border border-muted-foreground",
       )}
     />
+  );
+}
+
+function ClinicPanel({
+  analysis,
+  setAnalysis,
+  text,
+  concept,
+  discipline,
+  language,
+}: {
+  analysis: ArgumentAnalysis;
+  setAnalysis: (a: ArgumentAnalysis) => void;
+  text: string;
+  concept: string;
+  discipline: string;
+  language: "es" | "en";
+}) {
+  const tr = useTr();
+  const { lang } = useI18n();
+  const clinic = useServerFn(argumentClinic);
+  const [op, setOp] = useState<ClinicOp>("steelman");
+  const premises = [...analysis.dimensions.explicit_premises, ...analysis.dimensions.implicit_premises].map((p) => p.text);
+  const [premise, setPremise] = useState(premises[0] ?? "");
+  const [change, setChange] = useState("");
+  const [otherText, setOtherText] = useState("");
+  const [busy, setBusy] = useState(false);
+  const [err, setErr] = useState<string | null>(null);
+  const results = analysis.clinic ?? [];
+  const ready = op === "assumption_test" ? premise.trim() && change.trim() : op === "compare" ? otherText.trim().length >= 10 : true;
+
+  async function run() {
+    setBusy(true);
+    setErr(null);
+    try {
+      const thesis = analysis.dimensions.thesis.map((t) => t.text).join(" ");
+      const r = await clinic({ data: { op, text, thesis, premise, change, otherText, concept, discipline, language } });
+      setAnalysis({ ...analysis, clinic: [r, ...results] });
+    } catch (e) {
+      setErr(errorText(e, lang));
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  return (
+    <section aria-labelledby="clinic" className="mt-12 rounded-lg border border-border bg-card/50 p-5">
+      <h2 id="clinic" className="font-serif text-2xl text-foreground">
+        {tr("Herramientas de la clínica", "Clinic tools")}
+      </h2>
+      <p className="mt-1 text-small text-muted-foreground">
+        {tr("Cada resultado se añade a este análisis y se incluye al guardarlo como guía.", "Each result is added to this analysis and included when you save it as a guide.")}
+      </p>
+      <div className="mt-4 flex flex-wrap gap-2" role="radiogroup" aria-label={tr("Herramienta", "Tool")}>
+        {CLINIC_OPS.map((o) => (
+          <button
+            key={o}
+            type="button"
+            role="radio"
+            aria-checked={op === o}
+            onClick={() => setOp(o)}
+            className={cn("focus-mist rounded-md border px-3 py-1.5 text-small", op === o ? "border-bronze bg-bronze/5 text-foreground" : "border-border text-muted-foreground hover:text-foreground")}
+          >
+            {CLINIC_INFO[o].label[lang]}
+          </button>
+        ))}
+      </div>
+      <p className="mt-3 text-small text-muted-foreground">{CLINIC_INFO[op].hint[lang]}</p>
+      {op === "assumption_test" && (
+        <div className="mt-4 grid gap-4 md:grid-cols-2">
+          <Field label={tr("Premisa que cambia", "Premise that changes")} htmlFor="cl-prem">
+            {premises.length > 0 ? (
+              <select id="cl-prem" className={inputCls} value={premise} onChange={(e) => setPremise(e.target.value)}>
+                {premises.map((p, i) => (
+                  <option key={i} value={p}>
+                    {p.length > 120 ? `${p.slice(0, 117)}…` : p}
+                  </option>
+                ))}
+              </select>
+            ) : (
+              <input id="cl-prem" className={inputCls} value={premise} maxLength={2000} onChange={(e) => setPremise(e.target.value)} />
+            )}
+          </Field>
+          <Field label={tr("¿Qué pasa si…?", "What if…?")} htmlFor="cl-change">
+            <input
+              id="cl-change"
+              className={inputCls}
+              maxLength={2000}
+              value={change}
+              placeholder={tr("Ej. la premisa solo vale para algunos casos", "E.g. the premise only holds in some cases")}
+              onChange={(e) => setChange(e.target.value)}
+            />
+          </Field>
+        </div>
+      )}
+      {op === "compare" && (
+        <Field label={tr("Segundo razonamiento (B)", "Second argument (B)")} htmlFor="cl-other" className="mt-4">
+          <textarea id="cl-other" className={cn(inputCls, "min-h-28 text-small")} maxLength={20000} value={otherText} onChange={(e) => setOtherText(e.target.value)} />
+        </Field>
+      )}
+      <div className="mt-4 flex flex-wrap items-center gap-3">
+        <button type="button" disabled={busy || !ready} onClick={run} className="btn-gold focus-mist px-4 py-2 text-small disabled:opacity-50">
+          {busy ? tr("Trabajando…", "Working…") : CLINIC_INFO[op].label[lang]}
+        </button>
+        {err && (
+          <p role="alert" className="text-small text-destructive">
+            {err}
+          </p>
+        )}
+      </div>
+
+      {results.length > 0 && (
+        <ol className="mt-6 space-y-4">
+          {results.map((r) => (
+            <li key={r.id} className="rounded-md border border-border px-4 py-3">
+              <div className="flex items-baseline gap-3">
+                <p className="label">{CLINIC_INFO[r.op].label[lang]}</p>
+                <p className="mr-auto font-serif text-lg text-foreground">{r.title}</p>
+                <button
+                  type="button"
+                  onClick={() => setAnalysis({ ...analysis, clinic: results.filter((x) => x.id !== r.id) })}
+                  className="focus-mist text-micro text-muted-foreground hover:text-destructive"
+                  aria-label={tr("Quitar resultado", "Remove result")}
+                >
+                  ✕
+                </button>
+              </div>
+              {r.input && <p className="mt-1 text-micro italic text-muted-foreground">{r.input}</p>}
+              {r.intro && <p className="mt-2 text-small text-foreground">{r.intro}</p>}
+              <ul className="mt-2 space-y-1.5">
+                {r.items.map((it, i) => (
+                  <li key={i} className="text-small">
+                    <span className="text-foreground">{it.text}</span>
+                    {it.detail && <span className="text-muted-foreground"> — {it.detail}</span>}
+                  </li>
+                ))}
+              </ul>
+            </li>
+          ))}
+        </ol>
+      )}
+    </section>
   );
 }
