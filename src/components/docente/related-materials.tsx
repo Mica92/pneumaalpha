@@ -2,7 +2,8 @@ import { Link } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
-import { listRelated, markSourceSynced, type Material, type MaterialSummary } from "@/lib/docente/docente.functions";
+import { listMaterials, listRelated, markSourceSynced, type Material, type MaterialSummary } from "@/lib/docente/docente.functions";
+import { sameConcept } from "@/lib/docente/insights";
 import { KIND_LABELS } from "@/lib/docente/catalog";
 import { getConversion, isSourceNewer } from "@/lib/docente/conversions";
 import { errorText, useTr } from "@/lib/docente/use-docente";
@@ -22,9 +23,16 @@ export function RelatedMaterials({ material }: { material: Material }) {
     queryKey: ["docente-related", material.id],
     queryFn: () => fetchRelated({ data: { id: material.id } }),
   });
+  const fetchList = useServerFn(listMaterials);
+  const all = useQuery({
+    queryKey: ["docente-materials"],
+    queryFn: () => fetchList({ data: { limit: 200 } }) as Promise<MaterialSummary[]>,
+    staleTime: 60_000,
+  });
   const source = q.data?.source ?? null;
   const derived = q.data?.derived ?? [];
-  if (!source && derived.length === 0) return null;
+  const siblings = sameConcept(material, all.data ?? [], [...(source ? [source.id] : []), ...derived.map((d) => d.id)]);
+  if (!source && derived.length === 0 && siblings.length === 0) return null;
   const outdated = source ? isSourceNewer(source.updated_at, material.source_synced_at) : false;
   const conv = getConversion(material.conversion);
 
@@ -78,6 +86,18 @@ export function RelatedMaterials({ material }: { material: Material }) {
           <p className="text-micro text-muted-foreground">{tr("Creados a partir de este", "Created from this")}</p>
           <ul>
             {derived.map((d) => (
+              <li key={d.id}>
+                <Row m={d} lang={lang} />
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+      {siblings.length > 0 && (
+        <div className="mt-2">
+          <p className="text-micro text-muted-foreground">{tr(`Otros materiales sobre «${material.concept}»`, `Other materials on “${material.concept}”`)}</p>
+          <ul>
+            {siblings.map((d) => (
               <li key={d.id}>
                 <Row m={d} lang={lang} />
               </li>

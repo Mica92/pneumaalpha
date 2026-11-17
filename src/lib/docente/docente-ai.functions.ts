@@ -753,7 +753,7 @@ Alternativas actuales: ${data.existing.filter(Boolean).join(" | ") || "(ninguna)
 export const reviewMaterialQuality = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((input: unknown) => z.object({ id: z.string().uuid(), objective: z.string().trim().max(1200).default("") }).parse(input))
-  .handler(async ({ data, context }): Promise<QualityReport> => {
+  .handler(async ({ data, context }): Promise<{ id: string; created_at: string; report: QualityReport; decisions: Record<string, string> }> => {
     await guard(context, "quality_review");
     const { data: row, error } = await context.supabase
       .from("teaching_materials")
@@ -779,15 +779,23 @@ ${dims}
 Reglas:
 - "status": "ok" (sin observaciones relevantes), "attention" (mejorable) o "problem" (error que conviene corregir antes de usar).
 - "summary": diagnóstico breve y concreto, citando la sección o pregunta afectada.
+- "excerpt": el fragmento exacto del material al que se refiere la observación (máx. 200 caracteres, copiado tal cual), o "" si es una observación general.
 - "suggestions": 0–4 mejoras accionables. No inventes errores: si algo está bien, dilo.
 - Un desacuerdo filosófico razonable no es un error. Señala autores o citas que parezcan dudosas como "a verificar", sin afirmar que son falsas.
 - No otorgues aprobación ni nota global.
-Devuelve JSON: {"overview": string, "findings": [{"dimension": string, "status": string, "summary": string, "suggestions": [string]}]}`;
+Devuelve JSON: {"overview": string, "findings": [{"dimension": string, "status": string, "excerpt": string, "summary": string, "suggestions": [string]}]}`;
     const prompt = `${data.objective ? `Objetivo declarado por el docente: ${data.objective}\n` : ""}Concepto: ${row.concept}
 <material>
 ${digest}
 </material>`;
     const report = normalizeQuality(await generateJson({ system, prompt, maxOutputTokens: 8000 }));
     if (report.findings.length === 0) throw new Error("BAD_AI_OUTPUT");
-    return report;
+    // Stored as review history (observations + the teacher's decisions); the material itself is never touched.
+    const { data: saved, error: e2 } = await context.supabase
+      .from("docente_quality_reviews")
+      .insert({ user_id: context.userId, material_id: data.id, report: report as never })
+      .select("id, created_at")
+      .single();
+    if (e2) throw e2;
+    return { id: saved.id as string, created_at: saved.created_at as string, report, decisions: {} };
   });

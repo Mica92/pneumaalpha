@@ -26,6 +26,9 @@ export type MaterialSummary = {
   conversion: string;
   source_synced_at: string | null;
   archived_at: string | null;
+  favorite: boolean;
+  tags: string[];
+  ready_at: string | null;
   created_at: string;
   updated_at: string;
 };
@@ -37,7 +40,7 @@ export type Material = MaterialSummary & {
 export type MaterialVersion = { id: string; title: string; note: string; created_at: string };
 
 const SUMMARY_COLS =
-  "id, kind, title, concept, discipline, subject, level, language, review_status, source_material_id, conversion, source_synced_at, archived_at, created_at, updated_at";
+  "id, kind, title, concept, discipline, subject, level, language, review_status, source_material_id, conversion, source_synced_at, archived_at, favorite, tags, ready_at, created_at, updated_at";
 
 /* ───────── Access ───────── */
 
@@ -224,7 +227,11 @@ export const updateMaterial = createServerFn({ method: "POST" })
       if (data[k] !== undefined) patch[k] = data[k];
     }
     if (data.content !== undefined) patch.content = data.content;
-    if (data.reviewStatus !== undefined) patch.review_status = data.reviewStatus;
+    if (data.reviewStatus !== undefined) {
+      patch.review_status = data.reviewStatus;
+      // "Ready" is the teacher's own declaration; Teaching Insights measures time up to it.
+      patch.ready_at = data.reviewStatus === "reviewed" ? new Date().toISOString() : null;
+    }
     const { data: rows, error } = await context.supabase
       .from("teaching_materials")
       .update(patch as never)

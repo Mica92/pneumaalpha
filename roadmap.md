@@ -90,7 +90,16 @@
 - [x] Usar fuentes al crear guías, exámenes, mapas y clases
 - [x] Argument Clinic: steelman, contrapunto, prueba de supuestos, inferencias débiles, reconstrucción, comparación
 - [x] Pruebas de reglas y verificación en la vista previa
-- [ ] Etapas B y E (Case Studio, Teaching Insights): esperan a que el docente las pida
+- [ ] Etapa B (Case Studio): espera a que el docente la pida
+
+# Kionas Docente (Fase 3 · Etapa E)
+- [x] Teaching Insights: materiales creados, reutilizados, listos, mapas, tiempo activo, mediana hasta «listo», costo estimado, referencias y observaciones pendientes
+- [x] Registro de tiempo activo por material (solo con actividad y pestaña visible; desactivable)
+- [x] Preferencias: encabezado institucional, plantillas, valores por defecto, valor hora y moneda
+- [x] Plantillas académica, editorial, seminario e institucional en vista de impresión, PDF y Word
+- [x] Biblioteca: favoritos, etiquetas, filtros y otros materiales sobre el mismo concepto
+- [x] Revisiones académicas guardadas con fragmento y estado de cada observación (pendiente, corregida, descartada)
+- [x] Pruebas y verificación en la vista previa
 
 # Kionas Docente (Fase 3 · Etapas C y D)
 - [x] Curriculum Architect: programa con fundamentación, resultados, unidades, cronograma, evaluación y bibliografía; conversión a clases, guías, exámenes y mapas

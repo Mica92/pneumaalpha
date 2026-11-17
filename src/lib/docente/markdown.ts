@@ -10,6 +10,7 @@ import {
 } from "./model";
 import { NODE_KIND_LABELS, QUESTION_TYPE_LABELS, RELATION_LABELS } from "./catalog";
 import { asResearch, matrixToMarkdown } from "./research";
+import { headerMarkdown, type PrintHeader } from "./insights";
 
 export type Variant = "teacher" | "student";
 
@@ -21,6 +22,8 @@ export type PrintMeta = {
   discipline?: string;
   subject?: string;
   level?: string;
+  /** Institutional header typed by the teacher in Preferences (template + optional fields). */
+  header?: PrintHeader;
 };
 
 const L = (lang: Lang, es: string, en: string) => (lang === "es" ? es : en);
@@ -32,6 +35,7 @@ export function materialToMarkdown(meta: PrintMeta, content: unknown, variant: V
   const metaLine = [meta.subject, meta.discipline, meta.level].filter(Boolean).join(" · ");
   if (meta.kind === "exam") return examToMarkdown(meta, asExam(content), variant);
 
+  out.push(...headerMarkdown(meta.header, lang));
   out.push(`# ${meta.title || L(lang, "Sin título", "Untitled")}`);
   if (metaLine) out.push(`*${metaLine}*`);
   if (variant === "teacher") out.push(`> ${L(lang, "Versión docente", "Teacher version")}`);
@@ -97,6 +101,7 @@ function examToMarkdown(meta: PrintMeta, exam: ExamContent, variant: Variant): s
   const e = variant === "student" ? toStudentExam(exam) : exam;
   const out: string[] = [];
   const v = e.variant === "B" ? ` — ${L(lang, "Forma B", "Form B")}` : "";
+  out.push(...headerMarkdown(meta.header, lang));
   out.push(`# ${meta.title || L(lang, "Examen", "Exam")}${v}`);
   const metaLine = [meta.subject, meta.discipline, meta.level].filter(Boolean).join(" · ");
   if (metaLine) out.push(`*${metaLine}*`);

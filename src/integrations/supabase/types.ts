@@ -187,6 +187,127 @@ export type Database = {
         }
         Relationships: []
       }
+      docente_preferences: {
+        Row: {
+          course: string
+          created_at: string
+          currency: string
+          default_discipline: string
+          default_language: string
+          default_level: string
+          faculty: string
+          hourly_rate: number | null
+          institution: string
+          show_header: boolean
+          teacher_name: string
+          template: string
+          track_time: boolean
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          course?: string
+          created_at?: string
+          currency?: string
+          default_discipline?: string
+          default_language?: string
+          default_level?: string
+          faculty?: string
+          hourly_rate?: number | null
+          institution?: string
+          show_header?: boolean
+          teacher_name?: string
+          template?: string
+          track_time?: boolean
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          course?: string
+          created_at?: string
+          currency?: string
+          default_discipline?: string
+          default_language?: string
+          default_level?: string
+          faculty?: string
+          hourly_rate?: number | null
+          institution?: string
+          show_header?: boolean
+          teacher_name?: string
+          template?: string
+          track_time?: boolean
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      docente_quality_reviews: {
+        Row: {
+          created_at: string
+          decisions: Json
+          id: string
+          material_id: string
+          report: Json
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          decisions?: Json
+          id?: string
+          material_id: string
+          report: Json
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          decisions?: Json
+          id?: string
+          material_id?: string
+          report?: Json
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "docente_quality_reviews_material_id_fkey"
+            columns: ["material_id"]
+            isOneToOne: false
+            referencedRelation: "teaching_materials"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      docente_work_log: {
+        Row: {
+          day: string
+          material_id: string
+          seconds: number
+          user_id: string
+        }
+        Insert: {
+          day?: string
+          material_id: string
+          seconds?: number
+          user_id: string
+        }
+        Update: {
+          day?: string
+          material_id?: string
+          seconds?: number
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "docente_work_log_material_id_fkey"
+            columns: ["material_id"]
+            isOneToOne: false
+            referencedRelation: "teaching_materials"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       editorial_comment_reports: {
         Row: {
           comment_id: string
@@ -852,14 +973,17 @@ export type Database = {
           conversion: string
           created_at: string
           discipline: string
+          favorite: boolean
           id: string
           kind: string
           language: string
           level: string
+          ready_at: string | null
           review_status: string
           source_material_id: string | null
           source_synced_at: string | null
           subject: string
+          tags: string[]
           title: string
           updated_at: string
           user_id: string
@@ -872,14 +996,17 @@ export type Database = {
           conversion?: string
           created_at?: string
           discipline?: string
+          favorite?: boolean
           id?: string
           kind: string
           language?: string
           level?: string
+          ready_at?: string | null
           review_status?: string
           source_material_id?: string | null
           source_synced_at?: string | null
           subject?: string
+          tags?: string[]
           title?: string
           updated_at?: string
           user_id: string
@@ -892,14 +1019,17 @@ export type Database = {
           conversion?: string
           created_at?: string
           discipline?: string
+          favorite?: boolean
           id?: string
           kind?: string
           language?: string
           level?: string
+          ready_at?: string | null
           review_status?: string
           source_material_id?: string | null
           source_synced_at?: string | null
           subject?: string
+          tags?: string[]
           title?: string
           updated_at?: string
           user_id?: string
@@ -1111,6 +1241,10 @@ export type Database = {
     }
     Functions: {
       lifetime_seats_taken: { Args: never; Returns: number }
+      log_docente_work: {
+        Args: { _material_id: string; _seconds: number }
+        Returns: undefined
+      }
       match_philosopher_sources: {
         Args: {
           match_count?: number

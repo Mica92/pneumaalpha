@@ -15,6 +15,8 @@ const LINKS = [
   { to: "/docente/analizador", es: "Argumentos", en: "Arguments" },
   { to: "/docente/biblioteca", es: "Biblioteca", en: "Library" },
   { to: "/docente/banco", es: "Banco", en: "Bank" },
+  { to: "/docente/insights", es: "Métricas", en: "Insights" },
+  { to: "/docente/preferencias", es: "Preferencias", en: "Preferences" },
 ] as const;
 
 export function DocenteShell({ children, wide = false }: { children: ReactNode; wide?: boolean }) {

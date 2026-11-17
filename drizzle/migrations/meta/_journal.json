@@ -50,6 +50,13 @@
       "when": 1794936753847,
       "tag": "0006_docente_curriculum_kind",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1794938085322,
+      "tag": "0007_docente_stage_e_insights",
+      "breakpoints": true
     }
   ]
 }

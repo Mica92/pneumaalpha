@@ -184,6 +184,7 @@ export const QUALITY_DIMENSIONS = [
   "plurality",
   "clarity",
   "alignment",
+  "editorial",
 ] as const;
 export type QualityDimension = (typeof QUALITY_DIMENSIONS)[number];
 export const QUALITY_LABELS: Record<QualityDimension, L & { instruction: string }> = {
@@ -194,11 +195,12 @@ export const QUALITY_LABELS: Record<QualityDimension, L & { instruction: string 
   sources: { es: "Fuentes y atribuciones", en: "Sources and attributions", instruction: "Atribuciones prudentes, sin citas inventadas; distingue hipótesis de evidencia." },
   plurality: { es: "Pluralidad de perspectivas", en: "Plurality of perspectives", instruction: "Presenta posiciones contrapuestas razonables sin sesgo." },
   clarity: { es: "Claridad y legibilidad", en: "Clarity", instruction: "Instrucciones y explicaciones comprensibles; estructura ordenada." },
-  alignment: { es: "Alineamiento pedagógico", en: "Pedagogical alignment", instruction: "Objetivos, actividades y evaluación coherentes entre sí." },
+  alignment: { es: "Alineamiento pedagógico y evaluativo", en: "Pedagogical and assessment alignment", instruction: "Objetivos, actividades, preguntas y rúbricas coherentes entre sí." },
+  editorial: { es: "Calidad editorial", en: "Editorial quality", instruction: "Redundancias, problemas de estructura y errores de estilo." },
 };
 
 export type QualityStatus = "ok" | "attention" | "problem";
-export type QualityFinding = { dimension: QualityDimension; status: QualityStatus; summary: string; suggestions: string[] };
+export type QualityFinding = { dimension: QualityDimension; status: QualityStatus; excerpt?: string; summary: string; suggestions: string[] };
 export type QualityReport = { overview: string; findings: QualityFinding[] };
 
 /** Keeps only known dimensions (once each, in canonical order) and valid statuses. Never yields an automatic "approved". */
@@ -217,6 +219,7 @@ export function normalizeQuality(raw: unknown): QualityReport {
     byDim.set(dim as QualityDimension, {
       dimension: dim as QualityDimension,
       status,
+      excerpt: typeof f.excerpt === "string" && f.excerpt.trim() ? f.excerpt.trim().slice(0, 240) : undefined,
       summary: typeof f.summary === "string" ? f.summary.trim().slice(0, 1200) : "",
       suggestions,
     });

@@ -27,6 +27,8 @@ import { CREATE_ROUTE, conversionsFor } from "@/lib/docente/conversions";
 import { RelatedMaterials } from "@/components/docente/related-materials";
 import { CollectionsPanel } from "@/components/docente/collections";
 import { CurriculumCheck, QualityPanel } from "@/components/docente/quality-panel";
+import { FavoriteButton, TagEditor, WorkTimeLabel, usePreferences, useWorkTimer } from "@/components/docente/stage-e";
+import { headerFromPreferences } from "@/lib/docente/insights";
 import { adaptMapToDiscipline } from "@/lib/docente/docente-ai.functions";
 import { setArchived } from "@/lib/docente/library.functions";
 import { materialToMarkdown, type Variant } from "@/lib/docente/markdown";
@@ -113,7 +115,10 @@ function Workspace({ material }: { material: Material }) {
   const del = useServerFn(deleteMaterial);
   const snap = useServerFn(saveVersion);
 
+  const { data: prefs } = usePreferences();
+  useWorkTimer(material.id, prefs ? prefs.track_time : false);
   const meta = {
+    header: headerFromPreferences(prefs),
     title: auto.title,
     kind,
     language: material.language,
@@ -250,7 +255,9 @@ function Workspace({ material }: { material: Material }) {
           </Link>
           <span className="label">{KIND_LABELS[kind][lang]}</span>
           {[material.discipline, material.subject, material.level].filter(Boolean).join(" · ")}
-          <span className="ml-auto">
+          <WorkTimeLabel materialId={material.id} />
+          <span className="ml-auto flex items-center gap-2">
+            <FavoriteButton id={material.id} initial={material.favorite} />
             <SaveIndicator state={auto.state} onRetry={auto.retry} />
           </span>
         </div>
@@ -263,6 +270,9 @@ function Workspace({ material }: { material: Material }) {
           className="focus-mist mt-3 w-full resize-none rounded bg-transparent font-serif text-title font-light text-foreground [field-sizing:content]"
         />
 
+        <div className="mt-2">
+          <TagEditor id={material.id} initial={material.tags ?? []} />
+        </div>
         <div className="mt-5 flex flex-wrap items-center gap-2 border-y border-border/60 py-3">
           <div className="flex overflow-hidden rounded border border-border" role="tablist" aria-label={tr("Vista", "View")}>
             {(["edit", ...variants] as View[]).map((v) => (

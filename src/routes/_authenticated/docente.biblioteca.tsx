@@ -14,14 +14,16 @@ import { errorText, useTr } from "@/lib/docente/use-docente";
 import { useI18n } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
-type LibSearch = { q?: string; kind?: MaterialKind; col?: string; archived?: boolean };
+type LibSearch = { q?: string; kind?: MaterialKind; col?: string; archived?: boolean; fav?: boolean; tag?: string };
 
 export const Route = createFileRoute("/_authenticated/docente/biblioteca")({
   validateSearch: (s: Record<string, unknown>): LibSearch => ({
     q: typeof s.q === "string" ? s.q.slice(0, 200) : undefined,
     kind: typeof s.kind === "string" && (MATERIAL_KINDS as readonly string[]).includes(s.kind) ? (s.kind as MaterialKind) : undefined,
     col: typeof s.col === "string" && /^[0-9a-f-]{36}$/i.test(s.col) ? s.col : undefined,
-    archived: s.archived === true || s.archived === "1" || s.archived === "true" ? true : undefined,
+    archived: s.archived === true || s.archived === 1 || s.archived === "1" || s.archived === "true" ? true : undefined,
+    fav: s.fav === true || s.fav === 1 || s.fav === "1" || s.fav === "true" ? true : undefined,
+    tag: typeof s.tag === "string" && s.tag.trim() ? s.tag.slice(0, 40) : undefined,
   }),
   head: () => ({
     meta: [
@@ -61,6 +63,11 @@ function Library() {
     queryFn: () => fetchList({ data: { limit: 200 } }) as Promise<MaterialSummary[]>,
   });
 
+  const allTags = useMemo(() => {
+    const count = new Map<string, number>();
+    for (const m of data ?? []) for (const t of m.tags ?? []) count.set(t, (count.get(t) ?? 0) + 1);
+    return [...count.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])).slice(0, 30);
+  }, [data]);
   const disciplines = useMemo(() => [...new Set((data ?? []).map((m) => m.discipline).filter(Boolean))].sort(), [data]);
   const items = useMemo(() => {
     const q = norm(search.q ?? "").trim();
@@ -70,13 +77,15 @@ function Library() {
         Boolean(m.archived_at) === Boolean(search.archived) &&
         (!inCol || inCol.has(m.id)) &&
         (!search.kind || m.kind === search.kind) &&
+        (!search.fav || m.favorite) &&
+        (!search.tag || (m.tags ?? []).includes(search.tag)) &&
         (!discipline || m.discipline === discipline) &&
-        (!q || norm([m.title, m.concept, m.discipline, m.subject].join(" ")).includes(q)),
+        (!q || norm([m.title, m.concept, m.discipline, m.subject, ...(m.tags ?? [])].join(" ")).includes(q)),
     );
     return [...list].sort((a, b) =>
       sort === "title" ? a.title.localeCompare(b.title) : sort === "created" ? b.created_at.localeCompare(a.created_at) : b.updated_at.localeCompare(a.updated_at),
     );
-  }, [data, search.q, search.kind, search.archived, activeCol, discipline, sort]);
+  }, [data, search.q, search.kind, search.archived, search.fav, search.tag, activeCol, discipline, sort]);
 
   async function act(fn: () => Promise<unknown>) {
     setErr(null);
@@ -129,6 +138,28 @@ function Library() {
             )}
           >
             {k ? KIND_LABELS[k][lang] : tr("Todo", "All")}
+          </button>
+        ))}
+      </div>
+
+      <div className="mt-4 flex flex-wrap items-center gap-1.5" role="group" aria-label={tr("Favoritos y etiquetas", "Favourites and tags")}>
+        <button
+          type="button"
+          aria-pressed={Boolean(search.fav)}
+          onClick={() => void navigate({ search: (s) => ({ ...s, fav: s.fav ? undefined : true }), replace: true })}
+          className={cn("focus-mist rounded-full border px-3 py-1 text-micro", search.fav ? "border-bronze text-foreground" : "border-border text-muted-foreground hover:text-foreground")}
+        >
+          ★ {tr("Favoritos", "Favourites")}
+        </button>
+        {allTags.map(([t, n]) => (
+          <button
+            key={t}
+            type="button"
+            aria-pressed={search.tag === t}
+            onClick={() => void navigate({ search: (s) => ({ ...s, tag: s.tag === t ? undefined : t }), replace: true })}
+            className={cn("focus-mist rounded-full border px-3 py-1 text-micro", search.tag === t ? "border-bronze text-foreground" : "border-border text-muted-foreground hover:text-foreground")}
+          >
+            #{t} <span className="tabular-nums opacity-70">{n}</span>
           </button>
         ))}
       </div>

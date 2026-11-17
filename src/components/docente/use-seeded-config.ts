@@ -4,6 +4,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { getMaterial, type Material } from "@/lib/docente/docente.functions";
 import { useI18n } from "@/lib/i18n";
 import { emptyConfig, type BaseConfig } from "./config-fields";
+import { usePreferences } from "./stage-e";
 
 export type CreateSearch = { concept?: string; from?: string; conv?: string; sources?: string };
 
@@ -40,5 +41,16 @@ export function useSeededConfig(search: CreateSearch) {
       objective: c.objective || objective,
     }));
   }, [source.data]);
+  // Teacher defaults (Preferences) fill only empty fields, and never when starting from a source material.
+  const { data: prefs } = usePreferences();
+  useEffect(() => {
+    if (!prefs || search.from) return;
+    setConfig((c) => ({
+      ...c,
+      discipline: c.discipline || prefs.default_discipline,
+      level: prefs.default_level || c.level,
+      language: prefs.default_language,
+    }));
+  }, [prefs, search.from]);
   return { config, setConfig, source: source.data ?? null, sourceLoading: source.isLoading && Boolean(search.from) };
 }

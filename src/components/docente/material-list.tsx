@@ -24,9 +24,11 @@ export function MaterialRow({ m, actions }: { m: MaterialSummary; actions?: Reac
           params={{ id: m.id }}
           className="focus-mist block truncate font-serif text-lg text-foreground hover:text-bronze-bright"
         >
+          {m.favorite && <span className="mr-1.5 text-bronze-bright" aria-label={lang === "es" ? "Favorito" : "Favourite"}>★</span>}
           {m.title || m.concept || (lang === "es" ? "Sin título" : "Untitled")}
         </Link>
         {meta && <p className="truncate text-micro text-muted-foreground">{meta}</p>}
+        {m.tags?.length > 0 && <p className="truncate text-micro text-muted-foreground">{m.tags.map((t) => `#${t}`).join(" ")}</p>}
         {m.source_material_id && (
           <p className="text-micro text-muted-foreground">{lang === "es" ? "↳ Derivado de otro material" : "↳ Derived from another material"}</p>
         )}

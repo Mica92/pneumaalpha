@@ -45,7 +45,9 @@ import { Route as AuthenticatedDocenteAdminRouteImport } from './routes/_authent
 import { Route as AuthenticatedDocenteAnalizadorRouteImport } from './routes/_authenticated/docente.analizador'
 import { Route as AuthenticatedDocenteBancoRouteImport } from './routes/_authenticated/docente.banco'
 import { Route as AuthenticatedDocenteBibliotecaRouteImport } from './routes/_authenticated/docente.biblioteca'
+import { Route as AuthenticatedDocenteInsightsRouteImport } from './routes/_authenticated/docente.insights'
 import { Route as AuthenticatedDocenteInvestigarRouteImport } from './routes/_authenticated/docente.investigar'
+import { Route as AuthenticatedDocentePreferenciasRouteImport } from './routes/_authenticated/docente.preferencias'
 import { Route as AuthenticatedFilosofosIndexRouteImport } from './routes/_authenticated/filosofos.index'
 import { Route as AuthenticatedFilosofosIdRouteImport } from './routes/_authenticated/filosofos.$id'
 import { Route as AuthenticatedIdeasIndexRouteImport } from './routes/_authenticated/ideas.index'
@@ -257,10 +259,22 @@ const AuthenticatedDocenteBibliotecaRoute =
     path: '/biblioteca',
     getParentRoute: () => AuthenticatedDocenteRoute,
   } as any)
+const AuthenticatedDocenteInsightsRoute =
+  AuthenticatedDocenteInsightsRouteImport.update({
+    id: '/insights',
+    path: '/insights',
+    getParentRoute: () => AuthenticatedDocenteRoute,
+  } as any)
 const AuthenticatedDocenteInvestigarRoute =
   AuthenticatedDocenteInvestigarRouteImport.update({
     id: '/investigar',
     path: '/investigar',
+    getParentRoute: () => AuthenticatedDocenteRoute,
+  } as any)
+const AuthenticatedDocentePreferenciasRoute =
+  AuthenticatedDocentePreferenciasRouteImport.update({
+    id: '/preferencias',
+    path: '/preferencias',
     getParentRoute: () => AuthenticatedDocenteRoute,
   } as any)
 const AuthenticatedFilosofosIndexRoute =
@@ -417,7 +431,9 @@ export interface FileRoutesByFullPath {
   '/docente/analizador': typeof AuthenticatedDocenteAnalizadorRoute
   '/docente/banco': typeof AuthenticatedDocenteBancoRoute
   '/docente/biblioteca': typeof AuthenticatedDocenteBibliotecaRoute
+  '/docente/insights': typeof AuthenticatedDocenteInsightsRoute
   '/docente/investigar': typeof AuthenticatedDocenteInvestigarRoute
+  '/docente/preferencias': typeof AuthenticatedDocentePreferenciasRoute
   '/filosofos/$id': typeof AuthenticatedFilosofosIdRoute
   '/ideas/$id': typeof AuthenticatedIdeasIdRoute
   '/rutas/$id': typeof AuthenticatedRutasIdRoute
@@ -474,7 +490,9 @@ export interface FileRoutesByTo {
   '/docente/analizador': typeof AuthenticatedDocenteAnalizadorRoute
   '/docente/banco': typeof AuthenticatedDocenteBancoRoute
   '/docente/biblioteca': typeof AuthenticatedDocenteBibliotecaRoute
+  '/docente/insights': typeof AuthenticatedDocenteInsightsRoute
   '/docente/investigar': typeof AuthenticatedDocenteInvestigarRoute
+  '/docente/preferencias': typeof AuthenticatedDocentePreferenciasRoute
   '/filosofos/$id': typeof AuthenticatedFilosofosIdRoute
   '/ideas/$id': typeof AuthenticatedIdeasIdRoute
   '/rutas/$id': typeof AuthenticatedRutasIdRoute
@@ -535,7 +553,9 @@ export interface FileRoutesById {
   '/_authenticated/docente/analizador': typeof AuthenticatedDocenteAnalizadorRoute
   '/_authenticated/docente/banco': typeof AuthenticatedDocenteBancoRoute
   '/_authenticated/docente/biblioteca': typeof AuthenticatedDocenteBibliotecaRoute
+  '/_authenticated/docente/insights': typeof AuthenticatedDocenteInsightsRoute
   '/_authenticated/docente/investigar': typeof AuthenticatedDocenteInvestigarRoute
+  '/_authenticated/docente/preferencias': typeof AuthenticatedDocentePreferenciasRoute
   '/_authenticated/filosofos/$id': typeof AuthenticatedFilosofosIdRoute
   '/_authenticated/ideas/$id': typeof AuthenticatedIdeasIdRoute
   '/_authenticated/rutas/$id': typeof AuthenticatedRutasIdRoute
@@ -596,7 +616,9 @@ export interface FileRouteTypes {
     | '/docente/analizador'
     | '/docente/banco'
     | '/docente/biblioteca'
+    | '/docente/insights'
     | '/docente/investigar'
+    | '/docente/preferencias'
     | '/filosofos/$id'
     | '/ideas/$id'
     | '/rutas/$id'
@@ -653,7 +675,9 @@ export interface FileRouteTypes {
     | '/docente/analizador'
     | '/docente/banco'
     | '/docente/biblioteca'
+    | '/docente/insights'
     | '/docente/investigar'
+    | '/docente/preferencias'
     | '/filosofos/$id'
     | '/ideas/$id'
     | '/rutas/$id'
@@ -713,7 +737,9 @@ export interface FileRouteTypes {
     | '/_authenticated/docente/analizador'
     | '/_authenticated/docente/banco'
     | '/_authenticated/docente/biblioteca'
+    | '/_authenticated/docente/insights'
     | '/_authenticated/docente/investigar'
+    | '/_authenticated/docente/preferencias'
     | '/_authenticated/filosofos/$id'
     | '/_authenticated/ideas/$id'
     | '/_authenticated/rutas/$id'
@@ -1009,11 +1035,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDocenteBibliotecaRouteImport
       parentRoute: typeof AuthenticatedDocenteRoute
     }
+    '/_authenticated/docente/insights': {
+      id: '/_authenticated/docente/insights'
+      path: '/insights'
+      fullPath: '/docente/insights'
+      preLoaderRoute: typeof AuthenticatedDocenteInsightsRouteImport
+      parentRoute: typeof AuthenticatedDocenteRoute
+    }
     '/_authenticated/docente/investigar': {
       id: '/_authenticated/docente/investigar'
       path: '/investigar'
       fullPath: '/docente/investigar'
       preLoaderRoute: typeof AuthenticatedDocenteInvestigarRouteImport
+      parentRoute: typeof AuthenticatedDocenteRoute
+    }
+    '/_authenticated/docente/preferencias': {
+      id: '/_authenticated/docente/preferencias'
+      path: '/preferencias'
+      fullPath: '/docente/preferencias'
+      preLoaderRoute: typeof AuthenticatedDocentePreferenciasRouteImport
       parentRoute: typeof AuthenticatedDocenteRoute
     }
     '/_authenticated/filosofos/': {
@@ -1186,7 +1226,9 @@ interface AuthenticatedDocenteRouteChildren {
   AuthenticatedDocenteAnalizadorRoute: typeof AuthenticatedDocenteAnalizadorRoute
   AuthenticatedDocenteBancoRoute: typeof AuthenticatedDocenteBancoRoute
   AuthenticatedDocenteBibliotecaRoute: typeof AuthenticatedDocenteBibliotecaRoute
+  AuthenticatedDocenteInsightsRoute: typeof AuthenticatedDocenteInsightsRoute
   AuthenticatedDocenteInvestigarRoute: typeof AuthenticatedDocenteInvestigarRoute
+  AuthenticatedDocentePreferenciasRoute: typeof AuthenticatedDocentePreferenciasRoute
   AuthenticatedDocenteIndexRoute: typeof AuthenticatedDocenteIndexRoute
   AuthenticatedDocenteClasesNuevaRoute: typeof AuthenticatedDocenteClasesNuevaRoute
   AuthenticatedDocenteExamenesNuevoRoute: typeof AuthenticatedDocenteExamenesNuevoRoute
@@ -1203,7 +1245,9 @@ const AuthenticatedDocenteRouteChildren: AuthenticatedDocenteRouteChildren = {
   AuthenticatedDocenteAnalizadorRoute: AuthenticatedDocenteAnalizadorRoute,
   AuthenticatedDocenteBancoRoute: AuthenticatedDocenteBancoRoute,
   AuthenticatedDocenteBibliotecaRoute: AuthenticatedDocenteBibliotecaRoute,
+  AuthenticatedDocenteInsightsRoute: AuthenticatedDocenteInsightsRoute,
   AuthenticatedDocenteInvestigarRoute: AuthenticatedDocenteInvestigarRoute,
+  AuthenticatedDocentePreferenciasRoute: AuthenticatedDocentePreferenciasRoute,
   AuthenticatedDocenteIndexRoute: AuthenticatedDocenteIndexRoute,
   AuthenticatedDocenteClasesNuevaRoute: AuthenticatedDocenteClasesNuevaRoute,
   AuthenticatedDocenteExamenesNuevoRoute:
