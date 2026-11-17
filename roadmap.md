@@ -82,12 +82,12 @@
 - [ ] Asignar dificultad/competencia con IA al guardar en el banco (hoy la indica el docente)
 
 # Kionas Docente (Fase 3 · Etapa A — Profundidad intelectual)
-- [ ] Auditoría de fases anteriores y restricción: sin funciones para estudiantes ni LMS
-- [ ] Research Desk: concepto/pregunta/autor/teoría/problema/texto/caso, 6 modalidades, 3 profundidades, guardado y conversión
-- [ ] Concept Intelligence: matriz conceptual (significado → aplicaciones) con distinción etimológico/filosófico/empírico
-- [ ] Source Desk: texto pegado, TXT, PDF, DOCX y DOI; fuentes privadas; integridad verificada/proporcionada/pendiente
-- [ ] Análisis de fuentes con caché (resumen, tesis, conceptos, argumentos, citas comprobadas con página, preguntas, vacíos) y comparación
-- [ ] Usar fuentes al crear guías, exámenes, mapas y clases
-- [ ] Argument Clinic: steelman, contrapunto, prueba de supuestos, inferencias débiles, reconstrucción, comparación
-- [ ] Pruebas de reglas y verificación en la vista previa
-- [ ] Etapas B–E (Case Studio, Curriculum Architect, Exam/Maps 3.0, Quality Assistant, Teaching Insights): pendientes
+- [x] Auditoría de fases anteriores y restricción: sin funciones para estudiantes ni LMS
+- [x] Research Desk: concepto/pregunta/autor/teoría/problema/texto/caso, 6 modalidades, 3 profundidades, guardado y conversión
+- [x] Concept Intelligence: matriz conceptual (significado → aplicaciones) con distinción etimológico/filosófico/empírico
+- [x] Source Desk: texto pegado, TXT, PDF, DOCX y DOI; fuentes privadas; integridad verificada/proporcionada/pendiente
+- [x] Análisis de fuentes con caché (resumen, tesis, conceptos, argumentos, citas comprobadas con página, preguntas, vacíos) y comparación
+- [x] Usar fuentes al crear guías, exámenes, mapas y clases
+- [x] Argument Clinic: steelman, contrapunto, prueba de supuestos, inferencias débiles, reconstrucción, comparación
+- [x] Pruebas de reglas y verificación en la vista previa
+- [ ] Etapas B–E (Case Studio, Curriculum Architect, Exam/Maps 3.0, Quality Assistant, Teaching Insights): esperan a que el docente pida la siguiente etapa

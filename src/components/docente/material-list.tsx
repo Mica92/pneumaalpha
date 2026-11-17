@@ -17,7 +17,7 @@ export function MaterialRow({ m, actions }: { m: MaterialSummary; actions?: Reac
   const meta = [m.discipline, m.subject, m.level].filter(Boolean).join(" · ");
   return (
     <li className="flex flex-wrap items-center gap-x-4 gap-y-1 border-b border-border/50 py-3 last:border-b-0">
-      <span className="label w-16 shrink-0">{KIND_LABELS[m.kind][lang]}</span>
+      <span className="label w-24 shrink-0">{KIND_LABELS[m.kind][lang]}</span>
       <div className="min-w-0 flex-1">
         <Link
           to="/docente/material/$id"

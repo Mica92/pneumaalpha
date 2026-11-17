@@ -20,3 +20,7 @@
 - The Docente reasoning analyzer returns an unsaved proposal (`analyzeArgument`); conversion to guide/map lives in client-safe `src/lib/docente/analysis.ts`, and the teacher's unsaved draft stays only in that browser's localStorage, so nothing is stored until the teacher chooses an output.
 - Docente collections, archive and question bank live in `library.functions.ts` (owner-filtered, `assertTeacher` on every call); bank entries keep the full teacher key and reach exams only through `questionFromBank` + `toStudentExam`, so reuse never leaks answers.
 - Map rules (argument layout, edge logic, collapse, search, free-spot placement) live in client-safe `model.ts`; base maps in `base-maps.ts` are editorial drafts whose authors must stay registered thinkers (tested), and discipline focus always creates a new linked map instead of editing the source.
+- Research Desk saves research as `teaching_materials` kind `research` (teacher-only print, no student version), with the concept matrix rules in client-safe `research.ts`, so library, versions, links and conversions work unchanged.
+- Source Desk documents live in owner-only `academic_sources` (text extracted in the browser via `extract.ts`, never raw files); quotation pages and "provided" citations come only from `sources.ts` helpers, and "verified" needs an explicit teacher declaration, so AI can never invent pages or verify sources.
+- Kionas Docente is strictly teacher-only: add no student accounts, delivery, submissions, grading or LMS features; "student version" means a printable file only.
+

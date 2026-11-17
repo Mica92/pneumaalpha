@@ -93,7 +93,7 @@ function Row({ m, lang }: { m: MaterialSummary; lang: "es" | "en" }) {
   const conv = getConversion(m.conversion);
   return (
     <p className="flex flex-wrap items-baseline gap-x-3 py-0.5 text-small">
-      <span className="label w-16 shrink-0">{KIND_LABELS[m.kind][lang]}</span>
+      <span className="label w-24 shrink-0">{KIND_LABELS[m.kind][lang]}</span>
       <Link to="/docente/material/$id" params={{ id: m.id }} className="focus-mist font-serif text-base text-foreground hover:text-bronze-bright">
         {m.title || m.concept}
       </Link>
