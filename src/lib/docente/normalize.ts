@@ -1,3 +1,4 @@
+import { asCognitive } from "./planning";
 import { z } from "zod";
 import {
   EPISTEMIC_KINDS,
@@ -60,6 +61,7 @@ export const QuestionOut = z.object({
   answerGuide: str(6000).catch(""),
   rubric: z.array(RubricOut).catch([]),
   teacherNotes: str(3000).catch(""),
+  cognitive: z.string().optional().catch(undefined),
 });
 export const ExamOut = z.object({
   title: str(240).catch(""),
@@ -85,6 +87,7 @@ export function toQuestion(q: z.infer<typeof QuestionOut>): ExamQuestion {
       .filter((c) => c.criterion.trim())
       .map((c) => ({ id: uid("c"), criterion: c.criterion.trim(), descriptor: c.descriptor.trim(), points: Math.max(0, Math.round(c.points)) })),
     teacherNotes: q.teacherNotes.trim(),
+    cognitive: asCognitive(q.cognitive),
   };
 }
 

@@ -12,6 +12,7 @@ import { uid, type MapContent } from "@/lib/docente/model";
 import { BASE_MAPS, buildBaseMap, type BaseMap } from "@/lib/docente/base-maps";
 import { errorText, useTr } from "@/lib/docente/use-docente";
 import { useI18n } from "@/lib/i18n";
+import { MAP_MODALITIES, MAP_MODALITY_INFO, type MapModality } from "@/lib/docente/planning";
 
 export const Route = createFileRoute("/_authenticated/docente/mapas/nuevo")({
   validateSearch: validateCreateSearch,
@@ -37,6 +38,7 @@ function NewMap() {
   const { config, setConfig, source } = useSeededConfig(search);
   const [sourceIds, setSourceIds] = useState<string[]>(() => parseSourceIds(search.sources));
   const [size, setSize] = useState<"compact" | "full">("full");
+  const [modality, setModality] = useState<MapModality>("concept");
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<string | null>(null);
   const generate = useServerFn(generateMap);
@@ -52,7 +54,7 @@ function NewMap() {
     setBusy(true);
     setErr(null);
     try {
-      const { id } = await generate({ data: { ...config, sourceIds, size, fromMaterialId: search.from ?? null, conversion: search.conv ?? null } });
+      const { id } = await generate({ data: { ...config, sourceIds, size, modality, fromMaterialId: search.from ?? null, conversion: search.conv ?? null } });
       await open(id);
     } catch (e) {
       setErr(errorText(e, lang));
@@ -151,12 +153,21 @@ function NewMap() {
         className="space-y-10"
       >
         <BaseConfigFields value={config} onChange={setConfig} showDuration={false} showObjective={false} />
-        <Field label={tr("Extensión", "Size")} htmlFor="mp-size" className="max-w-xs">
+        <div className="grid gap-5 md:grid-cols-2">
+        <Field label={tr("Modalidad del mapa", "Map modality")} htmlFor="mp-mod" hint={MAP_MODALITY_INFO[modality].instruction.split(":")[0]}>
+          <select id="mp-mod" className={inputCls} value={modality} onChange={(e) => setModality(e.target.value as MapModality)}>
+            {MAP_MODALITIES.map((m) => (
+              <option key={m} value={m}>{MAP_MODALITY_INFO[m][lang]}</option>
+            ))}
+          </select>
+        </Field>
+        <Field label={tr("Extensión", "Size")} htmlFor="mp-size">
           <select id="mp-size" className={inputCls} value={size} onChange={(e) => setSize(e.target.value as typeof size)}>
             <option value="compact">{tr("Compacto (8–12 nodos)", "Compact (8–12 nodes)")}</option>
             <option value="full">{tr("Completo (14–22 nodos)", "Full (14–22 nodes)")}</option>
           </select>
         </Field>
+        </div>
         <div className="space-y-4">
           <SourcesField value={sourceIds} onChange={setSourceIds} />
           <GenerationStatus busy={busy} error={err} onRetry={run} />

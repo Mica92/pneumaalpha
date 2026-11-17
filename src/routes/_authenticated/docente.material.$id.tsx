@@ -26,6 +26,7 @@ import { KIND_LABELS } from "@/lib/docente/catalog";
 import { CREATE_ROUTE, conversionsFor } from "@/lib/docente/conversions";
 import { RelatedMaterials } from "@/components/docente/related-materials";
 import { CollectionsPanel } from "@/components/docente/collections";
+import { CurriculumCheck, QualityPanel } from "@/components/docente/quality-panel";
 import { adaptMapToDiscipline } from "@/lib/docente/docente-ai.functions";
 import { setArchived } from "@/lib/docente/library.functions";
 import { materialToMarkdown, type Variant } from "@/lib/docente/markdown";
@@ -103,6 +104,7 @@ function Workspace({ material }: { material: Material }) {
   const [showVersions, setShowVersions] = useState(false);
   const [projecting, setProjecting] = useState(false);
   const [showCollections, setShowCollections] = useState(false);
+  const [showQuality, setShowQuality] = useState(false);
   const [archivedAt, setArchivedAt] = useState(material.archived_at);
   const archive = useServerFn(setArchived);
   const adapt = useServerFn(adaptMapToDiscipline);
@@ -311,6 +313,9 @@ function Workspace({ material }: { material: Material }) {
           <button type="button" onClick={toggleReview} disabled={busy === "review"} className={btn} aria-pressed={review === "reviewed"}>
             {review === "reviewed" ? tr("✓ Revisado por mí", "✓ Reviewed by me") : tr("Marcar como revisado", "Mark as reviewed")}
           </button>
+          <button type="button" onClick={() => setShowQuality((v) => !v)} className={btn} aria-expanded={showQuality}>
+            {tr("Revisión académica", "Academic review")}
+          </button>
           {kind === "class" && (
             <button type="button" onClick={() => setProjecting(true)} className={btn}>
               {tr("Proyectar", "Project")}
@@ -358,6 +363,7 @@ function Workspace({ material }: { material: Material }) {
           </p>
         )}
         {showCollections && <CollectionsPanel materialId={material.id} />}
+        {showQuality && <QualityPanel materialId={material.id} onClose={() => setShowQuality(false)} beforeReview={auto.flush} />}
         {showVersions && (
           <VersionsPanel
             materialId={material.id}
@@ -397,6 +403,7 @@ function Workspace({ material }: { material: Material }) {
                 language={material.language}
               />
             )}
+            {kind === "curriculum" && <CurriculumCheck content={auto.content as unknown as DocContent} />}
             <DocEditor
               content={auto.content as unknown as DocContent}
               // Keep fields beyond the sections (e.g. the research matrix) when the editor updates them.

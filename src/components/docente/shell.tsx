@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 const LINKS = [
   { to: "/docente", es: "Panel", en: "Desk", exact: true },
   { to: "/docente/investigar", es: "Investigar", en: "Research", also: "/docente/fuentes" },
+  { to: "/docente/programas/nuevo", es: "Programas", en: "Syllabi" },
   { to: "/docente/guias/nueva", es: "Guías", en: "Guides" },
   { to: "/docente/examenes/nuevo", es: "Exámenes", en: "Exams" },
   { to: "/docente/mapas/nuevo", es: "Mapas", en: "Maps" },

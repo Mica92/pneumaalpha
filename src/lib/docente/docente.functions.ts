@@ -5,7 +5,7 @@ import { assertTeacher, readAccess, type AccessState } from "./access";
 import type { MaterialKind } from "./model";
 import type { Json } from "@/integrations/supabase/types";
 
-const KIND = z.enum(["guide", "exam", "map", "class", "research"]);
+const KIND = z.enum(["guide", "exam", "map", "class", "research", "curriculum"]);
 /** Upper bound for a stored document so one material can't grow without limit. */
 const MAX_CONTENT_CHARS = 600_000;
 const ContentSchema = z

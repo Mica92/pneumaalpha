@@ -316,6 +316,7 @@ export const RELATION_LABELS: Record<Relation, L> = {
 
 export const KIND_LABELS: Record<MaterialKind, L> = {
   research: { es: "Investigación", en: "Research" },
+  curriculum: { es: "Programa", en: "Syllabus" },
   guide: { es: "Guía", en: "Guide" },
   exam: { es: "Examen", en: "Exam" },
   map: { es: "Mapa", en: "Map" },

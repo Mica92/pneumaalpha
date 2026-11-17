@@ -9,6 +9,7 @@ import { SourcesField, parseSourceIds } from "@/components/docente/sources-ui";
 import { generateClass } from "@/lib/docente/docente-ai.functions";
 import { errorText, useTr } from "@/lib/docente/use-docente";
 import { useI18n } from "@/lib/i18n";
+import { CLASS_FORMATS, CLASS_FORMAT_LABELS, type ClassFormat } from "@/lib/docente/planning";
 
 export const Route = createFileRoute("/_authenticated/docente/clases/nueva")({
   validateSearch: validateCreateSearch,
@@ -36,6 +37,10 @@ function NewClass() {
   const [modality, setModality] = useState<"in_person" | "online" | "hybrid">("in_person");
   const [students, setStudents] = useState(30);
   const [resources, setResources] = useState("");
+  const [format, setFormat] = useState<ClassFormat>(search.conv === "debate" ? "debate" : "lecture");
+  const [sessions, setSessions] = useState(search.conv === "curriculum_sequence" ? 4 : 1);
+  const [teacherScript, setTeacherScript] = useState(true);
+  const [priorKnowledge, setPriorKnowledge] = useState("");
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<string | null>(null);
   const generate = useServerFn(generateClass);
@@ -45,7 +50,7 @@ function NewClass() {
     setBusy(true);
     setErr(null);
     try {
-      const { id } = await generate({ data: { ...config, sourceIds, modality, students, resources, fromMaterialId: search.from ?? null, conversion: search.conv ?? null } });
+      const { id } = await generate({ data: { ...config, sourceIds, modality, students, resources, format, sessions, teacherScript, priorKnowledge, fromMaterialId: search.from ?? null, conversion: search.conv ?? null } });
       await qc.invalidateQueries({ queryKey: ["docente-materials"] });
       await navigate({ to: "/docente/material/$id", params: { id } });
     } catch (e) {
@@ -60,8 +65,8 @@ function NewClass() {
         eyebrow="05 · Class Studio"
         title={tr("Planificar una clase", "Plan a class")}
         lead={tr(
-          "Kionas propone apertura, desarrollo, confrontación, aplicación y cierre. Podrás editar cada fase y proyectarla.",
-          "Kionas proposes opening, development, confrontation, application and closing. You can edit each phase and project it.",
+          "Kionas propone una clase o una secuencia de clases con preguntas detonantes, actividades, minutos y un guion docente privado. Podrás editar cada fase y proyectarla.",
+          "Kionas proposes a class or a sequence of classes with opening questions, activities, timings and a private teacher script. You can edit each phase and project it.",
         )}
       />
       {(source || search.conv) && (
@@ -90,6 +95,25 @@ function NewClass() {
           </Field>
           <Field label={tr("Recursos disponibles", "Available resources")} htmlFor="cl-r">
             <input id="cl-r" className={inputCls} maxLength={600} value={resources} onChange={(e) => setResources(e.target.value)} placeholder={tr("Ej. proyector, pizarra", "E.g. projector, whiteboard")} />
+          </Field>
+        </div>
+        <div className="grid gap-5 md:grid-cols-3">
+          <Field label={tr("Formato de clase", "Class format")} htmlFor="cl-fmt">
+            <select id="cl-fmt" className={inputCls} value={format} onChange={(e) => setFormat(e.target.value as ClassFormat)}>
+              {CLASS_FORMATS.map((f) => (
+                <option key={f} value={f}>{CLASS_FORMAT_LABELS[f][lang]}</option>
+              ))}
+            </select>
+          </Field>
+          <Field label={tr("Número de sesiones", "Number of sessions")} htmlFor="cl-ses" hint={tr("Más de una crea una secuencia de clases.", "More than one creates a class sequence.")}>
+            <input id="cl-ses" type="number" min={1} max={8} className={inputCls} value={sessions} onChange={(e) => setSessions(Math.max(1, Math.min(8, Number(e.target.value) || 1)))} />
+          </Field>
+          <label className="flex items-end gap-2 pb-2 text-small text-foreground">
+            <input type="checkbox" checked={teacherScript} onChange={(e) => setTeacherScript(e.target.checked)} />
+            {tr("Incluir guion docente (solo para ti)", "Include teacher script (only for you)")}
+          </label>
+          <Field label={tr("Conocimientos previos de los estudiantes", "Students' prior knowledge")} htmlFor="cl-prev" className="md:col-span-3">
+            <input id="cl-prev" className={inputCls} maxLength={800} value={priorKnowledge} onChange={(e) => setPriorKnowledge(e.target.value)} placeholder={tr("Opcional. Ej. ya leyeron la Apología", "Optional. E.g. they already read the Apology")} />
           </Field>
         </div>
         <div className="space-y-4">

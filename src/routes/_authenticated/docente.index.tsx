@@ -112,11 +112,13 @@ function DocenteHome() {
       </section>
 
       {data && data.length > 0 && (
-        <div className="mt-12 grid gap-10 md:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-12 grid gap-10 md:grid-cols-2 lg:grid-cols-3">
           <KindColumn title={tr("Investigaciones guardadas", "Saved research")} items={byKind("research")} kind="research" />
           <KindColumn title={tr("Guías guardadas", "Saved guides")} items={byKind("guide")} kind="guide" />
           <KindColumn title={tr("Mapas en desarrollo", "Maps in progress")} items={byKind("map")} kind="map" />
           <KindColumn title={tr("Exámenes creados", "Exams created")} items={byKind("exam")} kind="exam" />
+          <KindColumn title={tr("Programas de asignatura", "Syllabi")} items={byKind("curriculum")} kind="curriculum" />
+          <KindColumn title={tr("Clases planificadas", "Planned classes")} items={byKind("class")} kind="class" />
         </div>
       )}
 

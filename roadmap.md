@@ -90,4 +90,12 @@
 - [x] Usar fuentes al crear guías, exámenes, mapas y clases
 - [x] Argument Clinic: steelman, contrapunto, prueba de supuestos, inferencias débiles, reconstrucción, comparación
 - [x] Pruebas de reglas y verificación en la vista previa
-- [ ] Etapas B–E (Case Studio, Curriculum Architect, Exam/Maps 3.0, Quality Assistant, Teaching Insights): esperan a que el docente pida la siguiente etapa
+- [ ] Etapas B y E (Case Studio, Teaching Insights): esperan a que el docente las pida
+
+# Kionas Docente (Fase 3 · Etapas C y D)
+- [x] Curriculum Architect: programa con fundamentación, resultados, unidades, cronograma, evaluación y bibliografía; conversión a clases, guías, exámenes y mapas
+- [x] Class Studio 3.0: formatos de clase, secuencias de varias sesiones, guion docente privado y conocimientos previos
+- [x] Exam Studio 3.0: nivel cognitivo por pregunta, matriz de especificaciones, aviso de equilibrio cognitivo y distractores plausibles
+- [x] Maps 3.0: genealogía, debate, tensión entre principios, problema e interdisciplinario
+- [x] Revisión académica de cualquier material (sugerencias sin guardar ni aprobar)
+- [x] Pruebas y verificación en la vista previa (programa y revisión generados; matriz probada)

@@ -43,6 +43,13 @@
       "when": 1794928728577,
       "tag": "0005_docente_research_sources",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1794936753847,
+      "tag": "0006_docente_curriculum_kind",
+      "breakpoints": true
     }
   ]
 }

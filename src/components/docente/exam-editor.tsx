@@ -24,6 +24,8 @@ import { DocMarkdown } from "./doc-markdown";
 import { MdTextarea } from "./md-textarea";
 import { Field, inputCls } from "./config-fields";
 import { BankPicker, SaveToBankDialog } from "./question-bank";
+import { DistractorHelper, SpecMatrixPanel } from "./exam-spec";
+import { COGNITIVE_LEVELS, COGNITIVE_LABELS, asCognitive } from "@/lib/docente/planning";
 
 export type ExamMeta = { concept: string; discipline: string; subject: string; level: string; language: "es" | "en" };
 
@@ -40,6 +42,8 @@ export function issueText(i: AuditIssue, lang: "es" | "en"): string {
     time_load: `La carga estimada (${i.detail?.replace("/", " min de ")} min) supera la duración.`,
     no_bibliography: "No hay bibliografía de referencia.",
     no_questions: "El examen no tiene preguntas.",
+    no_higher_order: "Ninguna pregunta evalúa análisis, evaluación o creación.",
+    unclassified_level: `${i.detail} pregunta(s) sin nivel cognitivo: la matriz queda incompleta.`,
   };
   const en: Record<AuditIssue["code"], string> = {
     points_total: `Points add up to ${i.detail}, not the total.`,
@@ -52,6 +56,8 @@ export function issueText(i: AuditIssue, lang: "es" | "en"): string {
     time_load: `Estimated load (${i.detail?.replace("/", " min of ")} min) exceeds the duration.`,
     no_bibliography: "No reference bibliography.",
     no_questions: "The exam has no questions.",
+    no_higher_order: "No question assesses analysis, evaluation or creation.",
+    unclassified_level: `${i.detail} question(s) without a cognitive level: the matrix is incomplete.`,
   };
   return q + (lang === "es" ? es : en)[i.code];
 }
@@ -162,6 +168,8 @@ export function ExamEditor({
           </ul>
         )}
       </section>
+
+      <SpecMatrixPanel exam={content} />
 
       <ol className="space-y-6">
         {content.questions.map((q, i) => (
@@ -301,6 +309,12 @@ function QuestionCard({
             </option>
           ))}
         </select>
+        <select aria-label={tr("Nivel cognitivo", "Cognitive level")} value={q.cognitive ?? ""} onChange={(e) => patch({ cognitive: asCognitive(e.target.value) })} className={cn(inputCls, "w-auto")}>
+          <option value="">{tr("Nivel cognitivo…", "Cognitive level…")}</option>
+          {COGNITIVE_LEVELS.map((c) => (
+            <option key={c} value={c}>{COGNITIVE_LABELS[c][lang]}</option>
+          ))}
+        </select>
         <label className="flex items-center gap-1.5 text-small text-muted-foreground">
           {tr("Puntos", "Points")}
           <input type="number" min={0} max={1000} value={q.points} onChange={(e) => patch({ points: Math.max(0, Number(e.target.value) || 0) })} className="focus-mist w-20 rounded border border-border bg-transparent px-2 py-1 text-small text-foreground" />
@@ -343,6 +357,7 @@ function QuestionCard({
                 {tr("Añadir alternativa", "Add option")}
               </button>
             )}
+            <DistractorHelper q={q} meta={{ concept: meta.concept, discipline: meta.discipline, level: meta.level, language: meta.language }} onAdd={(t) => onChange((x) => { const blank = x.options.findIndex((o, k) => !o.trim() && k !== x.correctOption); if (blank >= 0) return { ...x, options: x.options.map((o, k) => (k === blank ? t : o)) }; return x.options.length >= 8 ? x : { ...x, options: [...x.options, t] }; })} />
           </fieldset>
         )}
         {q.type !== "multiple_choice" && (

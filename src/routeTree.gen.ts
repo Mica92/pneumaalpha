@@ -63,6 +63,7 @@ import { Route as AuthenticatedDocenteFuentesIdRouteImport } from './routes/_aut
 import { Route as AuthenticatedDocenteGuiasNuevaRouteImport } from './routes/_authenticated/docente.guias.nueva'
 import { Route as AuthenticatedDocenteMapasNuevoRouteImport } from './routes/_authenticated/docente.mapas.nuevo'
 import { Route as AuthenticatedDocenteMaterialIdRouteImport } from './routes/_authenticated/docente.material.$id'
+import { Route as AuthenticatedDocenteProgramasNuevoRouteImport } from './routes/_authenticated/docente.programas.nuevo'
 import { Route as LovableEmailAuthPreviewRouteImport } from './routes/lovable/email/auth/preview'
 import { Route as LovableEmailAuthWebhookRouteImport } from './routes/lovable/email/auth/webhook'
 import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
@@ -359,6 +360,12 @@ const AuthenticatedDocenteMaterialIdRoute =
     path: '/material/$id',
     getParentRoute: () => AuthenticatedDocenteRoute,
   } as any)
+const AuthenticatedDocenteProgramasNuevoRoute =
+  AuthenticatedDocenteProgramasNuevoRouteImport.update({
+    id: '/programas/nuevo',
+    path: '/programas/nuevo',
+    getParentRoute: () => AuthenticatedDocenteRoute,
+  } as any)
 const LovableEmailAuthPreviewRoute = LovableEmailAuthPreviewRouteImport.update({
   id: '/lovable/email/auth/preview',
   path: '/lovable/email/auth/preview',
@@ -429,6 +436,7 @@ export interface FileRoutesByFullPath {
   '/docente/guias/nueva': typeof AuthenticatedDocenteGuiasNuevaRoute
   '/docente/mapas/nuevo': typeof AuthenticatedDocenteMapasNuevoRoute
   '/docente/material/$id': typeof AuthenticatedDocenteMaterialIdRoute
+  '/docente/programas/nuevo': typeof AuthenticatedDocenteProgramasNuevoRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
@@ -485,6 +493,7 @@ export interface FileRoutesByTo {
   '/docente/guias/nueva': typeof AuthenticatedDocenteGuiasNuevaRoute
   '/docente/mapas/nuevo': typeof AuthenticatedDocenteMapasNuevoRoute
   '/docente/material/$id': typeof AuthenticatedDocenteMaterialIdRoute
+  '/docente/programas/nuevo': typeof AuthenticatedDocenteProgramasNuevoRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
@@ -545,6 +554,7 @@ export interface FileRoutesById {
   '/_authenticated/docente/guias/nueva': typeof AuthenticatedDocenteGuiasNuevaRoute
   '/_authenticated/docente/mapas/nuevo': typeof AuthenticatedDocenteMapasNuevoRoute
   '/_authenticated/docente/material/$id': typeof AuthenticatedDocenteMaterialIdRoute
+  '/_authenticated/docente/programas/nuevo': typeof AuthenticatedDocenteProgramasNuevoRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
@@ -605,6 +615,7 @@ export interface FileRouteTypes {
     | '/docente/guias/nueva'
     | '/docente/mapas/nuevo'
     | '/docente/material/$id'
+    | '/docente/programas/nuevo'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
     | '/lovable/email/transactional/preview'
@@ -661,6 +672,7 @@ export interface FileRouteTypes {
     | '/docente/guias/nueva'
     | '/docente/mapas/nuevo'
     | '/docente/material/$id'
+    | '/docente/programas/nuevo'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
     | '/lovable/email/transactional/preview'
@@ -720,6 +732,7 @@ export interface FileRouteTypes {
     | '/_authenticated/docente/guias/nueva'
     | '/_authenticated/docente/mapas/nuevo'
     | '/_authenticated/docente/material/$id'
+    | '/_authenticated/docente/programas/nuevo'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
     | '/lovable/email/transactional/preview'
@@ -1122,6 +1135,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDocenteMaterialIdRouteImport
       parentRoute: typeof AuthenticatedDocenteRoute
     }
+    '/_authenticated/docente/programas/nuevo': {
+      id: '/_authenticated/docente/programas/nuevo'
+      path: '/programas/nuevo'
+      fullPath: '/docente/programas/nuevo'
+      preLoaderRoute: typeof AuthenticatedDocenteProgramasNuevoRouteImport
+      parentRoute: typeof AuthenticatedDocenteRoute
+    }
     '/lovable/email/auth/preview': {
       id: '/lovable/email/auth/preview'
       path: '/lovable/email/auth/preview'
@@ -1174,6 +1194,7 @@ interface AuthenticatedDocenteRouteChildren {
   AuthenticatedDocenteGuiasNuevaRoute: typeof AuthenticatedDocenteGuiasNuevaRoute
   AuthenticatedDocenteMapasNuevoRoute: typeof AuthenticatedDocenteMapasNuevoRoute
   AuthenticatedDocenteMaterialIdRoute: typeof AuthenticatedDocenteMaterialIdRoute
+  AuthenticatedDocenteProgramasNuevoRoute: typeof AuthenticatedDocenteProgramasNuevoRoute
   AuthenticatedDocenteFuentesIndexRoute: typeof AuthenticatedDocenteFuentesIndexRoute
 }
 
@@ -1191,6 +1212,8 @@ const AuthenticatedDocenteRouteChildren: AuthenticatedDocenteRouteChildren = {
   AuthenticatedDocenteGuiasNuevaRoute: AuthenticatedDocenteGuiasNuevaRoute,
   AuthenticatedDocenteMapasNuevoRoute: AuthenticatedDocenteMapasNuevoRoute,
   AuthenticatedDocenteMaterialIdRoute: AuthenticatedDocenteMaterialIdRoute,
+  AuthenticatedDocenteProgramasNuevoRoute:
+    AuthenticatedDocenteProgramasNuevoRoute,
   AuthenticatedDocenteFuentesIndexRoute: AuthenticatedDocenteFuentesIndexRoute,
 }
 

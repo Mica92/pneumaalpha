@@ -18,6 +18,7 @@ export const CONVERSIONS: Conversion[] = [
   // From a guide (or class)
   { id: "to_exam", from: ["guide", "class", "map", "research"], to: "exam", label: { es: "Convertir en examen", en: "Turn into an exam" }, instruction: "Evalúa exactamente los conceptos, autores y argumentos del material de origen; no introduzcas contenidos que no estén en él." },
   { id: "to_map", from: ["guide", "class", "research"], to: "map", label: { es: "Generar mapa conceptual", en: "Generate concept map" }, instruction: "Construye el mapa con los conceptos, autores y relaciones presentes en el material de origen." },
+  { id: "build_curriculum", from: ["research", "guide", "map"], to: "curriculum", label: { es: "Diseñar un programa de asignatura", en: "Design a syllabus" }, instruction: "Diseña un programa de asignatura que tome el material de origen como núcleo de sus unidades." },
   { id: "to_class", from: ["guide", "exam", "research"], to: "class", label: { es: "Crear planificación de clase", en: "Plan a class" }, instruction: "Planifica una clase que enseñe el contenido del material de origen." },
   { id: "question_bank", from: ["guide", "map", "research"], to: "exam", label: { es: "Extraer preguntas", en: "Extract questions" }, instruction: "Crea un banco amplio de preguntas abiertas de discusión y análisis a partir del material de origen. Sin opciones múltiples." },
   { id: "debate", from: ["guide", "map", "research"], to: "class", label: { es: "Crear debate", en: "Create a debate" }, instruction: "La clase completa es un debate estructurado: posiciones enfrentadas tomadas del material de origen, roles, turnos, preguntas de réplica y criterios de evaluación del debate." },
@@ -29,6 +30,12 @@ export const CONVERSIONS: Conversion[] = [
   { id: "authors_confrontation", from: ["map"], to: "guide", label: { es: "Confrontación entre autores", en: "Authors confrontation" }, instruction: "Construye una confrontación entre los autores del mapa de origen: tesis de cada uno, puntos de acuerdo y desacuerdo, objeciones mutuas y preguntas abiertas." },
   { id: "explain_connections", from: ["map"], to: "guide", label: { es: "Explicar las conexiones", en: "Explain connections" }, instruction: "Explica una por una las conexiones del mapa de origen: por qué se relacionan esos nodos y qué tipo de relación es. Señala las relaciones discutibles." },
   { id: "map_to_class", from: ["map"], to: "class", label: { es: "Construir una clase", en: "Build a class" }, instruction: "Planifica una clase que recorra las ramas del mapa de origen." },
+  // From a syllabus (Curriculum Architect)
+  { id: "curriculum_sequence", from: ["curriculum"], to: "class", label: { es: "Secuencia de clases de una unidad", en: "Class sequence for a unit" }, instruction: "Planifica la secuencia de sesiones de la unidad indicada por el docente (o la primera unidad) del programa de origen: una sección por sesión con su propósito, actividades, minutos y conexión con la siguiente. Respeta los resultados de aprendizaje del programa." },
+  { id: "curriculum_session", from: ["curriculum"], to: "class", label: { es: "Planificar la primera sesión", en: "Plan the first session" }, instruction: "Planifica en detalle la primera sesión del programa de origen, presentando la asignatura, sus preguntas centrales y su forma de evaluación." },
+  { id: "unit_guide", from: ["curriculum"], to: "guide", label: { es: "Guía de una unidad", en: "Guide for a unit" }, instruction: "Elabora la guía de estudio de la unidad indicada (o la primera) del programa de origen, alineada con sus resultados de aprendizaje y bibliografía." },
+  { id: "unit_exam", from: ["curriculum"], to: "exam", label: { es: "Evaluación de una unidad", en: "Assessment for a unit" }, instruction: "Diseña la evaluación de la unidad indicada (o la primera) del programa de origen, alineada con sus resultados de aprendizaje y con el plan de evaluación." },
+  { id: "curriculum_map", from: ["curriculum"], to: "map", label: { es: "Mapa de la asignatura", en: "Course map" }, instruction: "Construye el mapa de la asignatura: unidades, conceptos centrales y relaciones entre unidades del programa de origen." },
   // From an exam
   { id: "review_guide", from: ["exam"], to: "guide", label: { es: "Generar guía de repaso", en: "Generate review guide" }, instruction: "Escribe una guía de repaso que prepare para los contenidos evaluados en el examen de origen, sin revelar las respuestas ni la pauta." },
   { id: "exam_map", from: ["exam"], to: "map", label: { es: "Mapa de conceptos evaluados", en: "Map of assessed concepts" }, instruction: "Construye el mapa con los conceptos y autores evaluados en el examen de origen." },
@@ -56,8 +63,9 @@ export function resolveConversion(id: string | null | undefined, sourceKind: Mat
   return c && c.from.includes(sourceKind) && c.to === targetKind ? c : null;
 }
 
-export const CREATE_ROUTE: Record<MaterialKind, "/docente/guias/nueva" | "/docente/examenes/nuevo" | "/docente/mapas/nuevo" | "/docente/clases/nueva" | "/docente/investigar"> = {
+export const CREATE_ROUTE: Record<MaterialKind, "/docente/guias/nueva" | "/docente/examenes/nuevo" | "/docente/mapas/nuevo" | "/docente/clases/nueva" | "/docente/investigar" | "/docente/programas/nuevo"> = {
   research: "/docente/investigar",
+  curriculum: "/docente/programas/nuevo",
   guide: "/docente/guias/nueva",
   exam: "/docente/examenes/nuevo",
   map: "/docente/mapas/nuevo",

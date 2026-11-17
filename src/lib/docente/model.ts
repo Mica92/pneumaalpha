@@ -4,8 +4,8 @@
  */
 
 export type Lang = "es" | "en";
-export type MaterialKind = "guide" | "exam" | "map" | "class" | "research";
-export const MATERIAL_KINDS: readonly MaterialKind[] = ["research", "guide", "exam", "map", "class"] as const;
+export type MaterialKind = "guide" | "exam" | "map" | "class" | "research" | "curriculum";
+export const MATERIAL_KINDS: readonly MaterialKind[] = ["research", "curriculum", "guide", "exam", "map", "class"] as const;
 
 /** "provided" = a document the teacher supplied (Source Desk); only the teacher can mark "verified". */
 export type SourceStatus = "pending" | "verified" | "provided";
@@ -63,6 +63,8 @@ export type ExamQuestion = {
   answerGuide: string;
   rubric: RubricCriterion[];
   teacherNotes: string;
+  /** Cognitive level (revised Bloom) used by the specification matrix. */
+  cognitive?: import("./planning").CognitiveLevel;
 };
 export type ExamContent = {
   instructions: string;
@@ -228,6 +230,8 @@ export function toStudentDoc(doc: DocContent): DocContent {
 
 export type AuditIssue = {
   code:
+    | "no_higher_order"
+    | "unclassified_level"
     | "points_total"
     | "rubric_points"
     | "empty_prompt"
@@ -309,6 +313,14 @@ export function auditExam(exam: ExamContent): AuditIssue[] {
     issues.push({ code: "time_load", severity: "warning", detail: `${est}/${exam.durationMin}` });
   }
   if (!exam.bibliography.trim()) issues.push({ code: "no_bibliography", severity: "warning" });
+  // Cognitive balance: only judged when at least 3 questions are classified.
+  const classified = exam.questions.filter((q) => q.cognitive);
+  if (classified.length >= 3 && !classified.some((q) => q.cognitive === "analyze" || q.cognitive === "evaluate" || q.cognitive === "create")) {
+    issues.push({ code: "no_higher_order", severity: "warning" });
+  }
+  if (classified.length > 0 && classified.length < exam.questions.length) {
+    issues.push({ code: "unclassified_level", severity: "warning", detail: String(exam.questions.length - classified.length) });
+  }
   return issues;
 }
 

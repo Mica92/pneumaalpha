@@ -23,4 +23,4 @@
 - Research Desk saves research as `teaching_materials` kind `research` (teacher-only print, no student version), with the concept matrix rules in client-safe `research.ts`, so library, versions, links and conversions work unchanged.
 - Source Desk documents live in owner-only `academic_sources` (text extracted in the browser via `extract.ts`, never raw files); quotation pages and "provided" citations come only from `sources.ts` helpers, and "verified" needs an explicit teacher declaration, so AI can never invent pages or verify sources.
 - Kionas Docente is strictly teacher-only: add no student accounts, delivery, submissions, grading or LMS features; "student version" means a printable file only.
-
+- Stage C/D rules (cognitive levels, specification matrix, syllabus load and assessment weights, class formats, map modalities, quality report normalization) live in client-safe `src/lib/docente/planning.ts` with tests; syllabi are `teaching_materials` kind `curriculum` (DocContent) and the quality review is an unsaved report, so AI never edits or approves a material.

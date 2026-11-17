@@ -14,6 +14,22 @@ import { QUESTION_TYPES, asMap, findFreeSpot, mergeMap, type ExamQuestion, type 
 import { MAP_H, MAP_W } from "./map-svg";
 import { loadSourceContext } from "./source-context";
 import { attachProvidedRefs } from "./research";
+import {
+  CLASS_FORMATS,
+  CLASS_FORMAT_LABELS,
+  COGNITIVE_LEVELS,
+  CURRICULUM_APPROACHES,
+  CURRICULUM_APPROACH_LABELS,
+  CURRICULUM_SECTIONS,
+  MAP_MODALITIES,
+  MAP_MODALITY_INFO,
+  QUALITY_DIMENSIONS,
+  QUALITY_LABELS,
+  cleanDistractors,
+  curriculumLoad,
+  normalizeQuality,
+  type QualityReport,
+} from "./planning";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Sb = SupabaseClient<any, any, any>;
@@ -199,10 +215,11 @@ ${qualityRules(language)}
 - Distingue con precisión entre error lógico, problema de evidencia y desacuerdo filosófico.
 - Los casos deben tener contexto, actores, datos disponibles, problema, conflicto y decisión requerida. Si son inventados, deben decir "Caso hipotético".
 - Cada pregunta abierta incluye una rúbrica con criterios, descriptores de desempeño y puntos que suman los puntos de la pregunta.
-- Selección múltiple solo cuando sea apropiada; con 4 opciones plausibles y "correctOption" (índice desde 0).
+- Selección múltiple solo cuando sea apropiada; con 4 opciones plausibles y "correctOption" (índice desde 0). Los distractores reflejan errores conceptuales frecuentes, nunca opciones absurdas.
+- Cada pregunta indica "cognitive", su nivel cognitivo principal: ${COGNITIVE_LEVELS.join(", ")}. Incluye preguntas de orden superior (analyze, evaluate, create) cuando el nivel lo permita.
 
 Tipos de pregunta válidos ("type"): ${QUESTION_TYPES.join(", ")}.
-Forma de una pregunta: {"type": string, "prompt": string, "caseText": string, "options": [string], "correctOption": number|null, "points": number, "answerLines": number, "answerGuide": string, "rubric": [{"criterion": string, "descriptor": string, "points": number}], "teacherNotes": string}`;
+Forma de una pregunta: {"type": string, "prompt": string, "caseText": string, "options": [string], "correctOption": number|null, "points": number, "answerLines": number, "answerGuide": string, "rubric": [{"criterion": string, "descriptor": string, "points": number}], "teacherNotes": string, "cognitive": string}`;
 }
 
 export const generateExam = createServerFn({ method: "POST" })
@@ -282,7 +299,7 @@ ${data.question.caseText ? `Caso: ${data.question.caseText}\n` : ""}Pregunta: ${
 
 export const generateMap = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: unknown) => Base.extend({ size: z.enum(["compact", "full"]).default("full") }).parse(input))
+  .inputValidator((input: unknown) => Base.extend({ size: z.enum(["compact", "full"]).default("full"), modality: z.enum(MAP_MODALITIES).default("concept") }).parse(input))
   .handler(async ({ data, context }) => {
     await guard(context, "map");
     const source = await loadSource(context.supabase, context.userId, data.fromMaterialId, "map", data.conversion);
@@ -297,11 +314,12 @@ ${qualityRules(data.language)}
 - Relaciones ("relation"): relates, opposes, presupposes, questions, develops, distinguishes, applies, grounds. No trates todo como jerarquía.
 - "note": una o dos frases que expliquen el nodo.
 - ${data.size === "compact" ? "Entre 8 y 12 nodos." : "Entre 14 y 22 nodos."}
+- Modalidad: ${MAP_MODALITY_INFO[data.modality].instruction}
 Devuelve JSON: {"title": string, "nodes": [{"key": string, "label": string, "kind": string, "note": string}], "edges": [{"from": key, "to": key, "relation": string}]}`;
     const raw = MapOut.parse(await generateJson({ system, prompt: `${contextBlock(data)}${source}${docs.prompt}`, maxOutputTokens: 8000 }));
     const map = toMap(raw);
     if (map.nodes.length === 0) throw new Error("BAD_AI_OUTPUT");
-    return insertMaterial(context.supabase, context.userId, "map", data, raw.title || data.concept, map, { sourceIds: data.sourceIds });
+    return insertMaterial(context.supabase, context.userId, "map", data, raw.title || data.concept, map, { sourceIds: data.sourceIds, modality: data.modality });
   });
 
 /** Proposes new nodes around one node. Nothing is saved until the teacher accepts. */
@@ -485,6 +503,10 @@ export const generateClass = createServerFn({ method: "POST" })
       modality: z.enum(["in_person", "online", "hybrid"]).default("in_person"),
       students: z.number().int().min(1).max(1000).default(30),
       resources: z.string().trim().max(600).default(""),
+      format: z.enum(CLASS_FORMATS).default("lecture"),
+      teacherScript: z.boolean().default(true),
+      sessions: z.number().int().min(1).max(8).default(1),
+      priorKnowledge: z.string().trim().max(800).default(""),
     }).parse(input),
   )
   .handler(async ({ data, context }) => {
@@ -495,15 +517,20 @@ export const generateClass = createServerFn({ method: "POST" })
 
 ${qualityRules(data.language)}
 
-Estructura obligatoria (una sección por fase, con "key"): opening (Apertura: pregunta inicial o problema), development (Desarrollo: conceptos, perspectivas, lecturas, actividades), confrontation (Confrontación: debate o ejercicio argumentativo), application (Aplicación: caso disciplinar), closing (Cierre: reflexión, síntesis y evaluación formativa). Añade una sección "teacher_notes" con "audience":"teacher" para indicaciones de conducción.
-Cada sección tiene "minutes" y los minutos de las cinco fases suman exactamente ${data.durationMin}.
+Formato de clase: ${CLASS_FORMAT_LABELS[data.format].es}. Adapta las fases y actividades a ese formato.
+${data.sessions > 1
+  ? `Secuencia de ${data.sessions} sesiones de ${data.durationMin} minutos: una sección por sesión (key "session_1", "session_2"…), con propósito, apertura, desarrollo, actividad y cierre en su "body", y cómo conecta con la siguiente. "minutes" de cada sesión = ${data.durationMin}.`
+  : `Estructura obligatoria (una sección por fase, con "key"): opening (Apertura: pregunta detonante o problema), development (Desarrollo: conceptos, perspectivas, lecturas, actividades), confrontation (Confrontación: debate o ejercicio argumentativo), application (Aplicación: caso disciplinar), closing (Cierre: reflexión, síntesis y evaluación formativa, p. ej. ticket de salida). Cada fase tiene "minutes" y los minutos de las cinco fases suman exactamente ${data.durationMin}.`}
+Añade además, con "audience":"teacher" y sin "minutes": "teacher_notes" (indicaciones de conducción, dificultades previsibles y cómo responderlas)${data.teacherScript ? ', "teacher_script" (guion docente: qué decir y preguntar en cada momento, preguntas de seguimiento y transiciones, en Markdown)' : ""}.
+Incluye en las fases preguntas detonantes concretas y actividades con consigna explícita para los estudiantes.
 "body" en Markdown con instrucciones concretas para el docente y lo que harán los estudiantes.
 Devuelve JSON: {"title": string, "sections": [{"key","title","minutes","body","epistemic","audience","sources":[string]}]}`;
     const prompt = `${contextBlock(data)}
 Modalidad: ${data.modality}
 Número aproximado de estudiantes: ${data.students}
-Recursos disponibles: ${data.resources || "aula estándar con proyector"}${source}${docs.prompt}`;
-    const raw = DocOut.parse(await generateJson({ system, prompt, maxOutputTokens: 10000 }));
+Recursos disponibles: ${data.resources || "aula estándar con proyector"}
+${data.priorKnowledge ? `Conocimientos previos de los estudiantes: ${data.priorKnowledge}\n` : ""}${source}${docs.prompt}`;
+    const raw = DocOut.parse(await generateJson({ system, prompt, maxOutputTokens: data.sessions > 1 || data.teacherScript ? 16000 : 10000 }));
     const sections = attachProvidedRefs(toSections(raw.sections), docs.citations);
     if (sections.length === 0) throw new Error("BAD_AI_OUTPUT");
     return insertMaterial(context.supabase, context.userId, "class", data, raw.title || data.concept, { sections }, {
@@ -511,6 +538,8 @@ Recursos disponibles: ${data.resources || "aula estándar con proyector"}${sourc
       students: data.students,
       resources: data.resources,
       durationMin: data.durationMin,
+      format: data.format,
+      sessions: data.sessions,
       sourceIds: data.sourceIds,
     });
   });
@@ -612,4 +641,153 @@ Devuelve JSON: {"title": string (breve, describe el razonamiento), ${DIMENSIONS.
     const analysis = normalizeAnalysis(await generateJson({ system, prompt, maxOutputTokens: 9000 }), data.concept);
     if (isEmptyAnalysis(analysis)) throw new Error("BAD_AI_OUTPUT");
     return analysis;
+  });
+
+/* ───────── Curriculum Architect (Stage C) ───────── */
+
+export const generateCurriculum = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((input: unknown) =>
+    Base.extend({
+      weeks: z.number().int().min(1).max(40).default(16),
+      sessionsPerWeek: z.number().int().min(1).max(7).default(2),
+      sessionMinutes: z.number().int().min(20).max(600).default(90),
+      approach: z.enum(CURRICULUM_APPROACHES).default("thematic"),
+      units: z.number().int().min(2).max(10).default(4),
+      profile: z.string().trim().max(1200).default(""),
+      assessment: z.string().trim().max(800).default(""),
+    }).parse(input),
+  )
+  .handler(async ({ data, context }) => {
+    await guard(context, "curriculum");
+    const source = await loadSource(context.supabase, context.userId, data.fromMaterialId, "curriculum", data.conversion);
+    const docs = await loadSourceContext(context.supabase, context.userId, data.sourceIds, data.language);
+    const load = curriculumLoad(data);
+    const keys = CURRICULUM_SECTIONS.map((s) => `${s.key} (${s.label.es})`).join(", ");
+    const system = `Eres el Curriculum Architect de Kionas Docente: diseñas programas de asignatura universitarios coherentes, realistas y alineados. Trabajas solo para el docente; el programa es un documento de planificación.
+
+${qualityRules(data.language)}
+
+═══ PROGRAMA ═══
+- Secciones (en este orden, con "key"): ${keys}.
+- "outcomes": 4–7 resultados de aprendizaje observables, cada uno con verbo de desempeño y su nivel cognitivo entre paréntesis.
+- "units": exactamente ${data.units} unidades; para cada una: título, pregunta central, contenidos, conceptos y pensadores (solo permitidos), resultados que trabaja y semanas que ocupa.
+- "schedule": tabla Markdown | Semana | Sesión | Unidad | Tema | Actividad | con las ${load.sessions} sesiones (${data.weeks} semanas × ${data.sessionsPerWeek}). Incluye sesiones de evaluación. No omitas filas.
+- "assessment": lista "- Instrumento — NN%" (los porcentajes suman exactamente 100 %), indicando qué resultados evalúa cada instrumento y en qué semana.
+- "bibliography": obligatoria y complementaria; solo obras reales de pensadores permitidos o fuentes del docente.
+- "teacher_notes" con "audience":"teacher": decisiones de diseño, riesgos y alternativas.
+- Enfoque: ${CURRICULUM_APPROACH_LABELS[data.approach].hint}
+"body" en Markdown.
+Devuelve JSON: {"title": string, "sections": [{"key","title","body","epistemic","audience","sources":[string]}]}`;
+    const prompt = `${contextBlock(data).replace(/Duración de la actividad.*$/m, "")}
+Asignatura / curso: ${data.subject || data.concept}
+Duración: ${data.weeks} semanas, ${data.sessionsPerWeek} sesiones semanales de ${data.sessionMinutes} minutos (${load.sessions} sesiones, ${load.hours} horas presenciales)
+${data.profile ? `Perfil de egreso o competencias de la carrera: ${data.profile}\n` : ""}${data.assessment ? `Requisitos de evaluación del docente o la institución: ${data.assessment}\n` : ""}${source}${docs.prompt}`;
+    const raw = DocOut.parse(await generateJson({ system, prompt, maxOutputTokens: 20000 }));
+    const teacherKeys = new Set(CURRICULUM_SECTIONS.filter((s) => s.teacher).map((s) => s.key));
+    const sections = attachProvidedRefs(toSections(raw.sections), docs.citations).map((s) =>
+      teacherKeys.has(s.key) ? { ...s, audience: "teacher" as const } : { ...s, audience: "all" as const, minutes: undefined },
+    );
+    if (sections.length === 0) throw new Error("BAD_AI_OUTPUT");
+    return insertMaterial(context.supabase, context.userId, "curriculum", data, raw.title || data.subject || data.concept, { sections }, {
+      weeks: data.weeks,
+      sessionsPerWeek: data.sessionsPerWeek,
+      sessionMinutes: data.sessionMinutes,
+      approach: data.approach,
+      units: data.units,
+      sourceIds: data.sourceIds,
+    });
+  });
+
+/* ───────── Exam Studio 3.0: distractors (Stage D) ───────── */
+
+/** Proposes plausible distractors for a multiple-choice question. Nothing changes until the teacher accepts. */
+export const proposeDistractors = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((input: unknown) =>
+    z
+      .object({
+        concept: z.string().trim().max(200).default(""),
+        discipline: z.string().trim().max(120).default(""),
+        level: z.string().trim().max(60).default(""),
+        language: z.enum(["es", "en"]).default("es"),
+        prompt: z.string().trim().min(3).max(6000),
+        correct: z.string().trim().min(1).max(600),
+        existing: z.array(z.string().max(600)).max(8).default([]),
+        count: z.number().int().min(1).max(6).default(3),
+      })
+      .parse(input),
+  )
+  .handler(async ({ data, context }): Promise<{ distractor: string; misconception: string }[]> => {
+    await guard(context, "exam_distractors");
+    const system = `Eres especialista en evaluación de Kionas Docente. Propones distractores para preguntas de selección múltiple.
+
+${qualityRules(data.language)}
+
+Reglas:
+- Cada distractor es plausible para un estudiante que tiene un error conceptual frecuente y concreto; nunca absurdo ni de broma.
+- Debe ser claramente incorrecto para quien domina el contenido (no ambiguo ni parcialmente correcto).
+- Longitud y estilo similares a la respuesta correcta; sin pistas gramaticales; sin "todas/ninguna de las anteriores".
+- "misconception": el error conceptual que el distractor detecta (para el docente).
+Devuelve JSON: {"items": [{"distractor": string, "misconception": string}]} con ${data.count} elementos.`;
+    const prompt = `Concepto: ${data.concept}\nDisciplina: ${data.discipline}\nNivel: ${data.level}
+<material>
+Pregunta: ${data.prompt}
+Respuesta correcta: ${data.correct}
+Alternativas actuales: ${data.existing.filter(Boolean).join(" | ") || "(ninguna)"}
+</material>`;
+    const raw = (await generateJson({ system, prompt, maxOutputTokens: 3000 })) as { items?: { distractor?: unknown; misconception?: unknown }[] };
+    const items = Array.isArray(raw?.items) ? raw.items : [];
+    const kept = cleanDistractors(items.map((i) => i?.distractor), [...data.existing, data.correct]);
+    const out = kept.map((d) => ({
+      distractor: d,
+      misconception: String(items.find((i) => typeof i?.distractor === "string" && i.distractor.trim().slice(0, 600) === d)?.misconception ?? "").slice(0, 600),
+    }));
+    if (out.length === 0) throw new Error("BAD_AI_OUTPUT");
+    return out;
+  });
+
+/* ───────── Academic Quality Assistant (Stage D) ───────── */
+
+/** Reviews a saved material across academic quality dimensions. Returns an unsaved report; it never edits the material. */
+export const reviewMaterialQuality = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((input: unknown) => z.object({ id: z.string().uuid(), objective: z.string().trim().max(1200).default("") }).parse(input))
+  .handler(async ({ data, context }): Promise<QualityReport> => {
+    await guard(context, "quality_review");
+    const { data: row, error } = await context.supabase
+      .from("teaching_materials")
+      .select("kind, title, concept, discipline, subject, level, language, content")
+      .eq("id", data.id)
+      .eq("user_id", context.userId)
+      .maybeSingle();
+    if (error) throw error;
+    if (!row) throw new Error("NOT_FOUND");
+    const language = row.language as "es" | "en";
+    const digest = materialDigest(
+      { title: row.title as string, kind: row.kind as MaterialKind, language, subject: row.subject as string, discipline: row.discipline as string, level: row.level as string },
+      row.content,
+    );
+    const dims = QUALITY_DIMENSIONS.map((d) => `- ${d}: ${QUALITY_LABELS[d].es} — ${QUALITY_LABELS[d].instruction}`).join("\n");
+    const system = `Eres el Academic Quality Assistant de Kionas Docente: un revisor académico exigente y respetuoso que ayuda a un profesor a mejorar su material antes de usarlo. No reescribes el material.
+
+${qualityRules(language)}
+
+Evalúa estas dimensiones:
+${dims}
+
+Reglas:
+- "status": "ok" (sin observaciones relevantes), "attention" (mejorable) o "problem" (error que conviene corregir antes de usar).
+- "summary": diagnóstico breve y concreto, citando la sección o pregunta afectada.
+- "suggestions": 0–4 mejoras accionables. No inventes errores: si algo está bien, dilo.
+- Un desacuerdo filosófico razonable no es un error. Señala autores o citas que parezcan dudosas como "a verificar", sin afirmar que son falsas.
+- No otorgues aprobación ni nota global.
+Devuelve JSON: {"overview": string, "findings": [{"dimension": string, "status": string, "summary": string, "suggestions": [string]}]}`;
+    const prompt = `${data.objective ? `Objetivo declarado por el docente: ${data.objective}\n` : ""}Concepto: ${row.concept}
+<material>
+${digest}
+</material>`;
+    const report = normalizeQuality(await generateJson({ system, prompt, maxOutputTokens: 8000 }));
+    if (report.findings.length === 0) throw new Error("BAD_AI_OUTPUT");
+    return report;
   });
