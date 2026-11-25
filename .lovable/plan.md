@@ -1,56 +1,25 @@
-# Kionas Docente Fase 2: convertir un material en otro
+# Integrar a Adam Smith y unificar el número de filósofos
 
-## Objetivo
-Un profesor parte de una guía, un mapa o un examen y lo convierte en otro tipo de material sin empezar de cero. El material nuevo queda vinculado a su origen, y el profesor puede ir de uno a otro.
+## Qué verás
+- Adam Smith (1723–1790) aparece como filósofo nº 76: ficha bilingüe, retrato, escena de conversación, tradición, filtros de descubrimiento y conexiones en la red neuronal (ya existe como nodo en el mapa; pasará a ser un pensador conversable).
+- Todos los textos que hoy dicen "75 filósofos" pasarán a mostrar la cifra correcta, calculada automáticamente para que no vuelva a quedar desfasada al sumar pensadores.
 
-## Qué verá el profesor
-1. **Menú "Convertir en…"** en la pantalla de cada material:
-   - **Guía:** examen, mapa conceptual, clase, banco de preguntas, debate, análisis de caso, versión resumida, adaptación a otra disciplina.
-   - **Mapa:** guía hecha con los nodos seleccionados (o con todo el mapa), preguntas, examen, confrontación entre autores, clase hecha con las ramas seleccionadas.
-   - **Examen:** guía de repaso, mapa de los conceptos evaluados, variantes de los ejercicios, actividad formativa de preparación.
-   - Antes de generar, un cuadro corto deja ajustar el nivel, la disciplina y la cantidad de preguntas, con valores ya completados a partir del original.
-2. **Panel "Materiales relacionados"** en cada material, con:
-   - el original del que salió;
-   - los materiales derivados de él;
-   - para cada uno: tipo, fecha y enlace.
-3. **Aviso de cambios en el original.** Si la guía original cambió después de crear el examen, el examen muestra "El original cambió". El profesor puede:
-   - ver qué cambió;
-   - generar una propuesta actualizada, que se acepta o se descarta como hoy.
+## Contenido de Smith
+- Identidad: filósofo moral escocés, autor de *La teoría de los sentimientos morales* y *La riqueza de las naciones*.
+- Núcleos: simpatía y espectador imparcial, división del trabajo, la "mano invisible" en su sentido limitado, crítica a mercaderes y monopolios, virtud y prudencia, comercio y carácter moral.
+- Mismo formato y profundidad que las fichas existentes (prompt de encarnación, bio ES/EN, citas, temas).
 
-   El examen nunca se sobrescribe solo.
-4. **Biblioteca:**
-   - una marca "derivado de…" en cada material que venga de otro;
-   - un filtro para ver la familia completa de un material.
-
-## Reglas que se mantienen
-- Solo aparecen los pensadores registrados en Kionas.
-- La versión para estudiantes nunca muestra las respuestas.
-- Se respetan los permisos de docente y lo que es privado de cada profesor.
-- La IA trabaja con el contenido ya guardado del original, en lugar de volver a investigar el concepto, para gastar menos créditos. Cada conversión cuenta una sola vez en el uso de IA.
-- Los derivados nacen como borrador y quedan en el historial de versiones.
-
-## Fuera de esta entrega
-Quedan para entregas siguientes:
-- el analizador de argumentos;
-- los mapas avanzados (enfoque por disciplina, modo argumentativo, 10 mapas base);
-- colecciones y banco de preguntas;
-- el curador académico;
-- la línea de tiempo y la presentación de clases.
+## Pasos
+1. Añadir Smith a la quinta oleada de filósofos (id `smith`), reutilizando el id que ya usa la red neuronal.
+2. Generar retrato y escena en el estilo editorial actual y registrarlos.
+3. Completar descubrimiento: orientación, tradición (escocesa/británica), perfil para recomendaciones.
+4. Revisar las conexiones del mapa de conocimiento y del atlas para que lo enlacen como filósofo (Hume, Hayek, Marx, liberalismo).
+5. Reemplazar la cifra fija en "Cómo funciona" (ES/EN) por el total real de filósofos registrados, y revisar textos para buscadores (`llms.txt`, descripciones) por menciones del total.
+6. Agregar una prueba que verifique que el texto muestra el mismo número que la lista de filósofos registrados.
 
 ## Detalles técnicos
-- **Base de datos.** Se agrega a cada material:
-  - el tipo de conversión (por ejemplo, `guide_to_exam`);
-  - el número de versión del original;
-  - la fecha de su última edición.
-
-  Así se detecta cuándo el original cambió. Ya existe un vínculo con el material de origen. Es un cambio solo aditivo: ningún material existente se pierde.
-- **Conversión en el servidor.** Una sola función de conversión carga el original, verifica que pertenece al profesor y comprueba su acceso con `assertTeacher`. Luego:
-  - envía a la IA una versión compacta del contenido de origen (el que usan las exportaciones), recortada a lo seleccionado si corresponde;
-  - devuelve el resultado ya normalizado con `normalize.ts` y `thinkers.ts`;
-  - crea el material vinculado a su origen.
-- **Lectura de relaciones.** Una función lista el original y los derivados de un material.
-- **Diferencias.** El aviso de cambios compara el contenido actual del original con la versión que se usó al crear el derivado.
-- **Pruebas:**
-  - pruebas unitarias para la tabla de conversiones permitidas por tipo de material y para que la versión de estudiante no muestre respuestas en los derivados;
-  - prueba de punta a punta en el navegador: guía → examen → aviso tras editar la guía; mapa → clase.
-- **Registro.** Se anota en `AGENTS.md` la regla: los derivados guardan el vínculo con su origen y nunca se sobrescriben automáticamente.
+- `src/lib/philosophers-wave5.ts`: nuevo `SMITH` + id en `Wave5PhilosopherId`.
+- `src/lib/portraits.ts`, `src/lib/scenes.ts`: imágenes nuevas en `src/assets/portraits|scenes/smith.jpg`.
+- `src/lib/discovery.ts`: entradas en los mapas de orientación/tradición/perfil.
+- `src/components/how-it-works.tsx`: usar `Object.keys(PHILOSOPHERS).length`.
+- Kionas Docente acepta automáticamente a Smith como pensador registrado (filtros de autores leen la misma lista).
