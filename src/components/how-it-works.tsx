@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
+import { PHILOSOPHERS } from "@/lib/philosophers";
 
 /** Se muestra una sola vez; el usuario puede ocultarlo para siempre. */
 const STORAGE_KEY = "pneuma.concepts.dismissed";
+const PHILOSOPHER_COUNT = Object.keys(PHILOSOPHERS).length;
 
-const COPY = {
+export const HOW_IT_WORKS_COPY = {
   es: {
     kicker: "Antes de empezar",
     title: "Cuatro palabras que conviene entender",
@@ -11,7 +13,7 @@ const COPY = {
     items: [
       {
         term: "Perspectiva",
-        text: "Una forma de pensar puesta a tu servicio: 75 filósofos usados como instrumentos, no como la persona histórica.",
+        text: `Una forma de pensar puesta a tu servicio: ${PHILOSOPHER_COUNT} filósofos usados como instrumentos, no como la persona histórica.`,
       },
       {
         term: "Mapa",
@@ -34,7 +36,7 @@ const COPY = {
     items: [
       {
         term: "Perspective",
-        text: "A way of thinking at your service: 75 philosophers used as instruments, not as the historical person.",
+        text: `A way of thinking at your service: ${PHILOSOPHER_COUNT} philosophers used as instruments, not as the historical person.`,
       },
       {
         term: "Map",
@@ -64,7 +66,7 @@ export function HowItWorks({ lang }: { lang: "es" | "en" }) {
     }
   }, []);
 
-  const c = COPY[lang];
+  const c = HOW_IT_WORKS_COPY[lang];
 
   const dismiss = () => {
     try {

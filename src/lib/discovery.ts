@@ -285,6 +285,10 @@ export const CENTRAL_QUESTIONS: Record<PhilosopherId, LocalizedString> = {
     es: "¿Qué crees saber sin haberlo leído tú mismo, y despacio?",
     en: "What do you believe you know without having read it yourself, and slowly?",
   },
+  smith: {
+    es: "¿Qué aprobaría un espectador imparcial en lo que estás a punto de hacer?",
+    en: "What would an impartial spectator approve in what you are about to do?",
+  },
 };
 
 export function centralQuestion(id: PhilosopherId, lang: Lang): string {
@@ -561,6 +565,7 @@ export const POLITICS: Partial<Record<PhilosopherId, PoliticsId>> = {
   bauman: "left",
   beauvoir: "left",
   strauss: "right",
+  smith: "right",
 };
 
 export function politicsOf(id: PhilosopherId): PoliticsId | undefined {
@@ -664,6 +669,7 @@ export const REGIONS: Partial<Record<PhilosopherId, RegionId>> = {
   levinas: "france",
   burke: "britain",
   mill: "britain",
+  smith: "britain",
   bentham: "britain",
   berlin: "britain",
   wollstonecraft: "britain",
@@ -1123,6 +1129,12 @@ export const FACETS: Record<PhilosopherId, Facet> = {
     movements: ["conservatism", "hermeneutics"],
     level: "deep",
     year: 1899,
+  },
+  smith: {
+    families: ["ethics", "politics"],
+    movements: ["liberalism"],
+    level: "intro",
+    year: 1723,
   },
 };
 

@@ -65,6 +65,7 @@ import misesScene from "@/assets/scenes/mises.jpg";
 import ortegaScene from "@/assets/scenes/ortega.jpg";
 import beauvoirScene from "@/assets/scenes/beauvoir.jpg";
 import straussScene from "@/assets/scenes/strauss.jpg";
+import smithScene from "@/assets/scenes/smith.jpg";
 import platoScene from "@/assets/scenes/plato.jpg";
 import confuciusScene from "@/assets/scenes/confucius.jpg";
 import buddhaScene from "@/assets/scenes/buddha.jpg";
@@ -155,6 +156,7 @@ export const SCENES: Partial<Record<PhilosopherId, string>> = {
   ortega: ortegaScene,
   beauvoir: beauvoirScene,
   strauss: straussScene,
+  smith: smithScene,
 };
 
 export function sceneOf(id: string): string | undefined {

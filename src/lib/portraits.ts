@@ -65,6 +65,7 @@ import misesPortrait from "@/assets/portraits/mises.jpg";
 import ortegaPortrait from "@/assets/portraits/ortega.jpg";
 import beauvoirPortrait from "@/assets/portraits/beauvoir.jpg";
 import straussPortrait from "@/assets/portraits/strauss.jpg";
+import smithPortrait from "@/assets/portraits/smith.jpg";
 import platoPortrait from "@/assets/portraits/plato.jpg";
 import confuciusPortrait from "@/assets/portraits/confucius.jpg";
 import buddhaPortrait from "@/assets/portraits/buddha.jpg";
@@ -153,6 +154,7 @@ export const PORTRAITS: Partial<Record<PhilosopherId, string>> = {
   ortega: ortegaPortrait,
   beauvoir: beauvoirPortrait,
   strauss: straussPortrait,
+  smith: smithPortrait,
 };
 
 export function portraitOf(id: string): string | undefined {
@@ -1304,6 +1306,22 @@ export const PROFILES: Partial<Record<PhilosopherId, PhilosopherProfile>> = {
       { es: "Escribir entre líneas", en: "Writing between the lines" },
       { es: "Las tres olas de la modernidad", en: "The three waves of modernity" },
       { es: "Antiguos y modernos", en: "Ancients and moderns" },
+    ],
+  },
+
+  smith: {
+    years: "1723 – 1790",
+    origin: { es: "Kirkcaldy, Escocia", en: "Kirkcaldy, Scotland" },
+    bio: {
+      es: "Filósofo moral de la Ilustración escocesa y catedrático en Glasgow. Autor de La teoría de los sentimientos morales y La riqueza de las naciones; unió el análisis de la simpatía y la justicia con el estudio de la división del trabajo.",
+      en: "Moral philosopher of the Scottish Enlightenment and professor at Glasgow. Author of The Theory of Moral Sentiments and The Wealth of Nations; he united the study of sympathy and justice with the analysis of the division of labour.",
+    },
+    expertise: [
+      { es: "Simpatía moral", en: "Moral sympathy" },
+      { es: "Espectador imparcial", en: "Impartial spectator" },
+      { es: "División del trabajo", en: "Division of labour" },
+      { es: "Comercio y virtud", en: "Commerce and virtue" },
+      { es: "Crítica al monopolio", en: "Critique of monopoly" },
     ],
   },
 };
