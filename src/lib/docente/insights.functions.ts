@@ -10,6 +10,7 @@ import {
   computeInsights,
   countPendingRefs,
   normalizeTags,
+  preferencesForLanguage,
   reviewCounts,
   type Insights,
   type InsightMaterial,
@@ -29,11 +30,12 @@ const PREF_COLS =
 
 export const getPreferences = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .handler(async ({ context }): Promise<Preferences> => {
+  .inputValidator((input: { language: "es" | "en" }) => z.object({ language: z.enum(["es", "en"]) }).parse(input))
+  .handler(async ({ data: input, context }): Promise<Preferences> => {
     await teacher(context);
     const { data, error } = await context.supabase.from("docente_preferences").select(PREF_COLS).eq("user_id", context.userId).maybeSingle();
     if (error) throw error;
-    if (!data) return DEFAULT_PREFERENCES;
+    if (!data) return preferencesForLanguage(null, input.language);
     return { ...DEFAULT_PREFERENCES, ...data, hourly_rate: data.hourly_rate === null ? null : Number(data.hourly_rate) } as Preferences;
   });
 

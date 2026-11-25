@@ -8,6 +8,7 @@ import {
   headerFromPreferences,
   headerMarkdown,
   normalizeTags,
+  preferencesForLanguage,
   reviewCounts,
   sameConcept,
   DEFAULT_PREFERENCES,
@@ -18,6 +19,21 @@ import { normalizeQuality } from "./planning";
 
 const mat = (p: Partial<InsightMaterial> & { id: string }): InsightMaterial => ({
   kind: "guide", review_status: "draft", source_material_id: null, conversion: "", created_at: "2026-11-10T10:00:00Z", ready_at: null, archived_at: null, ...p,
+});
+
+describe("teacher language defaults", () => {
+  it("uses English for an English interface with no saved preferences", () => {
+    assert.equal(preferencesForLanguage(null, "en").default_language, "en");
+  });
+  it("uses Spanish for a Spanish interface with no saved preferences", () => {
+    assert.equal(preferencesForLanguage(null, "es").default_language, "es");
+  });
+  it("keeps a saved Spanish choice in an English interface", () => {
+    assert.equal(preferencesForLanguage({ ...DEFAULT_PREFERENCES, default_language: "es" }, "en").default_language, "es");
+  });
+  it("keeps a saved English choice in a Spanish interface", () => {
+    assert.equal(preferencesForLanguage({ ...DEFAULT_PREFERENCES, default_language: "en" }, "es").default_language, "en");
+  });
 });
 
 describe("Teaching Insights", () => {

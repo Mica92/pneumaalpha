@@ -48,6 +48,11 @@ export const DEFAULT_PREFERENCES: Preferences = {
   track_time: true,
 };
 
+/** Unsaved defaults follow the interface language; persisted teacher choices take precedence. */
+export function preferencesForLanguage(saved: Partial<Preferences> | null, language: Preferences["default_language"]): Preferences {
+  return { ...DEFAULT_PREFERENCES, default_language: language, ...saved };
+}
+
 /** Header fields typed by the teacher. Nothing is ever filled in for them (no invented affiliations). */
 export type PrintHeader = { template: Template; institution: string; faculty: string; course: string; teacher: string };
 

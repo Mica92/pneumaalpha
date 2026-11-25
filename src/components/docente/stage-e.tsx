@@ -9,8 +9,9 @@ import { useI18n } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
 export function usePreferences() {
+  const { lang } = useI18n();
   const fetchPrefs = useServerFn(getPreferences);
-  return useQuery({ queryKey: ["docente-preferences"], queryFn: () => fetchPrefs() as Promise<Preferences>, staleTime: 5 * 60_000 });
+  return useQuery({ queryKey: ["docente-preferences", lang], queryFn: () => fetchPrefs({ data: { language: lang } }) as Promise<Preferences>, staleTime: 5 * 60_000 });
 }
 
 const TICK_MS = 15_000;
